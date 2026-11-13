@@ -638,6 +638,7 @@ class WriterLengthTests(unittest.TestCase):
         sent = runner.calls[0][1][0]
         self.assertEqual(sent["length"], {"least": 120, "aim": 190, "most": 260})
         self.assertEqual(sent["length"], newsroom.writer_length(sent))
+        self.assertEqual([call[0] for call in runner.calls], ["writer", "scorer"])
 
     def test_the_window_scales_with_the_source_the_writer_reads(self):
         def window(chars):
@@ -690,6 +691,50 @@ class WriterLengthTests(unittest.TestCase):
         self.assertFalse(row["written"])
         self.assertEqual(row["dropped_points"], [])
         self.assertTrue(row["reason"].endswith("outside 120-260"), row["reason"])
+
+    def test_an_overlong_summary_is_rewritten_once_and_published_when_it_fits(self):
+        long = bulleted(LONG["draft"], {"development": [0, 2], "cause": [0, 1], "examples": [0, 2],
+                                        "significance": [0, 1]})
+        words = units(long["paragraphs"])
+        self.assertGreater(words, 260)
+        rewrite = {"id": LONG_ID, "status": "ready", "conditions": [],
+                   "paragraphs": deepcopy(self.draft()["paragraphs"])}
+        row, runner = self.write(long, rewrite=rewrite)
+        self.assertTrue(row["written"], row)
+        self.assertEqual(row["rewrite"], {"roles": ["development", "cause", "examples", "significance"],
+                                          "result": "written"})
+        self.assertEqual([call[0] for call in runner.calls], ["writer", "rewrite-writer", "scorer"])
+        request = runner.calls[1][1][0]["rewrite"]
+        self.assertEqual(request["word_count"], {"current": words, "least": 120, "most": 260})
+        self.assertIn("word_count", runner.calls[1][2])
+        self.assertEqual(row["key_points"], self.write(self.draft())[0]["key_points"])
+
+    def test_a_word_count_rewrite_still_outside_the_window_is_rejected(self):
+        long = bulleted(LONG["draft"], {"development": [0, 2], "cause": [0, 1], "examples": [0, 2],
+                                        "significance": [0, 1]})
+        rewrite = {"id": LONG_ID, "status": "ready", "conditions": [],
+                   "paragraphs": deepcopy(long["paragraphs"])}
+        row, runner = self.write(long, rewrite=rewrite)
+        self.assertFalse(row["written"])
+        self.assertTrue(row["reason"].startswith("word_count:"), row["reason"])
+        self.assertEqual(row["rewrite"]["result"], row["reason"])
+        self.assertEqual([call[0] for call in runner.calls], ["writer", "rewrite-writer"])
+
+    def test_an_underlong_summary_requests_source_supported_additions(self):
+        short = bulleted(LONG["draft"], {"development": [0], "cause": [0], "examples": [0],
+                                          "significance": [0]})
+        lead = short["paragraphs"][0]["sentences"][0]
+        lead["text"] = lead["text"].replace(", công ty khởi nghiệp AI ở Hàng Châu, hôm thứ Ba", "")
+        words = units(short["paragraphs"])
+        self.assertLess(words, 120)
+        rewrite = {"id": LONG_ID, "status": "ready", "conditions": [],
+                   "paragraphs": deepcopy(self.draft()["paragraphs"])}
+        row, runner = self.write(short, rewrite=rewrite)
+        self.assertTrue(row["written"], row)
+        self.assertEqual(runner.calls[1][1][0]["rewrite"]["word_count"],
+                         {"current": words, "least": 120, "most": 260})
+        self.assertIn("adding source-supported specifics if below least", runner.calls[1][2])
+        self.assertEqual([call[0] for call in runner.calls], ["writer", "rewrite-writer", "scorer"])
 
     # The checker stays a fence at the new length: every fabrication it blocked in a short draft is still
     # removed sentence by sentence from a long one.
