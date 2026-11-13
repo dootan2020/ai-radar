@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-13T11:19:45.865040+00:00",
-  "input_generated_at": "2026-11-13T10:45:32Z",
+  "generated_at": "2026-11-13T13:29:36.113045+00:00",
+  "input_generated_at": "2026-11-13T12:45:50Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -60718,7 +60718,37 @@
       ],
       "summary_limitations": [],
       "key_points_prompt_version": "summary-vi-7-bullets",
-      "score": null
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 7.9,
+        "answers": {
+          "what": 8,
+          "why": 9,
+          "notable": 7,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "DayOne's roughly $15 billion valuation is missing. It is the clearest sign of how large the legal-access business is (outlet:p003).",
+            "fix": "Add that DayOne is worth about 15 billion USD and has ByteDance as its top customer."
+          },
+          {
+            "question": "meaning",
+            "problem": "The expert's point that no US administration has been willing to fix this is missing (outlet:p003). So is TechCrunch's note on national security ramifications (coverage1:p002).",
+            "fix": "Add one clause saying the expert says no administration has acted to change this. Optionally mention the national security concern."
+          }
+        ],
+        "writer_boats": [
+          "agy",
+          "codex"
+        ],
+        "scorer_boat": "claude",
+        "scorer_provider": "claude-code",
+        "prose_sha256": "778efa49eb04f9e9c1171eb5ac2f685609be96f6cf8834750c3af49f51ca039d",
+        "scored_at": "2026-11-13T13:29:36.104069+00:00"
+      }
     },
     {
       "id": "e8d3c42872b058247a72",
@@ -61631,17 +61661,17 @@
       "use_original_title": false,
       "source_url": "https://www.wired.com/story/nvidia-employees-petition-for-jensen-huangs-return/",
       "key_points": [
-        "WIRED cho biết một số nhân viên Nvidia kêu gọi đưa Jensen Huang trở lại sau khi ông đột ngột từ chức giữa các bản tin cáo buộc ông có nhiều quan hệ ngoài hôn nhân. Huang thừa nhận đã không chung thủy với vợ; các tin về người bị nghi liên quan tình báo Trung Quốc và nhân viên Nvidia vẫn được bài báo trình bày là cáo buộc.",
+        "WIRED cho biết một số nhân viên Nvidia kêu gọi đưa Jensen Huang trở lại sau khi ông đột ngột từ chức giữa các bản tin cáo buộc ông có nhiều quan hệ ngoài hôn nhân. Huang thừa nhận đã không chung thủy với vợ; bài báo vẫn trình bày các tin về những mối quan hệ khác là cáo buộc.",
         "Một nhân viên nói với WIRED rằng họ lo Nvidia sẽ gặp khó nếu thiếu người sáng lập ở vị trí lãnh đạo và muốn hội đồng quản trị đưa ông trở lại. WIRED cho biết nhiều nhân viên từng chờ cuộc điều tra của hội đồng quản trị kết thúc trước khi có thay đổi lớn.",
-        "Một bài đăng trong hộp góp ý nội bộ đã nhận hơn 1.600 bình luận, trong đó một số bình luận đề nghị đưa Huang trở lại. Một nhân viên khác gửi email toàn công ty yêu cầu minh bạch về việc Huang rời vị trí.",
-        "WIRED cho biết nhân viên vẫn tìm lời giải thích cho việc Huang rời đi ngay khi cuộc điều tra vừa bắt đầu."
+        "Một bài đăng trong hộp góp ý nội bộ đã nhận hơn 1.600 bình luận, trong đó một số người đề nghị đưa Huang trở lại; một nhân viên khác gửi email toàn công ty yêu cầu minh bạch về việc ông rời ghế. WIRED cho biết hội đồng quản trị bổ nhiệm Colette Kress làm CEO tạm quyền và Harvey Jones làm chủ tịch; kể từ khi các cáo buộc xuất hiện, Nvidia đã mất 1 nghìn tỷ USD giá trị thị trường.",
+        "WIRED cho biết Huang rời ghế khi cuộc điều tra mới bắt đầu, và nhân viên vẫn tìm lời giải thích cho quyết định này. Một nhân viên được WIRED phỏng vấn cho rằng mong muốn đưa Huang trở lại rất phổ biến, đồng thời lo công ty sẽ gặp khó nếu thiếu người sáng lập lãnh đạo."
       ],
       "same_event_coverage_ids": [
         "7f63bc02db77077d65e9"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Một số nhân viên Nvidia muốn Jensen Huang trở lại dù ông đã từ chức; bài góp ý có hơn 1.600 bình luận",
+      "editorial_headline_vi": "Một số nhân viên Nvidia muốn Jensen Huang trở lại; bài góp ý nội bộ có hơn 1.600 bình luận",
       "summary_sources": [
         {
           "id": "outlet",
@@ -61654,19 +61684,24 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.2,
+        "value": 8.55,
         "answers": {
           "what": 9,
-          "why": 8,
-          "notable": 7,
-          "meaning": 9
+          "why": 9,
+          "notable": 8,
+          "meaning": 8
         },
         "hard_errors": [],
         "findings": [
           {
             "question": "notable",
-            "problem": "The Vietnamese omits the market-value loss and the board change: $1 trillion lost, Harvey Jones as new chair, and lawmakers' and FBI investigations (p011).",
-            "fix": "Add one sentence on the board's new chair and the reported $1 trillion market-value loss (p011) to place the employee reaction in context."
+            "problem": "The reader does not learn that about two dozen employees posted support on LinkedIn, or that WIRED found no employee posts supporting the resignation.",
+            "fix": "Add a short clause with this evidence of employee sentiment (p012)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The final paragraph repeats the earlier employee quote about reinstatement. It also omits that Huang has not commented since his Sunday email and that Nvidia and the board have not responded.",
+            "fix": "Replace the repetition with the missing context on silence from Huang and the board (p007, p008)."
           }
         ],
         "writer_boats": [
@@ -61674,8 +61709,8 @@
         ],
         "scorer_boat": "claude",
         "scorer_provider": "claude-code",
-        "prose_sha256": "633a3dcd744ed8d9d787f09cc17b7fdb4acedbde6fc513670acf352a371de4ff",
-        "scored_at": "2026-11-13T11:19:45.860116+00:00"
+        "prose_sha256": "c5b8316f9b027a8cf266b8fa18eef46c715433bc0aaeb5f94e3d70607067aa9f",
+        "scored_at": "2026-11-13T13:25:53.110813+00:00"
       }
     },
     {
@@ -62160,17 +62195,17 @@
       "use_original_title": false,
       "source_url": "https://www.wired.com/story/uncanny-valley-podcast-jensen-huang-is-out-will-nvidias-rivals-cash-in/",
       "key_points": [
-        "Jensen Huang từ chức tại Nvidia sau khi thừa nhận quan hệ với một người bị nghi liên quan tình báo Trung Quốc; ông còn đối mặt các tin cáo buộc về ít nhất hai quan hệ khác với nhân viên công ty. Colette Kress tạm điều hành Nvidia; Brian Barrett của WIRED đánh giá bà hiểu công ty, nhưng chưa rõ có thể dẫn dắt hãng lâu dài hay không.",
-        "Zoë Schiffer của WIRED cho rằng tin về mối quan hệ thứ hai có thể đã tạo cớ để hội đồng quản trị chấm dứt vai trò của Huang; bà trình bày đây là cảm nhận của mình.",
-        "Barrett chỉ ra Huang sở hữu khoảng 3,5% Nvidia, nên hội đồng quản trị có quyền thay ông. Barrett cũng phê bình việc Huang không chuẩn bị kế hoạch kế nhiệm trong khi có 60 người báo cáo trực tiếp cho ông.",
-        "Schiffer suy đoán những người vận động chính sách cứng rắn với Trung Quốc có thể tận dụng thời điểm này để thúc đẩy Tổng thống Trump nghiêng về lập trường của họ."
+        "Theo WIRED, Jensen Huang đã từ chức CEO Nvidia sau khi thừa nhận mối quan hệ với một người bị cáo buộc là nhân sự tình báo Trung Quốc; Colette Kress giữ chức CEO tạm quyền. WIRED cho biết Huang còn đối mặt các tường thuật về ít nhất hai mối quan hệ khác bị cáo buộc với nhân viên Nvidia.",
+        "Zoë Schiffer cho rằng tin về mối quan hệ thứ hai dường như đã cho hội đồng quản trị một lý do để chấm dứt vai trò của Huang; đây là cách bà nhìn nhận diễn biến, không phải kết luận điều tra. Barrett đánh giá CEO tạm quyền Colette Kress hiểu rõ Nvidia sau nhiều năm làm việc tại đây, nhưng ông chưa rõ bà có thể dẫn dắt công ty lâu dài hay không.",
+        "Barrett nêu việc Huang có khoảng 60 người báo cáo trực tiếp và phê bình ông chưa chuẩn bị kỹ kế hoạch kế nhiệm. Theo Barrett, hội đồng quản trị có thể thay Huang, người sở hữu khoảng 3,5% Nvidia.",
+        "Barrett cho rằng đối thủ khó hưởng lợi lớn ngay lúc này vì khách hàng có ít lựa chọn thay thế Nvidia. Về dài hạn, Barrett xem việc các công ty tự phát triển chip và tối ưu phần cứng cho phần mềm của họ là mối đe dọa đối với Nvidia; ông dự đoán biến cố này sẽ đẩy nhanh xu hướng đó."
       ],
       "same_event_coverage_ids": [
         "19a4031101f58d383343"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Jensen Huang rời Nvidia, WIRED bàn về quyền thay CEO của hội đồng quản trị và cơ hội cho đối thủ",
+      "editorial_headline_vi": "Jensen Huang rời Nvidia: WIRED thấy ít cơ hội ngắn hạn cho đối thủ, nhưng lo sức ép từ chip tự phát triển",
       "summary_sources": [
         {
           "id": "outlet",
@@ -62185,19 +62220,29 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.75,
+        "value": 8.15,
         "answers": {
           "what": 9,
-          "why": 10,
-          "notable": 9,
-          "meaning": 6
+          "why": 7,
+          "notable": 8,
+          "meaning": 8
         },
         "hard_errors": [],
         "findings": [
           {
             "question": "meaning",
-            "problem": "The headline promises 'cơ hội cho đối thủ', but the body never says what the hosts concluded about competitors.",
-            "fix": "Add Barrett's view that little changes in the short term because there are few alternatives. Over the longer term, companies building their own chips pose a threat to Nvidia, and this will accelerate that (p033)."
+            "problem": "The headline says 'WIRED thấy ít cơ hội ngắn hạn cho đối thủ'. That is one host's opinion (Barrett), and the episode blurb itself calls the moment a golden opportunity for competitors.",
+            "fix": "Attribute the view to host Brian Barrett, or reflect that the hosts framed the moment as an opportunity for competitors while Barrett was cautious in the short term (p001, p033)."
+          },
+          {
+            "question": "why",
+            "problem": "The Vietnamese omits that company rules prohibit relationships with direct reports, which is why the second affair mattered. It also omits the board's worry that more affairs could surface.",
+            "fix": "Add Schiffer's two reasons from p018."
+          },
+          {
+            "question": "notable",
+            "problem": "The China-hawks angle is absent: Schiffer says they helped get the information out and will use the moment to press Trump toward a more anti-China stance.",
+            "fix": "Add one sentence attributed to Schiffer (p065)."
           }
         ],
         "writer_boats": [
@@ -62205,8 +62250,8 @@
         ],
         "scorer_boat": "claude",
         "scorer_provider": "claude-code",
-        "prose_sha256": "966f62abe4c8861691b77dd87696effde36e6d3066d0e20429c17ed464ae4efd",
-        "scored_at": "2026-11-13T11:19:45.860147+00:00"
+        "prose_sha256": "a1ceb43c2d73269b808854c05150e03ea656b058711409f8546bd718e4c6f93e",
+        "scored_at": "2026-11-13T13:25:53.110972+00:00"
       }
     },
     {
@@ -62223,17 +62268,17 @@
       "use_original_title": false,
       "source_url": "https://aws.amazon.com/blogs/machine-learning/deploy-frontier-ai-models-on-aws-trainium-with-sglang-neuron/",
       "key_points": [
-        "Amazon công bố SGLang-Neuron đã phát hành công khai qua bộ phần mềm đóng gói AWS Deep Learning Container do RadixArk hợp tác với Annapurna Labs phát hành. Theo Amazon, công cụ này cho phép phục vụ mô hình AI và tạo các lượt tương tác cho học tăng cường trên chip Trainium bằng giao diện SGLang hiện có.",
-        "Amazon cho biết thiết kế phần bổ trợ (plugin) tách riêng cho phép phần hỗ trợ Trainium và lõi SGLang phát triển độc lập, cập nhật nhanh hơn. Khi được cài đặt, phần bổ trợ kết nối SGLang với Trainium và đảm nhiệm các phần xử lý riêng cho chip, còn lõi SGLang tiếp tục quản lý máy chủ và yêu cầu của người dùng.",
-        "Trong hướng dẫn, Amazon dùng máy Trainium3 trên EC2 với container dành cho SGLang-Neuron. Ví dụ của hãng khởi chạy máy chủ với mô hình openai/gpt-oss-120b, rồi gửi yêu cầu qua giao diện lập trình (API) hội thoại.",
-        "Theo Amazon, người đã dùng SGLang có thể giữ cách khởi chạy máy chủ và gọi API quen thuộc khi phục vụ mô hình được hỗ trợ trên Trainium. Hãng dẫn người đọc tới tài liệu liệt kê các mô hình, tính năng và cấu hình đã được kiểm tra; hướng dẫn khởi đầu chỉ nói tới mô hình được hỗ trợ."
+        "Amazon thông báo SGLang-Neuron đã có sẵn công khai qua AWS Deep Learning Container do RadixArk phát hành cùng Annapurna Labs. Theo Amazon, phần mềm cho phép phục vụ mô hình AI và tạo lượt chạy cho học tăng cường trên chip Trainium bằng giao diện SGLang hiện có.",
+        "Amazon cho biết thiết kế phần bổ trợ tách riêng giúp bộ phận hỗ trợ Trainium và lõi SGLang phát triển độc lập, cập nhật nhanh hơn. Lõi SGLang tiếp tục quản lý máy chủ và yêu cầu, còn phần bổ trợ đảm nhiệm các bước xử lý riêng cho Trainium.",
+        "Trong hướng dẫn trên máy Trainium3 EC2, Amazon khởi chạy mô hình openai/gpt-oss-120b rồi gửi yêu cầu qua giao diện lập trình hội thoại. TorchNeuron đưa Trainium vào PyTorch như một thiết bị; SGLang-Neuron dùng phép toán PyTorch và mã tính toán NKI, đồng thời hỗ trợ tách bước xử lý đầu vào và tạo đầu ra sang hai máy chủ.",
+        "Theo Amazon, người đã dùng SGLang có thể giữ quy trình quen thuộc khi phục vụ mô hình được hỗ trợ trên Trainium; hãng dẫn tới tài liệu về các mô hình, tính năng và cấu hình đã được kiểm tra."
       ],
       "same_event_coverage_ids": [
         "8aa7f7f9734525d85806"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Amazon phát hành SGLang-Neuron, cho phép phục vụ mô hình được hỗ trợ trên chip Trainium",
+      "editorial_headline_vi": "Amazon thông báo SGLang-Neuron đã có sẵn qua container do RadixArk và Annapurna Labs phát hành",
       "summary_sources": [
         {
           "id": "outlet",
@@ -62246,24 +62291,24 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.6,
+        "value": 9.25,
         "answers": {
-          "what": 9,
+          "what": 10,
           "why": 10,
-          "notable": 7,
+          "notable": 8,
           "meaning": 9
         },
         "hard_errors": [],
         "findings": [
           {
             "question": "notable",
-            "problem": "The reader does not learn that the Trainium path runs on native PyTorch via TorchNeuron with NKI kernels, or that PD disaggregation is supported (outlet:p006-p007).",
-            "fix": "Add one sentence on native PyTorch and the PD disaggregation support."
+            "problem": "The Vietnamese omits how a user selects the Neuron platform: setting SGLANG_PLATFORM=neuron when starting the server (p004, p013).",
+            "fix": "Add that setting, which shows the practical path from the walkthrough."
           },
           {
             "question": "what",
-            "problem": "The headline says Amazon released the tool, but the source says RadixArk released it in collaboration with Annapurna Labs, and Amazon announced it (outlet:p002).",
-            "fix": "Say that Amazon announced availability of a release by RadixArk with Annapurna Labs."
+            "problem": "The headline never says the release targets AWS Trainium, the key fact for readers.",
+            "fix": "Mention that SGLang-Neuron brings SGLang to AWS Trainium chips (p002)."
           }
         ],
         "writer_boats": [
@@ -62271,8 +62316,8 @@
         ],
         "scorer_boat": "claude",
         "scorer_provider": "claude-code",
-        "prose_sha256": "802f36632956602d0a08d1ad523b291b6daf6eb03e616c698d763649c6f20d1f",
-        "scored_at": "2026-11-13T11:19:45.860177+00:00"
+        "prose_sha256": "1b8780a4b5595afee3190aaf352df87815c1e45981d41cc70e92506d88042a4b",
+        "scored_at": "2026-11-13T13:25:53.111060+00:00"
       }
     },
     {
@@ -63335,17 +63380,17 @@
       "use_original_title": false,
       "source_url": "https://www.theguardian.com/technology/2026/nov/12/rise-and-fall-of-nvidia-ceo-jensen-huang-profile",
       "key_points": [
-        "Jensen Huang từ chức sau hành trình đưa Nvidia thành một tên tuổi trung tâm của làn sóng AI, theo bài chân dung về người đồng sáng lập công ty.",
-        "Bài chân dung liên hệ việc Huang từ chức với các cáo buộc ông có quan hệ tình cảm với người bị cho là gián điệp Trung Quốc và một lãnh đạo Nvidia. Về chặng đường đi lên của ông, bài viết dẫn cuốn The Nvidia Way cho rằng chuyên môn kỹ thuật giúp Huang có lợi thế với khách hàng và nhà đầu tư.",
-        "Bài viết cho biết giá trị Nvidia đạt 5 nghìn tỷ USD vào tháng 10 năm ngoái, rồi còn khoảng 4 nghìn tỷ USD trong tuần Huang từ chức giữa các cáo buộc.",
-        "Bức chân dung cũng nêu mặt trái trong cách Huang giao tiếp: nhà báo Stephen Witt, người từng phỏng vấn ông, mô tả Huang nổi giận khi được hỏi về những việc làm mới do AI tạo ra. Tác giả bài viết xem việc Huang rời ghế vì chuyện quan hệ ngoài hôn nhân là bài học về sự khiêm nhường mà Nvidia và các nhà đầu tư không ngờ tới."
+        "Jensen Huang từ chức lãnh đạo Nvidia giữa các cáo buộc về quan hệ ngoài hôn nhân; bài chân dung của The Guardian nhìn lại chặng đường ông đi từ nhân viên Denny’s tới gương mặt nổi bật của làn sóng AI. Theo The Guardian, giá trị Nvidia đạt 5 nghìn tỷ USD vào tháng 10 năm ngoái, rồi còn khoảng 4 nghìn tỷ USD trong tuần ông từ chức giữa các cáo buộc.",
+        "Theo cuốn The Nvidia Way được The Guardian dẫn, chuyên môn kỹ thuật giúp Huang có lợi thế với khách hàng và nhà đầu tư. The Guardian cho biết Nvidia ban đầu làm chip đồ họa cho máy tính cá nhân; GPU của hãng sau đó được dùng tạo mạng AI AlexNet năm 2012.",
+        "Huang từng phục vụ bàn và rửa bát tại Denny’s khi còn thiếu niên ở Mỹ; sau đó ông cùng Chris Malachowsky và Curtis Priem thành lập Nvidia trong một cuộc gặp tại chuỗi quán này. Nhà báo Stephen Witt kể Huang nổi giận trong một cuộc phỏng vấn năm 2024, nhưng cũng mô tả ông có sức hút, sự ấm áp và khả năng thấu cảm.",
+        "Tác giả bài chân dung trên The Guardian xem việc Huang mất vị trí vì chuyện quan hệ ngoài hôn nhân là bài học về sự khiêm nhường mà Nvidia và các nhà đầu tư không ngờ tới."
       ],
       "same_event_coverage_ids": [
         "38048675498bad44bb76"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Jensen Huang từ người rửa bát ở Denny’s tới lãnh đạo Nvidia, rồi từ chức giữa các cáo buộc",
+      "editorial_headline_vi": "Từ công việc rửa bát ở Denny’s tới đỉnh cao Nvidia: chân dung Jensen Huang sau khi từ chức",
       "summary_sources": [
         {
           "id": "outlet",
@@ -63360,19 +63405,24 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.05,
+        "value": 8.35,
         "answers": {
           "what": 8,
           "why": 9,
-          "notable": 7,
+          "notable": 8,
           "meaning": 9
         },
         "hard_errors": [],
         "findings": [
           {
+            "question": "what",
+            "problem": "The reader is not told that the allegations involve a Chinese spy (Alice Huang) and an Nvidia executive, the detail that makes the story more than a personal scandal.",
+            "fix": "Add that the allegations concern affairs with a woman accused of being a Chinese spy and with an Nvidia executive (p030, p043)."
+          },
+          {
             "question": "notable",
-            "problem": "The body never explains the Denny's story named in the headline, and the Witt anecdote is given without his balancing remark about Huang's warmth and charisma (outlet:p008, p044).",
-            "fix": "Add a sentence on the Denny's first job and founding, and note that Witt also describes warmth."
+            "problem": "The Vietnamese attributes the piece to 'The Guardian', but the supplied text never names that outlet and the metadata lists hacker-news.",
+            "fix": "Use 'bài chân dung' or 'bài viết' unless the supplied text names the outlet."
           }
         ],
         "writer_boats": [
@@ -63380,8 +63430,8 @@
         ],
         "scorer_boat": "claude",
         "scorer_provider": "claude-code",
-        "prose_sha256": "539389b3a64128cd5ef6f6548dc5f730b2c5fd25e0756676e362b78255a57935",
-        "scored_at": "2026-11-13T11:19:45.860254+00:00"
+        "prose_sha256": "f44611fd7c9db5cc500fd8891d3dfd0da4cc78fba2e23b4a38a0f0afe6022aa5",
+        "scored_at": "2026-11-13T13:25:53.111134+00:00"
       }
     },
     {
@@ -63421,17 +63471,17 @@
       "use_original_title": false,
       "source_url": "https://www.wired.com/story/google-deepmind-staff-escalate-their-union-fight/",
       "key_points": [
-        "Hai công đoàn do nhân viên Google DeepMind tại Anh chọn làm đại diện chung đã nộp đơn lên Ủy ban Trọng tài Trung ương, cơ quan nhà nước xử lý tranh chấp giữa người sử dụng lao động và công đoàn. Đơn đề nghị xác nhận họ có đủ ủng hộ của nhân viên để mở cuộc bỏ phiếu lập công đoàn; nếu thành công, khoảng 1.000 người làm các công việc tập trung vào sản phẩm có thể đủ điều kiện gia nhập.",
-        "Theo WIRED, sau các cuộc gặp về việc công nhận công đoàn trên cơ sở tự nguyện, những nhân viên tham gia vận động cảm thấy yêu cầu của họ không được coi trọng. Phong trào bắt đầu từ tháng 2 năm 2025, khi Alphabet bỏ cam kết trong nguyên tắc đạo đức rằng họ sẽ không dùng AI cho các mục đích như phát triển vũ khí.",
-        "Nếu nỗ lực lập công đoàn thành công, khoảng 1.000 nhân viên Google DeepMind làm công việc tập trung vào sản phẩm có thể đủ điều kiện gia nhập, theo WIRED. Những người vận động phản đối các thỏa thuận của công ty với quân đội Mỹ và Israel; họ dự định yêu cầu Google rút khỏi các hợp đồng đó nếu lập được công đoàn.",
-        "Theo WIRED, nhóm vận động hy vọng quá trình này sẽ tạo cách làm mà nhân viên các phòng thí nghiệm AI khác như OpenAI và Anthropic tại Anh có thể tham khảo; đó vẫn là kỳ vọng của nhóm."
+        "Hai công đoàn do nhân viên Google DeepMind tại Anh chọn làm đại diện chung đã nộp đơn lên Ủy ban Trọng tài Trung ương để xin xác nhận họ có đủ ủng hộ mở cuộc bỏ phiếu lập công đoàn. Theo WIRED, nếu đơn thành công, khoảng 1.000 nhân viên làm công việc tập trung vào sản phẩm sẽ đủ điều kiện gia nhập công đoàn.",
+        "WIRED cho biết nhân viên thúc đẩy việc này sau các cuộc gặp về công nhận công đoàn tự nguyện, khi họ cảm thấy yêu cầu của mình bị xem nhẹ. Theo WIRED, phong trào bắt đầu từ tháng 2/2025, khi Alphabet bỏ cam kết không dùng AI cho những mục đích như phát triển vũ khí khỏi nguyên tắc đạo đức.",
+        "John Chadfield thuộc CWU cáo buộc ban lãnh đạo phớt lờ nhân viên và chuyển việc trao đổi cho bộ phận nhân sự xử lý như thủ tục. Ngược lại, người phát ngôn Google DeepMind Tom Hewett nói công ty đã lắng nghe cả người ủng hộ lẫn người phản đối công đoàn và tham gia quá trình này với thiện chí.",
+        "Nếu cuộc bỏ phiếu được mở, Google DeepMind sẽ phải tôn trọng kết quả theo luật, theo WIRED. Những nhân viên vận động nói rằng nếu lập được công đoàn, họ sẽ yêu cầu Google rút khỏi các hợp đồng với quân đội Mỹ và Israel mà họ phản đối."
       ],
       "same_event_coverage_ids": [
         "0b29700f4e83b78ad9dd"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Công đoàn đề nghị cơ quan Anh xác nhận mức ủng hộ từ nhân viên Google DeepMind để tiến tới bỏ phiếu",
+      "editorial_headline_vi": "Hai công đoàn của nhân viên Google DeepMind đề nghị cơ quan Anh xác nhận điều kiện mở bỏ phiếu",
       "summary_sources": [
         {
           "id": "outlet",
@@ -63444,24 +63494,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.05,
+        "value": 9.2,
         "answers": {
-          "what": 9,
-          "why": 8,
-          "notable": 7,
+          "what": 10,
+          "why": 9,
+          "notable": 9,
           "meaning": 8
         },
         "hard_errors": [],
         "findings": [
           {
-            "question": "notable",
-            "problem": "The Google DeepMind spokesperson's response (good faith, open communication) and the CWU officer's 'ignored' accusation are absent, so the dispute reads one-sided.",
-            "fix": "Add one sentence with the company's statement (p008) next to the union's complaint (p007)."
-          },
-          {
             "question": "meaning",
-            "problem": "The binding legal effect of a successful ballot is missing.",
-            "fix": "Say the company would be legally required to respect the ballot result (p003)."
+            "problem": "The reader does not learn that staff expect the ballot within months or that they hope to create a model for OpenAI and Anthropic employees in the UK.",
+            "fix": "Add one sentence on the expected timing (p015) and the playbook goal (p016)."
           }
         ],
         "writer_boats": [
@@ -63469,8 +63514,8 @@
         ],
         "scorer_boat": "claude",
         "scorer_provider": "claude-code",
-        "prose_sha256": "33dc252e951bc9ef140146b1f04266a41af6716f9c2b865d55240377095ecb5c",
-        "scored_at": "2026-11-13T10:45:38.517080+00:00"
+        "prose_sha256": "c47b0a64db825a079c1264995826cc9b0ce605566dffec6a67c909af208df6af",
+        "scored_at": "2026-11-13T13:25:53.111187+00:00"
       }
     },
     {
@@ -63512,17 +63557,17 @@
       "use_original_title": false,
       "source_url": "https://aws.amazon.com/blogs/machine-learning/run-agents-securely-and-efficiently-with-the-next-generation-agentcore-runtime/",
       "key_points": [
-        "Amazon công bố nâng cấp AgentCore runtime, môi trường quản lý sẵn để chạy agent AI (phần mềm tự thực hiện nhiều bước của một nhiệm vụ) trong các phiên riêng. Theo hãng, mỗi phiên vẫn chạy trong máy ảo siêu nhỏ Firecracker được cách ly bằng phần cứng; phiên khởi động nhanh hơn tới 15 lần và có thể dùng tài nguyên gấp bốn lần.",
-        "Amazon nói việc chạy nhiều phiên riêng đặt ra bài toán cân bằng hiệu năng, chi phí và tài nguyên: môi trường chuẩn bị sẵn tốn tài nguyên khi rảnh, còn môi trường tạo theo yêu cầu làm phiên khởi động chậm.",
-        "So với bản trước, một phiên có thể dùng tới 8 vCPU và 32 GB bộ nhớ, hỗ trợ ảnh container tới 10 GB; Amazon nói phiên khởi động dưới hai giây bất kể kích thước ảnh hay số phiên đồng thời. Hãng nói người dùng không còn cần cụm máy chuẩn bị sẵn để xử lý lúc khởi động; với agent trao đổi nhiều lượt có khoảng nghỉ, bộ nhớ dùng mỗi phiên có thể giảm tới 68%.",
-        "Với agent chạy liên tục, Amazon đưa ra mức bộ nhớ tối thiểu tính phí cho mỗi phiên và cho phép tăng tức thời tới bốn lần mức đó. Amazon còn tuyên bố cách ly mở rộng tới dữ liệu agent sử dụng, giải quyết khoảng trống mà hãng mô tả khi dữ liệu nằm ngoài phiên riêng."
+        "Amazon nâng cấp AgentCore runtime, môi trường quản lý sẵn để chạy agent AI (phần mềm tự thực hiện nhiều bước của một nhiệm vụ) trong các phiên riêng được cách ly bằng phần cứng. Theo Amazon, phiên nay khởi động nhanh hơn tới 15 lần và có thể dùng tài nguyên tính toán gấp bốn lần so với bản trước.",
+        "Amazon nói môi trường chạy riêng đặt ra bài toán chi phí và tốc độ: chuẩn bị sẵn thì tốn tài nguyên lúc rảnh, còn tạo theo yêu cầu thì chậm lúc khởi động. Hãng cũng cho biết các nhóm phát triển muốn cách tính phí phù hợp với những lúc agent chờ phản hồi từ mô hình, công cụ hoặc con người.",
+        "Theo Amazon, mỗi phiên hỗ trợ tới 8 vCPU, 32 GB bộ nhớ và ảnh container tới 10 GB, đồng thời khởi động dưới hai giây bất kể kích thước ảnh hay số phiên đồng thời. Amazon nói hệ thống thu hồi bộ nhớ trong vài phút sau khi agent giải phóng nó và đưa agent rảnh về mức không; với agent trao đổi nhiều lượt có khoảng nghỉ, bộ nhớ dùng mỗi phiên có thể giảm tới 68%.",
+        "Bản AgentCore runtime mới đã có tại các khu vực AWS ở Bắc Mỹ, Nam Mỹ, châu Âu và châu Á Thái Bình Dương, theo Amazon; mức giảm bộ nhớ hãng nêu áp dụng cho các phiên nhiều lượt có khoảng nghỉ."
       ],
       "same_event_coverage_ids": [
         "cb628cfb0115d719970f"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Amazon nâng cấp AgentCore runtime: phiên khởi động dưới hai giây, cách ly mở tới dữ liệu",
+      "editorial_headline_vi": "Amazon nói AgentCore runtime khởi động dưới hai giây, thu hồi bộ nhớ khi agent rảnh",
       "summary_sources": [
         {
           "id": "outlet",
@@ -63537,24 +63582,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.3,
+        "value": 8.7,
         "answers": {
           "what": 9,
-          "why": 7,
+          "why": 9,
           "notable": 9,
           "meaning": 7
         },
         "hard_errors": [],
         "findings": [
           {
-            "question": "notable",
-            "problem": "The reader does not learn that idle agents scale to zero, or that the runtime reclaims memory within minutes of release. The 68% figure appears without that mechanism.",
-            "fix": "Add that memory is reclaimed within minutes and idle agents scale to zero (p022)."
-          },
-          {
             "question": "meaning",
-            "problem": "Availability is missing: the source says the runtime is available now in North America, South America, Europe and Asia Pacific.",
-            "fix": "Add one clause that the update is live across those regions (p039)."
+            "problem": "The practical consequences are missing: warm pools are no longer needed (p011) and always-on agents get committed baseline pricing with bursting up to four times the baseline (p022).",
+            "fix": "Add one sentence on dropping warm pools and one on the committed-baseline pricing."
           }
         ],
         "writer_boats": [
@@ -63562,8 +63602,8 @@
         ],
         "scorer_boat": "claude",
         "scorer_provider": "claude-code",
-        "prose_sha256": "621f159a633610e68446e68b1fe3235aae3b85f2ff233b5d765e8888d3dae495",
-        "scored_at": "2026-11-13T11:19:45.860279+00:00"
+        "prose_sha256": "5ac86bc96c378128ae351fff499f211686615ee235c13749ec4f783725c9fc3c",
+        "scored_at": "2026-11-13T13:25:53.111240+00:00"
       }
     },
     {
@@ -63682,17 +63722,17 @@
       "use_original_title": true,
       "source_url": "https://news.ycombinator.com/item?id=50471281",
       "key_points": [
-        "Nhóm phát triển giới thiệu Kapso, hệ thống nhận mục tiêu và tiêu chí thành công rồi thử các cách giải để tìm phương án có thể triển khai trên hệ thống dữ liệu của người dùng. Nhóm tuyên bố Kapso đứng đầu RelBench, bộ đánh giá khả năng dự đoán trên cơ sở dữ liệu quan hệ, và xếp trước mô hình nền tảng xử lý dữ liệu dạng bảng tốt nhất trong so sánh họ nêu.",
-        "Theo nhóm phát triển, công việc với dữ liệu doanh nghiệp lớn cần liên tục điều tra, đặt giả thuyết, thử nghiệm rồi điều chỉnh theo kết quả. Họ nêu một dự án chuyển dữ liệu với hơn 30 nhóm hệ thống nguồn, hàng nghìn bảng và phép biến đổi, cùng hàng trăm báo cáo BI mà không một người hay agent AI nào hiểu hết quan hệ giữa các phần.",
-        "Nhóm phát triển tuyên bố Kapso đứng đầu RelBench về dự đoán trên cơ sở dữ liệu quan hệ, trước mô hình nền tảng xử lý dữ liệu dạng bảng tốt nhất trong so sánh họ nêu. Nhóm còn nói Kapso đứng đầu MLE-bench của OpenAI tại thời điểm nộp kết quả và hiện vẫn thuộc nhóm hệ thống mã nguồn mở dẫn đầu.",
-        "Kết quả RelBench mà nhóm nêu cần được đọc cùng giới hạn của bảng xếp hạng: một người bình luận dẫn mô tả rằng các tệp dự đoán do bên tham gia tự báo cáo."
+        "Nhóm phát triển giới thiệu Kapso, hệ thống nhận mục tiêu và tiêu chí thành công rồi thử nghiệm để tìm phương án có thể triển khai trên hạ tầng dữ liệu của người dùng. Nhóm tuyên bố Kapso đứng đầu RelBench, bộ đánh giá khả năng dự đoán trên cơ sở dữ liệu quan hệ, và xếp trên mô hình nền tảng xử lý dữ liệu dạng bảng tốt nhất trong so sánh họ nêu.",
+        "Người đăng bài giới thiệu cho rằng công việc dữ liệu cần điều tra, đặt giả thuyết, thử nghiệm rồi cải thiện theo những gì học được, nhất là trong môi trường dữ liệu doanh nghiệp phức tạp. Theo bài đăng, Kapso lưu bài học từ các thử nghiệm cùng mức độ tin cậy, điều kiện áp dụng và bằng chứng, rồi dùng chúng để đề xuất thử nghiệm tiếp theo.",
+        "Người đăng bài tuyên bố Kapso vượt 471 thí sinh người và nằm trong ba hệ thống AI đứng đầu tại International Olympiad in AI 2026, ở phần thi mà hệ thống chạy tự động.",
+        "Một người bình luận trên Hacker News muốn thấy Kapso được đánh giá trong môi trường có kiểm soát như RelArena để so sánh với Relflow và các phương pháp học từ dữ liệu quan hệ khác. Theo bình luận đó, RelBench nhận tệp dự đoán do người tham gia tự nộp, còn RelArena chạy lại bài nộp theo quy trình đánh giá chung."
       ],
       "same_event_coverage_ids": [
         "46bef888212bd3ac0855"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Nhóm Kapso tuyên bố dẫn đầu RelBench về dự đoán dữ liệu quan hệ; cách đánh giá bị chất vấn",
+      "editorial_headline_vi": "Nhóm Kapso tuyên bố dẫn đầu RelBench, vào top ba IOAI 2026; người bình luận hỏi về kiểm chứng",
       "summary_sources": [
         {
           "id": "outlet",
@@ -63707,34 +63747,24 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 6.9,
+        "value": 8.1,
         "answers": {
           "what": 8,
           "why": 7,
-          "notable": 6,
-          "meaning": 6
+          "notable": 9,
+          "meaning": 8
         },
         "hard_errors": [],
         "findings": [
           {
-            "question": "meaning",
-            "problem": "RelArena, which reruns submissions under shared protocols, and the commenter's request to see Kapso there (p022, p025) are missing.",
-            "fix": "Say the commenter prefers RelArena's controlled evaluation and asked for Kapso results there."
-          },
-          {
-            "question": "notable",
-            "problem": "The IOAI 2026 result, above all 471 human contestants and top three AI, is omitted (p013, p027).",
-            "fix": "Add the IOAI result, attributed to the team."
-          },
-          {
-            "question": "notable",
-            "problem": "The core mechanism, a bank of lessons with credence scores and a separate verifier (p007), is missing.",
-            "fix": "Add a sentence on the lessons bank and the verifier."
-          },
-          {
             "question": "what",
-            "problem": "Paragraphs 1 and 3 repeat the RelBench claim.",
-            "fix": "Use the space for the mechanism and IOAI."
+            "problem": "The MLE-bench first-place claim (p012) and the ALE-Bench result (p013) are omitted, so the benchmark picture looks narrower than the source's.",
+            "fix": "Add a brief mention of the MLE-bench and ALE-Bench claims, labelled as the team's own."
+          },
+          {
+            "question": "why",
+            "problem": "The team's central hypothesis, that learning in the harness is cheaper and more transparent than retraining a foundation model, is not stated (p011, p019).",
+            "fix": "Add one clause on that hypothesis, attributed to the team."
           }
         ],
         "writer_boats": [
@@ -63742,8 +63772,8 @@
         ],
         "scorer_boat": "claude",
         "scorer_provider": "claude-code",
-        "prose_sha256": "c9f7ea76bf6cc9ed594366ed5d7a3085926da4690d318cfedcbadbdc86167c49",
-        "scored_at": "2026-11-13T10:45:38.517147+00:00"
+        "prose_sha256": "bb9776e4ed855f43703e2860bd9a59c5b1da5ea28c76f2647feca1dd54cbd42a",
+        "scored_at": "2026-11-13T13:25:53.111299+00:00"
       }
     },
     {
@@ -63847,9 +63877,9 @@
       "use_original_title": false,
       "source_url": "https://techcrunch.com/2026/11/12/united-airlines-blocks-ai-agents-from-booking-flights-citing-cybersecurity-risks/",
       "key_points": [
-        "United Airlines cho biết sẽ hạn chế agent AI cá nhân của bên thứ ba chưa được phép đặt vé và quản lý đặt chỗ thay khách; Bloomberg đưa tin động thái diễn ra trước mùa đi lại lễ. Agent AI là phần mềm có thể tự thực hiện các bước thay người dùng, chẳng hạn truy cập hệ thống đặt vé bằng thông tin đăng nhập họ chia sẻ.",
-        "United cảnh báo chia sẻ thông tin đăng nhập với trợ lý AI bên thứ ba có thể làm lộ dữ liệu nhạy cảm hoặc dẫn tới mua vé, đổi tài khoản hay dùng dặm MileagePlus ngoài ý muốn.",
-        "United nói sẽ hạn chế cả trực tiếp trên nền tảng số lẫn gián tiếp qua đại lý du lịch và bên tổng hợp dịch vụ, đồng thời cập nhật chính sách đặt vé, xuất vé và phân phối. Động thái này nối tiếp cảnh báo tuần trước của Bank of America, theo TechCrunch: ngân hàng khuyên khách không chia sẻ mật khẩu với trợ lý AI.",
+        "United Airlines cho biết sẽ hạn chế agent AI cá nhân của bên thứ ba chưa được phép đặt vé và quản lý đặt chỗ thay khách. Agent AI là phần mềm có thể tự thực hiện các bước thay người dùng, trong trường hợp này là truy cập hệ thống của hãng để đặt vé hoặc xử lý đặt chỗ.",
+        "United Airlines nêu rủi ro bảo mật và nguy cơ vi phạm quy định hàng không liên bang khi giải thích quyết định hạn chế agent AI. United Airlines dẫn ví dụ quy định yêu cầu con người tự làm thủ tục lên chuyến bay để xác nhận hành lý không chứa chất bị cấm.",
+        "United nói sẽ hạn chế truy cập trực tiếp trên nền tảng số của hãng và gián tiếp qua đại lý du lịch, bên tổng hợp dịch vụ. Hãng cũng cho biết đang cập nhật chính sách đặt vé, xuất vé và phân phối để áp dụng việc hạn chế các trợ lý AI cá nhân chưa được phép.",
         "TechCrunch nhận xét các hãng bay và ngân hàng đang khó phân biệt khách hàng với AI hành động thay họ, nhất là khi người dùng chia sẻ thông tin đăng nhập."
       ],
       "same_event_coverage_ids": [
@@ -63861,38 +63891,37 @@
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "United Airlines siết agent AI cá nhân chưa được phép đặt vé trước mùa đi lại lễ",
+      "editorial_headline_vi": "United Airlines siết agent AI đặt vé, viện dẫn rủi ro bảo mật và quy định hàng không liên bang",
       "summary_sources": [
         {
           "id": "outlet",
           "role": "outlet",
           "name": "techcrunch",
           "url": "https://techcrunch.com/2026/11/12/united-airlines-blocks-ai-agents-from-booking-flights-citing-cybersecurity-risks/"
-        },
-        {
-          "id": "coverage1",
-          "role": "coverage",
-          "name": "bloomberg",
-          "url": "https://www.bloomberg.com/news/articles/2026-11-11/united-blocks-ai-agents-from-booking-flights-ahead-of-holidays"
         }
       ],
       "summary_limitations": [],
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.75,
+        "value": 8.05,
         "answers": {
           "what": 10,
-          "why": 6,
-          "notable": 9,
-          "meaning": 9
+          "why": 7,
+          "notable": 7,
+          "meaning": 7
         },
         "hard_errors": [],
         "findings": [
           {
-            "question": "why",
-            "problem": "The Vietnamese omits United's second stated reason, the risk of violating federal aviation rules. The headline and paragraphs frame the move as about security and holiday timing only.",
-            "fix": "Add that United also cites federal rules, such as the requirement that a human completes flight check-in (p007, p010)."
+            "question": "notable",
+            "problem": "The reader does not learn United's own warning that sharing credentials with third-party AI assistants can expose sensitive information and lead to unintended purchases, account changes or MileagePlus miles use (p009).",
+            "fix": "Add a sentence quoting or paraphrasing United's credential-sharing warning and its consequences."
+          },
+          {
+            "question": "meaning",
+            "problem": "The trend context is missing: United follows other US corporate giants and a banks' warning, including Bank of America's, not to share passwords with AI assistants (p008, p012).",
+            "fix": "Add that United joins other companies and follows a bank warning that customers should not share passwords with AI assistants."
           }
         ],
         "writer_boats": [
@@ -63900,8 +63929,8 @@
         ],
         "scorer_boat": "claude",
         "scorer_provider": "claude-code",
-        "prose_sha256": "c65e5cfb444259ffb9e9333fabe55c00f2bd631760ce293e68bd9beae0fe54b5",
-        "scored_at": "2026-11-13T11:19:45.860304+00:00"
+        "prose_sha256": "f841cbce423f59a480b4febe3bd9de883d541e8e60b0f5ae4ceaf3dac3dff296",
+        "scored_at": "2026-11-13T13:25:53.111344+00:00"
       }
     },
     {
@@ -64215,42 +64244,53 @@
       "use_original_title": false,
       "source_url": "https://www.wired.com/story/who-is-colette-kress-the-woman-who-could-succeed-jensen-huang/",
       "key_points": [
-        "Hội đồng quản trị Nvidia bổ nhiệm giám đốc tài chính Colette Kress làm CEO tạm quyền sau khi Jensen Huang từ chức giữa bê bối về quan hệ ngoài hôn nhân; giới chức Mỹ nghi người phụ nữ liên quan là người của tình báo Trung Quốc. Trước đó, hội đồng quản trị đã mở cuộc điều tra độc lập về hoạt động của Huang.",
-        "WIRED cho biết Nvidia không có giám đốc vận hành theo mô hình thông thường và ít người trong công ty nắm tình hình tài chính ở mức như Kress.",
-        "Kress lâu nay phụ trách quan hệ với Wall Street, thường trình bày kết quả tài chính, nhu cầu khách hàng và hạn chế nguồn cung trong các cuộc công bố lợi nhuận. WIRED cũng nêu Ian Buck và Jeff Fisher là những người từng được cân nhắc cho vị trí kế nhiệm Huang.",
-        "Một cựu lãnh đạo Nvidia nói Kress có thể tiếp quản ngay, nhưng bà không có mức chuyên môn kỹ thuật như Huang và thường tránh tâm điểm chú ý. WIRED nhận xét phong cách ít xuất hiện trước công chúng ấy có thể phù hợp tạm thời khi Huang đang chịu sự soi xét gắt gao."
+        "Hội đồng Nvidia bổ nhiệm giám đốc tài chính Colette Kress làm CEO tạm quyền sau khi Jensen Huang từ chức giữa bê bối quan hệ ngoài hôn nhân. Bloomberg cho biết bà vẫn giữ chức CFO; trước đó, hội đồng đã mở điều tra độc lập sau bài báo của The New York Times về mối quan hệ của Huang.",
+        "Theo các lãnh đạo công nghệ và nhà phân tích được WIRED dẫn lời, Kress là lựa chọn dễ thấy nhờ thâm niên, uy tín với giới đầu tư và hiểu biết sâu về kinh doanh, tài chính Nvidia. WIRED cho biết nhiều lãnh đạo báo cáo trực tiếp cho Huang, nên ít người trong công ty hiểu tài chính Nvidia như Kress.",
+        "Trong các cuộc công bố lợi nhuận, Kress thường trình bày kết quả tài chính, nhu cầu khách hàng và hạn chế nguồn cung, theo WIRED. Theo Globes được WIRED dẫn lại, Huang tuyển bà năm 2013, sau hơn hai thập kỷ bà làm tài chính tại Microsoft, Cisco và Texas Instruments.",
+        "Một cựu lãnh đạo Nvidia nói Kress có thể tiếp quản ngay, nhưng bà không có chuyên môn kỹ thuật ngang Huang. WIRED nhận xét việc bà tránh tâm điểm chú ý có thể phù hợp tạm thời khi Huang bị soi xét gắt gao."
       ],
       "same_event_coverage_ids": [
         "5c9fee4bef7b9d239e44"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Nvidia chọn giám đốc tài chính Colette Kress làm CEO tạm quyền sau khi Jensen Huang từ chức",
+      "editorial_headline_vi": "Nvidia bổ nhiệm Colette Kress làm CEO tạm quyền sau khi Jensen Huang từ chức; bà vẫn giữ chức CFO",
       "summary_sources": [
         {
           "id": "outlet",
           "role": "outlet",
           "name": "www.wired.com",
           "url": "https://www.wired.com/story/who-is-colette-kress-the-woman-who-could-succeed-jensen-huang/"
+        },
+        {
+          "id": "coverage1",
+          "role": "coverage",
+          "name": "bloomberg",
+          "url": "https://www.bloomberg.com/news/videos/2026-11-12/what-we-know-about-nvidia-s-interim-ceo-colette-kress-video"
         }
       ],
       "summary_limitations": [],
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.2,
+        "value": 8.3,
         "answers": {
           "what": 9,
-          "why": 8,
-          "notable": 7,
+          "why": 10,
+          "notable": 6,
           "meaning": 9
         },
         "hard_errors": [],
         "findings": [
           {
             "question": "notable",
-            "problem": "The Vietnamese leaves out Kress's background: she joined in 2013, was recruited by Huang, and spent more than two decades in finance roles at Microsoft, Cisco and Texas Instruments.",
-            "fix": "Add one clause on her 2013 hiring by Huang and her prior finance career (p012). It would also help to say that analysts called her the logical choice (p003, p005)."
+            "problem": "The Vietnamese calls the scandal only an 'extramarital relationship'. It omits that the woman is Chinese and is suspected by US officials of being a Chinese intelligence asset, and that a company linked to her is under investigation over export-control evasion. This is the most newsworthy specific in the source.",
+            "fix": "Add one sentence saying the affair was with a Chinese businesswoman whom US officials suspect of being a Ministry of State Security asset (outlet:p001, p009)."
+          },
+          {
+            "question": "what",
+            "problem": "The board's choice of Harvey Jones as new chair and his statement of 'full confidence' in Kress are not mentioned.",
+            "fix": "Optionally add that the new board chair Harvey Jones said the board has full confidence in Kress (outlet:p002)."
           }
         ],
         "writer_boats": [
@@ -64258,8 +64298,8 @@
         ],
         "scorer_boat": "claude",
         "scorer_provider": "claude-code",
-        "prose_sha256": "2f7725e4b804529bc6eb0f1242d512deac78e56017523178e3dd9913a562f040",
-        "scored_at": "2026-11-13T11:19:45.860377+00:00"
+        "prose_sha256": "97139eba4c6e67b56f62f589ad37138096c6eab2b4305c885a878b43f81e7ec9",
+        "scored_at": "2026-11-13T13:29:13.394996+00:00"
       }
     },
     {
@@ -65585,17 +65625,17 @@
       "use_original_title": false,
       "source_url": "https://analyticsindiamag.com/ai-startups/can-karnatakas-ai-hub-ease-compute-costs-for-women-led-startups",
       "key_points": [
-        "Bà Manjula N, quan chức bang Karnataka, yêu cầu giáo sư Debabrata Das xem liệu bang có thể trợ giá thêm tài nguyên tính toán qua AI Hub dự kiến trị giá ₹35 crore tại IIIT-Bangalore, sau kiến nghị của Priyanka Gangishetty, đồng sáng lập Vuha AI.",
-        "Theo Das, chi phí phần cứng đã tăng khoảng bốn lần trong năm qua; IndiaAI Mission cấp tài nguyên tính toán qua kênh riêng, không qua chính quyền bang. Gangishetty nói người làm AI cần nhiều GPU và đề nghị GPU giá ưu đãi hoặc nơi huấn luyện mô hình cho startup; Vuha AI phát triển camera thông minh cho công nghiệp và camera AI.",
-        "Theo Das, AI Hub dự tính mở AI Living Lab, nơi startup có thể đặt lịch dùng tài nguyên tính toán và thử giải pháp; ông cảnh báo hạn chế về năng lực tính toán và bộ nhớ trên toàn cầu có thể kéo dài thêm một năm rưỡi. Một nhà sáng lập trong lĩnh vực robot và sản xuất cũng đề nghị dùng chung không gian cùng thiết bị sản xuất, thay vì tự xây cơ sở.",
-        "Analytics India Magazine nhận xét tiếp cận tài nguyên tính toán chỉ là một phần khó khăn: các nữ sáng lập còn lo việc chuyển từ tài trợ ban đầu sang tăng trưởng thương mại, nhất là khi sản phẩm cần nhiều năm nghiên cứu trước khi triển khai."
+        "Bang Karnataka yêu cầu xem xét trợ giá thêm tài nguyên tính toán qua AI Hub dự kiến trị giá ₹35 crore tại IIIT-Bangalore, sau kiến nghị của Priyanka Gangishetty, đồng sáng lập Vuha AI. Analytics India Magazine cho biết IndiaAI Mission đã phân bổ 62.000 GPU nhưng mức sử dụng còn thấp.",
+        "Gangishetty đề nghị GPU giá ưu đãi hoặc nơi huấn luyện mô hình cho startup; giáo sư Debabrata Das cho biết chi phí phần cứng đã tăng khoảng bốn lần trong năm qua. Das lưu ý IndiaAI Mission cấp tài nguyên tính toán qua kênh riêng, không qua chính quyền bang.",
+        "Các quan chức nói sẽ xem xét đề xuất trợ giá tài nguyên tính toán và cơ sở dùng chung; Das cho biết AI Hub đang lên kế hoạch cho AI Living Lab, nơi startup có thể đặt lịch dùng tài nguyên tính toán và thử giải pháp. Bà Manjula N còn nói bang đang chuẩn bị chính sách cho doanh nghiệp tiếp cận dữ liệu chính phủ theo nhu cầu.",
+        "Analytics India Magazine nhận xét tài nguyên tính toán chỉ là một phần khó khăn: các nữ sáng lập còn lo chuyển từ tài trợ ban đầu sang tăng trưởng thương mại khi sản phẩm cần nhiều năm nghiên cứu. KDEM nói có thể kết nối startup với doanh nghiệp và hỗ trợ thử nghiệm qua Government First tối đa ₹25 lakh; theo sở phụ trách, ELEVATE Shakti 2026 đã chọn 63 startup với cam kết tài trợ ₹23,19 crore."
       ],
       "same_event_coverage_ids": [
         "210e370f799fb4715212"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Karnataka yêu cầu xem khả năng trợ giá tài nguyên tính toán qua AI Hub ₹35 crore cho startup",
+      "editorial_headline_vi": "Karnataka xem xét trợ giá GPU qua AI Hub ₹35 crore sau kiến nghị của startup do phụ nữ sáng lập",
       "summary_sources": [
         {
           "id": "outlet",
@@ -65608,29 +65648,24 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.15,
+        "value": 8.9,
         "answers": {
           "what": 9,
           "why": 10,
-          "notable": 7,
-          "meaning": 6
+          "notable": 9,
+          "meaning": 7
         },
         "hard_errors": [],
         "findings": [
           {
             "question": "meaning",
-            "problem": "The reader never learns what the government offered in response to the founders' concerns: Government First pilot support of up to ₹25 lakh, the ELEVATE grants, KDEM introductions to corporates, and the planned data-access policy.",
-            "fix": "Add one or two sentences on the response, for example Government First pilots up to ₹25 lakh (p014), ELEVATE Shakti 2026 with 63 startups and ₹23.19 crore (p016), and the state's policy to open government data (p011)."
-          },
-          {
-            "question": "notable",
-            "problem": "The source says officials would examine proposals for subsidised compute and shared facilities (p004). The Vietnamese covers only Manjula's request to Das.",
-            "fix": "State that government officials said they would examine proposals for subsidised compute and shared facilities (p004)."
+            "problem": "The Vietnamese omits Das's caution that compute and memory constraints are global and could last another year and a half. That caution limits how much any subsidy can change.",
+            "fix": "Add one clause saying Das warned the shortage of compute and memory may last about 18 more months (p007)."
           },
           {
             "question": "what",
-            "problem": "The context for the compute complaint is missing: IndiaAI Mission has allotted 62,000 GPUs but utilisation is marginal (p001).",
-            "fix": "Add the 62,000 GPUs allotted and marginal utilisation (p001) as background for the subsidy request."
+            "problem": "The headline says Karnataka is 'xem xét trợ giá GPU'. The source says only that officials would examine proposals and that the secretary asked Das to examine the option. No subsidy decision exists.",
+            "fix": "Keep the framing as a request to examine possible compute subsidies (p004, p008)."
           }
         ],
         "writer_boats": [
@@ -65638,8 +65673,8 @@
         ],
         "scorer_boat": "claude",
         "scorer_provider": "claude-code",
-        "prose_sha256": "eb99574937b09bb9a60113e4c112067257b6e9a45e1c34f4fa4590565b075cbd",
-        "scored_at": "2026-11-13T11:07:06.222014+00:00"
+        "prose_sha256": "d10a574bfeda9d33ae2c9ba92a1ac00d4aa9ecb541da4b524908f08fa3d86ed4",
+        "scored_at": "2026-11-13T13:25:53.110505+00:00"
       }
     },
     {
@@ -65904,6 +65939,883 @@
         "scorer_provider": "claude-code",
         "prose_sha256": "571aea1526063ed4bccd8f798523a7ef8adb03c3214da3ac4aab237eef755af3",
         "scored_at": "2026-11-13T11:05:44.448097+00:00"
+      }
+    },
+    {
+      "id": "059edda08ba6c4098532",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-13/nvidia-s-biggest-risk-is-product-pace-windsor",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "a26dab43d67ab544ac85"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "30f5ce152acc8d522a2e",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://github.blog/changelog/2026-11-13-manage-ai-scan-for-repositories-using-the-rest-api",
+      "key_points": [
+        "GitHub mở bản xem trước công khai, cho phép bật hoặc tắt AI Scan cho kho mã bằng REST API ở cấp tổ chức và từng kho mã. Thiết lập mới mang tên repository_scan được thêm vào các endpoint quản lý AI Scan hiện có.",
+        "GitHub cho biết người quản lý có thể dùng GET và PATCH tại endpoint của tổ chức hoặc kho mã, rồi đặt repository_scan thành enabled hoặc disabled. Bản xem trước cũng cho phép triển khai thiết lập bằng script hoặc cấu hình hạ tầng thay cho việc chỉnh từng nơi.",
+        "Khi tổ chức tắt AI Scan cho kho mã, các kho mã thuộc tổ chức không thể tự bật; khi tổ chức bật, chúng kế thừa thiết lập nhưng có thể tự tắt. Nếu chính sách doanh nghiệp không cho phép AI Scan, yêu cầu bật sẽ nhận lỗi 422.",
+        "Theo GitHub, bật AI Scan chưa khởi chạy lần quét nào: người có quyền ghi vẫn phải chạy quét khi cần, và mỗi lần quét tiêu thụ GitHub Code Security AI credits. Phạm vi áp dụng gồm kho mã công khai của tổ chức và một số kho mã riêng tư hoặc nội bộ có gói bảo mật phù hợp; GitHub Enterprise Server chưa được hỗ trợ."
+      ],
+      "same_event_coverage_ids": [
+        "8954ec45c82baff7fddc"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "GitHub cho quản lý AI Scan qua REST API trong bản xem trước; bật tính năng chưa tự chạy quét",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "github",
+          "url": "https://github.blog/changelog/2026-11-13-manage-ai-scan-for-repositories-using-the-rest-api"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.4,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The reader does not learn that enterprise owners must first allow AI Scan in the enterprise policy. The article also says pr_scan and repository_scan can be updated in one request, and that a block on either change leaves both unchanged (p011, p014).",
+            "fix": "Add one sentence: enterprise owners must allow AI Scan first, and a combined pr_scan plus repository_scan request fails entirely with a 422 if either change is blocked (p011, p014)."
+          }
+        ],
+        "writer_boats": [
+          "codex"
+        ],
+        "scorer_boat": "claude",
+        "scorer_provider": "claude-code",
+        "prose_sha256": "2e8b9e08b2addd9c5cb0846f0ca6a4a81782d7602d43c4a0db366d4b511a7bc7",
+        "scored_at": "2026-11-13T13:10:40.981442+00:00"
+      }
+    },
+    {
+      "id": "503b24c265f215fd1f80",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Tin chủ yếu nói về đầu tư trung tâm dữ liệu, năng lượng và sản xuất; AI chỉ là một mục đích sử dụng được nhắc đến.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://analyticsindiamag.com/ai-news/renew-pledges-80000-cr-for-green-data-centre-to-fuel-indias-ai-push",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "5f046564d9772567ef3d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "9e92ac18c46179fcfbdf",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/13/2026/investors-are-hungry-for-anthropics-ipo-despite-tech-pullback",
+      "key_points": [
+        "Theo Semafor, IPO của Anthropic được đưa tin có lượng đăng ký mua gấp sáu lần lượng chào bán, dù cổ phiếu công nghệ gần đây chịu áp lực.",
+        "Semafor cho rằng dự báo tăng trưởng lạc quan có thể là lý do một số nhà đầu tư vẫn quan tâm. Trong khi đó, theo Semafor, lo ngại chi tiêu quá mức và nợ tăng đã khiến nhà đầu tư rút khỏi cổ phiếu công nghệ.",
+        "Goldman Sachs, một ngân hàng dẫn dắt IPO, dự báo doanh thu Anthropic vượt 600 tỷ USD vào năm 2030, hơn 130 lần doanh số năm ngoái. Semafor cho biết Nasdaq ghi nhận tháng giảm mạnh nhất trong hơn một năm vào tháng 10; việc CEO Nvidia từ chức cũng làm gia tăng lo ngại.",
+        "Lượng đăng ký được đưa tin cho thấy nhu cầu đối với IPO Anthropic vẫn mạnh bất chấp những trở ngại gần đây của nhóm cổ phiếu công nghệ."
+      ],
+      "same_event_coverage_ids": [
+        "6fc9ab22d4c0ff6c6ab9",
+        "72d06e1eabd11596ab27"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "IPO Anthropic được đưa tin đăng ký mua gấp sáu lần giữa đợt giảm cổ phiếu công nghệ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/13/2026/investors-are-hungry-for-anthropics-ipo-despite-tech-pullback"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.65,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "codex"
+        ],
+        "scorer_boat": "claude",
+        "scorer_provider": "claude-code",
+        "prose_sha256": "1f4a0ccf5bb67951dd15ccecb980d3da50b3297fce7e112ef9c981d4b034bc2d",
+        "scored_at": "2026-11-13T13:16:26.757901+00:00"
+      }
+    },
+    {
+      "id": "028617567511b5b9f76a",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Trọng tâm là việc Mars mở trung tâm vận hành và tuyển nhân sự; AI chỉ là một phần trong phạm vi công việc của trung tâm.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://analyticsindiamag.com/ai-news/mars-opens-hyderabad-gcc-with-genpact-to-expand-digital-ai-capabilities",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "94142bfb475ae308f8d6"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "f4d1ef334aa69e05ee22",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/13/2026/european-leaders-ai-summit-expected-to-be-overshadowed-by-ukraine-war",
+      "key_points": [
+        "Lãnh đạo châu Âu dự kiến họp tại Dublin về cách cạnh tranh AI với Mỹ và Trung Quốc; Semafor gọi đây là hội nghị đầu tiên thuộc loại này chỉ tập trung vào AI.",
+        "Semafor dự báo tranh luận về hỗ trợ tài chính cho Ukraine, tiếng nói đối ngoại của khối và ngân sách chung có thể lấn át nghị trình AI.",
+        "Một nhà phân tích được Semafor dẫn lời nhận xét châu Âu là nền kinh tế lớn nhưng tụt xa Mỹ và Trung Quốc, nên không có tiếng nói trong cuộc đua này.",
+        "Semafor nhận xét nỗ lực AI của EU đến nay còn phân tán và phần lớn chưa đạt mục tiêu đã đặt ra; các nhà phân tích hoài nghi khối có thể vượt qua những điểm yếu về cơ cấu."
+      ],
+      "same_event_coverage_ids": [
+        "2dec3779b0f12187c91d"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Hội nghị AI đầu tiên của EU tại Dublin có thể bị tranh luận về Ukraine và ngân sách lấn át",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/13/2026/european-leaders-ai-summit-expected-to-be-overshadowed-by-ukraine-war"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "codex"
+        ],
+        "scorer_boat": "claude",
+        "scorer_provider": "claude-code",
+        "prose_sha256": "fe5752e156573ed3248c55b647f5d3c239d1bc2d74415e79a7d781c94ed1f8a6",
+        "scored_at": "2026-11-13T13:16:26.758288+00:00"
+      }
+    },
+    {
+      "id": "c452f7ff75d9c04525cd",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-13/ives-cuts-nvidia-price-target-stays-bullish-post-huang-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "3dd56122c14322589e6f"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "0f0c1c9aaa1e91235510",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/13/2026/chip-curbs-may-have-long-term-negative-impacts-on-the-ai-sector",
+      "key_points": [
+        "SemiAnalysis cảnh báo xu hướng tại Washington muốn siết quyền tiếp cận chip tiên tiến của Trung Quốc sẽ gây tác động tiêu cực lâu dài cho ngành AI và chính nước Mỹ.",
+        "Theo lập luận của SemiAnalysis được Semafor dẫn lại, cách quản lý hiện nay cho Washington khả năng quan sát hoạt động của các công ty AI Trung Quốc và ngắt quyền dùng chip từ xa; nó cũng làm giảm động lực phát triển nhanh ngành chip nội địa của Bắc Kinh.",
+        "Một hướng siết được Semafor nêu là chặn công ty Trung Quốc dùng bộ xử lý do Mỹ sản xuất qua trung tâm dữ liệu ở nước thứ ba. SemiAnalysis gọi AI mã nguồn mở là lĩnh vực đang bị đe dọa và nói đây có thể là hệ quả lớn nhất, bởi các phòng thí nghiệm Trung Quốc phần lớn phát triển AI theo hướng này.",
+        "SemiAnalysis cảnh báo các biện pháp nhắm vào quyền dùng chip từ xa sẽ có hệ quả mà họ cho rằng giới chính trị chưa cân nhắc hết."
+      ],
+      "same_event_coverage_ids": [
+        "57a9dbe9c7cfe47af19f"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "SemiAnalysis cảnh báo siết quyền dùng chip Mỹ từ xa có thể gây hại lâu dài cho ngành AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/13/2026/chip-curbs-may-have-long-term-negative-impacts-on-the-ai-sector"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "codex"
+        ],
+        "scorer_boat": "claude",
+        "scorer_provider": "claude-code",
+        "prose_sha256": "ce5e8da073276eb9702f7c4b6553372570e273c74f07ecf5d4348dfd93b70913",
+        "scored_at": "2026-11-13T13:16:26.758495+00:00"
+      }
+    },
+    {
+      "id": "cd9a227217501d9b400b",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.wired.com/story/black-roles-are-disappearing-in-hollywood-this-startup-is-using-ai-microdramas-to-fight-back/",
+      "key_points": [
+        "Mansa làm They Left Us to Die, phim ngắn nhiều tập gồm 30 tập được tạo hoàn toàn bằng AI, kể về một y tá đối mặt dịch xác sống ở Nam Los Angeles. WIRED ghi nhận trailer ban đầu nhận phản ứng chủ yếu tích cực, nhưng việc phim không có vai diễn cho người thật sau đó gây tranh cãi.",
+        "Đồng sáng lập Nate Parker nói Mansa dùng phim AI để thử mức quan tâm của khán giả và theo dõi tương tác; ông tin kết quả có thể thuyết phục hãng phim đầu tư sản xuất bản quay với người thật.",
+        "Sự phản đối xuất hiện trong bối cảnh thương vụ Paramount Skydance mua Warner Bros. Discovery được cơ quan Los Angeles dự báo có thể làm mất tới 4.500 việc làm điện ảnh và truyền hình tại đây. Theo báo cáo UCLA được WIRED dẫn lại, diễn viên da đen chỉ đảm nhận 6,5% vai chính trong phim năm 2025; Mansa chưa công bố dữ liệu về hiệu quả các phim AI của mình.",
+        "J. Christopher Hamilton, giảng viên truyền thông tại Syracuse và luật sư ngành giải trí, cho rằng phim ngắn nhiều tập làm bằng AI là cơ hội kinh doanh khó để ngành bỏ qua, dù Mansa thành công hay thất bại. Ông dự đoán ngành sẽ sắp xếp lại cách làm việc, nhưng diễn viên và người kể chuyện bằng người thật sẽ không biến mất hoàn toàn."
+      ],
+      "same_event_coverage_ids": [
+        "c04c24fc47558a8b67bd"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Mansa tung phim 30 tập tạo hoàn toàn bằng AI, làm dấy lên lo ngại về vai diễn cho nghệ sĩ da màu",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "wired",
+          "url": "https://www.wired.com/story/black-roles-are-disappearing-in-hollywood-this-startup-is-using-ai-microdramas-to-fight-back/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.4,
+        "answers": {
+          "what": 9,
+          "why": 9,
+          "notable": 7,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The Vietnamese says Mansa 'chưa công bố' performance data. The source says the company declined to share it (p019), which is a firmer stance.",
+            "fix": "Write that Mansa declined to share data on how its AI series are performing (p019)."
+          },
+          {
+            "question": "notable",
+            "problem": "The reader does not learn why some viewers distrust Parker, namely his 1999 sexual-assault charge, of which he was later acquitted, and the controversy around The Birth of a Nation (p020). Nor does the reader see the sample backlash from users or Hamilton's view that Parker is 'not reading the room' (p016).",
+            "fix": "Add one sentence on the backlash content and the trust concern around Parker, using p004, p016 and p020."
+          },
+          {
+            "question": "what",
+            "problem": "The microdrama market context is absent: vertical, minute-long episodes, the Omdia forecast of a $14B market by 2027, and streamers adding short-form feeds (p010-p014).",
+            "fix": "Add a brief line on the microdrama boom, citing p010-p011."
+          }
+        ],
+        "writer_boats": [
+          "codex"
+        ],
+        "scorer_boat": "claude",
+        "scorer_provider": "claude-code",
+        "prose_sha256": "48aa91e478c808575eb55d19cf13c15edd6e6982833e45db623dc60912f07de9",
+        "scored_at": "2026-11-13T13:16:26.758698+00:00"
+      }
+    },
+    {
+      "id": "394c6f1d965f75051654",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/13/2026/us-commerce-secretary-in-the-spotlight-over-nvidia-scandal",
+      "key_points": [
+        "Bộ trưởng Thương mại Mỹ Howard Lutnick đang chịu sức ép gia tăng từ các nghị sĩ về cách chính quyền Trump xử lý vụ việc liên quan Nvidia.",
+        "Theo Semafor, Bộ Thương mại bị chỉ trích vì chưa trừng phạt khách hàng Nvidia là Megaspeed, công ty bị cáo buộc buôn lậu chip; có tin cả Bộ trưởng Tài chính cũng chỉ trích Lutnick.",
+        "Nhà chức trách Singapore nói Mỹ chỉ hỗ trợ hạn chế cuộc điều tra của họ về lãnh đạo Megaspeed này.",
+        "Trong lúc vụ việc còn diễn tiến, nhiều thượng nghị sĩ Cộng hòa kêu gọi Lutnick và Huang ra trước Thượng viện; một nghị sĩ Cộng hòa tại Hạ viện nói với Semafor rằng các câu hỏi cần được giải đáp."
+      ],
+      "same_event_coverage_ids": [
+        "cf48a00427af465fe742"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Bộ trưởng Thương mại Mỹ chịu sức ép sau tiết lộ liên quan lãnh đạo Megaspeed và CEO Nvidia",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/13/2026/us-commerce-secretary-in-the-spotlight-over-nvidia-scandal"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 7.1,
+        "answers": {
+          "what": 8,
+          "why": 8,
+          "notable": 5,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The reader never learns that Huang's downfall followed revelations that a Megaspeed executive accused of ties to Chinese intelligence had an affair with him. The headline's 'tiết lộ liên quan' leaves the key fact vague, and the text mentions the Megaspeed executive without saying why that person matters.",
+            "fix": "State that revelations of an affair between the Megaspeed executive and Huang led to Huang's downfall (outlet:p001), and name the executive's alleged Chinese intelligence ties."
+          }
+        ],
+        "writer_boats": [
+          "codex"
+        ],
+        "scorer_boat": "claude",
+        "scorer_provider": "claude-code",
+        "prose_sha256": "ef1a2e28d7d9167c1abdcb155f5ed365f4665531369ef9c38a754fd40e88b913",
+        "scored_at": "2026-11-13T13:16:26.758769+00:00"
+      }
+    },
+    {
+      "id": "fcf7949b85f758839898",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-13/nvidia-in-crisis-what-next-bloomberg-tech-europe-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "2eb575aca6b09b0512f2"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "2c3fbd78a350ab7068ba",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-13/nvidia-s-france-pledges-remain-intact-varza-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "72576b9c26c01cd34e97"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "6a988d4e7c335ef46f4b",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-13/nvidia-s-ai-chip-share-set-to-shrink-akarca-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "6df9548c88bbb344770d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "3cdc276fd6a522c55207",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.theatlantic.com/books/2026/11/ai-literary-scams-amazon/689391/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "4b043cc42f014620b10f"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "e4f068cac2e846a8307d",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-13/uk-retailers-are-hiring-for-ai-and-pulling-back-on-other-roles",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "6e03e2dca9833e57d7f2"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "a4e7283d60966a44227f",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-13/alice-huang-firm-procured-banned-nvidia-chips-in-china-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "3ce1a1f8337976b56630"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "dced5e0cffb8dff3bcab",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://analyticsindiamag.com/ai-news/shield-ai-opens-bengaluru-engineering-office-to-build-defence-autonomy-software",
+      "key_points": [
+        "Shield AI opened a Bengaluru engineering office focused on autonomy software for Indian aircraft and defence systems.",
+        "The office will work on Shield AI’s Hivemind autonomous systems platform.",
+        "Shield AI said it plans to hire engineers in autonomy, flight software, simulation, integration and testing."
+      ],
+      "same_event_coverage_ids": [
+        "435efb9bea741052852b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "bdef6e997490d65ab229",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://analyticsindiamag.com/ai-news/adobe-google-expand-ai-partnership-across-creative-and-productivity-tools",
+      "key_points": [
+        "Adobe và Google mở rộng hợp tác: mô hình AI của Google sẽ vào phần mềm sáng tạo của Adobe, còn công cụ Adobe sẽ được đưa vào Workspace, Gemini và Google Search.",
+        "Anil Chakravarthy, chủ tịch kiêm CEO sắp nhậm chức của Adobe, nói hợp tác này giúp đưa công cụ của hãng đến nhiều người hơn trên sản phẩm của cả hai bên.",
+        "Acrobat sẽ có trong Google Workspace: người dùng có thể mở tài liệu từ Drive và Gmail bằng tùy chọn “Edit with” ngay ở phần xem trước tệp. Mô hình Gemini cũng sẽ hỗ trợ Acrobat hiểu nội dung và chỉnh PDF bằng câu lệnh hội thoại.",
+        "Các mô hình tạo ảnh và video của Google sẽ có trong ứng dụng sáng tạo Adobe; khách hàng Adobe đã có thể dùng Gemini Omni, Veo và Nano Banana."
+      ],
+      "same_event_coverage_ids": [
+        "f13483898ed4b5ad095d"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Adobe và Google mở rộng hợp tác AI: Acrobat sẽ vào Workspace, mô hình ảnh và video vào ứng dụng Adobe",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "analytics-india-magazine",
+          "url": "https://analyticsindiamag.com/ai-news/adobe-google-expand-ai-partnership-across-creative-and-productivity-tools"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.6,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 8,
+          "meaning": 7
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The reader misses that the companies are exploring custom Google image models for Photoshop, which could allow near-real-time editing through text prompts, and that Adobe tools will be usable inside Gemini conversations and AI Mode in Search.",
+            "fix": "Add one sentence on the Photoshop exploration (outlet:p008) and on Adobe tools being usable within Gemini and AI Mode in Search (outlet:p006)."
+          }
+        ],
+        "writer_boats": [
+          "codex"
+        ],
+        "scorer_boat": "claude",
+        "scorer_provider": "claude-code",
+        "prose_sha256": "6d47a06e1dbbd1fca36895ef169da2960e277d92efb4a6cbdf124ff312f1ca7f",
+        "scored_at": "2026-11-13T13:16:26.758868+00:00"
+      }
+    },
+    {
+      "id": "02f3f1681c35189db3a9",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bài viết hướng dẫn doanh nghiệp chuẩn bị hạ tầng, dữ liệu và quy trình áp dụng AI.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://analyticsindiamag.com/ai-highlights/a-practical-blueprint-for-an-ai-ready-enterprise",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "2389a35a09f541deef65"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "bf726c00d314a8f101f3",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://github.com/hardwiredagent/silicon-forge-arm-neon-study",
+      "key_points": [
+        "Theo số đo do tác giả kho mã công bố, bản vá NEON cho llama.cpp tăng tối đa 6,5 lần tốc độ xử lý prompt trên máy chủ Arm trong phép thử với Qwen2.5 1.5B, bốn luồng và prompt 512 token.",
+        "Tác giả cho biết một số định dạng nén mô hình trên Arm thiếu phần xử lý riêng, nên đường xử lý cũ phải giải nén trọng số lặp lại cho mỗi phép tính. Phép đo hiệu năng (benchmark, bài thử tốc độ) so sánh đường xử lý mới được bật và tắt trong cùng một bản chương trình.",
+        "Với định dạng IQ3_M trên Arm Neoverse N1, tốc độ xử lý prompt đo bằng token mỗi giây tăng từ 11,5 lên 74,5 trong phép thử bốn luồng với prompt 512 token. Tác giả báo cáo bài kiểm tra của llama.cpp đạt 15/15 trường hợp và chế độ kiểm tra ngẫu nhiên đạt 88/88 trên cả ba loại lõi Arm; tốc độ sinh nội dung không đổi.",
+        "Bản vá do Nikita, một tác nhân AI (phần mềm tự thực hiện nhiệm vụ), viết và đo; mã chưa được gửi tới dự án llama.cpp. Tác giả cho biết chưa có kỹ sư chuyên về phần xử lý này đánh giá, chưa chạy kiểm tra bằng sanitizer hay đối chiếu đầu ra trên prompt thực; số đo chỉ đến từ máy chủ Arm, chưa có thử nghiệm trên điện thoại."
+      ],
+      "same_event_coverage_ids": [
+        "c9c11a9f9d6ab5dc2378"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Thử nghiệm trên máy chủ Arm: bản vá NEON tăng tối đa 6,5 lần tốc độ xử lý prompt của llama.cpp",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://github.com/hardwiredagent/silicon-forge-arm-neon-study"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.4,
+        "answers": {
+          "what": 9,
+          "why": 9,
+          "notable": 8,
+          "meaning": 7
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The reader may think every quantization format gets faster. The source says formats that already had an Arm kernel (Q4_K_M, Q5_K_M, Q6_K, Q8_0) show 1.0x, and the new Arm numbers are still well below the x86 reference.",
+            "fix": "Add that already-supported formats are unchanged and that the Arm figures remain well below x86 (outlet:p016, outlet:p043, outlet:p044)."
+          }
+        ],
+        "writer_boats": [
+          "codex"
+        ],
+        "scorer_boat": "claude",
+        "scorer_provider": "claude-code",
+        "prose_sha256": "d1d48f003ff9f74b44c27a8e795c6619751f04f6a89fa700c1aaf525cf73728b",
+        "scored_at": "2026-11-13T13:16:26.758975+00:00"
+      }
+    },
+    {
+      "id": "45361d0c5473ca0e476a",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://coyotetracks.org/blog/right-amount-of-ai/",
+      "key_points": [
+        "Trong một bài luận, tác giả cho rằng càng ít mã do mô hình ngôn ngữ tạo ra thì lập trình viên càng dễ kiểm tra; mức ít nhất theo ông là không dùng mã AI. Ông nói đây là quan điểm về cách làm phần mềm, đồng thời thừa nhận ứng dụng tốt vẫn có thể được tạo với AI.",
+        "Tác giả lo người lập trình hiểu mã của mình kém đi khi giao ngày càng nhiều việc cho công cụ AI hỗ trợ viết mã. Ông cũng coi việc chọn dùng mô hình ngôn ngữ, thay vì tìm sự giúp đỡ từ con người, là một lựa chọn có hệ quả đạo đức.",
+        "Tranh cãi quanh game Big Walk là ví dụ của ông: House House nói AI chỉ chạm tới một phần rất nhỏ mã, nhưng một nhóm giám khảo giải game độc lập vẫn từ chối bỏ phiếu cho trò chơi có dùng AI tạo sinh. Ở chiều ngược lại, tác giả vẫn sử dụng Overcast dù biết ứng dụng có mã do Claude tạo và ông không cho rằng ứng dụng đó sẽ gây những lỗi nghiêm trọng mình nêu.",
+        "Tác giả kết luận ông có thể tránh mô hình ngôn ngữ trong công việc của chính mình, nhưng không thực tế khi tránh mọi phần mềm từng dùng công nghệ này. Theo quan điểm của ông, ứng dụng vẫn có thể hay dù dùng AI, song chất lượng có suy nghĩ và sự tinh chỉnh vẫn cần người phát triển hiểu rõ sản phẩm."
+      ],
+      "same_event_coverage_ids": [
+        "88b27fad868d7a38da99"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Tác giả bài luận về Big Walk cho rằng càng ít mã do AI tạo thì lập trình viên càng dễ kiểm tra",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://coyotetracks.org/blog/right-amount-of-ai/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 7.3,
+        "answers": {
+          "what": 8,
+          "why": 6,
+          "notable": 7,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The reader gets only the loss of understanding. The source also gives codebase quality decline (p018), GPL licensing risk (p021) and the ethical and political case (p014-p016).",
+            "fix": "Add one short clause on worse codebases and the licensing risk, citing p018 and p021."
+          },
+          {
+            "question": "what",
+            "problem": "The ethical claim in paragraph 2 reads as the author's own. It comes from Bruno Dias's blog post, which the author says is 'not wrong' (p013-p014).",
+            "fix": "Attribute the point to Bruno Dias, with the author agreeing with it."
+          },
+          {
+            "question": "notable",
+            "problem": "The headline centres the essay on Big Walk, but the source treats Big Walk as one example in a wider argument about LLM-written code (p007, p028).",
+            "fix": "Frame the headline around the author's general argument and mention Big Walk as the example."
+          }
+        ],
+        "writer_boats": [
+          "codex"
+        ],
+        "scorer_boat": "claude",
+        "scorer_provider": "claude-code",
+        "prose_sha256": "d122506f91ffe253ddec91697d56c2c90d540513d208eedcba6fb3551665b1b5",
+        "scored_at": "2026-11-13T13:10:40.982409+00:00"
+      }
+    },
+    {
+      "id": "8ade65131ea7270222f1",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.wired.com/story/nvidia-ceo-jensen-huang-steps-down/",
+      "key_points": [
+        "Hội đồng Nvidia thông báo Jensen Huang từ chức các vị trí president, CEO và thành viên hội đồng quản trị, có hiệu lực ngay; giám đốc tài chính Colette Kress làm CEO tạm quyền. WIRED cho biết ông rời chức bốn ngày sau khi Nvidia công bố điều tra nội bộ về cuộc ngoại tình của ông với Alice Huang.",
+        "Một nguồn am hiểu vụ việc nói với WIRED rằng quan hệ bị cáo buộc của Huang với một cấp dưới và giao dịch của ông với Megaspeed có lẽ ảnh hưởng đến quyết định cho ông rời ghế nhiều hơn cáo buộc gián điệp Trung Quốc. Megaspeed là công ty AI tại Singapore nơi Alice Huang từng giữ vị trí cấp cao.",
+        "Theo WIRED, ngày 6/11, The New York Times và Financial Times đưa tin Alice Huang là gián điệp của Bộ An ninh Quốc gia Trung Quốc, được tuyển để thu thập thông tin về Jensen Huang. Chính phủ Trung Quốc bác bỏ cáo buộc bà là điệp viên; Huang đã gửi email toàn công ty thừa nhận cuộc ngoại tình, xin lỗi gia đình và nhân viên, đồng thời cam kết hợp tác điều tra.",
+        "WIRED nhận xét Nvidia nay mất đi phong cách lãnh đạo của Huang, một phần từng được xem là quan trọng với thành công của hãng bên cạnh chip và phần mềm CUDA. Theo WIRED, tính đến tháng 9/2026, Nvidia nắm khoảng 90% thị trường GPU."
+      ],
+      "same_event_coverage_ids": [
+        "33fbe8447cb101e4d2b7",
+        "7f779199aa33153941ca"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Jensen Huang từ chức CEO Nvidia sau khi hãng mở điều tra cuộc ngoại tình với Alice Huang",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "wired",
+          "url": "https://www.wired.com/story/nvidia-ceo-jensen-huang-steps-down/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.9,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 8,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The reader misses that the export-control investigation of Megaspeed was reportedly halted and moved to the Justice Department after Nvidia's general counsel inquired, and that Huang had lobbied against export controls.",
+            "fix": "Add one line on the Commerce investigation of Megaspeed being transferred to the Justice Department (outlet:p009) and on Huang's opposition to export controls (outlet:p010)."
+          }
+        ],
+        "writer_boats": [
+          "codex"
+        ],
+        "scorer_boat": "claude",
+        "scorer_provider": "claude-code",
+        "prose_sha256": "20fd30737b80cf7b535fbb17d7b4c55f7c55799c008d6feefef18c27faf46cac",
+        "scored_at": "2026-11-13T13:16:26.759027+00:00"
       }
     }
   ]
