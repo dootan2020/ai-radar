@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-13T13:29:36.113045+00:00",
-  "input_generated_at": "2026-11-13T12:45:50Z",
+  "generated_at": "2026-11-13T15:23:37.903382+00:00",
+  "input_generated_at": "2026-11-13T14:45:34Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -60688,10 +60688,10 @@
       "use_original_title": true,
       "source_url": "https://www.semafor.com/article/11/10/2026/huang-scandal-puts-nvidia-chip-loopholes-in-focus",
       "key_points": [
-        "Theo một trích đoạn bài TechCrunch, Jensen Huang đã từ chức Nvidia sau một mối quan hệ tình cảm. Semafor cho biết diễn biến quanh Nvidia làm tăng sự chú ý đến những đường hợp pháp để các công ty lớn của Trung Quốc tiếp cận năng lực tính toán tiên tiến của Mỹ.",
-        "Theo Semafor, kiểm soát xuất khẩu của Washington tạo cơ hội cho các nhà vận hành đám mây châu Á có chip Nvidia tiên tiến, qua đó mở một lối tiếp cận hợp pháp cho các tập đoàn công nghệ Trung Quốc.",
-        "Theo Semafor, DayOne có ByteDance là khách hàng lớn nhất, còn Moonshot tìm cách tiếp cận chip Nvidia đặt ở châu Âu.",
-        "Một chuyên gia Carnegie Endowment được Semafor dẫn lời cho rằng những trường hợp này cho thấy sự vô lý trong chế độ kiểm soát xuất khẩu của Mỹ. Semafor phân biệt lối tiếp cận hợp pháp đó với Megaspeed, công ty tại Singapore đang bị nghi đưa lậu chip Nvidia sang Trung Quốc."
+        "Semafor cho biết vụ việc quanh Nvidia đang làm tăng chú ý tới những cách hợp pháp mà các công ty lớn Trung Quốc dùng để tiếp cận năng lực tính toán tiên tiến của Mỹ.",
+        "Theo Semafor, kiểm soát xuất khẩu của Washington tạo cơ hội kinh doanh cho các nhà vận hành đám mây châu Á sở hữu chip Nvidia tiên tiến, qua đó mở đường tiếp cận hợp pháp cho các tập đoàn công nghệ Trung Quốc.",
+        "Semafor phân biệt các đường tiếp cận hợp pháp này với Megaspeed, công ty Singapore đang bị nghi đưa lậu chip Nvidia sang Trung Quốc.",
+        "Một chuyên gia Carnegie Endowment được Semafor dẫn lời đánh giá các trường hợp này cho thấy chế độ kiểm soát xuất khẩu của Mỹ có điểm vô lý và nói chưa chính quyền nào sẵn lòng xử lý vấn đề đó."
       ],
       "same_event_coverage_ids": [
         "7a29caa24afd71fe0655"
@@ -60701,43 +60701,37 @@
         "3240ccc710b1b3dba9e7"
       ],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "TechCrunch đưa tin Jensen Huang từ chức; Semafor nêu lỗ hổng tiếp cận chip Nvidia",
+      "editorial_headline_vi": "DayOne trị giá khoảng 15 tỷ USD khi Semafor nêu đường hợp pháp để công ty Trung Quốc dùng chip Nvidia",
       "summary_sources": [
         {
           "id": "outlet",
           "role": "outlet",
-          "name": "semafor",
+          "name": "www.semafor.com",
           "url": "https://www.semafor.com/article/11/10/2026/huang-scandal-puts-nvidia-chip-loopholes-in-focus"
-        },
-        {
-          "id": "coverage1",
-          "role": "coverage",
-          "name": "techcrunch",
-          "url": "https://techcrunch.com/2026/11/12/nvidia-ceo-jensen-huangs-affair-with-alleged-chinese-spy-a-timeline/"
         }
       ],
       "summary_limitations": [],
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 7.9,
+        "value": 7.35,
         "answers": {
-          "what": 8,
+          "what": 9,
           "why": 9,
-          "notable": 7,
+          "notable": 4,
           "meaning": 8
         },
         "hard_errors": [],
         "findings": [
           {
             "question": "notable",
-            "problem": "DayOne's roughly $15 billion valuation is missing. It is the clearest sign of how large the legal-access business is (outlet:p003).",
-            "fix": "Add that DayOne is worth about 15 billion USD and has ByteDance as its top customer."
+            "problem": "The body leaves out the concrete cases that show the loophole. DayOne is named only in the headline, and its ByteDance link and Moonshot's use of Europe-hosted Nvidia chips are missing.",
+            "fix": "Add that DayOne, a Singapore firm worth about $15 billion, counts ByteDance as its top customer, and that Moonshot has looked to tap Nvidia chips hosted in Europe (p003)."
           },
           {
             "question": "meaning",
-            "problem": "The expert's point that no US administration has been willing to fix this is missing (outlet:p003). So is TechCrunch's note on national security ramifications (coverage1:p002).",
-            "fix": "Add one clause saying the expert says no administration has acted to change this. Optionally mention the national security concern."
+            "problem": "The expert's remark is not tied to the example it comments on. In the source it follows the Moonshot Europe case (p003).",
+            "fix": "Say the expert cited Moonshot's use of Europe-hosted chips as evidence of the regime's nonsensical nature."
           }
         ],
         "writer_boats": [
@@ -60746,8 +60740,8 @@
         ],
         "scorer_boat": "claude",
         "scorer_provider": "claude-code",
-        "prose_sha256": "778efa49eb04f9e9c1171eb5ac2f685609be96f6cf8834750c3af49f51ca039d",
-        "scored_at": "2026-11-13T13:29:36.104069+00:00"
+        "prose_sha256": "55ea916e14fdfaf531884dd64783b752b0b046b4a453cc48def9652ba56bb63f",
+        "scored_at": "2026-11-13T15:20:29.948019+00:00"
       }
     },
     {
@@ -63557,17 +63551,17 @@
       "use_original_title": false,
       "source_url": "https://aws.amazon.com/blogs/machine-learning/run-agents-securely-and-efficiently-with-the-next-generation-agentcore-runtime/",
       "key_points": [
-        "Amazon nâng cấp AgentCore runtime, môi trường quản lý sẵn để chạy agent AI (phần mềm tự thực hiện nhiều bước của một nhiệm vụ) trong các phiên riêng được cách ly bằng phần cứng. Theo Amazon, phiên nay khởi động nhanh hơn tới 15 lần và có thể dùng tài nguyên tính toán gấp bốn lần so với bản trước.",
-        "Amazon nói môi trường chạy riêng đặt ra bài toán chi phí và tốc độ: chuẩn bị sẵn thì tốn tài nguyên lúc rảnh, còn tạo theo yêu cầu thì chậm lúc khởi động. Hãng cũng cho biết các nhóm phát triển muốn cách tính phí phù hợp với những lúc agent chờ phản hồi từ mô hình, công cụ hoặc con người.",
-        "Theo Amazon, mỗi phiên hỗ trợ tới 8 vCPU, 32 GB bộ nhớ và ảnh container tới 10 GB, đồng thời khởi động dưới hai giây bất kể kích thước ảnh hay số phiên đồng thời. Amazon nói hệ thống thu hồi bộ nhớ trong vài phút sau khi agent giải phóng nó và đưa agent rảnh về mức không; với agent trao đổi nhiều lượt có khoảng nghỉ, bộ nhớ dùng mỗi phiên có thể giảm tới 68%.",
-        "Bản AgentCore runtime mới đã có tại các khu vực AWS ở Bắc Mỹ, Nam Mỹ, châu Âu và châu Á Thái Bình Dương, theo Amazon; mức giảm bộ nhớ hãng nêu áp dụng cho các phiên nhiều lượt có khoảng nghỉ."
+        "Amazon công bố bản nâng cấp AgentCore runtime, môi trường chạy agent AI (phần mềm thực hiện nhiều bước của một nhiệm vụ) mà mỗi phiên được cách ly trong một máy ảo nhỏ riêng. Theo Amazon, phiên khởi động nhanh hơn tới 15 lần và hỗ trợ tài nguyên tính toán gấp bốn lần bản trước, với tối đa 8 vCPU, 32 GB bộ nhớ và thời gian khởi động dưới hai giây.",
+        "Amazon nói việc cách ly từng phiên ở quy mô lớn phải cân bằng tốc độ và chi phí: môi trường chuẩn bị sẵn vẫn tốn tài nguyên khi rảnh, còn môi trường tạo theo yêu cầu làm chậm lúc khởi động.",
+        "Trong so sánh ban đầu giữa hai phiên bản với cùng một tác vụ, Mission Cloud báo thời gian khởi động cho yêu cầu suy luận nhanh hơn 35% và chi phí vận hành đo được trên mỗi lượt gọi giảm 17%.",
+        "Amazon cho biết với agent trao đổi nhiều lượt có khoảng nghỉ, bộ nhớ dùng mỗi phiên có thể giảm tới 68% khi hệ thống thu hồi bộ nhớ và đưa agent rảnh về mức không sử dụng tài nguyên. Với agent chạy liên tục, Amazon đưa ra mức bộ nhớ nền được tính phí tối thiểu và cho phép tăng tài nguyên theo nhu cầu tới bốn lần mức đó."
       ],
       "same_event_coverage_ids": [
         "cb628cfb0115d719970f"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Amazon nói AgentCore runtime khởi động dưới hai giây, thu hồi bộ nhớ khi agent rảnh",
+      "editorial_headline_vi": "Amazon nói AgentCore runtime khởi động dưới hai giây và tăng tài nguyên cho từng phiên agent",
       "summary_sources": [
         {
           "id": "outlet",
@@ -63582,19 +63576,29 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.7,
+        "value": 8.15,
         "answers": {
           "what": 9,
-          "why": 9,
+          "why": 7,
           "notable": 9,
-          "meaning": 7
+          "meaning": 6
         },
         "hard_errors": [],
         "findings": [
           {
             "question": "meaning",
-            "problem": "The practical consequences are missing: warm pools are no longer needed (p011) and always-on agents get committed baseline pricing with bursting up to four times the baseline (p022).",
-            "fix": "Add one sentence on dropping warm pools and one on the committed-baseline pricing."
+            "problem": "The reader is not told that sessions start in under 2 seconds regardless of image size, so warm pools and pre-provisioned clusters are no longer needed.",
+            "fix": "Add that sessions start in under 2 seconds independent of image size and concurrency, with no warm pools needed (p011)."
+          },
+          {
+            "question": "what",
+            "problem": "The 'up to 68% more efficient' headline claim and the 10 GB container image support are missing.",
+            "fix": "Mention the efficiency claim (p007) and the 10 GB container image limit (p011)."
+          },
+          {
+            "question": "meaning",
+            "problem": "Availability is missing: the runtime is available now in regions across North America, South America, Europe and Asia Pacific.",
+            "fix": "Add a closing line on availability (p039)."
           }
         ],
         "writer_boats": [
@@ -63602,8 +63606,8 @@
         ],
         "scorer_boat": "claude",
         "scorer_provider": "claude-code",
-        "prose_sha256": "5ac86bc96c378128ae351fff499f211686615ee235c13749ec4f783725c9fc3c",
-        "scored_at": "2026-11-13T13:25:53.111240+00:00"
+        "prose_sha256": "0252703be77ed0d1785070cc2b1341f9f0a9e502cff1eea4c68ec0e8de948546",
+        "scored_at": "2026-11-13T15:23:37.889366+00:00"
       }
     },
     {
@@ -63877,10 +63881,10 @@
       "use_original_title": false,
       "source_url": "https://techcrunch.com/2026/11/12/united-airlines-blocks-ai-agents-from-booking-flights-citing-cybersecurity-risks/",
       "key_points": [
-        "United Airlines cho biết sẽ hạn chế agent AI cá nhân của bên thứ ba chưa được phép đặt vé và quản lý đặt chỗ thay khách. Agent AI là phần mềm có thể tự thực hiện các bước thay người dùng, trong trường hợp này là truy cập hệ thống của hãng để đặt vé hoặc xử lý đặt chỗ.",
-        "United Airlines nêu rủi ro bảo mật và nguy cơ vi phạm quy định hàng không liên bang khi giải thích quyết định hạn chế agent AI. United Airlines dẫn ví dụ quy định yêu cầu con người tự làm thủ tục lên chuyến bay để xác nhận hành lý không chứa chất bị cấm.",
-        "United nói sẽ hạn chế truy cập trực tiếp trên nền tảng số của hãng và gián tiếp qua đại lý du lịch, bên tổng hợp dịch vụ. Hãng cũng cho biết đang cập nhật chính sách đặt vé, xuất vé và phân phối để áp dụng việc hạn chế các trợ lý AI cá nhân chưa được phép.",
-        "TechCrunch nhận xét các hãng bay và ngân hàng đang khó phân biệt khách hàng với AI hành động thay họ, nhất là khi người dùng chia sẻ thông tin đăng nhập."
+        "United Airlines cho biết sẽ hạn chế agent AI cá nhân của bên thứ ba chưa được phép truy cập hệ thống để đặt vé và quản lý đặt chỗ thay khách. Agent AI là phần mềm có thể thực hiện nhiều bước thay người dùng; United nói biện pháp sẽ áp dụng trên nền tảng số của hãng và qua đại lý du lịch, bên tổng hợp dịch vụ.",
+        "United Airlines viện dẫn rủi ro an ninh mạng và nguy cơ vi phạm quy định hàng không liên bang. Hãng nêu ví dụ quy định yêu cầu con người tự làm thủ tục lên chuyến bay để xác nhận hành lý không chứa chất bị cấm.",
+        "Hãng cảnh báo chia sẻ thông tin đăng nhập với trợ lý AI cá nhân của bên thứ ba có thể làm lộ dữ liệu nhạy cảm hoặc dẫn tới giao dịch mua, thay đổi tài khoản hay sử dụng điểm MileagePlus ngoài ý muốn. United cho biết đang cập nhật chính sách đặt vé, xuất vé và phân phối để thực hiện việc hạn chế.",
+        "TechCrunch nhận xét các hãng bay và ngân hàng đang khó phân biệt khách hàng thật với AI hành động thay họ, đặc biệt khi khách chia sẻ thông tin đăng nhập."
       ],
       "same_event_coverage_ids": [
         "0e59fd6f0f18defa10a3",
@@ -63891,7 +63895,7 @@
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "United Airlines siết agent AI đặt vé, viện dẫn rủi ro bảo mật và quy định hàng không liên bang",
+      "editorial_headline_vi": "United Airlines hạn chế agent AI bên thứ ba chưa được phép đặt vé, viện dẫn rủi ro bảo mật",
       "summary_sources": [
         {
           "id": "outlet",
@@ -63904,24 +63908,24 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.05,
+        "value": 8.7,
         "answers": {
-          "what": 10,
-          "why": 7,
-          "notable": 7,
+          "what": 9,
+          "why": 9,
+          "notable": 9,
           "meaning": 7
         },
         "hard_errors": [],
         "findings": [
           {
-            "question": "notable",
-            "problem": "The reader does not learn United's own warning that sharing credentials with third-party AI assistants can expose sensitive information and lead to unintended purchases, account changes or MileagePlus miles use (p009).",
-            "fix": "Add a sentence quoting or paraphrasing United's credential-sharing warning and its consequences."
+            "question": "meaning",
+            "problem": "The Vietnamese omits that United is the latest large US company to block AI agents. It also omits that the move follows Bank of America's warning last week not to share passwords with AI assistants.",
+            "fix": "Add a sentence saying United is the latest major US company to restrict AI agents, following a Bank of America warning to customers last week not to share passwords with AI assistants (p008, p012)."
           },
           {
-            "question": "meaning",
-            "problem": "The trend context is missing: United follows other US corporate giants and a banks' warning, including Bank of America's, not to share passwords with AI assistants (p008, p012).",
-            "fix": "Add that United joins other companies and follows a bank warning that customers should not share passwords with AI assistants."
+            "question": "what",
+            "problem": "The definition of an AI agent ('phần mềm có thể thực hiện nhiều bước thay người dùng') is not in the source. It is harmless context, but it is presented alongside the sourced claims.",
+            "fix": "Drop the gloss or keep it clearly separate from what United said. The source describes agents only as acting on users' behalf (p007)."
           }
         ],
         "writer_boats": [
@@ -63929,8 +63933,8 @@
         ],
         "scorer_boat": "claude",
         "scorer_provider": "claude-code",
-        "prose_sha256": "f841cbce423f59a480b4febe3bd9de883d541e8e60b0f5ae4ceaf3dac3dff296",
-        "scored_at": "2026-11-13T13:25:53.111344+00:00"
+        "prose_sha256": "2a092c41ffd6364ef852c4d87549a7fa81dde0a77c2173075ec5714d653a0e15",
+        "scored_at": "2026-11-13T15:19:57.825891+00:00"
       }
     },
     {
@@ -66270,17 +66274,17 @@
       "use_original_title": false,
       "source_url": "https://www.wired.com/story/black-roles-are-disappearing-in-hollywood-this-startup-is-using-ai-microdramas-to-fight-back/",
       "key_points": [
-        "Mansa làm They Left Us to Die, phim ngắn nhiều tập gồm 30 tập được tạo hoàn toàn bằng AI, kể về một y tá đối mặt dịch xác sống ở Nam Los Angeles. WIRED ghi nhận trailer ban đầu nhận phản ứng chủ yếu tích cực, nhưng việc phim không có vai diễn cho người thật sau đó gây tranh cãi.",
-        "Đồng sáng lập Nate Parker nói Mansa dùng phim AI để thử mức quan tâm của khán giả và theo dõi tương tác; ông tin kết quả có thể thuyết phục hãng phim đầu tư sản xuất bản quay với người thật.",
-        "Sự phản đối xuất hiện trong bối cảnh thương vụ Paramount Skydance mua Warner Bros. Discovery được cơ quan Los Angeles dự báo có thể làm mất tới 4.500 việc làm điện ảnh và truyền hình tại đây. Theo báo cáo UCLA được WIRED dẫn lại, diễn viên da đen chỉ đảm nhận 6,5% vai chính trong phim năm 2025; Mansa chưa công bố dữ liệu về hiệu quả các phim AI của mình.",
-        "J. Christopher Hamilton, giảng viên truyền thông tại Syracuse và luật sư ngành giải trí, cho rằng phim ngắn nhiều tập làm bằng AI là cơ hội kinh doanh khó để ngành bỏ qua, dù Mansa thành công hay thất bại. Ông dự đoán ngành sẽ sắp xếp lại cách làm việc, nhưng diễn viên và người kể chuyện bằng người thật sẽ không biến mất hoàn toàn."
+        "Mansa làm They Left Us to Die, phim ngắn nhiều tập gồm 30 tập hoàn toàn tạo bằng AI, kể chuyện một y tá cấp cứu giữa dịch xác sống ở Nam Los Angeles. WIRED ghi nhận trailer được đón nhận khá tốt khi ra mắt ngày 29/10, nhưng lúc tập đầu sắp lên sóng, người xem chất vấn việc phim không có vai nào cho diễn viên thật.",
+        "Đồng sáng lập Nate Parker tin phim AI có thể cho các hãng phim thấy nhu cầu với những câu chuyện này trước khi họ đầu tư bản quay với người thật. Ông nói phim ngắn nhiều tập dạng dọc, mỗi tập khoảng một phút, còn cho phép Mansa theo dõi tương tác và kiếm tiền trong lúc thử nội dung.",
+        "WIRED liên hệ nỗi lo mất cơ hội với tình trạng nghệ sĩ da đen vốn ít được chọn: theo báo cáo UCLA mà bài viết dẫn, họ chỉ giữ 6,5% vai chính điện ảnh và đạo diễn da đen làm 3,3% phim phát hành năm 2025. J. Christopher Hamilton, giảng viên Syracuse, nói nhiều người nhìn công nghệ này như thứ lấy đi cơ hội của họ.",
+        "Hamilton cho rằng phim ngắn AI có sức hấp dẫn kinh doanh quá lớn để ngành giải trí phớt lờ, dù Mansa thành công hay thất bại. WIRED cho biết Mansa từ chối công bố dữ liệu hiệu quả các phim AI, nên bài viết chưa có số liệu để đánh giá phép thử nhu cầu mà Parker kỳ vọng."
       ],
       "same_event_coverage_ids": [
         "c04c24fc47558a8b67bd"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Mansa tung phim 30 tập tạo hoàn toàn bằng AI, làm dấy lên lo ngại về vai diễn cho nghệ sĩ da màu",
+      "editorial_headline_vi": "Mansa làm phim AI 30 tập không có vai cho người thật, gây lo ngại về cơ hội của nghệ sĩ da đen",
       "summary_sources": [
         {
           "id": "outlet",
@@ -66293,29 +66297,24 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.4,
+        "value": 8.35,
         "answers": {
           "what": 9,
-          "why": 9,
-          "notable": 7,
-          "meaning": 9
+          "why": 8,
+          "notable": 8,
+          "meaning": 8
         },
         "hard_errors": [],
         "findings": [
           {
             "question": "notable",
-            "problem": "The Vietnamese says Mansa 'chưa công bố' performance data. The source says the company declined to share it (p019), which is a firmer stance.",
-            "fix": "Write that Mansa declined to share data on how its AI series are performing (p019)."
+            "problem": "The text leaves out the specific backlash voices and the Hollywood job-loss context that explain why the AI show angered people.",
+            "fix": "Add one concrete reaction, such as the Threads comment calling Mansa 'another AI sellout' (p004), or the projected loss of up to 4,500 LA jobs (p017)."
           },
           {
-            "question": "notable",
-            "problem": "The reader does not learn why some viewers distrust Parker, namely his 1999 sexual-assault charge, of which he was later acquitted, and the controversy around The Birth of a Nation (p020). Nor does the reader see the sample backlash from users or Hamilton's view that Parker is 'not reading the room' (p016).",
-            "fix": "Add one sentence on the backlash content and the trust concern around Parker, using p004, p016 and p020."
-          },
-          {
-            "question": "what",
-            "problem": "The microdrama market context is absent: vertical, minute-long episodes, the Omdia forecast of a $14B market by 2027, and streamers adding short-form feeds (p010-p014).",
-            "fix": "Add a brief line on the microdrama boom, citing p010-p011."
+            "question": "meaning",
+            "problem": "Hamilton's expectation of a 'resetting of the table' and his warning that some people are in denial are missing.",
+            "fix": "Add a clause on Hamilton's expectation that the industry will be reset (p022)."
           }
         ],
         "writer_boats": [
@@ -66323,8 +66322,8 @@
         ],
         "scorer_boat": "claude",
         "scorer_provider": "claude-code",
-        "prose_sha256": "48aa91e478c808575eb55d19cf13c15edd6e6982833e45db623dc60912f07de9",
-        "scored_at": "2026-11-13T13:16:26.758698+00:00"
+        "prose_sha256": "9d1a9d60bdc723750f412335a14633bec4c8f6676b9ff98bd8ae0dc5263ce46b",
+        "scored_at": "2026-11-13T15:23:37.889297+00:00"
       }
     },
     {
@@ -66341,17 +66340,17 @@
       "use_original_title": false,
       "source_url": "https://www.semafor.com/article/11/13/2026/us-commerce-secretary-in-the-spotlight-over-nvidia-scandal",
       "key_points": [
-        "Bộ trưởng Thương mại Mỹ Howard Lutnick đang chịu sức ép gia tăng từ các nghị sĩ về cách chính quyền Trump xử lý vụ việc liên quan Nvidia.",
-        "Theo Semafor, Bộ Thương mại bị chỉ trích vì chưa trừng phạt khách hàng Nvidia là Megaspeed, công ty bị cáo buộc buôn lậu chip; có tin cả Bộ trưởng Tài chính cũng chỉ trích Lutnick.",
-        "Nhà chức trách Singapore nói Mỹ chỉ hỗ trợ hạn chế cuộc điều tra của họ về lãnh đạo Megaspeed này.",
-        "Trong lúc vụ việc còn diễn tiến, nhiều thượng nghị sĩ Cộng hòa kêu gọi Lutnick và Huang ra trước Thượng viện; một nghị sĩ Cộng hòa tại Hạ viện nói với Semafor rằng các câu hỏi cần được giải đáp."
+        "Theo Semafor, Bộ trưởng Thương mại Mỹ Howard Lutnick chịu sức ép ngày càng lớn từ các nghị sĩ về cách chính quyền Trump xử lý vụ Nvidia.",
+        "Semafor cho biết bộ của ông bị chỉ trích vì không trừng phạt Megaspeed, khách hàng Nvidia bị cáo buộc buôn lậu chip; theo tin được dẫn lại, cả Bộ trưởng Tài chính cũng chỉ trích Lutnick.",
+        "Theo Semafor, tiết lộ về quan hệ tình cảm giữa Jensen Huang, CEO của Nvidia, và một lãnh đạo Megaspeed bị cáo buộc có liên hệ với tình báo Trung Quốc đã dẫn tới sự sa sút của Huang.",
+        "Khi vụ việc vẫn đang diễn tiến, nhiều thượng nghị sĩ Cộng hòa kêu gọi Lutnick và Huang ra trước Thượng viện; một nghị sĩ Cộng hòa tại Hạ viện nói với Semafor rằng còn những câu hỏi cần được giải đáp."
       ],
       "same_event_coverage_ids": [
         "cf48a00427af465fe742"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Bộ trưởng Thương mại Mỹ chịu sức ép sau tiết lộ liên quan lãnh đạo Megaspeed và CEO Nvidia",
+      "editorial_headline_vi": "Bộ trưởng Lutnick chịu sức ép trong vụ Nvidia sau tiết lộ quan hệ giữa Huang và lãnh đạo Megaspeed",
       "summary_sources": [
         {
           "id": "outlet",
@@ -66364,19 +66363,24 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 7.1,
+        "value": 8.7,
         "answers": {
-          "what": 8,
+          "what": 10,
           "why": 8,
-          "notable": 5,
-          "meaning": 8
+          "notable": 7,
+          "meaning": 10
         },
         "hard_errors": [],
         "findings": [
           {
+            "question": "why",
+            "problem": "'Dẫn tới sự sa sút của Huang' softens 'Huang's downfall', which suggests a loss of position (p001). The headline also links Lutnick's pressure to the revelation, which the source does not say.",
+            "fix": "Use wording such as 'sụp đổ/mất chức' consistent with 'downfall'. Make the headline state that the pressure stems from the failure to sanction Megaspeed."
+          },
+          {
             "question": "notable",
-            "problem": "The reader never learns that Huang's downfall followed revelations that a Megaspeed executive accused of ties to Chinese intelligence had an affair with him. The headline's 'tiết lộ liên quan' leaves the key fact vague, and the text mentions the Megaspeed executive without saying why that person matters.",
-            "fix": "State that revelations of an affair between the Megaspeed executive and Huang led to Huang's downfall (outlet:p001), and name the executive's alleged Chinese intelligence ties."
+            "problem": "Singapore authorities said the US gave only 'limited' help with their investigation, which is missing (p001).",
+            "fix": "Add a clause on Singapore's statement."
           }
         ],
         "writer_boats": [
@@ -66384,8 +66388,8 @@
         ],
         "scorer_boat": "claude",
         "scorer_provider": "claude-code",
-        "prose_sha256": "ef1a2e28d7d9167c1abdcb155f5ed365f4665531369ef9c38a754fd40e88b913",
-        "scored_at": "2026-11-13T13:16:26.758769+00:00"
+        "prose_sha256": "c1c8607e59e7539e110b0992f9b7a8c022a711ab99bd8d3219e0e4c84c1bbd5d",
+        "scored_at": "2026-11-13T15:19:57.825708+00:00"
       }
     },
     {
@@ -66631,17 +66635,17 @@
       "use_original_title": true,
       "source_url": "https://github.com/hardwiredagent/silicon-forge-arm-neon-study",
       "key_points": [
-        "Theo số đo do tác giả kho mã công bố, bản vá NEON cho llama.cpp tăng tối đa 6,5 lần tốc độ xử lý prompt trên máy chủ Arm trong phép thử với Qwen2.5 1.5B, bốn luồng và prompt 512 token.",
-        "Tác giả cho biết một số định dạng nén mô hình trên Arm thiếu phần xử lý riêng, nên đường xử lý cũ phải giải nén trọng số lặp lại cho mỗi phép tính. Phép đo hiệu năng (benchmark, bài thử tốc độ) so sánh đường xử lý mới được bật và tắt trong cùng một bản chương trình.",
-        "Với định dạng IQ3_M trên Arm Neoverse N1, tốc độ xử lý prompt đo bằng token mỗi giây tăng từ 11,5 lên 74,5 trong phép thử bốn luồng với prompt 512 token. Tác giả báo cáo bài kiểm tra của llama.cpp đạt 15/15 trường hợp và chế độ kiểm tra ngẫu nhiên đạt 88/88 trên cả ba loại lõi Arm; tốc độ sinh nội dung không đổi.",
-        "Bản vá do Nikita, một tác nhân AI (phần mềm tự thực hiện nhiệm vụ), viết và đo; mã chưa được gửi tới dự án llama.cpp. Tác giả cho biết chưa có kỹ sư chuyên về phần xử lý này đánh giá, chưa chạy kiểm tra bằng sanitizer hay đối chiếu đầu ra trên prompt thực; số đo chỉ đến từ máy chủ Arm, chưa có thử nghiệm trên điện thoại."
+        "Theo phép đo do tác giả kho mã công bố, bản vá NEON tăng tối đa 6,5 lần tốc độ xử lý prompt của llama.cpp trên máy chủ Arm, với mô hình Qwen2.5 1.5B, bốn luồng và prompt 512 token. Tác giả cho biết bản vá bổ sung phần xử lý bằng lệnh NEON cho phép nhân ma trận dùng trong một số định dạng nén mô hình.",
+        "Theo tác giả, các định dạng Q3_K, Q2_K và họ IQ trước đó thiếu phần xử lý riêng trên Arm, khiến chương trình phải giải nén trọng số lặp lại cho mỗi phép tính. Phép đo hiệu năng (benchmark, bài thử tốc độ) so sánh đường xử lý được bật và tắt trong cùng một bản chương trình.",
+        "Với định dạng IQ3_M trên lõi Neoverse N1, tốc độ xử lý prompt đo bằng token mỗi giây tăng từ 11,5 lên 74,5 trong phép thử bốn luồng, prompt 512 token. Tác giả báo cáo bài kiểm tra của llama.cpp đạt 15/15 trường hợp và kiểm tra ngẫu nhiên đạt 88/88 trên cả ba loại lõi Arm; tốc độ sinh nội dung không đổi.",
+        "Kết quả cải thiện trong phép đo chỉ thuộc các định dạng trước đó thiếu phần xử lý Arm: những định dạng đã có phần xử lý riêng không đổi, và số đo Arm vẫn thấp hơn nhiều so với mốc x86. Bản vá chưa được gửi tới dự án llama.cpp; tác giả chỉ đo trên máy chủ Arm, chưa thử trên điện thoại."
       ],
       "same_event_coverage_ids": [
         "c9c11a9f9d6ab5dc2378"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Thử nghiệm trên máy chủ Arm: bản vá NEON tăng tối đa 6,5 lần tốc độ xử lý prompt của llama.cpp",
+      "editorial_headline_vi": "Bản vá NEON tăng tối đa 6,5 lần tốc độ xử lý prompt của llama.cpp trong phép đo trên máy chủ Arm",
       "summary_sources": [
         {
           "id": "outlet",
@@ -66654,19 +66658,24 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.4,
+        "value": 9.55,
         "answers": {
-          "what": 9,
-          "why": 9,
-          "notable": 8,
+          "what": 10,
+          "why": 10,
+          "notable": 10,
           "meaning": 7
         },
         "hard_errors": [],
         "findings": [
           {
             "question": "meaning",
-            "problem": "The reader may think every quantization format gets faster. The source says formats that already had an Arm kernel (Q4_K_M, Q5_K_M, Q6_K, Q8_0) show 1.0x, and the new Arm numbers are still well below the x86 reference.",
-            "fix": "Add that already-supported formats are unchanged and that the Arm figures remain well below x86 (outlet:p016, outlet:p043, outlet:p044)."
+            "problem": "The reader is not told that the patch and benchmarks were produced by an AI agent (Nikita on Orbofi running Claude) and that review by a human kernel engineer, test-backend-ops and model-output comparison were not done (p038, p057).",
+            "fix": "Add a sentence saying the work was done by an AI agent and has not had human kernel review or real-prompt output checks."
+          },
+          {
+            "question": "meaning",
+            "problem": "The reason for the upstream non-submission is missing: llama.cpp's contribution rules restrict AI-generated code (p054).",
+            "fix": "Add that the repository holds back from submitting because of llama.cpp's rules on AI-generated contributions."
           }
         ],
         "writer_boats": [
@@ -66674,8 +66683,8 @@
         ],
         "scorer_boat": "claude",
         "scorer_provider": "claude-code",
-        "prose_sha256": "d1d48f003ff9f74b44c27a8e795c6619751f04f6a89fa700c1aaf525cf73728b",
-        "scored_at": "2026-11-13T13:16:26.758975+00:00"
+        "prose_sha256": "73c2f00b7db651d83834164a4ff3de3a1a1eabb3d63ff6bf18ae90a503d326fd",
+        "scored_at": "2026-11-13T15:19:57.825771+00:00"
       }
     },
     {
@@ -66817,6 +66826,830 @@
         "prose_sha256": "20fd30737b80cf7b535fbb17d7b4c55f7c55799c008d6feefef18c27faf46cac",
         "scored_at": "2026-11-13T13:16:26.759027+00:00"
       }
+    },
+    {
+      "id": "4d1482722545d06dd169",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/13/elevenlabs-new-app-combines-meeting-note-taking-and-dictation-for-teams/",
+      "key_points": [
+        "ElevenLabs mở bản xem trước ElevenAI cho nhóm làm việc; người muốn dùng phải đăng ký truy cập sớm. Ứng dụng thử nghiệm này kết hợp ghi chép cuộc họp, nhập liệu bằng giọng nói và kết nối với tác nhân AI (phần mềm có thể thực hiện các bước tiếp theo từ thông tin được cung cấp).",
+        "Theo TechCrunch, ElevenAI giúp ElevenLabs giới thiệu mô hình giọng nói của mình và đưa nền tảng tác nhân AI vào quy trình làm việc của các nhóm.",
+        "ElevenAI có thể ghi chép cuộc họp, cho người dùng tìm lại thông tin từ các cuộc họp trước và kết nối ElevenAgent để soạn bản nháp email từ ghi chú. Tính năng nhập liệu chuyển lời nói thành văn bản đã chỉnh sửa trong các ứng dụng khác và hỗ trợ hơn 90 ngôn ngữ; ElevenLabs nói ứng dụng hiểu được thuật ngữ chuyên ngành.",
+        "TechCrunch nhận định ElevenAI có thể cho các nhóm doanh nghiệp thêm một lựa chọn thay cho việc mua giấy phép công cụ ghi chép họp riêng. Khả năng thay thế ấy vẫn là nhận định về hướng đi của sản phẩm, trong khi ElevenAI hiện chỉ mở cho người đăng ký truy cập sớm."
+      ],
+      "same_event_coverage_ids": [
+        "85cbc60b4fc7756f0f3f"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "ElevenLabs mở xem trước ElevenAI, kết hợp ghi chép họp và nhập liệu bằng giọng nói cho nhóm",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/13/elevenlabs-new-app-combines-meeting-note-taking-and-dictation-for-teams/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.25,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 8,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The competitive context (Fireflies, Wispr Flow, Granola) and the notice sent to meeting participants that they are being recorded are missing.",
+            "fix": "Add one clause saying the app enters a crowded field with Fireflies, Wispr Flow and Granola (p006), and that it notifies participants of recording (p008)."
+          }
+        ],
+        "writer_boats": [
+          "codex"
+        ],
+        "scorer_boat": "claude",
+        "scorer_provider": "claude-code",
+        "prose_sha256": "83b0291915ed92c1adb4c4ef2da12f575905e7d91cbc69686f75068b41ac9812",
+        "scored_at": "2026-11-13T15:11:02.965557+00:00"
+      }
+    },
+    {
+      "id": "00a94cc37735742dc934",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "checker rejected title; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected title",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.semafor.com/article/11/13/2026/nvidia-ceos-departure-is-a-pivotal-moment-for-african-ai",
+      "key_points": [
+        "Trong bài bình luận trên Semafor, Alexis nhận định việc Jensen Huang rời Nvidia có thể là bước ngoặt đối với quá trình triển khai AI ở châu Phi.",
+        "Theo Alexis, năng lực tính toán để huấn luyện và vận hành AI tại châu Phi vẫn dựa vào phần cứng, phần mềm do các công ty Mỹ cung cấp, nên thay đổi lãnh đạo Nvidia đặt ra câu hỏi về nguồn cung ấy.",
+        "Nvidia đã đầu tư vào Cassava Technologies và cung cấp chip cho công ty hạ tầng số này; quan hệ hợp tác gắn với kế hoạch mở rộng dịch vụ của Cassava tại hơn 30 quốc gia châu Phi. Semafor cũng nêu Nam Phi, nơi đặt khoảng 40% trong tổng số xấp xỉ 160 trung tâm dữ liệu của châu lục, là nước chịu tác động lớn nếu chiến lược Nvidia thay đổi về lâu dài.",
+        "Trong bài bình luận trên Semafor, tác giả nhận định nếu người kế nhiệm Huang chọn hướng khác, kiểu hợp tác Nvidia–Cassava có thể không được nhân rộng ở châu Phi, làm hạn chế cơ hội tiếp cận công nghệ của doanh nghiệp tại đây."
+      ],
+      "same_event_coverage_ids": [
+        "2ee244f37310716ff7a9"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Semafor: Việc Jensen Huang rời Nvidia có thể tác động tới nguồn chip AI của doanh nghiệp châu Phi",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/13/2026/nvidia-ceos-departure-is-a-pivotal-moment-for-african-ai"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.85,
+        "answers": {
+          "what": 9,
+          "why": 9,
+          "notable": 9,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The World Bank partnership (p005) and the Ramaphosa visit next week (p006, p007) are omitted. They show why the issue is timely.",
+            "fix": "Add one sentence saying that South African President Ramaphosa visits the US next week with an AI-infrastructure focus, and that the World Bank named Nvidia and Cassava as partners last month."
+          }
+        ],
+        "writer_boats": [
+          "codex"
+        ],
+        "scorer_boat": "claude",
+        "scorer_provider": "claude-code",
+        "prose_sha256": "6dae17b5a61ebbeef6d20a17336074c8104ecf657a2ea9fed2f19a5d3dfa0cd5",
+        "scored_at": "2026-11-13T15:11:02.965646+00:00"
+      }
+    },
+    {
+      "id": "6841e619fcd7e8d93702",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://huggingface.co/blog/ggml-org/llama-cpp-v1",
+      "key_points": [
+        "Nhóm ggml-org phát hành hai thư viện llama.cpp và ggml phiên bản v1.0.0, lần lượt phục vụ chạy mô hình ngôn ngữ và các phép toán dùng trong học máy. Nhóm cho biết từ nay các thay đổi không tương thích ở API (giao diện để phần mềm gọi thư viện) hoặc ABI (quy ước để chương trình đã biên dịch làm việc với thư viện) sẽ được đánh dấu bằng phiên bản chính mới.",
+        "Theo ggml-org, nhiều ứng dụng đã phụ thuộc vào các thư viện sau ba năm rưỡi phát triển, khiến giao diện vừa linh hoạt vừa ổn định trở nên quan trọng với nhà phát triển.",
+        "Theo quy tắc nhóm công bố, thay đổi phá vỡ tương thích của API C công khai làm tăng phiên bản chính; tính năng còn tương thích làm tăng phiên bản phụ, còn bản sửa lỗi không đổi API làm tăng phiên bản vá. ggml-org cũng liệt kê gói phát hành cho Linux, macOS, Windows, Android và iOS, cùng các kênh phân phối như Docker, Debian và Homebrew.",
+        "Theo ggml-org, từ nay hai dự án llama.cpp và ggml sẽ dùng phiên bản chính mới để báo cho các ứng dụng phụ thuộc biết khi API hoặc ABI thay đổi theo cách không còn tương thích."
+      ],
+      "same_event_coverage_ids": [
+        "eb3f6d5bd1b7e1a63ba5"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "llama.cpp và ggml ra thư viện v1.0.0, dùng phiên bản chính để báo thay đổi không tương thích",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://huggingface.co/blog/ggml-org/llama-cpp-v1"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "codex"
+        ],
+        "scorer_boat": "claude",
+        "scorer_provider": "claude-code",
+        "prose_sha256": "a98720ea370949a64b31b069aa31ed7fa3c9d707930128c8a66a84300094762d",
+        "scored_at": "2026-11-13T15:11:02.965683+00:00"
+      }
+    },
+    {
+      "id": "e4b75cb4b2c20be7fdd0",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/13/2026/nvidias-next-ceo-will-be-a-supply-chain-expert",
+      "key_points": [
+        "Theo Semafor, Nvidia thiếu kế hoạch kế nhiệm khi CEO kiêm nhà sáng lập Jensen Huang, 63 tuổi, bị bãi nhiệm, dù trước đó hãng đã tìm một cấp phó từ bên ngoài.",
+        "Một người am hiểu cuộc tìm kiếm nói việc tuyển người khó vì các ứng viên không muốn làm việc dưới cái bóng của Huang.",
+        "Những người am hiểu quá trình tìm kiếm ước tính chưa tới 10 người trên thế giới thực sự có thể điều hành Nvidia; trong công ty còn có nhóm Slack mang tên “Stand with Jensen”.",
+        "Tác giả mục bình luận trên Semafor cho rằng người kế nhiệm không chỉ phải giữ sản phẩm Nvidia giao đúng hạn mà còn phải duy trì hoạt động của cả ngành; theo tác giả, Huang gần như không thể thay thế."
+      ],
+      "same_event_coverage_ids": [
+        "3b36f2121458a646aeb5"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Semafor: Nvidia thiếu kế hoạch kế nhiệm sau khi Jensen Huang bị bãi nhiệm, khó tìm người thay",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/13/2026/nvidias-next-ceo-will-be-a-supply-chain-expert"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.45,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 7,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The reader does not learn who is being floated as Huang's successor.",
+            "fix": "Add one sentence naming Johny Srouji (Apple), Rene Haas (Arm) and Tim Cook, the last at Trump's suggestion (outlet:p006)."
+          },
+          {
+            "question": "meaning",
+            "problem": "\"Huang gần như không thể thay thế\" softens the source, which says \"There's really no replacing him.\" (p004).",
+            "fix": "Drop \"gần như\" and attribute the claim to the columnist."
+          }
+        ],
+        "writer_boats": [
+          "codex"
+        ],
+        "scorer_boat": "claude",
+        "scorer_provider": "claude-code",
+        "prose_sha256": "f5f2dd4e21a58d695aa93c78a92b4fed380040f2fc98746052ad3d102147ce81",
+        "scored_at": "2026-11-13T15:13:26.160649+00:00"
+      }
+    },
+    {
+      "id": "0acc674430dfd202ca5a",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/ai-artificial-intelligence/1032518/claude-duet-ai-agent-hands-on",
+      "key_points": [
+        "Sau một tuần thử Claude Duet, tác nhân AI (phần mềm tự đề xuất và hỗ trợ xử lý việc cần làm) của Anthropic, Allison Johnson trên The Verge thấy nó có lúc rất hữu ích nhưng cũng hay nhắc việc quá mức. Theo Anthropic, Duet vẫn là bản thử nghiệm nghiên cứu, chỉ mở danh sách chờ cho thuê bao Pro, Max và Ultra tại Mỹ.",
+        "Johnson cho Duet truy cập email công việc, lịch, Google Docs và Slack; từ đó nó nối được nội dung một cuộc họp trong email với tin nhắn trực tiếp trên Slack.",
+        "Duet phát hiện kỳ nghỉ sắp tới chỉ để lại vài ngày làm việc trước hạn nộp bản thảo, rồi đề xuất cập nhật Google Doc và soạn tin Slack cho biên tập viên. Ở chiều ngược lại, Johnson kể Duet thúc cô xử lý bài viết trước 9 giờ sáng dù lời hẹn gửi đường dẫn không phải hạn cứng và biên tập viên mới ở múi giờ 7 giờ sáng.",
+        "Johnson kết luận Duet hữu ích khi chủ động chỉ ra thông tin bị bỏ sót giữa nhiều kênh làm việc, như một lớp nhắc việc bổ sung cho cách cô tự sắp xếp công việc. Tuy vậy, theo Johnson, khả năng đọc sắc thái lời nói và mức độ khẩn cấp vẫn là giới hạn khiến Duet chưa thể đảm nhận vai trò trợ lý cá nhân như con người."
+      ],
+      "same_event_coverage_ids": [
+        "0ac69c1114badbcac934"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Thử Claude Duet một tuần, cây bút The Verge thấy trợ lý hữu ích nhưng hay hiểu sai mức độ khẩn cấp",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1032518/claude-duet-ai-agent-hands-on"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.75,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 8,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The reader does not learn that Johnson rejects Duet for drafting and creative work, nor that she is uneasy about it reading every email and Slack message.",
+            "fix": "Add one clause that she does not want Duet in the creative process and found its full read access a little uncanny (outlet:p027, p029, p031)."
+          }
+        ],
+        "writer_boats": [
+          "codex"
+        ],
+        "scorer_boat": "claude",
+        "scorer_provider": "claude-code",
+        "prose_sha256": "0b084ced6d56d5ab72518e2708d17670f7dd49c632268c582ca9288376aa0002",
+        "scored_at": "2026-11-13T15:11:02.965762+00:00"
+      }
+    },
+    {
+      "id": "69873666169849f30028",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.semafor.com/article/11/13/2026/coreweave-tunes-out-nvidia-noise-looks-to-raise-4b",
+      "key_points": [
+        "CoreWeave đang tìm khoản vay 4 tỷ USD được bảo đảm bằng các hợp đồng với Meta; Morgan Stanley và Mitsubishi UFJ sẽ tổ chức phân phối khoản vay.",
+        "Theo Semafor, CoreWeave đã hứa dùng tài sản bảo đảm cho các khoản tín dụng mới sau khi trái phiếu không có bảo đảm của hãng bị bán mạnh vào đầu mùa thu. Bài viết cho rằng việc dùng hợp đồng với Meta giúp CoreWeave dựa vào mức xếp hạng tín nhiệm AA của Meta khi đi vay.",
+        "CoreWeave nhắm mức lãi suất toàn bộ khoảng 7,5%, trong khi lợi suất trái phiếu không có bảo đảm của hãng từng lên gần 16%.",
+        "Theo Semafor, nếu đạt mức lãi suất mục tiêu, khoản vay sẽ rẻ hơn nhiều so với lợi suất gần 16% nói trên; một người am hiểu vụ việc cho biết đợt tiếp thị ban đầu được đón nhận tích cực."
+      ],
+      "same_event_coverage_ids": [
+        "77b3b037be1b185dcc9f"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "CoreWeave tìm vay 4 tỷ USD bằng hợp đồng Meta, nhắm lãi suất khoảng 7,5%",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/13/2026/coreweave-tunes-out-nvidia-noise-looks-to-raise-4b"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.45,
+        "answers": {
+          "what": 10,
+          "why": 8,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [
+          {
+            "kind": "number",
+            "summary_text": "vào đầu mùa thu",
+            "explanation": "The source says the bonds were hammered \"earlier this fall\" (outlet:p001), not at the start of autumn."
+          }
+        ],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "\"Đầu mùa thu\" (early autumn) is more specific than the source's \"earlier this fall\".",
+            "fix": "Write \"trước đó trong mùa thu này\" (outlet:p001)."
+          }
+        ],
+        "writer_boats": [
+          "codex"
+        ],
+        "scorer_boat": "claude",
+        "scorer_provider": "claude-code",
+        "prose_sha256": "5f54f03fc36db4bc2a85c7bcdf0a6ac4284ce3d32776e83e688d4155d8ea5420",
+        "scored_at": "2026-11-13T15:13:26.160694+00:00"
+      }
+    },
+    {
+      "id": "5fc6b2b3b2ee2684f9fc",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-13/disney-pivots-to-embrace-ai-from-film-to-parks",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "408922844df0805de009"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "46335a6060a364c3230c",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The available title concerns Huang and alleged Nvidia misconduct, without enough indication that AI is the video's main subject.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.youtube.com/watch?v=YYU_geUwQoA",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "06540d16d808e7948a8a"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "75ce1dae0dc2dd85ac8b",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-13/neocloud-nscale-reveals-5-5-billion-debt-and-closer-nvidia-ties-ahead-of-ipo",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "f36cc1fc3c91253a7726"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "469eef78fa160c4d2938",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected title; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected title",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://analyticsindiamag.com/ai-features/softbanks-ai-empire-rests-on-a-single-assetand-its-over-leveraged",
+      "key_points": [
+        "SoftBank báo lỗ ròng 1,12 nghìn tỷ yen trong quý 7–9/2026 sau khi điều chỉnh đơn đặt thiết bị điện cho trung tâm dữ liệu Mỹ, phát sinh khoản chi phí 597,2 tỷ yen. Theo báo cáo tài chính được Analytics India Magazine dẫn lại, cuối tháng 9 hãng có khoản vay 3,9 nghìn tỷ yen được bảo đảm bằng cổ phiếu Arm.",
+        "Bài viết phân tích rằng khi giá cổ phiếu Arm giảm, cả giá trị khoản đầu tư của SoftBank lẫn tài sản bảo đảm cho khoản vay cùng giảm. Theo điều khoản khoản vay, giá cổ phiếu Arm giảm tới một số ngưỡng có thể buộc SoftBank bổ sung tài sản bảo đảm, tái cấp vốn hoặc trả nợ sớm.",
+        "Với phương pháp tính khác nhau, S&P ước tỷ lệ nợ trên giá trị tài sản của SoftBank ở mức 20–25% vào tháng 6, còn con số SoftBank công bố là 13%.",
+        "Theo phân tích của bài viết, nếu giá Arm giảm kéo dài, giá trị tài sản bảo đảm sẽ giảm trong khi dư nợ giữ nguyên, gây sức ép lên ngưỡng 25% SoftBank tự đặt. Chuyên gia Stephen Leung nói SoftBank đã cho thấy khả năng tiếp cận thị trường vốn để cơ cấu nợ, nhưng cách tài trợ này vẫn cần thị trường có thanh khoản và tài sản bảo đảm chủ chốt giữ giá trị ổn định."
+      ],
+      "same_event_coverage_ids": [
+        "7a7ac2cfce1874e62f21"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "SoftBank báo lỗ quý, còn khoản vay bảo đảm bằng cổ phiếu Arm đối mặt rủi ro nếu giá giảm kéo dài",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "analytics-india-magazine",
+          "url": "https://analyticsindiamag.com/ai-features/softbanks-ai-empire-rests-on-a-single-assetand-its-over-leveraged"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 7.7,
+        "answers": {
+          "what": 8,
+          "why": 8,
+          "notable": 7,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The Musk 'defaulting' claim and the CFO's denial, which frame the loss, are missing. So is the fact that this was the first quarterly loss in about two years.",
+            "fix": "Add one sentence that Musk accused SoftBank of defaulting on turbine orders and the CFO said there was 'no such default' (outlet:p003, p004), and that it was the first quarterly loss in about two years (outlet:p002)."
+          },
+          {
+            "question": "notable",
+            "problem": "The reader does not learn how large the Arm concentration is or how far NAV fell.",
+            "fix": "Add Arm at 54% of equity value (outlet:p013) and NAV down from ¥72.3 trillion to ¥59.8 trillion (outlet:p008)."
+          }
+        ],
+        "writer_boats": [
+          "codex"
+        ],
+        "scorer_boat": "claude",
+        "scorer_provider": "claude-code",
+        "prose_sha256": "d5fe78610b718f33633e7aa7b5766a66b9958051fba1897955a0be05b14b9b52",
+        "scored_at": "2026-11-13T15:11:02.965817+00:00"
+      }
+    },
+    {
+      "id": "31f08b59cb1733fd7c6a",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Nvidia's article showcases healthcare uses of its technology through customer examples.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://blogs.nvidia.com/blog/how-ai-is-helping-care-teams/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "e37dd33b1a4d8c267c5e"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "21b2430f8bc891457463",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/13/2026/s-africas-ramaphosa-takes-ai-pitch-to-musk-turf",
+      "key_points": [
+        "Tổng thống Nam Phi Cyril Ramaphosa dự kiến tới California vào cuối tuần để tìm kiếm hàng tỷ USD đầu tư hạ tầng AI từ Mỹ trong chuyến làm việc kéo dài một tuần. Chuyến đi diễn ra giữa lúc quan hệ hai nước căng thẳng về chính sách trong nước và đối ngoại của Nam Phi.",
+        "Theo Semafor, Ramaphosa đưa theo tám bộ trưởng và dự kiến gặp Google, Cisco, Palo Alto Networks cùng Microsoft để tìm một phần trong khoản chi tiêu vốn AI 650 tỷ USD của Mỹ năm nay. Người phát ngôn Vincent Magwenya nói Nam Phi muốn thu hút vốn Mỹ đồng thời bảo vệ quyền tự chủ về chính sách số, dữ liệu và quản trị AI.",
+        "Trong tranh cãi về quy định đó, SpaceX nêu phương án cam kết 110 triệu USD cho hạ tầng địa phương và cung cấp Internet vệ tinh miễn phí cho trường học nông thôn thay cho chuyển nhượng cổ phần.",
+        "Tiisetso của Semafor xem chuyến đi là phép thử liệu Pretoria có thể theo đuổi vốn AI trong lúc bất đồng ngoại giao với Washington hay không. Tác giả cũng lưu ý các tập đoàn như Alcoa và Wabtec vẫn đầu tư bất chấp thuế quan và hạn chế thị thực, nên kết quả của chuyến vận động vốn chưa thể khẳng định trước."
+      ],
+      "same_event_coverage_ids": [
+        "b2698913116473a8f595"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Tổng thống Nam Phi sắp tới California tìm vốn AI giữa tranh cãi với Mỹ về quy định sở hữu",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/13/2026/s-africas-ramaphosa-takes-ai-pitch-to-musk-turf"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 7.65,
+        "answers": {
+          "what": 9,
+          "why": 9,
+          "notable": 5,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "Paragraph 3 refers to 'that rule' (quy định đó), but no earlier paragraph explains it. The reader never learns what the ownership dispute is, or Musk's role in it.",
+            "fix": "Explain that BEE requires regulated sectors to hand at least 30% of local ownership to Black people for licences, and that Musk calls it 'openly racist' and blames it for Starlink's absence (outlet:p003, p010)."
+          },
+          {
+            "question": "what",
+            "problem": "The US pressure itself is vague. The reader does not learn about the removal from AGOA, the PEPFAR cut or the visa restrictions.",
+            "fix": "Add the concrete US steps: AGOA removal, PEPFAR funding pulled and visa restrictions (outlet:p004, p012)."
+          }
+        ],
+        "writer_boats": [
+          "codex"
+        ],
+        "scorer_boat": "claude",
+        "scorer_provider": "claude-code",
+        "prose_sha256": "eeaabc446e7035a4c8b96765565c0e59af06b73d78ac53cceea7762d2fd17665",
+        "scored_at": "2026-11-13T15:11:02.965845+00:00"
+      }
+    },
+    {
+      "id": "ad83f8c3766bbc41d223",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected title; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected title",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://techcrunch.com/2026/11/13/israels-vcs-see-opportunity-for-challengers-in-nvidias-turmoil/",
+      "key_points": [
+        "Sau khi Jensen Huang từ chức CEO Nvidia, một số nhà đầu tư Israel cho rằng đối thủ của hãng có thể có thêm cơ hội nếu quá trình ra quyết định tại Nvidia chậm lại. TechCrunch cho biết sự kiện cũng gây lo ngại tại Israel, nơi Nvidia có khoảng 6.000 nhân viên và tương lai cam kết của hãng dưới lãnh đạo mới còn là câu hỏi.",
+        "TechCrunch cho biết Nvidia giữ vị trí lớn trong chi tiêu AI toàn cầu và thị trường chip dùng để huấn luyện, vận hành mô hình ngôn ngữ lớn. Dưới thời Huang, hãng dùng nguồn tiền mặt để đầu tư rộng khắp, từ các công ty khác đến chip thế hệ mới của chính mình.",
+        "Năm 2019, Nvidia mua hãng chip Israel Mellanox với giá 6,9 tỷ USD và lấy đây làm nền tảng cho cơ sở nghiên cứu lớn nhất của mình ngoài Mỹ.",
+        "Adi Levanon của Selah Ventures nhận định việc Huang rời đi có thể cho đối thủ thêm chỗ phát triển, nhưng riêng thay đổi lãnh đạo sẽ không mang khách hàng đến cho họ. Theo bà, các công ty thách thức Nvidia vẫn phải chứng minh cách làm của mình đem lại hiệu quả kinh tế tốt hơn."
+      ],
+      "same_event_coverage_ids": [
+        "7c59707f623da707ded6"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nhà đầu tư Israel thấy cơ hội cho đối thủ Nvidia sau khi Huang rời ghế, nhưng cảnh báo nhu cầu AI có thể chậm lại",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/13/israels-vcs-see-opportunity-for-challengers-in-nvidias-turmoil/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.15,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 7,
+          "meaning": 6
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "nhưng cảnh báo nhu cầu AI có thể chậm lại",
+            "explanation": "Oron only says that if the uncertainty also slows AI spending, challengers could get a bigger share of a smaller opportunity (p014). Investors say they do not think demand for Nvidia's product would fade (p013). Nobody in the source warns that AI demand may slow."
+          }
+        ],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The headline presents a conditional remark as a warning that AI demand may slow. The source says investors do not expect demand for Nvidia's products to fade.",
+            "fix": "State Oron's remark as conditional (p014). Add that investors do not expect Nvidia demand to fade (p013), or drop the AI-demand clause from the headline."
+          },
+          {
+            "question": "notable",
+            "problem": "The reader does not learn who might succeed Huang. Kress is interim CEO, and two Israeli names are floated (p011, p012).",
+            "fix": "Add one sentence on interim CEO Colette Kress and the Israeli candidates Srouji and Kagan (p012)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The Vietnamese does not mention the venture money flowing into AI-chip and inference-software challengers (p017).",
+            "fix": "Note that VC funding is already going to AI-specific chip and inference-software developers that could compete with Nvidia (p017)."
+          }
+        ],
+        "writer_boats": [
+          "codex"
+        ],
+        "scorer_boat": "claude",
+        "scorer_provider": "claude-code",
+        "prose_sha256": "783508756a7cc47af24fc9fdbdaef8966a457f6f6a4cfc4ec08a1c47832beb29",
+        "scored_at": "2026-11-13T15:11:02.965870+00:00"
+      }
+    },
+    {
+      "id": "968314cfdd40cb8f078f",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.pcworld.com/article/3283946/ai-agents-have-a-big-problem-nobody-wants-to-let-them-in.html",
+      "key_points": [
+        "United Airlines cho biết hãng bắt đầu hạn chế tác nhân AI cá nhân bên thứ ba không được phép truy cập nền tảng số của mình, kể cả đường truy cập qua đại lý du lịch và bên tổng hợp dịch vụ. Tác nhân AI ở đây là phần mềm được người dùng giao thông tin tài khoản để thực hiện việc như tìm chuyến bay hoặc đặt vé thay họ.",
+        "United cảnh báo việc chia sẻ thông tin đăng nhập cho trợ lý AI bên ngoài có thể làm lộ dữ liệu nhạy cảm hoặc dẫn tới mua vé, đổi tài khoản hay dùng điểm MileagePlus ngoài ý muốn. Hãng còn nói tác nhân AI có thể vướng quy định hàng không, chẳng hạn bước làm thủ tục bay đòi hỏi con người xác nhận hành lý không chứa đồ bị cấm.",
+        "Bank of America mới cảnh báo khách hàng không cung cấp tên đăng nhập và mật khẩu cho dịch vụ bên ngoài, kể cả công cụ AI, nhưng theo PCWorld ngân hàng này chưa cấm tác nhân AI đăng nhập. JPMorgan Chase, Charles Schwab và Citigroup đã chặn kiểu đăng nhập đó; PCWorld cũng nêu Amazon cấm Muse của Meta, còn Yelp yêu cầu tác nhân AI có thỏa thuận trả phí.",
+        "Ben Patterson của PCWorld nhận định những rào cản này đang làm các lời hứa rằng tác nhân AI có thể tự lo chuyện vé máy bay, đặt bàn hay giao dịch ngân hàng trở nên khó thực hiện ở thời điểm hiện tại."
+      ],
+      "same_event_coverage_ids": [
+        "6feb98c0d1ebb55516df"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "United hạn chế trợ lý AI bên thứ ba không được phép truy cập, thêm một rào cản với tác nhân AI cá nhân",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://www.pcworld.com/article/3283946/ai-agents-have-a-big-problem-nobody-wants-to-let-them-in.html"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.8,
+        "answers": {
+          "what": 9,
+          "why": 8,
+          "notable": 9,
+          "meaning": 9
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "Tác nhân AI ở đây là phần mềm được người dùng giao thông tin tài khoản để thực hiện việc như tìm chuyến bay hoặc đặt vé thay họ.",
+            "explanation": "The source does not define AI agents this way. It says only that sharing credentials with personal third-party AI assistants can expose information and cause unintended purchases (p009). The definition is the writer's addition, though consistent with the context."
+          }
+        ],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The Vietnamese gives only United's reasons. The source says the other lockouts have varied motives, including protecting customers, preventing griefing, and favoring a company's own AI assistants (p018).",
+            "fix": "Add one sentence summarizing p018's range of motives."
+          },
+          {
+            "question": "notable",
+            "problem": "The writer's own definition of an AI agent is presented alongside sourced claims.",
+            "fix": "Remove the definition sentence or attribute it clearly as explanation. The source supports only the credential-sharing framing in p009."
+          },
+          {
+            "question": "notable",
+            "problem": "eBay and The RealReal reportedly also turned away personal AI assistants (p017), but the Vietnamese omits them.",
+            "fix": "Optionally add that eBay and The RealReal have reportedly done the same (p017)."
+          }
+        ],
+        "writer_boats": [
+          "codex"
+        ],
+        "scorer_boat": "claude",
+        "scorer_provider": "claude-code",
+        "prose_sha256": "6ebdc993fa680ac34d6e63af37dc6b6966a51bac100d9615559ee1aa60ae03ba",
+        "scored_at": "2026-11-13T15:11:02.965920+00:00"
+      }
+    },
+    {
+      "id": "9ccf02f3129f7388553e",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://techcrunch.com/2026/11/12/hugging-face-ceo-vows-to-keep-fighting-for-open-source-ai-after-jensen-huangs-exit/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "9a6a9a719181175b89ff",
+        "fad36c294212e1447881"
+      ],
+      "split_coverage_ids": [
+        "295357d32e2a13ad9b70",
+        "92f481d0103d223edb43"
+      ]
+    },
+    {
+      "id": "8f8555b73e1b42928d84",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "intake",
+      "reason": "original event is over 30 days old without a verified update",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://api-docs.deepseek.com/updates#deepseek-coder",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "49c5b2021177858a921d"
+      ],
+      "split_coverage_ids": [
+        "1fca0bb2fcfb7a8f8876",
+        "371c37a75105df178f5c",
+        "3c982d841e4c0863d549",
+        "3cddc979a5743640f86a",
+        "415325ae98587aefab49",
+        "4d0870f9cc05b8ad2b87",
+        "561d39f53fdf9e4f1b78",
+        "8c640248454878443d19",
+        "9d6fa1e9352708c9ef2a",
+        "ec651333174c0108efb7",
+        "fb48d054cf48a1243cc9"
+      ]
     }
   ]
 }
