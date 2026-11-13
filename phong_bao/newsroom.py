@@ -117,7 +117,7 @@ Return each {id, status: ready|insufficient_evidence, sheet: {what, why, notable
 WRITER_REWRITE_PROMPT = WRITER_PROMPT + """
 
 REWRITE
-Every input row here is a story you already drafted, with a rewrite object: {roles, title_vi, conditions, sheet, kept, rejected}, and sheet_error when your sheet was missing or did not quote the article body: then also return a corrected sheet (roles may be empty). sheet is your evidence sheet: sheet_point_dropped names a box whose paragraph no longer cites its ref or no longer says its point, so write that paragraph again stating the box's point first and citing ref; cause_not_in_source marks a cause, motive or purpose in a story whose sheet says the source gives none, so leave it out. Every sentence of the paragraphs whose role is in roles failed the sentence checks; rejected lists each removed sentence with the check it failed. conditions lists the condition spans of your draft that were found in the source, each with its paragraph ID. Write those paragraphs again from the same source paragraphs, keeping the same role and the whole summary within length, and do not repeat what kept already says. Fix the reason given: cite the paragraph that states each fact, name the speaker the paragraph names, write a purpose only when a cited paragraph states it, and leave out what no paragraph supports. bullet_sentences marks a paragraph of more than two sentences: write it again in one or two sentences that keep its box's point and conditions. lead_dropped marks a sentence that passed but lost the development paragraph's opening sentence: open the paragraph again with a sentence that names who did what, then keep what those sentences say. For condition_not_cited, each significance sentence cites a paragraph ID listed in conditions; when the assessment you need sits in another paragraph, copy a verbatim span of at most 25 words from that paragraph into conditions, with its paragraph ID, and cite it. Return each {id, status: ready, sheet (only when sheet_error is set), conditions: [{text, ref}], paragraphs: [{role, sentences: [{text, evidence_refs}]}]} holding only the paragraphs whose role is in roles and only the conditions you add (use [] for none); return status insufficient_evidence with no paragraphs when the sources cannot support them. Each new sentence is checked the same way."""
+Every input row here is a story you already drafted, with a rewrite object: {roles, title_vi, conditions, sheet, kept, rejected}, and sheet_error when your sheet was missing or did not quote the article body: then also return a corrected sheet (roles may be empty). sheet is your evidence sheet: sheet_point_dropped names a box whose paragraph no longer cites its ref or no longer says its point, so write that paragraph again stating the box's point first and citing ref; cause_not_in_source marks a cause, motive or purpose in a story whose sheet says the source gives none, so leave it out. For lost paragraphs, the sentences in roles failed the sentence checks; rejected lists each removed sentence with the check it failed. conditions lists the condition spans of your draft that were found in the source, each with its paragraph ID. Write those paragraphs again from the same source paragraphs, keeping the same role and the whole summary within length, and do not repeat what kept already says. Fix the reason given: cite the paragraph that states each fact, name the speaker the paragraph names, write a purpose only when a cited paragraph states it, and leave out what no paragraph supports. word_count gives the current count and the allowed least and most for a draft that passed the other checks: rewrite all roles, shortening secondary details if above most or adding source-supported specifics if below least, while retaining each role's sheet point and conditions. bullet_sentences marks a paragraph of more than two sentences: write it again in one or two sentences that keep its box's point and conditions. lead_dropped marks a sentence that passed but lost the development paragraph's opening sentence: open the paragraph again with a sentence that names who did what, then keep what those sentences say. For condition_not_cited, each significance sentence cites a paragraph ID listed in conditions; when the assessment you need sits in another paragraph, copy a verbatim span of at most 25 words from that paragraph into conditions, with its paragraph ID, and cite it. Return each {id, status: ready, sheet (only when sheet_error is set), conditions: [{text, ref}], paragraphs: [{role, sentences: [{text, evidence_refs}]}]} holding only the paragraphs whose role is in roles and only the conditions you add (use [] for none); return status insufficient_evidence with no paragraphs when the sources cannot support them. Each new sentence is checked the same way."""
 WRITER_REVIEW_PROMPT = WRITER_PROMPT + """
 
 REVIEW
@@ -1194,6 +1194,8 @@ def _rewrite_roles(reply, dropped, error):
     those too long for one bullet."""
     if error in REWRITE_ERRORS:
         return _lost_roles(reply, dropped)
+    if error and error.startswith("word_count:"):
+        return [paragraph["role"] for paragraph in reply["paragraphs"]]
     if error in {"sheet_point_dropped", "bullet_sentences"}:
         missing = {item["role"] for item in dropped if item["error"].startswith(error)}
         return [paragraph["role"] for paragraph in reply["paragraphs"] if paragraph["role"] in missing]
@@ -1210,7 +1212,7 @@ def _lost_roles(reply, dropped):
             if removed[paragraph["role"]] >= len(paragraph["sentences"])]
 
 
-def _rewrite_request(inputs, reply, dropped, roles):
+def _rewrite_request(inputs, reply, dropped, roles, error=None):
     """The writer's input row plus what it needs to redo the lost paragraphs from the same sources."""
     removed = {(item.get("role"), item["text"]) for item in dropped}
     # dropped holds the reader's text (_reader_text), so the draft's sentences are compared in that form.
@@ -1224,6 +1226,10 @@ def _rewrite_request(inputs, reply, dropped, roles):
     conditions, _ = _grounded_conditions(inputs, reply["conditions"])
     request = {"roles": roles, "title_vi": reply["title_vi"]["text"], "conditions": conditions,
                "sheet": reply.get("sheet"), "kept": kept, "rejected": rejected}
+    if error and error.startswith("word_count:"):
+        words = int(error.split()[1])
+        length = inputs["length"]
+        request["word_count"] = {"current": words, "least": length["least"], "most": length["most"]}
     sheet_error = next((item["error"] for item in dropped if item.get("role") == "sheet"), None)
     if sheet_error:
         request["sheet_error"] = sheet_error
@@ -1376,7 +1382,7 @@ def _writer(stories, intake, reporter, editor, articles, tools, discovery, runne
                 pending[sid] = (roles, dropped)
         merged_results = {}
         if pending:
-            rewrite_payload = [_rewrite_request(inputs_by_id[sid], replies[sid], dropped, roles)
+            rewrite_payload = [_rewrite_request(inputs_by_id[sid], replies[sid], dropped, roles, sheeted[sid][2])
                                for sid, (roles, dropped) in pending.items()]
             try:
                 rewritten, events = _agent_desk("writer", rewrite_payload, WRITER_REWRITE_PROMPT, "bien-tap", tools,
