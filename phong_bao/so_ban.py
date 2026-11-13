@@ -16,7 +16,7 @@ from .paywall import HOLD_REASON as PAYWALL_HOLD_REASON
 
 STAMP = re.compile(r"^\d{8}T\d{6}Z$")
 LOCAL = ZoneInfo("Asia/Bangkok")
-SCHEDULE_LOCAL = (2, 6, 10, 14, 18, 22)
+SCHEDULE_LOCAL = tuple(range(0, 24, 2))
 VERDICTS = {"intake": "pass", "reporter": "readable", "editor": "news",
             "checker": "verified", "writer": "written", "chief": "decision"}
 
@@ -259,7 +259,7 @@ def report(month, cycles, problems, labels=None, decisions_path=None, now=None):
     selected = [cycle for cycle in cycles if cycle["start"].astimezone(LOCAL).strftime("%Y-%m") == month]
     lines = [f"# Báo cáo sổ bàn {month}", "", "## Lịch và kết quả cycle", ""]
     if selected:
-        first = datetime.strptime(month, "%Y-%m").replace(tzinfo=LOCAL) + timedelta(hours=2)
+        first = datetime.strptime(month, "%Y-%m").replace(tzinfo=LOCAL) + timedelta(hours=SCHEDULE_LOCAL[0])
         month_start = first.replace(day=1, hour=0)
         month_end = (month_start.replace(day=28) + timedelta(days=4)).replace(day=1)
         horizon = min(now or datetime.now(LOCAL), month_end) - timedelta(microseconds=1)
@@ -270,11 +270,12 @@ def report(month, cycles, problems, labels=None, decisions_path=None, now=None):
         while day <= horizon:
             expected.update(slot for slot in (day.replace(hour=h) for h in SCHEDULE_LOCAL) if slot <= horizon)
             day += timedelta(days=1)
+        slot_hours = ', '.join(f'{h:02d}' for h in SCHEDULE_LOCAL)
         last = max(expected, default=first)
         present = {c["start"].astimezone(LOCAL).replace(minute=0, second=0, microsecond=0) for c in selected}
         completed = sum(c["state"] in ("decided", "no_new_stories") for c in selected)
         interrupted = [c["id"] for c in selected if c["state"] == "running"]
-        lines += [f"Khung 02, 06, 10, 14, 18, 22 giờ (+07), từ {first.isoformat()} đến {last.isoformat()}.",
+        lines += [f"Khung {slot_hours} giờ (+07), từ {first.isoformat()} đến {last.isoformat()}.",
                   f"Kỳ vọng: {len(expected)}; có cycle: {len(selected)}; đúng khung: {len(expected & present)}; hoàn tất: {completed}; đang dở: {len(interrupted)}.",
                   f"Khung vắng: {', '.join(x.isoformat() for x in sorted(expected - present)) or 'không có'}.",
                   f"Cycle đang dở: {', '.join(interrupted) or 'không có'}.", ""]
