@@ -5,7 +5,6 @@ import json
 import re
 import shutil
 import subprocess
-import tempfile
 import unittest
 from pathlib import Path
 
@@ -151,87 +150,24 @@ class DayPicture(unittest.TestCase):
                                  "afterWiden": "nen/2026-11-10.avif"})
 
 
-FRESH_HARNESS = r"""
-globalThis.window = globalThis;
-const getComputedStyle = () => ({ paddingBottom: '16px' });
-const HEAD = 56, PAD = 16;
-function tileOf({ heights, pinned, grow = false, clientH = 360 }) {
-  const visible = () => rows.filter(r => !r.hidden);
-  const rows = heights.map((h, i) => ({
-    h, hidden: false, pinned: i < pinned,
-    hasAttribute(a) { return a === 'data-pinned' && this.pinned; },
-    getBoundingClientRect() {
-      let top = HEAD;
-      for (const r of visible()) { if (r === this) break; top += r.h; }
-      return { top, bottom: top + this.h };
-    },
-  }));
-  const ul = { children: rows, getBoundingClientRect: () => ({ top: HEAD }) };
-  const tile = {
-    hidden: false, clientTop: 0,
-    get scrollHeight() { return HEAD + visible().reduce((s, r) => s + r.h, 0) + PAD; },
-    get clientHeight() { return grow ? this.scrollHeight : clientH; },
-    getBoundingClientRect: () => ({ top: 0 }),
-    querySelector: s => (s === '.fresh-list' ? ul : null),
-  };
-  return { tile, rows, room: clientH - PAD - HEAD - 1 };
-}
-let current = null;
-const $ = s => (s === '#fresh-row' ? current.tile : null);
-__FIT__
-function look(t) {
-  const shown = t.rows.map((r, i) => [r, i]).filter(([r]) => !r.hidden);
-  return { shown: shown.map(([, i]) => i), fits: shown.every(([r]) => r.getBoundingClientRect().bottom - HEAD <= t.room) };
-}
-const out = {};
-// Four new rows, the first one three lines tall: the newest whole rows stay, the last is left out.
-current = tileOf({ heights: [100, 66, 66, 66], pinned: 4 });
-fitFreshTile(); out.batch = look(current);
-// Ordinary rows that do not fit are left out the same way.
-current = tileOf({ heights: [80, 80, 80, 80], pinned: 0 });
-fitFreshTile(); out.plain = look(current);
-// Rows that all fit all show.
-current = tileOf({ heights: [60, 60, 60, 60], pinned: 0 });
-fitFreshTile(); out.roomy = look(current);
-// A first row taller than the whole tile still shows: the tile is never empty.
-current = tileOf({ heights: [400, 60], pinned: 0 });
-fitFreshTile(); out.tall = look(current);
-// A tile that grows with its rows (phone, tablet) shows them all.
-current = tileOf({ heights: [80, 66, 66, 66], pinned: 4, grow: true });
-fitFreshTile(); out.grows = look(current);
-process.stdout.write(JSON.stringify(out));
-"""
-
-
 class FreshTileRows(unittest.TestCase):
-    """"Vừa đăng" beside the lead shows only whole rows, newest first, and never pages (captain, 12/11 09:23)."""
+    """"Vừa đăng" beside the lead keeps a bounded height and scrolls to its rows, never paging (captain, 12/11 09:23
+    "danh sách ... dài quá"; 13/11 "làm cuộn, xóa pagination"; "trên mobile ... không cuộn xem thêm được"). The
+    row-by-row behaviour is proven in test_vua_dang_gon.py; here we hold the CSS scroll affordance and confirm the old
+    measure-and-hide fit is gone."""
 
-    def test_the_tile_hides_rows_it_cannot_show_whole_and_has_no_pager(self):
+    def test_the_tile_scrolls_within_a_bounded_height_and_has_no_pager(self):
         css = read(SITE / "trang-msn.css")
-        self.assertIn(".fresh-list > li[hidden] { display: none; }", css)
+        # Beside the lead the list scrolls inside the cell; on phone/tablet a capped height scrolls the same way.
+        self.assertIn("grid-auto-rows: max-content; align-content: start; overflow-y: auto;", css)
+        self.assertIn("max-height: 19rem; overflow-y: auto; overscroll-behavior: contain;", css)
         self.assertNotIn("fresh-pager", css)
         feed = read(SITE / "feed.js")
         self.assertIn("fitFreshTile();\n  fitBandLists();\n  scheduleCountdown();", feed)
+        # The tile no longer measures and hides overflow rows (the ResizeObserver fit is gone); CSS owns the scroll.
+        self.assertNotIn("freshRO", feed)
         for gone in ("fresh-pager", "pageFresh", "freshPage", "data-fresh-page"):
             self.assertNotIn(gone, feed)
-
-    @unittest.skipUnless(shutil.which("node"), "Node required for the fitting test")
-    def test_whole_rows_newest_first(self):
-        feed = read(SITE / "feed.js")
-        fit = feed[feed.index("let freshRO = null;"):feed.index("function goFirstNew()")]
-        fit = fit[:fit.index("/* Redraw the tile in place")]
-        with tempfile.TemporaryDirectory() as tmp:
-            harness = Path(tmp) / "harness.mjs"
-            harness.write_text(FRESH_HARNESS.replace("__FIT__", fit), encoding="utf-8", newline="\n")
-            run = subprocess.run(["node", str(harness)], cwd=ROOT, capture_output=True, text=True,
-                                 encoding="utf-8", timeout=60)
-        self.assertEqual(run.returncode, 0, run.stderr)
-        got = json.loads(run.stdout)
-        self.assertEqual((got["batch"]["shown"], got["batch"]["fits"]), ([0, 1, 2], True))
-        self.assertEqual((got["plain"]["shown"], got["plain"]["fits"]), ([0, 1, 2], True))
-        self.assertEqual((got["roomy"]["shown"], got["roomy"]["fits"]), ([0, 1, 2, 3], True))
-        self.assertEqual(got["tall"]["shown"], [0])
-        self.assertEqual(got["grows"]["shown"], [0, 1, 2, 3])
 
 
 if __name__ == "__main__":

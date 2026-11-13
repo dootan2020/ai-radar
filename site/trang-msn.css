@@ -753,13 +753,18 @@
 .band .tile .tile-head { align-items: center; min-height: var(--space-24); }
 .band .tile .tile-note { font-size: var(--text-micro); }
 
-/* "Vừa đăng" fills its cell: whole rows (fitFreshTile), sharing the height the tile has, headlines up to three lines. */
+/* "Vừa đăng" fills its cell and scrolls to the rows past the fold (owner, 13/11): rows keep their natural height, so
+   headlines never crowd each other, and the list scrolls inside the height the tile has — no pager. */
 .band #fresh-row { margin: 0; }
-.band .tile-fresh .fresh-list { flex: 1; min-height: 0; grid-auto-rows: auto; align-content: stretch; }
+.band .tile-fresh .fresh-list { flex: 1; min-height: 0; grid-auto-rows: max-content; align-content: start; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; }
 .band .tile-fresh .fresh-list > li { display: flex; min-height: 0; }
 .band .tile-fresh .brief { flex: 1; align-items: center; padding-block: var(--space-8); }
 .band .tile-fresh .brief time { padding-top: 0; }
-.band .tile-fresh .brief-h { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.band .tile-fresh .brief-h { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+/* Phone and tablet: the tile would otherwise grow to every row; cap it so it scrolls to the rest like on desktop. */
+@media (max-width: 1099px) {
+  .tile-fresh .fresh-list { max-height: 19rem; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; }
+}
 
 /* "Chuyện lớn": the four stories share the card's height; a row that cannot fit whole is left out (fitBandLists). */
 .band .msn-toplist { padding: var(--space-12) var(--space-12) var(--space-8); }

@@ -85,8 +85,10 @@ const MEASURE = () => {
       titleBox: part(li, '.top-title'), src: part(li, '.top-src'), time: part(li, 'time'), pic: part(li, '.top-pic'), hasPhoto: !!li.querySelector('.top-pic') };
   });
   const panel = document.querySelector('.feed-main.front.msn-panel');
-  // One ordinary story card's computed look, to compare a phone's card with the desktop's.
-  const one = [...document.querySelectorAll('#band-news .nc.has-photo:not(.nc-wide):not(.nc-big)')].find(shown);
+  // One ordinary story card's computed look, to compare a phone's card with the desktop's. Any band's ordinary photo
+  // card is a fair sample (the token invariant holds page-wide); #band-news alone can run short of one once the "Vừa
+  // đăng" tile keeps more rows out of the river, so look across the whole feed.
+  const one = [...document.querySelectorAll('#feed-grid .band .nc.has-photo:not(.nc-wide):not(.nc-big)')].find(shown);
   const cs = (el, ...props) => el ? Object.fromEntries(props.map(p => [p, getComputedStyle(el)[p]])) : null;
   const look = one && {
     card: cs(one, 'borderRadius', 'boxShadow', 'backgroundColor', 'paddingTop', 'paddingLeft'),

@@ -1897,7 +1897,8 @@ let FRONT = null;             // { notable, river, older: [{ key, list }], group
 function buildFront() {
   const used = new Set([...PICKLIST, ...FRONT_TOP].map(st => st.id));
   FRONT_IDS = new Set(used);
-  const fresh = D ? newestStories().list.slice(0, FRESH_TILE_ROWS) : [];
+  // The tile shows the whole list and scrolls to it, so the river leaves out every row the tile holds (one cut).
+  const fresh = D ? newestStories().list : [];
   fresh.forEach(st => used.add(st.id));
   const river = ordered(allStories.filter(st => !used.has(st.id)));
   const ni = river.findIndex(st => isBig(st)), wi = ni >= 0 ? ni : river.findIndex(st => isWide(st));
@@ -2893,35 +2894,19 @@ function freshItem(st) {
 function freshInnerHTML() {
   const { list } = D && filter === 'all' ? newestStories() : { list: [] };
   if (!list.length) return '';
-  // The same rows buildFront takes out of the river, so every story is on the page once.
-  const shown = list.slice(0, FRESH_TILE_ROWS);
+  // Show the whole batch (up to NEWEST.cap); the tile keeps a calm height and scrolls to the rest (owner, 13/11):
+  // the pill batch leads, then the newest of the rest, and every story still keeps its own place below.
+  const shown = list;
   return `<div class="tile-head"><h2 class="tile-title" id="fresh-row-h" tabindex="-1">Vừa đăng</h2></div>
     <ul class="briefs fresh-list" id="fresh-list" data-n="${shown.length}">${shown.map(freshItem).join('')}</ul>`;
 }
-/* The tile beside the lead is one grid row tall from 1100 px, so it holds only the whole rows that fit there; a row is
-   never cut at its edge, and a row that does not fit is left out, with no pager and no count. Where the tile grows
-   with its rows (phone, tablet), every row shows. */
-let freshRO = null;
+/* The tile keeps a calm, bounded height (beside the lead it is one grid row tall from 1100 px; on phone/tablet a
+   capped height) and its list scrolls to reach the rows past the fold — no pager, no count, every row kept (owner,
+   13/11: "làm cuộn, xóa pagination"; "trên mobile ... không cuộn xem thêm được"). CSS owns the height and scroll;
+   this only clears any stale row-hiding from an earlier build. */
 function fitFreshTile() {
-  const tile = $('#fresh-row'), ul = tile && tile.querySelector('.fresh-list');
-  if (!ul || tile.hidden) return;
-  if (!freshRO && 'ResizeObserver' in window) {
-    let w = 0, h = 0;
-    freshRO = new ResizeObserver(([e]) => {
-      const { width, height } = e.contentRect;
-      if (Math.abs(width - w) > 0.5 || Math.abs(height - h) > 0.5) { w = width; h = height; fitFreshTile(); }
-    });
-  }
-  if (freshRO && tile._fitObserved !== true) { freshRO.disconnect(); freshRO.observe(tile); tile._fitObserved = true; }
-  const rows = [...ul.children];
-  rows.forEach(li => { li.hidden = false; });
-  // A tile that grows with its rows never overflows.
-  if (tile.scrollHeight <= tile.clientHeight + 1) return;
-  const tr = tile.getBoundingClientRect(), ulTop = ul.getBoundingClientRect().top;
-  const room = tr.top + tile.clientTop + tile.clientHeight - parseFloat(getComputedStyle(tile).paddingBottom) - ulTop - 1;
-  // Rows stack, so the first row past the room ends the tile; the newest stay.
-  const end = rows.findIndex(li => li.getBoundingClientRect().bottom - ulTop > room);
-  rows.forEach((li, i) => { li.hidden = end >= 0 && i >= Math.max(end, 1); });
+  const ul = $('#fresh-row')?.querySelector('.fresh-list');
+  if (ul) [...ul.children].forEach(li => { li.hidden = false; });
 }
 function freshTileHTML() {
   const inner = freshInnerHTML();
