@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-13T21:29:16.868259+00:00",
-  "input_generated_at": "2026-11-13T20:46:08Z",
+  "generated_at": "2026-11-13T23:13:29.859884+00:00",
+  "input_generated_at": "2026-11-13T22:45:51Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -60417,17 +60417,17 @@
       "use_original_title": false,
       "source_url": "https://www.semafor.com/article/11/12/2026/fallout-from-nvidia-ceos-likely-ouster-could-slow-gulf-ai-buildout",
       "key_points": [
-        "Theo tác giả Kelsey Warner trên Semafor, nguy cơ Tổng giám đốc Jensen Huang bị phế truất sẽ lan tới Vùng Vịnh, nơi các kế hoạch trí tuệ nhân tạo phụ thuộc lớn vào chip tân tiến của Mỹ.",
-        "Theo tác giả, bê bối gián điệp gia tăng giám sát nguy cơ tuồn chip sang Trung Quốc khi giới chức tình báo Mỹ cáo buộc người phụ nữ có quan hệ với Huang là gián điệp.",
-        "Nỗi lo rò rỉ công nghệ qua trung gian đã buộc các tập đoàn như HUMAIN của Saudi Arabia và G42 của Abu Dhabi phải chật vật tiếp cận nguồn cung chip.",
-        "Tác giả nhận định sự ra đi của lãnh đạo Nvidia không làm suy giảm năng lực sản xuất bán dẫn, mà thách thức cốt lõi với Vùng Vịnh vẫn luôn là quyền tiếp cận nguồn cung."
+        "Kelsey Warner trên Semafor dự đoán nguy cơ Jensen Huang bị phế truất có thể ảnh hưởng các kế hoạch AI tại Vùng Vịnh, nơi các dự án phụ thuộc vào chip tiên tiến của Mỹ.",
+        "Bà dự đoán cáo buộc người phụ nữ có quan hệ với Huang là gián điệp Trung Quốc sẽ làm việc giám sát chặt hơn; các nghị sĩ đã thúc đẩy hạn chế mới đối với việc chuyển chip sai đích, có thể làm chậm phát triển tại Vùng Vịnh.",
+        "Bộ trưởng Thương mại Mỹ Howard Lutnick đã phê duyệt cung cấp hàng chục nghìn bộ xử lý đồ họa tiên tiến cho Saudi Arabia và UAE. Tại một hội nghị ở Dubai, doanh nhân Hussain Sajwani đánh giá nếu Huang buộc phải rời Nvidia, đó sẽ là tổn thất lớn.",
+        "Warner nhận định việc mất người lãnh đạo không nên làm suy giảm khả năng sản xuất chip của Nvidia; vấn đề cốt lõi với Vùng Vịnh vẫn là quyền tiếp cận nguồn cung."
       ],
       "same_event_coverage_ids": [
         "18a2d93c9305442eff57"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Nguy cơ CEO Nvidia bị phế truất đe dọa làm chậm kế hoạch phát triển AI tại Vùng Vịnh",
+      "editorial_headline_vi": "Semafor: Nguy cơ Huang mất chức có thể làm chậm kế hoạch AI ở Vùng Vịnh qua đường tiếp cận chip",
       "summary_sources": [
         {
           "id": "outlet",
@@ -60436,48 +60436,61 @@
           "url": "https://www.semafor.com/article/11/12/2026/fallout-from-nvidia-ceos-likely-ouster-could-slow-gulf-ai-buildout"
         }
       ],
-      "summary_limitations": [],
+      "summary_limitations": [
+        "source_conflict"
+      ],
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 7.85,
+        "value": 6.8,
         "answers": {
-          "what": 9,
-          "why": 7,
-          "notable": 8,
-          "meaning": 6
+          "what": 7,
+          "why": 6,
+          "notable": 6,
+          "meaning": 9
         },
         "hard_errors": [
           {
-            "kind": "fact",
-            "summary_text": "bê bối gián điệp gia tăng giám sát",
-            "explanation": "The source predicts the affair will sharpen scrutiny; it does not report that the additional scrutiny has already occurred (outlet:p001)."
+            "kind": "role",
+            "summary_text": "Bà dự đoán",
+            "explanation": "The source gives only the byline 'Kelsey Warner' (outlet:p004) and says nothing about the author's gender, so the pronoun 'Bà' is unsupported."
           },
           {
-            "kind": "quote",
-            "summary_text": "sự ra đi của lãnh đạo Nvidia không làm suy giảm năng lực sản xuất bán dẫn",
-            "explanation": "The source says losing the leader “shouldn’t” undermine Nvidia’s ability to produce silicon. The Vietnamese removes that qualification (outlet:p002)."
+            "kind": "fact",
+            "summary_text": "cáo buộc người phụ nữ có quan hệ với Huang là gián điệp Trung Quốc",
+            "explanation": "The source says US intelligence officials allege the woman Huang had an affair with is a Chinese spy (outlet:p001). The Vietnamese drops who makes the allegation, so it reads as a vaguer or generic accusation."
           }
         ],
         "findings": [
           {
-            "question": "why",
-            "problem": "The reader may think scrutiny has already increased and misses the proposed chip restrictions.",
-            "fix": "Present increased scrutiny as Semafor’s expectation and add that lawmakers are pushing restrictions that could slow development (outlet:p001)."
+            "question": "what",
+            "problem": "The source says Huang's ouster is 'likely' and that the fallout 'will reach the Gulf'. The Vietnamese turns this into a mere 'nguy cơ' (risk) and the headline into a conditional.",
+            "fix": "State that Huang is likely to be ousted, as in outlet:p001. Say the fallout will reach the Gulf, and that the lawmakers' curbs 'could threaten' the speed of development."
           },
           {
-            "question": "meaning",
-            "problem": "The reader receives certainty about Nvidia’s production capacity where the source expresses an expectation.",
-            "fix": "Keep the qualification that Huang’s departure should not undermine chip production (outlet:p002)."
+            "question": "why",
+            "problem": "The Vietnamese does not give the source's stated reason for the pressure: fear that China gets US technology through intermediaries. It also omits that HUMAIN and G42 are already fighting for access.",
+            "fix": "Add that fear over China's access through intermediaries has forced HUMAIN and G42 to fight hard for chips (outlet:p001)."
+          },
+          {
+            "question": "notable",
+            "problem": "The Vietnamese omits the allegation that Lutnick stalled action against the Singapore firm tied to the scandal, and Commerce's denial. This leaves the paragraph on Lutnick one-sided.",
+            "fix": "Add that Lutnick faces allegations of stalling action against the Singapore firm and that Commerce denies them (outlet:p002)."
+          },
+          {
+            "question": "what",
+            "problem": "The Vietnamese attributes the allegation without naming US intelligence officials, and it adds the pronoun 'Bà' for the author.",
+            "fix": "Write 'quan chức tình báo Mỹ cáo buộc' and drop the gendered pronoun, using 'Warner' or a neutral form."
           }
         ],
         "writer_boats": [
-          "agy"
+          "agy",
+          "codex"
         ],
-        "scorer_boat": "codex",
-        "scorer_provider": "codex",
-        "prose_sha256": "b9fb7cbd3ae2da5dcee2078dd22bd6a68ccde4c97f9b33eb9576f364c6a27d82",
-        "scored_at": "2026-11-12T15:22:27.438820+00:00"
+        "scorer_boat": "claude",
+        "scorer_provider": "claude-code",
+        "prose_sha256": "e406d1f806846d0e2d7aaad35017a381d239fb562e3afdd77659f006ba4a0432",
+        "scored_at": "2026-11-13T23:12:00.650187+00:00"
       }
     },
     {
@@ -69445,10 +69458,10 @@
       "use_original_title": false,
       "source_url": "https://www.slopmanifesto.com/",
       "key_points": [
-        "Các diễn giả và người tham dự AIE Code Summit 2026 viết tuyên ngôn No AI Slop, kêu gọi coi trọng kết quả, sự hiểu biết và chất lượng công việc hơn lượng nội dung hay tốc độ tạo ra. Nhóm tác giả gọi nội dung là “slop” khi người tạo bỏ ra ít công sức hơn mức họ đòi người đọc dành để hiểu nó.",
-        "Theo nhóm tác giả, chi phí tạo một yêu cầu sửa mã dài cả nghìn dòng hoặc tài liệu mười trang đang tiến gần về không, còn công sức xem xét chúng vẫn giữ nguyên. Họ cũng cho rằng áp lực trong doanh nghiệp và việc nội dung cẩu thả bị công cụ AI đọc rồi sao chép tiếp làm vấn đề lan rộng.",
-        "Nhóm tác giả cam kết nói rõ khi công cụ AI viết nội dung họ gửi đi và kiểm tra các phần quan trọng trước khi gửi. Khi một lỗi xuất hiện hai lần, họ đề xuất sửa hệ thống và các bước kiểm tra tự động, thay cho việc liên tục sửa riêng từng đầu ra.",
-        "Theo tuyên ngôn, điều đáng đo là sản phẩm nào được đưa ra, ai dùng và nó giúp họ ra sao; nhóm tác giả cũng thừa nhận đầu ra chưa được xem lại không phải lúc nào cũng kém. Nhóm tác giả nói họ vẫn đang xác định mức chất lượng chấp nhận được và không có một câu trả lời đúng cho mọi trường hợp."
+        "Các diễn giả và người tham dự AIE Code Summit 2026 lập tuyên ngôn No AI Slop, đặt kết quả, sự hiểu biết và chất lượng công việc lên trước lượng nội dung hay tốc độ tạo ra. Nhóm tác giả gọi nội dung là “slop” khi người tạo bỏ ra ít công sức hơn mức họ đòi người nhận dành để hiểu nó; theo họ, dùng AI tự nó không làm một sản phẩm thành “slop”.",
+        "Theo nhóm tác giả tuyên ngôn, chi phí tạo một PR nghìn dòng hoặc tài liệu mười trang đang tiến gần về không, trong khi chi phí rà soát chúng vẫn không đổi.",
+        "Nhóm tác giả cam kết nói rõ khi một công cụ AI tự thực hiện việc đã được giao viết nội dung họ gửi đi và kiểm tra những phần quan trọng trước khi gửi. Khi một lỗi lặp lại, họ đề xuất sửa hệ thống và dùng công cụ kiểm tra tự động cho những lỗi công cụ có thể bắt được.",
+        "Nhóm tác giả nhấn mạnh con người vẫn chịu trách nhiệm về thứ mình đưa ra và vẫn cần xem xét ít nhất một phần đầu ra AI, với mức xem xét tùy độ hệ trọng. Họ cũng thừa nhận đầu ra chưa được xem lại không phải lúc nào cũng kém và chưa có một câu trả lời đúng cho mọi trường hợp."
       ],
       "same_event_coverage_ids": [
         "29beca3d1f503595a9c5",
@@ -69456,7 +69469,7 @@
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Tuyên ngôn No AI Slop của AIE Code Summit 2026 đặt chất lượng công việc lên trước tốc độ tạo bằng AI",
+      "editorial_headline_vi": "Tuyên ngôn No AI Slop: Người dùng AI vẫn chịu trách nhiệm và rà soát đầu ra theo mức độ hệ trọng",
       "summary_sources": [
         {
           "id": "outlet",
@@ -69469,19 +69482,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.7,
+        "value": 8.9,
         "answers": {
           "what": 9,
-          "why": 9,
-          "notable": 9,
-          "meaning": 7
+          "why": 7,
+          "notable": 10,
+          "meaning": 9
         },
         "hard_errors": [],
         "findings": [
           {
-            "question": "meaning",
-            "problem": "The core stance that humans own the outcome and still review at least a subset of AI output, with the subset depending on the stakes, is not conveyed (p017, p028, p032).",
-            "fix": "Add one clause saying the authors hold that humans stay responsible and must still review part of AI output, scaled to the stakes."
+            "question": "why",
+            "problem": "The Vietnamese leaves out why slop spreads: pressure on people to redefine what is humanly possible (p020), compounding as agents copy existing slop (p021), and loss of will to fight it (p022).",
+            "fix": "Add one clause on pressure or compounding, and on the stated aim that AI should make work better, not just easier (p025)."
           }
         ],
         "writer_boats": [
@@ -69489,8 +69502,8 @@
         ],
         "scorer_boat": "claude",
         "scorer_provider": "claude-code",
-        "prose_sha256": "b982af113a108bc2b8cb7ece37269db50001cfb62397e2a45cd4bd5a7e266f1d",
-        "scored_at": "2026-11-13T21:14:48.066933+00:00"
+        "prose_sha256": "29defeabbe7ab96ff5cdbd8fdd05e7e475bd8861c2f1ab1b47a162a1e812f550",
+        "scored_at": "2026-11-13T23:11:31.187395+00:00"
       }
     },
     {
@@ -70257,6 +70270,582 @@
         "prose_sha256": "5ff9f4b6ab7d6e3c6cc0ce0637140156003658b1ad0c936787f8da8932d6baaf",
         "scored_at": "2026-11-13T21:14:48.068312+00:00"
       }
+    },
+    {
+      "id": "9d694fa95af0cfaecf52",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/13/jensen-huangs-departure-blasts-big-hole-in-ai-startup-funding-vcs-and-founders-say/",
+      "key_points": [
+        "Jensen Huang đã từ chức CEO Nvidia sau 33 năm đồng sáng lập và lãnh đạo công ty. Theo PitchBook được TechCrunch dẫn lại, Nvidia tham gia 105 vòng gọi vốn trong năm nay và thường là nhà đầu tư lớn nhất.",
+        "Umesh Padval, đối tác điều hành tại Seligman Ventures, cho biết nhiều quyết định đầu tư lớn vào startup thường do chính Huang đưa ra. Một nhà đầu tư nhận định CEO tạm quyền Colette Kress thận trọng hơn và có thể không tiếp tục rót mức vốn như trước.",
+        "Theo Wall Street Journal được TechCrunch dẫn lại, Nvidia từng rót 800 triệu USD vào vòng Series B trị giá 2 tỷ USD của Reflection AI trước khi startup này có doanh thu đáng kể. Một nhà đầu tư mạo hiểm nói các công ty hạ tầng cần 100–500 triệu USD để mua GPU thường huy động một nửa khoản đó từ Nvidia ở mức định giá từ 1 tỷ USD.",
+        "Theo các nhà đầu tư được TechCrunch dẫn lời, khoảng trống vốn lúc này sau khi Huang rời Nvidia có thể tác động lớn đến các thương vụ, định giá, việc gọi vốn và cạnh tranh. TechCrunch ghi nhận ít người tin việc Nvidia giảm đầu tư, tự nó, sẽ chặn đà bùng nổ AI rộng hơn."
+      ],
+      "same_event_coverage_ids": [
+        "4ffb2586458f3e89a16d"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Jensen Huang từ chức CEO Nvidia, giới đầu tư lo nguồn vốn cho startup AI thu hẹp",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/13/jensen-huangs-departure-blasts-big-hole-in-ai-startup-funding-vcs-and-founders-say/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.05,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 9,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The reader does not learn that Nvidia is expected to be more selective and write smaller checks into its existing portfolio, which would pull valuations down. The reader also misses that rivals such as Google, Amazon and AMD may step in.",
+            "fix": "Add one sentence from p023 and p019-p021 on the smaller checks, the lower valuations and the investors' hope that rivals fill the gap."
+          }
+        ],
+        "writer_boats": [
+          "codex"
+        ],
+        "scorer_boat": "claude",
+        "scorer_provider": "claude-code",
+        "prose_sha256": "62928e8ea94e98fbc6fbf16a4bd70f760b0ca5e899153328cb5c91d05fb513d2",
+        "scored_at": "2026-11-13T23:06:53.342945+00:00"
+      }
+    },
+    {
+      "id": "cd8fc130788a632d051e",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bài hướng dẫn triển khai và đo chi phí định tuyến model cho coding agent.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/route-coding-agent-requests-to-the-right-model-on-amazon-bedrock-with-nvidia-nemo-switchyard/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "602c695ec32f189c2bef"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "7d270c57e33571d52459",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-13/match-group-keeping-ai-out-of-dating-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "be139c013b055531b502"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "fbc50dc6203beec2f155",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Chủ đề là thuật toán tính toán FP64 cho mô phỏng khoa học; AI chỉ xuất hiện trong nhãn bản tóm tắt tự động.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://developer.nvidia.com/blog/faster-scientific-simulations-with-new-fp64-algorithms-in-nvidia-cublas/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "81e46ea993582a8acb54"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "2f429c1a2fc201bc6e9a",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bài giải thích cách đo và tối ưu thời gian khởi tạo phiên AgentCore V2.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/architecture-patterns-for-fast-session-startup-on-amazon-bedrock-agentcore-runtime/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "5b78d5940415137faa0a"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "b47584a6c89b58232610",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bài chủ yếu hướng dẫn triển khai và sử dụng OpenFold3-preview trên SageMaker JumpStart, không nêu một đợt phát hành mới có ngày xác định.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/openfold3-on-amazon-sagemaker-jumpstart-predict-biomolecular-structures/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "ffcf7a0ca5015e055e1c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "a9382f2b79c92a6bbc8e",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-13/blackstone-s-qts-is-cutting-ai-debt-sale-by-more-than-half",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c922a1448670d6ba36b7"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "05648108c87680dd8673",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://arstechnica.com/features/2026/11/faa-expands-ai-advice-to-manage-air-traffic-congestion-across-entire-us-airspace/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "8eee8b96506889a55cdd",
+        "e2d535298610bb85ef11"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "24910e36a4a267c1a182",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/13/2026/trumps-ai-task-force-discusses-cyber-risks",
+      "key_points": [
+        "Theo một quan chức chính quyền nói với Semafor, nhóm công tác AI của Nhà Trắng họp hôm thứ Năm, bàn về các mối đe dọa mạng đang biến đổi và việc củng cố hạ tầng thiết yếu trước nguy cơ bị tấn công.",
+        "Theo quan chức này, người đứng đầu nhóm là Giám đốc Tình báo Quốc gia Jay Clayton đã thông tin về việc các CEO công nghệ ký thỏa thuận AI với Nhà Trắng đang chuẩn bị bộ tiêu chuẩn chung cho ngành. Semafor cho biết các quan chức cũng cập nhật việc đơn vị AI của NIST kiểm thử mô hình AI trước khi phát hành.",
+        "Theo Semafor, nhóm muốn Quốc hội gia hạn các đạo luật liên quan đến an ninh mạng và chia sẻ thông tin, nhưng vẫn đang cân nhắc có đề xuất luật mới hay không. Một quan chức chính quyền nói bê bối Nvidia đang diễn ra không được thảo luận tại cuộc họp."
+      ],
+      "same_event_coverage_ids": [
+        "3e85cba3552da78ec29f"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nhóm công tác AI của Nhà Trắng bàn rủi ro mạng, còn cân nhắc đề xuất luật mới",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/13/2026/trumps-ai-task-force-discusses-cyber-risks"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The Vietnamese omits that Clayton alluded to adding more firms to the accord.",
+            "fix": "Add a short clause from p003 saying Clayton hinted at bringing more companies into the accord."
+          }
+        ],
+        "writer_boats": [
+          "codex"
+        ],
+        "scorer_boat": "claude",
+        "scorer_provider": "claude-code",
+        "prose_sha256": "5934fd3bfdea46b343be28542e074669896572bd7b8775601ebd32e91f14cece",
+        "scored_at": "2026-11-13T23:06:53.343062+00:00"
+      }
+    },
+    {
+      "id": "8fc5d8ced20e6bdd730b",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Trọng tâm là xử lý dữ liệu giao thoa vô tuyến bằng GPU; AI agent chỉ được nêu như một cách điều phối quy trình.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://developer.nvidia.com/blog/run-gpu-powered-black-hole-interferometry-with-nvidia-cuphoton/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "fceb2cf27fe36b82830f"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "9c6e48e89cd9a201722b",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-13/fed-sees-risks-tied-to-elevated-asset-prices-partly-driven-by-ai",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "7d0bdd0c833df664b96d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "995c4a805a2dae47d62a",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://github.blog/changelog/2026-11-13-upcoming-deprecation-of-selected-github-copilot-models-in-december",
+      "key_points": [
+        "GitHub thông báo từ ngày 14/12/2026 sẽ ngừng hỗ trợ các mô hình được liệt kê trên mọi trải nghiệm Copilot, nhưng Claude Haiku 4.5 vẫn có cho thuê bao cá nhân trả theo năm. Phạm vi gồm Copilot Chat, chỉnh sửa mã trực tiếp, chế độ hỏi đáp, chế độ agent (AI tự thực hiện nhiều bước) và gợi ý hoàn thành mã.",
+        "Với Copilot Enterprise và Business dùng chế độ bật mô hình mặc định, các mô hình thay thế được bật tự động, trừ khi quản trị viên tắt chế độ mặc định toàn cục hoặc tắt riêng mô hình đó. Nếu chế độ mặc định toàn cục đã tắt, quản trị viên có thể bật mô hình thay thế trong phần chính sách mô hình của Copilot.",
+        "GitHub gợi ý thay Claude Fable 5 bằng Claude Fable 5.2 và Gemini 3.8 Flash bằng Gemini 4 Hydrogen. Với Kimi K3, GitHub chưa công bố mô hình thay thế.",
+        "GitHub cho biết người dùng không cần tự xóa các mô hình sau khi chúng ngừng được hỗ trợ."
+      ],
+      "same_event_coverage_ids": [
+        "ab146f2c87db6e218328"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "GitHub Copilot sẽ ngừng hỗ trợ nhiều mô hình từ 14/12, trừ một nhóm thuê bao Claude Haiku 4.5",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "github",
+          "url": "https://github.blog/changelog/2026-11-13-upcoming-deprecation-of-selected-github-copilot-models-in-december"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 7.95,
+        "answers": {
+          "what": 8,
+          "why": 10,
+          "notable": 6,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The reader cannot tell which models are deprecated. Haiku 4.5, Gemini 4 Argon and Grok 4.6 and their replacements are not named.",
+            "fix": "List all six models with their replacements from p004-p009: Haiku 5.5, Gemini 4 Carbon and Grok 4.7 are the missing ones."
+          }
+        ],
+        "writer_boats": [
+          "codex"
+        ],
+        "scorer_boat": "claude",
+        "scorer_provider": "claude-code",
+        "prose_sha256": "50dea80ecddbe1f5e730939adc831e857858db2ade61bb439071803ac47ab03c",
+        "scored_at": "2026-11-13T23:06:53.343114+00:00"
+      }
+    },
+    {
+      "id": "7527f4bcd0855a072c6a",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-13/nvidia-says-speculation-on-new-ceo-candidates-is-premature",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "0ff59f295442b3aa6dc8"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "aa04039d9f58d4741211",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Đây là chương trình điểm tin về nhiều chủ đề; diễn biến AI không phải chủ đề chính của toàn bộ nội dung.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-13/open-interest-11-13-2026-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "23d194822bcf4d0910e9"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "bb1bd24394acfe663822",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Trang repository trình bày tính năng và lời quảng bá sản phẩm, không ghi nhận một bản phát hành hay sự kiện cụ thể.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/sidvvkk/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b1a0c9b3cdeaec3daf3c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "bb2e4154dfc4e712924b",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.scmp.com/tech/big-tech/article/3374305/chinas-smic-sees-ai-computing-crunch-until-2028-nvidia-heat-risks-tighter-chip-curbs",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c75d01a628be16bf223e"
+      ],
+      "split_coverage_ids": [
+        "4a5959dcd472ea906fc7"
+      ]
+    },
+    {
+      "id": "8f5499f5e3c2930bbc73",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/12/2026/nvidia-weighs-firing-ceo-following-spy-scandal",
+      "key_points": [
+        "SCMP đưa tin Jensen Huang đã từ chức CEO Nvidia với hiệu lực ngay lập tức sau bê bối quan hệ với một người bị nghi là gián điệp Trung Quốc; trước đó, Semafor cho biết hội đồng quản trị đã cân nhắc sa thải ông.",
+        "Semafor cho rằng bê bối quan hệ với người bị nghi là gián điệp Trung Quốc đã làm lung lay vị thế của Huang. Semafor cũng cho biết các tin về mối quan hệ thứ hai với một cấp dưới làm gia tăng sức ép lên ông.",
+        "Theo Semafor, Nvidia được cho là đã thuê công ty tuyển dụng bên ngoài tìm CEO mới. Semafor cho biết một số thành viên hội đồng muốn CFO hiện tại tạm quyền và tuyển thêm COO.",
+        "SCMP nhận định việc Huang từ chức làm tăng khả năng Mỹ siết kiểm soát xuất khẩu sang Trung Quốc trước cuộc gặp dự kiến giữa lãnh đạo hai nước."
+      ],
+      "same_event_coverage_ids": [
+        "2f3c07298540dfb75685",
+        "941fcc9578abee09589c"
+      ],
+      "split_coverage_ids": [
+        "0a1a528003f7cdec3637",
+        "1bb7f041837b525b8bd2",
+        "21ddad5c9c8d238bf1c7",
+        "52c8449c944b31f115f2",
+        "53c70337f6954aac14b8",
+        "692fd775d6c32b22b2be",
+        "7a766281638209892cb8",
+        "7d81da94cb6f61954323",
+        "7f779199aa33153941ca",
+        "87e3d44cc7baafae664e",
+        "8ddb438903c200450d11",
+        "908c4fcbda278cce8fbd",
+        "91803d1f8861a9438146",
+        "92c3fbab0c7d0208518a",
+        "977801125a3e485bf5b6",
+        "980a7361d2a072cf5562",
+        "994aa53b6111f5b8f0f9",
+        "99ab26f41032156f76b4",
+        "9dae366c96bf95be70ac",
+        "b040cb2d5e8a4fb8d1a8",
+        "c0c8dd2baa7c45396337",
+        "c219935e3a6500dda7c7",
+        "c635988a126060349e87",
+        "dc093dff1f46bec47ae5",
+        "f43efb5964a4dc8599f1",
+        "fb2013a25bd6a1ac4c3f",
+        "fe8dba5ddfb4817a8ca8"
+      ],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "SCMP đưa tin Jensen Huang từ chức CEO Nvidia; trước đó hội đồng đã cân nhắc sa thải ông",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/12/2026/nvidia-weighs-firing-ceo-following-spy-scandal"
+        },
+        {
+          "id": "coverage2",
+          "role": "coverage",
+          "name": "scmp",
+          "url": "https://www.scmp.com/plus/tech/tech-war/article/3374341/jensen-huang-quits-china-trade-surplus-hits-us1-trillion-xi-trump-summit"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.0,
+        "answers": {
+          "what": 9,
+          "why": 9,
+          "notable": 9,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The headline says 'trước đó' (earlier) the board weighed firing him, but the sources do not state that sequence. The Semafor piece treats the firing as still pending.",
+            "fix": "Attribute each report separately without implying order, e.g. 'Semafor reported the board weighed dismissal; SCMP reports he resigned'."
+          },
+          {
+            "question": "why",
+            "problem": "The word 'quan hệ' alone does not make clear that the source describes an affair (a romantic relationship).",
+            "fix": "Say 'ngoại tình' or 'quan hệ tình ái', as outlet:p001 and coverage2:p002 say 'affair'."
+          }
+        ],
+        "writer_boats": [
+          "codex"
+        ],
+        "scorer_boat": "claude",
+        "scorer_provider": "claude-code",
+        "prose_sha256": "aa0ee6b327542a5f73c2ba7dbd2b9d17482f0942bdebb183ea3f1989910139e6",
+        "scored_at": "2026-11-13T23:06:53.343165+00:00"
+      }
+    },
+    {
+      "id": "1340eca528bf94ae2324",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bài tập trung vào nghi vấn gián điệp và đời tư của lãnh đạo Nvidia; AI chỉ là bối cảnh về công ty và vị thế của ông.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.wired.com/story/chinas-nvidia-honeypot-isnt-surprising-jensen-huang-fell-for-it-anyway/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "a018ae3bc263097ed087"
+      ],
+      "split_coverage_ids": [
+        "91790c28dd205ec089a0"
+      ]
     }
   ]
 }
