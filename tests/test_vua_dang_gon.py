@@ -1,7 +1,8 @@
-"""The "Vừa đăng" tile stays short (captain, 12/11 09:23: "danh sách tin vừa đăng nó dài quá"). After the "N tin mới"
-pill it had drawn the whole pinned batch, seven rows each marked "Mới"; a newsroom catching up can land fifty at once.
-The tile now holds at most FRESH_TILE_ROWS rows whatever the batch, the same rows the river leaves out, so the rest of
-a batch keeps its place below and every story is on the page once."""
+"""The "Vừa đăng" tile stays bounded and scrolls to the rest (captain, 12/11 09:23: "danh sách tin vừa đăng nó dài
+quá"; 13/11: "làm cuộn, xóa pagination"; "trên mobile ... không cuộn xem thêm được"). It now holds up to NEWEST.cap
+rows — the pinned "N tin mới" batch leads (its newest FRESH_TILE_ROWS), then the newest of the rest — with no pager:
+a newsroom catching up with fifty arrivals leaves the tile the same bounded height, and the list scrolls (CSS) to the
+rows past the fold. The tile and the river still share one cut, so every story is on the page once."""
 import json
 import re
 import shutil
@@ -41,11 +42,12 @@ const run = (stories, freshIds) => {{
   const html = new Function(...Object.keys(env), code + '; return freshInnerHTML();')(...Object.values(env));
   return {{ ids: [...html.matchAll(/<li [^>]*data-sid="([^"]+)"/g)].map(m => m[1]),
     pinned: [...html.matchAll(/<li [^>]*data-pinned/g)].length, n: (html.match(/data-n="(\\d+)"/) || [])[1] || null,
-    pager: /fresh-pager|data-fresh-page/.test(html) }};
+    pager: /fresh-pager|data-fresh-page/.test(html),
+    cap: (code.match(/cap:\\s*(\\d+)/) || [])[1] || null }};
 }};
 // A newsroom catching up: fifty stories in the last fifty minutes, all announced by the pill and pinned.
 const burst = Array.from({{ length: 50 }}, (_, i) => mk('b' + i, i + 1));
-// A quiet morning: two stories in the last six hours, so the tile reaches back a day for more.
+// A quiet morning: five stories, two within six hours so the tile reaches back a day for the rest.
 const quiet = [mk('q0', 30), mk('q1', 200), mk('q2', 600), mk('q3', 900), mk('q4', 1300)];
 process.stdout.write(JSON.stringify({{
   burst: run(burst, burst.map(s => s.id)),
@@ -59,7 +61,7 @@ process.stdout.write(JSON.stringify({{
 
 
 @unittest.skipUnless(shutil.which("node"), "Node required")
-class VuaDangStaysShort(unittest.TestCase):
+class VuaDangStaysBounded(unittest.TestCase):
     def run_harness(self, folder):
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / "harness.mjs"
@@ -68,35 +70,46 @@ class VuaDangStaysShort(unittest.TestCase):
         self.assertEqual(res.returncode, 0, res.stderr)
         return json.loads(res.stdout)
 
-    def test_a_burst_of_fifty_shows_the_four_newest_and_no_pager(self):
+    def test_a_burst_of_fifty_is_bounded_to_cap_newest_first_no_pager(self):
         for folder in FOLDERS:
             out = self.run_harness(folder)
+            cap = int(out["burst"]["cap"])
             for case in ("burst", "burstUnpinned"):
-                self.assertEqual(out[case]["ids"], ["b0", "b1", "b2", "b3"], (folder.name, case))
-                self.assertEqual(out[case]["n"], "4", (folder.name, case))
+                self.assertEqual(out[case]["ids"], [f"b{i}" for i in range(cap)], (folder.name, case))
+                self.assertEqual(out[case]["n"], str(cap), (folder.name, case))
                 self.assertFalse(out[case]["pager"], (folder.name, case))
-            self.assertEqual(out["burst"]["pinned"], 4, folder.name)
+            # The whole announced batch that is shown keeps its "Mới" mark; an unannounced tile shows none.
+            self.assertEqual(out["burst"]["pinned"], cap, folder.name)
+            self.assertEqual(out["burstUnpinned"]["pinned"], 0, folder.name)
 
-    def test_a_pinned_batch_of_seven_no_longer_stretches_the_tile(self):
+    def test_a_pinned_batch_of_seven_leads_the_tile_without_stretching_it(self):
         for folder in FOLDERS:
             out = self.run_harness(folder)
-            self.assertEqual(out["seven"]["ids"], ["s0", "s1", "s2", "s3"], folder.name)
-            self.assertEqual(out["seven"]["pinned"], 4, folder.name)
+            cap = int(out["seven"]["cap"])
+            # The four newest pinned rows lead; the tile is still bounded to the cap, with no pager.
+            self.assertEqual(out["seven"]["ids"][:4], ["s0", "s1", "s2", "s3"], folder.name)
+            self.assertEqual(len(out["seven"]["ids"]), cap, folder.name)
+            self.assertFalse(out["seven"]["pager"], folder.name)
 
-    def test_a_quiet_morning_still_fills_the_tile_newest_first(self):
+    def test_a_quiet_morning_fills_the_tile_newest_first(self):
         for folder in FOLDERS:
             out = self.run_harness(folder)
-            self.assertEqual(out["quiet"]["ids"], ["q0", "q1", "q2", "q3"], folder.name)
+            # Fewer stories than the cap: every one shows, newest first, no pager.
+            self.assertEqual(out["quiet"]["ids"], ["q0", "q1", "q2", "q3", "q4"], folder.name)
+            self.assertFalse(out["quiet"]["pager"], folder.name)
 
     def test_the_tile_and_the_river_share_one_cut(self):
         for folder in FOLDERS:
             feed = (folder / "feed.js").read_text(encoding="utf-8")
             build = feed[feed.index("function buildFront() {"):]
             build = build[:build.index("\n}\n")]
-            self.assertIn("newestStories().list.slice(0, FRESH_TILE_ROWS)", build)
+            # The river leaves out every row the tile holds (the whole list), not a sliced four.
+            self.assertIn("newestStories().list", build)
+            self.assertNotIn("newestStories().list.slice(0, FRESH_TILE_ROWS)", build)
             inner = feed[feed.index("function freshInnerHTML() {"):]
             inner = inner[:inner.index("\n}\n")]
-            self.assertIn("const shown = list.slice(0, FRESH_TILE_ROWS);", inner)
+            self.assertIn("const shown = list;", inner)
+            self.assertNotIn("fresh-pager", inner)
             self.assertRegex(feed, re.compile(r"^const FRESH_TILE_ROWS = 4;$", re.M))
 
 

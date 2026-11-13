@@ -79,11 +79,20 @@ const MEASURE = () => {
       const used = ks.reduce((a, k) => a + r(k).width, 0) + gap * (ks.length - 1);
       if (Math.abs(used - g.width) > 2) ragged.push(`${t}:${Math.round(used)}/${Math.round(g.width)}`);
     }
+    // A row inside a scrolling container (overflow-y auto/scroll) within the cell is reachable by scrolling, not cut.
+    const inScroller = (row, cell) => {
+      for (let a = row.parentElement; a; a = a.parentElement) {
+        const o = getComputedStyle(a).overflowY;
+        if (o === 'auto' || o === 'scroll') return true;
+        if (a === cell) break;
+      }
+      return false;
+    };
     for (const k of kids) {
       const kb = r(k), p = past(k, kb);
       if (p > 1) overflow.push(`${name(k)} +${Math.round(p)}`);
       for (const row of k.querySelectorAll('li, .repo-cell, .model, .brief, .seg, .area-chips, .repo-ctl, .tile-foot, .ev-foot')) {
-        if (!shown(row) || row.closest('[hidden]')) continue;
+        if (!shown(row) || row.closest('[hidden]') || inScroller(row, k)) continue;
         const b = r(row);
         if (b.bottom > kb.bottom + 1 || b.top < kb.top - 1) cut.push(`${name(k)}: ${String(row.className).split(' ')[0] || row.tagName}`);
       }
