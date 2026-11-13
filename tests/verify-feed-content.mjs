@@ -503,6 +503,19 @@ assert.equal(announced.at(-1), 'Đã thêm 1 tin mới');
 [...intervals.values()][0].fn();
 assert.equal(intervals.size, 0, 'the looks stop once nothing waits');
 
+// A scroll that began just before the poll landed: the snapshot still waits for the scroll to rest.
+configureNotice(0, 10, true);
+newFeed.onPendingScroll();
+const drawnBeforeScrollPoll = drawn;
+responseData = liveSnapshot('2026-10-09T15:00:00Z', [{id:'live-scroll', published_at:'2026-10-09T14:42:00Z', coverage:[]}]);
+await newFeed.pollSnapshot();
+assert.equal(drawn, drawnBeforeScrollPoll, 'a scroll still moving when the poll lands holds the snapshot');
+const settleFirst = [...timers.values()].find(t => t.ms === 200);
+assert.ok(settleFirst, 'the scroll arms its settle timer even with nothing waiting');
+settleFirst.fn();
+assert.equal(drawn, drawnBeforeScrollPoll + 1, 'once the scroll rests, taken in');
+assert.deepEqual(newFeed.state().freshIds, ['live-scroll']);
+
 // A story open: the snapshot waits until it closes.
 configureNotice(0, 10, true);
 newFeed.modal('item-3');

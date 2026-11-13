@@ -2980,10 +2980,10 @@ function watchPending() {
   }, 1000);
   maybeApply();
 }
+// Every scroll is recorded, waiting snapshot or not: a poll that lands mid-scroll must still wait for it to rest.
 function onPendingScroll() {
-  if (!pending) return;
   clearTimeout(scrollMoving);
-  scrollMoving = setTimeout(() => { scrollMoving = 0; maybeApply(); }, SCROLL_SETTLE_MS);
+  scrollMoving = setTimeout(() => { scrollMoving = 0; if (pending) maybeApply(); }, SCROLL_SETTLE_MS);
 }
 /* Take the waiting snapshot in place. With motion, every story, tile and heading that stays on the page slides from
    where it was to where it is now (FLIP), what is new fades in, and the new rows of "Vừa đăng" glow for a moment; with
