@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-13T10:59:59.157132+00:00",
-  "input_generated_at": "2026-11-13T09:46:12Z",
+  "generated_at": "2026-11-13T11:19:45.865040+00:00",
+  "input_generated_at": "2026-11-13T10:45:32Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -59253,17 +59253,17 @@
       "use_original_title": true,
       "source_url": "https://analyticsindiamag.com/ai-startups/meet-netweb-the-only-indian-company-building-nvidia-certified-gpu-servers",
       "key_points": [
-        "Phó chủ tịch công nghệ Swastik Chakrabarti nói Netweb Technologies là hãng duy nhất ở Ấn Độ trong chín nhà sản xuất máy chủ GPU NVIDIA trên thế giới. Theo Analytics India Magazine, hãng tự phát triển thiết kế máy chủ và đưa các thiết kế này qua quy trình chứng nhận của NVIDIA.",
-        "Analytics India Magazine cho biết Netweb mở rộng mảng phần mềm để khách hàng triển khai hạ tầng AI theo nhu cầu kinh doanh, thay vì mua phần cứng khi chưa có trường hợp sử dụng rõ ràng.",
-        "Với kiến trúc NVL72, Netweb thiết kế cách đổi điện xoay chiều thành điện một chiều ngay trong máy chủ; ông Chakrabarti nói NVIDIA đã chấp thuận thiết kế này. Theo ông, tác vụ tóm tắt tài liệu được phép mất 30 phút có thể không cần GPU H200 hay B200 nếu mẫu A100 đời cũ đáp ứng hạn chót.",
-        "Theo Analytics India Magazine, Netweb đang phát triển hệ thống phân phối tác vụ giữa nhiều đời GPU để tận dụng thiết bị hiện có; cách này cho phép dành GPU mạnh cho việc cần phản hồi nhanh và chạy việc nhẹ hơn trên GPU cũ. Tạp chí cũng cho biết Netweb vẫn lấy nhiều linh kiện từ các công ty và quốc gia khác; ông Chakrabarti nói việc dùng linh kiện Ấn Độ còn phụ thuộc chất lượng, nguồn cung và năng lực giao hàng."
+        "Phó chủ tịch công nghệ Swastik Chakrabarti nói Netweb Technologies là hãng Ấn Độ duy nhất trong chín nhà sản xuất máy chủ GPU NVIDIA trên thế giới. Theo Analytics India Magazine, Netweb tự phát triển thiết kế máy chủ rồi đưa các thiết kế đó qua quy trình chứng nhận của NVIDIA.",
+        "Analytics India Magazine nhận xét Ấn Độ có nhiều doanh nghiệp xây ứng dụng AI nhưng rất ít doanh nghiệp tập trung vào phần cứng vận hành chúng. Tạp chí cho biết Netweb còn mở rộng phần mềm để khách hàng triển khai hạ tầng AI theo nhu cầu kinh doanh, thay vì mua phần cứng khi chưa có cách sử dụng rõ ràng.",
+        "Với hệ thống NVL72, Netweb thiết kế cách đổi điện xoay chiều thành điện một chiều ngay trong máy chủ; ông Chakrabarti nói NVIDIA đã chấp thuận thiết kế này. Ông cũng nói máy chủ Netweb xuất hiện cùng HP, Dell và Lenovo trong kết quả MLPerf, bộ kiểm thử đo hiệu năng hệ thống AI khi huấn luyện và chạy mô hình.",
+        "Theo Analytics India Magazine, Netweb vẫn lấy nhiều linh kiện máy chủ từ các công ty và quốc gia khác, dù hãng sẵn sàng tìm thêm nhà cung cấp Ấn Độ. Ông Chakrabarti nói việc đưa linh kiện nội địa vào máy chủ còn phụ thuộc chất lượng, nguồn cung và năng lực giao hàng của nhà cung cấp."
       ],
       "same_event_coverage_ids": [
         "826235219b08bf0067d4"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Netweb nói là hãng Ấn Độ duy nhất trong chín nhà sản xuất máy chủ GPU NVIDIA trên thế giới",
+      "editorial_headline_vi": "Netweb nói mình là hãng Ấn Độ duy nhất trong chín nhà sản xuất máy chủ GPU NVIDIA toàn cầu",
       "summary_sources": [
         {
           "id": "outlet",
@@ -59276,19 +59276,24 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.25,
+        "value": 9.1,
         "answers": {
-          "what": 9,
-          "why": 9,
-          "notable": 7,
+          "what": 10,
+          "why": 10,
+          "notable": 8,
           "meaning": 8
         },
         "hard_errors": [],
         "findings": [
           {
             "question": "notable",
-            "problem": "The Vietnamese omits the MLPerf benchmarking and the Agent Guard security framework, which are concrete evidence for the headline claim (outlet:p009-p010, p014-p016).",
-            "fix": "Add one sentence on the MLPerf listing next to HP, Dell and Lenovo, or on Agent Guard's single-use 5-10 minute tokens."
+            "problem": "The summary omits the Agent Guard framework and the government share of customers, which the source treats as major themes.",
+            "fix": "Add a short line on Agent Guard (single-use tokens valid 5-10 minutes, outlet:p014-p016) and on government customers making up 55% of clientele (outlet:p020)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The summary does not mention the supplier-scale point or the 'sovereign server' framing.",
+            "fix": "Mention that suppliers must deliver at scale, since a maker able to supply only a few thousand units may not suffice when demand is in the millions (outlet:p037)."
           }
         ],
         "writer_boats": [
@@ -59297,8 +59302,8 @@
         ],
         "scorer_boat": "claude",
         "scorer_provider": "claude-code",
-        "prose_sha256": "c222d026e3f038970f60caac6ca93c1a61366fe49d2ad0ea1bce70824d0a2b18",
-        "scored_at": "2026-11-13T10:59:21.852741+00:00"
+        "prose_sha256": "7fb09f594a71262616bcccbe3988fd53470415b3bdf290b6c94f68ab82302247",
+        "scored_at": "2026-11-13T11:14:16.139844+00:00"
       }
     },
     {
@@ -59940,17 +59945,17 @@
       "use_original_title": false,
       "source_url": "https://ipo.anthropic.com/us/",
       "key_points": [
-        "Anthropic chào bán cổ phiếu phổ thông loại A với mã ANT trên Nasdaq; hãng dự kiến cổ phiếu bắt đầu giao dịch ngày 19/11 (giờ EST), tùy phê duyệt của cơ quan quản lý.",
-        "Theo hướng dẫn của Anthropic, người quan tâm có thể đăng ký mua qua nền tảng môi giới tham gia đợt IPO nếu có tài khoản đang hoạt động và gửi thông báo bày tỏ quan tâm trên nền tảng đó. Tài khoản môi giới hoặc ứng dụng đầu tư sẽ xác nhận người đăng ký có đủ điều kiện khi họ gửi yêu cầu.",
-        "Trong mục số liệu tài chính quý III/2026, khoản lỗ ròng 23,3 tỷ USD gồm khoản chi phí phi tiền mặt 21,9 tỷ USD liên quan đến thay đổi giá trị hợp lý của các công cụ tài chính.",
-        "Anthropic cảnh báo người đăng ký không được bảo đảm nhận cổ phiếu nào, nhưng cần sẵn sàng mua toàn bộ số cổ phiếu được phân bổ nếu có."
+        "Anthropic chào bán cổ phiếu phổ thông loại A, dự kiến giao dịch trên Nasdaq với mã ANT; trang IPO của hãng ghi doanh thu quý III/2026 đạt 17 tỷ USD và lỗ ròng 23,3 tỷ USD.",
+        "Theo hướng dẫn của Anthropic, người tham gia cần có tài khoản đang hoạt động và gửi thông báo quan tâm qua nền tảng môi giới tham gia đợt IPO; nền tảng hoặc ứng dụng đầu tư sẽ xác nhận họ có đủ điều kiện hay không.",
+        "Hãng cho biết khoản lỗ ròng gồm 21,9 tỷ USD chi phí phi tiền mặt do thay đổi giá trị hợp lý của các công cụ tài chính khi định giá công ty tăng; biên lợi nhuận hoạt động điều chỉnh là 15%.",
+        "Anthropic lưu ý người đăng ký không được bảo đảm nhận đủ, thậm chí nhận được bất kỳ cổ phiếu nào, nhưng phải sẵn sàng mua toàn bộ số cổ phiếu đã đăng ký. Theo Anthropic, cổ phiếu mua trong IPO theo giá chào bán, còn cổ phiếu mua sau khi bắt đầu giao dịch theo giá thị trường tại thời điểm mua."
       ],
       "same_event_coverage_ids": [
         "092f3cc45276b8f6942b"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Anthropic dự kiến giao dịch mã ANT từ 19/11, công bố lỗ ròng 23,3 tỷ USD",
+      "editorial_headline_vi": "Anthropic chuẩn bị IPO mã ANT: doanh thu quý III đạt 17 tỷ USD, lỗ ròng 23,3 tỷ USD",
       "summary_sources": [
         {
           "id": "outlet",
@@ -59963,40 +59968,29 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 6.05,
+        "value": 7.95,
         "answers": {
-          "what": 7,
-          "why": 6,
-          "notable": 5,
-          "meaning": 6
+          "what": 8,
+          "why": 10,
+          "notable": 7,
+          "meaning": 7
         },
-        "hard_errors": [
-          {
-            "kind": "quote",
-            "summary_text": "cần sẵn sàng mua toàn bộ số cổ phiếu được phân bổ nếu có",
-            "explanation": "The source says investors should be ready to purchase all the shares for which they apply, not the shares allocated to them (outlet:p111)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
             "question": "meaning",
-            "problem": "The warning is misstated as buying all 'allocated' shares. The source says to be ready to buy all the shares you apply for.",
-            "fix": "Write that there is no guarantee of receiving any shares, but investors should be ready to buy all the shares they apply for (outlet:p111)."
+            "problem": "The reader never learns the timeline: the roadshow starts Nov 10, the price is expected Nov 18 and trading Nov 19. The offering-price remark in the last paragraph has no date to anchor it.",
+            "fix": "Add one sentence with the roadshow, pricing and first-trading dates, citing p097, p105 and p107, and note they are subject to regulatory clearance."
           },
           {
             "question": "notable",
-            "problem": "The $23.3B loss appears without the $17.0B revenue and >12x year-over-year growth, so the reader gets a one-sided picture.",
-            "fix": "Add Q3'26 revenue of $17.0B, more than 12x year over year, and the (3)% operating margin and 15% adjusted margin (outlet:p020-p036)."
+            "problem": "The >12x year-over-year revenue growth and the >11,900 customers at $100K or more are omitted, though they show the scale behind the $17B figure.",
+            "fix": "Add the >12x YoY revenue growth (p022-p023) and, if room allows, the customer count (p024)."
           },
           {
-            "question": "why",
-            "problem": "The reason for the non-cash charge is incomplete. The source says it comes from an increase in Anthropic's valuation.",
-            "fix": "State that the $21.9B charge is non-cash and arises because Anthropic's valuation rose, changing the fair value of convertible notes, derivative liabilities and SAFEs (outlet:p034)."
-          },
-          {
-            "question": "what",
-            "problem": "The key dates are incomplete. The roadshow starts Nov 10 and the price is expected on Nov 18.",
-            "fix": "Add the roadshow start of Nov 10 and the expected final price date of Nov 18 (EST) (outlet:p097)."
+            "question": "notable",
+            "problem": "The 15% adjusted operating margin is given without the GAAP operating margin of (3)%, so a reader may take 15% as the company's actual operating margin.",
+            "fix": "State that the GAAP operating margin is (3)% and the 15% figure is an adjusted, non-GAAP measure (p030-p036, p039)."
           }
         ],
         "writer_boats": [
@@ -60004,8 +59998,8 @@
         ],
         "scorer_boat": "claude",
         "scorer_provider": "claude-code",
-        "prose_sha256": "2030e99612fd549ff93842c55771d2917ebeee99bf026d95ac3f673f4ebec2e9",
-        "scored_at": "2026-11-13T10:59:59.155253+00:00"
+        "prose_sha256": "dea7a56b284cfb444a4deb2424c448ace1720a4cc765ba4c90aa2628fdcb6d0b",
+        "scored_at": "2026-11-13T11:16:27.038003+00:00"
       }
     },
     {
@@ -61210,7 +61204,31 @@
         "partial_source"
       ],
       "key_points_prompt_version": "summary-vi-7-bullets",
-      "score": null
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.55,
+        "answers": {
+          "what": 9,
+          "why": 9,
+          "notable": 8,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The open-source AI angle is absent: the Hugging Face $12.93B deal and the $7B Poolside deal (p036-p039) are not mentioned.",
+            "fix": "Add one sentence saying Huang's departure could also affect NVIDIA's open-source AI commitments, such as the Hugging Face deal and the Poolside investment (p036-p039)."
+          }
+        ],
+        "writer_boats": [
+          "codex"
+        ],
+        "scorer_boat": "claude",
+        "scorer_provider": "claude-code",
+        "prose_sha256": "f5593d376f08f5cda06e24424d92cd3ae93aa8794197ed3252b5774e840c6032",
+        "scored_at": "2026-11-13T11:19:45.860035+00:00"
+      }
     },
     {
       "id": "9ee7b908b006989ab126",
@@ -61541,7 +61559,25 @@
       ],
       "summary_limitations": [],
       "key_points_prompt_version": "summary-vi-7-bullets",
-      "score": null
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.55,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "codex"
+        ],
+        "scorer_boat": "claude",
+        "scorer_provider": "claude-code",
+        "prose_sha256": "4bedde060f532cab6571dfda284985d59cd282f7105bf8e50b88c00ab83e9246",
+        "scored_at": "2026-11-13T11:19:45.860085+00:00"
+      }
     },
     {
       "id": "80dc0c2a1a4b121e4a14",
@@ -61616,7 +61652,31 @@
       ],
       "summary_limitations": [],
       "key_points_prompt_version": "summary-vi-7-bullets",
-      "score": null
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.2,
+        "answers": {
+          "what": 9,
+          "why": 8,
+          "notable": 7,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The Vietnamese omits the market-value loss and the board change: $1 trillion lost, Harvey Jones as new chair, and lawmakers' and FBI investigations (p011).",
+            "fix": "Add one sentence on the board's new chair and the reported $1 trillion market-value loss (p011) to place the employee reaction in context."
+          }
+        ],
+        "writer_boats": [
+          "codex"
+        ],
+        "scorer_boat": "claude",
+        "scorer_provider": "claude-code",
+        "prose_sha256": "633a3dcd744ed8d9d787f09cc17b7fdb4acedbde6fc513670acf352a371de4ff",
+        "scored_at": "2026-11-13T11:19:45.860116+00:00"
+      }
     },
     {
       "id": "ad58f53ad32cd538daeb",
@@ -61882,17 +61942,17 @@
       "use_original_title": false,
       "source_url": "https://simonwillison.net/2026/Nov/12/llm-gemini/",
       "key_points": [
-        "Google ra mắt Gemini 4 Hydrogen, mẫu có giá thấp nhất trong dòng Gemini 4, cùng ngày Simon Willison phát hành plugin llm-gemini 0.37. Bảng giá Willison dẫn ghi Hydrogen ở mức 1,50 USD cho một triệu token đầu vào và 7,50 USD cho đầu ra.",
-        "Willison thấy cách định giá khó hiểu vì Hydrogen hiện chỉ rẻ hơn 25% so với Carbon và Argon, hai mẫu ông đánh giá là mạnh hơn. Ông ghi nhận Carbon và Argon đang cùng giá, còn giá của cả hai dự kiến tăng từ ngày 1/12/2026.",
-        "Trong phép thử tạo hình bồ nông của riêng mình, Willison nhận xét chất lượng đầu ra của Hydrogen kém rõ rệt so với hai mẫu Gemini 4 còn lại dù giá khá gần nhau.",
-        "Willison cho biết Hydrogen sẽ là mô hình của tầng dùng miễn phí và cung cấp sức mạnh cho các tính năng AI trong Google Search. Nhận xét về chất lượng của ông dựa trên phép thử tạo hình bồ nông, còn đánh giá về giá phản ánh mức giá tại thời điểm bài viết được đăng."
+        "Google ra mắt Gemini 4 Hydrogen, mẫu có giá thấp nhất dòng Gemini 4; bảng giá Simon Willison đăng ghi 1,50 USD cho một triệu token đầu vào và 7,50 USD cho một triệu token đầu ra.",
+        "Google mô tả Hydrogen là mẫu cho công việc thường ngày, có thể hoạt động riêng hoặc hỗ trợ Carbon và Argon trong quy trình dùng nhiều mô hình. Willison thấy cách định giá khó hiểu: Hydrogen hiện chỉ rẻ hơn hai mẫu ông đánh giá mạnh hơn 25%, nhưng mức giảm sẽ thành 75% sau ngày 1/12 khi giá Carbon và Argon tăng gấp đôi.",
+        "Với mức giá hiện chỉ thấp hơn 25% mà Simon Willison nêu, thử nghiệm tạo hình bồ nông của ông cho thấy chất lượng hình từ Hydrogen khác biệt rõ so với Carbon và Argon. Willison cho rằng mức chiết khấu 75% sau ngày 1/12 sẽ khiến giá Hydrogen dễ hiểu hơn.",
+        "Hydrogen sẽ là mẫu dùng ở tầng miễn phí và cung cấp sức mạnh cho các tính năng AI trong Google Search, theo bài đăng của Willison."
       ],
       "same_event_coverage_ids": [
         "79d0dc36ee7f800c1082"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Gemini 4 Hydrogen ra mắt với giá 1,50 USD cho một triệu token đầu vào, gần hai mẫu lớn hơn theo Simon Willison",
+      "editorial_headline_vi": "Gemini 4 Hydrogen ra mắt với giá 1,50 USD mỗi triệu token đầu vào, hiện chỉ rẻ hơn Carbon và Argon 25%",
       "summary_sources": [
         {
           "id": "outlet",
@@ -61905,34 +61965,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 7.65,
+        "value": 8.75,
         "answers": {
           "what": 9,
-          "why": 9,
-          "notable": 6,
-          "meaning": 6
+          "why": 10,
+          "notable": 8,
+          "meaning": 8
         },
         "hard_errors": [],
         "findings": [
           {
             "question": "notable",
-            "problem": "The Vietnamese says Carbon and Argon prices are set to rise but not that they double ($2/$10 to $4/$20). It also drops the point that the Hydrogen discount becomes 75% after Dec 1.",
-            "fix": "State that Carbon and Argon double on 1 Dec and that the discount then widens to 75% (p007, p009, p012)."
-          },
-          {
-            "question": "notable",
-            "problem": "The comparison with Claude Haiku 5.5 and GPT-6 Luna is missing. Both cost $0.10/$0.50, so Hydrogen is about 15x more expensive (p012).",
-            "fix": "Add that Hydrogen is still far pricier than those two cheap rival models."
-          },
-          {
-            "question": "meaning",
-            "problem": "The free-tier and Google Search claim is attributed to Willison ('Willison cho biết'). The source states it as a plain fact, and Willison is not quoted as its originator (p017).",
-            "fix": "State it as a fact reported in the post without crediting Willison as the source."
-          },
-          {
-            "question": "notable",
-            "problem": "Google's own description of Hydrogen as an everyday or 'execution engine' model for use alongside Carbon and Argon is omitted (p016).",
-            "fix": "Add one sentence on Google's stated positioning of Hydrogen."
+            "problem": "The comparison with much cheaper rivals is missing. This is the main reason Willison calls Hydrogen's pricing disappointing.",
+            "fix": "Add that Hydrogen is 15x the $0.10/$0.50 price of Claude Haiku 5.5 and GPT-6 Luna (p012)."
           }
         ],
         "writer_boats": [
@@ -61940,8 +61985,8 @@
         ],
         "scorer_boat": "claude",
         "scorer_provider": "claude-code",
-        "prose_sha256": "4c32d6ce4b593348a487c6c376311345534da420890066981f8dc3f9079a51f9",
-        "scored_at": "2026-11-13T10:45:38.516897+00:00"
+        "prose_sha256": "b16e3e700afdcac535667c4c23b2483732eee6326516ffd061c89b033d74d846",
+        "scored_at": "2026-11-13T11:13:50.093336+00:00"
       }
     },
     {
@@ -62138,7 +62183,31 @@
         "partial_source"
       ],
       "key_points_prompt_version": "summary-vi-7-bullets",
-      "score": null
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.75,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 9,
+          "meaning": 6
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The headline promises 'cơ hội cho đối thủ', but the body never says what the hosts concluded about competitors.",
+            "fix": "Add Barrett's view that little changes in the short term because there are few alternatives. Over the longer term, companies building their own chips pose a threat to Nvidia, and this will accelerate that (p033)."
+          }
+        ],
+        "writer_boats": [
+          "codex"
+        ],
+        "scorer_boat": "claude",
+        "scorer_provider": "claude-code",
+        "prose_sha256": "966f62abe4c8861691b77dd87696effde36e6d3066d0e20429c17ed464ae4efd",
+        "scored_at": "2026-11-13T11:19:45.860147+00:00"
+      }
     },
     {
       "id": "87d176270cb26539c898",
@@ -62175,7 +62244,36 @@
       ],
       "summary_limitations": [],
       "key_points_prompt_version": "summary-vi-7-bullets",
-      "score": null
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.6,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 7,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The reader does not learn that the Trainium path runs on native PyTorch via TorchNeuron with NKI kernels, or that PD disaggregation is supported (outlet:p006-p007).",
+            "fix": "Add one sentence on native PyTorch and the PD disaggregation support."
+          },
+          {
+            "question": "what",
+            "problem": "The headline says Amazon released the tool, but the source says RadixArk released it in collaboration with Annapurna Labs, and Amazon announced it (outlet:p002).",
+            "fix": "Say that Amazon announced availability of a release by RadixArk with Annapurna Labs."
+          }
+        ],
+        "writer_boats": [
+          "codex"
+        ],
+        "scorer_boat": "claude",
+        "scorer_provider": "claude-code",
+        "prose_sha256": "802f36632956602d0a08d1ad523b291b6daf6eb03e616c698d763649c6f20d1f",
+        "scored_at": "2026-11-13T11:19:45.860177+00:00"
+      }
     },
     {
       "id": "076934ef461be2b954db",
@@ -63038,7 +63136,31 @@
       ],
       "summary_limitations": [],
       "key_points_prompt_version": "summary-vi-7-bullets",
-      "score": null
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.7,
+        "answers": {
+          "what": 9,
+          "why": 9,
+          "notable": 8,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The Vietnamese leaves out the national-security and export-control scrutiny that the scandal brings, including Huang's push for softer chip export controls on China (outlet:p007, p021).",
+            "fix": "Add a clause that the scandal renews scrutiny of his efforts to loosen chip export controls."
+          }
+        ],
+        "writer_boats": [
+          "codex"
+        ],
+        "scorer_boat": "claude",
+        "scorer_provider": "claude-code",
+        "prose_sha256": "7c57e68eb9fac5f9f5ad16eb5df7759a131373bbc8880f449eb433e2d629fb45",
+        "scored_at": "2026-11-13T11:19:45.860207+00:00"
+      }
     },
     {
       "id": "f482bc00e1189128c114",
@@ -63078,7 +63200,36 @@
       ],
       "summary_limitations": [],
       "key_points_prompt_version": "summary-vi-7-bullets",
-      "score": null
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.55,
+        "answers": {
+          "what": 9,
+          "why": 9,
+          "notable": 8,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The Washington fallout is absent: the congressional briefing, the pressure on Lutnick and the senators' letter (outlet:p022-p025). The China-chipmaker upside is also absent (outlet:p030).",
+            "fix": "Add one sentence on the pressure on Commerce over export controls and the possible tighter curbs."
+          },
+          {
+            "question": "what",
+            "problem": "'Thay ông ở vị trí đó' may read as chair of the board. The source only says he will be replaced by Jones on the board he chaired (outlet:p003).",
+            "fix": "Say that Jones takes Huang's board seat."
+          }
+        ],
+        "writer_boats": [
+          "codex"
+        ],
+        "scorer_boat": "claude",
+        "scorer_provider": "claude-code",
+        "prose_sha256": "f654cb43fe23f2fbcc0363fa2ef2f50b5382c3bb12c67dc082eaccb62a73500d",
+        "scored_at": "2026-11-13T11:19:45.860231+00:00"
+      }
     },
     {
       "id": "3aa88282841902077730",
@@ -63207,7 +63358,31 @@
         "partial_source"
       ],
       "key_points_prompt_version": "summary-vi-7-bullets",
-      "score": null
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.05,
+        "answers": {
+          "what": 8,
+          "why": 9,
+          "notable": 7,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The body never explains the Denny's story named in the headline, and the Witt anecdote is given without his balancing remark about Huang's warmth and charisma (outlet:p008, p044).",
+            "fix": "Add a sentence on the Denny's first job and founding, and note that Witt also describes warmth."
+          }
+        ],
+        "writer_boats": [
+          "codex"
+        ],
+        "scorer_boat": "claude",
+        "scorer_provider": "claude-code",
+        "prose_sha256": "539389b3a64128cd5ef6f6548dc5f730b2c5fd25e0756676e362b78255a57935",
+        "scored_at": "2026-11-13T11:19:45.860254+00:00"
+      }
     },
     {
       "id": "d868a7c9e100eebe734f",
@@ -63360,7 +63535,36 @@
         "partial_source"
       ],
       "key_points_prompt_version": "summary-vi-7-bullets",
-      "score": null
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.3,
+        "answers": {
+          "what": 9,
+          "why": 7,
+          "notable": 9,
+          "meaning": 7
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The reader does not learn that idle agents scale to zero, or that the runtime reclaims memory within minutes of release. The 68% figure appears without that mechanism.",
+            "fix": "Add that memory is reclaimed within minutes and idle agents scale to zero (p022)."
+          },
+          {
+            "question": "meaning",
+            "problem": "Availability is missing: the source says the runtime is available now in North America, South America, Europe and Asia Pacific.",
+            "fix": "Add one clause that the update is live across those regions (p039)."
+          }
+        ],
+        "writer_boats": [
+          "codex"
+        ],
+        "scorer_boat": "claude",
+        "scorer_provider": "claude-code",
+        "prose_sha256": "621f159a633610e68446e68b1fe3235aae3b85f2ff233b5d765e8888d3dae495",
+        "scored_at": "2026-11-13T11:19:45.860279+00:00"
+      }
     },
     {
       "id": "492b47ee38bd30c07d5d",
@@ -63378,10 +63582,10 @@
       "use_original_title": false,
       "source_url": "https://www.wired.com/story/jensen-huang-tanked-a-trillion-dollars-in-less-than-a-month/",
       "key_points": [
-        "Nvidia thông báo Jensen Huang từ chức vào sáng thứ Năm, theo WIRED. WIRED ghi nhận khi thị trường mở cửa chưa đầy một giờ sau, cổ phiếu Nvidia mất khoảng 546 tỷ USD vốn hóa; bài viết cũng nói giá trị công ty đã phục hồi phần nào sau đó.",
-        "WIRED gắn đà giảm vốn hóa Nvidia với những tuần bê bối quanh Huang, trong đó có thông tin được đưa về một quan hệ tình cảm khác với nhân viên công ty. Bài báo cho biết Nvidia mở cuộc điều tra Huang sau khi ông công khai thừa nhận một mối quan hệ tình cảm.",
-        "Khi thị trường mở cửa chưa đầy một giờ sau thông báo Huang từ chức, Nvidia mất khoảng 546 tỷ USD vốn hóa, theo WIRED. WIRED cũng ghi nhận cổ phiếu AMD tăng 28% và Broadcom tăng gần 16% trong năm ngày được bài viết đề cập.",
-        "WIRED nhận xét việc Huang rời Nvidia đặt ra câu hỏi về tác động rộng hơn, bởi chip của hãng được dùng để huấn luyện phần lớn mô hình AI lớn và Nvidia còn đầu tư vào các công ty công nghệ khác. Đây vẫn là câu hỏi về hệ quả, trong khi WIRED ghi nhận vốn hóa Nvidia đã phục hồi phần nào sau đợt giảm."
+        "Nvidia thông báo Jensen Huang từ chức vào sáng thứ Năm, theo WIRED; khi thị trường mở cửa chưa đầy một giờ sau, công ty mất khoảng 546 tỷ USD vốn hóa.",
+        "Nvidia công bố điều tra CEO ngày 8/11 sau khi ông công khai thừa nhận mối quan hệ tình cảm; WIRED cũng ghi nhận thêm những quan hệ tình cảm khác được đưa tin, chứ không coi các tin đó là kết luận điều tra.",
+        "WIRED ghi nhận cổ phiếu AMD tăng 28% và Broadcom tăng gần 16% trong năm ngày được bài viết đề cập, giữa lúc giá trị Nvidia sụt giảm.",
+        "WIRED nhận xét giới theo dõi thị trường ban đầu nghiêng về khả năng đà giảm còn kéo dài, dù cổ phiếu Nvidia đã phục hồi phần nào. Theo WIRED, tác động rộng hơn vẫn là câu hỏi vì chip Nvidia được dùng để huấn luyện phần lớn mô hình AI lớn và hãng còn đầu tư hàng tỷ USD vào các công ty công nghệ khác."
       ],
       "same_event_coverage_ids": [
         "0ef390341720f0f3542c"
@@ -63401,34 +63605,35 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 6.85,
+        "value": 7.3,
         "answers": {
-          "what": 8,
-          "why": 6,
+          "what": 9,
+          "why": 5,
           "notable": 6,
-          "meaning": 7
+          "meaning": 9
         },
-        "hard_errors": [],
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "chứ không coi các tin đó là kết luận điều tra",
+            "explanation": "The source says nothing about whether the reported affairs are or are not investigation conclusions. It only says a second and then a third affair were reported (p002, p014, p018)."
+          }
+        ],
         "findings": [
           {
             "question": "why",
-            "problem": "The scandal's core, the alleged Chinese state-security link of Alice Huang (p003), is missing, so the reader sees only a generic affair.",
-            "fix": "State that NYT reported his close relationship with Alice Huang, an alleged asset of China's Ministry of State Security (p003)."
-          },
-          {
-            "question": "notable",
-            "problem": "The scandal's total cost of more than $1 trillion, with the market cap near $5.2T before, is missing (p002-p003).",
-            "fix": "Add the more-than-$1T decline."
-          },
-          {
-            "question": "meaning",
-            "problem": "The prolonged-plunge consensus is not stated, and the third reported affair (p018) is omitted.",
-            "fix": "Add the early consensus (p005) and say more affairs were reported."
+            "problem": "The reader does not learn what led to the resignation.",
+            "fix": "Add that the NYT reported in late October on Huang's close relationship with Alice Huang, an alleged Ministry of State Security asset, and that the scandal had already cost over $1T (p002, p003)."
           },
           {
             "question": "what",
-            "problem": "Paragraphs 1 and 3 repeat the $546B opening fact.",
-            "fix": "Replace the repetition with the missing detail from p002-p003."
+            "problem": "An invented clause says the other reported relationships are not investigation conclusions. The source does not say this.",
+            "fix": "Delete the clause, or say plainly that further affairs were reported, including a third (p018)."
+          },
+          {
+            "question": "notable",
+            "problem": "The cumulative loss of more than $1T and the 90% frontier-training chip share are missing.",
+            "fix": "State the total decline and Nvidia's roughly 90% share of chips used to train frontier models (p002, p010)."
           }
         ],
         "writer_boats": [
@@ -63436,8 +63641,8 @@
         ],
         "scorer_boat": "claude",
         "scorer_provider": "claude-code",
-        "prose_sha256": "79b7059a1c244e6c4dcff51a7671eb746e09ab6bc1580c3f4f95c68957b9247d",
-        "scored_at": "2026-11-13T10:45:38.517125+00:00"
+        "prose_sha256": "5aaac995d9cfc7300d29d5e803e73476b7cd9dde8007ed75d080f4460f94ffb8",
+        "scored_at": "2026-11-13T11:13:50.093442+00:00"
       }
     },
     {
@@ -63577,10 +63782,10 @@
       "use_original_title": false,
       "source_url": "https://www.semafor.com/article/11/12/2026/softbank-loses-billions-after-over-ordering-energy-equipment-for-ai-buildout",
       "key_points": [
-        "SoftBank báo khoản ảnh hưởng 3,7 tỷ USD tới lợi nhuận sau khi hủy nhiều đơn thiết bị sản xuất điện bằng khí đốt mà họ không thể dùng cho hạ tầng AI, theo Semafor.",
-        "Semafor cho biết các đơn bị hủy thuộc kế hoạch cấp điện cho việc xây dựng phần cứng AI; bài viết không nêu lý do cụ thể khiến SoftBank không dùng được thiết bị đã đặt.",
-        "Xu hướng này có mặt trái ngược: Siemens Energy vẫn kỳ vọng tăng cổ tức gấp ba vào năm 2027 khi nhu cầu từ trung tâm dữ liệu Mỹ thúc đẩy mảng tua bin khí và thiết bị lưới điện. CEO Siemens Energy đồng thời cho rằng một số tốc độ tăng trưởng từng được dự báo cho trung tâm dữ liệu là thiếu thực tế.",
-        "Semafor nhận xét tổn thất của SoftBank làm tăng lo ngại đà xây dựng hạ tầng AI bằng vốn vay lớn có thể chậm lại, dù trường hợp Siemens Energy cho thấy nhu cầu thiết bị vẫn cao."
+        "SoftBank báo khoản ảnh hưởng 3,7 tỷ USD tới lợi nhuận sau khi hủy nhiều đơn thiết bị khí đốt cấp điện cho hạ tầng AI mà họ không thể sử dụng, theo Semafor.",
+        "Semafor nêu việc hủy các đơn không thể sử dụng là nguyên nhân trực tiếp của khoản ảnh hưởng này, nhưng không cho biết vì sao SoftBank không dùng được thiết bị.",
+        "Ở chiều khác, Siemens Energy dự kiến tăng cổ tức gấp ba vào năm 2027 khi nhu cầu từ trung tâm dữ liệu Mỹ thúc đẩy mảng tua bin khí và thiết bị lưới điện; khách mua tua bin hiện phải chờ nhiều năm. Semafor cũng ghi nhận việc Huang từ chức khiến nhà đầu tư lo Nvidia có thể giảm hỗ trợ tài chính cho hạ tầng AI dưới lãnh đạo mới.",
+        "Theo Semafor, tổn thất của SoftBank làm tăng lo ngại đà xây dựng hạ tầng AI bằng vốn vay lớn có thể chậm lại, dù nhu cầu thiết bị tại Siemens Energy vẫn cao."
       ],
       "same_event_coverage_ids": [
         "6211352f9067268e4996"
@@ -63600,24 +63805,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.25,
+        "value": 9.05,
         "answers": {
-          "what": 9,
+          "what": 10,
           "why": 9,
-          "notable": 7,
-          "meaning": 8
+          "notable": 8,
+          "meaning": 9
         },
         "hard_errors": [],
         "findings": [
           {
             "question": "notable",
-            "problem": "The Nvidia/Jensen Huang resignation, which the source names as a second reason investors are nervous, is missing.",
-            "fix": "Add one clause that Huang's resignation has made investors worry Nvidia could back away from bankrolling AI hardware (outlet:p001)."
-          },
-          {
-            "question": "notable",
-            "problem": "The multiyear turbine waiting times and the developers hunting for second-hand equipment are left out.",
-            "fix": "Mention the multiyear waits for gas turbines (outlet:p002)."
+            "problem": "Two short quotes that carry the mood are dropped: the fund manager's 'the music might stop' and the Siemens CEO saying some data-centre growth rates were unrealistic.",
+            "fix": "Add the Siemens CEO's quote that some growth rates were unrealistic and nobody wanted to hear it (p002)."
           }
         ],
         "writer_boats": [
@@ -63625,8 +63825,8 @@
         ],
         "scorer_boat": "claude",
         "scorer_provider": "claude-code",
-        "prose_sha256": "0b5e87dbb00c6fd573e393404283e6803dd1a163925bf9088cabeab6dae4e147",
-        "scored_at": "2026-11-13T10:45:38.517166+00:00"
+        "prose_sha256": "0460daa94c4ba039804e4ca754c7cdfec3b8673d1d4127d7695eb1df7eb031db",
+        "scored_at": "2026-11-13T11:13:50.093486+00:00"
       }
     },
     {
@@ -63678,7 +63878,31 @@
       ],
       "summary_limitations": [],
       "key_points_prompt_version": "summary-vi-7-bullets",
-      "score": null
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.75,
+        "answers": {
+          "what": 10,
+          "why": 6,
+          "notable": 9,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The Vietnamese omits United's second stated reason, the risk of violating federal aviation rules. The headline and paragraphs frame the move as about security and holiday timing only.",
+            "fix": "Add that United also cites federal rules, such as the requirement that a human completes flight check-in (p007, p010)."
+          }
+        ],
+        "writer_boats": [
+          "codex"
+        ],
+        "scorer_boat": "claude",
+        "scorer_provider": "claude-code",
+        "prose_sha256": "c65e5cfb444259ffb9e9333fabe55c00f2bd631760ce293e68bd9beae0fe54b5",
+        "scored_at": "2026-11-13T11:19:45.860304+00:00"
+      }
     },
     {
       "id": "8edb09c052e445da0cbf",
@@ -63739,7 +63963,31 @@
       ],
       "summary_limitations": [],
       "key_points_prompt_version": "summary-vi-7-bullets",
-      "score": null
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.2,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 8,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The over-$3-billion figure for the misplaced bet is absent, so the reader does not see how much of the loss was this over-ordering.",
+            "fix": "Add that the misplaced bet amounted to over $3 billion (p015)."
+          }
+        ],
+        "writer_boats": [
+          "codex"
+        ],
+        "scorer_boat": "claude",
+        "scorer_provider": "claude-code",
+        "prose_sha256": "ef7691116f4795c0a03de0757034e657aecba23540e360c56da084383ebe9f48",
+        "scored_at": "2026-11-13T11:19:45.860329+00:00"
+      }
     },
     {
       "id": "29da70c6592fc36fa6ae",
@@ -63837,7 +64085,31 @@
       ],
       "summary_limitations": [],
       "key_points_prompt_version": "summary-vi-7-bullets",
-      "score": null
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.2,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 9,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The intended audience is missing: people who take many photos and share on social media, with a broader audience planned.",
+            "fix": "Add the initial target of heavy social sharers and the later broader audience (p017)."
+          }
+        ],
+        "writer_boats": [
+          "codex"
+        ],
+        "scorer_boat": "claude",
+        "scorer_provider": "claude-code",
+        "prose_sha256": "66222e65000c515e9419c63d2df2089067dc11ba1b3258d927537afcc35a96c1",
+        "scored_at": "2026-11-13T11:19:45.860353+00:00"
+      }
     },
     {
       "id": "64a6f20ebcc4dac132a4",
@@ -63964,7 +64236,31 @@
       ],
       "summary_limitations": [],
       "key_points_prompt_version": "summary-vi-7-bullets",
-      "score": null
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.2,
+        "answers": {
+          "what": 9,
+          "why": 8,
+          "notable": 7,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The Vietnamese leaves out Kress's background: she joined in 2013, was recruited by Huang, and spent more than two decades in finance roles at Microsoft, Cisco and Texas Instruments.",
+            "fix": "Add one clause on her 2013 hiring by Huang and her prior finance career (p012). It would also help to say that analysts called her the logical choice (p003, p005)."
+          }
+        ],
+        "writer_boats": [
+          "codex"
+        ],
+        "scorer_boat": "claude",
+        "scorer_provider": "claude-code",
+        "prose_sha256": "2f7725e4b804529bc6eb0f1242d512deac78e56017523178e3dd9913a562f040",
+        "scored_at": "2026-11-13T11:19:45.860377+00:00"
+      }
     },
     {
       "id": "d7dba5a4ded8a55b785c",
@@ -64086,7 +64382,25 @@
       ],
       "summary_limitations": [],
       "key_points_prompt_version": "summary-vi-7-bullets",
-      "score": null
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.65,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "codex"
+        ],
+        "scorer_boat": "claude",
+        "scorer_provider": "claude-code",
+        "prose_sha256": "2d0fcd6571b1c243a914c21b8db09928a96564b17a7e8013e61cba7f3efe2aef",
+        "scored_at": "2026-11-13T11:19:45.860399+00:00"
+      }
     },
     {
       "id": "981658b8b9c1f2605940",
@@ -64354,7 +64668,31 @@
       ],
       "summary_limitations": [],
       "key_points_prompt_version": "summary-vi-7-bullets",
-      "score": null
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.05,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 8,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The Vietnamese omits that this was Fireworks' second breach in as many months, after an October incident.",
+            "fix": "Add a short sentence saying it follows a security incident in October (p013)."
+          }
+        ],
+        "writer_boats": [
+          "codex"
+        ],
+        "scorer_boat": "claude",
+        "scorer_provider": "claude-code",
+        "prose_sha256": "2d8d90fe830b7d4d07baa8f832a6ae39d0821bf2ecda6347ec4bd45efe6cc924",
+        "scored_at": "2026-11-13T11:19:45.860420+00:00"
+      }
     },
     {
       "id": "4b0df90a909d78b70d42",
@@ -64710,7 +65048,31 @@
       ],
       "summary_limitations": [],
       "key_points_prompt_version": "summary-vi-7-bullets",
-      "score": null
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.25,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 8,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The Vietnamese gives no example of the plugin's own skills, such as quoting a job or diagnosing a breakdown. The only example is the steel one, which depends on Infor's separate plugin.",
+            "fix": "Add one concrete skill example, for instance an estimator drafting a quote or a technician getting ranked likely causes of a breakdown (p005, p007)."
+          }
+        ],
+        "writer_boats": [
+          "codex"
+        ],
+        "scorer_boat": "claude",
+        "scorer_provider": "claude-code",
+        "prose_sha256": "fc13a2d5a7ea663c0def8345b116dfc9dbe1b5eb8ff5260b089cc644f6b8565b",
+        "scored_at": "2026-11-13T11:19:45.860443+00:00"
+      }
     },
     {
       "id": "9d35d18921aba4a5fa3e",
@@ -64751,7 +65113,31 @@
       ],
       "summary_limitations": [],
       "key_points_prompt_version": "summary-vi-7-bullets",
-      "score": null
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.35,
+        "answers": {
+          "what": 9,
+          "why": 8,
+          "notable": 8,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The last paragraph says the abstract does not state the baseline for the 23x figure. That is a note about the source, not content for the reader, and it spends room that could go to the model setting.",
+            "fix": "Drop the remark or fold it into one clause. Keep the p009 point that the 23x is the maximum, reached on some benchmarks."
+          }
+        ],
+        "writer_boats": [
+          "codex"
+        ],
+        "scorer_boat": "claude",
+        "scorer_provider": "claude-code",
+        "prose_sha256": "5d43a64e1a8a57e7f07caf1a5b801f2fa7d9819a23d2f0f46947abfbc58595a6",
+        "scored_at": "2026-11-13T11:19:45.860468+00:00"
+      }
     },
     {
       "id": "8736fc25f12f5974473b",
@@ -64767,17 +65153,17 @@
       "use_original_title": false,
       "source_url": "https://arxiv.org/abs/2611.16217",
       "key_points": [
-        "Nhóm tác giả WorldDraft nhận thấy trong thử nghiệm trên 12 mô hình video, việc giữ đúng chuyển động và đường đi camera có thể xung đột với việc thể hiện đúng ngoại hình được yêu cầu. WorldDraft là bộ kiểm thử gồm 432 trường hợp ghép cặp từ 48 nhóm thế giới động có thể chạy bằng mã.",
-        "Nhóm tác giả đặt câu hỏi liệu mô hình video có thể dựng hình từ một thế giới đã được tạo bằng mã mà vẫn giữ chuyển động, đường đi camera và ngoại hình theo mô tả. Họ so sánh các bản nháp từ sơ lược đến chi tiết và các tín hiệu ngoại hình từ trung tính đến xung đột, trong khi giữ nguyên chuyển động.",
-        "Bản nháp chi tiết hơn giúp mô hình bám cấu trúc thế giới, nhưng theo thử nghiệm lại làm ngoại hình kém sát yêu cầu hơn.",
-        "Kết quả trên 12 mô hình được thử cho thấy một video bám đúng cấu trúc cảnh chưa chắc thể hiện đúng ngoại hình mong muốn. Nhóm tác giả cũng báo cáo cách gợi ý bằng hình ảnh WorldDraft-Primer cải thiện cả hai mục tiêu trên những mô hình dựng video được giữ cố định trong thử nghiệm."
+        "Trong bộ kiểm thử WorldDraft (tập tình huống đánh giá mô hình), nhóm tác giả nhận thấy 12 mô hình video khó đồng thời giữ đúng chuyển động, đường đi camera và ngoại hình được mô tả. Bộ kiểm thử gồm 432 trường hợp ghép cặp thuộc 48 nhóm thế giới 4D, tức cảnh thay đổi theo thời gian và có thể chạy bằng mã.",
+        "Nhóm tác giả đặt câu hỏi liệu mô hình video có thể dựng hình cho một thế giới tạo bằng mã mà vẫn giữ đúng cấu trúc cảnh và ngoại hình theo văn bản. Họ so sánh ba mức chi tiết của bản nháp với ba mức phù hợp ngoại hình, từ trung tính đến xung đột, trong các cảnh có cùng chuyển động.",
+        "Trong WorldDraft, bản nháp chi tiết hơn giúp giữ cấu trúc cảnh nhưng làm ngoại hình video kém sát yêu cầu hơn.",
+        "Theo nhóm tác giả, kết quả trên 12 mô hình được thử cho thấy giữ đúng cấu trúc cảnh vẫn có thể đi kèm ngoại hình sai yêu cầu. Nhóm đề xuất WorldDraft-Primer, cách gợi ý bằng hình ảnh có thể áp dụng trực tiếp và cải thiện đều cả hai tiêu chí trên các mô hình dựng video được giữ nguyên trong thử nghiệm."
       ],
       "same_event_coverage_ids": [
         "646bbf4b7e392b42ab23"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Thử nghiệm WorldDraft trên 12 mô hình cho thấy bản nháp chi tiết có thể làm giảm độ đúng ngoại hình",
+      "editorial_headline_vi": "WorldDraft thử 12 mô hình video: bản nháp chi tiết giữ cấu trúc tốt hơn nhưng giảm độ đúng ngoại hình",
       "summary_sources": [
         {
           "id": "outlet",
@@ -64790,19 +65176,24 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.45,
+        "value": 8.15,
         "answers": {
           "what": 9,
           "why": 10,
-          "notable": 7,
+          "notable": 6,
           "meaning": 8
         },
         "hard_errors": [],
         "findings": [
           {
             "question": "notable",
-            "problem": "The finding that conflicting appearance cues trigger source leakage of up to 64%, exposing fragile cross-modal disentanglement, is omitted (p009).",
-            "fix": "Add the leakage result with its figure."
+            "problem": "The third finding is missing: conflicting appearance cues trigger source leakage of up to 64%, exposing fragile cross-modal disentanglement (p009).",
+            "fix": "Add one sentence saying that when text appearance conflicts with the draft, models leak the draft's own appearance, in up to 64% of cases."
+          },
+          {
+            "question": "meaning",
+            "problem": "The stated aim of bridging programmatic 4D simulation with video generation is not conveyed, so the benchmark's purpose looks narrower than the source says.",
+            "fix": "Add that WorldDraft and the Primer aim to link programmatic 4D simulation to video generation (p009)."
           }
         ],
         "writer_boats": [
@@ -64810,8 +65201,8 @@
         ],
         "scorer_boat": "claude",
         "scorer_provider": "claude-code",
-        "prose_sha256": "684c53676085a7ebc5e5e9cc7aea174db385fd1ec023dedbdb0a5e0dd55e5b1d",
-        "scored_at": "2026-11-13T10:45:38.517489+00:00"
+        "prose_sha256": "20b58297f74494eb3bca5b4d0baefb4dc35df68aa8adb60d0802def542b43326",
+        "scored_at": "2026-11-13T11:16:27.038099+00:00"
       }
     },
     {
@@ -64920,7 +65311,25 @@
       ],
       "summary_limitations": [],
       "key_points_prompt_version": "summary-vi-7-bullets",
-      "score": null
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.5,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "codex"
+        ],
+        "scorer_boat": "claude",
+        "scorer_provider": "claude-code",
+        "prose_sha256": "6d0be5eaee3824dacd15f2af44008880d9f6fb9712e4ed69aab761cafa2cc9e7",
+        "scored_at": "2026-11-13T11:19:45.860490+00:00"
+      }
     },
     {
       "id": "64ef7ba224c33f75828f",
@@ -65157,6 +65566,345 @@
         "fad36c294212e1447881",
         "fe8dba5ddfb4817a8ca8"
       ]
+    },
+    {
+      "id": "2607492f44151a20f068",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://analyticsindiamag.com/ai-startups/can-karnatakas-ai-hub-ease-compute-costs-for-women-led-startups",
+      "key_points": [
+        "Bà Manjula N, quan chức bang Karnataka, yêu cầu giáo sư Debabrata Das xem liệu bang có thể trợ giá thêm tài nguyên tính toán qua AI Hub dự kiến trị giá ₹35 crore tại IIIT-Bangalore, sau kiến nghị của Priyanka Gangishetty, đồng sáng lập Vuha AI.",
+        "Theo Das, chi phí phần cứng đã tăng khoảng bốn lần trong năm qua; IndiaAI Mission cấp tài nguyên tính toán qua kênh riêng, không qua chính quyền bang. Gangishetty nói người làm AI cần nhiều GPU và đề nghị GPU giá ưu đãi hoặc nơi huấn luyện mô hình cho startup; Vuha AI phát triển camera thông minh cho công nghiệp và camera AI.",
+        "Theo Das, AI Hub dự tính mở AI Living Lab, nơi startup có thể đặt lịch dùng tài nguyên tính toán và thử giải pháp; ông cảnh báo hạn chế về năng lực tính toán và bộ nhớ trên toàn cầu có thể kéo dài thêm một năm rưỡi. Một nhà sáng lập trong lĩnh vực robot và sản xuất cũng đề nghị dùng chung không gian cùng thiết bị sản xuất, thay vì tự xây cơ sở.",
+        "Analytics India Magazine nhận xét tiếp cận tài nguyên tính toán chỉ là một phần khó khăn: các nữ sáng lập còn lo việc chuyển từ tài trợ ban đầu sang tăng trưởng thương mại, nhất là khi sản phẩm cần nhiều năm nghiên cứu trước khi triển khai."
+      ],
+      "same_event_coverage_ids": [
+        "210e370f799fb4715212"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Karnataka yêu cầu xem khả năng trợ giá tài nguyên tính toán qua AI Hub ₹35 crore cho startup",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "analytics-india-magazine",
+          "url": "https://analyticsindiamag.com/ai-startups/can-karnatakas-ai-hub-ease-compute-costs-for-women-led-startups"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.15,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 7,
+          "meaning": 6
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The reader never learns what the government offered in response to the founders' concerns: Government First pilot support of up to ₹25 lakh, the ELEVATE grants, KDEM introductions to corporates, and the planned data-access policy.",
+            "fix": "Add one or two sentences on the response, for example Government First pilots up to ₹25 lakh (p014), ELEVATE Shakti 2026 with 63 startups and ₹23.19 crore (p016), and the state's policy to open government data (p011)."
+          },
+          {
+            "question": "notable",
+            "problem": "The source says officials would examine proposals for subsidised compute and shared facilities (p004). The Vietnamese covers only Manjula's request to Das.",
+            "fix": "State that government officials said they would examine proposals for subsidised compute and shared facilities (p004)."
+          },
+          {
+            "question": "what",
+            "problem": "The context for the compute complaint is missing: IndiaAI Mission has allotted 62,000 GPUs but utilisation is marginal (p001).",
+            "fix": "Add the 62,000 GPUs allotted and marginal utilisation (p001) as background for the subsidy request."
+          }
+        ],
+        "writer_boats": [
+          "codex"
+        ],
+        "scorer_boat": "claude",
+        "scorer_provider": "claude-code",
+        "prose_sha256": "eb99574937b09bb9a60113e4c112067257b6e9a45e1c34f4fa4590565b075cbd",
+        "scored_at": "2026-11-13T11:07:06.222014+00:00"
+      }
+    },
+    {
+      "id": "8e4ca78447a7e5be70da",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "editor_invalid",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://status.claude.com/history",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "4cfca3a482d1e2d9e816"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "1a09f77a4836fe9e9b63",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "editor_invalid",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://status.claude.com/incidents/nn11wk485zfn",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "3efab9747b4ab1f39ed7",
+        "ac8723eb2f509ec28f2f"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "1f5198d6a746ac52b385",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/13/2026/democrats-encouraged-to-scrutinize-trump-and-ai",
+      "key_points": [
+        "Theo hai lá thư Semafor tiếp cận, các nhóm an toàn AI đang thúc giục phe Dân chủ tăng giám sát chính sách AI của chính quyền Trump khi nắm quyền vào năm tới.",
+        "Guardrails Action cùng chín nhóm khác nói cử tri trong cuộc bầu cử giữa kỳ muốn ngành AI và chính phủ chịu trách nhiệm giải trình.",
+        "Các nhóm yêu cầu điều trần với Jensen Huang, người đã rời ghế CEO Nvidia, và quan chức Bộ Thương mại sau tranh cãi gần đây về Nvidia. Trong thư riêng, Alliance for Secure AI và Tech Oversight Project yêu cầu Bộ trưởng Thương mại Howard Lutnick ủng hộ kiểm soát xuất khẩu chặt hơn.",
+        "Trong thư, các nhóm coi sự tập trung quyền lực, của cải và rủi ro quanh AI là vấn đề mang tính lịch sử, đồng thời gọi việc kiềm chế quyền lực ấy là cuộc đấu tranh quan trọng nhất của họ."
+      ],
+      "same_event_coverage_ids": [
+        "0d8aed35a6cef71991d2"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Các nhóm an toàn AI thúc giục phe Dân chủ điều trần về Nvidia và siết kiểm soát xuất khẩu",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/13/2026/democrats-encouraged-to-scrutinize-trump-and-ai"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.9,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 8,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The headline implies the Democrats are urged to tighten export controls. The source says that demand was addressed to Lutnick in a separate letter (p005).",
+            "fix": "Reword the headline, e.g. 'Nhóm an toàn AI thúc giục phe Dân chủ điều trần về Nvidia; thư khác đòi Lutnick siết kiểm soát xuất khẩu'."
+          }
+        ],
+        "writer_boats": [
+          "codex"
+        ],
+        "scorer_boat": "claude",
+        "scorer_provider": "claude-code",
+        "prose_sha256": "9c4009c2fcfdfcd074a3ee4aac3b8248fe4880ad33daeb959aa21095a33cdcbb",
+        "scored_at": "2026-11-13T11:05:44.448067+00:00"
+      }
+    },
+    {
+      "id": "97df97d02a06d61c177f",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "editor_invalid",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://news.ycombinator.com/item?id=50480941",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "4db130f70031f1c0be19"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "27fa0d08a1852be857cc",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/13/2026/im-in-the-trenches-the-payroll-processor-on-her-own-front-line",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "479a2534109c5b365c29"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "ce270d089cdce2f53150",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Trọng tâm là sự cố Microsoft làm gián đoạn giao dịch và liên lạc; AI chỉ xuất hiện bên lề.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://analyticsindiamag.com/ai-news/microsoft-outage-fix-fails-to-restore-outlook-teams-copilot-across-74-countries",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "35b85c8b7a23706a7468"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "341363dd4020e2e543df",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "editor_invalid",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://techcrunch.com/2026/11/12/googles-latest-search-upgrade-promises-better-answers-to-your-most-complicated-questions/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "72b3090d84d3dbbc014d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "59c5080f1af61739050a",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://deepmind.google/blog/introducing-gemini-4-hydrogen/",
+      "key_points": [
+        "Google giới thiệu Gemini 4 Hydrogen trên mọi gói Google AI Studio, Gemini API, Gemini for business, ứng dụng Gemini và Google Search; người đăng ký Google AI Pro hoặc Ultra trả phí cũng có thể dùng qua Google Antigravity.",
+        "Theo Google, Carbon và Argon phù hợp việc suy luận sâu, còn Hydrogen được thiết kế để thực hiện nhanh các tác vụ lập trình và quy trình agent (chuỗi việc AI thực hiện qua nhiều bước).",
+        "Google niêm yết Hydrogen ở mức 1,50 USD cho một triệu token đầu vào và 7,50 USD cho một triệu token đầu ra, áp dụng trong toàn bộ cửa sổ ngữ cảnh một triệu token. Trên Artificial Analysis Intelligence Index (chỉ số đánh giá năng lực AI), Google cho biết Hydrogen đạt 51 điểm ở mức suy nghĩ high mặc định, so với 50 điểm của Argon.",
+        "Google giới thiệu Hydrogen như mô hình có thể dùng riêng hoặc phối hợp với Carbon và Argon; kết quả bộ điều phối Orchestrator đạt tỷ lệ hoàn thành gần Carbon chỉ được hãng nêu trong bài kiểm tra Terminal-Bench 4.0."
+      ],
+      "same_event_coverage_ids": [
+        "2114d91afcb212c0d82e",
+        "a1503c5ef132f6a887a4",
+        "d61bbae172c79820a09b",
+        "dcf6c141f246ce2bfbad"
+      ],
+      "split_coverage_ids": [
+        "1247e2afe1ebba5f8b9b",
+        "1e17c96f891ac0699903",
+        "c5fda8f9b4121589429c"
+      ],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Google đưa Gemini 4 Hydrogen lên nhiều dịch vụ, giá đầu vào 1,50 USD mỗi triệu token",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "google",
+          "url": "https://deepmind.google/blog/introducing-gemini-4-hydrogen/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.9,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 8,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The Vietnamese leaves out the upgrade over 3.8 Flash (2.5x faster, Terminal-Bench 4.1 57% vs 18.2%), which is the main selling point (p023).",
+            "fix": "Add one sentence on the 2.5x speed gain and the Terminal-Bench 4.1 jump versus Gemini 3.8 Flash."
+          },
+          {
+            "question": "meaning",
+            "problem": "The Orchestrator savings (24% less quota, 19% faster) are not mentioned (p021).",
+            "fix": "Add that Orchestrator used on average 24% less quota and finished 19% faster."
+          }
+        ],
+        "writer_boats": [
+          "codex"
+        ],
+        "scorer_boat": "claude",
+        "scorer_provider": "claude-code",
+        "prose_sha256": "571aea1526063ed4bccd8f798523a7ef8adb03c3214da3ac4aab237eef755af3",
+        "scored_at": "2026-11-13T11:05:44.448097+00:00"
+      }
     }
   ]
 }
