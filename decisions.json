@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-13T15:23:37.903382+00:00",
-  "input_generated_at": "2026-11-13T14:45:34Z",
+  "generated_at": "2026-11-13T19:28:44.170856+00:00",
+  "input_generated_at": "2026-11-13T18:45:52Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -66550,17 +66550,17 @@
       "use_original_title": false,
       "source_url": "https://analyticsindiamag.com/ai-news/adobe-google-expand-ai-partnership-across-creative-and-productivity-tools",
       "key_points": [
-        "Adobe và Google mở rộng hợp tác: mô hình AI của Google sẽ vào phần mềm sáng tạo của Adobe, còn công cụ Adobe sẽ được đưa vào Workspace, Gemini và Google Search.",
-        "Anil Chakravarthy, chủ tịch kiêm CEO sắp nhậm chức của Adobe, nói hợp tác này giúp đưa công cụ của hãng đến nhiều người hơn trên sản phẩm của cả hai bên.",
-        "Acrobat sẽ có trong Google Workspace: người dùng có thể mở tài liệu từ Drive và Gmail bằng tùy chọn “Edit with” ngay ở phần xem trước tệp. Mô hình Gemini cũng sẽ hỗ trợ Acrobat hiểu nội dung và chỉnh PDF bằng câu lệnh hội thoại.",
-        "Các mô hình tạo ảnh và video của Google sẽ có trong ứng dụng sáng tạo Adobe; khách hàng Adobe đã có thể dùng Gemini Omni, Veo và Nano Banana."
+        "Adobe và Google mở rộng hợp tác: mô hình AI của Google sẽ vào phần mềm sáng tạo Adobe, còn công cụ Adobe sẽ được đưa vào Workspace, Gemini và Google Search.",
+        "Anil Chakravarthy, Chủ tịch kiêm CEO sắp nhậm chức của Adobe, nói hợp tác này giúp đưa công cụ của hãng đến nhiều người hơn trên sản phẩm của cả hai bên.",
+        "Acrobat sẽ có trong Google Workspace: người dùng có thể chuyển tài liệu từ Drive và Gmail sang Acrobat bằng tùy chọn “Edit with” ngay ở phần xem trước tệp. Mô hình Gemini cũng sẽ hỗ trợ Acrobat hiểu nội dung và chỉnh PDF bằng câu lệnh hội thoại; khách hàng Adobe đã có thể dùng các mô hình Gemini Omni, Veo và Nano Banana.",
+        "Công cụ Adobe sẽ dùng được ngay trong cuộc trò chuyện Gemini và trong AI Mode của Google Search, mở thêm đường tiếp cận các công cụ này. Adobe và Google cũng mới đang khảo sát cách tùy chỉnh mô hình ảnh cho Photoshop; khả năng chỉnh ảnh gần như tức thời bằng câu lệnh văn bản vẫn là đề xuất, chưa phải tính năng đã ra mắt."
       ],
       "same_event_coverage_ids": [
         "f13483898ed4b5ad095d"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Adobe và Google mở rộng hợp tác AI: Acrobat sẽ vào Workspace, mô hình ảnh và video vào ứng dụng Adobe",
+      "editorial_headline_vi": "Adobe và Google mở rộng hợp tác AI: Acrobat sẽ vào Workspace, công cụ Adobe vào Gemini và Search",
       "summary_sources": [
         {
           "id": "outlet",
@@ -66573,19 +66573,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.6,
+        "value": 9.25,
         "answers": {
-          "what": 9,
+          "what": 10,
           "why": 10,
           "notable": 8,
-          "meaning": 7
+          "meaning": 9
         },
         "hard_errors": [],
         "findings": [
           {
-            "question": "meaning",
-            "problem": "The reader misses that the companies are exploring custom Google image models for Photoshop, which could allow near-real-time editing through text prompts, and that Adobe tools will be usable inside Gemini conversations and AI Mode in Search.",
-            "fix": "Add one sentence on the Photoshop exploration (outlet:p008) and on Adobe tools being usable within Gemini and AI Mode in Search (outlet:p006)."
+            "question": "notable",
+            "problem": "Paragraph 4 says Adobe tools 'sẽ dùng được ngay' in Gemini, which can read as available now. The source is future tense (p006). Paragraph 3 also says Gemini helps 'Acrobat hiểu nội dung', but the source says users understand document contents (p005).",
+            "fix": "Drop 'ngay' and say users will be able to do this. Say Gemini lets users understand documents."
           }
         ],
         "writer_boats": [
@@ -66593,8 +66593,8 @@
         ],
         "scorer_boat": "claude",
         "scorer_provider": "claude-code",
-        "prose_sha256": "6d47a06e1dbbd1fca36895ef169da2960e277d92efb4a6cbdf124ff312f1ca7f",
-        "scored_at": "2026-11-13T13:16:26.758868+00:00"
+        "prose_sha256": "3d09a632c7e28535cdabd2bdbe92cb28b96455100c1cf2e3d0e9096d7707b1ca",
+        "scored_at": "2026-11-13T19:26:07.412759+00:00"
       }
     },
     {
@@ -66635,17 +66635,17 @@
       "use_original_title": true,
       "source_url": "https://github.com/hardwiredagent/silicon-forge-arm-neon-study",
       "key_points": [
-        "Theo phép đo do tác giả kho mã công bố, bản vá NEON tăng tối đa 6,5 lần tốc độ xử lý prompt của llama.cpp trên máy chủ Arm, với mô hình Qwen2.5 1.5B, bốn luồng và prompt 512 token. Tác giả cho biết bản vá bổ sung phần xử lý bằng lệnh NEON cho phép nhân ma trận dùng trong một số định dạng nén mô hình.",
-        "Theo tác giả, các định dạng Q3_K, Q2_K và họ IQ trước đó thiếu phần xử lý riêng trên Arm, khiến chương trình phải giải nén trọng số lặp lại cho mỗi phép tính. Phép đo hiệu năng (benchmark, bài thử tốc độ) so sánh đường xử lý được bật và tắt trong cùng một bản chương trình.",
-        "Với định dạng IQ3_M trên lõi Neoverse N1, tốc độ xử lý prompt đo bằng token mỗi giây tăng từ 11,5 lên 74,5 trong phép thử bốn luồng, prompt 512 token. Tác giả báo cáo bài kiểm tra của llama.cpp đạt 15/15 trường hợp và kiểm tra ngẫu nhiên đạt 88/88 trên cả ba loại lõi Arm; tốc độ sinh nội dung không đổi.",
-        "Kết quả cải thiện trong phép đo chỉ thuộc các định dạng trước đó thiếu phần xử lý Arm: những định dạng đã có phần xử lý riêng không đổi, và số đo Arm vẫn thấp hơn nhiều so với mốc x86. Bản vá chưa được gửi tới dự án llama.cpp; tác giả chỉ đo trên máy chủ Arm, chưa thử trên điện thoại."
+        "Nikita, một tác nhân AI (chương trình tự thực hiện tác vụ), viết bản vá NEON cho llama.cpp; tốc độ xử lý prompt tăng tối đa 6,5 lần trong phép đo trên máy chủ Arm với mô hình Qwen2.5 1.5B, bốn luồng và prompt 512 token.",
+        "Theo tác giả kho mã, các định dạng Q3_K, Q2_K và họ IQ thiếu nhân tính toán riêng trên Arm, nên đường xử lý cũ phải giải nén trọng số lại cho mỗi phép tính. Phép đo hiệu năng (bài thử tốc độ) so sánh khi bật và tắt đường xử lý mới trong cùng một bản chương trình.",
+        "Với định dạng IQ3_M trên lõi Neoverse N1, tốc độ xử lý prompt tăng từ 11,5 lên 74,5 token mỗi giây trong bài thử bốn luồng, prompt 512 token. Tác giả báo cáo bài kiểm tra của llama.cpp đạt 15/15 trường hợp và kiểm tra ngẫu nhiên đạt 88/88 trên cả ba thế hệ lõi Arm được đo.",
+        "Mức tăng này chỉ thuộc xử lý prompt: tốc độ sinh nội dung không đổi, còn số đo Arm vẫn thấp hơn nhiều so với mốc x86. Theo kho mã, bản vá do tác nhân AI thực hiện chưa được kỹ sư chuyên về nhân tính toán đánh giá hoặc so sánh đầu ra trên prompt thật; bản vá cũng chưa gửi tới llama.cpp vì quy định của dự án đòi hỏi người đóng góp hiểu từng dòng mã do AI tạo và tự viết đề nghị gộp mã."
       ],
       "same_event_coverage_ids": [
         "c9c11a9f9d6ab5dc2378"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Bản vá NEON tăng tối đa 6,5 lần tốc độ xử lý prompt của llama.cpp trong phép đo trên máy chủ Arm",
+      "editorial_headline_vi": "Bản vá NEON do tác nhân AI viết tăng tối đa 6,5 lần tốc độ xử lý prompt trong phép đo trên máy chủ Arm",
       "summary_sources": [
         {
           "id": "outlet",
@@ -66658,24 +66658,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.55,
+        "value": 8.55,
         "answers": {
-          "what": 10,
-          "why": 10,
-          "notable": 10,
-          "meaning": 7
+          "what": 9,
+          "why": 9,
+          "notable": 8,
+          "meaning": 8
         },
         "hard_errors": [],
         "findings": [
           {
             "question": "meaning",
-            "problem": "The reader is not told that the patch and benchmarks were produced by an AI agent (Nikita on Orbofi running Claude) and that review by a human kernel engineer, test-backend-ops and model-output comparison were not done (p038, p057).",
-            "fix": "Add a sentence saying the work was done by an AI agent and has not had human kernel review or real-prompt output checks."
-          },
-          {
-            "question": "meaning",
-            "problem": "The reason for the upstream non-submission is missing: llama.cpp's contribution rules restrict AI-generated code (p054).",
-            "fix": "Add that the repository holds back from submitting because of llama.cpp's rules on AI-generated contributions."
+            "problem": "The text does not say the tests were on rented Graviton servers only, with no phone measured. It also omits that formats which already had an Arm kernel are unchanged and that thread counts above 8 were not tested.",
+            "fix": "Add a short clause that no phone was measured and that only 4 and 8 threads were tested (p040, p045). Add that formats with an existing Arm kernel, such as Q4_K_M, do not change (p016, p043)."
           }
         ],
         "writer_boats": [
@@ -66683,8 +66678,8 @@
         ],
         "scorer_boat": "claude",
         "scorer_provider": "claude-code",
-        "prose_sha256": "73c2f00b7db651d83834164a4ff3de3a1a1eabb3d63ff6bf18ae90a503d326fd",
-        "scored_at": "2026-11-13T15:19:57.825771+00:00"
+        "prose_sha256": "8d77b815d61f0c259beac4bacdf0ed9afb96191676daee98db49ccd77ae991f7",
+        "scored_at": "2026-11-13T19:26:07.413064+00:00"
       }
     },
     {
@@ -66704,17 +66699,17 @@
       "use_original_title": false,
       "source_url": "https://coyotetracks.org/blog/right-amount-of-ai/",
       "key_points": [
-        "Trong một bài luận, tác giả cho rằng càng ít mã do mô hình ngôn ngữ tạo ra thì lập trình viên càng dễ kiểm tra; mức ít nhất theo ông là không dùng mã AI. Ông nói đây là quan điểm về cách làm phần mềm, đồng thời thừa nhận ứng dụng tốt vẫn có thể được tạo với AI.",
-        "Tác giả lo người lập trình hiểu mã của mình kém đi khi giao ngày càng nhiều việc cho công cụ AI hỗ trợ viết mã. Ông cũng coi việc chọn dùng mô hình ngôn ngữ, thay vì tìm sự giúp đỡ từ con người, là một lựa chọn có hệ quả đạo đức.",
-        "Tranh cãi quanh game Big Walk là ví dụ của ông: House House nói AI chỉ chạm tới một phần rất nhỏ mã, nhưng một nhóm giám khảo giải game độc lập vẫn từ chối bỏ phiếu cho trò chơi có dùng AI tạo sinh. Ở chiều ngược lại, tác giả vẫn sử dụng Overcast dù biết ứng dụng có mã do Claude tạo và ông không cho rằng ứng dụng đó sẽ gây những lỗi nghiêm trọng mình nêu.",
-        "Tác giả kết luận ông có thể tránh mô hình ngôn ngữ trong công việc của chính mình, nhưng không thực tế khi tránh mọi phần mềm từng dùng công nghệ này. Theo quan điểm của ông, ứng dụng vẫn có thể hay dù dùng AI, song chất lượng có suy nghĩ và sự tinh chỉnh vẫn cần người phát triển hiểu rõ sản phẩm."
+        "Trong bài luận, Watts Martin cho rằng càng ít mã do mô hình ngôn ngữ lớn (LLM, công cụ tạo văn bản và mã) viết thì lập trình viên càng dễ kiểm tra; mức ít nhất là không dùng. Ông vẫn thừa nhận có thể tạo ứng dụng tốt với AI tạo sinh và cho rằng game Big Walk dường như là một trường hợp như vậy.",
+        "Martin đồng tình với lập luận của Bruno Dias rằng dùng LLM gắn với những quy trình khó chấp nhận về đạo đức; ông cho rằng không phải mọi cách dùng đều tệ như nhau, nhưng vẫn cần một ranh giới đạo đức. Martin cũng lo rằng giao thêm việc viết mã cho công cụ AI có thể làm lập trình viên kém hiểu mã của mình và khiến chất lượng kho mã giảm.",
+        "House House nói LLM chỉ chạm tới chưa đến một phần trăm của một phần trăm mã trong Big Walk, nhưng một nhóm giám khảo Independent Games Festival tuyên bố không bỏ phiếu cho bất kỳ game nào dùng AI tạo sinh. Ở chiều khác, Martin vẫn chuyển sang dùng ứng dụng nghe podcast Overcast dù biết nó có mã do Claude tạo; ông không nghĩ ứng dụng sẽ gây ra những sự cố nghiêm trọng mà mình nêu.",
+        "Theo ông, ứng dụng có sự trau chuốt vẫn cần lập trình viên có gu và hiểu biết, còn càng giao nhiều việc cho công cụ viết mã thì người viết càng ít hiểu phần mã ấy."
       ],
       "same_event_coverage_ids": [
         "88b27fad868d7a38da99"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Tác giả bài luận về Big Walk cho rằng càng ít mã do AI tạo thì lập trình viên càng dễ kiểm tra",
+      "editorial_headline_vi": "Watts Martin: AI có thể góp phần tạo ứng dụng tốt, nhưng càng ít mã do AI tạo càng dễ kiểm tra",
       "summary_sources": [
         {
           "id": "outlet",
@@ -66729,29 +66724,29 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 7.3,
+        "value": 7.15,
         "answers": {
-          "what": 8,
-          "why": 6,
-          "notable": 7,
-          "meaning": 8
+          "what": 7,
+          "why": 7,
+          "notable": 8,
+          "meaning": 6
         },
         "hard_errors": [],
         "findings": [
           {
-            "question": "why",
-            "problem": "The reader gets only the loss of understanding. The source also gives codebase quality decline (p018), GPL licensing risk (p021) and the ethical and political case (p014-p016).",
-            "fix": "Add one short clause on worse codebases and the licensing risk, citing p018 and p021."
-          },
-          {
             "question": "what",
-            "problem": "The ethical claim in paragraph 2 reads as the author's own. It comes from Bruno Dias's blog post, which the author says is 'not wrong' (p013-p014).",
-            "fix": "Attribute the point to Bruno Dias, with the author agreeing with it."
+            "problem": "The headline leads with a concession, that AI can contribute to good apps. The essay's thrust is skepticism, and the headline makes it read as a more balanced position than it is.",
+            "fix": "Lead with the main argument: ethical and quality objections, with zero LLM code as the safest option (p015, p028). Keep the concession as a secondary clause (p028)."
           },
           {
-            "question": "notable",
-            "problem": "The headline centres the essay on Big Walk, but the source treats Big Walk as one example in a wider argument about LLM-written code (p007, p028).",
-            "fix": "Frame the headline around the author's general argument and mention Big Walk as the example."
+            "question": "meaning",
+            "problem": "Martin's own stance is missing: it is practical for him to swear off LLMs for his work, and indie developers should be more wary (p023).",
+            "fix": "Add a sentence saying he avoids LLMs in his own work but cannot avoid them in all software, and that he urges indie developers to be wary."
+          },
+          {
+            "question": "why",
+            "problem": "The licensing risk is omitted. The source says Claude may incorporate GPL-licensed code into non-GPL software, and that training on open-source code is not automatically legal (p021).",
+            "fix": "Add the legal-risk point in one clause."
           }
         ],
         "writer_boats": [
@@ -66759,8 +66754,8 @@
         ],
         "scorer_boat": "claude",
         "scorer_provider": "claude-code",
-        "prose_sha256": "d122506f91ffe253ddec91697d56c2c90d540513d208eedcba6fb3551665b1b5",
-        "scored_at": "2026-11-13T13:10:40.982409+00:00"
+        "prose_sha256": "a09d8c3c35255126934561ee9291f4d131d5c7462974de52b9661807f9c6eed5",
+        "scored_at": "2026-11-13T19:28:44.125982+00:00"
       }
     },
     {
@@ -67030,17 +67025,17 @@
       "use_original_title": false,
       "source_url": "https://www.semafor.com/article/11/13/2026/nvidias-next-ceo-will-be-a-supply-chain-expert",
       "key_points": [
-        "Theo Semafor, Nvidia thiếu kế hoạch kế nhiệm khi CEO kiêm nhà sáng lập Jensen Huang, 63 tuổi, bị bãi nhiệm, dù trước đó hãng đã tìm một cấp phó từ bên ngoài.",
-        "Một người am hiểu cuộc tìm kiếm nói việc tuyển người khó vì các ứng viên không muốn làm việc dưới cái bóng của Huang.",
-        "Những người am hiểu quá trình tìm kiếm ước tính chưa tới 10 người trên thế giới thực sự có thể điều hành Nvidia; trong công ty còn có nhóm Slack mang tên “Stand with Jensen”.",
-        "Tác giả mục bình luận trên Semafor cho rằng người kế nhiệm không chỉ phải giữ sản phẩm Nvidia giao đúng hạn mà còn phải duy trì hoạt động của cả ngành; theo tác giả, Huang gần như không thể thay thế."
+        "Theo những người được thông báo về cuộc tìm kiếm, Nvidia chưa có kế hoạch kế nhiệm khi CEO kiêm nhà sáng lập Jensen Huang, 63 tuổi, bị bãi nhiệm.",
+        "Một người am hiểu cuộc tìm kiếm cho biết Nvidia từng tìm cấp phó từ bên ngoài, nhưng khó tuyển vì các ứng viên không muốn làm việc dưới cái bóng của Huang.",
+        "Những người am hiểu cuộc tìm kiếm ước tính chưa tới 10 người trên thế giới thực sự đủ sức điều hành Nvidia; trong công ty còn có nhóm Slack mang tên “Stand with Jensen”.",
+        "Reed cho rằng người kế nhiệm không chỉ phải giữ sản phẩm Nvidia giao đúng hạn mà còn phải duy trì hoạt động của cả ngành; theo tác giả, không ai thực sự thay thế được Huang."
       ],
       "same_event_coverage_ids": [
         "3b36f2121458a646aeb5"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Semafor: Nvidia thiếu kế hoạch kế nhiệm sau khi Jensen Huang bị bãi nhiệm, khó tìm người thay",
+      "editorial_headline_vi": "Sau khi Huang bị bãi nhiệm, Nvidia thiếu kế hoạch kế nhiệm; giới am hiểu ước chưa tới 10 người đủ sức lãnh đạo",
       "summary_sources": [
         {
           "id": "outlet",
@@ -67053,24 +67048,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.45,
+        "value": 8.25,
         "answers": {
           "what": 9,
-          "why": 10,
-          "notable": 7,
-          "meaning": 8
+          "why": 9,
+          "notable": 6,
+          "meaning": 10
         },
         "hard_errors": [],
         "findings": [
           {
             "question": "notable",
-            "problem": "The reader does not learn who is being floated as Huang's successor.",
-            "fix": "Add one sentence naming Johny Srouji (Apple), Rene Haas (Arm) and Tim Cook, the last at Trump's suggestion (outlet:p006)."
-          },
-          {
-            "question": "meaning",
-            "problem": "\"Huang gần như không thể thay thế\" softens the source, which says \"There's really no replacing him.\" (p004).",
-            "fix": "Drop \"gần như\" and attribute the claim to the columnist."
+            "problem": "The named successor candidates are missing: Apple's Johny Srouji, Arm's Rene Haas, and Tim Cook, the last on Trump's suggestion (p006).",
+            "fix": "Add one sentence saying the names floated include Srouji, Haas and, at Trump's suggestion, Tim Cook."
           }
         ],
         "writer_boats": [
@@ -67078,8 +67068,8 @@
         ],
         "scorer_boat": "claude",
         "scorer_provider": "claude-code",
-        "prose_sha256": "f5f2dd4e21a58d695aa93c78a92b4fed380040f2fc98746052ad3d102147ce81",
-        "scored_at": "2026-11-13T15:13:26.160649+00:00"
+        "prose_sha256": "231983a7f039fb81db677e4bbfb0e6aa5a032f0948d390631a59caa5595117d7",
+        "scored_at": "2026-11-13T19:28:44.125586+00:00"
       }
     },
     {
@@ -67165,17 +67155,17 @@
       "use_original_title": true,
       "source_url": "https://www.semafor.com/article/11/13/2026/coreweave-tunes-out-nvidia-noise-looks-to-raise-4b",
       "key_points": [
-        "CoreWeave đang tìm khoản vay 4 tỷ USD được bảo đảm bằng các hợp đồng với Meta; Morgan Stanley và Mitsubishi UFJ sẽ tổ chức phân phối khoản vay.",
-        "Theo Semafor, CoreWeave đã hứa dùng tài sản bảo đảm cho các khoản tín dụng mới sau khi trái phiếu không có bảo đảm của hãng bị bán mạnh vào đầu mùa thu. Bài viết cho rằng việc dùng hợp đồng với Meta giúp CoreWeave dựa vào mức xếp hạng tín nhiệm AA của Meta khi đi vay.",
-        "CoreWeave nhắm mức lãi suất toàn bộ khoảng 7,5%, trong khi lợi suất trái phiếu không có bảo đảm của hãng từng lên gần 16%.",
-        "Theo Semafor, nếu đạt mức lãi suất mục tiêu, khoản vay sẽ rẻ hơn nhiều so với lợi suất gần 16% nói trên; một người am hiểu vụ việc cho biết đợt tiếp thị ban đầu được đón nhận tích cực."
+        "CoreWeave đang tìm khoản vay 4 tỷ USD được bảo đảm bằng các hợp đồng với Meta, giữa lúc cổ phiếu hãng biến động theo diễn biến liên quan Nvidia.",
+        "Theo Semafor, hợp đồng Meta cho phép khoản nợ mới dựa vào mức tín nhiệm AA của Meta; CoreWeave chuyển sang dùng tài sản bảo đảm sau khi trái phiếu không bảo đảm của hãng bị bán mạnh vào đầu mùa thu.",
+        "Morgan Stanley và Mitsubishi UFJ sẽ tổ chức phân phối khoản vay; một người am hiểu vụ việc nói đợt tiếp thị ban đầu được đón nhận tích cực.",
+        "Theo Semafor, nếu đạt lãi suất toàn bộ khoảng 7,5% như mục tiêu, khoản vay sẽ rẻ hơn nhiều so với lợi suất gần 16% mà trái phiếu không bảo đảm của CoreWeave từng chạm tới."
       ],
       "same_event_coverage_ids": [
         "77b3b037be1b185dcc9f"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "CoreWeave tìm vay 4 tỷ USD bằng hợp đồng Meta, nhắm lãi suất khoảng 7,5%",
+      "editorial_headline_vi": "CoreWeave tìm vay 4 tỷ USD bằng hợp đồng Meta, nhắm lãi suất khoảng 7,5% nhờ mức tín nhiệm AA",
       "summary_sources": [
         {
           "id": "outlet",
@@ -67188,34 +67178,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.45,
+        "value": 9.65,
         "answers": {
           "what": 10,
-          "why": 8,
+          "why": 9,
           "notable": 10,
           "meaning": 9
         },
-        "hard_errors": [
-          {
-            "kind": "number",
-            "summary_text": "vào đầu mùa thu",
-            "explanation": "The source says the bonds were hammered \"earlier this fall\" (outlet:p001), not at the start of autumn."
-          }
-        ],
-        "findings": [
-          {
-            "question": "why",
-            "problem": "\"Đầu mùa thu\" (early autumn) is more specific than the source's \"earlier this fall\".",
-            "fix": "Write \"trước đó trong mùa thu này\" (outlet:p001)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "codex"
         ],
         "scorer_boat": "claude",
         "scorer_provider": "claude-code",
-        "prose_sha256": "5f54f03fc36db4bc2a85c7bcdf0a6ac4284ce3d32776e83e688d4155d8ea5420",
-        "scored_at": "2026-11-13T15:13:26.160694+00:00"
+        "prose_sha256": "be81304b00286796528596f6901f9827ec66fe955197671eadd075bf9a3ff142",
+        "scored_at": "2026-11-13T19:28:44.125858+00:00"
       }
     },
     {
@@ -67380,17 +67358,17 @@
       "use_original_title": false,
       "source_url": "https://www.semafor.com/article/11/13/2026/s-africas-ramaphosa-takes-ai-pitch-to-musk-turf",
       "key_points": [
-        "Tổng thống Nam Phi Cyril Ramaphosa dự kiến tới California vào cuối tuần để tìm kiếm hàng tỷ USD đầu tư hạ tầng AI từ Mỹ trong chuyến làm việc kéo dài một tuần. Chuyến đi diễn ra giữa lúc quan hệ hai nước căng thẳng về chính sách trong nước và đối ngoại của Nam Phi.",
-        "Theo Semafor, Ramaphosa đưa theo tám bộ trưởng và dự kiến gặp Google, Cisco, Palo Alto Networks cùng Microsoft để tìm một phần trong khoản chi tiêu vốn AI 650 tỷ USD của Mỹ năm nay. Người phát ngôn Vincent Magwenya nói Nam Phi muốn thu hút vốn Mỹ đồng thời bảo vệ quyền tự chủ về chính sách số, dữ liệu và quản trị AI.",
-        "Trong tranh cãi về quy định đó, SpaceX nêu phương án cam kết 110 triệu USD cho hạ tầng địa phương và cung cấp Internet vệ tinh miễn phí cho trường học nông thôn thay cho chuyển nhượng cổ phần.",
-        "Tiisetso của Semafor xem chuyến đi là phép thử liệu Pretoria có thể theo đuổi vốn AI trong lúc bất đồng ngoại giao với Washington hay không. Tác giả cũng lưu ý các tập đoàn như Alcoa và Wabtec vẫn đầu tư bất chấp thuế quan và hạn chế thị thực, nên kết quả của chuyến vận động vốn chưa thể khẳng định trước."
+        "Tổng thống Nam Phi Cyril Ramaphosa dự kiến tới California vào cuối tuần cho chuyến vận động đầu tư hạ tầng AI kéo dài một tuần. Chuyến đi diễn ra khi Mỹ đã loại Nam Phi khỏi chương trình ưu đãi thương mại AGOA, rút tài trợ PEPFAR và hạn chế thị thực với một số quan chức nước này.",
+        "Theo Semafor, Ramaphosa đưa theo tám bộ trưởng và dự kiến gặp Google, Cisco, Palo Alto Networks cùng Microsoft để tìm một phần trong khoản chi tiêu vốn AI 650 tỷ USD của Mỹ năm nay. Người phát ngôn Vincent Magwenya nói Nam Phi muốn thu hút vốn Mỹ đồng thời bảo vệ quyền tự chủ chính sách số, dữ liệu và quản trị AI.",
+        "SpaceX đề xuất cam kết 110 triệu USD cho hạ tầng địa phương và cung cấp Internet vệ tinh miễn phí cho trường học nông thôn như một phương án thay cho chuyển nhượng cổ phần.",
+        "Tiisetso của Semafor xem chuyến đi là nỗ lực của Pretoria tách việc tìm vốn AI khỏi căng thẳng ngoại giao; theo tác giả, khả năng thương mại vượt qua bất đồng chính trị vẫn là câu hỏi chưa có lời giải."
       ],
       "same_event_coverage_ids": [
         "b2698913116473a8f595"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Tổng thống Nam Phi sắp tới California tìm vốn AI giữa tranh cãi với Mỹ về quy định sở hữu",
+      "editorial_headline_vi": "Tổng thống Nam Phi sắp tới California tìm vốn AI giữa sức ép từ Mỹ về quy định sở hữu",
       "summary_sources": [
         {
           "id": "outlet",
@@ -67403,10 +67381,10 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 7.65,
+        "value": 7.45,
         "answers": {
           "what": 9,
-          "why": 9,
+          "why": 8,
           "notable": 5,
           "meaning": 8
         },
@@ -67414,13 +67392,13 @@
         "findings": [
           {
             "question": "notable",
-            "problem": "Paragraph 3 refers to 'that rule' (quy định đó), but no earlier paragraph explains it. The reader never learns what the ownership dispute is, or Musk's role in it.",
-            "fix": "Explain that BEE requires regulated sectors to hand at least 30% of local ownership to Black people for licences, and that Musk calls it 'openly racist' and blames it for Starlink's absence (outlet:p003, p010)."
+            "problem": "The core dispute is missing: BEE rules requiring 30% local equity for Black people (p010), and Musk's Starlink complaint (p003). SpaceX's offer appears without explanation.",
+            "fix": "Add one sentence on the BEE 30% ownership rule, Starlink's absence from South Africa, and Bozell's 'billions' warning, so the SpaceX offer reads as an alternative to equity transfer."
           },
           {
-            "question": "what",
-            "problem": "The US pressure itself is vague. The reader does not learn about the removal from AGOA, the PEPFAR cut or the visa restrictions.",
-            "fix": "Add the concrete US steps: AGOA removal, PEPFAR funding pulled and visa restrictions (outlet:p004, p012)."
+            "question": "notable",
+            "problem": "The SpaceX paragraph omits the free rural-school satellite broadband, valued at hundreds of millions of rand (p025).",
+            "fix": "State the scale of the broadband offer."
           }
         ],
         "writer_boats": [
@@ -67428,8 +67406,8 @@
         ],
         "scorer_boat": "claude",
         "scorer_provider": "claude-code",
-        "prose_sha256": "eeaabc446e7035a4c8b96765565c0e59af06b73d78ac53cceea7762d2fd17665",
-        "scored_at": "2026-11-13T15:11:02.965845+00:00"
+        "prose_sha256": "59d65e1df08fcae75f1d248aed54380c958312a07cd0df882697acf3269f6aee",
+        "scored_at": "2026-11-13T19:26:07.412354+00:00"
       }
     },
     {
@@ -67650,6 +67628,1710 @@
         "ec651333174c0108efb7",
         "fb48d054cf48a1243cc9"
       ]
+    },
+    {
+      "id": "5fc66b49260043b9fbe2",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The post explains how to configure and use existing Bedrock cost attribution capabilities.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/cost-attribution-and-controls-for-ai-developer-and-productivity-tools-on-amazon-bedrock/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "4ffbde49a958c77c2b3f"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "579aa129bfed87fd3cd5",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.dwarkesh.com/p/rsi",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "e09c36f9f6b70cb8138a"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "12a0455edc253ebf9e72",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.nextgov.com/artificial-intelligence/2026/11/national-cancer-institute-teases-ai-assisted-cancer-care-records-retrieval/417214/",
+      "key_points": [
+        "Viện Ung thư Quốc gia Mỹ (NCI) đang cân nhắc sáng kiến Every Patient để thu thập thông tin liên quan đến ung thư của mọi bệnh nhân được điều trị ung thư tại Mỹ, theo giám đốc cơ quan Anthony Letai.",
+        "Theo Letai, NCI vẫn thiếu thông tin về bệnh nhân dù có 74 trung tâm ung thư được chỉ định cùng nhiều nhóm nghiên cứu hợp tác. Ông cho rằng công nghệ, trong đó có AI, mở ra cơ hội ghi nhận nhiều thông tin hiện bị bỏ sót.",
+        "Giám đốc NIH Jay Bhattacharya nói NCI và một đơn vị khác thuộc NIH đã tài trợ việc tích hợp AI vào hồ sơ sức khỏe điện tử để tìm thử nghiệm lâm sàng mà bệnh nhân đủ điều kiện tham gia; ông không nêu chương trình tài trợ cụ thể. Letai cho biết AI đã được dùng để rà soát hồ sơ bệnh án khi có sự đồng ý của bệnh nhân.",
+        "Đề xuất Every Patient cho thấy NCI đang tìm cách lấp khoảng trống dữ liệu bệnh nhân mà Letai nêu, nhưng chính ông nói cơ quan vẫn đang cân nhắc có đưa sáng kiến đi tiếp hay không."
+      ],
+      "same_event_coverage_ids": [
+        "f9f0799a1fecbd346db0"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Viện Ung thư Quốc gia Mỹ cân nhắc Every Patient để thu thập thông tin điều trị ung thư còn thiếu",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "nextgov",
+          "url": "https://www.nextgov.com/artificial-intelligence/2026/11/national-cancer-institute-teases-ai-assisted-cancer-care-records-retrieval/417214/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.6,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 7,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The $200M NCI/Foundation for NIH therapeutic cancer vaccine effort, which uses AI to find antigens and as a digital backbone, is absent (p029-p030).",
+            "fix": "Add a short line on the $200M vaccine effort and AI's stated role in it."
+          },
+          {
+            "question": "meaning",
+            "problem": "Letai's word \"nascent\" is lost, and the last paragraph says the proposal \"shows\" NCI is trying to fill the gap. That is the writer's inference.",
+            "fix": "State that Letai called the idea nascent and that the agency is still weighing it (p025)."
+          }
+        ],
+        "writer_boats": [
+          "codex"
+        ],
+        "scorer_boat": "claude",
+        "scorer_provider": "claude-code",
+        "prose_sha256": "19680dab5e4fbba89519844776bfb7bae551bd741de615a463884f805c94e7eb",
+        "scored_at": "2026-11-13T19:15:11.382949+00:00"
+      }
+    },
+    {
+      "id": "2cbc5890c2a272e5de2b",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-13/cerebras-ceo-ai-infrastructure-opportunity-is-expanding-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "5c7674dca7ce2561789d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "5e58f673d3a366d25ac9",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/build-a-model-improvement-flywheel-with-amazon-sagemaker-hyperpod-data-capture/",
+      "key_points": [
+        "Amazon SageMaker HyperPod now provides Data Capture for recording live inference inputs and outputs to Amazon S3.",
+        "AWS says the capability supports three independent capture tiers."
+      ],
+      "same_event_coverage_ids": [
+        "f139c93275e017d2e906"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "cdc8eef67bc55a0d0fa5",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "This is a walkthrough for building and running a robot simulation.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://huggingface.co/blog/nvidia/simready-assets-robot-pick-and-place",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "01114997328899ce9539"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "691d6cdbb8fb511a5607",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://fortune.com/2026/11/13/openai-disbands-robotics-team-as-its-general-models-start-running-robots/",
+      "key_points": [
+        "OpenAI xác nhận đã giải thể nhóm robot độc lập và chuyển nhân sự nghiên cứu sang nhóm nghiên cứu chính, còn các nhóm ứng dụng và phần cứng robot sang bộ phận Applied. Người phát ngôn công ty nói robot vẫn là một phần cốt lõi trong tầm nhìn dài hạn của OpenAI.",
+        "Theo người phát ngôn OpenAI, công ty đổi cách tổ chức sau khi thấy các mô hình đa dụng, gồm GPT-6 Astra, có thể áp dụng trực tiếp vào nghiên cứu robot. Fortune mô tả đây là hướng tiếp cận dùng mô hình học từ ngôn ngữ, mã và hình ảnh để điều khiển thiết bị hoạt động trong thế giới vật lý.",
+        "Trong nghiên cứu của Nvidia, một tác nhân dùng Astra, tức AI nhận thông tin và ra lệnh cho robot, đạt tỷ lệ hoàn thành 74,8% ở bài đánh giá thao tác mô phỏng; mức được báo cáo của mô hình robot chuyên dụng dẫn đầu bảng đó là 51,0%. Bài đánh giá này đo robot trong môi trường số, không phải robot vật lý.",
+        "Theo Guanya Shi, mô hình chung đã xử lý được một số thay đổi về vị trí vật thể hoặc ánh sáng, nhưng ông vẫn thấy cần mô hình nhỏ chạy ngay trên robot khi không có kết nối mạng liên tục. Russ Tedrake cũng lưu ý các công ty robot có dữ liệu vận hành tại nơi làm việc thực tế, như nhà máy, mà các phòng thí nghiệm AI chưa có."
+      ],
+      "same_event_coverage_ids": [
+        "fa85176833115b85a590"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "OpenAI giải thể nhóm robot độc lập khi công ty cho rằng GPT-6 Astra có thể trực tiếp điều khiển robot",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://fortune.com/2026/11/13/openai-disbands-robotics-team-as-its-general-models-start-running-robots/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.7,
+        "answers": {
+          "what": 9,
+          "why": 9,
+          "notable": 9,
+          "meaning": 7
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The reader is not told that Shi reads the move as robotics being \"no longer a special problem\", or that it challenges startups that raised billions on the idea that robots need their own brains (p002-p003).",
+            "fix": "Add one sentence on the challenge to robotics startups and Shi's interpretation."
+          },
+          {
+            "question": "notable",
+            "problem": "The cost-pressure context, and the earlier history of the team (wound down in 2020, rebuilt in 2024), are omitted (p002).",
+            "fix": "If space allows, mention the cost and focus pressure as context without presenting it as OpenAI's stated reason."
+          }
+        ],
+        "writer_boats": [
+          "codex"
+        ],
+        "scorer_boat": "claude",
+        "scorer_provider": "claude-code",
+        "prose_sha256": "676cf19841243a20a7290e3ea17ac8acc1bc85eab2e829c7d841db94ffc6a4ed",
+        "scored_at": "2026-11-13T19:15:11.383114+00:00"
+      }
+    },
+    {
+      "id": "99cdfa31d3fb2f005c4e",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The piece is about Nvidia CEO succession and corporate governance; AI is not its main subject.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-13/huang-and-the-myth-of-the-irreplaceable-ceo-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "40171a6ee380c182668d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "70674680eaac3c7f015b",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "survey",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/13/2026/gen-z-uses-ai-daily-but-feels-guilty-about-it-survey-finds",
+      "key_points": [
+        "Khảo sát của Milltown Partners cho thấy 73% người trưởng thành Gen Z chưa định hình quan điểm về AI, trong khi một nửa dự đoán công nghệ này sẽ gây hại cho xã hội.",
+        "Khảo sát Milltown Partners cũng so sánh câu trả lời giữa các thế hệ: 50% người thuộc thế hệ baby boomers dự đoán AI gây hại cho xã hội, còn tỷ lệ ở nhóm millennials là 39%.",
+        "Dù nhiều người trẻ nói AI làm họ kém tự suy nghĩ và khó tìm việc hơn, 46% người Gen Z được khảo sát cho biết dùng AI mỗi ngày, tỷ lệ chỉ sau nhóm millennials. Ngoài ra, 30% Gen Z nói đôi khi thấy có lỗi khi dùng AI, hơn gấp đôi tỷ lệ ở người trả lời trên 30 tuổi.",
+        "Các kết quả khảo sát cho thấy việc dùng AI thường xuyên ở Gen Z đi cùng sự dè dặt về tác động của nó, chứ chưa tạo thành một quan điểm thống nhất."
+      ],
+      "same_event_coverage_ids": [
+        "0d4ffe06cc17f0b8b89b"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Khảo sát: 73% người trưởng thành Gen Z chưa định hình quan điểm về AI, dù 46% dùng hằng ngày",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/13/2026/gen-z-uses-ai-daily-but-feels-guilty-about-it-survey-finds"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 7.55,
+        "answers": {
+          "what": 6,
+          "why": 10,
+          "notable": 9,
+          "meaning": 5
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The main finding is that Gen Z's 50% expecting harm equals boomers (50%) and Gen X (48%), so Gen Z is no more negative. The Vietnamese lists boomers and millennials without drawing this comparison, and drops Gen X (p001-p002).",
+            "fix": "State that Gen Z's half expecting harm matches baby boomers (50%) and Gen X (48%), while millennials are the most upbeat at 39%."
+          },
+          {
+            "question": "meaning",
+            "problem": "The stated meaning, that the stereotype of Gen Z souring on AI is not borne out, is missing. The closing paragraph is the writer's own synthesis (p001).",
+            "fix": "Lead with the point that the survey does not show Gen Z more negative than their parents and grandparents."
+          },
+          {
+            "question": "notable",
+            "problem": "The finding that Gen Z is less worried about existential AI risk is omitted (p005).",
+            "fix": "Add one clause on Gen Z's lower concern about existential risk."
+          }
+        ],
+        "writer_boats": [
+          "codex"
+        ],
+        "scorer_boat": "claude",
+        "scorer_provider": "claude-code",
+        "prose_sha256": "2e41f1e6a5a176eb8b82f8d52fe113aea0fb4faa53254e0aa32f2ff5c07ce46e",
+        "scored_at": "2026-11-13T19:15:11.383180+00:00"
+      }
+    },
+    {
+      "id": "bf11c02fc7d4f20179d8",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-13/best-thing-to-happen-for-china-is-jensen-out-says-ives-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "34c97d544a1b89dfa368"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "12990af15e181ab96cfc",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The reported discoveries concern Gödel's historical notebooks; AI is a tool used in that work.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.theguardian.com/science/2026/nov/13/kurt-godel-notebooks-ai-helps-unlock-hidden-discoveries-man-who-transformed-maths",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "0b35856fb416ac3b1150",
+        "143e5f93793c20c6e0f7"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "279b9f8142c19534e298",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-13/my-husband-and-his-chatbot-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "3c1e7f4cc67da5013cd7"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "4513c6ea6021e8f29c38",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://arstechnica.com/ai/2026/11/ai-is-the-most-likely-reason-youll-die-openai-board-member-warns/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "0c1c75e0c57235e01a45"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "1f6a3f3cdbd20132841e",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-13/lutnick-under-pressure-as-nvidia-crisis-unfolds-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "d1478581319d3e7c4308"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "5501c539b858dfdb7218",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.ft.com/content/2a64f698-46dd-4178-a3f4-4c5f4c0a0926",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "7c53664bfb638014ecba",
+        "aa742d5af3611381eef1"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "96c7f67bef86f8316048",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://huggingface.co/blog/allenai/xybench",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "dec46bc425b68b62df69"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "afe19bd014a42e97b97b",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The technical post explains how to serve a model across two DGX Stations.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://developer.nvidia.com/blog/when-one-gpu-isnt-enough-serving-glm-5-3-across-two-nvidia-dgx-stations-with-vllm/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "942ac2fe38665c2902ba"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "a50f32ed0276415adad3",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The article primarily instructs developers on adapting human motion for robots.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://developer.nvidia.com/blog/adapt-human-motion-for-robots-with-nvidia-soma-retargeter/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "6c76e68babc36cff8abf"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "f7d43118586ff63a0534",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-13/coons-says-secretary-lutnick-let-america-down-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "3d101ac8f9e78a183a14"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "c52d641d8ed10d90811d",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The interview is chiefly about inflation, interest rates, and the economy.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-13/fed-s-collins-talks-inflation-risks-rate-policy-and-ai-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "0c7f10a39369576167df"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "5fe8966b48dddf2372c6",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The Stock Movers card combines separate Cerebras and Cisco market stories.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-13/cerebras-soars-on-sales-cisco-down-on-expectations-miss-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "9bbe6c2788fae0137bee"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "bbcb79fadd39dd32e9c7",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "editor_invalid",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://techcrunch.com/2026/11/13/chatgpts-new-wallet-lets-ai-agents-shop-and-check-out-for-you/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c97806efb91e726e5ac2"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "f139efce7c74ba932980",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-13/anthropic-ipo-ai-s-1-4t-test-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "d159eb2606beb59360cb"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "0d4c924e64373813139c",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://text.npr.org/nx-s1-6029408",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "204180c9cb55a469584f",
+        "417ded4f153735e28392"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "b53103b0ebf97fd23bda",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.youtube.com/watch?v=IRK8h67ol7Q",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "92689f5f952be713cb6f",
+        "ee10fa58ee4099ac4597"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "7d4d71d056da02862d0b",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "editor_invalid",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://openai.com/index/introducing-chatgpt-wallet",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "8c089cbda29ef2fd43d8"
+      ],
+      "split_coverage_ids": [
+        "c427482a58fe13456126"
+      ]
+    },
+    {
+      "id": "5499b2fa594f46a29d0e",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "This is a casual forum question and discussion, without substantive reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://news.ycombinator.com/item?id=50484426",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "d536976b7f92dc3dfc93"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "6b00e2a28d932aa1c585",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The repository page is promotional product copy without a substantive release announcement.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/ITprogamatikDedSec/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "3fe368e310707fe69c8f"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "55c8a280eb8d2c70994c",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The repository page repeats promotional product copy without a substantive release announcement.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/qweqeqeqweqeqwe/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "644a59b1482d5a670fd0"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "aac01d6d0bf9ca4e3988",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The repository page repeats promotional product copy without a substantive release announcement.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/Redderz-code/manus--ai",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "1fdaccf38dede444ffd9"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "21bd04bd7f051543dc0f",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The repository page repeats promotional product copy without a substantive release announcement.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/tonikriegers14-hue/manus--ai",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "34c25fe3b433ec0de3cc"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "d14f046a9712157d3f00",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The repository page repeats promotional product copy without a substantive release announcement.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/mtn-imran-khan/manus--ai",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "eeb6d62af217686569c7"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "f558d51b2a5a986a5a60",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Cloned promotional repository README with a PROMO2026 banner and feature sales copy. It has no release or reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/lebronstx-collab/manus--ai",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "575e1244580c69ac42c4"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "e9d0fb62dda7a1d7cdfd",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Cloned promotional repository README with a PROMO2026 banner and feature sales copy. It has no release or reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/tonikriegers14-hue/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "085cd13ec777a52acf3e"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "cb4e0255e61f78f264f0",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Cloned promotional repository README with a PROMO2026 banner and feature sales copy. It has no release or reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/python001-dev/manus--ai",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c46b4cab74004588ee73"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "b7cf46d91e42e6084bad",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Cloned promotional repository README with a PROMO2026 banner and feature sales copy. It has no release or reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/stancaedy10-glitch/manus--ai",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "8214a497789f378dd658"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "4815b0b06c4331032395",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "podcast",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/podcast/1032866/jensen-huang-nvidia-china-trump-vergecast",
+      "key_points": [
+        "David Pierce của The Verge đưa tin Jensen Huang đã từ chức vị trí đứng đầu Nvidia vào thứ Năm.",
+        "Bài giới thiệu tập The Vergecast cho biết chương trình bàn về câu chuyện quanh Nvidia, rồi chuyển sang các tin về dịch vụ phát trực tuyến.",
+        "Pierce nói chương trình sẽ bàn thêm về Megaspeed và những câu hỏi ai biết điều gì, vào thời điểm nào. Ông cũng đặt câu hỏi ai sẽ thay Huang làm gương mặt đại diện của ngành AI.",
+        "The Verge cho rằng câu chuyện lớn hơn có thể còn liên quan đến hoạt động của Nvidia tại Trung Quốc, cách chính phủ Mỹ đối xử với công ty và sự ổn định của ngành AI."
+      ],
+      "same_event_coverage_ids": [
+        "de813dffaf018f00953a"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "The Verge đưa tin Jensen Huang từ chức ở Nvidia, đặt câu hỏi về quan hệ với Trung Quốc và ngành AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/podcast/1032866/jensen-huang-nvidia-china-trump-vergecast"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 7.55,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 5,
+          "meaning": 6
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "Pierce nói chương trình sẽ bàn thêm về Megaspeed và những câu hỏi ai biết điều gì, vào thời điểm nào.",
+            "explanation": "Source p016 says \"we're all going to learn a lot more about Megaspeed\" and that \"a lot of people — particularly newly elected Democrats\" will ask who knew what and when. Those are expected developments in the story, not topics the show says it will cover."
+          },
+          {
+            "kind": "quote",
+            "summary_text": "cách chính phủ Mỹ đối xử với công ty",
+            "explanation": "Source p015 refers to \"the US government's willingness to turn a lot of blind eyes to protect a powerful ally\". The Vietnamese is a vague paraphrase that drops this claim and the hedge \"may be\"."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The Vietnamese presents the \"who knew what and when\" questions as the show's own, and omits that newly elected Democrats are expected to ask them (p016).",
+            "fix": "Say that, according to the blurb, many people, particularly newly elected Democrats, are expected to ask who knew what and when, and that Megaspeed will become better known."
+          },
+          {
+            "question": "meaning",
+            "problem": "The source's framing is that the US government may turn blind eyes to protect a powerful ally. The Vietnamese reduces it to \"đối xử với công ty\" (p015).",
+            "fix": "Say the blurb suggests the US government may be willing to overlook problems to protect a powerful ally."
+          },
+          {
+            "question": "what",
+            "problem": "The Vietnamese does not say that this is a podcast episode summary and not a news report of Huang's resignation, and the headline treats it as Verge reporting (p015-p016).",
+            "fix": "Make clear that the Vergecast episode description is the source."
+          }
+        ],
+        "writer_boats": [
+          "codex"
+        ],
+        "scorer_boat": "claude",
+        "scorer_provider": "claude-code",
+        "prose_sha256": "bd8da378b9f074706375b9b9ee16b09386d5ee4f3c9ae41d821d8682cfcc3cd6",
+        "scored_at": "2026-11-13T19:15:11.383237+00:00"
+      }
+    },
+    {
+      "id": "43419f2cc091c9d866cb",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Cloned promotional repository README with a PROMO2026 banner and feature sales copy. It has no release or reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/nachalnikokk/manus--ai",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "175d651c85e3392fc2c9"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "1adeac8c6bd07c35660f",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Cloned promotional repository README with a PROMO2026 banner and feature sales copy. It has no release or reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/stancaedy10-glitch/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c4c6b3f33f86b4e99fda"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "a383f2d4a0cfce4edafd",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Cloned promotional repository README with a PROMO2026 banner and feature sales copy. It has no release or reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/python001-dev/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "5cc65dbc5a8c6f03e484"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "cb385a334810460f4486",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Cloned promotional repository README with a PROMO2026 banner and feature sales copy. It has no release or reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/alphafalcongamer-creator/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "592cf2ed0c7f2a18ae44"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "f18df9e96ff6960954f4",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Cloned promotional repository README with a PROMO2026 banner and feature sales copy. It has no release or reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/lloweryfn-rgb/manus--ai",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "158d7114f89a4cdd3b71"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "7614f2029a28a78700e4",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Cloned promotional repository README with a PROMO2026 banner and feature sales copy. It has no release or reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/Floxaep1/manus--ai",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "43fdf1f854b65811692d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "fbf6e0b594f24319ffde",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Cloned promotional repository README with a PROMO2026 banner and feature sales copy. It has no release or reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/melchersimon011-bot/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "e7ebca255bafcc6ec840"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "2fb22f25239e10057863",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Cloned promotional repository README with a PROMO2026 banner and feature sales copy. It has no release or reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/Floxaep1/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "50b999d7dc4dc123294d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "c7d17ae4efa73f1779fb",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Cloned promotional repository README with a PROMO2026 banner and feature sales copy. It has no release or reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/buttheadtrenton16-byte/manus--ai",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "d240c48886f227391a38"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "16b72ff03c5d0e02b274",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Cloned promotional repository README with a PROMO2026 banner and feature sales copy. It has no release or reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/WLfear/manus--ai",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "271ada446d8edae0afb4"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "a8027194fd010b2f6e93",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Cloned promotional repository README with a PROMO2026 banner and feature sales copy. It has no release or reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/WLfear/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "47d9ef679c72a4289f97"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "119bc4b2fe26c0abe4ca",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Cloned promotional repository README with a PROMO2026 banner and feature sales copy. It has no release or reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/XTwiNSaraX/manus--ai",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "45cabb26dac3e185c946"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "a73df07037049f41f4bb",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Cloned promotional repository README with a PROMO2026 banner and feature sales copy. It has no release or reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/sidvvkk/manus--ai",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "d718a09d18e344023b0b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "023af6df4cee8da51d43",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Cloned promotional repository README with a PROMO2026 banner and feature sales copy. It has no release or reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/kazim768/manus--ai",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "08e071c41703c19d10f1"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "f7437ece2a4bbaa87b22",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Cloned promotional repository README with a PROMO2026 banner and feature sales copy. It has no release or reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/elpepe200086/manus--ai",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "a63b648f307581148fb8"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "d74a76ee3b67347dd308",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Cloned promotional repository README with a PROMO2026 banner and feature sales copy. It has no release or reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/agdinis/manus--ai",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "db049de21883ddccf201"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "ac9d09808a7cb44ff0d6",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Cloned promotional repository README with a PROMO2026 banner and feature sales copy. It has no release or reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/Obasideyvid/manus--ai",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "121e2c5448f57e922904"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "a34e2ad2925c60a9d1e5",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Cloned promotional repository README with a PROMO2026 banner and feature sales copy. It has no release or reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/xombiensar/manus--ai",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "3d7cd0ff2469086d54d9"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "fc4bbca72df8bba9c869",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Cloned promotional repository README with a PROMO2026 banner and feature sales copy. It has no release or reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/agdinis/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "79dbd75a09a285f39057"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "7eac1a4ed87809f6e7b2",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Cloned promotional repository README with a PROMO2026 banner and feature sales copy. It has no release or reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/Axillios1/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "dca269f24ed88551584f"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "4f84d00c5770b0e395ab",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Cloned promotional repository README with a PROMO2026 banner and feature sales copy. It has no release or reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/xombiensar/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "53e23acab7269d8cfef7"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "397640f74cbf46d16139",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Cloned promotional repository README with a PROMO2026 banner and feature sales copy. It has no release or reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/Ronni35/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "9132ab36dacdbd57b5cc"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "d842d3a41d223fcd6be2",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Cloned promotional repository README with a PROMO2026 banner and feature sales copy. It has no release or reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/Obasideyvid/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "08b364015dbfac735e10"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "8478cabc703f50290280",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.businessinsider.com/dario-amodei-anthropic-cancer-cure-ipo-roadshow-backlash-doctors-2026-11",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "1f5ccc887b7e7d74ca3f"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "a5cbeaaf0b4df56fac42",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; checker rejected claims; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "checker rejected claims",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.scmp.com/economy/global-economy/article/3374328/china-could-tighten-rare-earths-exports-if-us-escalates-chip-curbs-over-nvidia-analysts",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "fd8a631f62a7fde2462f"
+      ],
+      "split_coverage_ids": [
+        "23d194822bcf4d0910e9",
+        "a63ea43a04b6a837758d",
+        "df8470067b36d5119ae3"
+      ]
+    },
+    {
+      "id": "23b32d233639f8a0057e",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-13/ives-on-nvidia-without-jensen-huang-microsoft-outage-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "7a14d85407296852a393"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "f36696b781eafc31c456",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; checker rejected claims; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "checker rejected claims",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.scmp.com/tech/big-tech/article/3374305/chinas-smic-sees-ai-computing-crunch-until-2028-nvidia-heat-risks-tighter-chip-curbs",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c75d01a628be16bf223e"
+      ],
+      "split_coverage_ids": [
+        "3ce1a1f8337976b56630"
+      ]
+    },
+    {
+      "id": "705e9ec180fb72cbcc51",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The report centers on an espionage investigation involving Nvidia’s CEO; AI is not its main subject.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.cnn.com/2026/11/12/politics/alice-huang-us-intel-jensen-huang-nvidia",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "91790c28dd205ec089a0"
+      ],
+      "split_coverage_ids": [
+        "5913a5069fccca91694c"
+      ]
+    },
+    {
+      "id": "3007f82c38138e35a867",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The article gives guidance on designing and reporting safety evaluations rather than reporting a release or research finding.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.anthropic.com/research/building-strong-safety-evaluations",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "231a9bbc6e101fde6c42",
+        "6cef232c042767c45b3a"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "1dcca899a4f1e51430e5",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The commentary centers on Jensen Huang’s personal scandal and leadership, with AI providing industry context.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.theverge.com/ai-artificial-intelligence/1032069/jensen-huang-resignation-affair-chips-smuggling",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "3240ccc710b1b3dba9e7",
+        "c93d63f8903ec5513ee8",
+        "e7882250785869d76344"
+      ],
+      "split_coverage_ids": [
+        "503f8012cb3276f2a440"
+      ]
+    },
+    {
+      "id": "d41b43d3992ff739f6e9",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/12/2026/nvidia-scandal-hits-tech-stocks-in-south-korea-and-taiwan",
+      "key_points": [
+        "Semafor ghi nhận cổ phiếu Nvidia giảm 6% trong giao dịch trước giờ mở cửa, còn thị trường Hàn Quốc và Đài Loan cũng đi xuống.",
+        "Theo Semafor, khủng hoảng tại Nvidia đã đảo chiều một đợt tăng ngắn của nhóm cổ phiếu gắn với AI và làm nỗi lo bong bóng công nghệ vỡ thêm mạnh.",
+        "Hàn Quốc và Đài Loan là hai nơi cung ứng quan trọng cho hệ thống chip phục vụ mở rộng AI, nên diễn biến giảm tại cả hai thị trường là ví dụ cụ thể về phạm vi tác động Semafor nêu.",
+        "Semafor cho rằng biến động xảy ra khi nhà đầu tư đã lo về vay nợ công nghệ, dòng vốn luân chuyển trong ngành và khả năng doanh thu theo kịp kế hoạch đầu tư lớn. Bài viết nói khả năng CEO Nvidia bị loại khỏi vị trí có nguy cơ làm những lo ngại ấy sâu thêm, chứ chưa coi đó là kết quả đã xảy ra."
+      ],
+      "same_event_coverage_ids": [
+        "206c9d01fbe8c8479269"
+      ],
+      "split_coverage_ids": [
+        "9c5995912485006d7540"
+      ],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Cổ phiếu Nvidia giảm 6% trước giờ mở cửa, thị trường Hàn Quốc và Đài Loan đi xuống",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/12/2026/nvidia-scandal-hits-tech-stocks-in-south-korea-and-taiwan"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 7.9,
+        "answers": {
+          "what": 9,
+          "why": 8,
+          "notable": 7,
+          "meaning": 7
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "nên diễn biến giảm tại cả hai thị trường là ví dụ cụ thể về phạm vi tác động Semafor nêu",
+            "explanation": "The source only says Korean and Taiwanese markets fell and that they are key chip suppliers (outlet:p001). It does not call the falls an example of the crisis's scope or say they fell because they are suppliers."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The analyst's quote is missing, and it is the source's clearest statement of why the story matters. It calls the situation an 'unequivocal negative' and describes the CEO as the face and architect of AI infrastructure (outlet:p002).",
+            "fix": "Add one sentence attributing the 'unequivocal negative' view to an analyst quoted by Bloomberg, with the reason the analyst gives."
+          },
+          {
+            "question": "what",
+            "problem": "The Vietnamese never says what the 'crisis' is. Even so, the reader is told the CEO might be ousted, with no hint of why. The outlet text does not explain it either, but the coverage headline links it to a spying scandal around Jensen Huang (coverage1:p001).",
+            "fix": "If the writer uses the coverage source, state briefly that the crisis involves CEO Jensen Huang and a spying scandal (coverage1:p001, coverage1:p002). Otherwise say plainly that the source does not explain the crisis."
+          },
+          {
+            "question": "why",
+            "problem": "The 'nên' in the third paragraph and the 'ví dụ cụ thể về phạm vi tác động' wording add an inference the source does not state (outlet:p001).",
+            "fix": "Say only that Korea and Taiwan are key suppliers of the AI chips and that their markets fell (outlet:p001)."
+          }
+        ],
+        "writer_boats": [
+          "codex"
+        ],
+        "scorer_boat": "claude",
+        "scorer_provider": "claude-code",
+        "prose_sha256": "17bce39d3e4a0c6535f4db4d2d943034fa67b167c06b0bf4766f66706fbce5ef",
+        "scored_at": "2026-11-13T19:15:11.383288+00:00"
+      }
+    },
+    {
+      "id": "76fda691e583345979ca",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/12/2026/nvidia-fallout-could-hamper-us-china-trade-talks",
+      "key_points": [
+        "Semafor nhận định vụ việc liên quan đến mối quan hệ giữa Jensen Huang, CEO Nvidia, và một người bị nghi là gián điệp Trung Quốc có thể làm phức tạp đàm phán thương mại Mỹ–Trung tại hội nghị APEC tuần tới.",
+        "Theo Semafor, vụ việc làm tăng giám sát từ cả hai đảng đối với cách chính quyền Mỹ kiểm soát xuất khẩu chip AI, trong lúc phe Dân chủ sắp nắm quyền kiểm soát Quốc hội.",
+        "Michael Deng, cựu quan chức Bộ Thương mại Mỹ, cho rằng phía Trung Quốc sẽ biết Tổng thống Trump có thể không giữ được mọi cam kết ông đưa ra tại APEC. Deng dự đoán những lần gia hạn thỏa thuận đình chiến thương mại tiếp theo sẽ ngày càng khó thương lượng; Trung Quốc đã đồng ý kéo dài thỏa thuận hiện tại tới tháng Một.",
+        "Tác động đối với đàm phán vẫn là dự báo: Caleb Max của National Artificial Intelligence Association cho rằng còn quá sớm để biết phe Dân chủ sẽ ưu tiên vấn đề thương mại Mỹ–Trung đến mức nào."
+      ],
+      "same_event_coverage_ids": [
+        "5babe35f23df85721b0a"
+      ],
+      "split_coverage_ids": [
+        "51b9777577b2458b2629"
+      ],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Semafor: Vụ việc quanh CEO Nvidia có thể làm phức tạp đàm phán thương mại Mỹ–Trung tại APEC",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/12/2026/nvidia-fallout-could-hamper-us-china-trade-talks"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.25,
+        "answers": {
+          "what": 9,
+          "why": 9,
+          "notable": 7,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "'Mối quan hệ' softens 'affair' (outlet:p001). The Trump-Xi meeting at APEC is also missing, and it is the reason the talks matter.",
+            "fix": "Write 'ngoại tình' or 'quan hệ tình ái' for the affair, and add that Trump is due to meet Xi at APEC (outlet:p001)."
+          },
+          {
+            "question": "notable",
+            "problem": "The Vietnamese omits that China is already seeking to exploit the GOP's midterm losses (outlet:p004). It also omits Deng's statement that the US side 'can't even make true commitments to preserve the status quo' (outlet:p007).",
+            "fix": "Add one sentence on China exploiting the GOP losses, and one on Deng's expectation that APEC will yield even less than past meetings."
+          },
+          {
+            "question": "notable",
+            "problem": "Deng is described only as a former Commerce official. The source also calls him a Bloomberg analyst (outlet:p003).",
+            "fix": "Give his role in full: a Bloomberg analyst and former Commerce Department official."
+          }
+        ],
+        "writer_boats": [
+          "codex"
+        ],
+        "scorer_boat": "claude",
+        "scorer_provider": "claude-code",
+        "prose_sha256": "189ced28cf4e217cddff1b4ec31c40af922ff4a7369f8198921705f20f738129",
+        "scored_at": "2026-11-13T19:15:11.383333+00:00"
+      }
     }
   ]
 }
