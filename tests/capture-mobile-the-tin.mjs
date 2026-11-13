@@ -110,6 +110,12 @@ const MEASURE = () => {
     panel: panel && { ...box(panel), radius: getComputedStyle(panel).borderRadius, pad: getComputedStyle(panel).paddingLeft },
     countdown: (el => el && { text: el.textContent.trim(), ...box(el), font: getComputedStyle(el).fontSize, color: getComputedStyle(el).color, opacity: getComputedStyle(el).opacity })(document.querySelector('#feed-grid .ev-n')),
     shift: Math.round((window.__shift || 0) * 1000) / 1000,
+    // "Vừa đăng": each row as tall as its link needs (never squeezed to fit the capped list), and the list's scroll room.
+    fresh: (ul => ul && shown(ul) ? { clientH: ul.clientHeight, scrollH: ul.scrollHeight,
+      rows: [...ul.children].filter(li => !li.hidden).map(li => {
+        const a = li.querySelector('.brief');
+        return { h: Math.round(li.getBoundingClientRect().height), need: a ? a.scrollHeight : 0 };
+      }) } : null)(document.querySelector('#fresh-list')),
   };
 };
 
