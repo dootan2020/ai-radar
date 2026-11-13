@@ -1,4 +1,5 @@
-"""Markup contracts for the quiet new-story pill and header-free home."""
+"""Markup contracts for new stories and the header-free home. The "N tin mới" pill is gone: new stories load by
+themselves (captain, 13/11 20:1x, tests/test_tu_tai_tin.py); one polite live region reads each batch out."""
 from pathlib import Path
 import re
 import unittest
@@ -14,22 +15,20 @@ class NewItemsNoticeTests(unittest.TestCase):
         cls.header_css = (SITE / "menu-cong-cu.css").read_text(encoding="utf-8")
         cls.js = (SITE / "feed.js").read_text(encoding="utf-8")
 
-    def test_one_quiet_notice_with_separate_live_region(self):
-        self.assertIn('class="fresh" id="fresh" hidden', self.html)
-        self.assertEqual(self.html.count('id="fresh-go"'), 1)
-        self.assertIn('type="button" aria-keyshortcuts="U"', self.html)
-        self.assertIn('id="fresh-announcement" role="status" aria-live="polite" aria-atomic="true"', self.html)
+    def test_no_pill_one_live_region(self):
+        for removed in ('id="fresh"', 'id="fresh-go"', 'id="fresh-text"', 'class="fresh-btn"', 'id="i-up"'):
+            self.assertNotIn(removed, self.html)
+        self.assertEqual(self.html.count('id="fresh-announcement" role="status" aria-live="polite" aria-atomic="true"'), 1)
+        # U still leads to "Vừa đăng" (feed.js, goFirstNew); the shortcuts list says so.
+        self.assertIn("<dt><kbd>U</kbd></dt><dd>Tới thẻ Vừa đăng</dd>", self.html)
         for removed in ["feed-h1", "feed-sub", "moi", "new-go", "mark-seen-btn"]:
             self.assertNotIn(f'id="{removed}"', self.html)
         self.assertIn('<h1 class="sr">', self.html)
         self.assertIn('id="filter-context" aria-live="polite" hidden', self.html)
 
-    def test_theme_tokens_focus_and_touch_target(self):
-        body = re.search(r"\.fresh-btn\s*\{([^}]+)\}", self.css)[1]
-        self.assertIn("min-height: 44px", body)
-        self.assertIn("var(--color-surface)", body)
-        self.assertIn("var(--color-accent)", body)
-        self.assertIn(".fresh-btn:focus-visible", self.css)
+    def test_marks_stay_and_the_pill_styles_are_gone(self):
+        self.assertNotRegex(self.css, r"\.fresh\s*\{")
+        self.assertNotIn(".fresh-btn", self.css)
         for removed in [".new-items", ".new-go", ".mark-seen-btn", ".skipped-mark", ".feed-head"]:
             self.assertNotIn(removed, self.css)
         self.assertIn(".new-mark", self.css)

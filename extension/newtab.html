@@ -69,7 +69,6 @@
   <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
   <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"/></symbol>
   <symbol id="i-down" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
-  <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 19V6M6.5 11.5L12 6l5.5 5.5"/></symbol>
   <symbol id="i-play" viewBox="0 0 24 24"><path d="M9 7.2v9.6a.6.6 0 0 0 .9.5l7.6-4.8a.6.6 0 0 0 0-1L9.9 6.7a.6.6 0 0 0-.9.5z"/></symbol>
   <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M18 20l-6-4.3L6 20V5.5A1.5 1.5 0 0 1 7.5 4h9A1.5 1.5 0 0 1 18 5.5z"/></symbol>
   <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></symbol>
@@ -104,10 +103,7 @@
 </header>
 <p class="sr" id="ns-status" role="status" aria-live="polite"></p>
 
-<!-- One transient notice for meaningful new stories; the live region never contains a focusable control. -->
-<div class="fresh" id="fresh" hidden>
-  <button class="fresh-btn" id="fresh-go" type="button" aria-keyshortcuts="U"><svg class="i" aria-hidden="true"><use href="#i-up"/></svg><span id="fresh-text"></span></button>
-</div>
+<!-- New stories join "Vừa đăng" by themselves (feed.js, applyPending); this live region reads out each batch once. -->
 <div class="sr" id="fresh-announcement" role="status" aria-live="polite" aria-atomic="true"></div>
 
 <main class="feed-main front msn-panel" id="top" tabindex="-1" aria-busy="true">
@@ -200,7 +196,7 @@
     <dt><kbd>Enter</kbd> <kbd>O</kbd></dt><dd>Mở bài gốc của tin đang chọn</dd>
     <dt><kbd>S</kbd></dt><dd>Lưu đọc sau, hoặc bỏ lưu</dd>
     <dt><kbd>L</kbd></dt><dd>Tải tệp lịch của sự kiện đang chọn</dd>
-    <dt><kbd>U</kbd></dt><dd>Tới tin mới đầu tiên</dd>
+    <dt><kbd>U</kbd></dt><dd>Tới thẻ Vừa đăng</dd>
     <dt><kbd>M</kbd></dt><dd>Đánh dấu đã xem</dd>
     <dt><kbd>G</kbd></dt><dd>Về đầu trang</dd>
     <dt><kbd>/</kbd></dt><dd>Tìm trong tin Halcyon</dd>

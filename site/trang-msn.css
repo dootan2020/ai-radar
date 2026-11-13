@@ -563,8 +563,14 @@
 .fresh-list li, .fresh-list .brief, .briefs li + li .brief { border-radius: 0; }
 /* Only whole rows (feed.js, fitFreshTile): a row that does not fit is left out. */
 .fresh-list > li[hidden] { display: none; }
-.fresh-list li.is-flash { animation: fresh-flash var(--fresh-flash) var(--ease-flow) both; }
-@keyframes fresh-flash { from, 35% { background: var(--color-accent-wash-strong); } to { background: transparent; } }
+/* A row the last snapshot brought (feed.js, arrive) glows for a moment once it has slid in: a wash behind its text that
+   comes up with the slide (--motion-arrive), holds, and goes in under 400 ms. Opacity only. */
+.fresh-list > li.is-arriving { position: relative; isolation: isolate; }
+.fresh-list > li.is-arriving::after {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: var(--color-accent-wash-strong); animation: fresh-glow var(--fresh-flash) var(--ease-flow) both;
+}
+@keyframes fresh-glow { from { opacity: 0; } 15%, 80% { opacity: 1; } to { opacity: 0; } }
 .msn-grid:not(.is-front) > .tile { grid-column: 1 / -1; overflow: visible; }
 :is(.msn-grid, .band-grid) > .tile .tile-title { font-size: var(--text-sub); font-weight: var(--weight-bold); letter-spacing: 0; color: var(--color-ink); }
 :is(.msn-grid, .band-grid) > .tile .tile-note { font-size: var(--text-micro); }
@@ -1292,7 +1298,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .nen-img { transition: none; }
-  .fresh-list li.is-flash { animation: none; background: var(--color-accent-wash-strong); }
+  .fresh-list > li.is-arriving::after { animation: none; opacity: 0; }
   .nc, .nc-img, .slide, .pager-dots button::before, .wx-days li, .wx-menu { transition-duration: 1ms !important; }
   .nc:hover, .nc:active { transform: none; }
   .nc:hover .nc-img { transform: none; }

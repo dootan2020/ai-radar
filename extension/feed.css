@@ -668,9 +668,9 @@ ul, ol { padding: 0; list-style: none; }
 @keyframes toast-in { from { transform: translateY(12px); opacity: 0; } to { transform: none; opacity: 1; } }
 
 /* ==========================================================================
-   CARRIED OVER FROM THE BENTO HOME (05/10): marks, the new-story pill, the
+   CARRIED OVER FROM THE BENTO HOME (05/10): marks, the
    no-script fallback, the story detail, calendar, repository controls, saved items, sources, shortcuts. Same flat
-   vocabulary as the approved feed: fills and surfaces, no border, no shadow at rest (the fresh pill floats, so it lifts).
+   vocabulary as the approved feed: fills and surfaces, no border, no shadow at rest.
    ========================================================================== */
 /* New stories keep a quiet ink dot; opened stories keep a check. */
 .st-mark { display: inline-flex; align-items: center; flex: none; }
@@ -683,17 +683,6 @@ ul, ol { padding: 0; list-style: none; }
 .card-photo .seen-mark { color: var(--card-ink-on-photo-2); }
 .hot-row.is-read .hot-title, .repo-cell.is-read .repo-name, .events li.is-read .event-name { color: var(--color-ink-2); }
 
-/* One transient new-story pill under the bar; live snapshots apply only on activation. */
-.fresh { position: fixed; left: 50%; top: calc(var(--feed-bar-height, var(--bar-h)) + var(--space-12)); transform: translateX(-50%); z-index: 35; }
-.fresh-btn {
-  display: inline-flex; align-items: center; gap: var(--space-8); min-height: 44px; padding: 0 var(--space-16);
-  border-radius: var(--radius-full); background: var(--color-surface); color: var(--color-accent);
-  font-size: var(--text-small); font-weight: var(--weight-semibold); white-space: nowrap; box-shadow: var(--shadow-lift);
-  animation: toast-in var(--motion-arrive) var(--ease-flow) both;
-}
-.fresh-btn:hover { background: var(--color-fill); }
-.fresh-btn:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
-.fresh-btn .i { width: 16px; height: 16px; }
 /* "Vừa đăng": the top of the home, directly under the header. The events shelf's language: on a phone a row that
    slides sideways, wider a compact row that the cards share, with arrows when it overflows. Each story reads like a
    hot row: its picture, the headline (with the new dot while it is new), the source and the time. */

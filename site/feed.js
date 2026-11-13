@@ -137,7 +137,7 @@ let newsSearch = null;        // the news bar's inline search (tim-tin.js)
    new: published after the reader's last look; seen: opened; skipped: scrolled past without opening.
    Skipped IDs suppress the new dot without adding a visual mark. Priority: seen, then skipped, then new.
    The last look moves on engagement (five seconds or the first scroll), when the page is hidden or left, and when
-   the reader applies a fresh snapshot; never only by a button. */
+   the page takes in a fresh snapshot; never only by a button. */
 const read = new Set([...asArray(store.get(K.read, [])), ...asArray(store.get(LEGACY.read, []))]);
 const skipped = new Set(asArray(store.get(K.skipped, [])));
 let saved = asArray(store.get(K.saved, [])).filter(x => x && typeof x.key === 'string');
@@ -182,14 +182,12 @@ function markRead(id) {
   if (skipped.delete(id)) store.set(K.skipped, [...skipped].slice(-2000));
   store.set(K.read, [...read].slice(-3000));
   paintStatus(id);
-  retireNewItem(id);
 }
 function markSkipped(id) {
   if (!id || read.has(id) || skipped.has(id) || arrived.has(id)) return;
   skipped.add(id);
   store.set(K.skipped, [...skipped].slice(-2000));
   paintStatus(id);
-  retireNewItem(id);
 }
 let skipObserver = null;
 function observeSkips() {
@@ -304,7 +302,10 @@ function observeCardMotion(root = document) {
     });
   }
 
+  // A snapshot taken in place (applyPending) keeps what is on screen still, so only cards further down rise in later.
+  const still = card => { const r = card.getBoundingClientRect(); return r.bottom > -300 && r.top < innerHeight + 300; };
   candidates.forEach(card => {
+    if (quietRedraw && still(card)) { card.classList.add('motion-done'); return; }
     card.classList.add('motion-entry');
     motionObserver.observe(card);
   });
@@ -312,10 +313,16 @@ function observeCardMotion(root = document) {
 
 /* ---------- data ---------- */
 /* Same-origin requests only, in the default mode, so index.html's preload of the snapshot is reused. */
+/* A story opened in place moves the address to tin/<id>/ (openStoryModal); the data files stay beside the home, so a
+   poll made meanwhile still finds them. */
+function homeRelative(url) {
+  const home = location.pathname.replace(/\/tin\/[^/]+\/?$/, '/');
+  return home === location.pathname || /^[a-z][\w+.-]*:|^\//i.test(url) ? url : home + url;
+}
 async function fetchJSON(url, init = {}) {
   const ctl = new AbortController(), timer = setTimeout(() => ctl.abort(), 10000);
   try {
-    const r = await fetch(url, { signal: ctl.signal, ...init });
+    const r = await fetch(homeRelative(url), { signal: ctl.signal, ...init });
     if (!r.ok) throw new Error(`HTTP ${r.status}`);
     return await r.json();
   } finally { clearTimeout(timer); }
@@ -2795,87 +2802,24 @@ function setSort(m) {
   renderFeed();
 }
 const newCount = () => allStories.filter(st => storyStatus(st.id, st) === 'new').length;
-/* One notice per batch. Dismissed IDs cannot be re-offered by an unchanged poll or a redraw. */
-const RETURN_NEW_CAP = 20, NEW_NOTICE_MS = 12_000;
-let returnNoticeChecked = false, noticeTimer = 0, noticeDeferred = false;
-let noticeIds = new Set();
-const offeredNewIds = new Set();
-function positionNewItems() {
-  document.documentElement.style.setProperty('--feed-bar-height', `${$('#bar').offsetHeight}px`);
-  const box = $('#fresh');
-  if (box.hidden) return;
-  const barBottom = $('#bar').getBoundingClientRect().bottom;
-  box.style.top = `${barBottom + 12}px`;
-}
-function dismissNewItems() {
-  clearTimeout(noticeTimer);
-  // Automatic dismissal must never remove the keyboard user's current control.
-  if ($('#fresh').contains(document.activeElement)) { noticeDeferred = true; return; }
-  $('#fresh').hidden = true;
-  $('#fresh-announcement').textContent = '';
-  noticeIds.clear();
-  noticeDeferred = false;
-}
-function scheduleNewItemsDismissal() {
-  clearTimeout(noticeTimer);
-  if ($('#fresh').hidden || $('#fresh').contains(document.activeElement) || $('#fresh').matches(':hover')) return;
-  if (noticeDeferred) { dismissNewItems(); return; }
-  noticeTimer = setTimeout(dismissNewItems, NEW_NOTICE_MS);
-}
-function offerNewItems(ids) {
-  const eligible = [...new Set(ids)].filter(id => !read.has(id) && !skipped.has(id)
-    && (!offeredNewIds.has(id) || noticeIds.has(id)));
-  if (!eligible.some(id => !offeredNewIds.has(id))) return;
-  const wasVisible = !$('#fresh').hidden;
-  noticeIds = new Set(eligible);
-  eligible.forEach(id => offeredNewIds.add(id));
-  $('#fresh-text').textContent = `${noticeIds.size} tin mới`;
-  $('#fresh').hidden = false;
-  noticeDeferred = false;
-  positionNewItems();
-  // Count changes within a visible notice are silent; a new appearance gets one announcement.
-  if (!wasVisible) $('#fresh-announcement').textContent = `${noticeIds.size} tin mới. Nhấn U để tới tin mới đầu tiên.`;
-  scheduleNewItemsDismissal();
-}
-function retireNewItem(id) {
-  if (!noticeIds.delete(id)) return;
-  if (!noticeIds.size) dismissNewItems();
-  else $('#fresh-text').textContent = `${noticeIds.size} tin mới`;
-}
-function checkNewItemsScroll() {
-  if ($('#fresh').hidden) return;
-  positionNewItems();
-  const edge = $('#bar').getBoundingClientRect().bottom;
-  const elements = $$('#feed-grid [data-sid]');
-  for (const id of noticeIds) {
-    if (elements.some(el => el.dataset.sid === id && !el.closest('[hidden]') && el.getBoundingClientRect().bottom <= edge)) retireNewItem(id);
-  }
-}
-function renderNewItems() {
-  if (returnNoticeChecked) return;
-  returnNoticeChecked = true;
-  const ids = allStories.filter(st => storyStatus(st.id, st) === 'new').map(st => st.id);
-  if (!firstVisit && ids.length <= RETURN_NEW_CAP && ids.length < allStories.length / 2) offerNewItems(ids);
-}
 /* "Vừa đăng" (renamed from "Mới nhất" on 10/10 21:01 so it no longer reads as the sort switch): the top of the home, directly under the header and above "Nhiều nguồn cùng đưa". A reader opening a news
    page wants the newest first (owner, 10/10 19:50: "người dùng vào đọc tin thì luôn muốn xem tin mới trước chứ"), so
    this row holds the stories published in the last NEWEST.hours, newest first; when fewer than NEWEST.min stories are
-   that young it reaches back up to NEWEST.maxHours. The "N tin mới" pill brings the reader here: the batch it announced
-   leads the row (newest first), as many as the tile holds; the rest keep their place below. The row is a view; every story keeps its
+   that young it reaches back up to NEWEST.maxHours. A newer snapshot lands here by itself (applyPending): the stories it
+   brought lead the row (newest first), as many as the tile holds; the rest keep their place below. The row is a view; every story keeps its
    own place in the blocks below and in "Dòng tin", whose order is untouched. */
 const NEWEST = { hours: 6, min: 4, maxHours: 24, cap: 8 };
-let freshIds = [];            // the batch the reader asked to see with the pill, pinned first while unread
+let freshIds = [];            // the stories the last applied snapshot brought, pinned first while unread
 // Rows in the tile, never more (captain, 12/11 09:23: "danh sách tin vừa đăng nó dài quá"): a pinned batch leads them,
 // and what does not fit stays in its own place below, so a burst of fifty arrivals leaves the tile as calm as one.
 const FRESH_TILE_ROWS = 4;
-const FRESH_FLASH_MS = 2000;  // the announced rows' highlight after the pill (trang-msn.css, fresh-flash)
 // Each row prints published_at, so the row is ordered by it; later coverage (rankTime) must not lift an older story.
 const byPub = (a, b) => pubTime(b) - pubTime(a);
 function newestStories() {
   const young = h => allStories.filter(st => GEN - ms(st.published_at) <= h * 36e5 && !FRONT_IDS.has(st.id));
   let pool = young(NEWEST.hours), hours = NEWEST.hours;
   if (pool.length < NEWEST.min) { pool = young(NEWEST.maxHours); hours = NEWEST.maxHours; }
-  // The unread pill batch is guaranteed a place in the tile (its newest FRESH_TILE_ROWS), then the tile fills with the
+  // The unread arrived batch is guaranteed a place in the tile (its newest FRESH_TILE_ROWS), then the tile fills with the
   // newest of the rest; the rows themselves read in published order, so a pinned older story never jumps above a newer one.
   const pinned = freshIds.filter(id => !read.has(id)).map(id => STORY_ANY.get(id)).filter(Boolean).sort(byPub).slice(0, FRESH_TILE_ROWS);
   const rest = pool.slice().sort(byPub).filter(st => !pinned.includes(st));
@@ -2883,8 +2827,8 @@ function newestStories() {
   return { list: [...tile, ...rest.slice(FRESH_TILE_ROWS - pinned.length)].slice(0, NEWEST.cap), hours };
 }
 /* "Vừa đăng" is a front-page tile (mockup B's "Tin nhanh"): the clock time each story was published, then its headline. */
-/* "Mới" means new to this reader: published since their last look, or announced by the "N tin mới" pill and not yet
-   opened. Its Hot Coral chip (owner, 10/11: "cực kỳ khó nhận ra đó là thẻ tin mới") only shows beside a row that is not
+/* "Mới" means new to this reader: published since their last look, or brought by the snapshot that just arrived and not
+   yet opened. Its Hot Coral chip (owner, 10/11: "cực kỳ khó nhận ra đó là thẻ tin mới") only shows beside a row that is not
    new (trang-msn.css): when every row in the tile is new, a chip on each marks nothing (captain, 12/11 09:23, seven
    rows all "Mới"). The row's headline is the headline alone, with no flame or reason before it. */
 function freshItem(st) {
@@ -2898,7 +2842,7 @@ function freshInnerHTML() {
   const { list } = D && filter === 'all' ? newestStories() : { list: [] };
   if (!list.length) return '';
   // Show the whole batch (up to NEWEST.cap); the tile keeps a calm height and scrolls to the rest (owner, 13/11):
-  // the pill batch leads, then the newest of the rest, and every story still keeps its own place below.
+  // the arrived batch leads, then the newest of the rest, and every story still keeps its own place below.
   const shown = list;
   return `<div class="tile-head"><h2 class="tile-title" id="fresh-row-h" tabindex="-1">Vừa đăng</h2></div>
     <ul class="briefs fresh-list" id="fresh-list" data-n="${shown.length}">${shown.map(freshItem).join('')}</ul>`;
@@ -2915,66 +2859,32 @@ function freshTileHTML() {
   const inner = freshInnerHTML();
   return inner ? `<section class="tile tile-fresh" id="fresh-row" aria-labelledby="fresh-row-h">${inner}</section>` : '';
 }
-/* Redraw the tile in place (the "N tin mới" pill pins its batch first). */
-function renderFreshRow() {
-  const box = $('#fresh-row');
-  if (!box) return;
-  const inner = freshInnerHTML();
-  box.innerHTML = inner;
-  box.hidden = !inner;
-  fitFreshTile();
-}
+/* U and #moi: the reader asks for the newest stories. A snapshot still waiting (the reader was down the page) is
+   applied now, without the slide (a keyboard action never animates), then the "Vừa đăng" tile comes to the top of the
+   window and its heading takes focus, for keyboard and screen-reader users. Without the tile, the first new story. */
 function goFirstNew() {
   if (!D) return;
-  const targets = new Set(noticeIds);
-  if (pending) {
-    if (!targets.size) pendingNewIds(pending).forEach(id => targets.add(id));
-    applyPending();
-  }
+  if (pending) applyPending({ motion: false });
   if (filter !== 'all') setFilter('all', true);
-  let heading = null;
-  if (targets.size) {
-    freshIds = [...targets];
-    renderFreshRow();
-    // Every story once: when the river already shows a story the tile now holds, redraw so the river leaves it out.
-    // The rest of a batch longer than the tile stays in the river, with its new dot.
-    if ($$('#fresh-row li[data-sid]').some(li => $(`#feed-grid .nc[data-id="${CSSq(li.dataset.sid)}"]`))) renderFeed();
-    // The batch leads the tile and its first row always shows, so the tile holds some of it whenever it is drawn.
-    const box = $('#fresh-row');
-    if (box && !box.hidden) heading = $('#fresh-row-h');
-  }
-  if (heading) {
-    // Bring the tile to the top of the window (Mẫu A's panel head scrolls away), then hand keyboard and screen-reader
-    // users its heading.
-    const tile = $('#fresh-row');
+  const tile = $('#fresh-row'), heading = $('#fresh-row-h');
+  if (tile && !tile.hidden && heading) {
+    // Mẫu A's panel head scrolls away, so the tile lands 16 px under the top of the window.
     window.scrollTo({ top: Math.max(0, scrollY + tile.getBoundingClientRect().top - 16), behavior: RM.matches ? 'auto' : 'smooth' });
     heading.focus({ preventScroll: true });
-    // The announced rows light up briefly, so the eye lands on them.
-    const rows = $$('#fresh-row li[data-pinned]:not([hidden])');
-    rows.forEach(li => li.classList.add('is-flash'));
-    setTimeout(() => rows.forEach(li => li.classList.remove('is-flash')), FRESH_FLASH_MS);
-    dismissNewItems();
     return;
   }
   const matches = id => { const st = STORY_ANY.get(id); return !!st && storyStatus(id, st) === 'new'; };
-  const el = (targets.size && revealStory(id => targets.has(id) && matches(id))) || revealStory(matches);
+  const el = revealStory(matches);
   if (el) focusStory(el);
-  else {
-    if ($('#fresh').contains(document.activeElement)) $('#top').focus({ preventScroll: true });
-    toast('Chưa có tin mới. Trang tự kiểm mỗi 3 phút');
-  }
-  dismissNewItems();
+  else toast('Chưa có tin mới. Trang tự kiểm mỗi 3 phút');
 }
 /* "Đánh dấu đã xem": the last look moves to this snapshot, so nothing here counts as new any more. */
 function markSeen() {
   if (!D) return;
-  const hadFocus = $('#fresh').contains(document.activeElement);
   store.set(K.lastSeen, D.generated_at);
   lastSeen = D.generated_at; firstVisit = false; arrived = new Set();
   new Set($$('[data-sid]').map(el => el.dataset.sid)).forEach(paintStatus);
-  if (hadFocus) $('#top').focus({ preventScroll: true });
   freshIds = [];
-  dismissNewItems();
   toast('Đã đánh dấu đã xem hết');
 }
 
@@ -3006,8 +2916,17 @@ function toggleSave(key) {
   renderSub();
 }
 
-/* ---------- a newer snapshot: polled every 3 minutes, applied only when the reader asks ---------- */
-let pending = null;
+/* ---------- a newer snapshot: polled every 3 minutes, taken in by itself while the reader is at the top ----------
+   Captain, 13/11 20:1x: "tin mới tự tải, animate mượt mà, user không cần click 'có N tin mới' hoặc tải lại trình
+   duyệt". A snapshot that brings new stories waits until the reader is at the top of the front page (the "Vừa đăng"
+   tile or the grid's first edge on screen) and not in the middle of something (a story or a dialog open, the search
+   open, a finger or button down, a scroll still moving); then the page takes it in place, keyboard focus kept.
+   Further down the page it waits until the reader comes back up: changing what sits above them would move the page
+   under their hand, and Safari has no scroll anchoring. A snapshot with new numbers but no new story waits for
+   one that brings a story, so the page never reshuffles for nothing. */
+let pending = null, pendingIds = [];
+let applyWatch = 0, scrollMoving = 0, pointerDown = false;
+const SCROLL_SETTLE_MS = 200;  // a scroll counts as over once no scroll event came for this long
 function pendingNewIds(data) {
   const hours = Number(data.ranking && data.ranking.window_hours) || 72;
   const gen = ms(data.generated_at), from = gen - Math.max(1, hours) * 36e5;
@@ -3023,19 +2942,194 @@ async function pollSnapshot() {
     if (!complete && j && j.generated_at === D.generated_at) { adoptComplete(j); return; }
     if (!j || !j.generated_at || j.generated_at <= (pending || D).generated_at) return;
     pending = j;
-    offerNewItems(pendingNewIds(j));
+    pendingIds = pendingNewIds(j);
+    watchPending();
   } catch { /* a failed poll keeps the current snapshot; the next poll tries again */ }
 }
-function applyPending() {
+/* The reader is in the middle of something the redraw would take from under them. */
+function readerBusy() {
+  if (currentModalStoryId || document.querySelector('dialog[open]')) return true;
+  const search = $('#news-search'), results = $('#ns-results');
+  if (search && (search.classList.contains('open') || search.contains(document.activeElement))) return true;
+  if (results && !results.hidden) return true;
+  return !!(swipe || pointerDown);   // a finger on the carousel, a button held, a drag
+}
+const barEdge = () => Math.max(0, $('#bar') ? $('#bar').getBoundingClientRect().bottom : 0);
+/* The top of the front page is on screen: the "Vừa đăng" tile, or the grid's first edge under the header. */
+function readerAtTop() {
+  const grid = $('#feed-grid');
+  if (filter !== 'all' || !FRONT || !grid || grid.hidden) return false;
+  const edge = barEdge(), tile = $('#fresh-row');
+  if (tile && !tile.hidden) {
+    const r = tile.getBoundingClientRect();
+    if (r.height && r.bottom > edge && r.top < innerHeight) return true;
+  }
+  return grid.getBoundingClientRect().top >= edge;
+}
+function maybeApply() {
+  if (!pending || !pendingIds.length || document.hidden || scrollMoving) return;
+  if (readerBusy() || !readerAtTop()) return;
+  applyPending();
+}
+/* While a snapshot waits: look again every second (a dialog closed, focus left, a finger lifted) and as soon as a
+   scroll comes to rest. */
+function watchPending() {
+  if (!applyWatch) applyWatch = setInterval(() => {
+    if (pending) maybeApply();
+    else { clearInterval(applyWatch); applyWatch = 0; }
+  }, 1000);
+  maybeApply();
+}
+// Every scroll is recorded, waiting snapshot or not: a poll that lands mid-scroll must still wait for it to rest.
+function onPendingScroll() {
+  clearTimeout(scrollMoving);
+  scrollMoving = setTimeout(() => { scrollMoving = 0; if (pending) maybeApply(); }, SCROLL_SETTLE_MS);
+}
+/* Take the waiting snapshot in place. With motion, every story, tile and heading that stays on the page slides from
+   where it was to where it is now (FLIP), what is new fades in, and the new rows of "Vừa đăng" glow for a moment; with
+   reduced motion (or for the U key, a keyboard action) the page simply changes. Either way the reader's place holds:
+   nothing scrolls, and the tile they were reading stays where it was on screen. */
+function applyPending({ motion = true } = {}) {
   if (!pending) return;
+  const before = motion && !RM.matches ? captureLayout() : null;
+  const anchor = tileAnchor(), slide = $('#lead .slide.is-active')?.dataset.sid || null, focus = focusSpot();
   commitLastSeen();
-  arrived = new Set(pendingNewIds(pending));
-  const data = pending; pending = null;
+  const batch = pendingNewIds(pending);
+  arrived = new Set(batch);
+  const data = pending; pending = null; pendingIds = [];
   ingest(data);
   complete = true;              // a polled snapshot is always the complete one
   if (filter !== 'all') filter = 'all';
-  renderAll();
+  if (batch.length) freshIds = batch;   // the arrivals lead "Vừa đăng" while unread
+  quietRedraw = true;
+  try { renderAll(); } finally { quietRedraw = false; }
+  keepSlide(slide);
+  holdAnchor(anchor);
+  restoreFocus(focus);
+  wakeNearPictures();
+  if (before) playLayout(before, new Set(batch));
+  if (batch.length) announce(`Đã thêm ${batch.length} tin mới`);
   setTimeout(() => { arrived = new Set(); }, 3000);
+}
+/* One polite announcement per batch; emptied first, so a second batch of the same size is read out too. */
+function announce(msg) {
+  const live = $('#fresh-announcement');
+  if (!live) return;
+  live.textContent = '';
+  requestAnimationFrame(() => { live.textContent = msg; });
+}
+
+/* ---------- the page takes a snapshot in place (applyPending) ---------- */
+// The pieces that slide: each cell of a band, each band's heading, and each story row of a list. A cell or row is known
+// by its story or its id, so the one drawn again is matched with the one it replaces.
+const FLIP_ITEMS = '#feed-grid .band-cells > *, #feed-grid .band > .band-title, #feed-grid .band > .band-head, #feed-grid li[data-sid]';
+let quietRedraw = false;   // the redraw of a snapshot taken in place: cards on screen keep still, no rise-in again
+function flipKey(el) {
+  if (el.matches('li[data-sid]')) return `${el.parentElement.closest('[id]')?.id || ''}>${el.dataset.sid}`;
+  if (el.parentElement.matches('.band')) return `${el.parentElement.id}^`;
+  return el.id ? `#${el.id}` : el.dataset.sid ? `@${el.dataset.sid}` : el;   // a kept node (weather, calendar) is its own key
+}
+function captureLayout() {
+  const grid = $('#feed-grid');
+  if (!grid || grid.hidden || typeof grid.animate !== 'function') return null;
+  const rects = new Map();
+  for (const el of grid.querySelectorAll(FLIP_ITEMS)) {
+    const r = el.getBoundingClientRect();
+    if (r.width || r.height) rects.set(flipKey(el), r);
+  }
+  return rects;
+}
+/* The motion tokens (tokens.css), read where they are set so the page and its CSS keep one timing. */
+const motionToken = name => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+function playLayout(before, batch) {
+  const grid = $('#feed-grid');
+  const duration = parseFloat(motionToken('--motion-arrive')) || 0, easing = motionToken('--ease-flow') || 'ease-out';
+  if (!grid || !duration) return;
+  const h = innerHeight, near = r => r.bottom > 0 && r.top < h;
+  const moving = new Map();     // element -> the distance it travels, for the rows it carries
+  for (const el of grid.querySelectorAll(FLIP_ITEMS)) {
+    const now = el.getBoundingClientRect();
+    if (!now.width && !now.height) continue;
+    const was = before.get(flipKey(el));
+    if (!was) { if (near(now)) arrive(el, batch, duration, easing); continue; }
+    if (!near(now) && !near(was)) continue;
+    const dx = was.left - now.left, dy = was.top - now.top;
+    // A row rides on its moving tile: it travels only its own part of the way.
+    let x = dx, y = dy;
+    for (let p = el.parentElement; p && p !== grid; p = p.parentElement) {
+      const m = moving.get(p);
+      if (m) { x -= m[0]; y -= m[1]; break; }
+    }
+    if (Math.abs(x) < 1 && Math.abs(y) < 1) continue;
+    // More than a screen away is too far to follow by eye: it fades in where it lands instead.
+    if (Math.abs(y) > h) { if (near(now)) arrive(el, batch, duration, easing); continue; }
+    moving.set(el, [dx, dy]);
+    el.animate([{ transform: `translate(${x}px, ${y}px)` }, { transform: 'none' }], { duration, easing });
+  }
+}
+/* Something new on screen: a row of "Vừa đăng" comes down from just above its place as the rows below make room, any
+   other new piece fades in where it lands; the snapshot's own arrivals then glow for a moment (trang-msn.css). */
+function arrive(el, batch, duration, easing) {
+  const row = el.matches('#fresh-list > li');
+  el.animate([{ opacity: 0, transform: row ? 'translateY(-50%)' : 'scale(0.98)' }, { opacity: 1, transform: 'none' }], { duration, easing });
+  if (row && batch.has(el.dataset.sid)) {
+    el.classList.add('is-arriving');
+    const done = e => { if (e.animationName === 'fresh-glow') { el.classList.remove('is-arriving'); el.removeEventListener('animationend', done); } };
+    el.addEventListener('animationend', done);
+  }
+}
+/* The reader's place: when the "Vừa đăng" tile starts above the window's top edge, its top is held where it was on
+   screen, in case anything above it changed height (a page without scroll anchoring would jump). */
+function tileAnchor() {
+  const tile = $('#fresh-row');
+  if (!tile || tile.hidden) return null;
+  const top = tile.getBoundingClientRect().top;
+  return top < barEdge() ? top : null;
+}
+function holdAnchor(top) {
+  const tile = $('#fresh-row');
+  if (top == null || !tile) return;
+  const moved = tile.getBoundingClientRect().top - top;
+  if (Math.abs(moved) >= 1) window.scrollBy({ top: moved, behavior: 'instant' });
+}
+/* Keyboard focus stays where it was: on the same element when it survives the redraw (the weather, the calendar, the
+   order control), else on the same control of the same story drawn again, else on the "Vừa đăng" heading. */
+function focusSpot() {
+  const a = document.activeElement, grid = $('#feed-grid');
+  if (!a || !grid || !grid.contains(a)) return null;
+  const host = a.closest('[data-sid]');
+  return { el: a, id: a.id, sid: host ? host.dataset.sid : null, tag: a.tagName, index: host ? [...host.querySelectorAll(a.tagName)].indexOf(a) : -1 };
+}
+function restoreFocus(spot) {
+  if (!spot || (document.activeElement && document.activeElement !== document.body)) return;
+  let el = spot.el.isConnected ? spot.el : spot.id ? document.getElementById(spot.id) : null;
+  if (!el && spot.sid) {
+    const host = $(`#feed-grid [data-sid="${CSSq(spot.sid)}"]`);
+    el = host && spot.index >= 0 ? host.querySelectorAll(spot.tag)[spot.index] : null;
+  }
+  (el || $('#fresh-row-h') || $('#top')).focus({ preventScroll: true });
+}
+/* The carousel stays on the story the reader was looking at, without a crossfade. */
+function keepSlide(id) {
+  const lead = $('#lead');
+  if (!id || !lead) return;
+  const i = [...lead.querySelectorAll('.slide')].findIndex(s => s.dataset.sid === id);
+  if (i <= 0) return;
+  showSlide(lead, i);
+  lead.getAnimations({ subtree: true }).forEach(a => a.finish());
+}
+/* The redrawn cards on screen show their pictures at once (the browser holds them already), rather than waiting a
+   frame for the picture observer and sharpening in again. */
+function wakeNearPictures() {
+  const grid = $('#feed-grid');
+  if (!grid) return;
+  const h = innerHeight;
+  for (const img of grid.querySelectorAll('img[data-src]')) {
+    if (img.closest('.slide')) continue;
+    const r = img.getBoundingClientRect();
+    if (r.bottom > -h && r.top < 2 * h) wakePicture(img);
+  }
+  hydrateLoadedImages(grid);
 }
 
 /* ---------- no footer (captain, 09/11): the snapshot time stays on the grid as data for measurement scripts, never on screen ---------- */
@@ -3291,7 +3385,6 @@ function onClick(e) {
   }
   const moreBtn = t.closest('[data-repo-more]');
   if (moreBtn) { showMoreRepos(moreBtn); return; }
-  if (t.closest('#fresh-go')) { goFirstNew(); return; }
   if (t.closest('#keys-x')) { $('#keys').close(); return; }
   if (t.closest('[data-reset]')) { setFilter('all'); return; }
   if (t.closest('#mark-all-btn')) {
@@ -3373,16 +3466,15 @@ function attachEvents() {
     if (b.dataset.sort) setSort(b.dataset.sort);
   });
   $('#reset-filter-btn').addEventListener('click', () => setFilter('all'));
-  const notice = $('#fresh');
-  notice.addEventListener('mouseenter', () => clearTimeout(noticeTimer));
-  notice.addEventListener('mouseleave', scheduleNewItemsDismissal);
-  notice.addEventListener('focusin', () => clearTimeout(noticeTimer));
-  notice.addEventListener('focusout', () => setTimeout(scheduleNewItemsDismissal, 0));
-  window.addEventListener('scroll', checkNewItemsScroll, { passive: true });
-  if (typeof ResizeObserver !== 'undefined') new ResizeObserver(positionNewItems).observe($('#bar'));
+  // A waiting snapshot (applyPending) lets a scroll, a held finger or button finish before it changes the page.
+  window.addEventListener('scroll', onPendingScroll, { passive: true });
+  document.addEventListener('pointerdown', () => { pointerDown = true; }, { capture: true, passive: true });
+  for (const type of ['pointerup', 'pointercancel']) document.addEventListener(type, () => { pointerDown = false; }, { capture: true, passive: true });
+  window.addEventListener('blur', () => { pointerDown = false; });
+  if (typeof ResizeObserver !== 'undefined') new ResizeObserver(measureBar).observe($('#bar'));
   $('#keys').addEventListener('click', e => { if (e.target === $('#keys')) $('#keys').close(); });
   window.addEventListener('resize', () => {
-    positionNewItems();
+    measureBar();
     const filters = $('#feed-filters');
     if (filters) {
       const activeChip = filters.querySelector('.filter-chip[aria-pressed="true"]');
@@ -3457,8 +3549,12 @@ function renderAll() {
   renderSortSwitch();
   renderFeed();
   renderSources();
-  renderNewItems();
-  positionNewItems();
+  measureBar();
+}
+/* The window's scroll padding keeps a jumped-to element clear of the header (feed.css, --feed-bar-height). */
+function measureBar() {
+  const bar = $('#bar');
+  if (bar) document.documentElement.style.setProperty('--feed-bar-height', `${bar.offsetHeight}px`);
 }
 
 /* ---------- start ---------- */
