@@ -187,6 +187,17 @@ class RenderedCards(unittest.TestCase):
                 self.assertEqual(phone[part][prop], wide[part][prop], f"{part}.{prop}")
         self.assertEqual(phone["fav"], wide["fav"])
 
+    def test_vua_dang_rows_keep_their_height_and_the_list_scrolls_on_a_phone(self):
+        # Captain, 13/11: "trên mobile chỉ hiển thị 4 tin, không cuộn xem thêm được". A capped list must scroll to its
+        # rows, never squeeze them until headlines run over each other.
+        for key in PHONES:
+            fresh = rendered()["runs"][key]["fresh"]
+            self.assertIsNotNone(fresh, f"{key}: the fixture shows the Vừa đăng tile")
+            for i, row in enumerate(fresh["rows"]):
+                self.assertGreaterEqual(row["h"] + 1, row["need"], f"{key} row {i}: squeezed below its content")
+            if sum(r["h"] for r in fresh["rows"]) > fresh["clientH"] + 1:
+                self.assertGreater(fresh["scrollH"], fresh["clientH"] + 1, f"{key}: rows past the fold scroll")
+
     def test_the_order_sits_on_tin_moi_and_reorders_only_that_list(self):
         for key in ("375", "1440"):
             proof = rendered()["runs"][key]["sortProof"]

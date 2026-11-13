@@ -1054,7 +1054,8 @@
   .band .msn-lead { height: var(--msn-lead-h-phone); }
   .band .msn-wx { min-height: var(--msn-wx-h-phone); }
   .band .msn-cal { min-height: var(--msn-rowh-phone); }
-  .band .tile-fresh .fresh-list { grid-auto-rows: auto; }
+  /* Rows keep their natural height inside the capped list and scroll; "auto" let the grid squeeze them to fit 19rem. */
+  .band .tile-fresh .fresh-list { grid-auto-rows: max-content; }
   /* The story card. Its body and meta line dissolve into one grid, so the time can leave the source's line for the
      card's foot without new markup (desktop keeps the markup's own order). Columns: the new/seen mark, the text, the
      picture; with no picture the last column is empty and the headline takes the width. */
