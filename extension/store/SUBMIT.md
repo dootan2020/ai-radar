@@ -23,8 +23,8 @@ Hướng dẫn từng bước để anh Tuấn nộp tiện ích **Halcyon** tr�
 ## 1. Chuẩn Bị Trước Khi Nộp
 
 1. **Trang chính sách riêng tư phải là bản mới trên mạng.** Mở `https://hco.news/chinh-sach-rieng-tu.html` và xác nhận dòng "Cập nhật lần cuối: 11 tháng 11, 2026" cùng mục 6 (Cloudflare Web Analytics, ảnh từ nhà xuất bản). Bản cũ ngày 10/11 còn hứa "không theo dõi" mà chưa nêu hai điều này; đừng nộp khi URL còn trả bản cũ. Trang lên mạng khi nhánh có thay đổi được merge vào `main` và lượt **Update AI Radar** kế tiếp deploy xong.
-2. **Gói zip:** từ thư mục gốc repo chạy `python extension/sync-site.py` (tab mới khớp trang chủ trên `main`), rồi `python extension/store/build-zip.py`. Tệp tải lên: `extension/store/extension-halcyon-0.1.0.zip` (bản sao ở thư mục gốc). Gói có `manifest.json` ở gốc, 83 tệp, không có `README.md`, `sync-site.py`, thư mục `store/` hay tệp `.py`.
-3. **Manifest trong gói:** Manifest V3, tên `Halcyon`, phiên bản `0.1.0`, `permissions: ["storage", "alarms", "search"]`, `host_permissions: ["https://radar-ai-vn.pages.dev/*"]`, ghi đè trang tab mới bằng `newtab.html`. Quyền `search` để ô "Tìm trên web" tìm bằng công cụ tìm kiếm mặc định của người đọc qua `chrome.search.query` (Chrome Web Store yêu cầu tab mới có ô tìm kiếm phải tôn trọng lựa chọn này). Không xin `tabs` hay quyền đọc trang web. Mọi script nằm trong gói (không có remote code).
+2. **Gói zip:** từ thư mục gốc repo chạy `python extension/sync-site.py` (tab mới khớp trang chủ trên `main`), rồi `python extension/store/build-zip.py`. Tệp tải lên: `extension/store/extension-halcyon-0.1.1.zip` (bản sao ở thư mục gốc). Gói có `manifest.json` ở gốc, 83 tệp, không có `README.md`, `sync-site.py`, thư mục `store/` hay tệp `.py`.
+3. **Manifest trong gói:** Manifest V3, tên `Halcyon`, phiên bản `0.1.1`, `permissions: ["storage", "alarms", "search"]`, `host_permissions: ["https://radar-ai-vn.pages.dev/*"]`, ghi đè trang tab mới bằng `newtab.html`. Quyền `search` để ô "Tìm trên web" tìm bằng công cụ tìm kiếm mặc định của người đọc qua `chrome.search.query` (Chrome Web Store yêu cầu tab mới có ô tìm kiếm phải tôn trọng lựa chọn này). Không xin `tabs` hay quyền đọc trang web. Mọi script nằm trong gói (không có remote code).
 4. **Ảnh cho trang Store:**
    - Store icon 128×128: `brand/assets/store/extension-icon-128.png`
    - Small promo tile 440×280: `brand/assets/store/promo-small.png`
@@ -38,7 +38,7 @@ Hướng dẫn từng bước để anh Tuấn nộp tiện ích **Halcyon** tr�
 
 ### Bước 1: Tải gói lên (Upload Package)
 1. Nhấn **"New Item"**.
-2. Chọn `extension/store/extension-halcyon-0.1.0.zip`.
+2. Chọn `extension/store/extension-halcyon-0.1.1.zip`.
 3. Console đọc manifest: Manifest V3, quyền `storage`, `alarms`, `search`, host `https://radar-ai-vn.pages.dev/*`.
 
 ### Bước 2: Store Listing
