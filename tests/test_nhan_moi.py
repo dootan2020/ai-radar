@@ -1,6 +1,8 @@
-"""The "Mới" label lasts six hours: unread and published within NEW_MARK_HOURS, whatever the reader's last visit.
+"""The "Mới" label lasts six hours: unread and reached Halcyon within NEW_MARK_HOURS, whatever the reader's last visit.
 
 The real isNew / storyStatus / markSeen from site/feed.js and extension/feed.js run in Node against small doubles.
+These doubles carry no appeared_at, so published_at stands in for the arrival (tests/test_gio_len_trang.py covers a
+story whose source time is older than its arrival).
 """
 
 import json

@@ -400,6 +400,7 @@ return {goFirstNew, route, setFilter, pollSnapshot, pendingNewIds, onPendingScro
   markHTML, markRead,
   configure(count, total) {
     // The first count stories were published an hour ago (inside isNew's six-hour window, measured from now), the rest a day and a half ago.
+    // They carry no appeared_at, so isNew measures from published_at, its stand-in (tests/test_gio_len_trang.py covers appeared_at).
     const hour = 36e5, fresh = new Date(Date.now() - hour).toISOString(), old = new Date(Date.now() - 36 * hour).toISOString();
     D = {schema_version:2, generated_at:'2026-10-09T14:00:00Z', sources:[], stories:[]};
     allStories = Array.from({length:total}, (_, i) => ({id:'item-'+i,

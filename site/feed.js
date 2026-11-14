@@ -143,13 +143,16 @@ const skipped = new Set(asArray(store.get(K.skipped, [])));
 let saved = asArray(store.get(K.saved, [])).filter(x => x && typeof x.key === 'string');
 for (const id of asArray(store.get(LEGACY.saved, []))) if (typeof id === 'string' && !saved.some(x => x.key === id)) saved.push({ key: id, title: '', url: '', at: new Date().toISOString() });
 const savedHas = id => saved.some(x => x.key === id);
-let seenAll = store.get(K.seenAll, null);   // set only by "Đánh dấu đã xem": stories published up to it are never new again
+let seenAll = store.get(K.seenAll, null);   // set only by "Đánh dấu đã xem": stories that reached Halcyon up to it are never new again
 let arrived = new Set();      // stories that came with a fresh snapshot the reader just applied
-/* "Mới" lasts NEW_MARK_HOURS from the story's publication, however often the reader comes by (captain, 14/11 09:20: "đặt 1 thời gian
-   hiển thị cho nhãn mới"); opening the story or "Đánh dấu đã xem" ends it sooner. */
+/* "Mới" lasts NEW_MARK_HOURS from the moment the story reached Halcyon, however often the reader comes by (captain, 14/11
+   09:20: "đặt 1 thời gian hiển thị cho nhãn mới"). That moment is appeared_at (radar/appearance.py), not the source's own
+   published_at: a story posted last night that reaches the site now is new now (captain, 14/11 15:45: "Sửa luôn"). A
+   story without appeared_at falls back to published_at. Opening the story or "Đánh dấu đã xem" ends it sooner. */
 const NEW_MARK_HOURS = 6;
-const isNew = st => !!st.published_at && ms(st.published_at) <= Date.now() && Date.now() - ms(st.published_at) <= NEW_MARK_HOURS * 36e5
-  && !(seenAll && st.published_at <= seenAll);
+const isNew = st => !!ms(st.appeared_at || st.published_at) && ms(st.appeared_at || st.published_at) <= Date.now()
+  && Date.now() - ms(st.appeared_at || st.published_at) <= NEW_MARK_HOURS * 36e5
+  && !(seenAll && ms(st.appeared_at || st.published_at) <= ms(seenAll));
 function storyStatus(id, st) {
   if (!id) return 'none';
   if (read.has(id)) return 'seen';
@@ -2812,28 +2815,34 @@ let freshIds = [];            // the stories the last applied snapshot brought, 
 // Rows in the tile, never more (captain, 12/11 09:23: "danh sách tin vừa đăng nó dài quá"): a pinned batch leads them,
 // and what does not fit stays in its own place below, so a burst of fifty arrivals leaves the tile as calm as one.
 const FRESH_TILE_ROWS = 4;
-// Each row prints published_at, so the row is ordered by it; later coverage (rankTime) must not lift an older story.
-const byPub = (a, b) => pubTime(b) - pubTime(a);
+// Each row prints when the story reached Halcyon (appeared_at, else published_at) and the rows are ordered by it, so a story
+// that arrives with an old source time leads; later coverage (rankTime) must not lift an older story.
+const byPub = (a, b) => (ms(b.appeared_at) || pubTime(b)) - (ms(a.appeared_at) || pubTime(a));
 function newestStories() {
-  const young = h => allStories.filter(st => GEN - ms(st.published_at) <= h * 36e5 && !FRONT_IDS.has(st.id));
+  const young = h => allStories.filter(st => GEN - (ms(st.appeared_at) || ms(st.published_at)) <= h * 36e5 && !FRONT_IDS.has(st.id));
   let pool = young(NEWEST.hours), hours = NEWEST.hours;
   if (pool.length < NEWEST.min) { pool = young(NEWEST.maxHours); hours = NEWEST.maxHours; }
   // The unread arrived batch is guaranteed a place in the tile (its newest FRESH_TILE_ROWS), then the tile fills with the
-  // newest of the rest; the rows themselves read in published order, so a pinned older story never jumps above a newer one.
+  // newest of the rest; the rows themselves read in arrival order, so a pinned older story never jumps above a newer one.
   const pinned = freshIds.filter(id => !read.has(id)).map(id => STORY_ANY.get(id)).filter(Boolean).sort(byPub).slice(0, FRESH_TILE_ROWS);
   const rest = pool.slice().sort(byPub).filter(st => !pinned.includes(st));
   const tile = [...pinned, ...rest.slice(0, FRESH_TILE_ROWS - pinned.length)].sort(byPub);
   return { list: [...tile, ...rest.slice(FRESH_TILE_ROWS - pinned.length)].slice(0, NEWEST.cap), hours };
 }
-/* "Vừa đăng" is a front-page tile (mockup B's "Tin nhanh"): the clock time each story was published, then its headline. */
-/* "Mới" (isNew): published within the last NEW_MARK_HOURS, or brought by the snapshot that just arrived, and not yet
+/* "Vừa đăng" is a front-page tile (mockup B's "Tin nhanh"): the clock time each story reached Halcyon, then its headline.
+   The row prints the arrival because the rows are ordered by it: a reader scanning down sees the times fall, and a story
+   that came in at 14:27 reads 14:27, not the source's 22:00 of the night before above an 11:37. The source's own time
+   stays in the row's title and on the story page. */
+/* "Mới" (isNew): reached Halcyon within the last NEW_MARK_HOURS, or brought by the snapshot that just arrived, and not yet
    opened. Its Hot Coral chip (owner, 10/11: "cực kỳ khó nhận ra đó là thẻ tin mới") shows on every such row; the six-hour
    window is what keeps the count small. The row's headline is the headline alone, with no flame or reason before it. */
 function freshItem(st) {
   const t = titleOf(st);
   const pinned = freshIds.includes(st.id) && !read.has(st.id);
+  const at = st.appeared_at || st.published_at;
+  const when = st.appeared_at ? `Lên Halcyon: ${exact(st.appeared_at)} · Nguồn đăng: ${exact(st.published_at)}` : exact(st.published_at);
   return `<li class="${statusClass(st)}" data-sid="${esc(st.id)}" data-status="${storyStatus(st.id, st)}"${pinned ? ' data-pinned' : ''}><a class="brief fresh-item list-row" href="tin/${esc(st.id)}/" data-id="${esc(st.id)}" data-read="${esc(st.id)}">
-    <time class="num" datetime="${esc(st.published_at)}" title="${esc(exact(st.published_at))}">${esc(hhmm(new Date(st.published_at)))}</time>
+    <time class="num" datetime="${esc(at)}" title="${esc(when)}">${esc(hhmm(new Date(at)))}</time>
     <span class="brief-h"${langAttr(t.text)}>${markHTML(st)}<span class="fresh-new" aria-hidden="true">Mới</span>${esc(t.text)}</span></a></li>`;
 }
 function freshInnerHTML() {

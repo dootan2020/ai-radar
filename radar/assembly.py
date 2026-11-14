@@ -163,4 +163,9 @@ def finish(payload, coverage, events, now, previous, published=None, fetcher=Non
                    ranking=dict(method="engagement-velocity-breadth-percentile-freshness-v2", window_hours=72,
                                 description="trung bình bách phân vị tương tác, tốc độ tăng và độ phủ nhà xuất bản, nhân với độ mới của tin",
                                 baseline_at=iso_date(baseline), calibration="tạm thời, đang đánh giá bằng báo cáo gom cụm"))
+    # When each story first reached readers, through the same newsroom gate the reader snapshot applies
+    # (radar.site_payload.write_site_snapshot); the feed's "Vừa đăng" and "Mới" read it, not the source time.
+    from radar.appearance import stamp_appearance, visible_story_ids
+    from radar.newsroom_decisions import load_decisions
+    stamp_appearance(payload, published, visible_story_ids(payload, load_decisions()), now)
     return payload
