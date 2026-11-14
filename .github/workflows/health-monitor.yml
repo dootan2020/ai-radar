@@ -15,10 +15,12 @@ concurrency:
 jobs:
   health:
     runs-on: ubuntu-26.04
-    timeout-minutes: 7
+    timeout-minutes: 10
     permissions:
       contents: read
       issues: write
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       # Manual branch selection must not execute unreviewed code with issue access.
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -30,6 +32,10 @@ jobs:
           python-version: '3.11'
       - name: Probe live site and reconcile health incident
         timeout-minutes: 6
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python -m radar.health_monitor --report
+      # Its own issue and its own check: a quiet feed is not a site outage. It reads the story archive and newsroom
+      # branches as data (git history only, no code from them runs).
+      - name: Alert when no new story has appeared for a long time
+        if: ${{ !cancelled() }}
+        timeout-minutes: 3
+        run: python -m radar.freshness_watch --report
