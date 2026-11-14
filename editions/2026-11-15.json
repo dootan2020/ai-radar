@@ -1,0 +1,262 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-15",
+  "timezone": "Asia/Ho_Chi_Minh",
+  "window_start_at": "2026-11-13T23:00:00Z",
+  "cutoff_at": "2026-11-14T23:00:00Z",
+  "created_at": "2026-11-14T23:07:35Z",
+  "snapshot_generated_at": "2026-11-14T23:05:50Z",
+  "policy": {
+    "method": "daily-evidence-v3",
+    "max_stories": 5,
+    "window_hours": 24,
+    "cutoff_hour": 6,
+    "engagement_percentile_min": 0.8,
+    "publisher_coverage_excludes_forums": true,
+    "attention_requires_nonforum": true,
+    "forum_exception_percentile_min": 0.97,
+    "forum_exception_comments_min": 100,
+    "max_forum_only_stories": 1,
+    "score_measured_at": "2026-11-14T23:05:50Z",
+    "description": "Ưu tiên dấu hiệu công bố, số nhà xuất bản và tương tác đo được; sau đó theo điểm nóng và thời gian công bố"
+  },
+  "stories": [
+    {
+      "id": "fc1d70bba296bc73c153",
+      "title": "Elon Musk, other tech execs sign petition calling on Nvidia to reinstate Jensen Huang",
+      "title_vi": "Elon Musk, các giám đốc công nghệ khác đã ký một bản kiến nghị kêu gọi Nvidia tái nhậm chức Jensen Huang",
+      "headline": "Elon Musk, other tech execs sign petition calling on Nvidia to reinstate Jensen Huang",
+      "headline_vi": "Elon Musk, các giám đốc công nghệ khác đã ký một bản kiến nghị kêu gọi Nvidia tái nhậm chức Jensen Huang",
+      "url": "https://techcrunch.com/2026/11/14/elon-musk-other-tech-execs-sign-petition-calling-on-nvidia-to-reinstate-jensen-huang/",
+      "published_at": "2026-11-14T21:41:22Z",
+      "kind": "other",
+      "time_basis": "published",
+      "editorial_headline_vi": "Một số nhân viên Nvidia muốn Jensen Huang trở lại; bài góp ý nội bộ có hơn 1.600 bình luận",
+      "editorial_headline_verified": true,
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "47ac71e0b702033bcf28",
+          "title": "Elon Musk, other tech execs sign petition calling on Nvidia to reinstate Jensen Huang",
+          "title_vi": "Elon Musk, các giám đốc công nghệ khác đã ký một bản kiến nghị kêu gọi Nvidia tái nhậm chức Jensen Huang",
+          "headline": "Elon Musk, other tech execs sign petition calling on Nvidia to reinstate Jensen Huang",
+          "headline_vi": "Elon Musk, các giám đốc công nghệ khác đã ký một bản kiến nghị kêu gọi Nvidia tái nhậm chức Jensen Huang",
+          "url": "https://techcrunch.com/2026/11/14/elon-musk-other-tech-execs-sign-petition-calling-on-nvidia-to-reinstate-jensen-huang/",
+          "published_at": "2026-11-14T21:41:22Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "techcrunch-ai",
+          "publisher": "techcrunch",
+          "entity": "techcrunch",
+          "group": "press",
+          "observed_at": "2026-11-14T23:05:50Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [],
+        "signals": {
+          "publishers": [
+            "techcrunch"
+          ],
+          "age_hours_at_cutoff": 1.3106,
+          "hot_score": 72.567,
+          "engagement_percentile": 0.9072164948453608
+        }
+      }
+    },
+    {
+      "id": "238432e278b3a0376a6f",
+      "title": "The AI graveyard: a running list of projects and startups that didn’t make it",
+      "title_vi": "Nghĩa địa AI: danh sách liên tục cập nhật các dự án và công ty khởi nghiệp không thể sống sót",
+      "headline": "The AI graveyard: a running list of projects and startups that didn’t make it",
+      "headline_vi": "Nghĩa địa AI: danh sách liên tục cập nhật các dự án và công ty khởi nghiệp không thể sống sót",
+      "url": "https://techcrunch.com/2026/11/14/the-ai-graveyard-a-running-list-of-projects-and-startups-that-didnt-make-it/",
+      "published_at": "2026-11-14T17:30:00Z",
+      "kind": "product",
+      "time_basis": "published",
+      "editorial_headline_vi": "Theo S&P Global Market Intelligence, khoảng 42% sáng kiến AI bị các công ty mẹ từ bỏ",
+      "editorial_headline_verified": true,
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "7000fa1a85a4934f34e6",
+          "title": "The AI graveyard: a running list of projects and startups that didn’t make it",
+          "title_vi": "Nghĩa địa AI: danh sách liên tục cập nhật các dự án và công ty khởi nghiệp không thể sống sót",
+          "headline": "The AI graveyard: a running list of projects and startups that didn’t make it",
+          "headline_vi": "Nghĩa địa AI: danh sách liên tục cập nhật các dự án và công ty khởi nghiệp không thể sống sót",
+          "url": "https://techcrunch.com/2026/11/14/the-ai-graveyard-a-running-list-of-projects-and-startups-that-didnt-make-it/",
+          "published_at": "2026-11-14T17:30:00Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "techcrunch-ai",
+          "publisher": "techcrunch",
+          "entity": "techcrunch",
+          "group": "press",
+          "observed_at": "2026-11-14T23:05:50Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [],
+        "signals": {
+          "publishers": [
+            "techcrunch"
+          ],
+          "age_hours_at_cutoff": 5.5,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "7f554d543072bd6350e7",
+      "title": "Beware the New AI-Fueled Ransomware Boom",
+      "title_vi": "Cẩn thận với sự bùng nổ của Ransomware mới do AI thúc đẩy",
+      "headline": "Beware the New AI-Fueled Ransomware Boom",
+      "headline_vi": "Cẩn thận với sự bùng nổ của Ransomware mới do AI thúc đẩy",
+      "url": "https://www.wired.com/story/beware-the-new-ai-fueled-ransomware-boom/",
+      "published_at": "2026-11-14T13:00:00Z",
+      "kind": "product",
+      "time_basis": "published",
+      "editorial_headline_vi": "Số vụ tấn công đòi tiền chuộc bị cáo buộc lên tới gần 3.000 vào mùa hè, ước tính tăng 20 đến 40% so với mùa xuân",
+      "editorial_headline_verified": true,
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "6624d668ba15d6ab7917",
+          "title": "Beware the New AI-Fueled Ransomware Boom",
+          "title_vi": "Cẩn thận với sự bùng nổ của Ransomware mới do AI thúc đẩy",
+          "headline": "Beware the New AI-Fueled Ransomware Boom",
+          "headline_vi": "Cẩn thận với sự bùng nổ của Ransomware mới do AI thúc đẩy",
+          "url": "https://www.wired.com/story/beware-the-new-ai-fueled-ransomware-boom/",
+          "published_at": "2026-11-14T13:00:00Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "wired-ai",
+          "publisher": "wired",
+          "entity": "wired",
+          "group": "press",
+          "observed_at": "2026-11-14T23:05:50Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [],
+        "signals": {
+          "publishers": [
+            "wired"
+          ],
+          "age_hours_at_cutoff": 10.0,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "d6bd9a26b24dcf0bc5fa",
+      "title": "AI Chatbots and Children: Should India Regulate What Bots Say?",
+      "title_vi": "AI Chatbot và trẻ em: Ấn Độ có nên điều chỉnh những gì bot nói không?",
+      "headline": "AI Chatbots and Children: Should India Regulate What Bots Say?",
+      "headline_vi": "AI Chatbot và trẻ em: Ấn Độ có nên điều chỉnh những gì bot nói không?",
+      "url": "https://analyticsindiamag.com/ai-features/ai-chatbots-and-children-should-india-regulate-what-bots-say",
+      "published_at": "2026-11-14T04:37:52Z",
+      "kind": "other",
+      "time_basis": "published",
+      "editorial_headline_vi": "New York siết tính năng chatbot AI với trẻ vị thành niên giữa lo ngại về sự phụ thuộc cảm xúc",
+      "editorial_headline_verified": true,
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "bcd8dc95deb7e6ff2613",
+          "title": "AI Chatbots and Children: Should India Regulate What Bots Say?",
+          "title_vi": "AI Chatbot và trẻ em: Ấn Độ có nên điều chỉnh những gì bot nói không?",
+          "headline": "AI Chatbots and Children: Should India Regulate What Bots Say?",
+          "headline_vi": "AI Chatbot và trẻ em: Ấn Độ có nên điều chỉnh những gì bot nói không?",
+          "url": "https://analyticsindiamag.com/ai-features/ai-chatbots-and-children-should-india-regulate-what-bots-say",
+          "published_at": "2026-11-14T04:37:52Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "analytics-india-mag",
+          "publisher": "analytics-india-magazine",
+          "entity": "analytics-india-magazine",
+          "group": "press",
+          "observed_at": "2026-11-14T23:05:50Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [],
+        "signals": {
+          "publishers": [
+            "analytics-india-magazine"
+          ],
+          "age_hours_at_cutoff": 18.3689,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "46776ab6bf2a20f0cc15",
+      "title": "MOSS-Live Leads Six Full-Duplex Voice Metrics but Trails GPT-Live-1 on Multi-Turn Tasks",
+      "title_vi": "MOSS-Live dẫn đầu sáu métrics giọng nói đầy đủ duplex nhưng theo dõi GPT-Live-1 trên các nhiệm vụ đa lượt",
+      "headline": "MOSS-Live Leads Six Full-Duplex Voice Metrics but Trails GPT-Live-1 on Multi-Turn Tasks",
+      "headline_vi": "MOSS-Live dẫn đầu sáu métrics giọng nói đầy đủ duplex nhưng theo dõi GPT-Live-1 trên các nhiệm vụ đa lượt",
+      "url": "https://pandaily.com/mosi-openmoss-moss-live-full-duplex-evaluation-gpt-live-doubao-seedduplex",
+      "published_at": "2026-11-14T02:00:26Z",
+      "kind": "other",
+      "time_basis": "published",
+      "editorial_headline_vi": "MOSS-Live dẫn đầu 6 chỉ số đàm thoại song công nhưng tụt sau GPT-Live-1 ở tác vụ đa lượt",
+      "editorial_headline_verified": true,
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "9d383b7f760c92f315e0",
+          "title": "MOSS-Live Leads Six Full-Duplex Voice Metrics but Trails GPT-Live-1 on Multi-Turn Tasks",
+          "title_vi": "MOSS-Live dẫn đầu sáu métrics giọng nói đầy đủ duplex nhưng theo dõi GPT-Live-1 trên các nhiệm vụ đa lượt",
+          "headline": "MOSS-Live Leads Six Full-Duplex Voice Metrics but Trails GPT-Live-1 on Multi-Turn Tasks",
+          "headline_vi": "MOSS-Live dẫn đầu sáu métrics giọng nói đầy đủ duplex nhưng theo dõi GPT-Live-1 trên các nhiệm vụ đa lượt",
+          "url": "https://pandaily.com/mosi-openmoss-moss-live-full-duplex-evaluation-gpt-live-doubao-seedduplex",
+          "published_at": "2026-11-14T02:00:26Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "pandaily",
+          "publisher": "pandaily",
+          "entity": "pandaily",
+          "group": "press",
+          "observed_at": "2026-11-14T23:05:50Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [],
+        "signals": {
+          "publishers": [
+            "pandaily"
+          ],
+          "age_hours_at_cutoff": 20.9928,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    }
+  ],
+  "source_health": {
+    "active_remote_sources": 77,
+    "successful_remote_sources": 76,
+    "failed_remote_sources": [
+      "restofworld"
+    ]
+  }
+}
