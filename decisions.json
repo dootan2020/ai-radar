@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-14T09:15:39.311623+00:00",
-  "input_generated_at": "2026-11-14T08:46:02Z",
+  "generated_at": "2026-11-14T11:16:59.015699+00:00",
+  "input_generated_at": "2026-11-14T10:45:26Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -72089,6 +72089,387 @@
       "key_points": [],
       "same_event_coverage_ids": [
         "34e6d4cfc765759d4252"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "b338b5a5af80e931086f",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Casual online forum Q&A discussion seeking learning advice without substantive reporting or a newsworthy event.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://news.ycombinator.com/item?id=50494696",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "0d85f0d4706eaed9bb28",
+        "7a67a611ba28689dd359"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "67566eecea2d1384031e",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare repository page without release notes, documentation of a new release, or news reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/Bannerzurpray/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "883aee2ea957a8082872"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "7ef36fb28a6e06898bdd",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare repository page without release notes, documentation of a new release, or news reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/avenuemistravage47/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "2b7ee1e9a9006baf7a5c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "5496addb685a6a00ba56",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare repository page without release notes, documentation of a new release, or news reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/ArcherAmplify/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "6ed9b42589e2fa78959f"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "1fb6fdb64ba68b6d2087",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare repository page without release notes, documentation of a new release, or news reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/AgentLobster/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c39cea5c6ded462f7f1b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "08302ceafb456f916fe2",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare repository page without release notes, documentation of a new release, or news reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/AmplitudePikemanHeed/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "e2db696e181891958e1c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "a46a9310414515d4f6c7",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare repository page without release notes, documentation of a new release, or news reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/AmplitudeBoss/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c84ce298976531cb4036"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "0193e6da686528ed3df2",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare repository page without release notes, documentation of a new release, or news reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/GryphonEmpress/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "deb3b96e0469789335b6"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "4e6eb8e4c157b19cfb95",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare repository page without release notes, documentation of a new release, or news reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/pyramidteachermap/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "304a7c95125234e7155b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "77ab0f22375c8f2bd564",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare repository page without release notes, documentation of a new release, or news reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/SortGuardian/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "df214f4362b87cb8e54d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "b6cfaf859f3d46265fd7",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare repository page without release notes, documentation of a new release, or news reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/Shardclamove/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "e1b8e256150038fdc7ec"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "9814bdc58358e21ac609",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare repository page without release notes, documentation of a new release, or news reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/ceilingthunderretort/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "9bc91562a4d2e3e0411d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "c45ca7200e7d9129579d",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare repository page without release notes, documentation of a new release, or news reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/ChannelSparrowYank/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "e742cd3000abe27e6d17"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "250c2a6cbe6bfc567cfc",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare repository page without release notes, documentation of a new release, or news reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/StudentSeparate/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "3a714bd4d16118d08d50"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "b7db65b7ed931d6871f4",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare repository page without release notes, documentation of a new release, or news reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/SandyPandyMandy/manus--ai",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "21c3186cdf1b3ff0e2d3"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "68a76468b0579d026809",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare repository page without release notes, documentation of a new release, or news reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/XTwiNSaraX/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "a16e02547d5c5c4dc6ff"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "4bb5587fb14014d81f9e",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare repository page without release notes, documentation of a new release, or news reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/SandyPandyMandy/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "d594c1a64edbe6d651b3"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "acae7578c4e0eb20b0a7",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare repository page without release notes, documentation of a new release, or news reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/elpepe200086/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "00a43c2b0b1769c402d7"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "d5a1e8b977da794b7c60",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Repository README containing promotional marketing highlights and a promo code without independent reporting or a substantive release.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/Axillios1/manus--ai",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "6eef1ccc139c322f673c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "11db27bf88bd32873a29",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Repository README containing promotional marketing highlights and a promo code without independent reporting or a substantive release.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/Ronni35/manus--ai",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "f791beaf9c2aeb6a423e"
       ],
       "split_coverage_ids": []
     }
