@@ -50,7 +50,7 @@ const FIELD_RANKINGS_URL = 'data/field-rankings.json';
 let FIELD_DATA = null;
 let FIELD_MAP = new Map();
 /* The bento home's keys, so a returning reader keeps what they read, skipped, saved and chose there. */
-const K = { theme: 'air2:theme', read: 'air2:read', skipped: 'air2:skipped', lastSeen: 'air2:lastSeen', saved: 'air2:saved',
+const K = { theme: 'air2:theme', read: 'air2:read', skipped: 'air2:skipped', seenAll: 'air2:seenAll', saved: 'air2:saved',
   sort: 'air2:sort', repoView: 'air2:repoView', repoWindow: 'air2:repoWindow', repoTotal: 'air2:repoTotal', areas: 'air2:areas' };
 const LEGACY = { read: 'airtl:read', saved: 'airtl:saved', sort: 'airtl:sort' };   // the 04/10 prototype's keys, folded in once
 const PAGE_FIRST = 22, PAGE_MORE = 14;   // infinite scroll (Mẫu A): the first screenful, then quiet batches
@@ -143,9 +143,13 @@ const skipped = new Set(asArray(store.get(K.skipped, [])));
 let saved = asArray(store.get(K.saved, [])).filter(x => x && typeof x.key === 'string');
 for (const id of asArray(store.get(LEGACY.saved, []))) if (typeof id === 'string' && !saved.some(x => x.key === id)) saved.push({ key: id, title: '', url: '', at: new Date().toISOString() });
 const savedHas = id => saved.some(x => x.key === id);
-let lastSeen = null, firstVisit = false;
+let seenAll = store.get(K.seenAll, null);   // set only by "Đánh dấu đã xem": stories published up to it are never new again
 let arrived = new Set();      // stories that came with a fresh snapshot the reader just applied
-const isNew = st => !!lastSeen && !!st.published_at && st.published_at > lastSeen && ms(st.published_at) <= Date.now();
+/* "Mới" lasts NEW_MARK_HOURS from the story's publication, however often the reader comes by (captain, 14/11 09:20: "đặt 1 thời gian
+   hiển thị cho nhãn mới"); opening the story or "Đánh dấu đã xem" ends it sooner. */
+const NEW_MARK_HOURS = 6;
+const isNew = st => !!st.published_at && ms(st.published_at) <= Date.now() && Date.now() - ms(st.published_at) <= NEW_MARK_HOURS * 36e5
+  && !(seenAll && st.published_at <= seenAll);
 function storyStatus(id, st) {
   if (!id) return 'none';
   if (read.has(id)) return 'seen';
@@ -161,11 +165,6 @@ const MARK = {
 const STATUS_CLASS = { seen: 'is-read', new: 'is-new', none: '' };
 const markHTML = st => `<span class="st-mark">${MARK[storyStatus(st.id, st)]}</span>`;
 const statusClass = st => STATUS_CLASS[storyStatus(st.id, st)];
-function commitLastSeen(ts = D ? D.generated_at : null) {
-  if (!ts) return;
-  const stored = store.get(K.lastSeen, null);
-  if (!stored || ts > stored) store.set(K.lastSeen, ts);
-}
 /* Every element that stands for a story carries data-sid; its mark and class follow the story's state in place. */
 function paintStatus(id) {
   const st = STORY_ANY.get(id), s = storyStatus(id, st);
@@ -2827,10 +2826,9 @@ function newestStories() {
   return { list: [...tile, ...rest.slice(FRESH_TILE_ROWS - pinned.length)].slice(0, NEWEST.cap), hours };
 }
 /* "Vừa đăng" is a front-page tile (mockup B's "Tin nhanh"): the clock time each story was published, then its headline. */
-/* "Mới" means new to this reader: published since their last look, or brought by the snapshot that just arrived and not
-   yet opened. Its Hot Coral chip (owner, 10/11: "cực kỳ khó nhận ra đó là thẻ tin mới") only shows beside a row that is not
-   new (trang-msn.css): when every row in the tile is new, a chip on each marks nothing (captain, 12/11 09:23, seven
-   rows all "Mới"). The row's headline is the headline alone, with no flame or reason before it. */
+/* "Mới" (isNew): published within the last NEW_MARK_HOURS, or brought by the snapshot that just arrived, and not yet
+   opened. Its Hot Coral chip (owner, 10/11: "cực kỳ khó nhận ra đó là thẻ tin mới") shows on every such row; the six-hour
+   window is what keeps the count small. The row's headline is the headline alone, with no flame or reason before it. */
 function freshItem(st) {
   const t = titleOf(st);
   const pinned = freshIds.includes(st.id) && !read.has(st.id);
@@ -2878,11 +2876,10 @@ function goFirstNew() {
   if (el) focusStory(el);
   else toast('Chưa có tin mới. Trang tự kiểm mỗi 3 phút');
 }
-/* "Đánh dấu đã xem": the last look moves to this snapshot, so nothing here counts as new any more. */
+/* "Đánh dấu đã xem": everything published up to this snapshot stops counting as new. */
 function markSeen() {
   if (!D) return;
-  store.set(K.lastSeen, D.generated_at);
-  lastSeen = D.generated_at; firstVisit = false; arrived = new Set();
+  seenAll = D.generated_at; store.set(K.seenAll, seenAll); arrived = new Set();
   new Set($$('[data-sid]').map(el => el.dataset.sid)).forEach(paintStatus);
   freshIds = [];
   toast('Đã đánh dấu đã xem hết');
@@ -2993,7 +2990,6 @@ function applyPending({ motion = true } = {}) {
   if (!pending) return;
   const before = motion && !RM.matches ? captureLayout() : null;
   const anchor = tileAnchor(), slide = $('#lead .slide.is-active')?.dataset.sid || null, focus = focusSpot();
-  commitLastSeen();
   const batch = pendingNewIds(pending);
   arrived = new Set(batch);
   const data = pending; pending = null; pendingIds = [];
@@ -3539,10 +3535,6 @@ function ingest(data) {
   allStories.forEach(st => { if (nSrc(st) >= 3) bigSet.add(st.id); });
   matchPicks(RAW_PICKS);
   ({ lead: PICKLIST, top: FRONT_TOP } = chooseFront());
-  // The bento home's rule: a first visit counts the last 24 hours as new; later visits count from the last look.
-  const stored = store.get(K.lastSeen, null);
-  firstVisit = !stored;
-  lastSeen = stored || new Date((gen || Date.now()) - 864e5).toISOString();
 }
 function renderAll() {
   renderChips();
@@ -3564,18 +3556,12 @@ const whenIdle = () => new Promise(r => {
 });
 function startLifecycle() {
   setInterval(pollSnapshot, SNAPSHOT_EVERY_MS);
-  document.addEventListener('visibilitychange', () => { if (document.hidden) commitLastSeen(); else pollSnapshot(); });
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) pollSnapshot(); });
   document.addEventListener('visibilitychange', scheduleCountdown);   // stops while hidden, catches up on return
   if (RM.addEventListener) RM.addEventListener('change', scheduleCountdown);
-  addEventListener('pagehide', () => commitLastSeen());
-  // The last look moves on engagement: five seconds on the page or the first scroll.
-  let engaged = false;
-  const onEngage = () => { if (!engaged) { engaged = true; commitLastSeen(); } };
-  setTimeout(onEngage, 5000);
-  addEventListener('scroll', onEngage, { passive: true, once: true });
   // Relative times stay honest while the tab is open; the source panel uses an absolute date.
   setInterval(() => { $$('[data-ago]').forEach(el => { el.textContent = ago(el.dataset.ago); }); }, 60_000);
-  window.commitLastSeen = commitLastSeen; window.storyStatus = storyStatus;
+  window.storyStatus = storyStatus;
   window.openStoryModal = openStoryModal; window.closeStoryModal = closeStoryModal; window.getStory = id => STORY_ANY.get(id);
 }
 async function startLiveLayer() {
@@ -3619,10 +3605,8 @@ function loadComplete() {
 function adoptComplete(data) {
   if (complete || !data || !data.generated_at || data.generated_at < D.generated_at) return;
   const same = data.generated_at === D.generated_at;
-  const keep = { lastSeen, firstVisit };
   ingest(data);
   mergeFieldRepos();
-  ({ lastSeen, firstVisit } = keep);
   complete = true;
   if (!same) renderAll();
   else if (filter !== 'all' && filter !== 'rankings') renderFeed({ keepOthers: true });

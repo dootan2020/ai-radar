@@ -26,7 +26,7 @@ def declaration(name):
 HARNESS = r"""
 const calls = [], drawn = [];
 let files = {};
-let D = null, STORY_ANY = new Map(), filter = 'all', lastSeen = 'mark', firstVisit = false;
+let D = null, STORY_ANY = new Map(), filter = 'all';
 let complete = false, completeLoad = null;
 const WINDOW_URL = 'data/radar-window.json';
 const SECTIONS = { 'sap-toi': {} };
@@ -43,7 +43,7 @@ async function loadData(init = {}) {
   }
   throw new Error('no data');
 }
-function ingest(data) { D = data; STORY_ANY = new Map(data.stories.map(s => [s.id, s])); lastSeen = 'reset'; firstVisit = true; }
+function ingest(data) { D = data; STORY_ANY = new Map(data.stories.map(s => [s.id, s])); }
 function mergeFieldRepos() { drawn.push('repos'); }
 const renderAll = () => drawn.push('all'), renderFeed = () => drawn.push('feed'), renderChips = () => drawn.push('chips');
 const appendOlder = () => drawn.push('older');
@@ -51,16 +51,16 @@ const appendOlder = () => drawn.push('older');
 const snap = (at, ids) => ({ schema_version: 2, generated_at: at, stories: ids.map(id => ({ id })) });
 function reset(f, hash = '', view = 'all') {
   files = f; calls.length = 0; drawn.length = 0; D = null; STORY_ANY = new Map(); filter = view;
-  complete = false; completeLoad = null; lastSeen = 'mark'; firstVisit = false; location.hash = hash;
+  complete = false; completeLoad = null; location.hash = hash;
 }
-async function boot() { const data = await loadFirst(); ingest(data); lastSeen = 'mark'; firstVisit = false; return data; }
+async function boot() { const data = await loadFirst(); ingest(data); return data; }
 const out = {};
 
 reset({ 'data/radar-window.json': snap('T1', ['a']), 'data/radar-ui.json': snap('T1', ['a', 'old']) });
 await boot();
 out.windowFirst = { calls: calls.slice(), stories: D.stories.length, complete };
 await loadComplete();
-out.adoptSame = { calls: calls.slice(), stories: D.stories.length, drawn: drawn.slice(), complete, lastSeen, firstVisit };
+out.adoptSame = { calls: calls.slice(), stories: D.stories.length, drawn: drawn.slice(), complete };
 
 reset({ 'data/radar-window.json': snap('T1', ['a']), 'data/radar-ui.json': snap('T1', ['a', 'old']) }, '', 'sec:sap-toi');
 await boot(); await loadComplete();
@@ -131,7 +131,6 @@ class FeedFirstLoadTests(unittest.TestCase):
         # The same snapshot leaves the drawn feed and the reader's "new" baseline as they were; only the older days
         # join the end of the stream.
         self.assertEqual(same["drawn"], ["repos", "chips", "older"])
-        self.assertEqual((same["lastSeen"], same["firstVisit"]), ("mark", False))
 
     def test_views_outside_the_window_and_newer_snapshots_are_redrawn(self):
         self.assertEqual(self.out["sectionRedrawn"], ["repos", "feed"])
