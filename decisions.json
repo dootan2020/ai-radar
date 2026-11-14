@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-14T07:18:15.646511+00:00",
-  "input_generated_at": "2026-11-14T06:46:04Z",
+  "generated_at": "2026-11-14T09:15:39.311623+00:00",
+  "input_generated_at": "2026-11-14T08:46:02Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -71566,10 +71566,10 @@
       "use_original_title": false,
       "source_url": "https://claude.com/resources/articles/projects-redesigned",
       "key_points": [
-        "Anthropic thử nghiệm bản cập nhật Projects cho một số thuê bao Pro và Max dùng phiên đám mây trong Claude Code và chưa có dự án trên web hay máy tính bàn.",
-        "Trước đây người dùng phải tự chia việc, bàn giao và ghép kết quả khi quản lý nhiều phiên làm việc trong một lần xây dựng. Hiện tại trong dự án Claude Code, người dùng mô tả việc cần làm và Claude sẽ trực tiếp phân chia công việc rồi điều phối các luồng song song.",
-        "Chẳng hạn, Claude có thể tạo luồng riêng cho từng kho mã để chuyển đổi mã và mở yêu cầu gộp mã khi kết nối các kho mã API, web và di động để loại bỏ điểm cuối v1 cũ. Hệ thống cũng có thể nhận mục tiêu giảm độ trễ thanh toán để đo hiệu năng từng điểm cuối và mở các yêu cầu gộp mã song song.",
-        "Tuy nhiên, dự án có thể chạm hạn mức sử dụng nhanh hơn và hiện tại các luồng làm việc mới chỉ vận hành trên đám mây."
+        "Anthropic bắt đầu thử nghiệm bản cập nhật Projects cho một số thuê bao Pro và Max dùng phiên đám mây trong Claude Code và chưa có dự án trên web hay máy tính bàn.",
+        "Trước đây người dùng phải tự chia việc, bàn giao và ghép kết quả khi quản lý nhiều phiên làm việc trong một lần xây dựng. Hiện tại trong dự án Claude Code, người dùng mô tả việc cần làm và Claude sẽ phân chia công việc, điều phối các luồng chạy song song rồi ráp lại kết quả.",
+        "Chẳng hạn, với mục tiêu giảm độ trễ thanh toán p75 và thử nghiệm tối ưu hóa, Claude sẽ đo hiệu năng từng điểm cuối, thử nghiệm các tối ưu hóa rồi mở các yêu cầu gộp mã trong các luồng song song. Claude cũng có thể kết nối các kho mã API, web và di động để loại bỏ điểm cuối v1 cũ, tạo từng luồng chuyển đổi mã gọi, chạy kiểm thử và thông báo thứ tự gộp mã.",
+        "Các luồng công việc giờ đây cùng chia sẻ bộ nhớ chung để giảm câu lệnh phức tạp, đồng thời người dùng có thể theo dõi tiến độ chung hoặc điều phối từng luồng riêng."
       ],
       "same_event_coverage_ids": [
         "401a4fc5f0e5cf7544cd",
@@ -71590,24 +71590,24 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.6,
+        "value": 9.35,
         "answers": {
           "what": 9,
           "why": 10,
-          "notable": 8,
-          "meaning": 7
+          "notable": 10,
+          "meaning": 8
         },
         "hard_errors": [],
         "findings": [
           {
-            "question": "notable",
-            "problem": "The checkout example loses its specific p75 latency target and the step of testing optimizations.",
-            "fix": "Specify checkout p75 latency and that Claude tests optimizations before opening PRs (outlet:p003)."
+            "question": "meaning",
+            "problem": "Readers miss a practical limit of running several full Claude Code sessions at once.",
+            "fix": "Add that Projects can reach usage limits faster, as stated in outlet:p022."
           },
           {
             "question": "meaning",
-            "problem": "Readers miss that they can guide the work and that threads build on shared project memory.",
-            "fix": "Add that users can steer the project or individual threads and that threads contribute to and draw from shared memory (outlet:p010, outlet:p016)."
+            "problem": "Readers are not told that threads currently run only in the cloud.",
+            "fix": "State the current cloud-only availability and that local execution is forthcoming (outlet:p023)."
           }
         ],
         "writer_boats": [
@@ -71615,8 +71615,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "fccac7791aed2f9ec5cda9ffd3c110fe2ea238c2655e960d98be56430f8d871e",
-        "scored_at": "2026-11-14T07:18:15.642391+00:00"
+        "prose_sha256": "40c8b724fc4ad00dbcad92cab4e3e4ebd839b2c78979bf1c86e236f44e560481",
+        "scored_at": "2026-11-14T09:15:39.299117+00:00"
       }
     },
     {
@@ -71692,6 +71692,405 @@
         "prose_sha256": "94f8be7dc67bbba8938f1b549874247939f35900c4f38d3f25fdcbf457c2991c",
         "scored_at": "2026-11-14T07:08:35.872938+00:00"
       }
+    },
+    {
+      "id": "fa48d6a9b31ad79e7e91",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare code repository page without an announcement, release documentation, or news coverage.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/bravecrownvalve/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "e62f3e193664d2d35416"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "dfa73c029547eacb2312",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare code repository page without an announcement, release documentation, or news coverage.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/Boldpleinverter/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "5070ea548c7ffcab43f9"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "d46724e16537594854bc",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare code repository page without an announcement, release documentation, or news coverage.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/Beigeloencoder/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "eecce94273c2dea5663b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "a023bc44929a9f7c026e",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare code repository page without an announcement, release documentation, or news coverage.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/BladesmithPanel/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b68bb6c5ece3eb5db27e"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "df6ed41c9f0c77245fb3",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare code repository page without an announcement, release documentation, or news coverage.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/BarrierCenter/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "ac5cab00f1370c9b4a0c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "867193a1b1ba86859586",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare code repository page without an announcement, release documentation, or news coverage.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/BannerCatbird/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "a114c3dca10d998c1b64"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "b630221dace9671b5037",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare code repository page without an announcement, release documentation, or news coverage.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/assassinswandemolish/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "0d5ddc322af28b1bbdc2"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "229a059c5c523d465c64",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare code repository page without an announcement, release documentation, or news coverage.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/AtomEmissary/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "438a804877d1a51b9d4e"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "64464f09abf2099c2b08",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare code repository page without an announcement, release documentation, or news coverage.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/Aspectnisafeguard/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "12096bc44aa75f78df41"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "cf8a94accf060eca2c8a",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare code repository page without an announcement, release documentation, or news coverage.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/ApothecaryDesign/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "7756ac26046de025e894"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "67153c281370e4a82d36",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare code repository page without an announcement, release documentation, or news coverage.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/AdvisorShake/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "9329505cc02e4ffe114c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "afe7e20bc4a6e1373193",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare code repository page without an announcement, release documentation, or news coverage.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/AdmiralEmporium/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "e1babbe7cf241f004198"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "6f5eadb13f7814d70ec0",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare code repository page without an announcement, release documentation, or news coverage.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/WestLightningMove/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "210294084d45750320e0"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "d119f1b5b1b80a761e44",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare code repository page without an announcement, release documentation, or news coverage.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/TorusBarbarianMap9/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "5fd1d19a83be0618e3aa"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "4e3481accb76ad1a4864",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare code repository page without an announcement, release documentation, or news coverage.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/Feathershosmash/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "21b1686a461f54afcef7"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "6a78954c74b69d09ebbb",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare code repository page without an announcement, release documentation, or news coverage.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/BrickMosquito/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "ce1744208f1230786708"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "31ac374d075b1a4b8e7a",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare code repository page without an announcement, release documentation, or news coverage.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/TealAgentRevive/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "3ccb40c26bff179145af"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "30deed6aa6504dec27c4",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare code repository page without an announcement, release documentation, or news coverage.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/WinnerBrokerBarrow/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "a90453f3db42f06a7abf"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "65b17e1d95a50279c7f1",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare code repository page without an announcement, release documentation, or news coverage.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/ClampOverlord46/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "74ecd3b3e33006f88f22"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "3cf70434824541f40551",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare code repository page without an announcement, release documentation, or news coverage.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/rambotronado112-sudo/manus--ai",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "3584e32222df49b43f22"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "0ee1d7d35830429994e4",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare code repository page without an announcement, release documentation, or news coverage.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/jose-perez-thecloudgroup/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "34e6d4cfc765759d4252"
+      ],
+      "split_coverage_ids": []
     }
   ]
 }
