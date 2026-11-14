@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-14T11:16:59.015699+00:00",
-  "input_generated_at": "2026-11-14T10:45:26Z",
+  "generated_at": "2026-11-14T13:27:41.962718+00:00",
+  "input_generated_at": "2026-11-14T12:45:51Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -72472,6 +72472,268 @@
         "f791beaf9c2aeb6a423e"
       ],
       "split_coverage_ids": []
+    },
+    {
+      "id": "75102a44dc7a210b1ce4",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected title; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected title",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.wired.com/story/no-pilots-few-air-traffic-controllers-what-could-go-wrong/",
+      "key_points": [
+        "On September 27, US transportation secretary Sean Duffy introduced SMART, a new AI-infused air traffic management tool intended to reduce delays.",
+        "The FAA issued a national groundstop following a communications failure that disrupted airline schedules.",
+        "The US administration stated there was no evidence of a cyberattack and no indication that SMART caused the communications failure.",
+        "Homeland Security secretary Markwayne Mullin stated nothing was certain regarding whether AI failure could be definitively ruled out."
+      ],
+      "same_event_coverage_ids": [
+        "c833e7b3f932e0b93066"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "6b4027054b920af73738",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-13/colette-kress-will-face-scrutiny-at-nvidia-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "d8e7c80d41aa3bffb77c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "f6d01c6fa5ff31384973",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare code repository page without an announcement, release documentation, or news reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/BeigeHeadStore/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "0efce175f6f3b47b35ea"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "141e5a0e6dd71343accc",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare code repository page without an announcement, release documentation, or news reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/BasinGradeJudge/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "3daf64d1b3cb58d2259b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "0249af9cc422c31d7a6f",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare code repository page without an announcement, release documentation, or news reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/avalanchegnatbeat95/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "bf6248762aed0eb0ca6b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "0a0e01dcd5ad42ff1230",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare code repository page without an announcement, release documentation, or news reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/Cloudryospeed/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "bd78e44c0d81cb1ae27e"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "cd1d1951ef503cb3a6c3",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/12/jensen-huangs-exit-puts-nvidias-support-for-open-source-in-question/",
+      "key_points": [
+        "CEO Jensen Huang của Nvidia từ chức sau bê bối tình ái khi thừa nhận có mối quan hệ với một người bị nghi là gián điệp Trung Quốc. TechCrunch nhận định sự việc làm dấy lên quan ngại an ninh tại Mỹ và khiến cam kết của Nvidia đối với cộng đồng AI mã nguồn mở bị đặt dấu hỏi.",
+        "Theo TechCrunch, mở rộng hệ sinh thái khi các đối tác lớn tự phát triển chip là động lực kinh doanh cốt lõi khiến Nvidia tích cực ủng hộ mã nguồn mở. Việc có thêm nhiều đơn vị huấn luyện và vận hành mô hình mở giúp hãng bán được nhiều GPU hơn và giảm lệ thuộc vào các đối tác lớn như Google hay OpenAI.",
+        "Thương vụ mua lại nền tảng Hugging Face trị giá 13 tỷ USD vẫn chưa hoàn tất khi ông Huang rời nhiệm sở. Trước đó, Nvidia cũng đã đồng ý chi 6 tỷ USD để mua giấy phép không độc quyền cho công nghệ của công ty khởi nghiệp mã nguồn mở Poolside.",
+        "Nhiều thành viên cộng đồng mã nguồn mở lo ngại người kế nhiệm sẽ thận trọng hơn với hệ sinh thái nguồn mở khi Giám đốc tài chính Colette Kress tạm thời tiếp quản vị trí điều hành. Dù vậy, một nguồn tin nội bộ Nvidia chia sẻ với TechCrunch rằng sự thay đổi lãnh đạo này dự kiến không gây ảnh hưởng đến việc phát triển dòng mô hình Nemotron."
+      ],
+      "same_event_coverage_ids": [
+        "e2ab258ca3f61b830780"
+      ],
+      "split_coverage_ids": [
+        "06540d16d808e7948a8a"
+      ],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Jensen Huang từ chức CEO Nvidia sau bê bối tình ái, đe dọa các thương vụ AI nguồn mở",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch.com",
+          "url": "https://techcrunch.com/2026/11/12/jensen-huangs-exit-puts-nvidias-support-for-open-source-in-question/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "đe dọa các thương vụ AI nguồn mở",
+            "explanation": "The source raises uncertainty about the unfinished Hugging Face acquisition, but does not report that multiple open-source AI deals are threatened. It says Nvidia already agreed to the Poolside license (outlet:p012–p013, outlet:p020)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The headline makes multiple AI deals sound threatened.",
+            "fix": "Say Huang’s exit raises uncertainty about Nvidia’s open-source support and its unfinished Hugging Face acquisition (outlet:p009, outlet:p012, outlet:p020)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The reader misses why Huang’s departure could matter beyond Nvidia’s products and deals.",
+            "fix": "Add that his exit could strengthen arguments in Washington for tougher restrictions on Chinese AI companies (outlet:p016–p022)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "e91724df73a72517b8d628e9ca73a95bddc282bf1f7011a7e8cacf360241eac8",
+        "scored_at": "2026-11-14T13:24:09.146352+00:00"
+      }
+    },
+    {
+      "id": "edcdb6bc77ba4c4229cb",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.scmp.com/tech/article/3374235/if-jensen-huang-exits-nvidia-who-could-take-us4tr-chipmakers-reins",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "426bc80924a53e90df5d"
+      ],
+      "split_coverage_ids": [
+        "35e6a101444735147c91",
+        "9a6a9a719181175b89ff",
+        "fad36c294212e1447881"
+      ]
+    },
+    {
+      "id": "5bf610d1dd7d8e146382",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "top",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://simonwillison.net/2026/Nov/10/llm-gemini/",
+      "key_points": [
+        "Google made Gemini 4 Carbon available to the general public after previously announcing it for a subset of cyber defenders.",
+        "Gemini 4 Carbon was priced at $2 per million input tokens and $10 per million output tokens at launch.",
+        "The pricing for Gemini 4 Carbon is scheduled to double to $4 per million input and $20 per million output on December 1st.",
+        "llm-gemini version 0.36 was released as a plugin providing access to Google's Gemini family of models."
+      ],
+      "same_event_coverage_ids": [
+        "677d1b1514e7386dd487",
+        "8b46223f312a16e98f19",
+        "c4ad32f65a92969405c5",
+        "e0353e20d5542daa7a95"
+      ],
+      "split_coverage_ids": [
+        "1247e2afe1ebba5f8b9b",
+        "1e17c96f891ac0699903",
+        "2114d91afcb212c0d82e",
+        "a1503c5ef132f6a887a4",
+        "c5fda8f9b4121589429c",
+        "d61bbae172c79820a09b",
+        "dcf6c141f246ce2bfbad"
+      ]
     }
   ]
 }
