@@ -1060,6 +1060,9 @@
   .band .msn-lead { height: var(--msn-lead-h-phone); }
   .band .msn-wx { min-height: var(--msn-wx-h-phone); }
   .band .msn-cal { min-height: var(--msn-rowh-phone); }
+  /* Calendar then the next event come first in "Điểm nhấn", right after the weather (owner, 14/11); the markup keeps its order, which the wider grids place by. */
+  .band-focus .band-cells > .msn-cal { order: -2; }
+  .band-focus .band-cells > .msn-ev { order: -1; }
   /* Rows keep their natural height inside the capped list and scroll; "auto" let the grid squeeze them to fit 19rem. */
   .band .tile-fresh .fresh-list { grid-auto-rows: max-content; }
   /* The story card. Its body and meta line dissolve into one grid, so the time can leave the source's line for the

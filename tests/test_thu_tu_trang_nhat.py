@@ -35,6 +35,19 @@ class FrontOrder(unittest.TestCase):
             self.assertIn("${topListHTML(FRONT_TOP)}${notable ? msnCard(notable, 'wide', true) : ''}${renderNext()}<i data-slot=\"cal\"></i>", feed)
             self.assertNotIn("FURNITURE_AFTER", feed)
 
+    def test_a_phone_reads_the_calendar_then_the_next_event_before_the_top_list(self):
+        # Owner, 14/11: "Thẻ âm lịch và thẻ sự kiện đang ở mãi dưới, đưa 2 thẻ này lên trên". One column (under 768px)
+        # draws the calendar and the next event first in "Điểm nhấn", right after the weather. The DOM stays as it is,
+        # so every wider layout (grid auto-placement) is untouched.
+        for folder in FOLDERS:
+            css = read(folder / "trang-msn.css")
+            phone = css[css.index("@media (max-width: 767px) {\n  :root { --bento-cols: 1;"):]
+            phone = phone[:phone.index("\n}\n")]
+            self.assertIn(".band-focus .band-cells > .msn-cal { order: -2; }", phone)
+            self.assertIn(".band-focus .band-cells > .msn-ev { order: -1; }", phone)
+            self.assertEqual(len(re.findall(r"\.band-focus \.band-cells > \.msn-(?:cal|ev) \{ order", css)), 2,
+                             "no other width reorders the two cards")
+
     def test_fresh_holds_the_first_row_beside_the_lead_at_every_desktop_width(self):
         for folder in FOLDERS:
             css = read(folder / "trang-msn.css")
