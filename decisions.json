@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-14T01:08:58.030086+00:00",
-  "input_generated_at": "2026-11-14T00:45:34Z",
+  "generated_at": "2026-11-14T03:27:59.482157+00:00",
+  "input_generated_at": "2026-11-14T02:45:31Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -62539,7 +62539,26 @@
         "partial_source"
       ],
       "key_points_prompt_version": "summary-vi-7-bullets",
-      "score": null
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "claude",
+          "codex"
+        ],
+        "scorer_boat": "agy",
+        "scorer_provider": "agy",
+        "prose_sha256": "cc063fe2f335b0e5fe14301a2aca3f346e65bf8c853c12f9ef4b3c9e8f89577f",
+        "scored_at": "2026-11-14T03:27:59.477688+00:00"
+      }
     },
     {
       "id": "47a34c2eb8b3cdb576f3",
@@ -62619,7 +62638,26 @@
       ],
       "summary_limitations": [],
       "key_points_prompt_version": "summary-vi-7-bullets",
-      "score": null
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "claude",
+          "codex"
+        ],
+        "scorer_boat": "agy",
+        "scorer_provider": "agy",
+        "prose_sha256": "8acf47bfac53707f8487ff7531589bf28f59dc93b2123e7d3d7dc40a7877d7e2",
+        "scored_at": "2026-11-14T03:27:59.477802+00:00"
+      }
     },
     {
       "id": "ace29fcbd859ed195613",
@@ -62696,7 +62734,26 @@
       ],
       "summary_limitations": [],
       "key_points_prompt_version": "summary-vi-7-bullets",
-      "score": null
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "claude",
+          "codex"
+        ],
+        "scorer_boat": "agy",
+        "scorer_provider": "agy",
+        "prose_sha256": "e3fd27d55783f2facd14b29ac2ec8839605bd13d5ffc4f81002717a9a2e8b1bb",
+        "scored_at": "2026-11-14T03:27:59.477900+00:00"
+      }
     },
     {
       "id": "02ccbbb6b1a94ba7e39f",
@@ -62754,7 +62811,26 @@
       ],
       "summary_limitations": [],
       "key_points_prompt_version": "summary-vi-7-bullets",
-      "score": null
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "claude",
+          "codex"
+        ],
+        "scorer_boat": "agy",
+        "scorer_provider": "agy",
+        "prose_sha256": "78d7ea3a3a1d3207223acd4e41156641e579db5a9bfec791faf1195f42bca156",
+        "scored_at": "2026-11-14T03:27:59.477980+00:00"
+      }
     },
     {
       "id": "67672a694e389b29af55",
@@ -62984,7 +63060,32 @@
       ],
       "summary_limitations": [],
       "key_points_prompt_version": "summary-vi-7-bullets",
-      "score": null
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.4,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 8,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The text omits Supermicro's statement that it is fully cooperating with US, Taiwanese, and Singaporean authorities and maintains a compliance program to prevent diversion (outlet:p002), choosing instead to repeat the breakdown of the three probes in paragraph 3.",
+            "fix": "Replace the redundant probe description in paragraph 3 with Supermicro's statement confirming full cooperation with US, Taiwanese, and Singaporean authorities to combat diversion (outlet:p002)."
+          }
+        ],
+        "writer_boats": [
+          "claude",
+          "codex"
+        ],
+        "scorer_boat": "agy",
+        "scorer_provider": "agy",
+        "prose_sha256": "5a25bc93f2089cc5c1400f4e1cb01efc81e86a1513c5aaa6424396d061cb63ec",
+        "scored_at": "2026-11-14T03:27:59.478050+00:00"
+      }
     },
     {
       "id": "d77c24751633c8701525",
@@ -63025,7 +63126,32 @@
       ],
       "summary_limitations": [],
       "key_points_prompt_version": "summary-vi-7-bullets",
-      "score": null
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "Paragraph 4 duplicates the $44 billion creator advertising forecast verbatim from paragraph 2 while omitting Nectar's plans to make the agent accessible through Model Context Protocol (MCP) in assistants like Claude, ChatGPT, Gemini, and Copilot (outlet:p016).",
+            "fix": "Replace the redundant $44 billion market statistic in paragraph 4 with Nectar's plan to make Creator Agent available through MCP for integration into AI assistants like Claude, ChatGPT, Gemini, and Copilot (outlet:p016)."
+          }
+        ],
+        "writer_boats": [
+          "claude",
+          "codex"
+        ],
+        "scorer_boat": "agy",
+        "scorer_provider": "agy",
+        "prose_sha256": "948a3162120c85801424839bc246a5dda5198dfb7898cf3ff1fe8e6a8939ffd3",
+        "scored_at": "2026-11-14T03:27:59.478106+00:00"
+      }
     },
     {
       "id": "84ec87286cb35a64f463",
@@ -70578,17 +70704,17 @@
       "use_original_title": false,
       "source_url": "https://github.blog/changelog/2026-11-13-upcoming-deprecation-of-selected-github-copilot-models-in-december",
       "key_points": [
-        "GitHub thông báo từ ngày 14/12/2026 sẽ ngừng hỗ trợ các mô hình được liệt kê trên mọi trải nghiệm Copilot, nhưng Claude Haiku 4.5 vẫn có cho thuê bao cá nhân trả theo năm. Phạm vi gồm Copilot Chat, chỉnh sửa mã trực tiếp, chế độ hỏi đáp, chế độ agent (AI tự thực hiện nhiều bước) và gợi ý hoàn thành mã.",
-        "Với Copilot Enterprise và Business dùng chế độ bật mô hình mặc định, các mô hình thay thế được bật tự động, trừ khi quản trị viên tắt chế độ mặc định toàn cục hoặc tắt riêng mô hình đó. Nếu chế độ mặc định toàn cục đã tắt, quản trị viên có thể bật mô hình thay thế trong phần chính sách mô hình của Copilot.",
-        "GitHub gợi ý thay Claude Fable 5 bằng Claude Fable 5.2 và Gemini 3.8 Flash bằng Gemini 4 Hydrogen. Với Kimi K3, GitHub chưa công bố mô hình thay thế.",
-        "GitHub cho biết người dùng không cần tự xóa các mô hình sau khi chúng ngừng được hỗ trợ."
+        "GitHub thông báo ngừng hỗ trợ một số mô hình trên GitHub Copilot từ ngày 14/12/2026, nhưng vẫn giữ Claude Haiku 4.5 cho thuê bao cá nhân theo năm. Phạm vi gồm Copilot Chat, chỉnh sửa mã trực tiếp, chế độ hỏi đáp, agent (AI tự thực hiện tác vụ) và gợi ý hoàn thành mã.",
+        "Với Copilot Enterprise và Business, các mô hình thay thế được kích hoạt tự động theo mặc định. Quản trị viên đã tắt mặc định toàn cục có thể bật lại mô hình qua phần chính sách Copilot.",
+        "Các mô hình thay thế được gợi ý gồm Claude Fable 5.2 cho Claude Fable 5, Claude Haiku 5.5 cho Claude Haiku 4.5, và Gemini 4 Hydrogen cho Gemini 3.8 Flash. GitHub gợi ý thêm Gemini 4 Carbon cho Gemini 4 Argon, Grok 4.7 cho Grok 4.6, riêng Kimi K3 chưa công bố phương án thay thế.",
+        "GitHub xác nhận người dùng không cần thao tác gỡ bỏ mô hình sau khi chúng ngừng hoạt động."
       ],
       "same_event_coverage_ids": [
         "ab146f2c87db6e218328"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "GitHub Copilot sẽ ngừng hỗ trợ nhiều mô hình từ 14/12, trừ một nhóm thuê bao Claude Haiku 4.5",
+      "editorial_headline_vi": "GitHub Copilot ngừng hỗ trợ hàng loạt mô hình từ 14/12/2026, trừ thuê bao năm dùng Claude Haiku 4.5",
       "summary_sources": [
         {
           "id": "outlet",
@@ -70599,31 +70725,7 @@
       ],
       "summary_limitations": [],
       "key_points_prompt_version": "summary-vi-7-bullets",
-      "score": {
-        "version": "cham-4-cau-1",
-        "value": 7.95,
-        "answers": {
-          "what": 8,
-          "why": 10,
-          "notable": 6,
-          "meaning": 9
-        },
-        "hard_errors": [],
-        "findings": [
-          {
-            "question": "notable",
-            "problem": "The reader cannot tell which models are deprecated. Haiku 4.5, Gemini 4 Argon and Grok 4.6 and their replacements are not named.",
-            "fix": "List all six models with their replacements from p004-p009: Haiku 5.5, Gemini 4 Carbon and Grok 4.7 are the missing ones."
-          }
-        ],
-        "writer_boats": [
-          "codex"
-        ],
-        "scorer_boat": "claude",
-        "scorer_provider": "claude-code",
-        "prose_sha256": "50dea80ecddbe1f5e730939adc831e857858db2ade61bb439071803ac47ab03c",
-        "scored_at": "2026-11-13T23:06:53.343114+00:00"
-      }
+      "score": null
     },
     {
       "id": "7527f4bcd0855a072c6a",
@@ -71080,6 +71182,280 @@
       "split_coverage_ids": [
         "85f0ae8678d91e29cf0c",
         "92f481d0103d223edb43"
+      ]
+    },
+    {
+      "id": "46776ab6bf2a20f0cc15",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://pandaily.com/mosi-openmoss-moss-live-full-duplex-evaluation-gpt-live-doubao-seedduplex",
+      "key_points": [
+        "Nhóm OpenMOSS thuộc Đại học Phục Đán và MOSI Intelligence công bố kết quả đánh giá hệ thống giọng nói thời gian thực MOSS-Live khi so sánh với GPT-Live-1 của OpenAI và Doubao SeedDuplex của ByteDance.",
+        "Hệ thống MOSS-Live ghép nối một mô hình tiền cảnh điều phối lượt trò chuyện và phát biểu cùng một mô hình hậu cảnh phụ trách suy luận và tác vụ dài. Hai mô hình này chia sẻ bộ nhớ và ngữ cảnh qua lớp điều phối, giữ cuộc trò chuyện tiếp diễn trong lúc tác vụ tìm kiếm khách sạn đang chạy.",
+        "MOSS-Live đứng đầu cả sáu chỉ số song công toàn phần (giao tiếp hai chiều đồng thời) được báo cáo, chỉ vô tình phản hồi 2% trước lời nói không hướng vào nó so với 68% của GPT-Live-1. Tỷ lệ chen ngang khi người dùng tạm dừng của hệ thống đạt 1,44%, thấp hơn đáng kể so với 10,37% của GPT-Live-1 và 14,29% của Doubao SeedDuplex.",
+        "Pandaily nhận định các kết quả khác còn đan xen khi MOSS-Live đạt 57,93% trên bộ thử nghiệm tác vụ đa lượt τ-Voice, tụt sau mức 67,68% của GPT-Live-1. Bài viết cũng lưu ý toàn bộ kết quả đều do bên phát triển tự công bố mà chưa tiết lộ quy mô mẫu hay thiết lập thử nghiệm đầy đủ."
+      ],
+      "same_event_coverage_ids": [
+        "9d383b7f760c92f315e0"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "MOSS-Live dẫn đầu 6 chỉ số đàm thoại song công nhưng tụt sau GPT-Live-1 ở tác vụ đa lượt",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "pandaily",
+          "url": "https://pandaily.com/mosi-openmoss-moss-live-full-duplex-evaluation-gpt-live-doubao-seedduplex"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.5,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The evidence caveat omits uncertainty estimates.",
+            "fix": "Add that uncertainty estimates, as well as sample sizes and full test settings, were not disclosed (outlet:p001)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "1a8b7eb45916ec31531c234ba4b732781dea74eaf26c30f335d240e0ed86f421",
+        "scored_at": "2026-11-14T03:19:16.070996+00:00"
+      }
+    },
+    {
+      "id": "be1d946e50194a4c8f5a",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://pandaily.com/endless-frontier-fx-bio-1031-open-weights-bioinformatics-agent-model-biomysterybench",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "89537d44821ee7238eee"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "0f81441aae86816b8d9d",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://pandaily.com/deepseek-full-suite-application-apis-web-search-file-input-ocr-asr-tts-chat-demo",
+      "key_points": [
+        "DeepSeek công bố mở bộ giao diện lập trình ứng dụng (API) ứng dụng đầy đủ vào ngày 13 tháng 11, cho phép các nhà phát triển đưa những tính năng chính của DeepSeek App vào sản phẩm riêng.",
+        "Lập trình viên kích hoạt các tính năng bằng tham số trong những API hiện có, và máy chủ của DeepSeek đảm nhận việc gọi công cụ cùng tổng hợp ngữ cảnh. Theo nhật ký thay đổi, mô hình deepseek-flash hỗ trợ năm tính năng gồm tìm kiếm web, tìm kiếm suy luận sâu, nhập tệp, đọc liên kết và kiểm tra an toàn.",
+        "Hãng cung cấp các tính năng nền tảng dưới dạng API độc lập gồm Tìm kiếm và Truy xuất, OCR, nhận dạng giọng nói ASR và tổng hợp giọng nói TTS. DeepSeek cũng mở mã nguồn chat-demo, một ứng dụng web tĩnh kết nối trực tiếp trình duyệt với API và hỗ trợ nhập giọng nói cùng lịch sử trò chuyện.",
+        "Trang giá của DeepSeek nêu rõ chi phí gọi công cụ được tính riêng ngoài giá token, với phí tìm kiếm và truy xuất web là 0,75 USD cho mỗi 1.000 lượt gọi. Biểu phí này áp dụng dù lập trình viên gọi API trực tiếp hay mô hình tự kích hoạt, trong khi giá token của deepseek-flash vẫn giữ nguyên."
+      ],
+      "same_event_coverage_ids": [
+        "be52c15c161381419938"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "DeepSeek mở trọn bộ API ứng dụng gồm tìm kiếm, tệp và giọng nói cho nhà phát triển",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "pandaily",
+          "url": "https://pandaily.com/deepseek-full-suite-application-apis-web-search-file-input-ocr-asr-tts-chat-demo"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "875fbae892c626224c925d035abedc13b162d43332f45d224767d82c20036998",
+        "scored_at": "2026-11-14T03:19:16.071130+00:00"
+      }
+    },
+    {
+      "id": "845cc78cbca545d7f72d",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://alphasignal.ai/news/anthropic-upgrades-claude-code-projects-to-run-parallel-ai-workers-hands-free",
+      "key_points": [
+        "Anthropic cập nhật tính năng Claude Code Projects với điều phối chủ động, chia sẻ luồng chỉ đọc, lời nhắc và lệnh phân nhánh. Mỗi dự án là cuộc trò chuyện dài hạn điều phối các luồng đám mây độc lập có nhánh Git riêng.",
+        "AlphaSignal Newsroom nhận định các thay đổi này giúp giảm bớt công sức giám sát khi nhiều phiên chạy song song. Điều phối viên hiện trực tiếp trả lời câu hỏi và cập nhật tiến độ, đưa các quyết định chờ duyệt vào cuộc trò chuyện chính.",
+        "Tính năng lời nhắc và các lệnh phân nhánh luồng hỗ trợ phân tách công việc: lời nhắc tạm ẩn luồng đến giờ hẹn, còn /btw mở luồng phụ và /fork rẽ nhánh từ trạng thái hiện tại. Người dùng có thể chia sẻ luồng qua liên kết chỉ đọc, nhưng hệ thống loại trừ các phiên từng truy cập máy tính cục bộ để tránh làm lộ dữ liệu máy.",
+        "Bản thử nghiệm công khai giới hạn cho người đăng ký danh sách chờ của gói Pro và Max từ ngày 17 tháng 9, còn người đủ điều kiện vẫn có thể tiếp tục ghi danh. AlphaSignal Newsroom lưu ý các dự án chỉ chạy trên đám mây và dùng chung hạn mức gói, còn tác vụ phụ thuộc chặt chẽ vẫn đòi hỏi tự xử lý xung đột."
+      ],
+      "same_event_coverage_ids": [
+        "401a4fc5f0e5cf7544cd",
+        "71f9bd31a8c0c5549c53"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Anthropic nâng cấp Claude Code Projects với điều phối viên chủ động báo cáo tiến độ các phiên làm việc song song",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://alphasignal.ai/news/anthropic-upgrades-claude-code-projects-to-run-parallel-ai-workers-hands-free"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.9,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 8,
+          "meaning": 9
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "các quyết định chờ duyệt",
+            "explanation": "The source says pending decisions and sessions waiting for input, without describing an approval process (outlet:p016)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "Readers miss the improved artifact navigation.",
+            "fix": "Mention the recents row and artifact thumbnails in the threads panel (outlet:p027)."
+          },
+          {
+            "question": "notable",
+            "problem": "Readers may think anyone with a link can view a shared thread.",
+            "fix": "Specify that the recipient must be signed in to Claude (outlet:p018)."
+          },
+          {
+            "question": "what",
+            "problem": "“Pending decisions” becomes “decisions awaiting approval.”",
+            "fix": "Describe decisions awaiting input without implying an approval process (outlet:p016)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "c2048b8109935e506a55464b58df08f2acfc19dcfcf503c3a316c0ef8b895a74",
+        "scored_at": "2026-11-14T03:23:27.930346+00:00"
+      }
+    },
+    {
+      "id": "1e8a3d8c915ae22263e2",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare code repository page without an announcement, release documentation, or independent news coverage.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/lloweryfn-rgb/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "f153470a0688e10390a5"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "ca98419c1a440f90f378",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/ai-artificial-intelligence/1032069/jensen-huang-resignation-affair-chips-smuggling",
+      "key_points": [
+        "The article notes published reports alleging Huang had an affair with subordinate Kimberly Powell and that Nvidia's board met to consider his ouster.",
+        "The author emphasizes that Huang had placed himself at the indispensable center of the AI industry while Nvidia lacked a succession plan."
+      ],
+      "same_event_coverage_ids": [
+        "3240ccc710b1b3dba9e7",
+        "c93d63f8903ec5513ee8",
+        "e7882250785869d76344"
+      ],
+      "split_coverage_ids": [
+        "503f8012cb3276f2a440",
+        "ea55393ce5af575dfc29"
       ]
     }
   ]
