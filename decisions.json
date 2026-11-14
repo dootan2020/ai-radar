@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-14T03:27:59.482157+00:00",
-  "input_generated_at": "2026-11-14T02:45:31Z",
+  "generated_at": "2026-11-14T05:14:26.665188+00:00",
+  "input_generated_at": "2026-11-14T04:45:53Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -71457,6 +71457,172 @@
         "503f8012cb3276f2a440",
         "ea55393ce5af575dfc29"
       ]
+    },
+    {
+      "id": "d6bd9a26b24dcf0bc5fa",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://analyticsindiamag.com/ai-features/ai-chatbots-and-children-should-india-regulate-what-bots-say",
+      "key_points": [
+        "Theo Analytics India Magazine, bang New York ban hành luật hạn chế tính năng của chatbot AI khi tương tác với trẻ vị thành niên vào ngày 28 tháng 10. Đạo luật này kiểm soát các hệ thống mô phỏng quan hệ người hoặc gây phụ thuộc cảm xúc, chứ không cấm mọi chatbot.",
+        "Tạp chí cho biết khả năng mô phỏng sự đồng cảm của chatbot gây lo ngại về sự phụ thuộc cảm xúc và sức khỏe tâm thần trẻ em. Chuyên gia Prathvi Nayak cảnh báo trẻ dưới 13 tuổi chưa đủ nhận thức để hiểu chatbot chỉ khớp mẫu thuật toán chứ không có cảm xúc thật.",
+        "Báo cáo năm 2025 trên Journal of Psychosexual Health ghi nhận một thiếu niên 14 tuổi sống sót sau nỗ lực tự tử sau khi dần phụ thuộc vào chatbot, dù mâu thuẫn gia đình và sự cô lập xã hội cũng là các yếu tố liên quan. Khảo sát năm 2026 cho thấy khoảng 65% thanh thiếu niên Ấn Độ từng dùng chatbot để tìm kiếm hỗ trợ cảm xúc.",
+        "Analytics India Magazine nhận định Ấn Độ đang đứng trước câu hỏi liệu có nên để chatbot hành xử như bạn bè hay chuyên gia trị liệu của trẻ ngay từ đầu. Dù vậy, tạp chí lưu ý bằng chứng tác động dài hạn lên tâm lý trẻ vẫn còn hạn chế và các ca bệnh chưa chứng minh riêng chatbot đã gây ra hậu quả."
+      ],
+      "same_event_coverage_ids": [
+        "bcd8dc95deb7e6ff2613"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "New York siết tính năng chatbot AI với trẻ vị thành niên giữa lo ngại về sự phụ thuộc cảm xúc",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "analytics-india-magazine",
+          "url": "https://analyticsindiamag.com/ai-features/ai-chatbots-and-children-should-india-regulate-what-bots-say"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.85,
+        "answers": {
+          "what": 8,
+          "why": 10,
+          "notable": 10,
+          "meaning": 7
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The reader misses the source’s proposed way to address the policy question.",
+            "fix": "Add that the article distinguishes chatbots, tutors and companions and suggests restrictions on high-risk features, age-appropriate settings, safety testing and escalation to human support (outlet:p054, outlet:p057)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "8ee0d851285e13a5e91cf8b1532dfedd3fb18b606ef4233052c86c19318bda41",
+        "scored_at": "2026-11-14T05:14:25.080495+00:00"
+      }
+    },
+    {
+      "id": "8f4b2632f43363d7fda4",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.techpowerup.com/354814/nvidia-allegedly-engineered-scarcity-by-funding-ai-startups-to-buy-its-gpus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "7befee404b8099637361",
+        "9d3dbf07b4fe9ffee6e3"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "60e5719ddad5001df4ba",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://claude.com/resources/articles/projects-redesigned",
+      "key_points": [
+        "Anthropic nâng cấp tính năng Projects trong Claude Code, cho phép Claude tự phân chia công việc, điều phối các luồng chạy song song và tổng hợp kết quả. Bản nâng cấp hiện thử nghiệm cho thuê bao Pro và Max dùng phiên làm việc đám mây và chưa có dự án nào từ trước.",
+        "Trong hệ thống mới, mỗi luồng là một phiên đám mây hoạt động trên nhánh kho mã riêng và cùng dùng bộ nhớ chung.",
+        "Chẳng hạn, khi kết nối nhiều kho mã để loại bỏ điểm cuối cũ, Claude tự tạo luồng xử lý song song theo từng kho mã để chuyển đổi mã nguồn và kiểm thử. Hệ thống cũng có thể nhận mục tiêu giảm độ trễ thanh toán để đo hiệu năng từng điểm cuối và mở các yêu cầu gộp mã.",
+        "Ngoài ra, các luồng này hiện chỉ hoạt động trên đám mây và chưa hỗ trợ chạy trực tiếp trên máy cục bộ cùng mạng nội bộ."
+      ],
+      "same_event_coverage_ids": [
+        "401a4fc5f0e5cf7544cd",
+        "71f9bd31a8c0c5549c53"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Anthropic thử nghiệm Claude Code Projects tự điều phối các luồng chạy song song và tổng hợp kết quả",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://claude.com/resources/articles/projects-redesigned"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 7.45,
+        "answers": {
+          "what": 8,
+          "why": 6,
+          "notable": 8,
+          "meaning": 7
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The beta eligibility sounds broader and less precise than the source states.",
+            "fix": "Specify that initial access is for select Pro and Max subscribers using Claude Code cloud sessions with no existing projects on the web or desktop (outlet:p004)."
+          },
+          {
+            "question": "why",
+            "problem": "The reader does not learn what difficulty the update addresses.",
+            "fix": "Explain that users previously had to divide work across sessions, manage handoffs and combine the results themselves (outlet:p001)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The reader misses a practical limit of parallel Projects.",
+            "fix": "Add that several full Claude Code sessions can make a project reach usage limits faster (outlet:p022)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "7c2094c002092335547e819115cde641797a52a3bab43851e92f3cfb63971ce6",
+        "scored_at": "2026-11-14T05:14:25.080564+00:00"
+      }
     }
   ]
 }
