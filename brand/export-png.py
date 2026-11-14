@@ -36,7 +36,7 @@ CHROME = os.environ.get("CHROME", r"C:\Program Files\Google\Chrome\Application\c
 JOBS = [
     ("cover-facebook.svg", "cover-facebook.png", 1640, 624, 1, False),
     ("cover-youtube.svg", "cover-youtube.png", 2560, 1440, 1, False),
-    ("avatar.svg", "avatar.png", 400, 400, 2, False),
+    ("avatar.svg", "avatar.png", 800, 800, 1, False),
     ("og-default.svg", "og-default.png", 1200, 630, 1, False),
     ("khung-9x16.svg", "khung-9x16.png", 1080, 1920, 1, False),
     ("store-promo-small.svg", "store/promo-small.png", 440, 280, 1, False),
