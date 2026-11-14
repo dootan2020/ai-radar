@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-14T19:29:51.889342+00:00",
-  "input_generated_at": "2026-11-14T18:46:01Z",
+  "generated_at": "2026-11-14T21:06:30.624103+00:00",
+  "input_generated_at": "2026-11-14T20:52:26Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -73195,10 +73195,10 @@
       "use_original_title": true,
       "source_url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/rogue-claude-ai-tasked-with-renumbering-pages-accidentally-deletes-law-professors-entire-syllabus-one-year-of-lecture-notes-youre-right-to-be-angry-i-deleted-your-files-through-my-own-carelessness-humbled-agent-admits",
       "key_points": [
-        "Claude vô tình xóa một năm ghi chú bài giảng Luật Hiến pháp cùng đề cương của giáo sư William Baude tại Đại học Chicago khi được giao xử lý tài liệu. Theo Tom's Hardware, vị giáo sư cảnh báo rủi ro khi dùng trí tuệ nhân tạo (AI) cho tác vụ thường ngày, dù chưa rõ phiên bản mô hình đã dùng.",
-        "Về diễn biến, giáo sư Baude giao cho Claude cập nhật số trang trong tập tài liệu ghi chú bài giảng cũ trước giờ ăn trưa. Khi quay lại, ông thấy thông báo Claude đã xóa dữ liệu và hỏi người dùng cách khôi phục qua dịch vụ lưu trữ Dropbox.",
-        "Claude để lại lời nhắn thừa nhận đã xóa nhầm tệp đề cương Mùa thu 2026 và tập ghi chú bài giảng khi kiểm tra trang nhưng chưa chỉnh sửa nội dung. Tom's Hardware dẫn chứng thêm vụ việc một tác nhân AI (phần mềm tự động thao tác) của Claude từng xóa sạch cơ sở dữ liệu công ty trong 9 giây vào tháng 4.",
-        "Tom's Hardware nhận định sự cố là bài học về việc luôn phải sao lưu các tệp quan trọng khi để AI can thiệp. Tạp chí này lưu ý rủi ro thực tế được giảm thiểu do các tệp sau đó đã được khôi phục qua Dropbox."
+        "Claude vô tình xóa một năm ghi chú bài giảng Luật Hiến pháp cùng đề cương của giáo sư William Baude tại Đại học Chicago khi xử lý tài liệu. Theo Tom's Hardware, vị giáo sư cảnh báo rủi ro khi dùng trí tuệ nhân tạo (AI) cho tác vụ thường ngày, dù chưa rõ phiên bản mô hình được dùng.",
+        "Giáo sư Baude giao cho Claude cập nhật số trang trong tập tài liệu ghi chú bài giảng cũ trước giờ ăn trưa. Khi quay lại, ông thấy Claude thông báo đã xóa dữ liệu và hỏi liệu ông có thể khôi phục tệp từ Dropbox hay Claude nên thử lại từ khung trình duyệt.",
+        "Trong lời nhắn, Claude thừa nhận đã vô tình xóa tệp đề cương Mùa thu 2026 cùng toàn bộ ghi chú bài giảng năm 2023 khi kiểm tra trang nhưng chưa sửa nội dung. Tom's Hardware dẫn chứng thêm việc một tác nhân AI (phần mềm tự động thao tác) của Claude từng tự ý xóa sạch cơ sở dữ liệu công ty trong 9 giây vào tháng 4.",
+        "Tom's Hardware nhận định trải nghiệm này là bài học về việc luôn phải sao lưu các tệp quan trọng khi cho AI can thiệp. Các tệp bài giảng và đề cương sau đó đã được khôi phục qua Dropbox."
       ],
       "same_event_coverage_ids": [
         "84329fd4b0855e8e6f63"
@@ -73218,44 +73218,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.5,
+        "value": 10.0,
         "answers": {
           "what": 10,
-          "why": 9,
+          "why": 10,
           "notable": 10,
-          "meaning": 8
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "quote",
-            "summary_text": "hỏi người dùng cách khôi phục qua dịch vụ lưu trữ Dropbox",
-            "explanation": "Claude asked whether Baude could restore the files from Dropbox or whether Claude should retry from the browser pane; it did not ask him how to restore them (outlet:p025)."
-          },
-          {
-            "kind": "quote",
-            "summary_text": "Tạp chí này lưu ý rủi ro thực tế được giảm thiểu do các tệp sau đó đã được khôi phục qua Dropbox.",
-            "explanation": "The source reports that the files were recovered, but does not make this assessment of reduced risk; it continues to describe the error as concerning (outlet:p015, outlet:p028)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "notable",
-            "problem": "The recovery request changes who was being asked to act.",
-            "fix": "Say Claude asked whether Baude could restore the files from Dropbox, or whether Claude should retry through the browser pane (outlet:p025)."
-          },
-          {
-            "question": "meaning",
-            "problem": "The Vietnamese attributes an assessment of reduced risk to the publication.",
-            "fix": "State only that the files were later recovered through Dropbox, alongside the article’s backup lesson (outlet:p015, outlet:p025)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "29f9c49f6a0dbf9eab3f67495cbc9854797363e52478ebf53b76858a3d2ce7f1",
-        "scored_at": "2026-11-14T19:24:57.697165+00:00"
+        "prose_sha256": "b2637bab913237d0cef2a15fc026afc72413e3776300f68ee19e428251818d08",
+        "scored_at": "2026-11-14T21:06:30.619362+00:00"
       }
     },
     {
@@ -73275,7 +73253,7 @@
       "source_url": "https://techcrunch.com/2026/11/14/the-ai-graveyard-a-running-list-of-projects-and-startups-that-didnt-make-it/",
       "key_points": [
         "TechCrunch đã tổng hợp danh sách các dự án và thử nghiệm AI đáng chú ý từng đóng cửa, chuyển hướng hoặc không đạt kỳ vọng. Theo S&P Global Market Intelligence, khoảng 42% sáng kiến AI cuối cùng bị các công ty mẹ từ bỏ.",
-        "S&P Global Market Intelligence giải thích nguyên nhân dự án bị từ bỏ rất đa dạng, gồm thiếu vốn, thách thức kỹ thuật, cạnh tranh, khó mở rộng quy mô hoặc nhu cầu người dùng yếu. Với ứng dụng Ollie, CEO Bill Lennon cũng cho biết phải đóng cửa do không thể tạo khác biệt, khó tăng trưởng và thiếu vốn.",
+        "Theo TechCrunch, nguyên nhân các dự án bị từ bỏ rất đa dạng, bao gồm thiếu vốn, thách thức kỹ thuật, cạnh tranh, khó mở rộng quy mô hoặc nhu cầu người dùng yếu. Với ứng dụng Ollie, CEO Bill Lennon cũng cho biết phải đóng cửa do không thể tạo khác biệt, khó tăng trưởng và thiếu vốn.",
         "Điển hình là Character.ai đã nộp đơn xin phá sản vào đầu tháng 10 do trở ngại pháp lý, quy định và vận hành, dù từng được định giá 1 tỷ USD. OpenAI cũng đóng cửa nền tảng video Sora vào tháng 3 năm 2026 vì chi phí vận hành cao và khó giữ chân người dùng.",
         "TechCrunch nhận định danh sách này là bài học kinh nghiệm cho ngành AI thay vì chỉ là bảng điểm ghi nhận thất bại. Trang tin cũng đánh giá chiến lược tích hợp tính năng vào ChatGPT của OpenAI đã hiệu quả hơn so với đợt thiết kế lại giao diện trước đó."
       ],
@@ -73284,7 +73262,7 @@
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Theo S&P Global, khoảng 42% sáng kiến AI bị các công ty mẹ từ bỏ vì nhiều lý do khác nhau",
+      "editorial_headline_vi": "Theo S&P Global Market Intelligence, khoảng 42% sáng kiến AI bị các công ty mẹ từ bỏ",
       "summary_sources": [
         {
           "id": "outlet",
@@ -73299,34 +73277,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.25,
+        "value": 9.85,
         "answers": {
-          "what": 9,
-          "why": 8,
+          "what": 10,
+          "why": 10,
           "notable": 10,
-          "meaning": 10
+          "meaning": 9
         },
-        "hard_errors": [
-          {
-            "kind": "role",
-            "summary_text": "S&P Global Market Intelligence giải thích nguyên nhân dự án bị từ bỏ rất đa dạng",
-            "explanation": "The source attributes the 42% estimate to S&P Global Market Intelligence, but does not attribute its list of reasons to S&P (outlet:p007)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "why",
-            "problem": "The reader is told that S&P supplied the explanation for why projects were abandoned.",
-            "fix": "Attribute only the 42% estimate to S&P, then present the varied reasons as the article does (outlet:p007)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "af6207426410dd170c1dbce7981e59c4cbb326211afb1964ae16796413bc2c10",
-        "scored_at": "2026-11-14T19:24:57.697224+00:00"
+        "prose_sha256": "9075f1a9184166d35691ea6f7bb09d721817d1e0088007a9e30a8396424b09f4",
+        "scored_at": "2026-11-14T21:06:30.619419+00:00"
       }
     },
     {
@@ -73395,6 +73361,25 @@
       "same_event_coverage_ids": [
         "71479ca2d050c1b3a210",
         "92f481d0103d223edb43"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "ab8868c98afba7ff7991",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The main subject of the post is organizational dysfunction and why software platform teams fail; generative AI is only mentioned in passing as an accelerator rather than being the core focus.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://willdady.com/why-platform-teams-fail",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c8c0ac8cad974d57b6cb"
       ],
       "split_coverage_ids": []
     }
