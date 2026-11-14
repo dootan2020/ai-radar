@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-13T23:13:29.859884+00:00",
-  "input_generated_at": "2026-11-13T22:45:51Z",
+  "generated_at": "2026-11-14T01:08:58.030086+00:00",
+  "input_generated_at": "2026-11-14T00:45:34Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -60417,17 +60417,17 @@
       "use_original_title": false,
       "source_url": "https://www.semafor.com/article/11/12/2026/fallout-from-nvidia-ceos-likely-ouster-could-slow-gulf-ai-buildout",
       "key_points": [
-        "Kelsey Warner trên Semafor dự đoán nguy cơ Jensen Huang bị phế truất có thể ảnh hưởng các kế hoạch AI tại Vùng Vịnh, nơi các dự án phụ thuộc vào chip tiên tiến của Mỹ.",
-        "Bà dự đoán cáo buộc người phụ nữ có quan hệ với Huang là gián điệp Trung Quốc sẽ làm việc giám sát chặt hơn; các nghị sĩ đã thúc đẩy hạn chế mới đối với việc chuyển chip sai đích, có thể làm chậm phát triển tại Vùng Vịnh.",
-        "Bộ trưởng Thương mại Mỹ Howard Lutnick đã phê duyệt cung cấp hàng chục nghìn bộ xử lý đồ họa tiên tiến cho Saudi Arabia và UAE. Tại một hội nghị ở Dubai, doanh nhân Hussain Sajwani đánh giá nếu Huang buộc phải rời Nvidia, đó sẽ là tổn thất lớn.",
-        "Warner nhận định việc mất người lãnh đạo không nên làm suy giảm khả năng sản xuất chip của Nvidia; vấn đề cốt lõi với Vùng Vịnh vẫn là quyền tiếp cận nguồn cung."
+        "Kelsey Warner trên Semafor nhận định việc Jensen Huang nhiều khả năng mất chức sẽ tác động đến Vùng Vịnh, nơi các kế hoạch AI phụ thuộc vào chip tiên tiến của Mỹ.",
+        "Lo ngại Trung Quốc tiếp cận công nghệ Mỹ qua trung gian đã buộc các doanh nghiệp AI tại Vùng Vịnh như HUMAIN và G42 chật vật giành quyền tiếp cận chip, theo tác giả Kelsey Warner.",
+        "Bộ trưởng Thương mại Mỹ Howard Lutnick đã phê duyệt cung cấp hàng chục nghìn bộ xử lý đồ họa tiên tiến cho Saudi Arabia và UAE. Ông cũng bị cáo buộc trì hoãn xử lý một công ty Singapore liên quan đến bê bối Huang, nhưng Bộ Thương mại Mỹ phủ nhận cáo buộc này.",
+        "Warner nhận định việc mất người lãnh đạo không nên làm suy giảm khả năng sản xuất chip của Nvidia; với Vùng Vịnh, vấn đề cốt lõi vẫn là quyền tiếp cận nguồn cung."
       ],
       "same_event_coverage_ids": [
         "18a2d93c9305442eff57"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Semafor: Nguy cơ Huang mất chức có thể làm chậm kế hoạch AI ở Vùng Vịnh qua đường tiếp cận chip",
+      "editorial_headline_vi": "Semafor: Huang nhiều khả năng mất chức, quyền tiếp cận chip của Vùng Vịnh có thể khó hơn",
       "summary_sources": [
         {
           "id": "outlet",
@@ -60442,45 +60442,29 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 6.8,
+        "value": 6.5,
         "answers": {
-          "what": 7,
-          "why": 6,
-          "notable": 6,
-          "meaning": 9
+          "what": 8,
+          "why": 8,
+          "notable": 4,
+          "meaning": 6
         },
-        "hard_errors": [
-          {
-            "kind": "role",
-            "summary_text": "Bà dự đoán",
-            "explanation": "The source gives only the byline 'Kelsey Warner' (outlet:p004) and says nothing about the author's gender, so the pronoun 'Bà' is unsupported."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "cáo buộc người phụ nữ có quan hệ với Huang là gián điệp Trung Quốc",
-            "explanation": "The source says US intelligence officials allege the woman Huang had an affair with is a Chinese spy (outlet:p001). The Vietnamese drops who makes the allegation, so it reads as a vaguer or generic accusation."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "what",
-            "problem": "The source says Huang's ouster is 'likely' and that the fallout 'will reach the Gulf'. The Vietnamese turns this into a mere 'nguy cơ' (risk) and the headline into a conditional.",
-            "fix": "State that Huang is likely to be ousted, as in outlet:p001. Say the fallout will reach the Gulf, and that the lawmakers' curbs 'could threaten' the speed of development."
+            "question": "notable",
+            "problem": "The Vietnamese never says why Huang is likely to be ousted. The source says the cause is his affair with a woman US intelligence officials allege is a Chinese spy (outlet:p001).",
+            "fix": "State that Huang is alleged to have had an affair with a woman US intelligence officials say is a Chinese spy, and that this will sharpen scrutiny of Gulf chip access."
           },
           {
-            "question": "why",
-            "problem": "The Vietnamese does not give the source's stated reason for the pressure: fear that China gets US technology through intermediaries. It also omits that HUMAIN and G42 are already fighting for access.",
-            "fix": "Add that fear over China's access through intermediaries has forced HUMAIN and G42 to fight hard for chips (outlet:p001)."
+            "question": "meaning",
+            "problem": "The Vietnamese omits that lawmakers are pushing for new curbs on chip diversion, which could threaten the speed of Gulf AI development (outlet:p001). The headline's claim that access may get harder therefore has no stated basis in the body.",
+            "fix": "Add a sentence that lawmakers are pushing for new chip-diversion curbs that could slow the Gulf's AI development."
           },
           {
             "question": "notable",
-            "problem": "The Vietnamese omits the allegation that Lutnick stalled action against the Singapore firm tied to the scandal, and Commerce's denial. This leaves the paragraph on Lutnick one-sided.",
-            "fix": "Add that Lutnick faces allegations of stalling action against the Singapore firm and that Commerce denies them (outlet:p002)."
-          },
-          {
-            "question": "what",
-            "problem": "The Vietnamese attributes the allegation without naming US intelligence officials, and it adds the pronoun 'Bà' for the author.",
-            "fix": "Write 'quan chức tình báo Mỹ cáo buộc' and drop the gendered pronoun, using 'Warner' or a neutral form."
+            "problem": "The Vietnamese leaves out Hussain Sajwani's comment at the Bloomberg Invest conference. He called Nvidia the most important company in the world and said Huang's forced departure would be a big loss (outlet:p003).",
+            "fix": "Include a short attributed paraphrase of Sajwani's remarks as the Gulf business view."
           }
         ],
         "writer_boats": [
@@ -60489,8 +60473,8 @@
         ],
         "scorer_boat": "claude",
         "scorer_provider": "claude-code",
-        "prose_sha256": "e406d1f806846d0e2d7aaad35017a381d239fb562e3afdd77659f006ba4a0432",
-        "scored_at": "2026-11-13T23:12:00.650187+00:00"
+        "prose_sha256": "25f4e9f323cb7eeee1907d5ba553f1fca684619e2e5b61525b7b00b91c578cb4",
+        "scored_at": "2026-11-14T01:07:07.703878+00:00"
       }
     },
     {
@@ -69458,10 +69442,10 @@
       "use_original_title": false,
       "source_url": "https://www.slopmanifesto.com/",
       "key_points": [
-        "Các diễn giả và người tham dự AIE Code Summit 2026 lập tuyên ngôn No AI Slop, đặt kết quả, sự hiểu biết và chất lượng công việc lên trước lượng nội dung hay tốc độ tạo ra. Nhóm tác giả gọi nội dung là “slop” khi người tạo bỏ ra ít công sức hơn mức họ đòi người nhận dành để hiểu nó; theo họ, dùng AI tự nó không làm một sản phẩm thành “slop”.",
-        "Theo nhóm tác giả tuyên ngôn, chi phí tạo một PR nghìn dòng hoặc tài liệu mười trang đang tiến gần về không, trong khi chi phí rà soát chúng vẫn không đổi.",
-        "Nhóm tác giả cam kết nói rõ khi một công cụ AI tự thực hiện việc đã được giao viết nội dung họ gửi đi và kiểm tra những phần quan trọng trước khi gửi. Khi một lỗi lặp lại, họ đề xuất sửa hệ thống và dùng công cụ kiểm tra tự động cho những lỗi công cụ có thể bắt được.",
-        "Nhóm tác giả nhấn mạnh con người vẫn chịu trách nhiệm về thứ mình đưa ra và vẫn cần xem xét ít nhất một phần đầu ra AI, với mức xem xét tùy độ hệ trọng. Họ cũng thừa nhận đầu ra chưa được xem lại không phải lúc nào cũng kém và chưa có một câu trả lời đúng cho mọi trường hợp."
+        "Các diễn giả và người tham dự AIE Code Summit 2026 đưa ra tuyên ngôn No AI Slop, đề cao kết quả, sự hiểu biết và chất lượng công việc hơn lượng nội dung hay tốc độ tạo ra. Nhóm tác giả gọi một sản phẩm là “slop” khi người tạo bỏ ra ít công sức hơn mức họ đòi người nhận dành để hiểu nó; theo nhóm, chỉ riêng việc dùng AI không tạo ra “slop”.",
+        "Theo nhóm tác giả, áp lực tại các công ty góp phần tạo ra nội dung kém chất lượng, rồi nội dung lưu trong tài liệu, trò chuyện và mã lại bị công cụ AI đọc và sao chép. Họ cho rằng chi phí tạo một bản đề nghị sửa mã dài nghìn dòng đang tiến gần về không, trong khi công sức rà soát vẫn không đổi.",
+        "Nhóm tác giả cam kết nói rõ khi nội dung gửi đi do công cụ AI tự thực hiện tác vụ viết, đồng thời kiểm tra những phần quan trọng trước khi gửi. Nếu một lỗi xuất hiện hai lần, họ đề xuất sửa hệ thống và để công cụ kiểm tra tự động bắt những lỗi mà công cụ có thể phát hiện.",
+        "Nhóm tác giả muốn AI giúp công việc tốt hơn, không chỉ dễ hơn, và vẫn rà soát một phần đầu ra tùy mức độ hệ trọng. Họ cũng thừa nhận đầu ra chưa được xem lại không phải lúc nào cũng kém."
       ],
       "same_event_coverage_ids": [
         "29beca3d1f503595a9c5",
@@ -69469,7 +69453,7 @@
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Tuyên ngôn No AI Slop: Người dùng AI vẫn chịu trách nhiệm và rà soát đầu ra theo mức độ hệ trọng",
+      "editorial_headline_vi": "Tuyên ngôn No AI Slop kêu gọi người dùng AI chịu trách nhiệm về chất lượng đầu ra",
       "summary_sources": [
         {
           "id": "outlet",
@@ -69482,19 +69466,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.9,
+        "value": 8.65,
         "answers": {
           "what": 9,
-          "why": 7,
-          "notable": 10,
-          "meaning": 9
+          "why": 8,
+          "notable": 9,
+          "meaning": 8
         },
         "hard_errors": [],
         "findings": [
           {
-            "question": "why",
-            "problem": "The Vietnamese leaves out why slop spreads: pressure on people to redefine what is humanly possible (p020), compounding as agents copy existing slop (p021), and loss of will to fight it (p022).",
-            "fix": "Add one clause on pressure or compounding, and on the stated aim that AI should make work better, not just easier (p025)."
+            "question": "meaning",
+            "problem": "The manifesto's core stance that AI cannot replace human judgement and that people own intent and consequences (p017, p028) is not stated directly.",
+            "fix": "Add one clause saying humans keep responsibility for what they ship even when AI helps produce it."
           }
         ],
         "writer_boats": [
@@ -69502,8 +69486,8 @@
         ],
         "scorer_boat": "claude",
         "scorer_provider": "claude-code",
-        "prose_sha256": "29defeabbe7ab96ff5cdbd8fdd05e7e475bd8861c2f1ab1b47a162a1e812f550",
-        "scored_at": "2026-11-13T23:11:31.187395+00:00"
+        "prose_sha256": "19429c33733140473c0f31b32cf59d4eea4f87600d122ab068a14450e4e148e6",
+        "scored_at": "2026-11-14T01:06:45.514187+00:00"
       }
     },
     {
@@ -70049,10 +70033,10 @@
       "use_original_title": true,
       "source_url": "https://www.wired.com/story/silicon-valley-is-still-defending-jensen-huang/",
       "key_points": [
-        "Jensen Huang đã từ chức tại Nvidia sau thông tin về hai mối quan hệ tình cảm khác bị cáo buộc với nhân viên công ty, nhưng nhiều nhân vật Thung lũng Silicon vẫn công khai bênh vực ông. Theo WIRED, trước khi ông rời chức, nhân viên Nvidia vẫn làm việc như thường lệ và ít người nghĩ ông thực sự sẽ ra đi.",
-        "WIRED ghi nhận nhân viên gắn bó với người đã dẫn dắt Nvidia suốt 33 năm; họ quý việc Huang hiếm khi sa thải người và giữ thủ tục nội bộ gọn nhẹ.",
-        "Nhà đầu tư mạo hiểm Antonio Gracias công khai bảo vệ Huang trên X, cho rằng một sai lầm không xóa đi chặng đường lãnh đạo và đóng góp của ông cho Nvidia. WIRED cho biết giới chức và hội đồng quản trị Nvidia chưa chính thức cáo buộc Huang sai phạm trong quan hệ với Alice Huang; hội đồng đã thuê Wachtell Lipton điều tra.",
-        "Theo WIRED, Thung lũng Silicon lo bất ổn tại Nvidia có thể làm vỡ bong bóng AI, dù các nhà phân tích chưa chắc kịch bản đó sẽ xảy ra."
+        "Jensen Huang từ chức tại Nvidia sau thông tin về hai quan hệ tình cảm khác bị cáo buộc với nhân viên; trước đó, quan hệ của ông với Alice Huang, người bị nghi liên quan đến tình báo Trung Quốc, đã được tiết lộ. Giới chức và hội đồng quản trị Nvidia chưa chính thức cáo buộc ông sai phạm trong quan hệ với Alice Huang; hội đồng nói không tin ông đã làm lộ bí mật, nhưng đã thuê hãng luật điều tra.",
+        "Theo WIRED, nhân viên Nvidia quý trọng Huang vì ông hiếm khi sa thải người và giữ ít thủ tục trong 33 năm gắn bó với công ty. Hai nhân viên hiện tại và ba cựu nhân viên nói ban đầu công việc vẫn diễn ra bình thường, và ít người nghĩ ông thực sự sẽ rời chức.",
+        "Nhà đầu tư Antonio Gracias viết trên X rằng một sai lầm không xóa đi công lao của Huang; Sarah Guo cho rằng người sáng lập này xứng đáng tiếp tục lãnh đạo Nvidia.",
+        "Theo WIRED, cổ phiếu Nvidia gần đây xuống mức thấp nhất hơn một năm, còn hãng sẽ công bố kết quả kinh doanh quý mới nhất vào tuần sau."
       ],
       "same_event_coverage_ids": [
         "4d3e1ce9110184603436",
@@ -70060,7 +70044,7 @@
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Jensen Huang từ chức giữa thông tin về các quan hệ bị cáo buộc, giới công nghệ vẫn bênh vực",
+      "editorial_headline_vi": "Jensen Huang từ chức sau tin về các quan hệ bị cáo buộc, nhiều nhà đầu tư vẫn bênh vực",
       "summary_sources": [
         {
           "id": "outlet",
@@ -70073,24 +70057,34 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 7.1,
+        "value": 8.0,
         "answers": {
-          "what": 7,
-          "why": 9,
-          "notable": 6,
-          "meaning": 7
+          "what": 9,
+          "why": 10,
+          "notable": 7,
+          "meaning": 5
         },
         "hard_errors": [],
         "findings": [
           {
-            "question": "what",
-            "problem": "The reader is never told that the first affair was with Alice Huang, a businesswoman the source describes as an alleged asset of China's Ministry of State Security. The paragraph that names her gives no context.",
-            "fix": "State in the opening that the scandal began with the alleged affair with Alice Huang, reportedly tied to China's MSS, which China denies and the board says did not compromise secrets (p001, p008)."
+            "question": "meaning",
+            "problem": "The reader is not told that Silicon Valley fears Huang's exit could destabilise the AI boom or burst an AI bubble. This is the source's main stated implication, and an AI executive links it to Nvidia's startup funding and acquisitions.",
+            "fix": "Add one sentence: the industry worries instability at Nvidia could burst the AI bubble, though analysts are unsure, and one AI CEO says a new professional CEO would not keep funding startups (outlet:p012-p013)."
           },
           {
-            "question": "meaning",
-            "problem": "The market stakes are missing: shares are at their lowest in more than a year and earnings are due next week.",
-            "fix": "Add the share slump and the earnings date (p014)."
+            "question": "notable",
+            "problem": "The shock inside Nvidia is missing, along with the employee quote about the fall in three days. The text says only that staff carried on as usual at first.",
+            "fix": "State that the resignation stunned the company and the industry, citing the 'superhero cape' remark (outlet:p001, outlet:p004)."
+          },
+          {
+            "question": "what",
+            "problem": "Trump's remark that the FBI is looking into it, and China's denial that Alice Huang is a spy, are omitted. These two points limit how far the espionage angle can be read.",
+            "fix": "Add that China denies she is a spy and that Trump said the FBI is looking into it (outlet:p008)."
+          },
+          {
+            "question": "what",
+            "problem": "The text does not say who the two other alleged partners are or who reported them (a vice president per the NYT, an employee per Reuters).",
+            "fix": "Name the reporting outlets and the roles (outlet:p006)."
           }
         ],
         "writer_boats": [
@@ -70098,8 +70092,8 @@
         ],
         "scorer_boat": "claude",
         "scorer_provider": "claude-code",
-        "prose_sha256": "e5a41af6fea0e1afd6b5a180f65e39abb3e5c82c6fbf4470a2063cfda8f4e6eb",
-        "scored_at": "2026-11-13T21:14:48.068128+00:00"
+        "prose_sha256": "e7940f17401d01bc9159d06b85692da655eab4dc4acdb4be82bd79154c3a1924",
+        "scored_at": "2026-11-14T01:08:58.023961+00:00"
       }
     },
     {
@@ -70211,10 +70205,10 @@
       "use_original_title": false,
       "source_url": "https://www.wired.com/story/who-is-colette-kress-the-woman-who-could-succeed-jensen-huang/",
       "key_points": [
-        "Hội đồng quản trị Nvidia bổ nhiệm giám đốc tài chính Colette Kress làm CEO tạm quyền hôm thứ Năm sau khi đồng sáng lập Jensen Huang từ chức giữa bê bối quan hệ tình cảm với một nữ doanh nhân Trung Quốc. Kress gia nhập Nvidia năm 2013, sau hơn hai thập kỷ làm việc trong lĩnh vực tài chính tại Microsoft, Cisco và Texas Instruments.",
-        "Chủ tịch hội đồng quản trị Harvey Jones nói Kress hiểu sâu hoạt động, khách hàng và tài chính của Nvidia, đồng thời bày tỏ tin tưởng vào bà cùng đội ngũ lãnh đạo hỗ trợ. Theo WIRED, nhiều lãnh đạo công nghệ và nhà phân tích xem Kress là ứng viên rõ ràng nhờ thâm niên và uy tín của bà với giới đầu tư.",
-        "Trong các cuộc họp công bố kết quả kinh doanh, Kress thường trình bày nhu cầu khách hàng, giới hạn nguồn cung và những chỉ số tài chính của Nvidia. Nhà phân tích Patrick Moorhead nhận xét bà còn nắm lộ trình sản phẩm, từ hệ thống máy chủ quy mô lớn đến kết nối mạng và phần mềm.",
-        "WIRED cho biết cơ cấu điều hành từng để hàng chục lãnh đạo báo cáo trực tiếp cho Huang, nên ít người trong Nvidia hiểu tài chính công ty ở mức như Kress. Một cựu lãnh đạo Nvidia nhận xét Kress có thể nhận vai trò CEO ngay, nhưng bà không có cùng chuyên môn kỹ thuật như Huang."
+        "Hội đồng quản trị Nvidia bổ nhiệm giám đốc tài chính Colette Kress làm CEO tạm quyền hôm thứ Năm sau khi Jensen Huang từ chức giữa bê bối về quan hệ ngoài hôn nhân. Theo WIRED, quan chức Mỹ nghi người phụ nữ Trung Quốc có quan hệ với Huang là người của Bộ An ninh Quốc gia Trung Quốc.",
+        "Chủ tịch hội đồng quản trị Harvey Jones nói Kress hiểu sâu hoạt động, khách hàng và tài chính Nvidia, đồng thời bày tỏ tin tưởng vào bà cùng đội ngũ lãnh đạo hỗ trợ. WIRED cho biết cơ cấu công ty từng để hàng chục lãnh đạo báo cáo trực tiếp cho Huang, nên ít người ở Nvidia nắm tài chính công ty ở mức như Kress.",
+        "Hội đồng quản trị Nvidia đã mở cuộc điều tra độc lập về Huang sau bài báo của The New York Times về mối quan hệ này. The New York Times cũng đưa tin nhà chức trách Mỹ đang xem xét liệu một công ty liên quan đến Alice Huang có giúp doanh nghiệp Trung Quốc lách quy định xuất khẩu chip của Mỹ hay không.",
+        "Một cựu lãnh đạo Nvidia nhận xét Kress có thể nhận vị trí CEO ngay, nhưng bà không có cùng chuyên môn kỹ thuật như Huang. Người này nói Kress thường tránh vị trí tâm điểm công chúng; WIRED nhận xét phong cách đó có thể là thay đổi tạm thời phù hợp khi Huang đang bị chú ý gắt gao."
       ],
       "same_event_coverage_ids": [
         "53c70337f6954aac14b8",
@@ -70224,12 +70218,12 @@
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Nvidia bổ nhiệm giám đốc tài chính Colette Kress làm CEO tạm quyền sau khi Jensen Huang từ chức",
+      "editorial_headline_vi": "Nvidia bổ nhiệm Colette Kress làm CEO tạm quyền sau khi Jensen Huang từ chức giữa bê bối",
       "summary_sources": [
         {
           "id": "outlet",
           "role": "outlet",
-          "name": "wired",
+          "name": "www.wired.com",
           "url": "https://www.wired.com/story/who-is-colette-kress-the-woman-who-could-succeed-jensen-huang/"
         }
       ],
@@ -70237,29 +70231,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.2,
+        "value": 8.85,
         "answers": {
-          "what": 8,
-          "why": 9,
-          "notable": 9,
-          "meaning": 6
+          "what": 10,
+          "why": 8,
+          "notable": 8,
+          "meaning": 9
         },
         "hard_errors": [],
         "findings": [
           {
-            "question": "what",
-            "problem": "The Vietnamese presents the scandal as a plain romantic relationship. It drops that the affair was extramarital and that US officials suspect the woman is an asset of China's Ministry of State Security, which is the reason the scandal is serious.",
-            "fix": "Add that US officials believe the Chinese businesswoman is an asset of China's Ministry of State Security (p001)."
-          },
-          {
-            "question": "meaning",
-            "problem": "The Vietnamese leaves out the board's independent investigation into Huang. It also leaves out the reported US inquiry into whether a company linked to the woman helped Chinese firms evade chip export controls (p009).",
-            "fix": "Add one sentence that the board launched an independent investigation, and that The New York Times reported US authorities are examining a company linked to the woman over export-control evasion (p009)."
-          },
-          {
-            "question": "meaning",
-            "problem": "The source's closing point is that Kress's avoidance of public attention might be a welcome temporary change amid the scrutiny of Huang. The Vietnamese gives only her lack of technical expertise (p015, p016).",
-            "fix": "Add that she has shied away from the public spotlight, which the source says may suit Nvidia as a temporary change (p015, p016)."
+            "question": "notable",
+            "problem": "Kress's background and standing, namely 13 years at Nvidia, her relationship with Wall Street and her command of the product road map (p003, p006, p012), are omitted.",
+            "fix": "Add a short line on why analysts called her the logical choice."
           }
         ],
         "writer_boats": [
@@ -70267,8 +70251,8 @@
         ],
         "scorer_boat": "claude",
         "scorer_provider": "claude-code",
-        "prose_sha256": "5ff9f4b6ab7d6e3c6cc0ce0637140156003658b1ad0c936787f8da8932d6baaf",
-        "scored_at": "2026-11-13T21:14:48.068312+00:00"
+        "prose_sha256": "c337fe80daf241e07f62f13978ffb1bfdc695fd4938e3b71fe71a7e9a3da8739",
+        "scored_at": "2026-11-14T01:06:45.514321+00:00"
       }
     },
     {
@@ -70845,6 +70829,257 @@
       ],
       "split_coverage_ids": [
         "91790c28dd205ec089a0"
+      ]
+    },
+    {
+      "id": "a4f739b9a99b6b294921",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-14/white-house-urges-easing-liability-to-encourage-ai-disclosure",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "6b40677648a79d98655c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "0d05da62757cd65220d0",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The repository excerpt pitches the tool's capabilities without a substantive release announcement or independent reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/mjha-arya/DOC-foundry",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "600e4c71017bda449bde"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "e6113ad7f6b27b60c20e",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://fedscoop.com/irs-identity-theft-fraud-fighting-agentic-ai-tool/",
+      "key_points": [
+        "IRS đang thử một công cụ AI có thể tự thực hiện các bước lặp lại khi xử lý hồ sơ nghi gian lận thuế, theo một quan chức cơ quan này. Jim Clifford, lãnh đạo một bộ phận thuộc IRS, nói cơ quan đang xem xét dùng công cụ sau khi hệ thống học máy phát hiện dấu hiệu bất thường trong tờ khai thuế.",
+        "Ông kỳ vọng AI giúp nhân viên làm việc hiệu quả hơn bằng cách đảm nhận những bước lặp lại trong kiểm tra và giải quyết vụ nghi gian lận.",
+        "Clifford nêu các việc hành chính như sắp xếp thư từ với người nộp thuế và đọc những trang tài liệu họ gửi cho IRS. Ông muốn AI xem xét và tóm tắt phản hồi, lập hồ sơ vụ việc rồi chuyển cho nhân viên khi hồ sơ đã sẵn sàng để ra quyết định.",
+        "Theo Clifford, công cụ đang được thử cho khâu giải quyết hồ sơ; việc đưa ra quyết định vẫn thuộc con người. Ông chưa đưa ra thời điểm triển khai và nói IRS chỉ mở rộng công cụ sang lĩnh vực khác sau khi thử nghiệm chứng minh thành công."
+      ],
+      "same_event_coverage_ids": [
+        "d7ec42d85bf6d46413f6"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "IRS thử AI xử lý hồ sơ nghi gian lận thuế, còn quyết định vẫn thuộc nhân viên",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "fedscoop",
+          "url": "https://fedscoop.com/irs-identity-theft-fraud-fighting-agentic-ai-tool/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.5,
+        "answers": {
+          "what": 9,
+          "why": 8,
+          "notable": 8,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The reader does not see the stakes. The source cites GAO estimates of $116-304B in annual tax-fraud losses and about 1 billion monthly fraud attempts (p015, p017).",
+            "fix": "Add one sentence with the GAO range and cite it to GAO, as the source does."
+          },
+          {
+            "question": "why",
+            "problem": "The source ties the tool to the 'constraints' on how fast workers can work (p013). The Vietnamese gives only a generic efficiency motive.",
+            "fix": "Say the tool targets the limits on staff speed, while judgments stay with humans."
+          }
+        ],
+        "writer_boats": [
+          "codex"
+        ],
+        "scorer_boat": "claude",
+        "scorer_provider": "claude-code",
+        "prose_sha256": "822b0424e97bd5173a224098595890b24228bc61396e66b3f069bf9b6bdb7612",
+        "scored_at": "2026-11-14T01:03:50.364517+00:00"
+      }
+    },
+    {
+      "id": "4536e10993f7030af8c2",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The AWS post describes a customer's use of SageMaker and its reported results.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/production-mlops-at-gs-caltex-with-amazon-sagemaker-canvas-part-1/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "255b93dba6daebf70228"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "34f89a45631ccd21267c",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The URL identifies a September article resurfaced in November, with no new development supplied.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://arstechnica.com/ai/2026/09/faa-tees-up-875m-ai-tool-to-help-manage-air-traffic-congestion/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "2ac3a4da02ea37dcc877"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "ead7262bbfda6db2909d",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-13/morgan-stanley-s-shalett-incredibly-bullish-despite-ai-turmoil",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "5536f0fed8015dc936b5"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "beba080cddf14c5fcebb",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The social post promotes an upcoming AI image and video event rather than reporting a substantive AI development.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://x.com/ArtificialAnlys/status/2121328360324542667",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b935821e2a44c022ab4b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "a99dfdd20d85acbbb850",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The title, teaser, and URL identify an OpenAI customer story about Shield.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://openai.com/business/customer-stories/shield",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "77fd93a77ec18b835000"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "440a6a4d8067e932dd0b",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://x.com/ArtificialAnlys/status/2121137661180256653",
+      "key_points": [
+        "Artificial Analysis says Tencent's Hy4 ranks third on its Cyber Index with a score of 58%.",
+        "Artificial Analysis says Hy4 ranks first on CWE-Bench-AA."
+      ],
+      "same_event_coverage_ids": [
+        "ae5ded485ebd6b09a28b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "7e496c78c0f31f5a09c7",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/11/2026/tracking-how-jensen-huang-changed-his-stance-on-china",
+      "key_points": [
+        "Semafor analyzed 42 podcast interviews with Jensen Huang dating back to early 2022.",
+        "The analysis found that Huang spoke more favorably about China's strengths and more critically about export controls after the 2025 US restriction on Nvidia's chip made for China."
+      ],
+      "same_event_coverage_ids": [
+        "1eed5f05488ef9e0725d"
+      ],
+      "split_coverage_ids": [
+        "85f0ae8678d91e29cf0c",
+        "92f481d0103d223edb43"
       ]
     }
   ]
