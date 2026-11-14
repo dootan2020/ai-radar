@@ -104,7 +104,7 @@ def sources(now):
         source("hf-papers", "Hugging Face Daily Papers", "https://huggingface.co/api/daily_papers?limit=50", "papers", "paper", "huggingface"),
         source("hf-models-ranked", "Mô hình thịnh hành trên Hugging Face", "https://huggingface.co/api/models?sort=trendingScore&direction=-1&limit=20", "hf_trending", "repository", "huggingface", repo_type="model"),
         source("hf-spaces-ranked", "Space thịnh hành trên Hugging Face", "https://huggingface.co/api/spaces?sort=trendingScore&direction=-1&limit=20", "hf_trending", "repository", "huggingface", repo_type="space"),
-        source("github-ai", "Kho mã AI mới trên GitHub", "https://api.github.com/search/repositories?" + urlencode({"q": "topic:llm created:>=" + (now - timedelta(days=7)).date().isoformat(), "sort": "stars", "order": "desc", "per_page": 20}), "github", "repository", "github"),
+        source("github-ai", "Kho mã AI mới trên GitHub", "https://api.github.com/search/repositories?" + urlencode({"q": "topic:llm created:>=" + (now - timedelta(days=7)).date().isoformat(), "sort": "stars", "order": "desc", "per_page": 100}), "github", "repository", "github"),
     ])
     for row in result:
         if row["id"] in DISABLED:
