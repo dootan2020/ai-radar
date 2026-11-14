@@ -22,7 +22,7 @@ from time import monotonic
 from urllib.parse import urlsplit
 
 from radar.failure_alert import AlertError, GitHub
-from radar.health_alert import duration, reconcile_quiet
+from radar.health_alert import duration, duration_vi, reconcile_quiet
 from radar.health_probe import MAX_BYTES, ProbeError, fetch, parse_snapshot
 from radar.items import instant
 from radar.publication import EXPECTED_INTERVAL_SECONDS
@@ -158,7 +158,7 @@ def assess(now, ui, feed, past):
     generated = instant(ui.get("generated_at"))
     stories = ui.get("stories")
     if generated is None or not isinstance(stories, list) or not all(_valid_story(story) for story in stories):
-        unknowns.append("Live snapshot data/radar-ui.json is unavailable or has no generated_at or stories.")
+        unknowns.append("Không đọc được bản live data/radar-ui.json, hoặc thiếu generated_at hay danh sách tin.")
         generated, stories = None, None
 
     freshness = ui.get("freshness") if isinstance(ui.get("freshness"), dict) else {}
@@ -168,23 +168,23 @@ def assess(now, ui, feed, past):
     if generated is not None:
         build["age_seconds"] = int((now - generated).total_seconds())
         if interval is None:
-            unknowns.append("The live snapshot does not state its expected build interval.")
+            unknowns.append("Bản live không ghi nhịp build bình thường.")
         else:
             build["late"] = build["age_seconds"] > BUILD_LATE_FACTOR * interval
             if build["late"]:
-                problems.append(f"Last site build is {duration(build['age_seconds'])} old; "
-                                f"builds are expected every {duration(interval)}.")
+                problems.append(f"Build gần nhất của trang đã cách đây {duration_vi(build['age_seconds'])}, "
+                                f"trong khi bình thường {duration_vi(interval)} build một lần.")
 
     if not isinstance(past, dict):
-        unknowns.append(f"Story history (branch {STORY_BRANCH}) could not be read.")
+        unknowns.append(f"Không đọc được lịch sử tin (nhánh {STORY_BRANCH}).")
         past = None
     archive = past
     history = signals["story_history"] = {"head_at": iso(past["head_at"]) if past else None, "lag_seconds": None}
     if past and generated is not None:
         history["lag_seconds"] = int((generated - past["head_at"]).total_seconds())
         if history["lag_seconds"] > HISTORY_LAG_SECONDS:
-            unknowns.append(f"Story history stopped {duration(history['lag_seconds'])} before the live build; "
-                            "new stories cannot be seen until it catches up.")
+            unknowns.append(f"Lịch sử tin dừng trước bản build live {duration_vi(history['lag_seconds'])}; "
+                            "chưa thấy được tin mới cho tới khi nó bắt kịp.")
             archive = None
 
     window_start = None
@@ -216,14 +216,14 @@ def assess(now, ui, feed, past):
                                       "dispatches_since_last_story": None, "dispatches_at_least": False}
     times = past and past.get("newsroom")
     if not times:
-        unknowns.append(f"Newsroom dispatch history (branch {DECISIONS_BRANCH}) is unavailable.")
+        unknowns.append(f"Không đọc được lịch sử chạy newsroom (nhánh {DECISIONS_BRANCH}).")
     else:
         newsroom["last_dispatch_at"] = iso(times[0])
         newsroom["age_seconds"] = int((now - times[0]).total_seconds())
         newsroom["late"] = newsroom["age_seconds"] > NEWSROOM_LATE_AFTER_SECONDS
         if newsroom["late"]:
-            problems.append(f"Last newsroom dispatch was {duration(newsroom['age_seconds'])} ago; "
-                            "the newsroom runs every 2 hours.")
+            problems.append(f"Newsroom chạy lần gần nhất cách đây {duration_vi(newsroom['age_seconds'])}, "
+                            "trong khi bình thường 2 giờ chạy một lần.")
         if window_start is not None:
             newsroom["dispatches_since_last_story"] = sum(1 for stamp in times if stamp > window_start)
             newsroom["dispatches_at_least"] = (not past["newsroom_complete"]
@@ -235,16 +235,16 @@ def assess(now, ui, feed, past):
     signals["sources"] = {"enabled": len(enabled), "failing": len(failing), "failing_ids": failing[:20],
                           "late": None}
     if not enabled:
-        unknowns.append("The live snapshot lists no enabled sources.")
+        unknowns.append("Bản live không liệt kê nguồn nào đang bật.")
     else:
         signals["sources"]["late"] = len(failing) > SOURCE_FAILURE_SHARE * len(enabled)
         if signals["sources"]["late"]:
-            problems.append(f"{len(failing)} of {len(enabled)} enabled sources failed their last fetch.")
+            problems.append(f"{len(failing)} trên {len(enabled)} nguồn đang bật bị lỗi ở lần tải gần nhất.")
 
     intake = signals["intake"] = {"generated_at": None, "stories_in_window": None}
     feed_stories = feed.get("stories") if isinstance(feed, dict) else None
     if not isinstance(feed_stories, list):
-        unknowns.append("Intake snapshot data/radar-intake.json is unavailable.")
+        unknowns.append("Không đọc được bản intake data/radar-intake.json.")
     else:
         intake["generated_at"] = iso(instant(feed.get("generated_at")))
         if window_start is not None:
@@ -280,7 +280,7 @@ def collect_report(remote):
         past, error = None, str(failure)
     report = assess(datetime.now(timezone.utc), ui, feed, past)
     if error:
-        report["unknowns"].append(error)
+        report["unknowns"].append(f"Chi tiết lỗi đọc lịch sử: {error}")
     return report
 
 

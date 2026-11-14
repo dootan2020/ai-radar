@@ -89,7 +89,7 @@ class AssessTests(unittest.TestCase):
         self.assertEqual(report["diagnosis"], "pipeline")
         self.assertTrue(report["signals"]["newsroom"]["late"])
         self.assertEqual(report["signals"]["newsroom"]["dispatches_since_last_story"], 0)
-        self.assertTrue(any("newsroom" in problem for problem in report["problems"]))
+        self.assertTrue(any("newsroom" in problem.lower() for problem in report["problems"]))
 
     def test_many_failing_sources_is_a_pipeline_problem(self):
         sources = [{"id": f"s{n}", "ok": n < 5} for n in range(10)]
@@ -193,17 +193,38 @@ class ReconcileTests(unittest.TestCase):
         self.assertEqual(self.reconcile(self.report(6)), "created")
         method, url, payload = self.writes[0]
         self.assertEqual((method, url.rsplit("/", 1)[1]), ("POST", "issues"))
-        self.assertIn("6h 00m", payload["title"])
-        self.assertIn("quiet news", payload["title"])
+        self.assertEqual(payload["title"], "Halcyon: 6 giờ chưa có tin mới (có vẻ do ít tin)")
         self.assertIn(health_alert.QUIET_MARKER, payload["body"])
+        self.assertIn('<!-- radar-quiet-observation:{"checked_at": "2026-11-14T12:00:00Z"} -->', payload["body"])
         self.assertNotIn(health_alert.HEALTH_MARKER, payload["body"])
+        self.assertIn("đã **6 giờ** chưa có tin mới", payload["body"])
+        self.assertIn("Tin mới gần nhất: Last new story (id last-1), lên trang ở lần build lúc 13:00 ngày 14/11",
+                      payload["body"])
+        self.assertIn("Chẩn đoán: **có vẻ do ít tin**", payload["body"])
         self.assertIn("Owner: @owner", payload["body"])
-        self.assertIn("Last newsroom dispatch", payload["body"])
-        self.assertIn("Last site build", payload["body"])
-        self.assertIn("2 intake stories", payload["body"])
+        self.assertIn("Lần chạy newsroom gần nhất: 18:30 ngày 14/11, 30 phút trước", payload["body"])
+        self.assertIn("Build gần nhất của trang: 18:50 ngày 14/11, 10 phút trước", payload["body"])
+        self.assertIn("1 trên 10 nguồn đang bật bị lỗi (s9)", payload["body"])
+        self.assertIn("2 tin intake", payload["body"])
         later = self.report(6.5, at=NOW + timedelta(minutes=30))
         self.assertEqual(self.reconcile(later), "updated")
         self.assertEqual(len(self.issues), 1)
+
+    def test_vietnamese_duration_labels_and_lower_bound(self):
+        self.assertEqual([health_alert.duration_vi(value) for value in (2700, 10800, 18720)],
+                         ["45 phút", "3 giờ", "5 giờ 12 phút"])
+        pipeline = freshness_watch.assess(NOW, site(), intake(1), history(newsroom_hours=(7, 9)))
+        self.assertEqual(self.reconcile(pipeline), "created")
+        payload = self.writes[-1][2]
+        self.assertEqual(payload["title"], "Halcyon: 6 giờ chưa có tin mới (có vẻ pipeline lỗi)")
+        self.assertIn("- Lỗi: Newsroom chạy lần gần nhất cách đây 7 giờ", payload["body"])
+        past = history()
+        past["additions"] = {}
+        unknown = freshness_watch.assess(NOW + timedelta(minutes=15), site(), None, past)
+        self.reconcile(unknown)
+        payload = self.writes[-1][2]
+        self.assertEqual(payload["title"], "Halcyon: 120 giờ 15 phút trở lên chưa có tin mới (chưa chẩn đoán được)")
+        self.assertIn("- Chưa đo được: Không đọc được bản intake", payload["body"])
 
     def test_new_story_closes_the_issue_and_old_quiet_report_cannot_reopen(self):
         quiet = self.report(6)
@@ -211,7 +232,7 @@ class ReconcileTests(unittest.TestCase):
         fresh = self.report(0.2, at=NOW + timedelta(minutes=15))
         self.assertEqual(self.reconcile(fresh), "resolved")
         self.assertEqual(self.issues[0]["state"], "closed")
-        self.assertIn("New story", self.issues[0]["body"])
+        self.assertIn("Đã có tin mới lên trang: Last new story", self.issues[0]["body"])
         self.assertEqual(self.reconcile(quiet), "superseded")
         self.assertEqual(self.reconcile(self.report(0.3, at=NOW + timedelta(minutes=30))), "unchanged")
 

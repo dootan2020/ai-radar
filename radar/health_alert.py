@@ -86,67 +86,79 @@ def reconcile_report(report, api, repository, run_id, run_attempt, owner):
 
 QUIET_MARKER = "<!-- radar-quiet-feed -->"
 QUIET_OBSERVATION_PATTERN = r"<!-- radar-quiet-observation:(\{[^\n]+\}) -->"
-DIAGNOSIS_LABELS = {"quiet-news": "looks like quiet news", "pipeline": "looks like a pipeline problem",
-                    "unknown": "diagnosis unknown"}
+# The quiet-feed issue is read by the site owner, in Vietnamese; markers and metadata stay machine-readable.
+DIAGNOSIS_LABELS = {"quiet-news": "có vẻ do ít tin", "pipeline": "có vẻ pipeline lỗi",
+                    "unknown": "chưa chẩn đoán được"}
 DISPLAY_TZ = timezone(timedelta(hours=7))
 
 
 def duration(seconds):
+    """Compact duration for logs: 5h 12m."""
     minutes = int(seconds) // 60
     return f"{minutes // 60}h {minutes % 60:02d}m"
 
 
+def duration_vi(seconds):
+    """Duration for the owner: 5 giờ 12 phút, 45 phút, 3 giờ."""
+    hours, minutes = divmod(int(seconds) // 60, 60)
+    if not hours:
+        return f"{minutes} phút"
+    return f"{hours} giờ {minutes} phút" if minutes else f"{hours} giờ"
+
+
 def local_time(value):
     stamp = instant(value)
-    return stamp.astimezone(DISPLAY_TZ).strftime("%d/%m %H:%M (+07:00)") if stamp else "unknown"
+    return stamp.astimezone(DISPLAY_TZ).strftime("%H:%M ngày %d/%m") if stamp else "không rõ"
 
 
 def age(seconds):
-    return f"{duration(seconds)} ago" if isinstance(seconds, int) else "age unknown"
+    return f"{duration_vi(seconds)} trước" if isinstance(seconds, int) else "không rõ bao lâu"
 
 
 def quiet_body(report, run_url, owner):
     """The quiet-feed issue: how long, the last new story, and the measured signals behind the diagnosis."""
     signals = report["signals"]
     plus = "+" if report["quiet_at_least"] else ""
+    quiet = duration_vi(report["quiet_seconds"]) + (" trở lên" if plus else "")
     lines = [QUIET_MARKER, "<!-- radar-quiet-observation:" + json.dumps({"checked_at": report["checked_at"]},
                                                                         sort_keys=True) + " -->",
-             f"No new story on [{SITE_URL}]({SITE_URL}) for **{duration(report['quiet_seconds'])}{plus}** "
-             f"(this alert opens after {duration(report['threshold_seconds'])}).",
-             f"Checked at {local_time(report['checked_at'])}. [Monitor run and logs]({run_url})."]
+             f"[{SITE_URL}]({SITE_URL}) đã **{quiet}** chưa có tin mới "
+             f"(cảnh báo bật khi quá {duration_vi(report['threshold_seconds'])}).",
+             f"Kiểm tra lúc {local_time(report['checked_at'])}. [Lượt kiểm tra và log]({run_url})."]
     last = report.get("last_new_story")
     if last:
-        lines.append(f"Last new story: {plain(last.get('title') or last['id'], 300)} (id {plain(last['id'], 40)}), "
-                     f"first published by the build at {local_time(last['appeared_at'])}.")
+        lines.append(f"Tin mới gần nhất: {plain(last.get('title') or last['id'], 300)} (id {plain(last['id'], 40)}), "
+                     f"lên trang ở lần build lúc {local_time(last['appeared_at'])}.")
     else:
-        lines.append("No story in the fetched story history (about a week) is newer than its start, "
-                     "so the quiet time is a lower bound.")
+        lines.append("Trong khoảng lịch sử đã tải (khoảng một tuần) không có tin nào mới hơn điểm bắt đầu, "
+                     "nên thời gian im ở trên là mức tối thiểu.")
     label = DIAGNOSIS_LABELS[report["diagnosis"]]
-    lines.append(f"Diagnosis: **{label}**.")
+    lines.append(f"Chẩn đoán: **{label}**.")
     for text in report["problems"]:
-        lines.append(f"- Problem: {plain(text, 300)}")
+        lines.append(f"- Lỗi: {plain(text, 300)}")
     for text in report["unknowns"]:
-        lines.append(f"- Unknown: {plain(text, 300)}")
+        lines.append(f"- Chưa đo được: {plain(text, 300)}")
     build, newsroom = signals["build"], signals["newsroom"]
     sources, intake = signals["sources"], signals["intake"]
     interval = build.get("expected_interval_seconds")
     since = newsroom.get("dispatches_since_last_story")
-    lines += ["Measured signals:",
-              f"- Last site build: {local_time(build.get('generated_at'))}, {age(build.get('age_seconds'))}"
-              + (f"; expected every {duration(interval)}." if interval else "."),
-              f"- Last newsroom dispatch: {local_time(newsroom.get('last_dispatch_at'))}, "
-              f"{age(newsroom.get('age_seconds'))}; dispatches since the last new story: "
-              + (f"{since}{'+' if newsroom.get('dispatches_at_least') else ''}." if since is not None else "unknown."),
-              f"- Sources: {sources['failing']} of {sources['enabled']} enabled sources failing"
+    lines += ["Số đo:",
+              f"- Build gần nhất của trang: {local_time(build.get('generated_at'))}, {age(build.get('age_seconds'))}"
+              + (f"; bình thường {duration_vi(interval)} build một lần." if interval else "."),
+              f"- Lần chạy newsroom gần nhất: {local_time(newsroom.get('last_dispatch_at'))}, "
+              f"{age(newsroom.get('age_seconds'))}; số lần chạy từ tin mới gần nhất: "
+              + (f"{since}{' trở lên' if newsroom.get('dispatches_at_least') else ''}." if since is not None
+                 else "không rõ."),
+              f"- Nguồn: {sources['failing']} trên {sources['enabled']} nguồn đang bật bị lỗi"
               + (f" ({plain(', '.join(sources['failing_ids'][:10]), 300)})." if sources["failing_ids"] else "."),
-              "- Intake: " + (f"{intake['stories_in_window']} intake stories with a source time since the last new "
-                              "story (candidates the newsroom could publish)."
-                              if intake.get("stories_in_window") is not None else "unknown.")]
-    lines.append("Updates edit this issue without comments. The next new story on the site closes it. "
-                 "This alert is separate from the live health incident and the update failure alert.")
+              "- Intake: " + (f"{intake['stories_in_window']} tin intake có giờ đăng ở nguồn sau tin mới gần nhất "
+                              "(ứng viên newsroom có thể đăng)."
+                              if intake.get("stories_in_window") is not None else "không rõ.")]
+    lines.append("Issue này được cập nhật bằng cách sửa nội dung, không thêm bình luận. Tin mới tiếp theo lên trang "
+                 "sẽ tự đóng nó. Cảnh báo này tách riêng với sự cố sức khoẻ trang và cảnh báo update lỗi.")
     if re.fullmatch(r"[A-Za-z0-9-]+", owner):
-        lines.append(f"Owner: @{owner}. Notification delivery depends on GitHub account/repository settings.")
-    title = f"Halcyon: no new story for {duration(report['quiet_seconds'])}{plus} ({label})"
+        lines.append(f"Owner: @{owner}. Thông báo đến hay không tuỳ cài đặt tài khoản/repository trên GitHub.")
+    title = f"Halcyon: {quiet} chưa có tin mới ({label})"
     return {"title": title, "body": "\n\n".join(lines)}
 
 
@@ -173,9 +185,9 @@ def reconcile_quiet(report, api, repository, run_id, run_attempt, owner):
         last = report.get("last_new_story") or {}
         for issue in open_issues:
             body = re.sub(QUIET_OBSERVATION_PATTERN + r"\s*", "", issue["body"])
-            body += (f"\n\nNew story on the site: {plain(last.get('title') or last.get('id') or 'unknown', 300)}, "
-                     f"first published at {local_time(last.get('appeared_at'))}. Closed at "
-                     f"{local_time(report['checked_at'])}. [Monitor run and logs]({run_url}).\n\n{observation}")
+            body += (f"\n\nĐã có tin mới lên trang: {plain(last.get('title') or last.get('id') or 'không rõ', 300)}, "
+                     f"lên lúc {local_time(last.get('appeared_at'))}. Tự đóng lúc "
+                     f"{local_time(report['checked_at'])}. [Lượt kiểm tra và log]({run_url}).\n\n{observation}")
             api.request("PATCH", f"/issues/{int(issue['number'])}",
                         {"body": body, "state": "closed", "state_reason": "completed"})
         return "resolved" if open_issues else "unchanged"
