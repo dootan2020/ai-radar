@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-14T21:06:30.624103+00:00",
-  "input_generated_at": "2026-11-14T20:52:26Z",
+  "generated_at": "2026-11-14T23:17:55.327384+00:00",
+  "input_generated_at": "2026-11-14T22:46:05Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -73382,6 +73382,149 @@
         "c8c0ac8cad974d57b6cb"
       ],
       "split_coverage_ids": []
+    },
+    {
+      "id": "fc1d70bba296bc73c153",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "top",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/14/elon-musk-other-tech-execs-sign-petition-calling-on-nvidia-to-reinstate-jensen-huang/",
+      "key_points": [
+        "Theo TechCrunch, bản kiến nghị kêu gọi tập đoàn Nvidia phục chức cho cựu CEO Jensen Huang dường như đã thu hút hơn 115.000 chữ ký tính đến chiều thứ Bảy.",
+        "Bản kiến nghị nêu rõ người ký lo ngại Jensen Huang bị bãi nhiệm thiếu quy trình hợp thức và yêu cầu hội đồng quản trị đưa ông trở lại trong khi điều tra độc lập. Trước đó, ông Huang từ chức sau khi thừa nhận có quan hệ tình cảm với một lãnh đạo ngành chip bị tình báo Mỹ nghi là gián điệp Trung Quốc.",
+        "Nhiều lãnh đạo công nghệ nổi bật đã ký ủng hộ, bao gồm CEO Elon Musk của Tesla và SpaceX, CEO Tim Sweeney của Epic Games cùng CEO Garry Tan của Y Combinator. Theo trang web kiến nghị, danh sách ký tên còn gồm 5.965 nhân viên hiện tại của Nvidia, 1.108 cựu nhân viên và 63.063 cổ đông.",
+        "Theo TechCrunch, việc ông Huang rời nhiệm sở được dự báo để lại khoảng trống vốn lớn cho ngành trí tuệ nhân tạo (AI), giữa lúc giá cổ phiếu Nvidia giảm 2% vào thứ Sáu."
+      ],
+      "same_event_coverage_ids": [
+        "47ac71e0b702033bcf28",
+        "7f63bc02db77077d65e9"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Elon Musk cùng hơn 115.000 người ký kiến nghị yêu cầu Nvidia phục chức cho Jensen Huang",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/14/elon-musk-other-tech-execs-sign-petition-calling-on-nvidia-to-reinstate-jensen-huang/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.4,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "de0ffa4cf61200a26e113ce944281506e0aa5d5a46a694184211ed7c70e14508",
+        "scored_at": "2026-11-14T23:17:55.288759+00:00"
+      }
+    },
+    {
+      "id": "44ba73072cfb5d39c165",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The page is a promotional GitHub repository and landing page featuring sales copy and download links for Capri-AI without independent journalistic reporting or a documented release announcement.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/Outpostkrewhirl86/Capri-AI",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "8239e0b93d5a78c21c5f"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "393df3c75192d4f85a31",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://epyhia.com/new-access-to-justice-benchmark-finds-leading-ai-models-miss-critical",
+      "key_points": [
+        "Theo Vals AI và NextLadder Ventures, không mô hình nào trong 23 hệ thống AI đạt ngưỡng 80% để làm kênh tư vấn tin cậy trong bộ điểm chuẩn (tiêu chuẩn đánh giá năng lực) Access to Justice. Trong 252 kịch bản mô phỏng, mô hình dẫn đầu là Qwen 3.8 Max của Alibaba cũng chỉ đạt 76,4%.",
+        "Báo cáo của Vals AI giải thích các mô hình đọc đủ luật nhưng hiếm khi mở trang trợ giúp hay tòa án địa phương để chỉ đúng nơi liên hệ. Bài kiểm tra được thiết kế nhằm đo lường khả năng xử lý rắc rối pháp lý dân sự thực tế của người thu nhập thấp, với dữ kiện chỉ cung cấp khi mô hình chủ động hỏi.",
+        "Mọi mô hình đều đạt 78–87% tiêu chí giải thích luật chung, nhưng chỉ đạt 30–50% tiêu chí xác định nguồn lực cụ thể như cơ quan trợ giúp địa phương hay biểu mẫu tòa án. Trái lại, nhóm miễn phí đạt điểm trung bình 69,7%, bám sát mức 70,4% của bản trả phí, trong đó Claude Sonnet 5.5 miễn phí thậm chí vượt Claude Opus 5.5 tới 1,2 điểm.",
+        "Bài viết lưu ý các thử nghiệm chạy qua giao diện lập trình (API), vốn chỉ xấp xỉ chứ không phản ánh đúng trải nghiệm của người dùng trên chatbot thực tế."
+      ],
+      "same_event_coverage_ids": [
+        "7f2c31456c4db10ca578"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Thử nghiệm 23 mô hình AI: Không đại diện nào đạt chuẩn 80% tin cậy về trợ giúp pháp lý",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://epyhia.com/new-access-to-justice-benchmark-finds-leading-ai-models-miss-critical"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.65,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The reader misses how widespread the fallback to generic directories was.",
+            "fix": "Add that 21 of 23 models used national directories in at least 70% of their final answers instead of naming the relevant local office (outlet:p006)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The free-versus-premium comparison lacks its qualification.",
+            "fix": "Note that the tier assignments are Vals AI’s estimates, not confirmed provider mappings (outlet:p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "5ac65f723d457169fb34f8f7aac67581ba743e6dc4b45fcffe57054324965f3a",
+        "scored_at": "2026-11-14T23:15:25.597204+00:00"
+      }
     }
   ]
 }
