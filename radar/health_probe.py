@@ -153,7 +153,7 @@ class Homepage(HTMLParser):
                 self.markers.add("feed")
 
 
-def fetch(url, deadline):
+def fetch(url, deadline, limit=MAX_BYTES):
     remaining = deadline - monotonic()
     if remaining <= 0:
         raise ProbeError("Probe deadline exceeded.")
@@ -170,9 +170,9 @@ def fetch(url, deadline):
                     raise ProbeError("Probe deadline exceeded.")
                 # One buffered/socket read lets us re-check the overall deadline
                 # between chunks, even when a server drips a response slowly.
-                block = response.read1(min(65536, MAX_BYTES + 1 - size))
+                block = response.read1(min(65536, limit + 1 - size))
                 size += len(block)
-                if size > MAX_BYTES:
+                if size > limit:
                     raise ProbeError("Response exceeds size limit.")
                 if not block:
                     break
