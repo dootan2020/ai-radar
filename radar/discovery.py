@@ -1,13 +1,52 @@
 """Anonymous paper and repository APIs; original counters only."""
 
 import json
+import logging
 import re
+from collections import defaultdict
+from datetime import datetime, timedelta
 from urllib.parse import quote
 
 from radar.common import web_url
 from radar.huggingface import _repo_id
 from radar.items import observation
 from radar.items import relevant
+
+
+GITHUB_AI_MAX_REPOSITORIES = 20
+
+
+def _github_flood_signatures(rows):
+    """Find repeated names and descriptions created by five owners within ten minutes."""
+    groups = defaultdict(list)
+    for row in rows:
+        if not isinstance(row, dict) or not _repo_id(row.get("full_name")):
+            continue
+        description = row.get("description")
+        if not isinstance(description, str) or not description.strip():
+            continue
+        created = row.get("created_at")
+        if not isinstance(created, str):
+            continue
+        try:
+            instant = datetime.fromisoformat(created.replace("Z", "+00:00"))
+        except ValueError:
+            continue
+        if instant.tzinfo is None:
+            continue
+        owner, name = row["full_name"].split("/", 1)
+        groups[(name.casefold(), description.strip().casefold())].append((instant, owner.casefold()))
+
+    floods = set()
+    for signature, entries in groups.items():
+        entries.sort()
+        for start, (begin, _) in enumerate(entries):
+            owners = {owner for instant, owner in entries[start:]
+                      if instant - begin <= timedelta(minutes=10)}
+            if len(owners) >= 5:
+                floods.add(signature)
+                break
+    return floods
 
 
 def parse_papers(text, source, observed_at):
@@ -64,17 +103,31 @@ def parse_github(text, source, observed_at):
     data = json.loads(text)
     if not isinstance(data, dict) or not isinstance(data.get("items"), list):
         raise ValueError("Expected GitHub search items array")
+    floods = _github_flood_signatures(data["items"]) if source.get("id") == "github-ai" else set()
     result = []
+    usable = 0
+    dropped = 0
     for row in data["items"]:
         if not isinstance(row, dict) or not _repo_id(row.get("full_name")):
+            continue
+        usable += 1
+        description = row.get("description")
+        signature = (row["full_name"].split("/", 1)[1].casefold(),
+                     description.strip().casefold() if isinstance(description, str) else "")
+        if signature in floods:
+            dropped += 1
             continue
         item = observation(source, row["full_name"], row.get("html_url"), row.get("created_at"), observed_at,
                            kind="repository", summary=row.get("description", ""), time_basis="repository_created",
                            metrics={"stars": row.get("stargazers_count"), "forks": row.get("forks_count")})
         if item:
             result.append(item)
-    if data["items"] and not result:
+    if dropped:
+        logging.getLogger(__name__).warning("github-ai filtered %d coordinated repository copies", dropped)
+    if data["items"] and not result and not (dropped and dropped == usable):
         raise ValueError("GitHub search has no usable repositories")
+    if source.get("id") == "github-ai":
+        result = result[:GITHUB_AI_MAX_REPOSITORIES]
     return result
 
 
