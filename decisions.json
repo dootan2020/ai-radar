@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-14T13:27:41.962718+00:00",
-  "input_generated_at": "2026-11-14T12:45:51Z",
+  "generated_at": "2026-11-14T15:30:33.922407+00:00",
+  "input_generated_at": "2026-11-14T14:46:07Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -72733,6 +72733,288 @@
         "c5fda8f9b4121589429c",
         "d61bbae172c79820a09b",
         "dcf6c141f246ce2bfbad"
+      ]
+    },
+    {
+      "id": "55a11bd02878a263b65c",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-14/nvidia-looks-for-a-new-era-after-huang-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "7e0608ab20822e469c9b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "833da9060d936fffac1f",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-14/couples-are-bringing-ai-into-their-arguments-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "373d007f39f23ebd40d2"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "f9c9f7d4b02bb4b626b2",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.netmeister.org/blog/claude-delusion.html",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "95570a1a03dc62505e02"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "7f554d543072bd6350e7",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.wired.com/story/beware-the-new-ai-fueled-ransomware-boom/",
+      "key_points": [
+        "Số vụ tấn công đòi tiền chuộc bị cáo buộc tăng vọt lên gần 3.000 vụ vào mùa hè, theo ước tính được Wired trích dẫn. Cynthia Kaiser tại Halcyon cho biết các cuộc tấn công quốc tế thúc đẩy phần lớn mức tăng, trong khi hoạt động ở Mỹ ổn định nhưng vẫn cao.",
+        "Trí tuệ nhân tạo thúc đẩy kẻ đe dọa tự lập nhóm riêng, theo Brandon Tirado tại ReliaQuest. Giới nghiên cứu cho biết nhiều tin tặc đơn độc tự tách ra thay vì phụ thuộc dịch vụ mã độc tống tiền truyền thống.",
+        "Một thiếu niên thiếu kinh nghiệm kiếm hơn 800.000 USD trong chưa đầy hai tuần khi điều hành một nhóm mới, theo Brandon Tirado. Các nhóm mới như Global Secret Group và Storm nhanh chóng nêu hàng chục nạn nhân, dù Wired lưu ý không phải mọi vụ tấn công đều có thật.",
+        "Nhiều nhóm mới có thể bùng lên rồi lụi tàn vì thiếu tri thức tổ chức và tài nguyên, theo Cynthia Kaiser tại Halcyon khi chưa rõ hiệu quả dài hạn. Allan Liska tại Recorded Future chỉ ra dù tổng số vụ tấn công tăng mạnh, số vụ liên quan đến mã hóa có thể giảm so với cùng kỳ."
+      ],
+      "same_event_coverage_ids": [
+        "6624d668ba15d6ab7917"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Gần 3.000 vụ đòi tiền chuộc được tuyên bố khi tin tặc dùng AI để tự lập nhóm riêng",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "wired",
+          "url": "https://www.wired.com/story/beware-the-new-ai-fueled-ransomware-boom/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.5,
+        "answers": {
+          "what": 9,
+          "why": 8,
+          "notable": 8,
+          "meaning": 9
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "không phải mọi vụ tấn công đều có thật",
+            "explanation": "This states that some attacks are false. The source says only that not all claimed attacks may be legitimate, leaving their validity uncertain (outlet:p009)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "Readers do not learn that nearly 3,000 is an estimate of alleged attacks posted on leak sites, rather than a verified attack count.",
+            "fix": "Identify the leak-site claims and, if space allows, give the estimated 20 to 40 percent rise since spring (outlet:p003)."
+          },
+          {
+            "question": "notable",
+            "problem": "The text turns uncertainty about new groups’ attack claims into a definite assertion that some are false.",
+            "fix": "Say that some claims may not be legitimate (outlet:p009)."
+          },
+          {
+            "question": "why",
+            "problem": "The account of AI’s role loses the source’s limits on how much of the rise AI explains.",
+            "fix": "Attribute the partial AI explanation to Kaiser and note that successful ransomware groups are still largely human operated (outlet:p004–p006)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "2f97b0c7873726d269b49be8a3372d14fab7a45fafd0930f4089ee75ba3ccbdf",
+        "scored_at": "2026-11-14T15:26:56.221299+00:00"
+      }
+    },
+    {
+      "id": "696385c226d8d23864bf",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Business and political reporting focused on electrical grid cost pressures and utility regulation following a Democratic election sweep, with AI referenced only incidentally as general background context.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-14/tech-giants-face-more-grid-cost-pressure-on-democratic-sweep",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "cac084baecd3e79f2ea0"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "b784810f102fdfac3220",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-14/nvidia-s-leadership-shakeup-tests-ai-chip-giant-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c3d252545759c37dfce5"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "4323ac04c413979b166c",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare GitHub repository page without release notes, documentation of a substantive launch, or independent news reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/Blendoasheave/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "f72f4bfb49284aaf7265"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "1e80783e13bbcfcf3a04",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare GitHub repository page without release notes, documentation of a substantive launch, or independent news reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/AvenueBudgieShop/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "fe3ffa24eb83253bec77"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "80668eea4214cde79a39",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare GitHub repository page without release notes, documentation of a substantive launch, or independent news reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/Analogflitempo/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "9ffefb3fd9e95f8776c5"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "637956ddba1101475094",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare GitHub repository page without release notes, documentation of a substantive launch, or independent news reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/Lowbydemodulator/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "4936d1512ac0a9f9dcea"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "3948019be6e44cc8e9c4",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.scmp.com/plus/tech/tech-war/article/3374341/jensen-huang-quits-china-trade-surplus-hits-us1-trillion-xi-trump-summit",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "0d107f49c7acf2979f23",
+        "99ab26f41032156f76b4",
+        "e997e2436746216ca8b7"
+      ],
+      "split_coverage_ids": [
+        "b040cb2d5e8a4fb8d1a8"
       ]
     }
   ]
