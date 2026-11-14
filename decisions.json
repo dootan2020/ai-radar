@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-14T15:30:33.922407+00:00",
-  "input_generated_at": "2026-11-14T14:46:07Z",
+  "generated_at": "2026-11-14T17:21:14.605660+00:00",
+  "input_generated_at": "2026-11-14T16:46:03Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -72612,10 +72612,10 @@
       "use_original_title": false,
       "source_url": "https://techcrunch.com/2026/11/12/jensen-huangs-exit-puts-nvidias-support-for-open-source-in-question/",
       "key_points": [
-        "CEO Jensen Huang của Nvidia từ chức sau bê bối tình ái khi thừa nhận có mối quan hệ với một người bị nghi là gián điệp Trung Quốc. TechCrunch nhận định sự việc làm dấy lên quan ngại an ninh tại Mỹ và khiến cam kết của Nvidia đối với cộng đồng AI mã nguồn mở bị đặt dấu hỏi.",
-        "Theo TechCrunch, mở rộng hệ sinh thái khi các đối tác lớn tự phát triển chip là động lực kinh doanh cốt lõi khiến Nvidia tích cực ủng hộ mã nguồn mở. Việc có thêm nhiều đơn vị huấn luyện và vận hành mô hình mở giúp hãng bán được nhiều GPU hơn và giảm lệ thuộc vào các đối tác lớn như Google hay OpenAI.",
-        "Thương vụ mua lại nền tảng Hugging Face trị giá 13 tỷ USD vẫn chưa hoàn tất khi ông Huang rời nhiệm sở. Trước đó, Nvidia cũng đã đồng ý chi 6 tỷ USD để mua giấy phép không độc quyền cho công nghệ của công ty khởi nghiệp mã nguồn mở Poolside.",
-        "Nhiều thành viên cộng đồng mã nguồn mở lo ngại người kế nhiệm sẽ thận trọng hơn với hệ sinh thái nguồn mở khi Giám đốc tài chính Colette Kress tạm thời tiếp quản vị trí điều hành. Dù vậy, một nguồn tin nội bộ Nvidia chia sẻ với TechCrunch rằng sự thay đổi lãnh đạo này dự kiến không gây ảnh hưởng đến việc phát triển dòng mô hình Nemotron."
+        "CEO Jensen Huang của Nvidia đã từ chức sau khi thừa nhận quan hệ với một người bị nghi là gián điệp Trung Quốc, theo TechCrunch.",
+        "TechCrunch phân tích rằng việc thúc đẩy AI nguồn mở giúp Nvidia bán thêm GPU và giảm lệ thuộc vào một số ít phòng thí nghiệm hàng đầu. Động lực này càng lớn khi các khách hàng lớn nhất của hãng, bao gồm Google và OpenAI, đang tự phát triển chip riêng.",
+        "Thương vụ mua lại nền tảng mã nguồn mở Hugging Face trị giá 13 tỷ USD của Nvidia vẫn chưa hoàn tất khi ông Huang rời nhiệm sở. Trước đó, Nvidia cũng đã đồng ý chi 6 tỷ USD để mua giấy phép không độc quyền cho công nghệ của công ty khởi nghiệp Poolside.",
+        "TechCrunch nhận định sự ra đi của ông Huang có thể củng cố lập luận của những tiếng nói tại Washington đòi siết chặt hạn chế đối với các công ty AI Trung Quốc. Dù Giám đốc tài chính Colette Kress tạm thời tiếp quản, một nguồn tin nội bộ Nvidia cho biết sự thay đổi này dự kiến không ảnh hưởng đến việc phát triển dòng mô hình Nemotron."
       ],
       "same_event_coverage_ids": [
         "e2ab258ca3f61b830780"
@@ -72624,7 +72624,7 @@
         "06540d16d808e7948a8a"
       ],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Jensen Huang từ chức CEO Nvidia sau bê bối tình ái, đe dọa các thương vụ AI nguồn mở",
+      "editorial_headline_vi": "Jensen Huang từ chức CEO Nvidia, dấy lên nghi vấn về hỗ trợ AI nguồn mở và thương vụ Hugging Face",
       "summary_sources": [
         {
           "id": "outlet",
@@ -72637,30 +72637,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.7,
+        "value": 9.35,
         "answers": {
-          "what": 10,
+          "what": 9,
           "why": 10,
           "notable": 10,
           "meaning": 8
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "đe dọa các thương vụ AI nguồn mở",
-            "explanation": "The source raises uncertainty about the unfinished Hugging Face acquisition, but does not report that multiple open-source AI deals are threatened. It says Nvidia already agreed to the Poolside license (outlet:p012–p013, outlet:p020)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "what",
-            "problem": "The headline makes multiple AI deals sound threatened.",
-            "fix": "Say Huang’s exit raises uncertainty about Nvidia’s open-source support and its unfinished Hugging Face acquisition (outlet:p009, outlet:p012, outlet:p020)."
-          },
-          {
             "question": "meaning",
-            "problem": "The reader misses why Huang’s departure could matter beyond Nvidia’s products and deals.",
-            "fix": "Add that his exit could strengthen arguments in Washington for tougher restrictions on Chinese AI companies (outlet:p016–p022)."
+            "problem": "Readers see the policy concern without learning why Huang’s departure could change the debate.",
+            "fix": "Add that Huang was a prominent advocate against tighter restrictions on open AI models and that his successor’s approach remains unclear (outlet:p016-p020)."
           }
         ],
         "writer_boats": [
@@ -72668,8 +72657,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "e91724df73a72517b8d628e9ca73a95bddc282bf1f7011a7e8cacf360241eac8",
-        "scored_at": "2026-11-14T13:24:09.146352+00:00"
+        "prose_sha256": "8cc2e84f0c4fd05ab7ef0f4b853e207d4336cf7737eb3c6237cbd8c2e54e073e",
+        "scored_at": "2026-11-14T17:17:45.999880+00:00"
       }
     },
     {
@@ -72817,17 +72806,17 @@
       "use_original_title": true,
       "source_url": "https://www.wired.com/story/beware-the-new-ai-fueled-ransomware-boom/",
       "key_points": [
-        "Số vụ tấn công đòi tiền chuộc bị cáo buộc tăng vọt lên gần 3.000 vụ vào mùa hè, theo ước tính được Wired trích dẫn. Cynthia Kaiser tại Halcyon cho biết các cuộc tấn công quốc tế thúc đẩy phần lớn mức tăng, trong khi hoạt động ở Mỹ ổn định nhưng vẫn cao.",
-        "Trí tuệ nhân tạo thúc đẩy kẻ đe dọa tự lập nhóm riêng, theo Brandon Tirado tại ReliaQuest. Giới nghiên cứu cho biết nhiều tin tặc đơn độc tự tách ra thay vì phụ thuộc dịch vụ mã độc tống tiền truyền thống.",
-        "Một thiếu niên thiếu kinh nghiệm kiếm hơn 800.000 USD trong chưa đầy hai tuần khi điều hành một nhóm mới, theo Brandon Tirado. Các nhóm mới như Global Secret Group và Storm nhanh chóng nêu hàng chục nạn nhân, dù Wired lưu ý không phải mọi vụ tấn công đều có thật.",
-        "Nhiều nhóm mới có thể bùng lên rồi lụi tàn vì thiếu tri thức tổ chức và tài nguyên, theo Cynthia Kaiser tại Halcyon khi chưa rõ hiệu quả dài hạn. Allan Liska tại Recorded Future chỉ ra dù tổng số vụ tấn công tăng mạnh, số vụ liên quan đến mã hóa có thể giảm so với cùng kỳ."
+        "Số vụ tấn công đòi tiền chuộc bị cáo buộc trên các trang rò rỉ tăng lên gần 3.000 vụ trong mùa hè, theo giới nghiên cứu được Wired dẫn lại. Tuy nhiên, số vụ tấn công thực tế rất khó xác định chính xác do nạn nhân không phải lúc nào cũng công bố.",
+        "Sự gia tăng này diễn ra do trí tuệ nhân tạo tiếp sức cho các đối tượng đe dọa tự lập nhóm riêng, theo Brandon Tirado tại ReliaQuest. Dù vậy, Allan Liska tại Recorded Future nhấn mạnh các nhóm mã độc tống tiền thành công hiện vẫn chủ yếu do con người vận hành.",
+        "Một thiếu niên thiếu kinh nghiệm tự điều hành nhóm mới đã kiếm hơn 800.000 USD trong chưa đầy hai tuần, theo nhóm của Tirado phát hiện. Nhóm mới Storm cũng liệt kê 71 nạn nhân chỉ trong 20 ngày, dù Wired lưu ý không phải mọi vụ tấn công đều có thể là thật.",
+        "Nhiều nhóm mới có thể bùng lên ban đầu rồi lụi tàn do thiếu tri thức tổ chức, theo Cynthia Kaiser tại Halcyon khi hiệu quả dài hạn chưa rõ ràng. Allan Liska tại Recorded Future cũng lưu ý dù số vụ tấn công gia tăng, các vụ liên quan đến mã hóa trên thực tế có thể giảm."
       ],
       "same_event_coverage_ids": [
         "6624d668ba15d6ab7917"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Gần 3.000 vụ đòi tiền chuộc được tuyên bố khi tin tặc dùng AI để tự lập nhóm riêng",
+      "editorial_headline_vi": "Gần 3.000 vụ tấn công đòi tiền chuộc bị nêu trên các trang rò rỉ khi tin tặc dùng AI lập nhóm",
       "summary_sources": [
         {
           "id": "outlet",
@@ -72840,35 +72829,30 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.5,
+        "value": 8.3,
         "answers": {
           "what": 9,
-          "why": 8,
-          "notable": 8,
+          "why": 4,
+          "notable": 10,
           "meaning": 9
         },
         "hard_errors": [
           {
-            "kind": "fact",
-            "summary_text": "không phải mọi vụ tấn công đều có thật",
-            "explanation": "This states that some attacks are false. The source says only that not all claimed attacks may be legitimate, leaving their validity uncertain (outlet:p009)."
+            "kind": "cause",
+            "summary_text": "Sự gia tăng này diễn ra do trí tuệ nhân tạo tiếp sức cho các đối tượng đe dọa tự lập nhóm riêng",
+            "explanation": "In context, “this increase” refers to the nearly 3,000 alleged attacks. Tirado attributes growth in new groups to AI, while Kaiser says international attacks fueled most of the recent increase in attacks and AI contributed in part (outlet:p003–p004, outlet:p008–p010)."
           }
         ],
         "findings": [
           {
-            "question": "what",
-            "problem": "Readers do not learn that nearly 3,000 is an estimate of alleged attacks posted on leak sites, rather than a verified attack count.",
-            "fix": "Identify the leak-site claims and, if space allows, give the estimated 20 to 40 percent rise since spring (outlet:p003)."
-          },
-          {
-            "question": "notable",
-            "problem": "The text turns uncertainty about new groups’ attack claims into a definite assertion that some are false.",
-            "fix": "Say that some claims may not be legitimate (outlet:p009)."
-          },
-          {
             "question": "why",
-            "problem": "The account of AI’s role loses the source’s limits on how much of the rise AI explains.",
-            "fix": "Attribute the partial AI explanation to Kaiser and note that successful ransomware groups are still largely human operated (outlet:p004–p006)."
+            "problem": "The reader is told that AI-enabled group formation caused the overall rise in alleged attacks.",
+            "fix": "Attribute group growth to Tirado’s AI explanation, and describe the attack increase separately: Kaiser says international attacks fueled most of it and believes AI contributed in part (outlet:p004, outlet:p008–p010)."
+          },
+          {
+            "question": "what",
+            "problem": "The reader does not get the scale of the estimated change from spring.",
+            "fix": "Add that some researchers estimate the nearly 3,000 summer claims represent a 20 to 40 percent increase over spring, while retaining the uncertainty about the count (outlet:p003)."
           }
         ],
         "writer_boats": [
@@ -72876,8 +72860,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "2f97b0c7873726d269b49be8a3372d14fab7a45fafd0930f4089ee75ba3ccbdf",
-        "scored_at": "2026-11-14T15:26:56.221299+00:00"
+        "prose_sha256": "49c946edfd1d6c6a5bdf187ce94dd4226c1a2d18dd89b2835d3cc8a4119b9234",
+        "scored_at": "2026-11-14T17:21:14.587076+00:00"
       }
     },
     {
@@ -72996,6 +72980,188 @@
     },
     {
       "id": "3948019be6e44cc8e9c4",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.scmp.com/plus/tech/tech-war/article/3374341/jensen-huang-quits-china-trade-surplus-hits-us1-trillion-xi-trump-summit",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "0d107f49c7acf2979f23",
+        "99ab26f41032156f76b4",
+        "e997e2436746216ca8b7"
+      ],
+      "split_coverage_ids": [
+        "b040cb2d5e8a4fb8d1a8"
+      ]
+    },
+    {
+      "id": "93b8d4f8a92b697b3bb3",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "General news and lifestyle roundup where AI talent pay is only mentioned incidentally alongside unrelated topics.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-14/by-the-way-headlines-you-may-have-missed-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "68018218b5ca5d3dc361"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "e372e8bdb0e968e6244c",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-14/ai-tools-huang-championed-now-star-in-memes-of-his-downfall",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "16af122814f8d2b4ff4c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "81c7b72d2c37dfb84cc9",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-14/anthropic-ipo-tests-investor-appetite-for-ai-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "44f8c6b629558c072258"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "8a1cf35e4c1e866ae05b",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "How-to technical guide and workflow walkthrough detailing documentation generation using MkDocs and AI automation.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://entropicdrift.com/blog/mkdocs-drift-automation/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "fed74f7654ce8b5800a7"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "0f429d4e293bd5da9856",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare code repository landing page without any journalistic reporting or formal release announcement.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/armsworminterface/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "51a752de6c21fc10cd0d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "2b7ef9e2bc631e8686e2",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare code repository landing page without journalistic coverage or release announcement.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/HurricaneMonarchDart/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "4792cbf004e8d27f0639"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "d40b221a0c82b058f99b",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare code repository landing page without any editorial reporting or product announcement.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/BrickAssemblyRepel/ai--manus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "da0d00366d257708b9bd"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "6e4b465c101e386668f4",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "podcast",
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/podcast/1032866/jensen-huang-nvidia-china-trump-vergecast",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "de813dffaf018f00953a"
+      ],
+      "split_coverage_ids": [
+        "bfd159cdd1458a0ba48d"
+      ]
+    },
+    {
+      "id": "9e578f47ff4f08c7bc8a",
       "decision": "hold",
       "content_kind": "event_news",
       "analysis_kind": null,
