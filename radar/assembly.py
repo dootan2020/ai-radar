@@ -87,7 +87,8 @@ def sections(stories, now):
 
 
 def finish(payload, coverage, events, now, previous, published=None, fetcher=None, image_transport=None,
-           resolve_images=None, ai_transport=None, github_enabled=True, collection_finished_on_time=True):
+           resolve_images=None, ai_transport=None, github_enabled=True, collection_finished_on_time=True,
+           appearance_archive=None):
     from radar.clustering import cluster_items
     from radar.curation import curate_repos
     from radar.ranking import rank_stories
@@ -115,6 +116,8 @@ def finish(payload, coverage, events, now, previous, published=None, fetcher=Non
         print("Noise filter refused: " + ", ".join(f"{reason} {count}" for reason, count in counts.items()))
     items = [item for item in items if accepts(item)]
     fresh_stories = cluster_items(items, now)
+    # The appearance record is read from the snapshot as published: the rebuild below drops it from split stories.
+    recorded = published
     if isinstance(published, dict) and isinstance(published.get("stories"), list):
         retained = x_collector.without_reply_stories(published["stories"])
         published = dict(published, stories=filter_published_stories(retained, now, accepts))
@@ -129,11 +132,11 @@ def finish(payload, coverage, events, now, previous, published=None, fetcher=Non
     for story in stories:
         annotate_story_worth(story, now, sources_map)
         annotate_headlines(story)
+    from radar.transport import read_url
+    live = fetcher is not None and getattr(fetcher, "transport", None) == read_url
     if resolve_images is None:
         # Only a live fetcher or an explicit image transport may reach the network; a bare call stays offline.
-        from radar.transport import read_url
-        resolve_images = (image_transport is not None
-                          or (fetcher is not None and getattr(fetcher, "transport", None) == read_url))
+        resolve_images = image_transport is not None or live
     if resolve_images:
         import time
         from radar.images import resolve_images_for_stories
@@ -165,7 +168,9 @@ def finish(payload, coverage, events, now, previous, published=None, fetcher=Non
                                 baseline_at=iso_date(baseline), calibration="tạm thời, đang đánh giá bằng báo cáo gom cụm"))
     # When each story first reached readers, through the same newsroom gate the reader snapshot applies
     # (radar.site_payload.write_site_snapshot); the feed's "Vừa đăng" and "Mới" read it, not the source time.
-    from radar.appearance import stamp_appearance, visible_story_ids
+    from radar.appearance import read_archive, stamp_appearance, visible_story_ids
     from radar.newsroom_decisions import load_decisions
-    stamp_appearance(payload, published, visible_story_ids(payload, load_decisions()), now)
+    if appearance_archive is None and live:
+        appearance_archive = read_archive()
+    stamp_appearance(payload, recorded, visible_story_ids(payload, load_decisions()), now, archive=appearance_archive)
     return payload
