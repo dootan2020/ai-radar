@@ -550,12 +550,11 @@
 /* "Vừa đăng" sits beside the lead in the first row (owner, 10/11: "mục 'Vừa đăng' nằm ở mãi dưới"; his rule of 10/10:
    "người dùng vào đọc tin thì luôn muốn xem tin mới trước chứ"), one row tall; "Chuyện lớn" opens the second row. */
 .msn-grid.is-front > .tile-fresh { grid-row: span 1; }
-/* "Mới" (feed.js, freshItem): a row new to this reader carries the chip only while the tile also shows a row that is
-   not new, so the chip tells the two apart; when every row is new, none carries it, and the clock says the rest. The
+/* "Mới" (feed.js, freshItem): a row published within the last six hours (NEW_MARK_HOURS) and not yet opened, or pinned as
+   an arrival, carries the chip. The time window already keeps the count small, so the chip shows on every such row. The
    chip is the tile's one mark of newness: the river's new dot stays out of it. */
 .fresh-list .fresh-new, .fresh-list .new-mark { display: none; }
-.fresh-list:has(> li:not([hidden]):is(.is-read, :not([data-status="new"]):not([data-pinned])))
-  > li:is([data-status="new"], [data-pinned]):not(.is-read) .fresh-new {
+.fresh-list > li:is([data-status="new"], [data-pinned]):not(.is-read) .fresh-new {
   display: inline-block; margin-right: var(--space-6); padding: 0 var(--space-6); border-radius: var(--radius-full);
   background: var(--color-accent-fill); color: var(--color-on-accent);
   font-size: var(--text-micro); font-weight: var(--weight-bold); line-height: 1.6; vertical-align: 0.08em;

@@ -96,12 +96,12 @@ class FreshPill(unittest.TestCase):
             self.assertIn("heading.focus({ preventScroll: true });", go)
             self.assertIn("applyPending({ motion: false })", go)
             css = read(folder / "trang-msn.css")
-            # The chip: Hot Coral fill with ink text (no small coral text on light), on a row new to this reader
-            # (published since the last look, or pinned as an arrival) and not yet opened, and only while the tile
-            # also shows a row that is not new (captain, 12/11 09:23: seven rows all "Mới" marked nothing).
-            rule = ('.fresh-list:has(> li:not([hidden]):is(.is-read, :not([data-status="new"]):not([data-pinned])))\n'
-                    '  > li:is([data-status="new"], [data-pinned]):not(.is-read) .fresh-new {')
+            # The chip: Hot Coral fill with ink text (no small coral text on light), on a row published within the last six
+            # hours (or pinned as an arrival) and not yet opened, whether or not the other rows are new too (captain, 14/11
+            # 09:20: the label gets a display time; tests/test_nhan_moi.py).
+            rule = '.fresh-list > li:is([data-status="new"], [data-pinned]):not(.is-read) .fresh-new {'
             self.assertIn(rule, css)
+            self.assertNotIn(".fresh-list:has(", css)
             chip = css[css.index(rule) + len(rule):]
             chip = chip[:chip.index("}")]
             self.assertIn("background: var(--color-accent-fill); color: var(--color-on-accent);", chip)
