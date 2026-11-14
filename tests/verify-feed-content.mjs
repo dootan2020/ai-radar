@@ -398,13 +398,14 @@ Object.defineProperty(nodes.get('#fresh-announcement'), 'textContent', {
 const newFeed = await renderer('feed.js', '\ninit();', `
 return {goFirstNew, route, setFilter, pollSnapshot, pendingNewIds, onPendingScroll, renderSub, renderChips, renderSources,
   markHTML, markRead,
-  configure(count, total, first = false) {
+  configure(count, total) {
+    // The first count stories were published an hour ago (inside isNew's six-hour window, measured from now), the rest a day and a half ago.
+    const hour = 36e5, fresh = new Date(Date.now() - hour).toISOString(), old = new Date(Date.now() - 36 * hour).toISOString();
     D = {schema_version:2, generated_at:'2026-10-09T14:00:00Z', sources:[], stories:[]};
     allStories = Array.from({length:total}, (_, i) => ({id:'item-'+i,
-      published_at:i < count ? '2026-10-09T13:00:00Z' : '2026-10-08T10:00:00Z'}));
+      published_at:i < count ? fresh : old}));
     D.stories = allStories;
     STORY_ANY = new Map(allStories.map(st => [st.id, st]));
-    firstVisit = first; lastSeen = '2026-10-09T12:00:00Z';
     read.clear(); skipped.clear(); arrived.clear();
     pending = null; pendingIds = []; freshIds = []; filter = 'all'; FRONT = {rows:0, groups:[]};
     currentModalStoryId = null; swipe = null; pointerDown = false; scrollMoving = 0; applyWatch = 0;
@@ -431,8 +432,8 @@ return {goFirstNew, route, setFilter, pollSnapshot, pendingNewIds, onPendingScro
   requestAnimationFrame:fn => fn(),
   fetch:async () => { if (responseData instanceof Error) throw responseData; return {ok:true, json:async () => responseData}; },
 });
-function configureNotice(count, total, first = false) {
-  newFeed.configure(count, total, first);
+function configureNotice(count, total) {
+  newFeed.configure(count, total);
   newFeed.renderChips();
   doc.activeElement = null; visibleStories = []; timers.clear(); intervals.clear(); announced.length = 0;
   view.grid = 120; view.tileTop = 300; view.tileBottom = 700;
@@ -467,7 +468,7 @@ assert.equal(drawn, 0, 'nothing waited, so nothing was redrawn');
 // At the top: a poll that brings a new story is taken in at once, with one polite announcement and the arrival pinned
 // in "Vừa đăng". Live arrivals qualify on a first visit too.
 const liveSnapshot = (generated_at, stories) => ({schema_version:2, generated_at, sources:[], stories});
-configureNotice(0, 10, true);
+configureNotice(0, 10);
 responseData = liveSnapshot('2026-10-09T15:00:00Z', [{id:'live-new', published_at:'2026-10-09T14:30:00Z', coverage:[]}]);
 await newFeed.pollSnapshot();
 assert.equal(drawn, 1, 'taken in at the top without a click');
@@ -482,7 +483,7 @@ newFeed.seen('live-new'); assert.match(newFeed.markHTML({id:'live-new'}), /seen-
 
 // Further down: the snapshot waits, through the page's one-second looks, and is taken in once the reader is back at
 // the top and the scroll has come to rest.
-configureNotice(0, 10, true);
+configureNotice(0, 10);
 view.grid = -2400; view.tileTop = -2100; view.tileBottom = -1700;
 responseData = liveSnapshot('2026-10-09T15:00:00Z', [{id:'live-down', published_at:'2026-10-09T14:40:00Z', coverage:[]}]);
 await newFeed.pollSnapshot();
@@ -504,7 +505,7 @@ assert.equal(announced.at(-1), 'Đã thêm 1 tin mới');
 assert.equal(intervals.size, 0, 'the looks stop once nothing waits');
 
 // A scroll that began just before the poll landed: the snapshot still waits for the scroll to rest.
-configureNotice(0, 10, true);
+configureNotice(0, 10);
 newFeed.onPendingScroll();
 const drawnBeforeScrollPoll = drawn;
 responseData = liveSnapshot('2026-10-09T15:00:00Z', [{id:'live-scroll', published_at:'2026-10-09T14:42:00Z', coverage:[]}]);
@@ -517,7 +518,7 @@ assert.equal(drawn, drawnBeforeScrollPoll + 1, 'once the scroll rests, taken in'
 assert.deepEqual(newFeed.state().freshIds, ['live-scroll']);
 
 // A story open: the snapshot waits until it closes.
-configureNotice(0, 10, true);
+configureNotice(0, 10);
 newFeed.modal('item-3');
 responseData = liveSnapshot('2026-10-09T15:00:00Z', [{id:'live-modal', published_at:'2026-10-09T14:45:00Z', coverage:[]}]);
 await newFeed.pollSnapshot();
@@ -529,7 +530,7 @@ assert.equal(newFeed.state().pending, false, 'closed: taken in at the next look'
 assert.deepEqual(newFeed.state().freshIds, ['live-modal']);
 
 // New numbers but no new story: the page never reshuffles for nothing; the next snapshot with a story takes both in.
-configureNotice(0, 10, true);
+configureNotice(0, 10);
 const before = drawn;
 responseData = liveSnapshot('2026-10-09T15:00:00Z', Array.from({length:10}, (_, i) => ({id:'item-' + i, published_at:'2026-10-08T10:00:00Z'})));
 await newFeed.pollSnapshot();
@@ -541,7 +542,7 @@ assert.equal(drawn, before + 1, 'a snapshot with a story is taken in');
 assert.equal(newFeed.state().generated, '2026-10-09T15:05:00Z');
 
 // U down the page: the reader asked, so a waiting snapshot is taken in now and the tile comes to the top.
-configureNotice(0, 10, true);
+configureNotice(0, 10);
 view.grid = -2400; view.tileTop = -2100; view.tileBottom = -1700;
 responseData = liveSnapshot('2026-10-09T15:00:00Z', [{id:'live-u', published_at:'2026-10-09T14:55:00Z', coverage:[]}]);
 await newFeed.pollSnapshot();
