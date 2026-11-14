@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-14T05:14:26.665188+00:00",
-  "input_generated_at": "2026-11-14T04:45:53Z",
+  "generated_at": "2026-11-14T07:18:15.646511+00:00",
+  "input_generated_at": "2026-11-14T06:46:04Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -71476,10 +71476,10 @@
       "use_original_title": false,
       "source_url": "https://analyticsindiamag.com/ai-features/ai-chatbots-and-children-should-india-regulate-what-bots-say",
       "key_points": [
-        "Theo Analytics India Magazine, bang New York ban hành luật hạn chế tính năng của chatbot AI khi tương tác với trẻ vị thành niên vào ngày 28 tháng 10. Đạo luật này kiểm soát các hệ thống mô phỏng quan hệ người hoặc gây phụ thuộc cảm xúc, chứ không cấm mọi chatbot.",
-        "Tạp chí cho biết khả năng mô phỏng sự đồng cảm của chatbot gây lo ngại về sự phụ thuộc cảm xúc và sức khỏe tâm thần trẻ em. Chuyên gia Prathvi Nayak cảnh báo trẻ dưới 13 tuổi chưa đủ nhận thức để hiểu chatbot chỉ khớp mẫu thuật toán chứ không có cảm xúc thật.",
-        "Báo cáo năm 2025 trên Journal of Psychosexual Health ghi nhận một thiếu niên 14 tuổi sống sót sau nỗ lực tự tử sau khi dần phụ thuộc vào chatbot, dù mâu thuẫn gia đình và sự cô lập xã hội cũng là các yếu tố liên quan. Khảo sát năm 2026 cho thấy khoảng 65% thanh thiếu niên Ấn Độ từng dùng chatbot để tìm kiếm hỗ trợ cảm xúc.",
-        "Analytics India Magazine nhận định Ấn Độ đang đứng trước câu hỏi liệu có nên để chatbot hành xử như bạn bè hay chuyên gia trị liệu của trẻ ngay từ đầu. Dù vậy, tạp chí lưu ý bằng chứng tác động dài hạn lên tâm lý trẻ vẫn còn hạn chế và các ca bệnh chưa chứng minh riêng chatbot đã gây ra hậu quả."
+        "New York ban hành luật hạn chế tính năng của chatbot AI khi tương tác với trẻ vị thành niên, được Thống đốc Kathy Hochul ký ngày 28 tháng 10. Luật nhắm vào hệ thống mô phỏng quan hệ con người hoặc gây phụ thuộc cảm xúc, chứ không cấm mọi chatbot AI.",
+        "Analytics India Magazine cho biết chatbot mô phỏng sự đồng cảm gây lo ngại về sự phụ thuộc cảm xúc và sức khỏe tâm thần trẻ em. Chuyên gia Prathvi Nayak cảnh báo trẻ dưới 13 tuổi thường thiếu nhận thức để hiểu chatbot chỉ khớp mẫu thuật toán chứ không có cảm xúc thật.",
+        "Báo cáo năm 2025 trên Journal of Psychosexual Health nêu ca thiếu niên 14 tuổi sống sót sau nỗ lực tự tử khi phụ thuộc chatbot, dù xung đột gia đình và cô lập xã hội cũng liên quan. Khảo sát năm 2026 cho thấy khoảng 65% thanh thiếu niên Ấn Độ từng dùng chatbot để tìm hỗ trợ cảm xúc.",
+        "Tạp chí đề xuất Ấn Độ phân biệt chatbot, gia sư AI với bạn đồng hành AI, đồng thời gợi ý hạn chế tính năng nguy cơ cao, cài đặt theo lứa tuổi, kiểm thử độc lập và bắt buộc chuyển cho con người khi có nguy cơ tự hại. Dù vậy, tạp chí lưu ý bằng chứng tác động dài hạn lên tâm lý trẻ vẫn hạn chế và chưa chứng minh riêng chatbot gây ra hậu quả."
       ],
       "same_event_coverage_ids": [
         "bcd8dc95deb7e6ff2613"
@@ -71501,19 +71501,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.85,
+        "value": 9.0,
         "answers": {
           "what": 8,
           "why": 10,
           "notable": 10,
-          "meaning": 7
+          "meaning": 8
         },
         "hard_errors": [],
         "findings": [
           {
             "question": "meaning",
-            "problem": "The reader misses the source’s proposed way to address the policy question.",
-            "fix": "Add that the article distinguishes chatbots, tutors and companions and suggests restrictions on high-risk features, age-appropriate settings, safety testing and escalation to human support (outlet:p054, outlet:p057)."
+            "problem": "The reader does not learn why India’s existing child-data rules leave this policy question open.",
+            "fix": "Add that those rules address data processing but do not themselves restrict simulated personal relationships, emotional dependency or inappropriate mental-health advice (outlet:p049)."
           }
         ],
         "writer_boats": [
@@ -71521,8 +71521,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "8ee0d851285e13a5e91cf8b1532dfedd3fb18b606ef4233052c86c19318bda41",
-        "scored_at": "2026-11-14T05:14:25.080495+00:00"
+        "prose_sha256": "2b398d05bc8c051c0206136ab1de48da621f2616e3df4bf0f07a22d27a72625c",
+        "scored_at": "2026-11-14T07:15:07.618490+00:00"
       }
     },
     {
@@ -71566,10 +71566,10 @@
       "use_original_title": false,
       "source_url": "https://claude.com/resources/articles/projects-redesigned",
       "key_points": [
-        "Anthropic nâng cấp tính năng Projects trong Claude Code, cho phép Claude tự phân chia công việc, điều phối các luồng chạy song song và tổng hợp kết quả. Bản nâng cấp hiện thử nghiệm cho thuê bao Pro và Max dùng phiên làm việc đám mây và chưa có dự án nào từ trước.",
-        "Trong hệ thống mới, mỗi luồng là một phiên đám mây hoạt động trên nhánh kho mã riêng và cùng dùng bộ nhớ chung.",
-        "Chẳng hạn, khi kết nối nhiều kho mã để loại bỏ điểm cuối cũ, Claude tự tạo luồng xử lý song song theo từng kho mã để chuyển đổi mã nguồn và kiểm thử. Hệ thống cũng có thể nhận mục tiêu giảm độ trễ thanh toán để đo hiệu năng từng điểm cuối và mở các yêu cầu gộp mã.",
-        "Ngoài ra, các luồng này hiện chỉ hoạt động trên đám mây và chưa hỗ trợ chạy trực tiếp trên máy cục bộ cùng mạng nội bộ."
+        "Anthropic thử nghiệm bản cập nhật Projects cho một số thuê bao Pro và Max dùng phiên đám mây trong Claude Code và chưa có dự án trên web hay máy tính bàn.",
+        "Trước đây người dùng phải tự chia việc, bàn giao và ghép kết quả khi quản lý nhiều phiên làm việc trong một lần xây dựng. Hiện tại trong dự án Claude Code, người dùng mô tả việc cần làm và Claude sẽ trực tiếp phân chia công việc rồi điều phối các luồng song song.",
+        "Chẳng hạn, Claude có thể tạo luồng riêng cho từng kho mã để chuyển đổi mã và mở yêu cầu gộp mã khi kết nối các kho mã API, web và di động để loại bỏ điểm cuối v1 cũ. Hệ thống cũng có thể nhận mục tiêu giảm độ trễ thanh toán để đo hiệu năng từng điểm cuối và mở các yêu cầu gộp mã song song.",
+        "Tuy nhiên, dự án có thể chạm hạn mức sử dụng nhanh hơn và hiện tại các luồng làm việc mới chỉ vận hành trên đám mây."
       ],
       "same_event_coverage_ids": [
         "401a4fc5f0e5cf7544cd",
@@ -71577,7 +71577,7 @@
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Anthropic thử nghiệm Claude Code Projects tự điều phối các luồng chạy song song và tổng hợp kết quả",
+      "editorial_headline_vi": "Anthropic thử nghiệm Claude Code Projects tự điều phối các luồng chạy song song trên đám mây",
       "summary_sources": [
         {
           "id": "outlet",
@@ -71590,29 +71590,24 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 7.45,
+        "value": 8.6,
         "answers": {
-          "what": 8,
-          "why": 6,
+          "what": 9,
+          "why": 10,
           "notable": 8,
           "meaning": 7
         },
         "hard_errors": [],
         "findings": [
           {
-            "question": "what",
-            "problem": "The beta eligibility sounds broader and less precise than the source states.",
-            "fix": "Specify that initial access is for select Pro and Max subscribers using Claude Code cloud sessions with no existing projects on the web or desktop (outlet:p004)."
-          },
-          {
-            "question": "why",
-            "problem": "The reader does not learn what difficulty the update addresses.",
-            "fix": "Explain that users previously had to divide work across sessions, manage handoffs and combine the results themselves (outlet:p001)."
+            "question": "notable",
+            "problem": "The checkout example loses its specific p75 latency target and the step of testing optimizations.",
+            "fix": "Specify checkout p75 latency and that Claude tests optimizations before opening PRs (outlet:p003)."
           },
           {
             "question": "meaning",
-            "problem": "The reader misses a practical limit of parallel Projects.",
-            "fix": "Add that several full Claude Code sessions can make a project reach usage limits faster (outlet:p022)."
+            "problem": "Readers miss that they can guide the work and that threads build on shared project memory.",
+            "fix": "Add that users can steer the project or individual threads and that threads contribute to and draw from shared memory (outlet:p010, outlet:p016)."
           }
         ],
         "writer_boats": [
@@ -71620,8 +71615,82 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "7c2094c002092335547e819115cde641797a52a3bab43851e92f3cfb63971ce6",
-        "scored_at": "2026-11-14T05:14:25.080564+00:00"
+        "prose_sha256": "fccac7791aed2f9ec5cda9ffd3c110fe2ea238c2655e960d98be56430f8d871e",
+        "scored_at": "2026-11-14T07:18:15.642391+00:00"
+      }
+    },
+    {
+      "id": "8ad79ce73e855c82c2e4",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "top",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/ai-artificial-intelligence/1033425/openai-chatgpt-wallet",
+      "key_points": [
+        "OpenAI ra mắt ví ChatGPT Wallet cho các trợ lý ảo (AI agent - phần mềm tự hành) Dots mua sắm. Theo The Verge, tính năng áp dụng cho thuê bao ChatGPT Pro từ 18 tuổi tại Mỹ có thẻ hợp lệ.",
+        "Khi thêm thẻ, trợ lý Dots dùng thẻ mua hàng theo yêu cầu và hỏi lại người dùng trước lúc thanh toán. OpenAI cho biết hệ thống dùng mã đại diện thay thẻ thật như Apple Pay, không chia sẻ dữ liệu thẻ với bên bán.",
+        "Mọi giao dịch đều yêu cầu xác thực sinh trắc học như Face ID hoặc vân tay theo trang hỗ trợ OpenAI. Người dùng bắt buộc phải tự phê duyệt từng đơn mua trước khi giao dịch được xử lý.",
+        "ChatGPT Wallet có thể không hoạt động ở mọi nơi theo The Verge, do một số nơi chặn trợ lý như Amazon từng chặn Muse của Meta. OpenAI cho biết trang web cần tránh chặn trợ lý và hệ thống thanh toán phải nhận diện giao dịch hợp lệ."
+      ],
+      "same_event_coverage_ids": [
+        "59c95f063307a04202fd",
+        "71bdc8e72767e32c0ef5",
+        "8c089cbda29ef2fd43d8",
+        "c427482a58fe13456126"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "OpenAI ra mắt ví ChatGPT Wallet cho trợ lý ảo Dots mua hàng nhưng buộc người dùng duyệt sinh trắc học",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1033425/openai-chatgpt-wallet"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.7,
+        "answers": {
+          "what": 8,
+          "why": 10,
+          "notable": 9,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "Readers do not get the complete initial eligibility conditions.",
+            "fix": "Specify the US billing address and eligible US-issued American Express, Chase, Mastercard or Visa card requirements (outlet:p015)."
+          },
+          {
+            "question": "notable",
+            "problem": "The card protection explanation names the retailer but leaves out the Dots agent.",
+            "fix": "State that actual card details are shared with neither the agent nor the retailer (outlet:p019)."
+          },
+          {
+            "question": "meaning",
+            "problem": "Readers miss OpenAI’s stated distinction between approval now and possible delegation later.",
+            "fix": "If space permits, add that OpenAI expects users eventually to preapprove purchases within limits they set (outlet:p019)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "94f8be7dc67bbba8938f1b549874247939f35900c4f38d3f25fdcbf457c2991c",
+        "scored_at": "2026-11-14T07:08:35.872938+00:00"
       }
     }
   ]
