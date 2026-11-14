@@ -41,11 +41,70 @@ def snapshot(generated, stories, tracked=True):
     return payload
 
 
+ARCHIVE = {"additions": {}, "archived": set()}   # the story archive was read and holds none of these stories
+
+
+class ReturningStory(unittest.TestCase):
+    """A story Halcyon has shown before keeps its first appearance however it left and came back."""
+
+    def test_a_story_shown_hidden_and_shown_again_keeps_its_first_appearance(self):
+        # Build 1 shows it; build 2 hides it (the newsroom gate), so the field is dropped from its record;
+        # build 3 shows it again. The story archive (radar-story-pages) still holds the commit that first added it.
+        shown = NOW - timedelta(hours=30)
+        first = snapshot(shown, [story("a", "2026-11-12T01:00:00Z")])
+        stamp_appearance(first, snapshot(shown - timedelta(minutes=20), []), {"a"}, archive=ARCHIVE)
+        self.assertEqual(first["stories"][0]["appeared_at"], iso(shown))
+        hidden = snapshot(NOW - timedelta(minutes=20), [story("a", "2026-11-12T01:00:00Z")])
+        stamp_appearance(hidden, first, set(), archive=ARCHIVE)
+        hidden["stories"][0].pop("appeared_at")  # what the build's rebuild of a carried story does to it
+        archive = {"additions": {"a": shown + timedelta(minutes=3)}, "archived": {"a"}}
+        back = snapshot(NOW, [story("a", "2026-11-12T01:00:00Z")], tracked=False)
+        stamp_appearance(back, hidden, {"a"}, archive=archive)
+        self.assertEqual(back["stories"][0]["appeared_at"], iso(shown + timedelta(minutes=3)),
+                         "the archive commit that first added it, minutes after that build")
+
+    def test_a_story_that_left_the_record_and_came_back_is_never_new(self):
+        # Gone from the carried collection (pool cap, rebuilt cluster) and back under a new ID; one of its names
+        # is in the archive, but from before the fetched history began: shown before, time unknown.
+        archive = {"additions": {}, "archived": {"old-name"}}
+        prior = snapshot(NOW - timedelta(minutes=20), [])
+        payload = snapshot(NOW, [story("new-name", "2026-11-12T01:00:00Z", aliases=["old-name"])], tracked=False)
+        stamp_appearance(payload, prior, {"new-name"}, archive=archive)
+        self.assertEqual(payload["stories"][0]["appeared_at"], "2026-11-12T01:00:00Z", "source time, never now")
+
+    def test_a_piece_split_off_under_a_new_id_keeps_the_appearance_of_its_coverage(self):
+        prior = snapshot(NOW - timedelta(minutes=20), [
+            story("joined", "2026-11-12T01:00:00Z", appeared_at="2026-11-12T02:00:00Z", url="https://a.example/1",
+                  coverage=[{"url": "https://a.example/1"}, {"url": "https://b.example/2"}])])
+        payload = snapshot(NOW, [story("piece", "2026-11-12T00:30:00Z", url="https://b.example/2",
+                                       coverage=[{"url": "https://b.example/2"}])], tracked=False)
+        stamp_appearance(payload, prior, {"piece"}, archive=ARCHIVE)
+        self.assertEqual(payload["stories"][0]["appeared_at"], "2026-11-12T02:00:00Z")
+
+    def test_the_archive_repairs_an_appearance_stamped_too_late(self):
+        # The four stories of 14/11 carry a late appeared_at in every record; the archive's first addition wins.
+        prior = snapshot(NOW - timedelta(minutes=20), [
+            story("d0923a9b", "2026-11-12T03:13:00Z", appeared_at="2026-11-14T11:22:57Z")])
+        payload = snapshot(NOW, [story("d0923a9b", "2026-11-12T03:13:00Z", appeared_at="2026-11-14T11:22:57Z")],
+                           tracked=False)
+        archive = {"additions": {"d0923a9b": datetime(2026, 11, 12, 7, 19, 35, tzinfo=timezone.utc)},
+                   "archived": {"d0923a9b"}}
+        stamp_appearance(payload, prior, {"d0923a9b"}, archive=archive)
+        self.assertEqual(payload["stories"][0]["appeared_at"], "2026-11-12T07:19:35Z")
+
+    def test_without_the_archive_nothing_is_stamped_now(self):
+        # The carried collection alone is not a complete record (7-day prune, 2,000-story pool, rebuilt clusters).
+        prior = snapshot(NOW - timedelta(minutes=20), [])
+        payload = snapshot(NOW, [story("wallet", "2026-11-13T15:00:00Z")], tracked=False)
+        stamp_appearance(payload, prior, {"wallet"}, archive=None)
+        self.assertEqual(payload["stories"][0]["appeared_at"], "2026-11-13T15:00:00Z")
+
+
 class StampAppearance(unittest.TestCase):
     def test_a_story_first_shown_by_this_build_gets_this_build_time(self):
         payload = snapshot(NOW, [story("wallet", "2026-11-13T15:00:00Z")], tracked=False)
         prior = snapshot(NOW - timedelta(minutes=20), [], tracked=True)
-        stamp_appearance(payload, prior, {"wallet"})
+        stamp_appearance(payload, prior, {"wallet"}, archive=ARCHIVE)
         self.assertEqual(payload["stories"][0]["appeared_at"], iso(NOW))
         self.assertEqual(payload["stories"][0]["published_at"], "2026-11-13T15:00:00Z", "source time is kept")
 
@@ -53,7 +112,7 @@ class StampAppearance(unittest.TestCase):
         # Wallet sat in the collection (ungated) since the night before; the newsroom passed it at 14:27.
         prior = snapshot(NOW - timedelta(minutes=20), [story("wallet", "2026-11-13T15:00:00Z")])
         payload = snapshot(NOW, [story("wallet", "2026-11-13T15:00:00Z")], tracked=False)
-        stamp_appearance(payload, prior, {"wallet"})
+        stamp_appearance(payload, prior, {"wallet"}, archive=ARCHIVE)
         self.assertEqual(payload["stories"][0]["appeared_at"], iso(NOW))
 
     def test_the_appearance_is_carried_forward(self):
@@ -104,7 +163,7 @@ class StampAppearance(unittest.TestCase):
     def test_an_unreadable_carried_value_is_ignored(self):
         prior = snapshot(NOW - timedelta(minutes=20), [story("a", "2026-11-10T01:00:00Z", appeared_at="soon")])
         payload = snapshot(NOW, [story("a", "2026-11-10T01:00:00Z", appeared_at="later")], tracked=False)
-        stamp_appearance(payload, prior, {"a"})
+        stamp_appearance(payload, prior, {"a"}, archive=ARCHIVE)
         self.assertEqual(payload["stories"][0]["appeared_at"], iso(NOW))
 
     def test_the_build_carries_the_appearance_through_retention_and_an_id_change(self):
@@ -129,13 +188,43 @@ class StampAppearance(unittest.TestCase):
                          appeared_at_since="2026-09-30T00:00:00Z", stories=carried)
         with mock.patch("radar.appearance.visible_story_ids", lambda data, _rows: {s["id"] for s in data["stories"]}):
             result = assembly.finish(dict(sources=[], trending={}), [fresh, arrival], [], BUILD, None,
-                                     published=published, resolve_images=False)
+                                     published=published, resolve_images=False, appearance_archive=ARCHIVE)
         by_url = {story["url"]: story for story in result["stories"]}
         renamed = next(s for s in result["stories"] if carried[0]["id"] in s.get("aliases", []))
         self.assertEqual(renamed["appeared_at"], "2026-10-01T23:00:00Z")
         self.assertEqual(by_url[arrival["url"]]["appeared_at"], iso(BUILD), "first shown by this build")
         self.assertEqual(by_url[arrival["url"]]["published_at"], "2026-10-01T20:00:00Z")
         self.assertEqual(result["appeared_at_since"], "2026-09-30T00:00:00Z")
+
+    def test_the_build_reads_the_record_before_rebuilding_the_carried_stories(self):
+        # Measured 14/11 10:25Z: finish() rebuilds a carried story whose coverage no longer forms one cluster
+        # (radar.press_relevance.filter_published_stories). The rebuilt pieces are new dicts without `appeared_at`,
+        # and a split-off piece does not keep the old ID. 46 names lost their record in that one build; a story
+        # first shown 10/11 (78c954e9) came back stamped 14/11 10:25:56Z and led "Vừa đăng" with "Mới".
+        from unittest import mock
+        from radar import assembly
+        from radar.clustering import cluster_items
+        try:
+            from .test_v2_support import NOW as BUILD, coverage
+        except ImportError:
+            from test_v2_support import NOW as BUILD, coverage
+        first = coverage("wire", "https://wire.example/chips", publisher="wire",
+                         title="Lattice Holds Early Talks About Financing for OpenAI Chips",
+                         published_at="2026-10-01T22:00:00Z")
+        second = coverage("lab", "https://lab.example/model-card", publisher="lab",
+                          title="A lab posts its model card a day late", published_at="2026-10-01T20:00:00Z")
+        # One story was published holding both items; the current rules no longer group them.
+        joined = dict(cluster_items([first], BUILD)[0], appeared_at="2026-10-01T23:00:00Z")
+        joined["coverage"] = joined["coverage"] + cluster_items([second], BUILD)[0]["coverage"]
+        published = dict(schema_version=2, generated_at=iso(BUILD - timedelta(minutes=20)),
+                         appeared_at_since="2026-09-30T00:00:00Z", stories=[joined])
+        with mock.patch("radar.appearance.visible_story_ids", lambda data, _rows: {s["id"] for s in data["stories"]}):
+            result = assembly.finish(dict(sources=[], trending={}), [], [], BUILD, None, published=published,
+                                     resolve_images=False, appearance_archive={"additions": {}, "archived": set()})
+        stamped = {story["url"]: story.get("appeared_at") for story in result["stories"]}
+        self.assertEqual(set(stamped), {first["url"], second["url"]}, "the old story is split in two")
+        self.assertEqual(stamped, {first["url"]: "2026-10-01T23:00:00Z", second["url"]: "2026-10-01T23:00:00Z"},
+                         "both pieces were on Halcyon since 01/10 23:00")
 
     def test_visible_ids_follow_the_newsroom_gate(self):
         payload = snapshot(NOW, [story("a", "2026-11-10T01:00:00Z")])
