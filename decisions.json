@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-15T09:23:42.601655+00:00",
-  "input_generated_at": "2026-11-15T08:45:32Z",
+  "generated_at": "2026-11-15T11:16:24.824000+00:00",
+  "input_generated_at": "2026-11-15T10:46:00Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -74152,6 +74152,70 @@
         "prose_sha256": "b7ce2fa51824b246641e7beaa3129ecd7bade4554d4b024ada79fe596152e1d1",
         "scored_at": "2026-11-15T09:15:43.399638+00:00"
       }
+    },
+    {
+      "id": "9bd05a5201c771a2ece8",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; checker rejected claims; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "checker rejected claims",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.scmp.com/tech/article/3374493/megaspeed-rejects-claims-over-supply-chain-distances-itself-alice-huang",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "78681f546687b685e4e4"
+      ],
+      "split_coverage_ids": [
+        "3ce1a1f8337976b56630"
+      ]
+    },
+    {
+      "id": "a48ea7ae147f5947d8b7",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The supplied title and summary concern a fundraising plan; they do not establish AI as the main subject.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-15/firmus-plans-to-raise-3-billion-after-ipo-collapse-afr-says",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b6e82892bfb88660202a"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "f0adc2b3bd7d05c997d8",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "This is an exam cheating story in which generative AI was one of the methods used.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-15/korea-s-top-scorer-in-tax-accountant-exam-admits-to-ai-cheating",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "69cc1f2dd76a9aed8599"
+      ],
+      "split_coverage_ids": []
     }
   ]
 }
