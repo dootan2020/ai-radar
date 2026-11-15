@@ -266,6 +266,14 @@
   --band-h-top: 384px;                               /* "Hôm nay" and "Điểm nhấn": the lead, the lists, the weather, the calendar */
   --band-h-news: 286px;                              /* a row of story cards: "Tin mới", "Tin khác" */
   --band-h-lab: 432px;                               /* "Mô hình và mã nguồn": three equal tiles */
+  /* A card's header (captain, 15/11 17:20: "độ cao của phần tiêu đề thẻ đang khá nhỏ, trông thiếu cân đối"). Every
+     card in a band opens with the same 60 px head zone, the weather card's own: 8 px, a 44 px row that also holds the
+     header's control ("Xem cả", the city), 8 px. The label sits on the row's middle, 30 px from the card's top edge,
+     and the content starts at 60 px; the calendar's coral band fills the whole zone, so its month sits on that line too. */
+  --card-head-top: var(--space-8);                   /* the card's top edge to its header row */
+  --card-head-h: var(--btn-h);                       /* the header row */
+  --card-head-gap: var(--space-8);                   /* the header row to the content */
+  --card-head-zone: calc(var(--card-head-top) + var(--card-head-h) + var(--card-head-gap));   /* 60 px */
   /* A phone's story card (captain, 11/11 10:50, two Samsung News screens as the reference: "Trên Mobile làm sạch sẽ kiểu
      như vậy. Nhớ tuân thủ design system"): one white card per story, the source over a headline of up to four lines, a
      square picture to its right and the time under both. A notable story keeps a full-width picture above its headline

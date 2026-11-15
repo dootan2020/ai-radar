@@ -286,8 +286,9 @@
 .lead-dots { position: absolute; top: 0; left: var(--space-12); z-index: 3; padding-inline: var(--space-6); }
 
 /* ---------- "Chuyện lớn": a numbered list ---------- */
-.msn-toplist { display: flex; flex-direction: column; padding: var(--space-12) var(--space-12) var(--space-8); }
-.msn-toplist h2 { display: flex; align-items: center; gap: var(--space-8); margin: 0 0 var(--space-4); font-size: var(--text-sub); font-weight: var(--weight-bold); letter-spacing: -0.01em; color: var(--color-ink); }
+/* A card's header: the head zone of tokens.css (--card-head-*), the same on every card of a band. */
+.msn-toplist { display: flex; flex-direction: column; gap: var(--card-head-gap); padding: var(--card-head-top) var(--space-12) var(--space-8); }
+.msn-toplist h2 { display: flex; align-items: center; gap: var(--space-8); min-height: var(--card-head-h); margin: 0; font-size: var(--text-sub); font-weight: var(--weight-bold); letter-spacing: -0.01em; color: var(--color-ink); }
 .msn-toplist h2::before { content: ""; width: var(--space-8); height: var(--space-8); border-radius: var(--radius-full); background: var(--color-accent-fill); }
 .msn-toplist ol { display: flex; flex-direction: column; flex: 1; margin: 0; padding: 0; list-style: none; }
 .msn-toplist li {
@@ -430,8 +431,10 @@
   background: var(--color-art-wash);
   -webkit-mask: var(--cal-art) center / contain no-repeat; mask: var(--cal-art) center / contain no-repeat;
 }
+/* The band fills the card's whole head zone (--card-head-zone), so the month sits on the line of the other cards'
+   labels and the page under it starts where their content does: a calendar's red head, not a strip. */
 .cal-band {
-  display: flex; justify-content: space-between; align-items: center; gap: var(--space-8); margin: 0; padding: var(--space-8) var(--space-16);
+  display: flex; justify-content: space-between; align-items: center; gap: var(--space-8); min-height: var(--card-head-zone); margin: 0; padding: 0 var(--space-16);
   background: var(--color-accent-fill); color: var(--color-on-accent);
   font-size: var(--text-micro); line-height: 1.3; font-weight: var(--weight-bold); letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap;
 }
@@ -456,12 +459,12 @@
    tablet (on the first screen), beside it on a phone (before the first ordinary story). The days are printed large as
    on the calendar page, in ink, so the calendar's coral band stays the one loud colour of the pair. */
 .msn-grid > .msn-ev { grid-area: 2 / -3; }
-.msn-ev { container-type: inline-size; display: flex; flex-direction: column; gap: var(--space-12); padding: var(--space-12) var(--space-16) var(--space-16); }
-.ev-head { display: flex; align-items: center; justify-content: space-between; gap: var(--space-8); }
+.msn-ev { --ev-gap: var(--space-12); container-type: inline-size; display: flex; flex-direction: column; gap: var(--ev-gap); padding: var(--card-head-top) var(--space-16) var(--space-16); }
+.ev-head { display: flex; align-items: center; justify-content: space-between; gap: var(--space-8); min-height: var(--card-head-h); margin-bottom: calc(var(--card-head-gap) - var(--ev-gap)); }
 .ev-head h2 { display: flex; align-items: center; gap: var(--space-8); margin: 0; font-size: var(--text-sub); font-weight: var(--weight-bold); letter-spacing: -0.01em; color: var(--color-ink); white-space: nowrap; }
 .ev-head h2::before { content: ""; width: var(--space-8); height: var(--space-8); border-radius: var(--radius-full); background: var(--color-accent-fill); }
 .ev-all {
-  display: inline-flex; align-items: center; min-height: var(--btn-h); margin-block: calc(-1 * var(--space-12)); margin-right: calc(-1 * var(--space-8)); padding: 0 var(--space-8);
+  display: inline-flex; align-items: center; min-height: var(--card-head-h); margin-right: calc(-1 * var(--space-8)); padding: 0 var(--space-8);
   border-radius: var(--radius-8); font-size: var(--text-meta); font-weight: var(--weight-semibold); color: var(--color-accent); white-space: nowrap;
 }
 /* "Hai mươi lăm" (captain, 10/11 ~21:05, choosing the mockup): the number is the card. The days left are its one large
@@ -744,7 +747,7 @@
 .band-cells > * { min-width: 0; min-height: 0; }
 .band-cells > .msn-lead, .band-cells > .nc-wide, .band-cells > .tile-fresh { grid-column: span 2; }
 .band-cells > .tile {
-  gap: var(--space-12); padding: var(--space-12) var(--space-16) var(--space-16); overflow: hidden;
+  gap: var(--space-12); padding: var(--card-head-top) var(--space-16) var(--space-16); overflow: hidden;
   background: var(--color-surface); border: 0; border-radius: var(--msn-card-r); box-shadow: var(--msn-shadow-rest);
 }
 
@@ -755,7 +758,8 @@
   text-transform: uppercase; color: var(--color-ink-2);
 }
 .band :is(.msn-toplist h2, .ev-head h2)::before { display: none; }
-.band .tile .tile-head { align-items: center; min-height: var(--space-24); }
+/* The head zone (--card-head-*): a band tile's children are --space-12 apart, so its header gives back the difference. */
+.band .tile .tile-head { align-items: center; min-height: var(--card-head-h); margin-bottom: calc(var(--card-head-gap) - var(--space-12)); }
 .band .tile .tile-note { font-size: var(--text-micro); }
 
 /* "Vừa đăng" fills its cell and scrolls to the rows past the fold (owner, 13/11): rows keep their natural height, so
@@ -772,8 +776,9 @@
 }
 
 /* "Chuyện lớn": the four stories share the card's height; a row that cannot fit whole is left out (fitBandLists). */
-.band .msn-toplist { padding: var(--space-12) var(--space-12) var(--space-8); }
-.band .msn-toplist h2 { margin: 0 0 var(--space-6) var(--space-4); }
+/* The label starts on the rows' text edge (12 + 4 px), as the other cards' labels start on theirs (16 px). A padding,
+   because the band's label rule above sets every label's margin to 0. */
+.band .msn-toplist h2 { padding-left: var(--space-4); }
 .band .msn-toplist ol { min-height: 0; overflow: hidden; }
 .band .msn-toplist li { min-height: 0; padding: var(--space-6) var(--space-4); }
 .band :is(.arena-list, .repo-row, .model-list, .msn-toplist ol) > [hidden] { display: none !important; }
@@ -781,12 +786,19 @@
 /* "Đáng chú ý": the double story card of the second band. */
 .band-focus .nc-wide .nc-title { font-size: var(--msn-title-big); line-height: 1.3; letter-spacing: -0.02em; -webkit-line-clamp: 6; }
 .band-focus .nc-wide .nc-sum { -webkit-line-clamp: 4; }
+/* Beside "Chuyện lớn", "Sắp diễn ra" and the calendar, with its picture on the left, its "Đáng chú ý" label takes the
+   same head zone (--card-head-*), so the row's labels share one line and its content starts where theirs does. From
+   1024 to 1439 px the card does so only without an event (the four-column block below); with one, its picture is on top. */
+@media (min-width: 1440px) {
+  .band-focus .band-cells > .nc-wide .nc-body:has(> .nc-kicker) { padding-top: var(--card-head-top); }
+  .band-focus .band-cells > .nc-wide .nc-kicker { min-height: var(--card-head-h); }
+}
 
 /* "Sắp diễn ra" in its band: a white card like its neighbours (the mockup the captain chose on 10/11 ~21:05 replaced
    the coral-washed ticket of 19:3x). With more events, or a stream, the card is dense: a smaller number, the ruler
    without its legend, no opening-hour line, and the next events as a short schedule at its foot. On a phone the card
    is as tall as it needs, so nothing is left out there. */
-.band .msn-ev { padding: var(--space-12) var(--space-16) var(--space-16); }
+.band .msn-ev { padding: var(--card-head-top) var(--space-16) var(--space-16); }
 .ev-more { display: flex; flex-direction: column; min-height: 0; margin: auto 0 calc(-1 * var(--space-8)); padding: var(--space-8) 0 0; list-style: none; }
 .ev-more li { border-top: var(--msn-hair) solid var(--color-hair); }
 .ev-row { display: flex; align-items: center; justify-content: space-between; gap: var(--space-8); min-height: var(--btn-h); padding-block: var(--space-6); color: inherit; }
@@ -811,7 +823,7 @@
 
 /* "Mô hình và mã nguồn": the tiles side by side, as many columns as tiles, one height. */
 .band-lab .band-grid { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); grid-auto-rows: var(--band-h-lab); }
-.band-lab .band-grid > .tile { container-type: inline-size; overflow: hidden; padding: var(--space-12) var(--space-16) var(--space-12); }
+.band-lab .band-grid > .tile { container-type: inline-size; overflow: hidden; padding: var(--card-head-top) var(--space-16) var(--space-12); }
 .band-lab :is(.arena-list, .repo-row, .model-list) { flex: 1 1 0; min-height: 0; overflow: hidden; }
 .band-lab .tile-foot { margin-top: 0; }
 .band-lab .tile-arena { min-height: 0; }
@@ -960,7 +972,7 @@
   /* On a phone the two cards come first in the grid's own order (after the lead on the front page). */
   .msn-grid > .msn-wx { grid-area: auto / 1 / auto / -1; }
   .msn-grid > .msn-cal, .msn-grid > .msn-ev { grid-area: auto; }
-  .msn-ev { gap: var(--space-8); padding: var(--space-12); }
+  .msn-ev { --ev-gap: var(--space-8); padding: var(--card-head-top) var(--space-12) var(--space-12); }
   /* "Sắp diễn ra" opens on its list, above the weather and the calendar. */
   .nc { min-height: var(--msn-rowh-phone); }
   .nc-photo { height: var(--msn-photo-h-phone); }
@@ -1033,6 +1045,8 @@
   .band-focus .band-cells > .nc-wide .nc-sum { -webkit-line-clamp: 3; }
   .band-focus .band-cells:not(:has(> .msn-ev)) > .nc-wide { grid-column: span 2; flex-direction: row; }
   .band-focus .band-cells:not(:has(> .msn-ev)) > .nc-wide .nc-photo { width: 50%; height: auto; }
+  .band-focus .band-cells:not(:has(> .msn-ev)) > .nc-wide .nc-body:has(> .nc-kicker) { padding-top: var(--card-head-top); }
+  .band-focus .band-cells:not(:has(> .msn-ev)) > .nc-wide .nc-kicker { min-height: var(--card-head-h); }
 }
 /* Three columns: the lead alone on the first row, then Vừa đăng 2 · weather 1; Chuyện lớn · event · calendar, then
    "Đáng chú ý" across the row. */
@@ -1095,8 +1109,8 @@
   .band .nc:is(.nc-wide, .nc-big) .nc-title { font-size: var(--story-card-title-big); line-height: 1.3; }
   .band .nc-photo .ai-badge { right: var(--space-4); bottom: var(--space-4); max-width: calc(100% - var(--space-8)); }
   /* "Chuyện lớn": the list's frame goes, each story becomes a card led by its rank in the number scale. */
-  .band .msn-toplist { padding: 0; overflow: visible; background: none; box-shadow: none; border-radius: 0; }
-  .band .msn-toplist h2 { margin: 0 0 var(--space-12) var(--space-4); font-size: var(--text-body); }
+  .band .msn-toplist { gap: var(--space-12); padding: 0; overflow: visible; background: none; box-shadow: none; border-radius: 0; }
+  .band .msn-toplist h2 { min-height: 0; margin: 0 0 var(--space-12) var(--space-4); font-size: var(--text-body); }
   .band .msn-toplist ol { gap: var(--story-card-gap); overflow: visible; }
   .band .msn-toplist li {
     flex: none; display: grid; grid-template-columns: auto auto minmax(0, 1fr) auto; grid-template-rows: auto 1fr auto;
