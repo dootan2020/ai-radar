@@ -60,7 +60,7 @@ class EventsCard(unittest.TestCase):
         for folder in FOLDERS:
             css, feed = read(folder / "trang-msn.css"), read(folder / "feed.js")
             card = css[css.index(".band .msn-ev {"):]
-            self.assertEqual(card[:card.index("}") + 1], ".band .msn-ev { padding: var(--space-12) var(--space-16) var(--space-16); }")
+            self.assertEqual(card[:card.index("}") + 1], ".band .msn-ev { padding: var(--card-head-top) var(--space-16) var(--space-16); }")
             self.assertIn(".ev-more { display: flex; flex-direction: column; min-height: 0; margin: auto 0 calc(-1 * var(--space-8));", css)
             self.assertIn("${evMoreHTML(rows)}", feed)
             more = feed[feed.index("function evMoreHTML(list) {"):]
