@@ -34,6 +34,26 @@ export function ago(iso, nowMs = Date.now()){
   return DATE.format(d);
 }
 
+/* A calendar day in a few letters: "Hôm nay", "Hôm qua", or the date as the site writes it ("13/11"). */
+export function dayWord(d, nowMs = Date.now()){
+  const days = Math.round((new Date(dayKey(new Date(nowMs))) - new Date(dayKey(d))) / 864e5);
+  if (days <= 0) return 'Hôm nay';
+  if (days === 1) return 'Hôm qua';
+  const [, m, dd] = dayKey(d).split('-').map(Number);
+  return `${dd}/${m}`;
+}
+
+/* The hours a "Tin khác" sheet covers, from its oldest and newest story (ms). Within one day: `label` (the day's name)
+   and the hours, "Hôm nay · 08:00 – 12:00", or the hours alone when `label` is empty (under an older day's heading,
+   which already names the day). Across days each end carries its own day, "13/11 00:00 – Hôm nay 00:30": one day word
+   in front of both ends read as if the older date were that day (live, 15/11: "Hôm nay · 13/11 00:00 – 00:30"). */
+export function sheetSpan(loMs, hiMs, label = '', nowMs = Date.now()){
+  const lo = new Date(loMs), hi = new Date(hiMs);
+  if (dayKey(lo) !== dayKey(hi)) return `${dayWord(lo, nowMs)} ${hhmm(lo)} – ${dayWord(hi, nowMs)} ${hhmm(hi)}`;
+  const hours = loMs === hiMs ? hhmm(hi) : `${hhmm(lo)} – ${hhmm(hi)}`;
+  return label ? `${label} · ${hours}` : hours;
+}
+
 /* Days until an event, as a row reads it: "còn N ngày" ahead, "hôm nay" on the day, "đang diễn ra" once started. */
 export function daysLeftHTML(n){
   if (!Number.isFinite(n)) return '';

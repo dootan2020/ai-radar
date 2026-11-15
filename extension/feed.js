@@ -17,7 +17,7 @@
    (#tin/<id>, #sap-toi; the retired section anchors land on the home feed). */
 
 import { esc, fmt, avatar, faceOfStory, faceOfSource, hydrateHF, monogram, watchImageErrors, ytIdOf } from './faces.js';
-import { ago, dayKey, hhmm, TZ, streamedAge, scheduleText, eventRange, eventShort, rulerPlan, RULER_MAX } from './time-text.js';
+import { ago, dayKey, hhmm, sheetSpan, TZ, streamedAge, scheduleText, eventRange, eventShort, rulerPlan, RULER_MAX } from './time-text.js';
 import { KIND, METRIC } from './words.js';
 import { shown, uniqCoverage } from './titles.js';
 import { headlineShown, hasEditorialSummary, sourceDescriptionMark } from './editorial-headline.js';
@@ -1966,14 +1966,14 @@ function otherPlan() {
 }
 const CLOCK = new Intl.DateTimeFormat('vi-VN', { timeZone: TZ, hour: '2-digit', minute: '2-digit', hour12: false });
 const dayMonth = d => { const [, m, dd] = dayKey(d).split('-').map(Number); return `${dd}/${m}`; };
-/* The sheet's dateline, from its stories' own times: the day and the hours they span. Under an older day's heading the
-   day is already named, so the line keeps the hours only. */
+/* The sheet's dateline, from its stories' own times: the day and the hours they span, or each end with its own day when
+   they cross midnight (time-text.js, sheetSpan). Under an older day's heading the day is already named, so the line
+   keeps the hours only. */
 function datelineOf(s) {
   const times = s.list.map(pubTime).filter(Boolean).sort((a, b) => a - b);
   if (!times.length) return '';
-  const lo = new Date(times[0]), hi = new Date(times[times.length - 1]);
-  const span = +lo === +hi ? CLOCK.format(hi) : `${dayKey(lo) === dayKey(hi) ? '' : dayMonth(lo) + ' '}${CLOCK.format(lo)} – ${CLOCK.format(hi)}`;
-  return s.key ? span : `${dayLabel(dayKey(hi))} · ${span}`;
+  const lo = times[0], hi = times[times.length - 1];
+  return sheetSpan(lo, hi, s.key ? '' : dayLabel(dayKey(new Date(hi))));
 }
 const tkMeta = st => { const s = srcOf(st); return `<p class="tk-meta">${markHTML(st)}<b class="tk-src">${esc(s.name)}</b><span aria-hidden="true">·</span>${timeEl(st.published_at)}</p>`; };
 const tkAttrs = (st, cls) => `class="tk-story ${cls} ${statusClass(st)}" data-id="${esc(st.id)}" data-sid="${esc(st.id)}" data-status="${storyStatus(st.id, st)}"`;
