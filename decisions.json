@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-15T11:16:24.824000+00:00",
-  "input_generated_at": "2026-11-15T10:46:00Z",
+  "generated_at": "2026-11-15T13:17:31.984191+00:00",
+  "input_generated_at": "2026-11-15T12:45:53Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -74216,6 +74216,154 @@
         "69cc1f2dd76a9aed8599"
       ],
       "split_coverage_ids": []
+    },
+    {
+      "id": "794bf09a548ac7a06f8c",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.scmp.com/tech/big-tech/article/3374421/apple-after-steve-jobs-analysts-debate-nvidias-post-jensen-huang-future",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b2cc8004e7a514ac26a4"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "dc713a483ba5be6154a3",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.wired.com/story/ai-djs-completely-kill-my-groove/",
+      "key_points": [
+        "Tác giả bài viết trên WIRED nêu quan điểm từ bỏ hoàn toàn các DJ bằng AI (trí tuệ nhân tạo) sau thời gian dùng thử Beyond the Beat của YouTube Music. YouTube thử nghiệm tính năng này từ năm 2025, còn Spotify ra mắt công cụ tương tự vào năm 2023 rồi mở rộng thêm giọng đọc vào tháng 11.",
+        "Trên YouTube Music, DJ ảo tự động phát khoảng 30 giây ngẫu nhiên giữa các ca khúc, giới thiệu giai điệu và bối cảnh bài hát tiếp theo. Ở Spotify, hệ thống hoạt động theo thuật toán lựa chọn bài hát dựa vào thói quen nghe nhạc và yêu cầu của người dùng.",
+        "Theo tác giả, Beyond the Beat đưa ra đoạn bình luận sáo rỗng sau bài hát của Slayyyter và phát âm sai tên nghệ sĩ Charli XCX thành Charli XXC. Ở ví dụ khác với bài hát của Olivia Rodrigo và Chappell Roan, hệ thống phân tích sự kết hợp này nhưng ứng dụng lại phát bản gốc thiếu Roan.",
+        "Tác giả bài viết trên WIRED kết luận nội dung bình luận sáo rỗng gây thất vọng nhất, dù thừa nhận giọng đọc của cả hai nền tảng đều khá chân thực. Dù Spotify công bố 80% người nghe quay lại dùng hằng tuần, tác giả lưu ý người dùng vẫn có thể chủ động tắt các tính năng tùy chọn này."
+      ],
+      "same_event_coverage_ids": [
+        "953d8f89830370678baf"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Phóng viên WIRED từ bỏ DJ bằng AI trên YouTube Music và Spotify do lời bình sáo rỗng",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "wired",
+          "url": "https://www.wired.com/story/ai-djs-completely-kill-my-groove/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.65,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "b821f2177a4f2c6c04e646bb16de55acb89af0f5669aa755a3d881cd230a4333",
+        "scored_at": "2026-11-15T13:14:31.387036+00:00"
+      }
+    },
+    {
+      "id": "813b58e5440732006ed1",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.wired.com/story/this-ai-tamagotchi-oats-turns-everyday-objects-into-needy-virtual-pets/",
+      "key_points": [
+        "Daehwa Kim tại Đại học Carnegie Mellon đã chế tạo OATs biến đồ vật thường ngày thành thú cưng ảo bằng AI (trí tuệ nhân tạo) trên màn hình E Ink. Dự án được giới thiệu tại hội nghị UIST vào đầu tháng 11 và nhận hai giải thưởng danh dự.",
+        "Kim phát triển OATs để đưa tương tác với trợ lý AI ra thế giới thực thay vì trên điện thoại thông minh. Cô chia sẻ với WIRED rằng mục tiêu là mang niềm vui chăm sóc sang đồ vật vật lý.",
+        "Mô-đun phần cứng chính có giá khoảng 20 USD và màn hình E Ink kết nối các cảm biến đo môi trường, dù Kim chưa quyết định bán thương mại. Khi thử nghiệm, người dùng đã gắn OATs lên máy pha cà phê để báo hiệu khi xay hạt hoặc gắn vào tạ tay để theo dõi tập luyện.",
+        "Tạp chí WIRED nhận định việc nhân hóa AI có thể làm sai lệch phán đoán đạo đức và khiến người dùng quá tin tưởng công cụ. Kim cho biết cô chủ động giới hạn tương tác trên màn hình E Ink, và thiết bị hiện chỉ là thử nghiệm với pin kéo dài ba đến bốn ngày."
+      ],
+      "same_event_coverage_ids": [
+        "b54c2a37bd418ae4f041"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Dự án OATs dùng mô-đun chính khoảng 20 USD biến đồ vật thành thú cưng ảo bằng AI trên màn hình E Ink",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "wired",
+          "url": "https://www.wired.com/story/this-ai-tamagotchi-oats-turns-everyday-objects-into-needy-virtual-pets/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.55,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "Readers see only the three-to-four-day battery figure and miss the shorter runtime under a stated condition.",
+            "fix": "Add that using the sound-level sensor reduces battery life to about one day (outlet:p010)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "399f083e807337b10e185b4f15eb7673deea4278e87b50bd47f2aa21f62ef17f",
+        "scored_at": "2026-11-15T13:17:31.960634+00:00"
+      }
     }
   ]
 }
