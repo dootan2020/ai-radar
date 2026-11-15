@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-15T19:18:26.498895+00:00",
-  "input_generated_at": "2026-11-15T18:45:52Z",
+  "generated_at": "2026-11-15T21:19:04.063763+00:00",
+  "input_generated_at": "2026-11-15T20:46:15Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -74754,17 +74754,17 @@
       "use_original_title": false,
       "source_url": "https://claramap.com/blog/what-picasso-taught-me-about-building-ai-agents/",
       "key_points": [
-        "Theo tác giả bài viết, cách xây dựng tác tử AI (phần mềm trí tuệ nhân tạo tự hành) là tinh giản cấu trúc thành thư mục chứa chỉ dẫn. Thư mục này là đơn vị triển khai độc lập, có thể quản lý phiên bản mà không cần cơ sở dữ liệu véc-tơ hay cơ chế lập kế hoạch phức tạp.",
-        "Tác giả lý giải sự tinh giản này vì các mô hình AI ngày càng tốt hơn giúp hoàn thành việc chỉ với một câu lệnh. Tác giả thừa nhận từng tự phức tạp hóa vấn đề, trong khi kỹ năng chuyên biệt chỉ cần tệp Markdown và tài nguyên hỗ trợ.",
-        "Trong ví dụ thực tế về xuất bản trang web, tác tử trên Codex đã tự sửa bài, tạo ảnh minh họa, xây dựng trang web, triển khai lên Cloudflare và kiểm tra trang trực tiếp. Hệ thống vận hành dựa trên các tệp chỉ dẫn biên tập và kết nối Cloudflare qua giao thức MCP.",
-        "Tác giả nhấn mạnh cần dùng các tác vụ đại diện với tiêu chí rõ ràng để xác định thay đổi có giúp tác tử tiến bộ hay không. Dù là khâu khó nhất, bài đánh giá giúp kiểm chứng sự tiến bộ vốn đến từ ngữ cảnh và chỉ dẫn, chứ không nhất thiết do mô hình thay đổi."
+        "Theo tác giả bài viết, cách xây dựng tác tử AI (phần mềm trí tuệ nhân tạo tự hành) được tinh giản thành thư mục chỉ dẫn triển khai độc lập. Tác tử không tự động cần cơ sở dữ liệu véc-tơ hay bộ nhớ phức tạp, vì ngữ cảnh và công cụ tùy thuộc công việc cụ thể.",
+        "Tác giả lý giải sự tinh giản này vì mô hình AI ngày càng tốt hơn giúp hoàn thành việc với một câu lệnh, và thừa nhận từng tự làm phức tạp hóa vấn đề. Theo tác giả, một kỹ năng thường chỉ là tệp Markdown chứa chỉ dẫn và có thể kèm vài tài nguyên hỗ trợ.",
+        "Khi xuất bản trang web, tác giả dùng tác tử trên Codex để tự sửa bài viết, tạo sơ đồ minh họa, dựng trang và triển khai lên Cloudflare. Quy trình vận hành qua tệp chỉ dẫn biên tập và giao thức MCP, rồi lưu phản hồi để hoàn thiện chỉ dẫn lần chạy sau.",
+        "Theo tác giả, bài kiểm tra đánh giá có lẽ là khâu khó nhất để xác định xem thay đổi thiết lập có giúp ích hay không. Tác tử tiến bộ theo thời gian nhờ ngữ cảnh và chỉ dẫn vận hành tốt hơn, chứ không nhất thiết do mô hình nền tảng thay đổi."
       ],
       "same_event_coverage_ids": [
         "c0c604c0a989c0d884d4"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Tác giả bài viết chia sẻ cách tinh giản tác tử AI thành thư mục chỉ dẫn, lấy ví dụ từ trang web tự xuất bản",
+      "editorial_headline_vi": "Tác giả chia sẻ cách tinh giản tác tử AI thành thư mục chỉ dẫn, lấy ví dụ tự xuất bản trang web với Codex",
       "summary_sources": [
         {
           "id": "outlet",
@@ -74779,45 +74779,24 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.15,
+        "value": 8.9,
         "answers": {
-          "what": 8,
+          "what": 9,
           "why": 10,
-          "notable": 10,
+          "notable": 8,
           "meaning": 9
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "mà không cần cơ sở dữ liệu véc-tơ hay cơ chế lập kế hoạch phức tạp",
-            "explanation": "The source says an agent does not automatically need a vector database or sophisticated memory architecture; it does not rule them out for every task. The author describes removing elaborate planning mechanisms from their own approach (outlet:p005–p007, outlet:p020)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "kỹ năng chuyên biệt chỉ cần tệp Markdown và tài nguyên hỗ trợ",
-            "explanation": "The source says a skill is often a Markdown file, perhaps with supporting resources. It does not say this is sufficient for every skill or that supporting resources are required (outlet:p017–p018)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "Dù là khâu khó nhất",
-            "explanation": "The source calls evals probably the hardest part, rather than stating that they definitively are (outlet:p044)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "what",
-            "problem": "The reader may take the absence of a vector database or elaborate planning as a universal requirement of this approach.",
-            "fix": "Say those components are not automatically needed; the necessary context and tools depend on the agent's job (outlet:p019–p024)."
-          },
-          {
-            "question": "what",
-            "problem": "The reader may think every skill needs only Markdown and supporting resources.",
-            "fix": "Retain the source's qualification: a skill is often a Markdown file and may have supporting resources (outlet:p017–p018)."
+            "question": "notable",
+            "problem": "The reader misses a concrete way to run the folder-based agent as part of a workflow.",
+            "fix": "Add that, with the required tools and credentials, it can run without interactive chat through `claude -p`, and can be triggered by a script, cron job or webhook (outlet:p025–p034)."
           },
           {
             "question": "meaning",
-            "problem": "The reader receives certainty where the author expressed a judgment about the difficulty of evals.",
-            "fix": "Describe evals as probably the hardest part (outlet:p044)."
+            "problem": "The mention of evals does not tell the reader what makes them useful for judging improvement.",
+            "fix": "Specify that the author calls for representative tasks with clear success criteria, repeated to compare changes to the agent's setup (outlet:p042–p044)."
           }
         ],
         "writer_boats": [
@@ -74825,8 +74804,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "a4509716933449fb31ddcacda7d7b985926633d6bed75de00f8a9647d2273f09",
-        "scored_at": "2026-11-15T19:12:02.686709+00:00"
+        "prose_sha256": "eecca5aa976f175a2bfa21242a9776273d6e76f92e8172b009effd850dc401a4",
+        "scored_at": "2026-11-15T21:19:04.058420+00:00"
       }
     },
     {
@@ -74847,6 +74826,261 @@
         "dcdd2537e8f9d2366426"
       ],
       "split_coverage_ids": []
+    },
+    {
+      "id": "7310523931ec31d7ed58",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/tech/1033999/jensen-huang-return-nvidia-megaspeed",
+      "key_points": [
+        "Theo The Verge, xuất hiện tin đồn Jensen Huang tìm cách trở lại cùng tuyên bố từ Megaspeed. Financial Times cho biết ông đã thảo luận việc trở lại ghế Tổng giám đốc với đồng minh, còn Megaspeed tuyên bố Alice Huang đã rời công ty từ ngày 30 tháng 8 năm 2025 và hiện không còn vai trò nào.",
+        "Bức thư ngỏ kêu gọi đưa Jensen Huang trở lại có hơn 150.000 chữ ký khó xác thực, dù được Elon Musk và Tim Sweeney công khai ủng hộ. Theo Business Insider, danh sách này có những cái tên như diễn viên Tim Cruise và lỗi chính tả tên Chủ tịch Trung Quốc Tập Cận Bình.",
+        "Theo Financial Times, không phải ai cũng tin Jensen Huang nên được phép trở lại ghế lãnh đạo, khi một đồng minh thừa nhận quan hệ tình ái với cấp dưới là vi phạm đáng bị sa thải. Theo Bloomberg, nhiều phụ nữ tại Thung lũng Silicon coi đây là hành vi lạm dụng vị thế của người giàu có và dùng quyền lực theo đuổi quan hệ tình dục với nhân viên."
+      ],
+      "same_event_coverage_ids": [
+        "bc3427b07a5824e3ecbf"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Xuất hiện tin đồn Jensen Huang tìm đường trở lại Nvidia khi Megaspeed tuyên bố Alice Huang đã thôi việc",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/tech/1033999/jensen-huang-return-nvidia-megaspeed"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "0b3832f8d5c50670eeedd05cd7a2f16e0580da767f824a6edab0bd8d3579c9fe",
+        "scored_at": "2026-11-15T21:15:17.945870+00:00"
+      }
+    },
+    {
+      "id": "aa5ff7d1d87d6dc7b478",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-15/us-allies-agree-to-guard-ai-supply-chains-from-china-ft-says",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "3e44e9341af554aace98"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "bbfcf564f0bfd130939c",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://fortune.com/2026/11/14/alpha-school-ai-students-tuition-learning-goals/",
+      "key_points": [
+        "Theo The New York Times, chỉ 42% học sinh Alpha School đạt mục tiêu học nhanh gấp đôi ở cả môn toán và đọc hiểu. Mạng lưới trường tư thục này thu học phí tới 75.000 USD mỗi năm, không tuyển giáo viên truyền thống mà bố trí người hướng dẫn cùng ứng dụng dạy kèm TimeBack.",
+        "Theo The New York Times, khoảng một nửa học sinh từ mẫu giáo đến lớp 8 tại các cơ sở tư thục hụt mục tiêu học toán nhanh gấp đôi, và khoảng một phần năm hụt mục tiêu đọc hiểu. Wired dẫn lời các người hướng dẫn và phụ huynh cho biết học sinh phải học khuya, trong đó một phụ huynh có con 13 tuổi chia sẻ việc đáp ứng mục tiêu đi kèm căng thẳng cùng lo âu.",
+        "Theo The New York Times, việc mở rộng sang trường công lập đối mặt thử thách khắt khe hơn khi không thể loại bỏ học sinh học kém và thiếu phần thưởng khuyến khích. Nhiều giáo sư chia sẻ trên Fortune rằng học sinh dựa dẫm vào các bản tóm tắt từ trí tuệ nhân tạo đang gặp khó khăn trong việc duy trì năng lực đọc hiểu."
+      ],
+      "same_event_coverage_ids": [
+        "2728e8687c36a91d1242",
+        "99cad6d3dbe017e38220"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Thu học phí tới 75.000 USD, Alpha School có khoảng một nửa học sinh cơ sở tư thục hụt mục tiêu học toán",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://fortune.com/2026/11/14/alpha-school-ai-students-tuition-learning-goals/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The reader does not learn that Alpha’s expansion into public schools is already underway at substantial scale.",
+            "fix": "State that more than 2,600 public school students in Texas and South Carolina use the platform (outlet:p015)."
+          },
+          {
+            "question": "notable",
+            "problem": "The late-night work is reported without its connection to Alpha’s two-hour academic-day promise.",
+            "fix": "Briefly state the two-hour promise before describing accounts of students working late to meet the goals (outlet:p005, outlet:p012)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "cc88eb6542ccbe018931187b114205a1951af122e42ef00f3e4230ad02039224",
+        "scored_at": "2026-11-15T21:15:17.945953+00:00"
+      }
+    },
+    {
+      "id": "379ccbb70854194211c4",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-15/huang-discusses-comeback-as-nvidia-chief-with-allies-ft-says",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "8302ab3700a2abdca892"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "95ba8521fd1acc68ba39",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.interconnects.ai/p/open-source-ai-without-jensen",
+      "key_points": [
+        "Tác giả Nathan Lambert nhận định việc CEO Jensen Huang từ chức tại Nvidia là bước lùi lớn cho hệ sinh thái AI mở tại Mỹ khi lĩnh vực này còn sơ khai. Ở góc nhìn riêng về cạnh tranh AI, chuyên gia Dan Ives thuộc Yorkville Ives & Co. nhận định Nvidia vắng ông Huang sẽ tạo ra sân chơi cân bằng hơn.",
+        "Nguồn tài trợ cho mô hình mở nhiều khả năng sẽ cạn kiệt do ưu tiên hàng đầu của Nvidia trong 24 tháng tới là ổn định vận hành và giao hàng. Theo tác giả, mô hình mở vốn là canh bạc cá nhân đầy tham vọng của ông Huang trong khi công ty phụ thuộc lớn vào sự điều hành của ông.",
+        "Lợi ích để mô hình mở thành dịch vụ phổ thông còn rất xa vời do chip tính toán đang thiếu hụt nghiêm trọng. Theo tác giả, khi dịch vụ suy luận (chạy mô hình) áp biên lợi nhuận khổng lồ như DeepInfer của DeepSeek, các phòng thí nghiệm đóng sẽ thắng thế.",
+        "Tác giả kêu gọi những người ủng hộ mô hình mở cần tự nhìn nhận lại và xây dựng liên minh mới để tạo lập nền tảng. Theo tác giả, phong trào này đang thụt lùi về năng lực vận hành giữa lúc các cuộc công kích chắc chắn sẽ gia tăng."
+      ],
+      "same_event_coverage_ids": [
+        "2e20ec41086d5e7d9f33",
+        "e4a611a8d90b9cb11df7"
+      ],
+      "split_coverage_ids": [
+        "7a14d85407296852a393"
+      ],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Jensen Huang rời ghế CEO Nvidia bị đánh giá sẽ làm cạn kiệt nguồn tài trợ cho các mô hình AI mở",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "interconnects",
+          "url": "https://www.interconnects.ai/p/open-source-ai-without-jensen"
+        },
+        {
+          "id": "coverage1",
+          "role": "coverage",
+          "name": "bloomberg",
+          "url": "https://www.bloomberg.com/news/videos/2026-11-13/ives-on-nvidia-without-jensen-huang-microsoft-outage-video"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.7,
+        "answers": {
+          "what": 10,
+          "why": 8,
+          "notable": 7,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "sẽ làm cạn kiệt nguồn tài trợ cho các mô hình AI mở",
+            "explanation": "The source predicts that Huang’s unusually abundant funding will very likely dry up; it does not say funding for open AI models as a whole will be exhausted (outlet:p014)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "Nguồn tài trợ cho mô hình mở nhiều khả năng sẽ cạn kiệt",
+            "explanation": "The source limits this prediction to the funding Huang had been providing, while noting that Nvidia still has a financial interest in supporting open models (outlet:p013–p014)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The headline and body imply that funding for open models generally will run out.",
+            "fix": "Specify that Lambert expects Huang’s unusually strong funding to very likely dry up (outlet:p014)."
+          },
+          {
+            "question": "why",
+            "problem": "The reader misses why Nvidia might continue supporting open models despite Huang’s departure.",
+            "fix": "Add Lambert’s point that Nvidia benefits when its customers do not concentrate power and develop chips that reduce Nvidia’s profits (outlet:p013)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "05fea581974f6cf2853c507272e0b8d905825a4b81d38e81b7e860b435b5fd02",
+        "scored_at": "2026-11-15T21:15:17.945991+00:00"
+      }
     }
   ]
 }
