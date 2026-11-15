@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-15T21:19:04.063763+00:00",
-  "input_generated_at": "2026-11-15T20:46:15Z",
+  "generated_at": "2026-11-15T23:22:03.653604+00:00",
+  "input_generated_at": "2026-11-15T22:45:55Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -75008,10 +75008,10 @@
       "use_original_title": false,
       "source_url": "https://www.interconnects.ai/p/open-source-ai-without-jensen",
       "key_points": [
-        "Tác giả Nathan Lambert nhận định việc CEO Jensen Huang từ chức tại Nvidia là bước lùi lớn cho hệ sinh thái AI mở tại Mỹ khi lĩnh vực này còn sơ khai. Ở góc nhìn riêng về cạnh tranh AI, chuyên gia Dan Ives thuộc Yorkville Ives & Co. nhận định Nvidia vắng ông Huang sẽ tạo ra sân chơi cân bằng hơn.",
-        "Nguồn tài trợ cho mô hình mở nhiều khả năng sẽ cạn kiệt do ưu tiên hàng đầu của Nvidia trong 24 tháng tới là ổn định vận hành và giao hàng. Theo tác giả, mô hình mở vốn là canh bạc cá nhân đầy tham vọng của ông Huang trong khi công ty phụ thuộc lớn vào sự điều hành của ông.",
-        "Lợi ích để mô hình mở thành dịch vụ phổ thông còn rất xa vời do chip tính toán đang thiếu hụt nghiêm trọng. Theo tác giả, khi dịch vụ suy luận (chạy mô hình) áp biên lợi nhuận khổng lồ như DeepInfer của DeepSeek, các phòng thí nghiệm đóng sẽ thắng thế.",
-        "Tác giả kêu gọi những người ủng hộ mô hình mở cần tự nhìn nhận lại và xây dựng liên minh mới để tạo lập nền tảng. Theo tác giả, phong trào này đang thụt lùi về năng lực vận hành giữa lúc các cuộc công kích chắc chắn sẽ gia tăng."
+        "Theo tác giả Nathan Lambert trên ấn phẩm Interconnects, việc CEO Jensen Huang từ chức tại Nvidia là bước lùi lớn cho hệ sinh thái mô hình mở tại Mỹ. Hiện mục tiêu số một của Nvidia là ổn định công ty, giao hàng cho khách trong 24 tháng tới và ngăn nguy cơ sụp đổ.",
+        "Theo tác giả, tổn thất này xảy ra vì sự hỗ trợ và bảo vệ của ông Huang từng che chở hệ sinh thái mô hình mở trước rủi ro. Tác giả chỉ ra vấn đề cốt lõi hiện nay là hệ sinh thái thiếu người can thiệp trực tiếp để xoa dịu khủng hoảng.",
+        "Cụ thể, tác giả nhận định nguồn tài trợ dồi dào mà ông Huang từng đổ vào mô hình mở nhiều khả năng sẽ cạn kiệt. Như với bản DeepInfer của DeepSeek, khi mô hình mở chịu biên lợi nhuận suy luận (chạy mô hình) lớn do thiếu chip, các phòng thí nghiệm đóng sẽ thắng thế.",
+        "Tác giả kết luận những người tin vào mô hình mở cần tự nhìn nhận lại và xây dựng liên minh mới, dù khoảng trống ông Huang để lại khó lấp đầy hoàn toàn. Sự chủ động này là cần thiết khi tác giả lo ngại quy định quản lý cẩu thả và sức ép an toàn AI đang nhắm vào mô hình mở."
       ],
       "same_event_coverage_ids": [
         "2e20ec41086d5e7d9f33",
@@ -75021,19 +75021,13 @@
         "7a14d85407296852a393"
       ],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Jensen Huang rời ghế CEO Nvidia bị đánh giá sẽ làm cạn kiệt nguồn tài trợ cho các mô hình AI mở",
+      "editorial_headline_vi": "CEO Jensen Huang từ chức tại Nvidia, nguồn tài trợ dồi dào cho mô hình AI mở nhiều khả năng sẽ cạn kiệt",
       "summary_sources": [
         {
           "id": "outlet",
           "role": "outlet",
           "name": "interconnects",
           "url": "https://www.interconnects.ai/p/open-source-ai-without-jensen"
-        },
-        {
-          "id": "coverage1",
-          "role": "coverage",
-          "name": "bloomberg",
-          "url": "https://www.bloomberg.com/news/videos/2026-11-13/ives-on-nvidia-without-jensen-huang-microsoft-outage-video"
         }
       ],
       "summary_limitations": [
@@ -75042,45 +75036,170 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.7,
+        "value": 9.8,
         "answers": {
           "what": 10,
-          "why": 8,
-          "notable": 7,
+          "why": 9,
+          "notable": 10,
           "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "sẽ làm cạn kiệt nguồn tài trợ cho các mô hình AI mở",
-            "explanation": "The source predicts that Huang’s unusually abundant funding will very likely dry up; it does not say funding for open AI models as a whole will be exhausted (outlet:p014)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "Nguồn tài trợ cho mô hình mở nhiều khả năng sẽ cạn kiệt",
-            "explanation": "The source limits this prediction to the funding Huang had been providing, while noting that Nvidia still has a financial interest in supporting open models (outlet:p013–p014)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "notable",
-            "problem": "The headline and body imply that funding for open models generally will run out.",
-            "fix": "Specify that Lambert expects Huang’s unusually strong funding to very likely dry up (outlet:p014)."
-          },
-          {
-            "question": "why",
-            "problem": "The reader misses why Nvidia might continue supporting open models despite Huang’s departure.",
-            "fix": "Add Lambert’s point that Nvidia benefits when its customers do not concentrate power and develop chips that reduce Nvidia’s profits (outlet:p013)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "05fea581974f6cf2853c507272e0b8d905825a4b81d38e81b7e860b435b5fd02",
-        "scored_at": "2026-11-15T21:15:17.945991+00:00"
+        "prose_sha256": "625d9e8009fd0d1831c8401f0f7cdb16a601c934eb06a2f649f38bf1f6dd953e",
+        "scored_at": "2026-11-15T23:22:03.651246+00:00"
       }
+    },
+    {
+      "id": "174eb9849091618998b9",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The report focuses primarily on high-level international diplomacy regarding Trump meeting Xi and Putin, with only passing, incidental references to former Nvidia CEO Jensen Huang and chip export investigations.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.semafor.com/article/11/15/2026/trump-to-meet-xi-and-putin-in-china",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "6222824f595a76dcb085"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "f81af170615878810bea",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/15/2026/anthropic-ipo-set-to-define-ai-trade",
+      "key_points": [
+        "Theo Semafor, đợt phát hành cổ phiếu ra công chúng (IPO) trị giá 1,4 nghìn tỷ USD vào thứ Năm của Anthropic là phép thử quyết định cho ngành AI. Sự kiện diễn ra giữa biến động thị trường, phản đối chính trị gia tăng và khủng hoảng tại Nvidia.",
+        "Đợt niêm yết được đăng ký mua vượt sáu lần có thể hỗ trợ ngành AI, nơi các công ty công cụ và hạ tầng mất 4,2 nghìn tỷ USD từ tháng Sáu. Chuyên gia Morningstar cho biết trên The New York Times rằng Anthropic đã đa dạng hóa nguồn cung ngoài Nvidia, dù vẫn chờ 10 tỷ USD đầu tư từ hãng chip này sau IPO.",
+        "Một nhà đầu tư nhận định tương lai của Nvidia và Anthropic gắn kết chặt chẽ hơn bao giờ hết. Một chuyên gia chia sẻ với Reuters rằng nếu kết quả kinh doanh thứ Ba của Nvidia kém nổi bật, điều đó có thể gây bất định trước ngày Anthropic ra mắt."
+      ],
+      "same_event_coverage_ids": [
+        "69f218477912e49903e1"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Đợt IPO 1,4 nghìn tỷ USD của Anthropic được đăng ký mua vượt sáu lần giữa khủng hoảng tại Nvidia",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/15/2026/anthropic-ipo-set-to-define-ai-trade"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "9200ca89e784441067ffab92fdc480d311beb4456ea62f68962985c9ab218414",
+        "scored_at": "2026-11-15T23:14:45.451343+00:00"
+      }
+    },
+    {
+      "id": "2e8f421d2ee2a3dfd36b",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://openai.com/index/step-toward-defining-the-standard-model",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "f6d65800d033bec4ea95"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "33b95c2112c46efd0955",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://openai.com/index/our-new-blog-for-science",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "d7ec16f610127af0b898"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "24cbece72f55c409692d",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "podcast",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/15/is-bad-news-for-jensen-huang-also-bad-news-for-the-ai-industry/",
+      "key_points": [
+        "TechCrunch's Equity podcast discussed the ouster of former Nvidia CEO Jensen Huang and its impact on the wider AI economy.",
+        "Nvidia's board opened an investigation into then-CEO Jensen Huang before his departure.",
+        "Support for Huang rapidly crumbled as new scandals emerged, though some parties still wish to see him return.",
+        "The podcast discussion addressed uncertainty regarding Nvidia's future investments across the broader AI ecosystem."
+      ],
+      "same_event_coverage_ids": [
+        "3e805333db2fd43eb513"
+      ],
+      "split_coverage_ids": []
     }
   ]
 }
