@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-15T13:17:31.984191+00:00",
-  "input_generated_at": "2026-11-15T12:45:53Z",
+  "generated_at": "2026-11-15T15:07:42.894259+00:00",
+  "input_generated_at": "2026-11-15T14:45:31Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -74364,6 +74364,88 @@
         "prose_sha256": "399f083e807337b10e185b4f15eb7673deea4278e87b50bd47f2aa21f62ef17f",
         "scored_at": "2026-11-15T13:17:31.960634+00:00"
       }
+    },
+    {
+      "id": "44bdb0f74104b7c1ec93",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-15/ai-investors-brace-for-data-center-restrictions-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "a27ff4648ed887c6c12b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "13482003797f2776b71c",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/column/1033943/jensen-huang-nvidia-china-spying-scandal-resignation",
+      "key_points": [
+        "Jensen Huang resigned as CEO of Nvidia amid a leadership crisis.",
+        "The New York Times reported on October 29th that Nvidia co-founder Jensen Huang appeared to be the target of a Chinese spy plot.",
+        "The Verge's weekly newsletter The Stepback provided an overview of the fallout from Nvidia's leadership crisis."
+      ],
+      "same_event_coverage_ids": [
+        "6abdffcfa63cc0b8004b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "eba8c0480eb85e20e492",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Educational tutorial and technical walkthrough explaining positional embedding mechanisms with math and PyTorch code rather than reporting news.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://magazine.sebastianraschka.com/p/understanding-positional-embeddings",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "f8a2649bed7c9dd6e35c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "524028ead6b7f264aa7b",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Product landing page and Show HN pitch featuring promotional marketing copy and demos without independent news reporting or a documented release.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.shotoku.dev/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "f880281da7efe78e0d0d"
+      ],
+      "split_coverage_ids": []
     }
   ]
 }
