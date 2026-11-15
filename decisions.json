@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-15T17:19:35.657484+00:00",
-  "input_generated_at": "2026-11-15T16:55:33Z",
+  "generated_at": "2026-11-15T19:18:26.498895+00:00",
+  "input_generated_at": "2026-11-15T18:45:52Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -74686,10 +74686,10 @@
       "use_original_title": false,
       "source_url": "https://www.semafor.com/article/11/13/2026/bessent-knocks-lutnick-on-megaspeed",
       "key_points": [
-        "Bộ trưởng Tài chính Scott Bessent công khai chỉ trích Bộ trưởng Thương mại Howard Lutnick vì không đưa công ty trí tuệ nhân tạo (AI) Megaspeed vào danh sách đen, gia tăng sức ép nội bộ về kiểm soát xuất khẩu chip.",
+        "Bộ trưởng Tài chính Scott Bessent công khai chỉ trích Bộ trưởng Thương mại Howard Lutnick vì không đưa công ty trí tuệ nhân tạo (AI) Megaspeed vào danh sách đen.",
         "Ông Bessent cho biết trên đài CNBC rằng Bộ Tài chính đã thúc ép nhiều tháng nhưng Bộ Thương mại mới có quyền quyết định.",
-        "Theo Nghị sĩ Cộng hòa John Moolenaar, ông Huang cũng đồng ý điều trần kín trước các nhà lập pháp dù chưa ấn định ngày cụ thể.",
-        "Semafor nhận định sự săm soi làm dấy lên những câu hỏi về vị trí của ông Lutnick, song việc ông có phải rời nhiệm sở hay không vẫn chưa chắc chắn khi nhiều người thuộc đảng Cộng hòa vẫn lên tiếng bảo vệ."
+        "Theo Semafor, ông Lutnick đồng ý điều trần trước Quốc hội sau tin tức cựu giám đốc điều hành (CEO) của Nvidia là ông Jensen Huang có quan hệ tình cảm với một lãnh đạo Megaspeed bị nghi là gián điệp Trung Quốc. Theo Nghị sĩ John Moolenaar, ông Jensen Huang cũng đồng ý điều trần kín về mối quan hệ với Alice Huang, người bị cáo buộc là gián điệp Trung Quốc.",
+        "Semafor nhận định áp lực này đặt ra câu hỏi về vị trí của ông Lutnick, song chưa chắc chắn ông sẽ mất chức khi nhiều người thuộc đảng Cộng hòa vẫn lên tiếng bảo vệ."
       ],
       "same_event_coverage_ids": [
         "b040cb2d5e8a4fb8d1a8"
@@ -74698,7 +74698,7 @@
         "b4feeee353a874552ba9"
       ],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Bộ trưởng Tài chính Mỹ chỉ trích Bộ trưởng Thương mại vì không đưa Megaspeed vào danh sách đen",
+      "editorial_headline_vi": "Bộ trưởng Tài chính Mỹ chỉ trích ông Lutnick vì không đưa công ty AI Megaspeed vào danh sách đen",
       "summary_sources": [
         {
           "id": "outlet",
@@ -74717,24 +74717,107 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.8,
+        "value": 9.7,
         "answers": {
           "what": 10,
           "why": 10,
-          "notable": 6,
+          "notable": 9,
           "meaning": 10
         },
         "hard_errors": [],
-        "findings": [
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "0030a5f84c4a18e48cbfc9ad44cec1e03d79fbb70836ec425ae1f7dc4cccf6c1",
+        "scored_at": "2026-11-15T19:18:26.493108+00:00"
+      }
+    },
+    {
+      "id": "b4f06810d8e19bef2d34",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://claramap.com/blog/what-picasso-taught-me-about-building-ai-agents/",
+      "key_points": [
+        "Theo tác giả bài viết, cách xây dựng tác tử AI (phần mềm trí tuệ nhân tạo tự hành) là tinh giản cấu trúc thành thư mục chứa chỉ dẫn. Thư mục này là đơn vị triển khai độc lập, có thể quản lý phiên bản mà không cần cơ sở dữ liệu véc-tơ hay cơ chế lập kế hoạch phức tạp.",
+        "Tác giả lý giải sự tinh giản này vì các mô hình AI ngày càng tốt hơn giúp hoàn thành việc chỉ với một câu lệnh. Tác giả thừa nhận từng tự phức tạp hóa vấn đề, trong khi kỹ năng chuyên biệt chỉ cần tệp Markdown và tài nguyên hỗ trợ.",
+        "Trong ví dụ thực tế về xuất bản trang web, tác tử trên Codex đã tự sửa bài, tạo ảnh minh họa, xây dựng trang web, triển khai lên Cloudflare và kiểm tra trang trực tiếp. Hệ thống vận hành dựa trên các tệp chỉ dẫn biên tập và kết nối Cloudflare qua giao thức MCP.",
+        "Tác giả nhấn mạnh cần dùng các tác vụ đại diện với tiêu chí rõ ràng để xác định thay đổi có giúp tác tử tiến bộ hay không. Dù là khâu khó nhất, bài đánh giá giúp kiểm chứng sự tiến bộ vốn đến từ ngữ cảnh và chỉ dẫn, chứ không nhất thiết do mô hình thay đổi."
+      ],
+      "same_event_coverage_ids": [
+        "c0c604c0a989c0d884d4"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Tác giả bài viết chia sẻ cách tinh giản tác tử AI thành thư mục chỉ dẫn, lấy ví dụ từ trang web tự xuất bản",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://claramap.com/blog/what-picasso-taught-me-about-building-ai-agents/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.15,
+        "answers": {
+          "what": 8,
+          "why": 10,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [
           {
-            "question": "notable",
-            "problem": "Readers are told Huang will testify but miss that Lutnick also agreed to testify before Congress.",
-            "fix": "Report Lutnick's agreement and its context from outlet:p003."
+            "kind": "fact",
+            "summary_text": "mà không cần cơ sở dữ liệu véc-tơ hay cơ chế lập kế hoạch phức tạp",
+            "explanation": "The source says an agent does not automatically need a vector database or sophisticated memory architecture; it does not rule them out for every task. The author describes removing elaborate planning mechanisms from their own approach (outlet:p005–p007, outlet:p020)."
           },
           {
-            "question": "notable",
-            "problem": "Readers cannot tell who Huang is or what his private testimony concerns.",
-            "fix": "Identify him as the former Nvidia CEO and state that the planned testimony concerns his relationship with alleged Chinese spy Alice Huang (coverage1:p002)."
+            "kind": "fact",
+            "summary_text": "kỹ năng chuyên biệt chỉ cần tệp Markdown và tài nguyên hỗ trợ",
+            "explanation": "The source says a skill is often a Markdown file, perhaps with supporting resources. It does not say this is sufficient for every skill or that supporting resources are required (outlet:p017–p018)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "Dù là khâu khó nhất",
+            "explanation": "The source calls evals probably the hardest part, rather than stating that they definitively are (outlet:p044)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The reader may take the absence of a vector database or elaborate planning as a universal requirement of this approach.",
+            "fix": "Say those components are not automatically needed; the necessary context and tools depend on the agent's job (outlet:p019–p024)."
+          },
+          {
+            "question": "what",
+            "problem": "The reader may think every skill needs only Markdown and supporting resources.",
+            "fix": "Retain the source's qualification: a skill is often a Markdown file and may have supporting resources (outlet:p017–p018)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The reader receives certainty where the author expressed a judgment about the difficulty of evals.",
+            "fix": "Describe evals as probably the hardest part (outlet:p044)."
           }
         ],
         "writer_boats": [
@@ -74742,9 +74825,28 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "9a5cd542747ff2b20ec4f734c91c31af2acf07ac88737e9123c38b448c0bbbea",
-        "scored_at": "2026-11-15T17:19:35.630301+00:00"
+        "prose_sha256": "a4509716933449fb31ddcacda7d7b985926633d6bed75de00f8a9647d2273f09",
+        "scored_at": "2026-11-15T19:12:02.686709+00:00"
       }
+    },
+    {
+      "id": "180c301438cacf64af28",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "A Show HN pitch and demo walkthrough for a database branching tool without independent reporting or a substantive release announcement, with only incidental mention of AI agents.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/db-branch/db-branch",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "dcdd2537e8f9d2366426"
+      ],
+      "split_coverage_ids": []
     }
   ]
 }
