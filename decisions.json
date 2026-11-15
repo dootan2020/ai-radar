@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-15T15:07:42.894259+00:00",
-  "input_generated_at": "2026-11-15T14:45:31Z",
+  "generated_at": "2026-11-15T17:19:35.657484+00:00",
+  "input_generated_at": "2026-11-15T16:55:33Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -74446,6 +74446,305 @@
         "f880281da7efe78e0d0d"
       ],
       "split_coverage_ids": []
+    },
+    {
+      "id": "0fb3e2317f9322199378",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/15/2026/under-pressure-lutnick-joins-trump-in-china",
+      "key_points": [
+        "Bộ trưởng Thương mại Mỹ Howard Lutnick dự kiến cùng Tổng thống Donald Trump tới Trung Quốc trên chuyên cơ Air Force One trong tuần này, theo các nguồn tin am hiểu do Semafor dẫn lại.",
+        "Tại Washington, ông Lutnick trở thành mục tiêu chỉ trích vì trì hoãn các biện pháp siết xuất khẩu một số chip trí tuệ nhân tạo (AI) sang Trung Quốc. Phía đảng Cộng hòa cũng cáo buộc ông để Nvidia bán chip qua các kẽ hở và cho hãng tiếp cận không giới hạn quá trình lập quy định.",
+        "Bộ trưởng Tài chính Scott Bessent cho biết trên CNBC rằng đã thúc giục nhiều tháng để đưa Megaspeed vào danh sách đen nhưng Bộ Thương mại nắm quyền quyết định.",
+        "Semafor nhận định việc tháp tùng phát tín hiệu Tổng thống Trump muốn giữ ông Lutnick cho chuyến đi Trung Quốc, dù kế hoạch có thể thay đổi. Hiện tại, Nhà Trắng tuyên bố vẫn duy trì sự tin tưởng tuyệt đối vào vị bộ trưởng này."
+      ],
+      "same_event_coverage_ids": [
+        "bfc5002792623bfc9463"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Chịu sức ép kiểm soát chip, Bộ trưởng Thương mại Mỹ dự kiến cùng ông Trump đến Trung Quốc",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/15/2026/under-pressure-lutnick-joins-trump-in-china"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.6,
+        "answers": {
+          "what": 10,
+          "why": 8,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "Readers miss one reason Lutnick is under scrutiny.",
+            "fix": "Add that the source links the criticism to his close relationship with former Nvidia CEO Jensen Huang (outlet:p003)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "ba3b9ddccec2df456e4851c9399e7b3912287144c8fdf8f90e4b6225d9d6f105",
+        "scored_at": "2026-11-15T17:19:35.630255+00:00"
+      }
+    },
+    {
+      "id": "ebce410f4045607dbf46",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-15/vc-firm-run-by-madonna-s-manager-has-7-billion-anthropic-stake",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "47db3c32f873920f11e0"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "f937c147cfe4434215e6",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.nytimes.com/2026/11/15/business/anthropic-ipo-filing-prospectus.html",
+      "key_points": [
+        "Công ty trí tuệ nhân tạo Anthropic đã nộp bản cáo bạch chào bán cổ phiếu lần đầu ra công chúng lên Ủy ban Chứng khoán và Giao dịch Mỹ.",
+        "Tác giả bài viết cho biết công ty tìm kiếm nguồn vốn đáng kể cho chip, trung tâm dữ liệu và điện năng.",
+        "Với mức định giá ước tính vượt 1 nghìn tỷ USD, Anthropic mở đầu bằng tuyên bố AI có thể giải quyết các vấn đề từng thách thức nhiều thế hệ con người. Người viết cũng lưu ý từng cùng hàng trăm nghìn tác giả kiện công ty này về vấn đề vi phạm bản quyền.",
+        "Tác giả nhận định đợt IPO này đặt cược vào tương lai văn minh nhân loại, dù bản thân thừa nhận không thể đưa ra tỷ lệ cược cho canh bạc sinh tồn này."
+      ],
+      "same_event_coverage_ids": [
+        "7abe971c55713f8bfafb"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Anthropic nộp hồ sơ IPO với định giá vượt 1 nghìn tỷ USD để phát triển trí tuệ nhân tạo",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://www.nytimes.com/2026/11/15/business/anthropic-ipo-filing-prospectus.html"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "26d7611bbd55fb6882f9b262b22e03556f022aa4db7e25146d7aaba7d9e9fe35",
+        "scored_at": "2026-11-15T17:15:20.812818+00:00"
+      }
+    },
+    {
+      "id": "f8b414336722335151dd",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-15/bessent-says-nvidia-needs-dramatic-shakeup-after-huang-ouster",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "bcd742e2bd5cb85bc170"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "6f1c2f979d0e73ad458f",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "General consumer hardware newsletter discussing upcoming Apple smart glasses and Face ID on the iPhone Duo, where AI integration is merely an incidental feature rather than the core subject.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/newsletters/2026-11-15/apple-siri-ai-app-integrations-power-smart-glasses-iphone-duo-2-face-id-plan",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "01af3bee2b0a41b7f6df"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "d9e25d7053145a455340",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-15/nvidia-sought-taipei-s-help-over-employee-s-chip-smuggling-case",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "19bd644546a339391fb0"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "91935a49528247b549bb",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://jakub.jankiewicz.org/blog/ai-code-open-source/",
+      "key_points": [
+        "Under U.S. copyright principles established in disputes like the Monkey Selfie case and recognized by the U.S. Copyright Office, non-human creators cannot hold copyrights.",
+        "Wikimedia Commons requires all purely AI-generated images to be designated as Public Domain.",
+        "Copyright laws regarding AI-generated works vary internationally, with jurisdictions such as the UK granting limited protections."
+      ],
+      "same_event_coverage_ids": [
+        "8855cce4461684563a80",
+        "8b7a20f77b789c951fa2"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "d5e0222c08d612cf121e",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/13/2026/bessent-knocks-lutnick-on-megaspeed",
+      "key_points": [
+        "Bộ trưởng Tài chính Scott Bessent công khai chỉ trích Bộ trưởng Thương mại Howard Lutnick vì không đưa công ty trí tuệ nhân tạo (AI) Megaspeed vào danh sách đen, gia tăng sức ép nội bộ về kiểm soát xuất khẩu chip.",
+        "Ông Bessent cho biết trên đài CNBC rằng Bộ Tài chính đã thúc ép nhiều tháng nhưng Bộ Thương mại mới có quyền quyết định.",
+        "Theo Nghị sĩ Cộng hòa John Moolenaar, ông Huang cũng đồng ý điều trần kín trước các nhà lập pháp dù chưa ấn định ngày cụ thể.",
+        "Semafor nhận định sự săm soi làm dấy lên những câu hỏi về vị trí của ông Lutnick, song việc ông có phải rời nhiệm sở hay không vẫn chưa chắc chắn khi nhiều người thuộc đảng Cộng hòa vẫn lên tiếng bảo vệ."
+      ],
+      "same_event_coverage_ids": [
+        "b040cb2d5e8a4fb8d1a8"
+      ],
+      "split_coverage_ids": [
+        "b4feeee353a874552ba9"
+      ],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Bộ trưởng Tài chính Mỹ chỉ trích Bộ trưởng Thương mại vì không đưa Megaspeed vào danh sách đen",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/13/2026/bessent-knocks-lutnick-on-megaspeed"
+        },
+        {
+          "id": "coverage1",
+          "role": "coverage",
+          "name": "bloomberg",
+          "url": "https://www.bloomberg.com/news/articles/2026-11-15/house-chairman-says-huang-agrees-to-testify-but-no-date-set-yet"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.8,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 6,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "Readers are told Huang will testify but miss that Lutnick also agreed to testify before Congress.",
+            "fix": "Report Lutnick's agreement and its context from outlet:p003."
+          },
+          {
+            "question": "notable",
+            "problem": "Readers cannot tell who Huang is or what his private testimony concerns.",
+            "fix": "Identify him as the former Nvidia CEO and state that the planned testimony concerns his relationship with alleged Chinese spy Alice Huang (coverage1:p002)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "9a5cd542747ff2b20ec4f734c91c31af2acf07ac88737e9123c38b448c0bbbea",
+        "scored_at": "2026-11-15T17:19:35.630301+00:00"
+      }
     }
   ]
 }
