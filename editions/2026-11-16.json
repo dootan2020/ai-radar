@@ -1,0 +1,262 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-16",
+  "timezone": "Asia/Ho_Chi_Minh",
+  "window_start_at": "2026-11-14T23:00:00Z",
+  "cutoff_at": "2026-11-15T23:00:00Z",
+  "created_at": "2026-11-15T23:08:12Z",
+  "snapshot_generated_at": "2026-11-15T23:06:03Z",
+  "policy": {
+    "method": "daily-evidence-v3",
+    "max_stories": 5,
+    "window_hours": 24,
+    "cutoff_hour": 6,
+    "engagement_percentile_min": 0.8,
+    "publisher_coverage_excludes_forums": true,
+    "attention_requires_nonforum": true,
+    "forum_exception_percentile_min": 0.97,
+    "forum_exception_comments_min": 100,
+    "max_forum_only_stories": 1,
+    "score_measured_at": "2026-11-15T23:06:03Z",
+    "description": "Ưu tiên dấu hiệu công bố, số nhà xuất bản và tương tác đo được; sau đó theo điểm nóng và thời gian công bố"
+  },
+  "stories": [
+    {
+      "id": "7310523931ec31d7ed58",
+      "title": "Jensen Huang might be plotting a return and more of the latest Nvidia drama",
+      "title_vi": "Jensen Huang có thể đang lên kế hoạch quay lại và nhiều bộ phim mới nhất của Nvidia",
+      "headline": "Jensen Huang might be plotting a return and more of the latest Nvidia drama",
+      "headline_vi": "Jensen Huang có thể đang lên kế hoạch quay lại và nhiều bộ phim mới nhất của Nvidia",
+      "url": "https://www.theverge.com/tech/1033999/jensen-huang-return-nvidia-megaspeed",
+      "published_at": "2026-11-15T20:43:49Z",
+      "kind": "other",
+      "time_basis": "published",
+      "editorial_headline_vi": "Xuất hiện tin đồn Jensen Huang tìm đường trở lại Nvidia khi Megaspeed tuyên bố Alice Huang đã thôi việc",
+      "editorial_headline_verified": true,
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "bc3427b07a5824e3ecbf",
+          "title": "Jensen Huang might be plotting a return and more of the latest Nvidia drama",
+          "title_vi": "Jensen Huang có thể đang lên kế hoạch quay lại và nhiều bộ phim mới nhất của Nvidia",
+          "headline": "Jensen Huang might be plotting a return and more of the latest Nvidia drama",
+          "headline_vi": "Jensen Huang có thể đang lên kế hoạch quay lại và nhiều bộ phim mới nhất của Nvidia",
+          "url": "https://www.theverge.com/tech/1033999/jensen-huang-return-nvidia-megaspeed",
+          "published_at": "2026-11-15T20:43:49Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "verge-ai",
+          "publisher": "the-verge",
+          "entity": "the-verge",
+          "group": "press",
+          "observed_at": "2026-11-15T23:06:03Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [],
+        "signals": {
+          "publishers": [
+            "the-verge"
+          ],
+          "age_hours_at_cutoff": 2.2697,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "0fb3e2317f9322199378",
+      "title": "Under pressure, Lutnick joins Trump in China",
+      "title_vi": "Dưới áp lực, Lutnick gia nhập Trump ở Trung Quốc",
+      "headline": "Under pressure, Lutnick joins Trump in China",
+      "headline_vi": "Dưới áp lực, Lutnick gia nhập Trump ở Trung Quốc",
+      "url": "https://www.semafor.com/article/11/15/2026/under-pressure-lutnick-joins-trump-in-china",
+      "published_at": "2026-11-15T18:04:51Z",
+      "kind": "other",
+      "time_basis": "published",
+      "editorial_headline_vi": "Chịu sức ép kiểm soát chip, Bộ trưởng Thương mại Mỹ dự kiến cùng ông Trump đến Trung Quốc",
+      "editorial_headline_verified": true,
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "bfc5002792623bfc9463",
+          "title": "Under pressure, Lutnick joins Trump in China",
+          "title_vi": "Dưới áp lực, Lutnick gia nhập Trump ở Trung Quốc",
+          "headline": "Under pressure, Lutnick joins Trump in China",
+          "headline_vi": "Dưới áp lực, Lutnick gia nhập Trump ở Trung Quốc",
+          "url": "https://www.semafor.com/article/11/15/2026/under-pressure-lutnick-joins-trump-in-china",
+          "published_at": "2026-11-15T18:04:51Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "semafor",
+          "publisher": "semafor",
+          "entity": "semafor",
+          "group": "press",
+          "observed_at": "2026-11-15T23:06:03Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [],
+        "signals": {
+          "publishers": [
+            "semafor"
+          ],
+          "age_hours_at_cutoff": 4.9192,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "dc713a483ba5be6154a3",
+      "title": "AI DJs Completely Kill My Groove",
+      "title_vi": "AI DJs hoàn toàn giết chết Groove của tôi",
+      "headline": "AI DJs Completely Kill My Groove",
+      "headline_vi": "AI DJs hoàn toàn giết chết Groove của tôi",
+      "url": "https://www.wired.com/story/ai-djs-completely-kill-my-groove/",
+      "published_at": "2026-11-15T12:00:00Z",
+      "kind": "other",
+      "time_basis": "published",
+      "editorial_headline_vi": "Phóng viên WIRED từ bỏ DJ bằng AI trên YouTube Music và Spotify do lời bình sáo rỗng",
+      "editorial_headline_verified": true,
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "953d8f89830370678baf",
+          "title": "AI DJs Completely Kill My Groove",
+          "title_vi": "AI DJs hoàn toàn giết chết Groove của tôi",
+          "headline": "AI DJs Completely Kill My Groove",
+          "headline_vi": "AI DJs hoàn toàn giết chết Groove của tôi",
+          "url": "https://www.wired.com/story/ai-djs-completely-kill-my-groove/",
+          "published_at": "2026-11-15T12:00:00Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "wired-ai",
+          "publisher": "wired",
+          "entity": "wired",
+          "group": "press",
+          "observed_at": "2026-11-15T23:06:03Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [],
+        "signals": {
+          "publishers": [
+            "wired"
+          ],
+          "age_hours_at_cutoff": 11.0,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "813b58e5440732006ed1",
+      "title": "This AI Tamagotchi Turns Everyday Objects Into Needy Virtual Pets",
+      "title_vi": "Tamagotchi AI này biến các vật dụng hàng ngày thành thú cưng ảo cần thiết",
+      "headline": "This AI Tamagotchi Turns Everyday Objects Into Needy Virtual Pets",
+      "headline_vi": "Tamagotchi AI này biến các vật dụng hàng ngày thành thú cưng ảo cần thiết",
+      "url": "https://www.wired.com/story/this-ai-tamagotchi-oats-turns-everyday-objects-into-needy-virtual-pets/",
+      "published_at": "2026-11-15T11:00:00Z",
+      "kind": "other",
+      "time_basis": "published",
+      "editorial_headline_vi": "Dự án OATs dùng mô-đun chính khoảng 20 USD biến đồ vật thành thú cưng ảo bằng AI trên màn hình E Ink",
+      "editorial_headline_verified": true,
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "b54c2a37bd418ae4f041",
+          "title": "This AI Tamagotchi Turns Everyday Objects Into Needy Virtual Pets",
+          "title_vi": "Tamagotchi AI này biến các vật dụng hàng ngày thành thú cưng ảo cần thiết",
+          "headline": "This AI Tamagotchi Turns Everyday Objects Into Needy Virtual Pets",
+          "headline_vi": "Tamagotchi AI này biến các vật dụng hàng ngày thành thú cưng ảo cần thiết",
+          "url": "https://www.wired.com/story/this-ai-tamagotchi-oats-turns-everyday-objects-into-needy-virtual-pets/",
+          "published_at": "2026-11-15T11:00:00Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "wired-ai",
+          "publisher": "wired",
+          "entity": "wired",
+          "group": "press",
+          "observed_at": "2026-11-15T23:06:03Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [],
+        "signals": {
+          "publishers": [
+            "wired"
+          ],
+          "age_hours_at_cutoff": 12.0,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "32041ce56196875cfd5e",
+      "title": "HyperS2C Launches With a Full Digital Front-End EDA Toolchain and Two AI Agents for Verification",
+      "title_vi": "HyperS2C ra mắt với một chuỗi công cụ EDA front-end kỹ thuật số đầy đủ và hai agent AI để xác minh",
+      "headline": "HyperS2C Launches With a Full Digital Front-End EDA Toolchain and Two AI Agents for Verification",
+      "headline_vi": "HyperS2C ra mắt với một chuỗi công cụ EDA front-end kỹ thuật số đầy đủ và hai agent AI để xác minh",
+      "url": "https://pandaily.com/hypers2c-digital-front-end-eda-toolchain-hyperhybrid-hscompile-hsdebug-agents",
+      "published_at": "2026-11-15T07:12:25Z",
+      "kind": "product",
+      "time_basis": "published",
+      "editorial_headline_vi": "HyperS2C ra mắt chuỗi công cụ EDA và hai tác nhân AI xác thực chip nhưng chưa công bố ngày phát hành",
+      "editorial_headline_verified": true,
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "19a655f5e46edf4d9856",
+          "title": "HyperS2C Launches With a Full Digital Front-End EDA Toolchain and Two AI Agents for Verification",
+          "title_vi": "HyperS2C ra mắt với một chuỗi công cụ EDA front-end kỹ thuật số đầy đủ và hai agent AI để xác minh",
+          "headline": "HyperS2C Launches With a Full Digital Front-End EDA Toolchain and Two AI Agents for Verification",
+          "headline_vi": "HyperS2C ra mắt với một chuỗi công cụ EDA front-end kỹ thuật số đầy đủ và hai agent AI để xác minh",
+          "url": "https://pandaily.com/hypers2c-digital-front-end-eda-toolchain-hyperhybrid-hscompile-hsdebug-agents",
+          "published_at": "2026-11-15T07:12:25Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "pandaily",
+          "publisher": "pandaily",
+          "entity": "pandaily",
+          "group": "press",
+          "observed_at": "2026-11-15T23:06:03Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [],
+        "signals": {
+          "publishers": [
+            "pandaily"
+          ],
+          "age_hours_at_cutoff": 15.7931,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    }
+  ],
+  "source_health": {
+    "active_remote_sources": 77,
+    "successful_remote_sources": 76,
+    "failed_remote_sources": [
+      "restofworld"
+    ]
+  }
+}
