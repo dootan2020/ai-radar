@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-14T23:17:55.327384+00:00",
-  "input_generated_at": "2026-11-14T22:46:05Z",
+  "generated_at": "2026-11-15T07:25:40.190158+00:00",
+  "input_generated_at": "2026-11-15T06:45:41Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -73525,6 +73525,477 @@
         "prose_sha256": "5ac65f723d457169fb34f8f7aac67581ba743e6dc4b45fcffe57054324965f3a",
         "scored_at": "2026-11-14T23:15:25.597204+00:00"
       }
+    },
+    {
+      "id": "2ed813c673d67cd351bf",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.scmp.com/economy/china-economy/article/3374358/no-actors-no-crew-no-ticket-sales-so-obviously-ai-film-flops-chinas-box-office",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "355572211f27bdee7026"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "6f3c69a1bf1e0a5a0f58",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://en.yna.co.kr/view/AEN20261115000700315",
+      "key_points": [
+        "Thủ khoa kỳ thi kế toán thuế tại Hàn Quốc thừa nhận gian lận trong cả hai vòng thi bằng camera siêu nhỏ, điện thoại cùng AI và đã tự thú với cảnh sát. Người đàn ông này lên tiếng thừa nhận trên kênh YouTube của một luật sư sau khi điểm số bất thường gây nghi ngờ trên mạng.",
+        "Người này giải thích bản thân lo sợ việc học kéo dài ở tuổi ngoài 30 sau khi kinh doanh thất bại và muốn làm cha mẹ tự hào dù phải gian lận. Thí sinh cũng gửi lời xin lỗi và cho biết bản thân rất hối hận về việc này.",
+        "Thí sinh khai nhận đã dùng camera siêu nhỏ gửi đề cho AI rồi xem đáp án trên điện thoại, chỉ làm sai một trên 160 câu ở vòng một vào tháng 4. Ở vòng hai vào tháng 7, người này đạt 192 và 190 điểm môn kế toán, cùng 114 và 167 điểm môn luật thuế.",
+        "Theo luật định, người gian lận có thể bị hủy kết quả thi và cấm thi 5 năm, còn Bộ Kinh tế và Tài chính Hàn Quốc dự định sẽ sớm đình chỉ chứng chỉ của người này. Vụ việc có thể dẫn đến các cáo buộc hình sự tùy thuộc vào kết quả điều tra của cảnh sát."
+      ],
+      "same_event_coverage_ids": [
+        "1bbca3a766cb00007057",
+        "79c0f569d4d4f727206a",
+        "e00139de80471e48570c"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Thủ khoa kỳ thi kế toán thuế Hàn Quốc tự thú gian lận bằng camera siêu nhỏ và AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "yonhap",
+          "url": "https://en.yna.co.kr/view/AEN20261115000700315"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.65,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "0d72dcaade75cba657f92b924df99ea004f135cd18bdeae7c44dedc306ac4976",
+        "scored_at": "2026-11-15T07:21:20.222620+00:00"
+      }
+    },
+    {
+      "id": "15f61eca82bc1834aafe",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "General business reporting on South Korea's monthly ICT and semiconductor export totals where the AI boom is merely cited in passing.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://en.yna.co.kr/view/AEN20261115000800320",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "2cd3854d4d6d9903c935"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "bc868ec2aee0a4149a48",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.scmp.com/tech/tech-trends/article/3374332/can-chinese-ai-companies-curb-cyber-risks-open-weight-models-without-losing-their-edge",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "70e12b3775de29510a75"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "c7dc965932ca02b743ea",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://pandaily.com/unipat-ai-science-prediction-universe-spu-benchmark-wet-lab-outcome-prediction-agents",
+      "key_points": [
+        "UniPat AI công bố bộ kiểm chuẩn SPU, cho biết không cấu hình tác tử AI (chương trình tự hành) nào đạt điểm trên 0,5 trên thang đo từ 0 đến 1. Bộ dữ liệu gồm 116 nhiệm vụ từ 4.207 thí nghiệm thực tế phòng thí nghiệm thuộc hóa học, vật liệu, sinh học và y học.",
+        "Bài báo phân tích chỉ ra nút thắt nằm ở khả năng phán đoán chứ không phải việc sử dụng công cụ của các tác tử. Mỗi tác tử có tám giờ trong máy chủ riêng để tra cứu và xếp hạng ứng viên theo hệ số tương quan Spearman.",
+        "Claude Opus 5.5 đạt điểm trung bình cao nhất là 0,486 theo báo cáo của UniPat AI, dù phần lớn lượt chạy kết thúc bằng việc từ chối an toàn và được chấm trên ít nhiệm vụ hơn.",
+        "Bài báo nhấn mạnh các tác tử đồng thuận với nhau nhiều hơn so với thực tế thí nghiệm, với mức 0,52 so với 0,33. Ngoài ra, chỉ có 34% đến 52% số nhiệm vụ trên các cấu hình đạt kết quả vượt ngưỡng ngẫu nhiên."
+      ],
+      "same_event_coverage_ids": [
+        "36d647d16d11a781d875"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Bộ kiểm chuẩn SPU của UniPat AI: Không tác tử AI nào đạt điểm dự đoán trên 0,5",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "pandaily",
+          "url": "https://pandaily.com/unipat-ai-science-prediction-universe-spu-benchmark-wet-lab-outcome-prediction-agents"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 7.35,
+        "answers": {
+          "what": 5,
+          "why": 10,
+          "notable": 7,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "Không tác tử AI nào đạt điểm dự đoán trên 0,5",
+            "explanation": "The source says the best mean among 13 tested configurations was below 0.5, not that every individual prediction scored below it. Some task scores reached 0.89–0.95 (outlet:p001, outlet:p004, outlet:p007)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "không cấu hình tác tử AI (chương trình tự hành) nào đạt điểm trên 0,5",
+            "explanation": "This needs to say that none of the 13 configurations tested had a mean above 0.5; the source makes no claim about all configurations or all individual runs (outlet:p001, outlet:p004)."
+          },
+          {
+            "kind": "number",
+            "summary_text": "trên thang đo từ 0 đến 1",
+            "explanation": "The source identifies 1 as perfect prediction and 0 as the random-guessing average, not as the endpoints of the scale. It reports negative scores for one outcome (outlet:p001, outlet:p007)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "xếp hạng ứng viên theo hệ số tương quan Spearman",
+            "explanation": "Agents rank candidates by the predicted experimental outcome; a separate offline container uses Spearman correlation to score those rankings (outlet:p003)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "Readers could think no AI agent ever made a prediction scoring above 0.5.",
+            "fix": "State that the highest mean among the 13 tested configurations was 0.486 (outlet:p001, outlet:p004)."
+          },
+          {
+            "question": "notable",
+            "problem": "The stated 0-to-1 scale excludes negative scores that the source reports.",
+            "fix": "Describe 1 as perfect and 0 as the random-guessing average, without calling them the scale’s endpoints (outlet:p001, outlet:p007)."
+          },
+          {
+            "question": "what",
+            "problem": "Readers could think agents use Spearman correlation to choose their rankings.",
+            "fix": "Say agents rank candidates by predicted outcomes and an offline container scores the rankings with Spearman correlation (outlet:p003)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "2bea75e4a8a5e55a46c4df3290b97a50c09c8822055db0715a31984ce92237f2",
+        "scored_at": "2026-11-15T07:21:20.222863+00:00"
+      }
+    },
+    {
+      "id": "7476ddf2d1f646e4be47",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://pandaily.com/deepseek-web-frontend-code-quota-management-coding-plan-unannounced",
+      "key_points": [
+        "Theo IT Home, các nhà phát triển phát hiện mã nguồn web DeepSeek xuất hiện hệ thống quản lý hạn ngạch Coding Plan. Dù vậy, công ty chưa công bố gói thuê bao nào và chưa từng công khai mức giá hay ngày ra mắt.",
+        "Theo các nhà phát triển, mã nguồn chứa nhánh xử lý lỗi khi cạn hạn ngạch và kiểm tra cờ trạng thái trong mảng dữ liệu. Hệ thống đồng bộ hạn ngạch của từng mô hình mỗi năm phút khi trang web mở và hiển thị cảnh báo khi hết lượt dùng.",
+        "Cụ thể, đoạn mã chứa thông báo chạm giới hạn hạn ngạch và yêu cầu người dùng thử lại sau khi hạn ngạch phục hồi. Báo cáo ghi nhận chưa có màn hình thanh toán hay mức giá, và chưa rõ áp dụng cho người dùng miễn phí hay trả phí.",
+        "Trang Pandaily nhận định mã nguồn web có thể chỉ là tính năng thử nghiệm và không bao giờ ra mắt. Đến nay, DeepSeek vẫn chưa đưa ra bình luận nào về đoạn mã hạn ngạch này."
+      ],
+      "same_event_coverage_ids": [
+        "8120498e34975a07ff22"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Mã nguồn web DeepSeek lộ cơ chế hạn ngạch Coding Plan nhưng chưa công bố gói cước",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "pandaily",
+          "url": "https://pandaily.com/deepseek-web-frontend-code-quota-management-coding-plan-unannounced"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "50655e630f124e2eae94603fc10ee19f63812e40440e1e57bb2c2ed2b5dfdca2",
+        "scored_at": "2026-11-15T07:21:20.222964+00:00"
+      }
+    },
+    {
+      "id": "b088aa994e815ea6461b",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.economist.com/briefing/2026/11/12/can-the-ai-boom-make-enough-money-to-sustain-itself",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c4d6deb3a0641dbcacb3"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "21521ffa61a2522ff6bb",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.youtube.com/watch?v=SeGUXN8XIu8",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "d04a95e909f7c91b5a60"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "167c81c5d6fc7db57e5d",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/14/where-was-nvidias-security-team/",
+      "key_points": [
+        "Tổng giám đốc Jensen Huang rời Nvidia trước các nghi vấn về quan hệ ngoài luồng của ông. Vụ việc bắt nguồn từ quan hệ với lãnh đạo Megaspeed, bên bị điều tra viên Mỹ nghi tuồn chip sang Trung Quốc dù công ty này bác bỏ.",
+        "Theo các chuyên gia an ninh, quan hệ ngoài luồng có thể tạo đòn bẩy cho tình báo nước ngoài đối với lãnh đạo muốn giữ kín việc riêng. Cựu sĩ quan Nicholas Eftimiades nhận định việc thu thập tin qua trò chuyện thông thường khiến đội an ninh rất khó phát hiện rủi ro.",
+        "Về quan hệ cụ thể, The New York Times dẫn lời năm nhân viên cho biết ông Huang qua lại với một phó chủ tịch dưới quyền, còn Reuters dẫn hai người đưa thêm quan hệ thứ hai. Dù luật sư trưởng Nvidia đã làm việc với vụ Megaspeed từ hơn một năm trước, chưa rõ thông tin có đến được đội an ninh.",
+        "Theo TechCrunch, những gì đội an ninh biết và khả năng hành động chỉ có thể sáng tỏ hơn khi cuộc điều tra của hội đồng quản trị và liên bang tiến triển."
+      ],
+      "same_event_coverage_ids": [
+        "f242072f5ddd27dba47a"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "CEO Jensen Huang rời Nvidia giữa nghi vấn quan hệ ngoài luồng và dấu hỏi về đội an ninh",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/14/where-was-nvidias-security-team/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.55,
+        "answers": {
+          "what": 8,
+          "why": 10,
+          "notable": 8,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The reader misses why the article focuses on Nvidia's security team.",
+            "fix": "Add that longtime security chief David Reber stepped down in August, two and a half months before Huang, while making clear that nothing public connects the security leadership changes to Megaspeed (outlet:p006–p009)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The reader misses the expert's broader conclusion.",
+            "fix": "If space permits, add that Eftimiades hopes the episode serves as a wake-up call for U.S. industry about Chinese intelligence tactics, attributing that view to him (outlet:p021)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "6c02f0e3d884e7b17a6a9bcf3c4f3102aa2736fd9713cf26abac9c8ee8ac75d5",
+        "scored_at": "2026-11-15T07:25:40.151461+00:00"
+      }
+    },
+    {
+      "id": "cebb1078c8f3cc44385b",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Financial reporting centered on Indian stock market performance and foreign fund flows, with the AI trade unwinding mentioned only as broader market context.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-15/india-stock-market-rebounds-as-ai-trade-unwinds-foreign-funds-return",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "67d1689ba219c7a719cb"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "9c481a0931060f36109e",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://simonwillison.net/2026/Nov/14/datasette-llm/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "77c8604f70ea93fa67fa"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "d5d8547e961af0e1fab1",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.techspot.com/news/114558-nvidia-deliberately-kept-gpu-prices-high-through-circular.html",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "9c28a2a937dfdb358e8b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "f46b5d5d7903a2382482",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "A Show HN self-promotion pitch and product download landing page for Gamma PDF without independent reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://gammapdf.com/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "83f54ff56d4590a66bf9"
+      ],
+      "split_coverage_ids": []
     }
   ]
 }
