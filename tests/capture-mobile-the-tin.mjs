@@ -87,10 +87,13 @@ const MEASURE = () => {
   const panel = document.querySelector('.feed-main.front.msn-panel');
   // One ordinary story card's computed look, to compare a phone's card with the desktop's. Any band's ordinary photo
   // card is a fair sample (the token invariant holds page-wide); #band-news alone can run short of one once the "Vừa
-  // đăng" tile keeps more rows out of the river, so look across the whole feed.
-  const one = [...document.querySelectorAll('#feed-grid .band .nc.has-photo:not(.nc-wide):not(.nc-big)')].find(shown);
+  // đăng" tile keeps more rows out of the river, so look across the whole feed. "Tin khác" is sheets, not cards, since
+  // mockup A (captain, 15/11 20:57), so an ordinary card without a photograph stands in when no photo card is left.
+  const ordinary = '#feed-grid .band .nc:not(.nc-wide):not(.nc-big)';
+  const one = [...document.querySelectorAll(`${ordinary}.has-photo`)].find(shown) || [...document.querySelectorAll(ordinary)].find(shown);
   const cs = (el, ...props) => el ? Object.fromEntries(props.map(p => [p, getComputedStyle(el)[p]])) : null;
   const look = one && {
+    hasPhoto: one.classList.contains('has-photo'),
     card: cs(one, 'borderRadius', 'boxShadow', 'backgroundColor', 'paddingTop', 'paddingLeft'),
     body: cs(one.querySelector('.nc-body'), 'display', 'paddingTop', 'paddingLeft'),
     photo: cs(one.querySelector('.nc-photo'), 'borderRadius'),

@@ -185,7 +185,10 @@ class RenderedCards(unittest.TestCase):
                             ("title", ("fontWeight", "color")), ("gap", ("rowGap",))):
             for prop in props:
                 self.assertEqual(phone[part][prop], wide[part][prop], f"{part}.{prop}")
-        self.assertEqual(phone["fav"], wide["fav"])
+        # A desktop card without a photograph wears the large favicon (--msn-fav-lg), so the favicon is compared only when
+        # both samples are photo cards ("Tin khác", which held most of them, is sheets since mockup A, 15/11).
+        if phone["hasPhoto"] and wide["hasPhoto"]:
+            self.assertEqual(phone["fav"], wide["fav"])
 
     def test_vua_dang_rows_keep_their_height_and_the_list_scrolls_on_a_phone(self):
         # Captain, 13/11: "trên mobile chỉ hiển thị 4 tin, không cuộn xem thêm được". A capped list must scroll to its

@@ -289,6 +289,20 @@
   --story-card-title: var(--msn-title-wide);         /* 18 px, the desktop wide card's headline */
   --story-card-title-big: var(--msn-title-big);      /* 22 px, the desktop notable card's headline */
   --story-card-rank: var(--num-md);                  /* a top story's rank, 32 px: the phone's ranked layout */
+  /* "Tin khác" as a calm newspaper page (captain, 15/11 20:57, mockup A "trang báo tĩnh"): three type tiers in one family,
+     white space between them, hairline column rules, one ink rule over the compact rows. */
+  --tk-lead-title: clamp(var(--size-28), 3.55vw, 3.25rem);   /* the lead's headline, the section's loudest line: 28 px on a phone, 51 at 1440, 52 at most */
+  --tk-second-title: var(--size-18);                 /* a medium story's headline */
+  --tk-second-title-phone: 1.0625rem;                /* 17 px */
+  --tk-row-title: var(--size-15);                    /* a compact row's headline */
+  --tk-stamp: 5.5rem;                                /* a medium story's square picture, 88 px */
+  --tk-stamp-phone: 4.5rem;                          /* 72 px */
+  --tk-clock-col: 3.25rem;                           /* the compact rows' time margin */
+  --tk-row-min: 5.5rem;                              /* a compact row: two lines of headline and the source, always a full touch target */
+  --tk-row-min-phone: 5rem;
+  --tk-rule: 2px;                                    /* the ink rule over "Điểm nhanh" */
+  --tk-mark: var(--space-8);                         /* the coral square before the lead's source, once per sheet */
+  --tk-deck-measure: 62ch;                           /* the lead's deck when no picture stands beside it */
   --msn-brand-tile: 34px; --msn-brand-size: 1.375rem;
   --msn-rowh-xl: 292px; --msn-photo-h-xl: 154px;   /* 1750 px and wider: seven columns */
   --msn-rowh-phone: 240px; --msn-photo-h-phone: 112px;

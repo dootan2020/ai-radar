@@ -99,11 +99,18 @@ const MEASURE = () => {
     }
     return { rows: rows.size, unequal, ragged, overflow, cut };
     };
-    const parts = grids.filter(shown).map(one);
+    // "Tin khác" is sheets, not a grid of cards (mockup A, captain 15/11 20:57): one row per sheet, and a story that runs
+    // past its sheet's edge counts as overflow.
+    const sheet = el => {
+      const sb = r(el), over = [...el.querySelectorAll('.tk-story')].filter(s => { const b = r(s); return b.bottom > sb.bottom + 1 || b.right > sb.right + 1 || b.left < sb.left - 1; });
+      return { rows: 1, unequal: [], ragged: [], overflow: over.map(s => `${name(s)} past its sheet`), cut: [] };
+    };
+    const parts = [...grids.filter(shown).map(one), ...[...band.querySelectorAll('.tk-sheet')].filter(shown).map(sheet)];
     const sum = key => parts.flatMap(p => p[key]);
     return { band: band.querySelector('.band-title')?.textContent.trim(), rows: parts.reduce((a, p) => a + p.rows, 0),
       unequal: sum('unequal'), ragged: sum('ragged'), overflow: sum('overflow'), cut: sum('cut'),
-      days: band.querySelectorAll('.day-line').length, cards: band.querySelectorAll('.nc').length };
+      days: band.querySelectorAll('.day-line').length, cards: band.querySelectorAll('.nc, .tk-story').length,
+      sheets: band.querySelectorAll('.tk-sheet').length, leads: band.querySelectorAll('.tk-lead').length };
   });
   // The Kho mã tile's filter rows: the distinct tops of its visible controls.
   const repoFilterRows = () => {
@@ -141,11 +148,11 @@ try {
     await wait(800);
     const scrolls = [];
     for (let i = 0; i < 10 && !(await page.$('#more-box .day-line')); i++) {
-      const before = await page.$$eval('#more-box .nc', e => e.length);
+      const before = await page.$$eval('#more-box [data-sid]', e => e.length);
       await page.evaluate(() => document.querySelector('#feed-sentinel').scrollIntoView({ block: 'end' }));
-      await page.waitForFunction(b => document.querySelectorAll('#more-box .nc').length > b, { timeout: 20000 }, before).catch(() => {});
+      await page.waitForFunction(b => document.querySelectorAll('#more-box [data-sid]').length > b, { timeout: 20000 }, before).catch(() => {});
       await wait(800);
-      scrolls.push([before, await page.$$eval('#more-box .nc', e => e.length)]);
+      scrolls.push([before, await page.$$eval('#more-box [data-sid]', e => e.length)]);
     }
     const after = await page.evaluate(MEASURE);
     const extra = await page.evaluate(() => ({ status: document.querySelector('#more-status')?.textContent || '',
