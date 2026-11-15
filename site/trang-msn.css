@@ -845,18 +845,135 @@
   .band-lab .model-img { display: none; }
 }
 
-/* "Tin khác": whole rows that load as the reader scrolls (feed.js, loadMoreFront), the older days under full-width
-   headings set like the bands' own, so a heading never breaks a row. A group's last stories share their row as wider
-   cards (span-3 and up; span 2 is the double card's own). */
-.more-box { display: flex; flex-direction: column; gap: var(--msn-gap); min-width: 0; }
-.more-box > .band-cells:empty { display: none; }
+/* "Tin khác": a calm newspaper page (captain, 15/11 20:57, mockup A "trang báo tĩnh"; feed.js, stretchHTML). One sheet
+   per stretch, loaded as the reader scrolls (loadMoreFront); the older days under full-width headings set like the
+   bands' own. In a sheet, type and white space carry the tiers: the lead's headline is the loudest line, three medium
+   stories sit beside it behind a hairline, and "Điểm nhanh" sets the rest as text rows under one ink rule, read down
+   each column. No border around a sheet or a story (captain, 08/11); coral once per sheet, the lead's mark. The layout
+   follows the section's own width (container queries): side by side from 60rem, one column under it, a phone's
+   spacing under 40rem. */
+.more-box { display: flex; flex-direction: column; gap: var(--msn-gap); min-width: 0; container-type: inline-size; }
 .more-box > .day-line.band-title {
   margin: calc(var(--band-gap) - var(--msn-gap)) 0 0 var(--space-4); padding: 0; line-height: 1.3;
   font-size: var(--text-title); font-weight: var(--weight-bold); letter-spacing: -0.01em; color: var(--color-ink);
 }
-.band-cells > .span-3 { grid-column: span 3; }
-.band-cells > .span-4 { grid-column: span 4; }
-.band-cells > .span-5 { grid-column: span 5; }
+.tk-sheet { min-width: 0; padding: var(--space-48); background: var(--color-surface); border-radius: var(--msn-card-r); box-shadow: var(--msn-shadow-rest); }
+.tk-dateline {
+  display: flex; align-items: center; gap: var(--space-12); margin: 0 0 var(--space-32);
+  font-size: var(--text-micro); font-weight: var(--weight-semibold); letter-spacing: 0.08em; text-transform: uppercase;
+  font-variant-numeric: tabular-nums; color: var(--color-ink-3);
+}
+.tk-dateline::after { content: ""; flex: 1; height: var(--msn-hair); background: var(--color-hair); }
+.tk-front { display: grid; grid-template-columns: minmax(0, 1.85fr) minmax(0, 1fr); column-gap: var(--space-48); }
+.tk-seconds { min-width: 0; padding-left: var(--space-48); border-left: var(--msn-hair) solid var(--color-hair); }
+.tk-sheet.is-flip .tk-front { grid-template-columns: minmax(0, 1fr) minmax(0, 1.85fr); }
+.tk-sheet.is-flip .tk-lead { order: 2; padding-left: var(--space-48); border-left: var(--msn-hair) solid var(--color-hair); }
+.tk-sheet.is-flip .tk-seconds { order: 1; padding-left: 0; border-left: 0; }
+.tk-front > .tk-lead:only-child { grid-column: 1 / -1; padding-left: 0; border-left: 0; }
+
+/* Every story: the whole of it is the link (feed.css, .story-link::after), the headline answers the pointer. */
+.tk-story { position: relative; min-width: 0; }
+.tk-story :where(h3, h4, p) { margin: 0; }
+.tk-story .story-link { display: inline; min-height: 0; color: inherit; transition: color var(--duration-150) var(--ease-press); }
+.tk-story .story-link:focus-visible { outline: none; }
+.tk-story:has(.story-link:focus-visible) { outline: var(--focus-ring); outline-offset: var(--focus-offset); border-radius: var(--radius-8); }
+@media (hover: hover) and (pointer: fine) {
+  .tk-story:hover .story-link { color: var(--color-link); text-decoration: underline; text-decoration-thickness: var(--msn-hair); text-underline-offset: 0.18em; }
+}
+.tk-story:active .story-link { color: var(--color-link); }
+.tk-story.is-read :is(.tk-lead-title, .tk-second-title, .tk-row-title) { color: var(--color-ink-2); }
+.tk-meta {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 0 var(--space-6); min-width: 0;
+  font-size: var(--text-meta); line-height: 1.4; font-variant-numeric: tabular-nums; color: var(--color-ink-3);
+}
+.tk-meta .st-mark:empty { display: none; }
+.tk-meta .new-mark, .tk-meta .seen-mark { margin-right: 0; }
+.tk-src { font-weight: var(--weight-semibold); color: var(--color-ink-2); overflow-wrap: anywhere; }
+.tk-meta time { white-space: nowrap; }
+.tk-story .src-desc { font-weight: var(--weight-semibold); color: var(--color-ink); }
+.tk-story .src-desc::after { content: " ·"; font-weight: var(--weight-regular); color: var(--color-ink-3); }
+.tk-pic, .tk-stamp { overflow: hidden; background: var(--color-fill); }
+.tk-pic .ai-badge, .tk-stamp .ai-badge { right: var(--space-4); bottom: var(--space-4); max-width: calc(100% - var(--space-8)); }
+
+/* The lead: the section's loudest headline, its deck, a photograph beside the deck. */
+.tk-lead > .tk-meta { margin-bottom: var(--space-16); }
+.tk-lead > .tk-meta::before { content: ""; flex: none; width: var(--tk-mark); height: var(--tk-mark); background: var(--color-accent-fill); }
+.tk-lead-title {
+  font-size: var(--tk-lead-title); font-weight: var(--weight-bold); line-height: 1.14; letter-spacing: -0.03em;
+  color: var(--color-ink); text-wrap: balance;
+}
+.tk-lead-body { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0.82fr); gap: var(--space-32); align-items: start; margin-top: var(--space-32); }
+.tk-lead.no-pic .tk-lead-body { grid-template-columns: minmax(0, var(--tk-deck-measure)); }
+.tk-deck {
+  font-size: var(--text-title); line-height: 1.6; color: var(--color-ink-2);
+  display: -webkit-box; -webkit-line-clamp: 7; -webkit-box-orient: vertical; overflow: hidden;
+}
+.tk-pic { aspect-ratio: 3 / 2; border-radius: var(--radius-12); }
+
+/* A medium story: a mid headline, two lines of summary, the source; the stamp to its right. */
+.tk-second { display: grid; grid-template-columns: minmax(0, 1fr) var(--tk-stamp); gap: var(--space-16); padding: var(--space-24) 0; border-top: var(--msn-hair) solid var(--color-hair); }
+.tk-second.no-pic { grid-template-columns: minmax(0, 1fr); }
+.tk-second:first-child { padding-top: 0; border-top: 0; }
+.tk-second:last-child { padding-bottom: 0; }
+.tk-second-title {
+  font-size: var(--tk-second-title); font-weight: var(--weight-semibold); line-height: 1.36; letter-spacing: -0.012em; color: var(--color-ink);
+  display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden;
+}
+.tk-sum {
+  margin-top: var(--space-8); font-size: var(--text-small); line-height: 1.55; color: var(--color-ink-2);
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.tk-second .tk-meta { margin-top: var(--space-8); }
+.tk-stamp { width: var(--tk-stamp); height: var(--tk-stamp); aspect-ratio: 1; border-radius: var(--radius-12); }
+
+/* "Điểm nhanh": a set column. The time in the margin, one headline, the source under it; read down each column. */
+.tk-briefs { margin-top: var(--space-48); padding-top: var(--space-12); border-top: var(--tk-rule) solid var(--color-ink); }
+.tk-briefs-label { margin: 0; font-size: var(--text-micro); font-weight: var(--weight-semibold); letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-ink-2); }
+.tk-rows {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: repeat(var(--tk-rows, 3), auto);
+  grid-auto-flow: column; column-gap: var(--space-48); margin-top: var(--space-4);
+}
+.tk-row {
+  display: grid; grid-template-columns: var(--tk-clock-col) minmax(0, 1fr); column-gap: var(--space-12); align-items: start;
+  min-height: var(--tk-row-min); padding: var(--space-16) 0; border-top: var(--msn-hair) solid var(--color-hair);
+}
+.tk-row.tk-col-top { border-top: 0; }
+.tk-clock { padding-top: var(--msn-hair); font-size: var(--text-meta); font-weight: var(--weight-medium); line-height: 1.5; font-variant-numeric: tabular-nums; color: var(--color-ink-3); }
+.tk-row-title {
+  font-size: var(--tk-row-title); font-weight: var(--weight-medium); line-height: 1.5; color: var(--color-ink);
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+}
+.tk-row .tk-meta { margin-top: var(--space-4); font-size: var(--text-micro); }
+.tk-row .tk-src { font-weight: var(--weight-regular); color: var(--color-ink-3); }
+@media (prefers-reduced-motion: reduce) { .tk-story .story-link { transition: none; } }
+
+/* Under 60rem the lead takes the sheet's width and its three follow under a hairline; the rows run in two columns. */
+@container (width < 60rem) {
+  .tk-front, .tk-sheet.is-flip .tk-front { grid-template-columns: minmax(0, 1fr); row-gap: var(--space-32); }
+  .tk-seconds, .tk-sheet.is-flip .tk-seconds { order: 0; padding: var(--space-24) 0 0; border-left: 0; border-top: var(--msn-hair) solid var(--color-hair); }
+  .tk-sheet.is-flip .tk-lead { order: 0; padding-left: 0; border-left: 0; }
+  .tk-rows { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: none; grid-auto-flow: row; }
+  .tk-row.tk-col-top { border-top: var(--msn-hair) solid var(--color-hair); }
+  .tk-row:nth-child(-n+2) { border-top: 0; }
+}
+/* A phone: the sheet's spacing tightens, the lead's photograph goes above its deck, the rows take one column. */
+@container (width < 40rem) {
+  .tk-sheet { padding: var(--space-24) var(--space-16) var(--space-16); }
+  .tk-dateline { margin-bottom: var(--space-24); letter-spacing: 0.06em; }
+  .tk-lead > .tk-meta { margin-bottom: var(--space-12); }
+  .tk-lead-title { line-height: 1.2; letter-spacing: -0.025em; }
+  .tk-lead-body, .tk-lead.no-pic .tk-lead-body { grid-template-columns: minmax(0, 1fr); gap: var(--space-16); margin-top: var(--space-16); }
+  .tk-pic { order: -1; aspect-ratio: 16 / 9; }
+  .tk-deck { font-size: var(--text-body); -webkit-line-clamp: 5; }
+  .tk-second { grid-template-columns: minmax(0, 1fr) var(--tk-stamp-phone); gap: var(--space-12); padding: var(--space-16) 0; }
+  .tk-second-title { font-size: var(--tk-second-title-phone); }
+  .tk-stamp { width: var(--tk-stamp-phone); height: var(--tk-stamp-phone); }
+  .tk-briefs { margin-top: var(--space-32); }
+  .tk-rows { grid-template-columns: minmax(0, 1fr); }
+  .tk-row { min-height: var(--tk-row-min-phone); padding: var(--space-12) 0; }
+  .tk-row:nth-child(-n+2) { border-top: var(--msn-hair) solid var(--color-hair); }
+  .tk-row:first-child { border-top: 0; }
+}
 
 /* ---------- one row of any list: Vừa đăng, Chuyện lớn, Đang nóng, the band's lists, Sắp diễn ra ---------- */
 /* One wash behind the whole row, the same for the pointer (only where there is one that hovers) and for the keyboard,

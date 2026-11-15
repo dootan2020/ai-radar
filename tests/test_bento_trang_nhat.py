@@ -75,10 +75,12 @@ class Bands(unittest.TestCase):
         self.assertIn("const dbl = C(pool.splice(di, 1)[0], 'wide');", news)
         self.assertIn("const row = pool.splice(0, c - 2).map(st => C(st));", news)
         self.assertIn("else if (pool.length >= c) items.push(...pool.splice(0, c).map(st => C(st)));", news)
-        # "Tin khác" grows by whole rows of the live column count; a group's last short row is shared by wider cards.
+        # "Tin khác" is a newspaper page (captain, 15/11 20:57, mockup A): stretches of a lead, three medium stories and
+        # up to nine rows; a group's last few stories join the stretch before them, so every story appears once.
+        self.assertIn("const STRETCH = 13, STRETCH_FRONT = 4;", feed)
         plan = function(feed, "otherPlan")
-        self.assertIn("g.list.slice(i, i + cols).forEach(st => out.push({ st, span: 1 })); i += cols; continue;", plan)
-        self.assertIn("const base = Math.floor(cols / left), extra = cols % left;", plan)
+        self.assertIn("const list = g.list.slice(i, i + STRETCH);", plan)
+        self.assertIn("if (list.length < STRETCH_FRONT && out.length > first) out[out.length - 1].list.push(...list);", plan)
         self.assertIn("for (const q of ['(min-width: 768px)', '(min-width: 1024px)', '(min-width: 1440px)'])", function(feed, "watchBentoCols"))
 
 
@@ -130,7 +132,9 @@ class RenderedRows(unittest.TestCase):
             self.assertGreaterEqual(more["days"], 1, f"{width}: no older day heading")
             for key in ("unequal", "ragged", "overflow", "cut"):
                 self.assertEqual(more[key], [], f"{width} {key}")
-            self.assertGreaterEqual(more["rows"] * cols, more["cards"], width)
+            # Every sheet opens with its lead.
+            self.assertGreaterEqual(more["sheets"], 1, width)
+            self.assertEqual(more["leads"], more["sheets"], width)
             self.assertFalse(page["afterSideways"], width)
             self.assertRegex(page["status"], r"^Đã tải thêm \d+ tin\.$", width)
             self.assertEqual(page["buttons"], 0, width)

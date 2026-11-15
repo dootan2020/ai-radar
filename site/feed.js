@@ -1900,9 +1900,7 @@ function chooseFront() {
 /* The columns the front page's bands have now (trang-msn.css sets --bento-cols per width: 5, 4, 3, or 1 on a phone). */
 const bentoCols = () => Math.max(1, parseInt(getComputedStyle(document.documentElement).getPropertyValue('--bento-cols'), 10) || 1);
 const NEWS_ROWS = 2;          // "Tin mới": two rows
-const OTHER_ROWS = 3;         // "Tin khác": rows shown at first, and added by each load as the reader nears its end
-const OTHER_PHONE = 8;        // on a phone (one column): rows shown at first, and added by each load
-let FRONT = null;             // { notable, river, older: [{ key, list }], groups, rows, drawn }
+let FRONT = null;             // { notable, river, older: [{ key, list }], groups, sheets, drawn }
 
 /* Who goes where. "Đáng chú ý" is the most notable story after the carousel, "Chuyện lớn" and "Vừa đăng"; the rest
    is the river, in the reader's order, that "Tin mới" and "Tin khác" share (frontNews). */
@@ -1916,7 +1914,7 @@ function buildFront() {
   const ni = river.findIndex(st => isBig(st)), wi = ni >= 0 ? ni : river.findIndex(st => isWide(st));
   const notable = river.length ? river.splice(Math.max(wi, 0), 1)[0] : null;
   PLACED = new Set([...used, ...allStories.map(st => st.id)]);
-  return { notable, river, older: olderGroups(olderItems()), groups: [], rows: 0, drawn: 0 };
+  return { notable, river, older: olderGroups(olderItems()), groups: [], sheets: 0, drawn: 0 };
 }
 /* The older days, one group per day (newest first), each under its day's heading in "Tin khác". */
 function olderGroups(items) {
@@ -1944,66 +1942,127 @@ function frontNews(river, cols) {
   }
   return { items, rest: pool };
 }
-/* "Tin khác" grows by itself as the reader nears its end (captain, 10/11 ~18:5x: "bỏ cái nút 'Xem thêm tin' thay bằng
-   cuộn để tải tin"): each load adds whole rows of the current column count. The stories come in groups: the rest of the
-   window's river first, then each older day under its heading (a full-width heading in the bands' style, so it never
-   breaks a row). A group's last stories, too few for a row of single cards, share that row between them (wider cards),
-   so every row stays full and no story is left out. */
-const otherRowsStep = cols => (cols < 3 ? OTHER_PHONE : OTHER_ROWS);
-/* The layout of the first `rows` rows: headings and cards, each card with the columns it takes. A layout for more rows
-   always begins with the layout for fewer, so a load only appends. */
-function otherPlan(cols, rows) {
+/* "Tin khác" reads as a calm newspaper page (captain, 15/11 20:57, approving mockup A, "trang báo tĩnh": "Mẫu A, nhưng
+   hiện giờ chưa có quảng cáo nên ẩn phần quảng cáo đi"). The stories come in stretches of thirteen, each one sheet: the
+   strongest story leads with the section's loudest headline, the next three sit beside it as medium stories, and the
+   rest follow as "Điểm nhanh", compact rows read down three columns. Type and white space carry the hierarchy, not
+   picture size. The stretches take the groups in order: the rest of the window's river in the reader's order, then each
+   older day under its heading. A group's last few stories, too few for a lead and its three, join the stretch before
+   them as rows, so every story appears once. It grows by itself as the reader nears its end (captain, 10/11 ~18:5x: "bỏ
+   cái nút 'Xem thêm tin' thay bằng cuộn để tải tin"): each load adds one stretch. The sheets are siblings in #more-box,
+   so a band can later stand between two stretches. */
+const STRETCH = 13, STRETCH_FRONT = 4;   // a stretch: the lead and three medium stories, then up to nine rows
+const OTHER_STEP = 1;                    // stretches shown at first, and added by each load
+/* Every stretch the groups make now, in order. A group's stories are fixed once it is built (an older day arrives as a
+   new group), so a plan always begins with the stretches already drawn and a load only appends. */
+function otherPlan() {
   const out = [];
-  let used = 0;
   for (const g of FRONT.groups) {
-    if (used >= rows) break;
-    if (g.key) out.push({ day: g.key });
-    for (let i = 0; i < g.list.length && used < rows; used++) {
-      const left = g.list.length - i;
-      if (left >= cols) { g.list.slice(i, i + cols).forEach(st => out.push({ st, span: 1 })); i += cols; continue; }
-      const base = Math.floor(cols / left), extra = cols % left;
-      g.list.slice(i).forEach((st, k) => out.push({ st, span: base + (k < extra ? 1 : 0) }));
-      i = g.list.length;
+    const first = out.length;
+    for (let i = 0; i < g.list.length; i += STRETCH) {
+      const list = g.list.slice(i, i + STRETCH);
+      if (list.length < STRETCH_FRONT && out.length > first) out[out.length - 1].list.push(...list);
+      else out.push({ key: g.key, head: !i && !!g.key, list });
     }
   }
-  return { items: out, rows: used };
+  return out;
 }
-const otherRowsTotal = cols => FRONT.groups.reduce((n, g) => n + Math.ceil(g.list.length / cols), 0);
-const otherCardHTML = it => msnCard(it.st, it.span > 1 ? 'wide' : '', false, it.span > 2 ? `span-${it.span}` : '');
+const CLOCK = new Intl.DateTimeFormat('vi-VN', { timeZone: TZ, hour: '2-digit', minute: '2-digit', hour12: false });
+const dayMonth = d => { const [, m, dd] = dayKey(d).split('-').map(Number); return `${dd}/${m}`; };
+/* The sheet's dateline, from its stories' own times: the day and the hours they span. Under an older day's heading the
+   day is already named, so the line keeps the hours only. */
+function datelineOf(s) {
+  const times = s.list.map(pubTime).filter(Boolean).sort((a, b) => a - b);
+  if (!times.length) return '';
+  const lo = new Date(times[0]), hi = new Date(times[times.length - 1]);
+  const span = +lo === +hi ? CLOCK.format(hi) : `${dayKey(lo) === dayKey(hi) ? '' : dayMonth(lo) + ' '}${CLOCK.format(lo)} – ${CLOCK.format(hi)}`;
+  return s.key ? span : `${dayLabel(dayKey(hi))} · ${span}`;
+}
+const tkMeta = st => { const s = srcOf(st); return `<p class="tk-meta">${markHTML(st)}<b class="tk-src">${esc(s.name)}</b><span aria-hidden="true">·</span>${timeEl(st.published_at)}</p>`; };
+const tkAttrs = (st, cls) => `class="tk-story ${cls} ${statusClass(st)}" data-id="${esc(st.id)}" data-sid="${esc(st.id)}" data-status="${storyStatus(st.id, st)}"`;
+/* The text under a lead's or a medium story's headline: the source's own description, labelled as such, or else the
+   first line of Halcyon's summary of the story. */
+const tkDeck = (st, t) => {
+  const d = dekOf(st, t);
+  if (d) return `${sourceDescriptionMark()}${esc(d)}`;
+  const k = asArray(st.key_points).find(x => typeof x === 'string' && VI_RE.test(x) && x.trim() !== t.text.trim());
+  return k ? esc(k) : '';
+};
+const tkLink = (st, t) =>`<a class="story-link" href="${storyHref(st)}" data-id="${esc(st.id)}">${esc(t.text)}</a>`;
+/* The lead shows a photograph only. A drawn cover sets the story's name in large type, and beside the lead's headline it
+   read as a second headline (mockup A, "Kitesurf" beside "Cloudflare mở mã nguồn Kitesurf"): the lead's deck takes the
+   width instead. */
+function tkLeadHTML(st) {
+  const t = titleOf(st), img = pickImage(st), sum = tkDeck(st, t);
+  const pic = img.src && img.kind !== 'cover' ? `<span class="tk-pic media">${mediaHTML(img, 'tk-lead')}</span>` : '';
+  return `<article ${tkAttrs(st, `tk-lead${pic ? '' : ' no-pic'}`)}>
+    ${tkMeta(st)}
+    <h3 class="tk-lead-title"${langAttr(t.text)}>${tkLink(st, t)}</h3>
+    <div class="tk-lead-body">${sum ? `<p class="tk-deck">${sum}</p>` : ''}${pic}</div>
+  </article>`;
+}
+/* A medium story: its headline, two lines of its summary, the source; its picture as a stamp beside it. */
+function tkSecondHTML(st) {
+  const t = titleOf(st), img = pickImage(st), sum = tkDeck(st, t);
+  const pic = img.src ?`<span class="tk-stamp media">${mediaHTML(img, 'tk-stamp')}</span>` : '';
+  return `<article ${tkAttrs(st, `tk-second${pic ? '' : ' no-pic'}`)}>
+    <div class="tk-second-text"><h4 class="tk-second-title"${langAttr(t.text)}>${tkLink(st, t)}</h4>${sum ? `<p class="tk-sum">${sum}</p>` : ''}${tkMeta(st)}</div>${pic}
+  </article>`;
+}
+/* A row of "Điểm nhanh": the clock time in the margin (the date when the story is from another day than the sheet's
+   newest), the headline, the source. top: the row opens a column of the three-column set. */
+function tkRowHTML(st, day, top) {
+  const t = titleOf(st), s = srcOf(st), at = new Date(pubTime(st));
+  const when = dayKey(at) === day ? CLOCK.format(at) : dayMonth(at);
+  return `<article ${tkAttrs(st, `tk-row${top ? ' tk-col-top' : ''}`)}>
+    <time class="tk-clock" datetime="${esc(st.published_at)}" title="${esc(exact(st.published_at))}">${esc(when)}</time>
+    <div class="tk-row-text"><h4 class="tk-row-title"${langAttr(t.text)}>${tkLink(st, t)}</h4><p class="tk-meta">${markHTML(st)}<span class="tk-src">${esc(s.name)}</span></p></div>
+  </article>`;
+}
+/* One sheet. n counts the sheets drawn: every second one sets its lead on the right, so a run of sheets does not read
+   as one stamp repeated. */
+function stretchHTML(s, n) {
+  const ranked = [...s.list].sort((a, b) => pinFirst(a, b) || frontScore(b) - frontScore(a) || rankTime(b) - rankTime(a));
+  const lead = ranked[0], seconds = ranked.slice(1, STRETCH_FRONT);
+  const rows = s.list.filter(st => st !== lead && !seconds.includes(st));   // the rows keep the reader's order
+  const times = s.list.map(pubTime).filter(Boolean);
+  const day = dayKey(new Date(times.length ? Math.max(...times) : Date.now()));
+  const perCol = Math.ceil(rows.length / 3);
+  const line = datelineOf(s);
+  return `<section class="tk-sheet${n % 2 ? ' is-flip' : ''}"${line ? ` aria-labelledby="tk-d-${n}"` : ''}>
+    ${line ? `<p class="tk-dateline" id="tk-d-${n}">${esc(line)}</p>` : ''}
+    <div class="tk-front">${tkLeadHTML(lead)}${seconds.length ? `<div class="tk-seconds">${seconds.map(tkSecondHTML).join('')}</div>` : ''}</div>
+    ${rows.length ? `<div class="tk-briefs"><p class="tk-briefs-label">Điểm nhanh</p><div class="tk-rows" style="--tk-rows: ${perCol}">${rows.map((st, i) => tkRowHTML(st, day, i % perCol === 0)).join('')}</div></div>` : ''}
+  </section>`;
+}
 function renderOtherBand() {
   const box = $('#more-box');
   if (!box || !FRONT) return;
-  const cols = bentoCols();
-  if (!FRONT.rows) FRONT.rows = otherRowsStep(cols);
-  const plan = otherPlan(cols, FRONT.rows);
-  // Draw only what is new; the layout before it is unchanged.
-  let grid = [...box.querySelectorAll(':scope > .band-cells')].pop();
+  if (!FRONT.sheets) FRONT.sheets = OTHER_STEP;
+  const all = otherPlan(), plan = all.slice(0, FRONT.sheets);
+  // Draw only what is new; the sheets before it are unchanged.
   let html = '', added = 0;
-  const flush = () => { if (html && grid) grid.insertAdjacentHTML('beforeend', html); html = ''; };
-  for (const it of plan.items.slice(FRONT.drawn)) {
-    if (it.day) {
-      flush();
-      box.insertAdjacentHTML('beforeend', `<h3 class="band-title day-line" id="day-${esc(it.day)}"><time datetime="${esc(it.day)}">${esc(dayLabel(it.day))}</time></h3><div class="band-cells" aria-labelledby="day-${esc(it.day)}"></div>`);
-      grid = box.lastElementChild;
-    } else { html += otherCardHTML(it); added++; }
-  }
-  flush();
-  FRONT.drawn = plan.items.length;
-  const ended = plan.rows >= otherRowsTotal(cols) && (complete || olderUnavailable);
-  $('#band-more').hidden = !plan.items.length;
+  plan.slice(FRONT.drawn).forEach((s, k) => {
+    if (s.head) html += `<h3 class="band-title day-line" id="day-${esc(s.key)}"><time datetime="${esc(s.key)}">${esc(dayLabel(s.key))}</time></h3>`;
+    html += stretchHTML(s, FRONT.drawn + k);
+    added += s.list.length;
+  });
+  if (html) box.insertAdjacentHTML('beforeend', html);
+  FRONT.drawn = plan.length;
+  const ended = plan.length >= all.length && (complete || olderUnavailable);
+  $('#band-more').hidden = !plan.length;
   if (added && FRONT.announce) $('#more-status').textContent = `Đã tải thêm ${added} tin.`;
   FRONT.announce = true;
   hydrateHF(box); observeSkips(); observeCardMotion(box); hydrateLoadedImages(box);
   FRONT.ended = ended;
   updateMore();
 }
-/* The next rows, when the reader nears the end of "Tin khác" (the sentinel under it, watchScroll). When the window's
+/* The next stretch, when the reader nears the end of "Tin khác" (the sentinel under it, watchScroll). When the window's
    stories run out, the complete snapshot's older days follow, under their headings. */
 let frontLoading = false;
 function loadMoreFront() {
   if (!FRONT || frontLoading || FRONT.ended) return;
-  const cols = bentoCols();
-  if (FRONT.rows >= otherRowsTotal(cols)) {
+  if (FRONT.sheets >= otherPlan().length) {
     if (complete || olderUnavailable) { FRONT.ended = true; updateMore(); return; }
     frontLoading = true;
     $('#feed-status').innerHTML = '<p class="loading-line"><span class="spinner" aria-hidden="true"></span>Đang tải thêm tin</p>';
@@ -2011,12 +2070,12 @@ function loadMoreFront() {
       frontLoading = false;
       $('#feed-status').innerHTML = '';
       if (!complete) olderUnavailable = true;
-      if (FRONT) { FRONT.rows += otherRowsStep(bentoCols()); renderOtherBand(); }
+      if (FRONT) { FRONT.sheets += OTHER_STEP; renderOtherBand(); }
       requestAnimationFrame(() => { if (nearEnd()) loadMore(); });
     });
     return;
   }
-  FRONT.rows += otherRowsStep(cols);
+  FRONT.sheets += OTHER_STEP;
   renderOtherBand();
   requestAnimationFrame(() => { if (nearEnd()) loadMore(); });
 }
@@ -2037,9 +2096,10 @@ function renderNewsBands() {
   const news = frontNews(FRONT.river, cols);
   box.innerHTML = news.items.map(renderItem).join('');
   $('#band-news').hidden = !news.items.length;
-  // "Tin khác" is drawn again from its first row at the new column count, as many rows as were loaded.
+  // "Tin khác" is drawn again from its first stretch with the stories "Tin mới" leaves at the new column count, as many
+  // stretches as were loaded.
   FRONT.groups = [{ key: '', list: news.rest }, ...FRONT.older];
-  $('#more-box').innerHTML = '<div class="band-cells" id="more-grid"></div>';
+  $('#more-box').innerHTML = '';
   FRONT.drawn = 0; FRONT.ended = false; FRONT.announce = false;
   renderOtherBand();
   hydrateHF(box); observeSkips(); observeCardMotion(box); hydrateLoadedImages(box);
@@ -2059,7 +2119,7 @@ function frontHTML() {
     + bandHTML('focus', 'Điểm nhấn', `<div class="band-cells">${topListHTML(FRONT_TOP)}${notable ? msnCard(notable, 'wide', true) : ''}${renderNext()}<i data-slot="cal"></i></div>`)
     + bandHTML('news', 'Tin mới', '<div class="band-cells" id="news-grid"></div>', '<i data-slot="sort"></i>')
     + renderLab()
-    + bandHTML('more', 'Tin khác', '<div class="more-box" id="more-box"><div class="band-cells" id="more-grid"></div></div><p class="sr" id="more-status" role="status" aria-live="polite"></p>');
+    + bandHTML('more', 'Tin khác', '<div class="more-box" id="more-box"></div><p class="sr" id="more-status" role="status" aria-live="polite"></p>');
 }
 
 /* ---------- older days (captain, 09/11 13:16: scrolling replaces the sections) ----------
@@ -2144,6 +2204,8 @@ const WIDTHS = { lead: [480, 828, 1280], card: [240, 640, 960] };
    has the first row to itself, a card a third of it and a wide card's picture half of it; from 1024 px (four or five
    columns) the lead spans two columns, at most half the panel, and a card's picture a column. */
 const SIZES = { lead: '(max-width: 1023px) 100vw, 50vw', wide: '(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 25vw',
+  // "Tin khác": the lead's picture (across a phone, a quarter of the sheet beside the deck) and a medium story's stamp.
+  'tk-lead': '(max-width: 767px) 100vw, 25vw', 'tk-stamp': '(max-width: 767px) 72px, 88px',
   card: '(max-width: 767px) 112px, (max-width: 1023px) 34vw, 25vw' };
 function srcsetAttrs(src, size, defer) {
   const cands = WIDTHS[size === 'lead' ? 'lead' : 'card'].map(w => [sizedSrc(src, w), w]);
@@ -2254,12 +2316,16 @@ function topListHTML(list) {
 }
 
 /* ---------- the story card: a picture over the source line and the headline; notable ones carry their dek ---------- */
+/* A story's dek: its Vietnamese summary, unless it only repeats the headline. */
+const dekOf = (st, t) => {
+  const sumRaw = shown(st.summary, st.summary_vi);
+  return sumRaw && VI_RE.test(sumRaw) && sumRaw.trim() !== t.text.trim() ? sumRaw : '';
+};
 function msnCard(st, size = '', kicker = false, extra = '') {
   const img = pickImage(st), t = titleOf(st);
   const pic = !!img.src;
   const tid = `t-${esc(st.id)}`;
-  const sumRaw = shown(st.summary, st.summary_vi);
-  const sum = sumRaw && VI_RE.test(sumRaw) && sumRaw.trim() !== t.text.trim() ? sumRaw : '';
+  const sum = dekOf(st, t);
   const cls = ['msn-card', 'nc', size ? `nc-${size}` : '', extra, pic ? 'has-photo' : 'no-photo', statusClass(st)].filter(Boolean).join(' ');
   return `<article class="${cls}" data-id="${esc(st.id)}" data-sid="${esc(st.id)}" data-status="${storyStatus(st.id, st)}" data-via="${esc(img.via)}">
   ${pic ? `<div class="nc-photo media">${mediaHTML(img, size === 'wide' ? 'wide' : 'card')}</div>` : ''}
@@ -2666,13 +2732,13 @@ function more(focus = true) {
 }
 /* Render further chunks until an element for a matching story exists (the first new story, #tin/<id>). */
 function revealStory(pred, cardsOnly = false) {
-  const sel = cardsOnly ? '#feed-grid .nc[data-sid], #feed-grid .slide[data-sid]' : '#feed-grid [data-sid]';
+  const sel = cardsOnly ? '#feed-grid .nc[data-sid], #feed-grid .slide[data-sid], #feed-grid .tk-story[data-sid]' : '#feed-grid [data-sid]';
   const find = () => $$(sel).find(el => !el.closest('[hidden]') && pred(el.dataset.sid));
   let el = find();
   while (!el && pos < seq.length) { more(false); el = find(); }
-  // The front page: open "Tin khác" row by row until the story is there.
-  while (!el && FRONT && filter === 'all' && FRONT.rows < otherRowsTotal(bentoCols())) {
-    FRONT.rows += otherRowsStep(bentoCols());
+  // The front page: open "Tin khác" stretch by stretch until the story is there.
+  while (!el && FRONT && filter === 'all' && FRONT.sheets < otherPlan().length) {
+    FRONT.sheets += OTHER_STEP;
     renderOtherBand();
     el = find();
   }
@@ -3199,6 +3265,8 @@ function route() {
 function dropPhoto(img) {
   const top = img.closest('.top-pic');   // a ranked card ("Chuyện lớn") keeps its text and loses the picture
   if (top) { top.remove(); return; }
+  const tk = img.closest('.tk-pic, .tk-stamp');   // so does a story of "Tin khác": its text takes the width
+  if (tk) { tk.closest('.tk-story')?.classList.add('no-pic'); tk.remove(); return; }
   const card = img.closest('.nc, .slide');
   if (!card) return;
   const st = STORY_ANY.get(card.dataset.id);
