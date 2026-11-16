@@ -117,7 +117,7 @@ const STATE = () => {
   const ids = [...document.querySelectorAll('#feed-grid [data-sid]')].filter(el => el.getClientRects().length).map(el => el.dataset.sid);
   const twice = ids.filter((id, i) => ids.indexOf(id) !== i);
   const probe = document.elementFromPoint(innerWidth / 2, innerHeight / 2);
-  const held = probe && probe.closest('[data-sid], .band-cells > *');
+  const held = probe && probe.closest('[data-sid], .band-cells > *, .band-grid > *');
   return {
     scrollY, rows: [...document.querySelectorAll('#fresh-list > li')].map(li => li.dataset.sid),
     tileTop: Math.round(document.querySelector('#fresh-row')?.getBoundingClientRect().top ?? NaN),

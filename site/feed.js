@@ -1122,7 +1122,9 @@ function renderBaThi() {
     ? `${s.live.length ? baLiveHTML(s.live, now) : ''}${soon.length ? baNextHTML(soon, now) : ''}${s.past.length ? baRecentHTML(s.past, now) : ''}`
     : '<p class="bt-calm" role="status">Tuần này chưa có buổi phát nào.</p>';
   const cards = [s.live.length, soon.length, s.past.length].filter(Boolean).length;
-  return `<section class="bt bt-n${cards}${s.live.length ? ' has-live' : ''}" id="su-kien-trang" aria-labelledby="bt-h1">
+  // Only replays: on a phone they move under the events with their own heading, so "Phát sóng" has nothing under it.
+  const replaysOnly = !s.live.length && !soon.length && s.past.length ? ' bt-replays-only' : '';
+  return `<section class="bt bt-n${cards}${s.live.length ? ' has-live' : ''}${replaysOnly}" id="su-kien-trang" aria-labelledby="bt-h1">
     <h2 class="band-title" id="bt-h1">Phát sóng</h2>
     ${streams}
     <h2 class="band-title bt-h-events">Sắp diễn ra</h2>
@@ -2782,6 +2784,10 @@ function renderChips() {
   const container = $('#feed-filters');
   const active = container ? container.querySelector('.filter-chip[aria-pressed="true"]') : null;
   if (container && active) glideTab(container, active);
+  // A view without a tab ("Sự kiện", #sap-toi) has no tab to underline: the line fades out, and the next tab it marks
+  // takes it at once instead of gliding from where it was left.
+  const line = container && container.querySelector(':scope > .tab-pill');
+  if (line) { line.classList.toggle('is-away', !active); if (!active) line.classList.remove('is-active'); }
   markTabOverflow(container);
   syncDock();
 }
@@ -2926,7 +2932,13 @@ function freshInnerHTML() {
    this only clears any stale row-hiding from an earlier build. */
 function fitFreshTile() {
   const ul = $('#fresh-row')?.querySelector('.fresh-list');
-  if (ul) [...ul.children].forEach(li => { li.hidden = false; });
+  if (!ul) return;
+  [...ul.children].forEach(li => { li.hidden = false; });
+  // The list scrolls inside the tile: its foot fades (trang-msn.css) while rows wait below, so the row the window cuts
+  // reads as "more below", not as a drawing fault; at the end of the list the fade goes.
+  const mark = () => { ul.dataset.more = ul.scrollHeight - ul.clientHeight - ul.scrollTop > 1 ? 'end' : ''; };
+  if (!ul._moreWatched) { ul.addEventListener('scroll', mark, { passive: true }); ul._moreWatched = true; }
+  mark();
 }
 function freshTileHTML() {
   const inner = freshInnerHTML();
@@ -3731,11 +3743,22 @@ async function init() {
     $('#top').removeAttribute('aria-busy');
     const skeleton = $('#feed-skeleton');
     if (skeleton) skeleton.remove();
-    // The news failed, not the weather or the date: those two cards stay in their place.
-    $('#feed-grid').innerHTML = FIXED_SLOTS;
-    placeFixedCards($('#feed-grid'));
+    // The news failed, not the weather or the date: those two cards stay in their place. The message and its button
+    // come first, above them, so a reader sees on the first screen what happened and how to try again.
+    // "Sự kiện" (#sap-toi) never got its view drawn (it waits for the data): it names its own loss.
+    const events = location.hash === '#sap-toi';
+    const grid = $('#feed-grid');
+    grid.innerHTML = FIXED_SLOTS;
+    placeFixedCards(grid);
     const em = $('#feed-empty');
-    em.querySelector('h2').textContent = 'Chưa nạp được dòng tin';
+    grid.before(em);
+    em.classList.add('is-error');
+    em.setAttribute('role', 'alert');
+    em.querySelector('h2').textContent = events ? 'Chưa nạp được sự kiện' : 'Chưa nạp được dòng tin';
+    if (events) {   // no tab is "Sự kiện": none is marked
+      $$('.filter-chip').forEach(b => b.setAttribute('aria-pressed', 'false'));
+      $('#feed-filters > .tab-pill')?.classList.add('is-away');
+    }
     em.querySelector('p').textContent = 'Bạn kiểm tra kết nối mạng rồi thử lại nhé.';
     const b = $('#reset-filter-btn');
     b.textContent = 'Tải lại';
