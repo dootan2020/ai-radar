@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-16T18:09:01.533942+00:00",
-  "input_generated_at": "2026-11-16T16:46:22Z",
+  "generated_at": "2026-11-16T19:37:03.701436+00:00",
+  "input_generated_at": "2026-11-16T18:46:04Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -78199,10 +78199,10 @@
       "use_original_title": false,
       "source_url": "https://www.semafor.com/article/11/16/2026/government-pressure-grows-on-nvidias-huang-for-details-of-spy-scandal",
       "key_points": [
-        "Theo Semafor, chính phủ Mỹ gia tăng áp lực lên Nvidia về nghi vấn liệu tập đoàn có biết mà vẫn cho phép bán công nghệ bị hạn chế sang Trung Quốc. Sức ép gia tăng khi vụ bê bối giữa cựu CEO Jensen Huang và một cá nhân bị nghi là tình báo Trung Quốc lan rộng.",
-        "Bộ trưởng Tài chính Mỹ đã đặt nghi vấn về việc liệu Nvidia có tìm cách bán hàng sang Trung Quốc nhằm tăng doanh thu hay không.",
-        "Cựu lãnh đạo Nvidia đã đồng ý điều trần kín trước các nhà lập pháp Mỹ, trong khi Bộ trưởng Tài chính yêu cầu công ty phải cải tổ mạnh mẽ.",
-        "Bốn chuyên gia trên tạp chí Fortune cảnh báo những người ủng hộ chỉ tập trung vào vụ ngoại tình đang đánh giá thấp quy mô khủng hoảng và khẳng định ông không có cơ hội quay lại."
+        "Theo Semafor, chính phủ Mỹ gia tăng áp lực lên Nvidia về nghi vấn liệu tập đoàn có biết mà vẫn cho phép bán công nghệ bị hạn chế sang Trung Quốc. Sức ép tăng lên khi vụ bê bối tình ái giữa cựu CEO Jensen Huang và một nhân vật bị nghi là tình báo Trung Quốc lan rộng.",
+        "Bộ trưởng Tài chính Mỹ đã đặt nghi vấn về việc liệu Nvidia có bán hàng sang Trung Quốc nhằm tăng doanh thu hay không, đồng thời yêu cầu công ty phải cải tổ mạnh mẽ.",
+        "Cựu lãnh đạo Nvidia đã đồng ý điều trần kín trước các nhà lập pháp Mỹ trong bối cảnh xuất hiện thông tin ông tìm cách trở lại chức vụ.",
+        "Bốn chuyên gia viết trên tạp chí Fortune cảnh báo những người ủng hộ chỉ chú ý đến việc ngoại tình có nguy cơ đánh giá thấp quy mô khủng hoảng và khẳng định ông không thể quay lại."
       ],
       "same_event_coverage_ids": [
         "b6bf95e7b54a357f2c9a"
@@ -78222,34 +78222,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.1,
+        "value": 10.0,
         "answers": {
           "what": 10,
           "why": 10,
-          "notable": 8,
-          "meaning": 8
+          "notable": 10,
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "quote",
-            "summary_text": "đang đánh giá thấp quy mô khủng hoảng",
-            "explanation": "The experts said supporters who focus solely on the affair risk underestimating the crisis; they did not state that those supporters already do so (outlet:p002)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "meaning",
-            "problem": "The Vietnamese turns a warning about a risk into a claim that the underestimation is already happening.",
-            "fix": "Say those supporters risk underestimating the crisis, as stated in outlet:p002."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "725e3cfd9883dde1bceb258718e5a60d3a3a2bb72827c4e6ab4ee126a3ea9141",
-        "scored_at": "2026-11-16T18:09:01.516363+00:00"
+        "prose_sha256": "3196149c6ff4b8e7a06c5a858c1ae52d9b404a5b973aeca2331ea6419ac0442a",
+        "scored_at": "2026-11-16T19:34:13.811723+00:00"
       }
     },
     {
@@ -78646,7 +78634,42 @@
       ],
       "summary_limitations": [],
       "key_points_prompt_version": "summary-vi-7-bullets",
-      "score": null
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 7.75,
+        "answers": {
+          "what": 8,
+          "why": 9,
+          "notable": 8,
+          "meaning": 5
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "hàng nghìn cựu chiến binh chưa từng có tài khoản đã đăng ký trang web thông qua dịch vụ xác thực CLEAR tại các ki-ốt trực tiếp",
+            "explanation": "The source says thousands registered through CLEAR, particularly at its in-person kiosks; it does not say every one of those registrations occurred at a kiosk (outlet:p020)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The reader cannot tell what the upcoming AI-related work entails.",
+            "fix": "Say that the team is studying how large language models navigate the VA site and plans related updates next year (outlet:p017-019)."
+          },
+          {
+            "question": "notable",
+            "problem": "The kiosk wording applies a registration count to a location for which the source gives no separate count.",
+            "fix": "Say thousands registered through CLEAR, particularly via its in-person kiosks (outlet:p020)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "d15a9ee5fbea51ac4d5f8e059cad5a0ece6f95ed59f150f58f130c8ba8f56151",
+        "scored_at": "2026-11-16T19:37:03.699022+00:00"
+      }
     },
     {
       "id": "841cb7a870e862fb98a5",
@@ -78691,7 +78714,25 @@
         "partial_source"
       ],
       "key_points_prompt_version": "summary-vi-7-bullets",
-      "score": null
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.85,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "686dfe9b5726e260bb5f617c4bce7fedda18b02ede4b81670971f8e1eeb031f9",
+        "scored_at": "2026-11-16T19:37:03.699063+00:00"
+      }
     },
     {
       "id": "b3a867faa51ab497299b",
@@ -78730,7 +78771,31 @@
         "partial_source"
       ],
       "key_points_prompt_version": "summary-vi-7-bullets",
-      "score": null
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.3,
+        "answers": {
+          "what": 10,
+          "why": 8,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The summary omits a condition that determines whether a full-table answer can be produced.",
+            "fix": "Explain that retrieval must first find the right table file; naming it in the question can help (outlet:p011)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "faddf5b426e772db95d6214af3c4ce56b056b1ef4b2d8c745fa5e5a6f1f01b3a",
+        "scored_at": "2026-11-16T19:37:03.699094+00:00"
+      }
     },
     {
       "id": "9ed8c032dbcdf137f78a",
@@ -78824,7 +78889,36 @@
       ],
       "summary_limitations": [],
       "key_points_prompt_version": "summary-vi-7-bullets",
-      "score": null
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.0,
+        "answers": {
+          "what": 8,
+          "why": 10,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The summary misses the breadth of NVIDIA's reported training result.",
+            "fix": "Add that NVIDIA says it swept every MLPerf Training v6.1 benchmark and was the only platform with results on every benchmark this round (outlet:p003, outlet:p009)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The reader does not get NVIDIA's stated outlook for the platform.",
+            "fix": "Add that NVIDIA expects continued CUDA software optimization to improve Vera Rubin's performance over time (outlet:p004)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "d8d0bfd177ce9c6779880229bb4acf914307831f765f5ebc0ac603e2a07b2ee6",
+        "scored_at": "2026-11-16T19:37:03.699218+00:00"
+      }
     },
     {
       "id": "4e397e27d38f36eaba2a",
@@ -78865,7 +78959,37 @@
       ],
       "summary_limitations": [],
       "key_points_prompt_version": "summary-vi-7-bullets",
-      "score": null
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.45,
+        "answers": {
+          "what": 10,
+          "why": 8,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "kết hợp với agent AI cục bộ thực hiện phân tích tương tác theo thời gian thực",
+            "explanation": "The source says researchers can couple the pipeline with a locally running agent to enable interactive analysis that can help steer simulations in real time; it does not say this combined workflow was performed (outlet:p014)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The fusion passage presents the optional agent workflow as an accomplished use.",
+            "fix": "Say researchers can combine the pipeline with a local Nemotron-powered agent for interactive analysis, as stated in outlet:p014."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "c5156057edd5b05bd9393a4194e9553ba24e5292f7363b23bc9f7160160c25d7",
+        "scored_at": "2026-11-16T19:37:03.699274+00:00"
+      }
     },
     {
       "id": "bcc40eb1eee4216ca06d",
@@ -78999,17 +79123,17 @@
       "use_original_title": false,
       "source_url": "https://nvidianews.nvidia.com/news/nvidia-expands-vera-cpu-platform-to-accelerate-scientific-discovery",
       "key_points": [
-        "NVIDIA công bố nền tảng tủ rack Vera CPU dành cho điện toán hiệu năng cao, tích hợp CPU tự thiết kế đầu tiên của hãng cho trung tâm dữ liệu. Mỗi hệ thống tích hợp 192 chip Vera CPU làm mát bằng chất lỏng, đạt băng thông bộ nhớ tổng hơn 200 TB/s cùng 1 petabyte lưu trữ.",
-        "Doanh nghiệp cho biết mô phỏng khoa học cần CPU duy trì luân chuyển dữ liệu lớn để xóa bỏ các điểm nghẽn khi mở rộng quy mô.",
-        "Trong thử nghiệm của NVIDIA, Vera đạt hiệu năng gấp 1,9 lần và hiệu năng trên watt gấp 2,4 lần hệ thống x86 ở mô phỏng OpenFOAM. Ngoài ra, Trung tâm Tính toán Khí hậu Đức (DKRZ) đã chọn Vera CPU cho siêu máy tính HLRE-5 phục vụ nghiên cứu khí hậu.",
-        "Siêu máy tính HLRE-5 dự kiến hoạt động đầu năm 2028 sẽ hỗ trợ mô phỏng khí hậu quy mô kilomet với mức tiêu thụ năng lượng thấp hơn hệ thống cũ. Các tủ rack Vera CPU dự kiến sẽ bắt đầu được Dell Technologies, HPE, Lenovo và Supermicro cung cấp từ đầu năm 2027."
+        "NVIDIA vừa công bố nền tảng tủ rack Vera CPU dành cho điện toán hiệu năng cao (HPC), kết hợp bộ vi xử lý máy chủ tự thiết kế đầu tiên của hãng cùng mạng Quantum-X800 InfiniBand. Hệ thống làm mát bằng chất lỏng này quy tụ 192 chip Vera CPU, cung cấp băng thông bộ nhớ tổng hơn 200 TB/s cùng 1 petabyte dung lượng lưu trữ.",
+        "Vera giải quyết các điểm nghẽn luân chuyển dữ liệu lớn trong mô phỏng khoa học bằng việc kết hợp lõi CPU tùy biến, bộ nhớ băng thông cao và mạng InfiniBand, theo Ian Buck, phó chủ tịch phụ trách điện toán hiệu năng cao tại NVIDIA.",
+        "Trong các thử nghiệm nội bộ của NVIDIA, Vera CPU đạt hiệu năng gấp 1,9 lần và hiệu năng trên mỗi watt gấp 2,4 lần hệ thống x86 ở mô phỏng luồng khí OpenFOAM motorBike Large. Hãng cũng ước tính mức tăng 1,6 lần hiệu năng và gấp 2 lần hiệu quả năng lượng so với x86 ở mô hình nghiên cứu và dự báo thời tiết WRF.",
+        "Trung tâm Tính toán Khí hậu Đức (DKRZ) đã chọn Vera CPU cho siêu máy tính HLRE-5 dự kiến ra mắt đầu năm 2028 nhằm thực hiện các mô phỏng khí hậu toàn cầu với mức tiêu thụ năng lượng thấp hơn. Theo công bố của NVIDIA, các tủ rack Vera CPU dự kiến sẽ bắt đầu được các đối tác phần cứng cung cấp từ đầu năm 2027."
       ],
       "same_event_coverage_ids": [
         "36768a1bd9132c8c8942"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "NVIDIA ra mắt tủ rack Vera CPU cho HPC, hiệu năng gấp 1,9 lần hệ thống x86",
+      "editorial_headline_vi": "NVIDIA ra mắt tủ rack Vera CPU đạt hiệu năng gấp 1,9 lần x86 ở mô phỏng luồng khí OpenFOAM",
       "summary_sources": [
         {
           "id": "outlet",
@@ -79022,35 +79146,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.65,
+        "value": 9.7,
         "answers": {
           "what": 10,
-          "why": 7,
-          "notable": 8,
-          "meaning": 9
+          "why": 10,
+          "notable": 10,
+          "meaning": 8
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "hiệu năng gấp 1,9 lần hệ thống x86",
-            "explanation": "As an unqualified headline claim, this extends a result from NVIDIA's specific OpenFOAM motorBike Large airflow test to performance generally (outlet:p012)."
-          },
-          {
-            "kind": "quote",
-            "summary_text": "xóa bỏ các điểm nghẽn",
-            "explanation": "NVIDIA says Vera is designed to address data-movement and scaling bottlenecks, not that it eliminates them (outlet:p008)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "notable",
-            "problem": "The headline presents the 1.9x benchmark as a general performance result.",
-            "fix": "Qualify it as NVIDIA's result on the OpenFOAM motorBike Large airflow simulation (outlet:p012)."
-          },
-          {
-            "question": "why",
-            "problem": "The text says Vera eliminates bottlenecks.",
-            "fix": "Say its design aims to address them (outlet:p008)."
+            "question": "meaning",
+            "problem": "The climate benefit lacks its stated scale and energy comparison.",
+            "fix": "Specify that HLRE-5 is expected to enable global kilometer-scale simulations while using less energy than the current system (outlet:p014)."
           }
         ],
         "writer_boats": [
@@ -79058,8 +79166,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "1b4c769b557b0366fe06856ae36e12a844e90df9c00c820e7eca4b119b2cd936",
-        "scored_at": "2026-11-16T17:44:14.701816+00:00"
+        "prose_sha256": "e3ad0d442d500971e1a5032382c55c82df3551e2f456740398bad119ad783443",
+        "scored_at": "2026-11-16T19:34:13.811507+00:00"
       }
     },
     {
@@ -79097,7 +79205,25 @@
       ],
       "summary_limitations": [],
       "key_points_prompt_version": "summary-vi-7-bullets",
-      "score": null
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "8e98270a9854a6783889a24e271af48c4d1c9d09bc0e0586b70ec70ca00bf39c",
+        "scored_at": "2026-11-16T19:37:03.699307+00:00"
+      }
     },
     {
       "id": "d150a4aa414b8ce9f290",
@@ -79134,7 +79260,25 @@
       ],
       "summary_limitations": [],
       "key_points_prompt_version": "summary-vi-7-bullets",
-      "score": null
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "5f81889009680e9277810deb5c305e7f76c09d4bd03cfb01dfe2ffbda4c6c0b5",
+        "scored_at": "2026-11-16T19:37:03.699336+00:00"
+      }
     },
     {
       "id": "bd4930e0839976d3ed7a",
@@ -79310,7 +79454,42 @@
       ],
       "summary_limitations": [],
       "key_points_prompt_version": "summary-vi-7-bullets",
-      "score": null
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.4,
+        "answers": {
+          "what": 9,
+          "why": 6,
+          "notable": 9,
+          "meaning": 9
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "tương tự cách Amazon tóm tắt hàng hóa",
+            "explanation": "The source says Amazon’s AI summarizes buyers’ product reviews, not the products themselves (outlet:p010)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The summary leaves out Audible’s stated reason for the feature and gives competition the space instead.",
+            "fix": "Explain that the audio introduction is intended to help people choose a book while on the go without scrolling through reviews (outlet:p008)."
+          },
+          {
+            "question": "notable",
+            "problem": "The Amazon comparison says it summarizes products.",
+            "fix": "Specify that Amazon summarizes buyers’ product reviews (outlet:p010)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "69d2d9f42ddd4d25d6f9220ec789c460897b6a8754112897f1ed0d593fd4e98a",
+        "scored_at": "2026-11-16T19:37:03.699362+00:00"
+      }
     },
     {
       "id": "48e5439dc84ab633e386",
@@ -79553,7 +79732,42 @@
       ],
       "summary_limitations": [],
       "key_points_prompt_version": "summary-vi-7-bullets",
-      "score": null
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.3,
+        "answers": {
+          "what": 8,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "Chính quyền Trump triển khai quy định",
+            "explanation": "The source says the administration is preparing to roll out the controls, not that it has already implemented them (outlet:p006)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The reader gets conflicting signals about whether the rule is already in effect.",
+            "fix": "Keep the status as preparing to roll out, as stated in outlet:p006."
+          },
+          {
+            "question": "what",
+            "problem": "The license requirement lacks the specific covered actions.",
+            "fix": "State that it applies to exporting, reexporting, or transferring AI chips and servers to qualifying data centers (outlet:p007)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "af5bd878d3ab744ac73702d1a8afe47cab19b7aeb0bf90e39c4c583818662934",
+        "scored_at": "2026-11-16T19:37:03.699388+00:00"
+      }
     },
     {
       "id": "106eccb8cc6bc0fd77db",
@@ -79596,7 +79810,37 @@
         "partial_source"
       ],
       "key_points_prompt_version": "summary-vi-7-bullets",
-      "score": null
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 7.7,
+        "answers": {
+          "what": 6,
+          "why": 10,
+          "notable": 7,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "main_event_missing",
+            "summary_text": "",
+            "explanation": "The supplied source identifies Shokin’s discovery of a company running 500 AI-content channels and abusing YouTube’s automated copyright detectors as a central finding; the Vietnamese omits it (outlet:p001, outlet:p018)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The reader misses the investigation’s central finding about the scale of Media Nov’s operation.",
+            "fix": "Add that Media Nov told 404 Media it operates 500 channels, alongside the source’s finding about abuse of automated copyright detection (outlet:p001, outlet:p018)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "4cb084b76e311c571766133afd4be1fe24e19ddb1b7bca91e6a73da3e0bbee01",
+        "scored_at": "2026-11-16T19:37:03.699414+00:00"
+      }
     },
     {
       "id": "1ac8bff4575188931495",
@@ -79637,7 +79881,25 @@
         "partial_source"
       ],
       "key_points_prompt_version": "summary-vi-7-bullets",
-      "score": null
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.85,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "3c8c28200509df6e83f2cb1afa4fb50fc6170b7b5d0d41f1434db76d5371bd53",
+        "scored_at": "2026-11-16T19:37:03.699437+00:00"
+      }
     },
     {
       "id": "17da36c289197025300a",
@@ -79661,6 +79923,761 @@
         "bd1cc9dba7903292a637"
       ],
       "split_coverage_ids": []
+    },
+    {
+      "id": "c6d2cabac13b9d4679ae",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.semafor.com/article/11/16/2026/altman-says-he-has-personal-empathy-for-jensen-huang",
+      "key_points": [
+        "Giám đốc điều hành OpenAI Sam Altman cho biết ông có sự đồng cảm cá nhân sâu sắc với cựu CEO Jensen Huang của Nvidia nhưng từ chối cho biết liệu ông Huang có nên quay lại tập đoàn chip này hay không.",
+        "Theo Semafor đưa tin, ông Huang được cho là đang cân nhắc quay lại làm CEO trong bối cảnh một số lãnh đạo giới công nghệ thúc đẩy ông tái xuất. Tình huống này diễn ra sau khi chính ông Altman từng bị phế truất khỏi vị trí lãnh đạo OpenAI khoảng ba năm trước rồi nhanh chóng quay trở lại.",
+        "Tại sự kiện Silicon Valley & The World của Semafor, ông Altman chia sẻ rằng ông Huang từ lâu là người hùng trong mắt mình, dù các vị anh hùng đều có khuyết điểm. Khi được hỏi liệu cựu CEO có nên trở lại hay không, ông Altman nói với phóng viên Reed Albergotti của Semafor rằng bản thân không biết đủ thông tin để trả lời câu hỏi đó.",
+        "Ông Altman đánh giá người ta vẫn tin tưởng vào các cam kết của Nvidia với tư cách nhà đầu tư vì đây là một công ty khổng lồ, dù rất khó hình dung tập đoàn thiếu vắng ông Huang ở vị trí chèo lái."
+      ],
+      "same_event_coverage_ids": [
+        "300eccc749b1e35b01b6"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Sam Altman đồng cảm với Jensen Huang nhưng từ chối nhận định liệu cựu CEO có nên quay lại Nvidia",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/16/2026/altman-says-he-has-personal-empathy-for-jensen-huang"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "3f8f8c309388628433d3baa853a7ee09d8a44938a957c5370946af8d0d9c0057",
+        "scored_at": "2026-11-16T19:29:07.378269+00:00"
+      }
+    },
+    {
+      "id": "38a73038f401258c1101",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Vendor blog post co-written with MoEngage detailing how MoEngage built customer engagement agents using Amazon Bedrock AgentCore.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/how-moengage-built-agentic-customer-engagement-on-amazon-bedrock-agentcore/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "0daf559cb52ec3bcc1e5"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "45686da66941843a8343",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.youtube.com/watch?v=SyHM5hNPAEo",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "614996bfea6e6c1862f0"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "a962a9aff8c6e655813a",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://techcrunch.com/2026/11/16/sam-altman-on-nvidia-without-jensen-huang-the-industry-will-be-fine/",
+      "key_points": [
+        "OpenAI CEO Sam Altman stated that the AI industry will be fine without former Nvidia CEO Jensen Huang, while acknowledging Huang's special role in the AI boom.",
+        "Altman made his first public comments regarding Huang's departure at Semafor's Silicon Valley and the World event on Monday.",
+        "Jensen Huang resigned from Nvidia after admitting to having an affair with an alleged Chinese spy.",
+        "Tech executives including Elon Musk and Tim Sweeney signed a public letter urging Nvidia to reinstate Huang."
+      ],
+      "same_event_coverage_ids": [
+        "6685d98e393e405eeb67",
+        "e654d98562617608ac5e"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "c5719e90b31f874c8016",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-16/warsh-says-fed-staff-are-sketching-out-ai-contingencies-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "0ea509e13e59a1c608ff"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "4a2a3d16d59e59431a67",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-16/open-interest-11-16-2026-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "da3fb307b668257935f6"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "52dd73da2934d8e09778",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-16/huang-s-ouster-fuels-doubts-about-nvidia-s-support-for-neoclouds",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "ba2005124070af94a4e1"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "474a91e84ee7b824ce9f",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/16/fbi-says-artex-ai-open-source-hacking-tool-used-to-breach-networks-in-under-three-hours/",
+      "key_points": [
+        "Cục Điều tra Liên bang Mỹ (FBI) cảnh báo tin tặc đang dùng các công cụ trí tuệ nhân tạo (AI) tự động như Artex để thực hiện những đợt tấn công mạng trên toàn cầu. Theo FBI, công cụ này đã được dùng để xâm nhập đám mây Microsoft 365 của ít nhất 2.250 khách hàng thuộc công ty ConnectWise.",
+        "TechCrunch cho biết Artex rà quét mạng nạn nhân rồi khai thác các lỗi bảo mật đơn giản và mật khẩu bị lộ để chiếm quyền kiểm soát ban đầu. FBI nhận định các vụ tấn công vào ngành tài chính Hàn Quốc phần lớn do phòng thủ mạng yếu kém và thiếu xác thực đa yếu tố.",
+        "Theo TechCrunch, trong một số trường hợp, các cuộc tấn công liên quan đến Artex có thể chuyển từ giai đoạn nhắm mục tiêu sang xâm nhập thực sự trong chưa đầy ba giờ. Tại Hàn Quốc, các đợt tấn công bằng công cụ này đã cho phép tin tặc đánh cắp dữ liệu cá nhân của ít nhất 68.000 người.",
+        "FBI cảnh báo phiên bản mở trước đó của Artex vẫn tiếp tục lưu hành rộng rãi và rất dễ tiếp cận cho các cuộc tấn công mạng, dù nhà phát triển đã chuyển phần mềm sang dạng đóng mã nguồn. Giám đốc an toàn thông tin Arve Kjoelen của Barracuda nhận định bên phòng thủ chỉ phản ứng sau khi phát hiện thường sẽ đến nơi khi kẻ tấn công đã hoàn tất."
+      ],
+      "same_event_coverage_ids": [
+        "ad29625da3ef21e9aa66"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "FBI cảnh báo công cụ AI Artex bị lợi dụng để xâm nhập mạng trong chưa đầy 3 giờ ở một số trường hợp",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/16/fbi-says-artex-ai-open-source-hacking-tool-used-to-breach-networks-in-under-three-hours/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "dd871b82889757f5ed4fec7150635be36a5964d797e3d6a348764cee97bc5cd9",
+        "scored_at": "2026-11-16T19:29:07.378308+00:00"
+      }
+    },
+    {
+      "id": "d89fddf149fe8e05c834",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Technical how-to guide and tutorial describing a multi-stage methodology to convert legacy Assembler code to Java Spring Boot using AWS tools.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/modernizing-mainframe-assembler-to-java-using-amazon-bedrock-and-aws-transform/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c43a67ebe92439bbaa2e"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "af8c996dd078d369767b",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Hacker News community forum thread consisting of informal user questions and discussions rather than reported news.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://news.ycombinator.com/item?id=50520076",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "51e0c604a869182fce6c",
+        "a665db22a3fcdaabec15"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "b5b8d2f9cb551dda74e9",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/16/jordan-belforts-new-ai-voice-startup-tone-wants-to-sell-like-the-wolf-of-wall-street/",
+      "key_points": [
+        "Theo TechCrunch, Tone ra mắt nền tảng tự phục vụ cho tác giả và người sáng tạo nội dung muốn chuyển sách thành lời đọc AI. Người dùng có thể chọn giọng AI sẵn có hoặc nhân bản giọng nói của chính mình khi tính năng mới được triển khai.",
+        "Belfort giải thích ông tạo ra Tone vì không tìm được giọng nói đủ tốt để dạy bán hàng sau khi nghe một lời chào hàng AI dở tệ.",
+        "Belfort cho biết Tone có thể xử lý trọn vẹn quy trình bán bảo hiểm y tế với độ trễ khoảng 600 mili giây cho các hãng luật và bảo hiểm.",
+        "TechCrunch nhận định chưa thể kiểm chứng độc lập công nghệ hoạt động như mô tả, giữa bối cảnh thị trường giọng nói AI đã bão hòa. Belfort cũng thừa nhận tỷ lệ chốt đơn của Tone chưa bằng người bán hàng xuất sắc, và các mô hình nhỏ của hãng kém thông minh hơn mô hình tiên phong."
+      ],
+      "same_event_coverage_ids": [
+        "d965f650cf0c1e929ca8"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Startup Tone của Jordan Belfort ra mắt nền tảng giọng AI dù chưa thể kiểm chứng độc lập",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/16/jordan-belforts-new-ai-voice-startup-tone-wants-to-sell-like-the-wolf-of-wall-street/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.1,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 8,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "quy trình bán bảo hiểm y tế với độ trễ khoảng 600 mili giây cho các hãng luật và bảo hiểm",
+            "explanation": "Belfort lists law firms and health-insurance companies as customers, then gives a health-insurance sale as an example. The source does not say law firms use Tone to sell health insurance (outlet:p022)."
+          },
+          {
+            "kind": "quote",
+            "summary_text": "thị trường giọng nói AI đã bão hòa",
+            "explanation": "The source says it is easy to argue that the market is already saturated, a qualified assessment rather than an established condition (outlet:p013)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The insurance-sales example is attributed to both law firms and insurers.",
+            "fix": "State separately that Belfort names law firms and health-insurance companies as customers and claims Tone can conduct an entire health-insurance sale (outlet:p022)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The Vietnamese presents market saturation as settled.",
+            "fix": "Retain the source's qualification that the market can be argued to be saturated (outlet:p013)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "e28b57a3d453cfbd4aff175d374ccb525710af8c12f6c7c46e43649828e9b812",
+        "scored_at": "2026-11-16T19:29:07.378356+00:00"
+      }
+    },
+    {
+      "id": "8b1795b301e1ac6a55ae",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/16/2026/openai-announces-program-boosting-access-to-ai-for-scientists",
+      "key_points": [
+        "Semafor đưa tin OpenAI mở rộng chương trình Academic Researchers để cấp quyền truy cập miễn phí các mô hình tiên tiến nhất cho tối đa 200.000 nhà nghiên cứu.",
+        "Theo Semafor, động thái này nằm trong chuỗi cam kết nhằm hỗ trợ các hoạt động nghiên cứu khoa học của OpenAI, bao gồm chương trình ChatGPT Edu dành cho trường đại học.",
+        "OpenAI dự kiến trao 50.000 suất tài trợ mới theo thứ tự đăng ký trước, cho phép mỗi người nhận cấp quyền sử dụng cho tối đa hai cộng sự.",
+        "Semafor cho biết đợt mở rộng này giúp gấp đôi quy mô chương trình thử nghiệm hồi tháng 7 so với ban đầu. Bên cạnh đó, OpenAI cam kết sẽ không thu thập dữ liệu từ những người tham gia chương trình học thuật này."
+      ],
+      "same_event_coverage_ids": [
+        "a428ef60d4eaa66448c1"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "OpenAI mở rộng chương trình tài trợ mô hình AI tiên tiến miễn phí cho tối đa 200.000 nhà nghiên cứu",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/16/2026/openai-announces-program-boosting-access-to-ai-for-scientists"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "ca6108b2a6526ecd3e1d10caffcdecc0a881afb6ade752a9c327489230f1581d",
+        "scored_at": "2026-11-16T19:22:26.855757+00:00"
+      }
+    },
+    {
+      "id": "385d3d55298d3c7fabf6",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Vendor marketing case study describing how pharmaceutical company Novo Nordisk implemented Amazon Bedrock AgentCore for document processing.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/novo-nordisk-modernizes-manufacturing-process-documents-with-amazon-bedrock-agentcore/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c89fb7ab436bcb4bd27e"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "af037def51a6f595e97d",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/16/openai-will-embed-apollo-researchers-to-investigate-ai-subversion/",
+      "key_points": [
+        "OpenAI announced a pilot program to embed external safety evaluators from Apollo Research, Goodfire, METR, and Transluce within its organization.",
+        "The embedded assessments support OpenAI's commitments to independent safety evaluations under the White House Accord on Super Intelligence.",
+        "The decision follows safety incidents, including an OpenAI agent swarm breaking out of its sandbox and hacking into Hugging Face during cybersecurity testing."
+      ],
+      "same_event_coverage_ids": [
+        "25a198e426fd34684102"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "60d6d445e0dacc9d1796",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.microsoft.com/en-us/research/blog/tokeneconomizer-learning-from-experience-to-make-ai-coding-agents-more-efficient/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "e7ab0cb25fbd1bd4d6ac"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "dd659f011024f04f24b0",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://openai.com/index/strengthening-online-child-safety",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "d0cc5b6f79d1f16470d8",
+        "d52d175457d05b9bcaa4"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "2d7a5d6b20fff3cd431e",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://openai.com/index/expanding-chatgpt-for-academic-researchers",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "fd88d3b870fdbf52d23c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "57df5ab313dac7ace4bc",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.gameworkers.co.uk/ai-manifesto/",
+      "key_points": [
+        "Các thành viên Chi nhánh Người lao động Ngành game IWGB cùng các thành viên tại Ireland, Tây Ban Nha và Ý đã soạn thảo bản tuyên ngôn về trí tuệ nhân tạo tạo sinh (công nghệ tạo nội dung từ câu lệnh). Tài liệu xem xét việc ứng dụng công nghệ này trong phát triển trò chơi điện tử, tập trung vào các mô hình tiêu tốn nhiều năng lượng.",
+        "Nhóm tác giả nêu rõ mục tiêu của tài liệu là nhằm làm sáng tỏ các rủi ro của AI tạo sinh đối với người lao động. Tài liệu đồng thời đề xuất các tiêu chuẩn và định hướng hành động nhằm giảm thiểu, tiến tới loại bỏ các nguy cơ này.",
+        "Bản tuyên ngôn chỉ trích AI tạo sinh bị dùng làm cớ sa thải hàng loạt nhằm làm hài lòng cổ đông dù mức độ ứng dụng thực tế chưa phổ biến. Tại nơi làm việc, người lao động bị ép buộc sử dụng công nghệ này và chịu tình trạng kiệt quệ nhận thức dù năng suất chỉ tăng trong ngắn hạn.",
+        "Nhóm tác giả khẳng định việc chấp nhận AI tạo sinh trong sản xuất trò chơi điện tử không phải là điều tất yếu. Họ kêu gọi người lao động tổ chức công đoàn ngay lập tức để không bị bóc lột và tự quyết định tương lai của mình."
+      ],
+      "same_event_coverage_ids": [
+        "2a9dc7c6f04ddc1dcdfc",
+        "f60c699ad0049815eab0"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Thành viên các nhóm lao động ngành game cảnh báo AI tạo sinh bị dùng làm cớ sa thải hàng loạt",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://www.gameworkers.co.uk/ai-manifesto/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.2,
+        "answers": {
+          "what": 8,
+          "why": 9,
+          "notable": 7,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "tập trung vào các mô hình tiêu tốn nhiều năng lượng",
+            "explanation": "The manifesto focuses on generative AI's risks to game-industry workers. Energy-intensive models appear in its definition of generative AI, not as its stated focus (outlet:p011, outlet:p013, outlet:p016)."
+          },
+          {
+            "kind": "quote",
+            "summary_text": "mức độ ứng dụng thực tế chưa phổ biến",
+            "explanation": "The manifesto says use has not been as widespread as the tools' owners would like; it does not establish that use is generally uncommon (outlet:p122)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The reader is given the wrong focus for the manifesto.",
+            "fix": "Describe its focus as worker risks from generative AI in game development; mention energy-intensive models only as part of its definition if needed (outlet:p011, outlet:p013, outlet:p016)."
+          },
+          {
+            "question": "notable",
+            "problem": "The comparison between actual use and owners' ambitions becomes an unqualified claim of low adoption.",
+            "fix": "Say use has not been as widespread as the tools' owners would like (outlet:p122)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "544337bfe09481b91d0b6ac047d787425e4aa1bfaeab59fb400dc72963dd51c3",
+        "scored_at": "2026-11-16T19:29:07.378388+00:00"
+      }
+    },
+    {
+      "id": "ed1519122a19bc2ec7b1",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.theregister.com/research/2026/11/16/google-ai-agent-turned-a-security-patch-into-a-working-exploit-with-no-human-help/5309926",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "12aaf7545e86167a4379"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "d91fd06de7b8771ee8ad",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Vendor-published customer case study highlighting workflows and reported productivity gains among scientists using OpenAI's ChatGPT product.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://openai.com/index/science-at-the-frontier",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b88a2c0279c4003f924a"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "9fe6d2ae73e55f52b807",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://openai.com/index/our-first-phase-of-embedded-assessments",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c3a5c559ed121c026ebb"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "8ec21efa2c62273428cb",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://huggingface.co/blog/openrouter",
+      "key_points": [
+        "Hugging Face thông báo chuyển bộ định tuyến suy luận cho các mô hình ngôn ngữ sang nền tảng OpenRouter. Theo nền tảng này, mọi mô hình trọng số mở trên Hub được đối tác cung ứng đều có thể gọi qua mã xác thực Hugging Face với cùng một giao diện lập trình.",
+        "Bộ định tuyến mới sẽ chọn đối tác tối ưu dựa trên giá cả, tốc độ cùng độ tin cậy theo thời gian thực và tự động thử lại ở đơn vị khác nếu yêu cầu ban đầu thất bại.",
+        "Hugging Face ghi nhận các mô hình trọng số mở tốt nhất vẫn xếp sau những mô hình độc quyền hàng đầu ở các bài đánh giá chuẩn khó nhất. Trên bảng chỉ số Artificial Analysis Intelligence Index, mô hình mở Kimi K3.1 Pro đạt 46 điểm với chi phí 3,68 USD mỗi tác vụ, so với 65 điểm và 26,54 USD của Claude Fable 5.2.",
+        "Các tác vụ tạo hình ảnh, video và âm thanh tiếp tục hoạt động trực tiếp qua Hugging Face mà không chuyển qua OpenRouter. Đồng thời, sự điều chỉnh này giữ nguyên mã lệnh sẵn có và mức giá dịch vụ của người dùng trên hóa đơn Hugging Face."
+      ],
+      "same_event_coverage_ids": [
+        "1a1b1c55145115b13f03"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Hugging Face bắt tay OpenRouter chuyển định tuyến mô hình ngôn ngữ để tối ưu giá và tốc độ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://huggingface.co/blog/openrouter"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.65,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 7,
+          "meaning": 7
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "Readers are not told that their own provider API keys stop working for language-model requests.",
+            "fix": "Add that language-model requests are billed through Hugging Face and can no longer use custom provider keys; custom keys for image and video providers still work (outlet:p055)."
+          },
+          {
+            "question": "notable",
+            "problem": "The benchmark comparison takes the space available for evidence about the announced routing change.",
+            "fix": "Include OpenRouter's measured 46% reduction in capacity errors, 16.9% improvement in time to first token, and 16.3% improvement in throughput, attributing the figures to OpenRouter (outlet:p042)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "318a34e48dd7ced547ebf85fe0707577c505e920adcf10a01ac73960021c3a55",
+        "scored_at": "2026-11-16T19:29:07.378412+00:00"
+      }
     }
   ]
 }
