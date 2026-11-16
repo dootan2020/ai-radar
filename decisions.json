@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-16T15:38:01.469844+00:00",
-  "input_generated_at": "2026-11-16T14:56:20Z",
+  "generated_at": "2026-11-16T18:09:01.533942+00:00",
+  "input_generated_at": "2026-11-16T16:46:22Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -77252,9 +77252,9 @@
       "source_url": "https://analyticsindiamag.com/ai-news/karnataka-bets-on-physical-ai-deeptech-at-bengaluru-tech-summit-2026",
       "key_points": [
         "Chính quyền bang Karnataka tổ chức Hội nghị Thượng đỉnh Công nghệ Bengaluru lần thứ 29 từ ngày 17 đến 19/11 tại Trung tâm Triển lãm Quốc tế Bangalore, tập trung vào AI vật lý (trí tuệ nhân tạo gắn với phần cứng), bán dẫn và điện toán chủ quyền.",
-        "Theo ban tổ chức, sự kiện nhằm mở rộng ứng dụng AI ra ngoài phần mềm doanh nghiệp sang nông nghiệp, công nghệ sinh học, trò chơi, hệ thống công nghiệp và chính phủ điện tử.",
-        "Điểm nhấn là khu trải nghiệm AI vật lý do sáng kiến Bharat1.ai đồng tuyển chọn, quy tụ bộ sưu tập robot hình người nội địa lớn nhất Ấn Độ theo mô tả của ban tổ chức. Bên cạnh đó, các thí sinh thắng cuộc thi do bang phối hợp cùng công ty Sarvam AI tổ chức sẽ nhận 15 lakh rupee tiền mặt, 15 lakh rupee tín dụng tính toán và kỳ lưu trú nghiên cứu.",
-        "Theo chính quyền bang, hội nghị xem xét mở rộng các trung tâm năng lực toàn cầu (cơ sở công nghệ phục vụ doanh nghiệp quốc tế) ưu tiên AI tới các đô thị cấp hai, sau khi lập 100 cơ sở mới trong năm qua."
+        "Về mục tiêu tổ chức, ban tổ chức cho biết sự kiện nhằm mở rộng ứng dụng AI ra ngoài phạm vi phần mềm doanh nghiệp sang nông nghiệp, công nghệ sinh học, trò chơi, hệ thống công nghiệp và chính phủ điện tử.",
+        "Thí sinh chiến thắng cuộc thi AI toàn quốc do bang phối hợp với công ty Sarvam AI tổ chức sẽ nhận 15 lakh rupee tiền thưởng, 15 lakh rupee tín dụng tính toán và một kỳ lưu trú tại AI Superpark của Bharat1.ai ở Bengaluru. Khu trải nghiệm AI vật lý sẽ trưng bày bộ sưu tập robot hình người nội địa lớn nhất Ấn Độ theo mô tả của ban tổ chức, cùng các robot bốn chân và thiết bị lặn không người lái.",
+        "Theo chính quyền bang Karnataka, sự kiện tập trung xem xét việc mở rộng các trung tâm năng lực toàn cầu (cơ sở công nghệ phục vụ doanh nghiệp quốc tế) ưu tiên AI sang các đô thị cấp hai, sau khi bang thành lập 100 cơ sở mới trong năm qua."
       ],
       "same_event_coverage_ids": [
         "16cd957e75ac67ff9ca0",
@@ -77262,7 +77262,7 @@
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Hội nghị Công nghệ Bengaluru 2026 vượt mốc 10.000 đại biểu đăng ký và tập trung vào AI vật lý",
+      "editorial_headline_vi": "Hội nghị Công nghệ Bengaluru 2026 vượt mốc 10.000 đại biểu đăng ký, tập trung vào AI vật lý",
       "summary_sources": [
         {
           "id": "outlet",
@@ -77275,25 +77275,35 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.35,
+        "value": 9.05,
         "answers": {
           "what": 9,
           "why": 10,
           "notable": 9,
-          "meaning": 10
+          "meaning": 8
         },
         "hard_errors": [
           {
             "kind": "fact",
-            "summary_text": "kỳ lưu trú nghiên cứu",
-            "explanation": "The source says winners receive a residency at Bharat1.ai’s AI Superpark in Bengaluru; it does not specify a research residency (outlet:p006)."
+            "summary_text": "sau khi bang thành lập 100 cơ sở mới",
+            "explanation": "The source says 100 new centres were established in Karnataka; it does not say the state established them (outlet:p010)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "thiết bị lặn không người lái",
+            "explanation": "The source says the pavilion will show aquatic drones, without specifying that they are diving devices (outlet:p005)."
           }
         ],
         "findings": [
           {
+            "question": "meaning",
+            "problem": "Readers are told that Karnataka established the 100 centres.",
+            "fix": "Say 100 new centres were established in Karnataka over the past year, according to the state government (outlet:p010)."
+          },
+          {
             "question": "notable",
-            "problem": "The prize description adds a research purpose and leaves out the residency location.",
-            "fix": "Say the winners receive a residency at Bharat1.ai’s AI Superpark in Bengaluru (outlet:p006)."
+            "problem": "The Vietnamese narrows “aquatic drones” to diving devices.",
+            "fix": "Use an aquatic-drone term without specifying that the devices dive (outlet:p005)."
           }
         ],
         "writer_boats": [
@@ -77301,8 +77311,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "387f3bc619013184a660733eff2a099d251a77b594d88822d15b05fab5bd961f",
-        "scored_at": "2026-11-16T15:38:01.463834+00:00"
+        "prose_sha256": "0aa938c36dbe713a7bb520d2d5cfe8932cf41c25855747ea649bfd3293ed244e",
+        "scored_at": "2026-11-16T18:09:01.516440+00:00"
       }
     },
     {
@@ -77688,10 +77698,10 @@
       "use_original_title": false,
       "source_url": "https://www.theguardian.com/books/ng-interactive/2026/nov/14/its-like-the-wild-west-how-ai-has-rocked-the-literary-world",
       "key_points": [
-        "Theo một đại diện văn học chia sẻ với The Guardian, ngành xuất bản chính thống đang như \"miền viễn Tây\" khi tác giả sử dụng trí tuệ nhân tạo (AI) để viết sách.",
-        "Tác giả bài viết trên The Guardian nhận định tình trạng này xảy ra do công nghệ tiến nhanh hơn khả năng đánh giá của ngành xuất bản về việc tác giả dùng AI sáng tác.",
-        "Cụ thể, một nghiên cứu đang chờ bình duyệt do Tuhin Chakrabarty tại Đại học Stony Brook dẫn đầu ước tính khoảng một phần năm sách mới tự xuất bản gần đây chứa ít nhất 25% văn bản AI. Trong khi đó, cuốn tiểu thuyết trinh thám Death of an Author được Stephen Marche sáng tác năm 2023 bằng ba chương trình AI chỉ có thể phát hành dạng sách nói do lo ngại về bản quyền.",
-        "Chủ tịch ủy ban đặc biệt về AI của Hiệp hội Đại diện Văn học Mỹ Hannah Bowman cho biết nội bộ giới đại diện đang tranh cãi về việc định kỳ dùng phần mềm phát hiện AI hay dựa trên sự tin cậy. Trước tình hình đó, cả bên ủng hộ lẫn phản đối đều thúc giục các nhà xuất bản nắm quyền quyết định cần dũng cảm ban hành chính sách rõ ràng để quy định những điều tác giả được và không được làm."
+        "Theo một đại diện văn học trên The Guardian, ngành xuất bản chính thống như miền viễn Tây khi tác giả dùng AI viết sách.",
+        "Tác giả bài viết trên The Guardian nhận định công nghệ đang tiến nhanh hơn khả năng ứng phó của ngành xuất bản trước việc tác giả dùng AI sáng tác.",
+        "Nghiên cứu do Tuhin Chakrabarty tại Đại học Stony Brook dẫn đầu ước tính khoảng một phần năm sách mới tự xuất bản chứa ít nhất 25% văn bản AI, dù đang chờ bình duyệt. Ngược lại, tiểu thuyết trinh thám Death of an Author được Stephen Marche viết năm 2023 bằng ba chương trình AI chỉ có thể phát hành dạng sách nói vì lo ngại bản quyền.",
+        "Cả bên ủng hộ lẫn phản đối AI đều thấy nhu cầu cấp bách về hướng dẫn từ nhà xuất bản, trong đó McIlroy đề nghị các đơn vị này cần dũng cảm ban hành chính sách toàn diện quy định rõ quyền hạn tác giả. Đại diện văn học Natalie Lakosil cho biết luật bản quyền Mỹ bảo hộ tác phẩm có AI hỗ trợ, nhưng văn bản do máy móc tạo ra đối mặt rủi ro pháp lý và khiến nhà xuất bản mất quyền độc quyền."
       ],
       "same_event_coverage_ids": [
         "c4d9ba0ea808f4a1965c"
@@ -77713,30 +77723,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.2,
+        "value": 9.5,
         "answers": {
-          "what": 9,
-          "why": 10,
+          "what": 10,
+          "why": 9,
           "notable": 10,
-          "meaning": 7
+          "meaning": 8
         },
-        "hard_errors": [
-          {
-            "kind": "role",
-            "summary_text": "cả bên ủng hộ lẫn phản đối đều thúc giục các nhà xuất bản nắm quyền quyết định cần dũng cảm ban hành chính sách rõ ràng để quy định những điều tác giả được và không được làm",
-            "explanation": "Both camps call for more publisher guidance, but the specific appeal to be 'brave' and publish extensive policies spelling out permitted author use is McIlroy’s, not a position the source attributes to both camps (outlet:p023)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
             "question": "meaning",
-            "problem": "The text attributes McIlroy’s specific policy proposal to both supporters and opponents of AI.",
-            "fix": "State that both camps want more guidance, then attribute the call for extensive policies to McIlroy (outlet:p023)."
-          },
-          {
-            "question": "meaning",
-            "problem": "Readers miss the concrete copyright issue behind publishers’ uncertainty.",
-            "fix": "Explain that the source distinguishes protected AI-assisted work from machine-generated text that may lack US copyright protection (outlet:p026)."
+            "problem": "Readers miss the article’s concluding example of how widely AI-generated language is appearing.",
+            "fix": "Add that it has surfaced even in leading newspapers and literary magazines, as the author observes in outlet:p031."
           }
         ],
         "writer_boats": [
@@ -77744,8 +77743,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "38980f705b67d9842b165af391168296863bedb617006d29b49e52e0f54893cb",
-        "scored_at": "2026-11-16T15:38:01.463878+00:00"
+        "prose_sha256": "e1be21b4040eb2425f72f972b2324671c9450b818c8e9aeef2ad9ad7cb6cfd90",
+        "scored_at": "2026-11-16T18:09:01.516476+00:00"
       }
     },
     {
@@ -78200,17 +78199,17 @@
       "use_original_title": false,
       "source_url": "https://www.semafor.com/article/11/16/2026/government-pressure-grows-on-nvidias-huang-for-details-of-spy-scandal",
       "key_points": [
-        "Chính phủ Mỹ gia tăng áp lực lên Nvidia xoay quanh việc liệu tập đoàn có cố tình bán công nghệ bị hạn chế cho Trung Quốc hay không. Sức ép này gia tăng trong lúc bê bối giữa cựu CEO Jensen Huang với một nghi can tình báo Trung Quốc lan rộng.",
-        "Về lý do bị chất vấn, Bộ trưởng Tài chính Mỹ nêu nghi vấn cố tình bán công nghệ bị hạn chế nhằm tăng doanh thu.",
-        "Trước sức ép trên, cựu CEO đồng ý điều trần kín trước các nhà lập pháp Mỹ, trong khi Bộ trưởng Tài chính yêu cầu cải tổ mạnh mẽ công ty.",
-        "Về tương lai nhân sự, bốn chuyên gia trên Fortune cảnh báo không có cơ hội quay lại và cho rằng giới ủng hộ đang đánh giá thấp quy mô khủng hoảng."
+        "Theo Semafor, chính phủ Mỹ gia tăng áp lực lên Nvidia về nghi vấn liệu tập đoàn có biết mà vẫn cho phép bán công nghệ bị hạn chế sang Trung Quốc. Sức ép gia tăng khi vụ bê bối giữa cựu CEO Jensen Huang và một cá nhân bị nghi là tình báo Trung Quốc lan rộng.",
+        "Bộ trưởng Tài chính Mỹ đã đặt nghi vấn về việc liệu Nvidia có tìm cách bán hàng sang Trung Quốc nhằm tăng doanh thu hay không.",
+        "Cựu lãnh đạo Nvidia đã đồng ý điều trần kín trước các nhà lập pháp Mỹ, trong khi Bộ trưởng Tài chính yêu cầu công ty phải cải tổ mạnh mẽ.",
+        "Bốn chuyên gia trên tạp chí Fortune cảnh báo những người ủng hộ chỉ tập trung vào vụ ngoại tình đang đánh giá thấp quy mô khủng hoảng và khẳng định ông không có cơ hội quay lại."
       ],
       "same_event_coverage_ids": [
         "b6bf95e7b54a357f2c9a"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Mỹ gia tăng áp lực lên Nvidia về nghi vấn cố tình bán công nghệ cho Trung Quốc",
+      "editorial_headline_vi": "Mỹ gia tăng áp lực lên Nvidia về nghi vấn biết mà vẫn cho phép bán công nghệ hạn chế sang Trung Quốc",
       "summary_sources": [
         {
           "id": "outlet",
@@ -78223,55 +78222,25 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 6.4,
+        "value": 9.1,
         "answers": {
-          "what": 6,
-          "why": 5,
+          "what": 10,
+          "why": 10,
           "notable": 8,
-          "meaning": 6
+          "meaning": 8
         },
         "hard_errors": [
           {
-            "kind": "fact",
-            "summary_text": "cố tình bán công nghệ cho Trung Quốc",
-            "explanation": "The source questions whether Nvidia knowingly allowed the sale of restricted technology to China; it does not say Nvidia itself deliberately made the sale (outlet:p001)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "có cố tình bán công nghệ bị hạn chế cho Trung Quốc",
-            "explanation": "The source’s questioned action is knowingly allowing a sale, not deliberately selling the technology itself (outlet:p001)."
-          },
-          {
-            "kind": "cause",
-            "summary_text": "cố tình bán công nghệ bị hạn chế nhằm tăng doanh thu",
-            "explanation": "The Treasury secretary questioned whether Nvidia pursued sales to China to boost revenue. The source does not connect that possible motive specifically to a deliberate sale of restricted technology (outlet:p002)."
-          },
-          {
-            "kind": "cause",
-            "summary_text": "Trước sức ép trên",
-            "explanation": "The source reports Huang’s agreement to testify but does not say the government pressure caused that agreement (outlet:p002)."
-          },
-          {
             "kind": "quote",
-            "summary_text": "giới ủng hộ đang đánh giá thấp quy mô khủng hoảng",
-            "explanation": "The experts warned specifically about supporters who focus solely on Huang’s infidelity, rather than supporters generally (outlet:p002)."
+            "summary_text": "đang đánh giá thấp quy mô khủng hoảng",
+            "explanation": "The experts said supporters who focus solely on the affair risk underestimating the crisis; they did not state that those supporters already do so (outlet:p002)."
           }
         ],
         "findings": [
           {
-            "question": "what",
-            "problem": "Readers are told Nvidia may have deliberately sold the technology itself.",
-            "fix": "Say the inquiry concerns whether Nvidia knowingly allowed restricted technology to be sold to China (outlet:p001)."
-          },
-          {
-            "question": "why",
-            "problem": "The revenue question is attached to a more specific alleged act than the source states.",
-            "fix": "Keep the secretary’s question about pursuing sales to China for revenue separate from the restricted technology inquiry (outlet:p002)."
-          },
-          {
             "question": "meaning",
-            "problem": "The experts’ criticism is extended to all Huang supporters.",
-            "fix": "Specify that their warning concerns supporters who focus only on his infidelity (outlet:p002)."
+            "problem": "The Vietnamese turns a warning about a risk into a claim that the underestimation is already happening.",
+            "fix": "Say those supporters risk underestimating the crisis, as stated in outlet:p002."
           }
         ],
         "writer_boats": [
@@ -78279,8 +78248,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "930242f22f77be488c57adcac9f96a62ac9b7c451032558c78773b3cc09ad5c4",
-        "scored_at": "2026-11-16T15:28:02.939042+00:00"
+        "prose_sha256": "725e3cfd9883dde1bceb258718e5a60d3a3a2bb72827c4e6ab4ee126a3ea9141",
+        "scored_at": "2026-11-16T18:09:01.516363+00:00"
       }
     },
     {
@@ -78582,6 +78551,1116 @@
         "prose_sha256": "03977ac896ba4d80788edd35ca4a519cbb9162bea905e2a4146122940fb68564",
         "scored_at": "2026-11-16T15:22:22.190797+00:00"
       }
+    },
+    {
+      "id": "7d0703d7adee512f3081",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The coverage focuses on a diplomatic geopolitical summit between the US, China, and Russia; mentions of Nvidia chip export controls are incidental.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-16/what-to-expect-from-trump-s-china-summit-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "94e8cf0f5af1b6abe717"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "98cd2380a53dacac73c6",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-16/us-is-falling-behind-on-ai-buildout-needs-midha-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "e7458ae65542395d43b6"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "fcf6e9c39647db530b59",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-16/nvidia-ceo-search-draws-fire-with-bessent-s-shakeup-call-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "19e10f39aecab7e0083e",
+        "8e8927e9e21d980c3384",
+        "94d293ed8e837c52fb50"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "54137c5e5c7e2e0d4101",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://fedscoop.com/va-website-redesign-ai-updates-coming/",
+      "key_points": [
+        "Trang chủ của Bộ Cựu chiến binh Mỹ đã đổi mới diện mạo vào tuần trước, theo một quan chức công nghệ cấp cao.",
+        "Đợt hiện đại hóa trang web của Bộ Cựu chiến binh Mỹ là kết quả từ gần 90.000 phản hồi khảo sát cùng các thử nghiệm của cựu chiến binh, theo thông cáo báo chí nhân ngày Cựu chiến binh.",
+        "Trang web mới được đơn giản hóa với tính năng đăng nhập một lần, liên kết ma thuật, tìm kiếm bằng ngôn ngữ tự nhiên và biểu mẫu điền sẵn, theo ông Zack Schwartz, phó trợ lý bộ trưởng phụ trách chính của Văn phòng Thông tin và Công nghệ thuộc Bộ Cựu chiến binh Mỹ. Theo ông Schwartz chia sẻ với FedScoop, hàng nghìn cựu chiến binh chưa từng có tài khoản đã đăng ký trang web thông qua dịch vụ xác thực CLEAR tại các ki-ốt trực tiếp.",
+        "Chi phí tài chính cho trí tuệ nhân tạo vẫn chưa được xác định dù Bộ Cựu chiến binh Mỹ đang hợp tác với America-dot-gov, theo ông Schwartz. Ông Schwartz nhận định đây là quá trình từng bước và hệ thống của cơ quan vẫn cần hoàn thiện thêm để đáp ứng tốt hơn nhu cầu thực tế của cựu chiến binh."
+      ],
+      "same_event_coverage_ids": [
+        "7b3061bf3faf5de73934"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Bộ Cựu chiến binh Mỹ đổi mới trang chủ sau gần 90.000 khảo sát và hướng tới tính năng AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "fedscoop",
+          "url": "https://fedscoop.com/va-website-redesign-ai-updates-coming/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": null
+    },
+    {
+      "id": "841cb7a870e862fb98a5",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "podcast",
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.wired.com/story/the-big-interview-podcast-lauren-goode-jensen-huang/",
+      "key_points": [
+        "Nvidia đã bổ nhiệm một nữ CEO tạm thời để thay thế ông Jensen Huang, theo tác giả bài viết trên Wired. Tác giả cho biết nhà đồng sáng lập kiêm tỷ phú này đã mất vị trí lãnh đạo cùng quyền lực to lớn tại tập đoàn chỉ trong vài ngày.",
+        "Về các mối quan hệ ngoài luồng, người dẫn podcast của Wired cho biết những suy nghĩ xoay quanh chủ đề này xuất phát từ ông Jensen Huang. Dù vậy, tác giả lưu ý rằng các trích đoạn bài viết không khẳng định những mối quan hệ này là nguyên nhân chính xác dẫn đến việc thay thế ông Huang.",
+        "Nvidia không có hệ thống thứ bậc và ông Huang có hàng chục người báo cáo trực tiếp, theo tác giả bài viết trên Wired. Tác giả cũng cho biết tập đoàn không triển khai kế hoạch kế nhiệm chính thức và không có nhân sự sẵn sàng tiếp quản vị trí.",
+        "Về tình trạng hỗn loạn cho Nvidia và ngành AI, tác giả trên Wired nhận định sự việc gây xáo trộn cho toàn bộ nền kinh tế, đồng thời cho biết đã thấy nhiều thông tin rằng cổ phiếu công ty đang không tốt. Người này cũng đánh giá đây chưa phải là lần cuối cùng công chúng nghe tin về ông Jensen Huang kể cả khi ông không được phục chức."
+      ],
+      "same_event_coverage_ids": [
+        "380cdeafcc18527e2d77"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Wired: Nvidia bổ nhiệm nữ CEO tạm thời thay Jensen Huang sau khi ông mất vị trí lãnh đạo",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "wired",
+          "url": "https://www.wired.com/story/the-big-interview-podcast-lauren-goode-jensen-huang/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": null
+    },
+    {
+      "id": "b3a867faa51ab497299b",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/get-answers-from-tables-with-tabular-search-in-amazon-bedrock-managed-knowledge-base/",
+      "key_points": [
+        "Amazon Bedrock Managed Knowledge Base hiện hỗ trợ tìm kiếm dạng bảng qua truy xuất tác tử (phương thức dùng chương trình tự hành để tìm kiếm). Hệ thống tra cứu và tính toán trên toàn bộ hàng của tệp CSV, XLSX hoặc XLS thay vì chỉ trích xuất vài hàng cục bộ.",
+        "Theo Amazon, bảng dữ liệu bị mất thông tin khi chia nhỏ thành các đoạn văn bản trong phương pháp RAG (tạo tăng cường truy xuất). Khi bảng có hàng nghìn dòng, việc chỉ lấy vài hàng khớp khiến các phép tính tổng hay so sánh có thể không hoàn chỉnh.",
+        "Ở ví dụ tài chính, hệ thống xác định phòng ban cần viết giải trình chênh lệch bằng cách chạy mã trên toàn bộ sổ làm việc lãi lỗ. Câu trả lời chỉ ra các bộ phận Sales, Engineering và Operations, đồng thời trích dẫn chính sách tài chính cùng bản ghi nhớ kết thúc quý.",
+        "Khả năng kết hợp dữ liệu bảng và tài liệu từ tệp CSV, XLSX hoặc XLS áp dụng tại các khu vực AWS được hỗ trợ để trả lời câu hỏi phân tích nhiều bước. Theo Amazon, tính năng này giới hạn chạy mã trên tệp CSV tối đa 500 MB và bảng tính Excel tối đa 200 MB."
+      ],
+      "same_event_coverage_ids": [
+        "de9888758073c1209b58"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Amazon Bedrock ra mắt tính năng tìm kiếm dạng bảng giúp chạy mã và tính toán trên tệp dữ liệu",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "amazon",
+          "url": "https://aws.amazon.com/blogs/machine-learning/get-answers-from-tables-with-tabular-search-in-amazon-bedrock-managed-knowledge-base/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": null
+    },
+    {
+      "id": "9ed8c032dbcdf137f78a",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Sponsored native advertising provided by UL Solutions rather than independent journalism or editorial analysis.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.technologyreview.com/2026/11/16/1148565/building-trustworthy-ai-by-fencing-it-in-not-predicting-it/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "0962bcb9ceda62981c39"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "742a0adaef2e254494df",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Vendor corporate blog post highlighting customer Lambda's deployment and benchmarking of Nvidia Photonics switches.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://blogs.nvidia.com/blog/lambda-photonics/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "796a7c1c59ac45fff5c7"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "0dc8b1c6d09938c16b10",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The announcement focuses on quantum computing processor integration in supercomputing with Slurm, not artificial intelligence.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://blogs.nvidia.com/blog/slurm-quantum-computing-supercomputing/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "6f3ed44fdeb292fb9a80"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "891aa0f995d12bb58740",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://blogs.nvidia.com/blog/mlperf-training-endpoints-vera-rubin/",
+      "key_points": [
+        "NVIDIA công bố nền tảng Vera Rubin dẫn đầu về hiệu năng huấn luyện và suy luận tác tử (chương trình AI tự hành) tại các bài kiểm tra điểm chuẩn MLPerf (bài đo hiệu năng tiêu chuẩn). Theo NVIDIA, ở nội dung huấn luyện, hệ thống Vera Rubin NVL72 đạt hiệu suất trên mỗi bộ xử lý đồ họa cao lên tới 2 lần so với GB300 NVL72.",
+        "NVIDIA giải thích rằng các trung tâm dữ liệu AI bị giới hạn bởi điện năng, do đó tạo ra càng nhiều token trên mỗi watt thì càng phục vụ được nhiều tác tử hơn. Chỉ số này đo lường lượng công việc mà hệ thống tác tử xử lý được trên mỗi watt điện tiêu thụ.",
+        "Hệ thống Vera Rubin NVL72 đạt thông lượng trên mỗi watt cao hơn 10 lần so với GB300 NVL72 ở cùng tốc độ phản hồi trong kết quả sơ bộ với mô hình Kimi K3. Phép so sánh này được tính toán dựa trên mức độ tương tác tối thiểu 50 token mỗi giây cho mỗi người dùng.",
+        "Theo NVIDIA, riêng kết quả sơ bộ của Vera Rubin đối với mô hình Kimi K3 hiện vẫn chờ hiệp hội MLCommons xác minh và có thể thay đổi sau khi bình duyệt."
+      ],
+      "same_event_coverage_ids": [
+        "e6bb4f5f26a4846c229a"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "NVIDIA Vera Rubin đạt thông lượng trên mỗi watt hơn 10 lần trong kết quả sơ bộ tại MLPerf",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "nvidia",
+          "url": "https://blogs.nvidia.com/blog/mlperf-training-endpoints-vera-rubin/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": null
+    },
+    {
+      "id": "4e397e27d38f36eaba2a",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://blogs.nvidia.com/blog/cuda-x-libraries-agents-accelerate-scientific-discovery/",
+      "key_points": [
+        "Theo NVIDIA, doanh nghiệp mở rộng các thư viện CUDA-X gồm cuPhoton, cuPotential và cuSpa hỗ trợ đẩy nhanh nghiên cứu từ vật lý thiên văn đến sinh học tế bào đơn. Doanh nghiệp cho biết các thư viện này giúp các agent AI (trợ lý trí tuệ nhân tạo tự hành) hỗ trợ giới khoa học tăng tốc khám phá.",
+        "Quy trình xử lý hoàn chỉnh vận hành trên hệ thống phân tán nhiều GPU hoặc hệ thống DGX Spark. Mô-đun cuPhoton.xLens trích xuất dữ liệu khi mô phỏng plasma chạy, kết hợp với agent AI cục bộ thực hiện phân tích tương tác theo thời gian thực.",
+        "Mô-đun cuPhoton.xBeam đối chiếu dữ liệu quan sát hố đen từ Kính thiên văn Chân trời Sự kiện trong tám phút thay vì hơn một tháng. Trong sinh học, thư viện mã nguồn mở cuSpa tính toán đa giác tế bào tại Trung tâm Ung thư Memorial Sloan Kettering nhanh hơn 900 lần so với dùng CPU.",
+        "Theo NVIDIA, các cải tiến tốc độ này hỗ trợ phân tích tập dữ liệu lớn hơn và mô phỏng hệ thống phức tạp hơn. Doanh nghiệp lưu ý Daviator tính toán cơ học lượng tử nhanh hơn tới 22 lần, đồng thời hỗ trợ GPU cho mọi quy mô hệ thống gồm cả hệ thống nhỏ từng chạy nhanh hơn trên CPU."
+      ],
+      "same_event_coverage_ids": [
+        "26704464ddeec043029c"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "cuPhoton.xBeam của NVIDIA đối chiếu dữ liệu quan sát hố đen trong tám phút thay vì hơn một tháng",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "nvidia",
+          "url": "https://blogs.nvidia.com/blog/cuda-x-libraries-agents-accelerate-scientific-discovery/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": null
+    },
+    {
+      "id": "bcc40eb1eee4216ca06d",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "A 20th anniversary corporate retrospective by Nvidia reflecting on general GPU accelerated scientific computing, with only incidental mention of AI.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://blogs.nvidia.com/blog/20-years-cuda/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "19f4986e113bc8722081"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "8d3e797bf89409e7991e",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-16/nvidia-backs-genius-grant-winner-s-push-for-cost-efficient-ai",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "d159f4cb3ee66d7eccd2"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "8f02058f4a02dc51d60c",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "top tier needs four to eight verified key points",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "top tier needs four to eight verified key points"
+      ],
+      "use_original_title": false,
+      "source_url": "https://blogs.nvidia.com/blog/rubin-hpc/",
+      "key_points": [
+        "Tại hội nghị SC26, NVIDIA công bố GPU Rubin HPC thuộc nền tảng Vera Rubin nhằm tăng tốc mô phỏng và xử lý dữ liệu khoa học. Sản phẩm sở hữu hơn 50.000 nhân CUDA trên một GPU cùng công nghệ NVLink thế hệ thứ bảy để tăng tốc độ truyền dữ liệu.",
+        "Theo NVIDIA, việc giới nghiên cứu phối hợp cùng agent AI khám phá nhiều thiết kế mới đã làm gia tăng nhu cầu tính toán mô phỏng. Khối lượng công việc tính toán khoa học đòi hỏi truy xuất giá trị rải rác từ tập dữ liệu khổng lồ và lặp lại trên quy mô lớn.",
+        "Để giải quyết thách thức này, Rubin HPC kết hợp mở rộng luân chuyển dữ liệu song song với năng lực tính toán thay vì chỉ tăng sức mạnh xử lý. Doanh nghiệp cho biết thiết kế này giúp giữ nguồn cấp dữ liệu liên tục cho các nhân CUDA để tính toán thay vì chờ đợi.",
+        "NVIDIA nhận định mô phỏng nhanh do agent kích hoạt sẽ rút ngắn chu trình từ giả thuyết đến tinh chỉnh để sớm định hướng thí nghiệm thực tế. Tuy nhiên, doanh nghiệp dự kiến bộ xử lý đồ họa Rubin HPC phải đến năm 2028 mới có mặt trên thị trường."
+      ],
+      "same_event_coverage_ids": [
+        "78df3d6af0bf460c9060"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "NVIDIA ra mắt GPU Rubin HPC chứa hơn 50.000 nhân CUDA, dự kiến phát hành năm 2028",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "nvidia",
+          "url": "https://blogs.nvidia.com/blog/rubin-hpc/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "063ddb7480b902d8e3608d611b4fc0990273b1b31e60b397463b8cf1fe0be8ef",
+        "scored_at": "2026-11-16T17:44:14.701781+00:00"
+      }
+    },
+    {
+      "id": "e5e272e7744c80be5ffb",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Technical developer blog providing a practical how-to recipe and guide for post-training Nemotron models with NeMo Gym and RL.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://developer.nvidia.com/blog/post-training-nvidia-nemotron-to-increase-accuracy-in-your-scientific-domain/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "112e5165e7a6b7c6c011"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "e441c96039b52017dd3f",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://nvidianews.nvidia.com/news/nvidia-expands-vera-cpu-platform-to-accelerate-scientific-discovery",
+      "key_points": [
+        "NVIDIA công bố nền tảng tủ rack Vera CPU dành cho điện toán hiệu năng cao, tích hợp CPU tự thiết kế đầu tiên của hãng cho trung tâm dữ liệu. Mỗi hệ thống tích hợp 192 chip Vera CPU làm mát bằng chất lỏng, đạt băng thông bộ nhớ tổng hơn 200 TB/s cùng 1 petabyte lưu trữ.",
+        "Doanh nghiệp cho biết mô phỏng khoa học cần CPU duy trì luân chuyển dữ liệu lớn để xóa bỏ các điểm nghẽn khi mở rộng quy mô.",
+        "Trong thử nghiệm của NVIDIA, Vera đạt hiệu năng gấp 1,9 lần và hiệu năng trên watt gấp 2,4 lần hệ thống x86 ở mô phỏng OpenFOAM. Ngoài ra, Trung tâm Tính toán Khí hậu Đức (DKRZ) đã chọn Vera CPU cho siêu máy tính HLRE-5 phục vụ nghiên cứu khí hậu.",
+        "Siêu máy tính HLRE-5 dự kiến hoạt động đầu năm 2028 sẽ hỗ trợ mô phỏng khí hậu quy mô kilomet với mức tiêu thụ năng lượng thấp hơn hệ thống cũ. Các tủ rack Vera CPU dự kiến sẽ bắt đầu được Dell Technologies, HPE, Lenovo và Supermicro cung cấp từ đầu năm 2027."
+      ],
+      "same_event_coverage_ids": [
+        "36768a1bd9132c8c8942"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "NVIDIA ra mắt tủ rack Vera CPU cho HPC, hiệu năng gấp 1,9 lần hệ thống x86",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "nvidia",
+          "url": "https://nvidianews.nvidia.com/news/nvidia-expands-vera-cpu-platform-to-accelerate-scientific-discovery"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.65,
+        "answers": {
+          "what": 10,
+          "why": 7,
+          "notable": 8,
+          "meaning": 9
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "hiệu năng gấp 1,9 lần hệ thống x86",
+            "explanation": "As an unqualified headline claim, this extends a result from NVIDIA's specific OpenFOAM motorBike Large airflow test to performance generally (outlet:p012)."
+          },
+          {
+            "kind": "quote",
+            "summary_text": "xóa bỏ các điểm nghẽn",
+            "explanation": "NVIDIA says Vera is designed to address data-movement and scaling bottlenecks, not that it eliminates them (outlet:p008)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The headline presents the 1.9x benchmark as a general performance result.",
+            "fix": "Qualify it as NVIDIA's result on the OpenFOAM motorBike Large airflow simulation (outlet:p012)."
+          },
+          {
+            "question": "why",
+            "problem": "The text says Vera eliminates bottlenecks.",
+            "fix": "Say its design aims to address them (outlet:p008)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "1b4c769b557b0366fe06856ae36e12a844e90df9c00c820e7eca4b119b2cd936",
+        "scored_at": "2026-11-16T17:44:14.701816+00:00"
+      }
+    },
+    {
+      "id": "e1907b763e0a61166a88",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://nvidianews.nvidia.com/news/nvidia-introduces-nemotron-for-science-to-accelerate-discoveries-with-agents",
+      "key_points": [
+        "NVIDIA giới thiệu bộ công cụ Nemotron for Science, kết hợp mô hình mở Nemotron 3.5 Super VL, bộ dữ liệu LitmusBench v0.2 và các công thức hậu huấn luyện. Nền tảng này giúp các nhà khoa học xây dựng tác tử chuyên biệt (agent - hệ thống AI tự chủ) phục vụ nghiên cứu khoa học.",
+        "Nhà nghiên cứu có thể hậu huấn luyện mô hình bằng dữ liệu chuyên ngành rồi kết nối công cụ tăng tốc CUDA-X để thực hiện tính toán.",
+        "Mô hình của Lila Sciences đạt độ chính xác 61% chế tạo chấm lượng tử nhờ phản hồi phòng thí nghiệm, vượt mức 54% của GPT-6 Astra với chi phí suy luận thấp hơn 10 đến 20 lần. Terray Therapeutics cũng khôi phục khoảng 76% phản ứng trên bài kiểm tra RxnScribe theo tiêu chí khớp của bộ kiểm chuẩn (benchmark - tiêu chuẩn đánh giá).",
+        "NVIDIA đã phát hành mô hình và bộ dữ liệu trên Hugging Face, đồng thời tối ưu hóa riêng mô hình Nemotron 3.5 Super VL để chạy cục bộ trên hệ thống NVIDIA DGX Spark 128GB. Theo NVIDIA, công nghệ này có tiềm năng mở ra các hướng ứng dụng trong vật liệu thiết yếu, an ninh quốc gia và điều trị ung thư."
+      ],
+      "same_event_coverage_ids": [
+        "5353859b62cd992e688d"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "NVIDIA ra mắt Nemotron for Science; mô hình Lila Sciences đạt 61% chính xác nhờ phản hồi phòng thí nghiệm",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "nvidia",
+          "url": "https://nvidianews.nvidia.com/news/nvidia-introduces-nemotron-for-science-to-accelerate-discoveries-with-agents"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": null
+    },
+    {
+      "id": "d150a4aa414b8ce9f290",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://nvidianews.nvidia.com/news/nvidia-announces-collaboration-with-ibm-and-fermi-national-accelerator-laboratory-to-launch-quantum-classical-codesign-platform-plus-error-correction-breakthrough-to-advance-practical-quantum-computing",
+      "key_points": [
+        "NVIDIA công bố hợp tác với IBM và Fermilab phát triển nền tảng lượng tử mô-đun, kết nối hệ thống DGX B200 với bộ xử lý IBM Quantum Nighthawk. Đồng thời, NVIDIA mở rộng Slurm để lập lịch bộ xử lý lượng tử cùng CPU và GPU trong siêu máy tính.",
+        "Theo NVIDIA, hợp tác này nhằm hỗ trợ giới nghiên cứu mở rộng quy mô máy tính lượng tử và khám phá năng lực khoa học. Hãng cho biết các lỗi lượng tử cố hữu đang giới hạn tính toán, còn việc tích hợp đòi hỏi giải pháp tùy biến tốn công bảo trì.",
+        "Thuật toán mới TCBP-JOBS của NVIDIA có thể tăng tốc giải mã tới 13.000 lần, rút ngắn thời gian tính toán nghiên cứu thiết kế lượng tử từ 12 tuần xuống 45 phút. Ngoài ra, IBM và viện RIKEN đã mô phỏng phức hợp hóa học 12.635 nguyên tử trên siêu máy tính ROQUO trang bị cụm NVIDIA GB200.",
+        "NVIDIA đánh giá thuật toán mới giúp xác định thiết kế dùng qubit vật lý (đơn vị lượng tử) hiệu quả hơn và đo mức cải thiện hiệu năng. Hãng nhận định giải pháp này sẽ rút ngắn lộ trình tiến tới điện toán lượng tử chịu lỗi thực tế."
+      ],
+      "same_event_coverage_ids": [
+        "58e6dd1f679ef2a46092"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "NVIDIA hợp tác với IBM và Fermilab phát triển nền tảng lượng tử, ra mắt thuật toán tăng tốc 13.000 lần",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "nvidia",
+          "url": "https://nvidianews.nvidia.com/news/nvidia-announces-collaboration-with-ibm-and-fermi-national-accelerator-laboratory-to-launch-quantum-classical-codesign-platform-plus-error-correction-breakthrough-to-advance-practical-quantum-computing"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": null
+    },
+    {
+      "id": "bd4930e0839976d3ed7a",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://developer.nvidia.com/blog/nvidia-vera-rubin-nvl72-leads-agentic-inference-performance-on-mlperf-endpoints-v1-0/",
+      "key_points": [
+        "Theo NVIDIA, kết quả thử nghiệm sơ bộ trên MLPerf Endpoints v1.0 cho thấy Vera Rubin NVL72 đạt thông lượng trên mỗi kilowatt cao hơn 10 lần so với GB300 NVL72 ở mức tương tác tối thiểu 50 token mỗi giây cho mỗi người dùng.",
+        "Theo bài viết kỹ thuật của NVIDIA, hệ thống sử dụng các kỹ thuật gồm lưu bộ đệm tiền tố, tái sử dụng trạng thái và điều hướng NVIDIA Dynamo. Những phương pháp này thực hiện việc giảm tính toán dư thừa và cân bằng tải phục vụ trên các khối lượng công việc tác tử.",
+        "Theo NVIDIA, thông lượng trên mỗi kilowatt cao hơn từ 5 đến 10 lần được ghi nhận trên các mô hình Kimi K3, DeepSeek-V4.1-Flash và Qwen3.6-35B-A3B khi so với GB300 NVL72. Ở cùng mức truy vấn đồng thời, hệ thống mới đạt mức tương tác đầu cuối cao hơn từ 3 đến 5 lần.",
+        "Tuy nhiên, kết quả của Vera Rubin mới mang tính sơ bộ và chờ MLCommons xác minh, trong khi kết quả của GB300 đã được xác minh chính thức."
+      ],
+      "same_event_coverage_ids": [
+        "987428292912ab89a382"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Kết quả sơ bộ MLPerf Endpoints v1.0: NVIDIA Vera Rubin NVL72 vượt hơn 10 lần thông lượng trên mỗi kilowatt",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "nvidia",
+          "url": "https://developer.nvidia.com/blog/nvidia-vera-rubin-nvl72-leads-agentic-inference-performance-on-mlperf-endpoints-v1-0/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.45,
+        "answers": {
+          "what": 10,
+          "why": 8,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "c8c1c0408b96ca066c451d727dab16049473d5a8d6e3fa04956b6ad565b37c4c",
+        "scored_at": "2026-11-16T17:44:14.701879+00:00"
+      }
+    },
+    {
+      "id": "7ec90737528b7237217e",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://developer.nvidia.com/blog/nvidia-vera-rubin-nvl72-achieves-up-to-2x-blackwell-ultra-performance-in-mlperf-training-v6-1/",
+      "key_points": [
+        "Hệ thống Vera Rubin NVL72 của NVIDIA đạt thời gian huấn luyện nhanh nhất ở sáu trên bảy bài kiểm chuẩn (benchmark - bài kiểm tra hiệu năng tiêu chuẩn) của kỳ đánh giá MLPerf Training v6.1. Theo NVIDIA, nền tảng này đạt hiệu năng trên mỗi bộ xử lý đồ họa (GPU) cao gấp tới 2 lần so với mốc đối chứng GB300 NVL72 được tối ưu hóa.",
+        "NVIDIA giải thích kết quả này nhờ việc đồng thiết kế kết nối nội bộ trong tủ mạng cùng hạ tầng cụm máy chủ tính toán. Hãng khẳng định các chỉ số trên đều đến từ ngăn xếp phần mềm AI hoàn thiện cung cấp trực tiếp cho khách hàng.",
+        "Ở bài đo DeepSeek-V3 671B dạng kết hợp chuyên gia (Mixture-of-Experts), Vera Rubin NVL72 hoàn thành sau 4,14 phút với 1.024 GPU, nhanh gấp đôi mức 8,03 phút của GB300 NVL72. Nền tảng đạt hiệu quả mở rộng trên 97% từ 256 lên 1.024 GPU, trong khi cụm GB300 NVL72 quy mô 10.240 GPU đạt 1,38 phút ở bài đo còn lại.",
+        "NVIDIA nhận định kết quả chứng minh mức tăng hiệu năng bao trùm toàn bộ quy trình mô hình hóa cho các tác tử AI (agent - hệ thống AI tự chủ). Dẫu vậy, các lần đo hãng tự chạy lại sau đó với phần mềm mới đều là số liệu chưa qua kiểm chứng từ tổ chức MLCommons Association."
+      ],
+      "same_event_coverage_ids": [
+        "a8bafc88ea311974bca4"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "NVIDIA ra mắt Vera Rubin NVL72 với hiệu năng GPU gấp tới 2 lần GB300 trên 6 bài đo MLPerf",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "nvidia",
+          "url": "https://developer.nvidia.com/blog/nvidia-vera-rubin-nvl72-achieves-up-to-2x-blackwell-ultra-performance-in-mlperf-training-v6-1/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.25,
+        "answers": {
+          "what": 9,
+          "why": 8,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The headline could be read as saying the twofold GPU gain occurred on all six benchmarks.",
+            "fix": "Separate the claims: fastest training time on six of seven benchmarks, and up to twice the per-GPU performance against an optimized GB300 baseline (outlet:p016, outlet:p027)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "dc807805c0f4726ea369729a84783af2818fe607bc8aba8f9c86302fd945dc8e",
+        "scored_at": "2026-11-16T17:44:14.701900+00:00"
+      }
+    },
+    {
+      "id": "fa3c54aa3398ac1a9d76",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "podcast",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-16/odd-lots-the-trilemma-behind-us-china-ai-arms-race-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "7f057199d37877c37af2"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "aca925b15bf1ae05b947",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/16/audible-turns-to-ai-to-help-users-discover-audiobooks/",
+      "key_points": [
+        "Audible ra mắt tính năng khám phá âm thanh (audio discovery) dùng AI giúp người nghe tìm sách qua đoạn giới thiệu chủ đề và phản hồi độc giả. Đoạn âm thanh do AI tạo ra, kết hợp mẫu nghe thử với bình luận trích từ các bài phỏng vấn cũ của tác giả hoặc biên tập viên.",
+        "Theo TechCrunch, công cụ ra mắt khi Audible chịu áp lực cạnh tranh từ Spotify, nền tảng vừa mở rộng giờ nghe sách tới hơn 180 thị trường.",
+        "Tính năng này ban đầu chỉ áp dụng cho một số đầu sách tiếng Anh chọn lọc tại Mỹ kèm bộ sưu tập cá nhân hóa theo gu nghe. Audible cho biết nội dung tổng hợp từ đánh giá công khai, tóm lược và siêu dữ liệu (metadata) tương tự cách Amazon tóm tắt hàng hóa.",
+        "TechCrunch nhận định tính năng có thể hạn chế người dùng tiếp cận đánh giá tiêu cực nếu AI chỉ trích xuất các ý kiến tích cực. Trang tin này nhấn mạnh sẽ cần thêm thử nghiệm để kiểm chứng khả năng xảy ra rủi ro nói trên."
+      ],
+      "same_event_coverage_ids": [
+        "8ddbdc81b3b08ac5ac05"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Audible ra mắt tính năng âm thanh AI hỗ trợ tìm sách cho một số tác phẩm tiếng Anh tại Mỹ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/16/audible-turns-to-ai-to-help-users-discover-audiobooks/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": null
+    },
+    {
+      "id": "48e5439dc84ab633e386",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://github.blog/changelog/2026-11-16-bulk-start-ai-scan-for-repositories",
+      "key_points": [
+        "GitHub cho phép khởi chạy công cụ quét mã bằng trí tuệ nhân tạo (AI Scan) đồng loạt cho tối đa 20 kho lưu trữ mã nguồn.",
+        "Công cụ AI Scan phát hiện lỗ hổng bảo mật trên nhánh mặc định, hỗ trợ các ngôn ngữ CodeQL chưa xử lý và tìm thêm vấn đề ở ngôn ngữ sẵn có. Các kết quả từ AI Scan được hiển thị cùng cảnh báo của CodeQL trong danh mục tồn đọng quét mã.",
+        "Quản trị viên khởi chạy quét hàng loạt khi bật tùy chọn ở cấp tổ chức hoặc thao tác trên trang cảnh báo quét mã của tổ chức.",
+        "GitHub thông báo tính năng quét hàng loạt hiện ở giai đoạn thử nghiệm công khai trên github.com và nền tảng GitHub Enterprise Cloud có lưu trú dữ liệu. Doanh nghiệp cũng cho biết người dùng không bắt buộc phải có giấy phép GitHub Copilot để sử dụng công cụ này."
+      ],
+      "same_event_coverage_ids": [
+        "c758bf43833622f0a370"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "GitHub mở thử nghiệm tính năng AI Scan quét bảo mật đồng loạt tối đa 20 kho mã nguồn",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "github",
+          "url": "https://github.blog/changelog/2026-11-16-bulk-start-ai-scan-for-repositories"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "54f39ed71b33cc65b1af6e3a06932b13d21ccd791513803293a89d32637aef44",
+        "scored_at": "2026-11-16T17:44:14.701940+00:00"
+      }
+    },
+    {
+      "id": "bc35581f3528ae2fbf10",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "AWS blog post detailing developer best practices and guidelines for writing Denied Topics in Amazon Bedrock Guardrails.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/best-practices-for-writing-denied-topics-in-amazon-bedrock-guardrails/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "0723a2210a3ca754b1b1"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "e7cfafe032e7b595e0b8",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.scmp.com/tech/article/3374639/us-tightens-ai-chip-export-curbs-close-chinas-overseas-data-centre-loophole",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "4161beff5755246f2dd4"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "13068fccecc1e20bf27e",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "This AWS blog post is a technical how-to guide explaining how to implement multi-tenant retrieval instructions using metadata filters and IAM tags with a fictitious company example, rather than an announcement of news or independent reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/customize-answers-per-tenant-in-amazon-bedrock-managed-knowledge-base/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "f8dea41c2e436834cdf1"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "b6ec523975e54aa9b6b3",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/use-prompt-caching-with-open-weight-models-on-amazon-bedrock/",
+      "key_points": [
+        "Theo Amazon, các mô hình trọng số mở (mô hình AI công khai thông số) trên Amazon Bedrock hiện hỗ trợ tính năng lưu đệm prompt rõ ràng. Tính năng này cho phép tái sử dụng ngữ cảnh dài như tài liệu tham chiếu hay định nghĩa công cụ qua API Chat Completions.",
+        "Khi yêu cầu có nội dung trùng khớp với yêu cầu trước, Amazon Bedrock đọc tiền tố đó từ bộ nhớ đệm và chỉ xử lý phần còn lại. Nền tảng tự quản lý bộ đệm, hỗ trợ lưu đệm ngầm tự động, lưu đệm rõ ràng hoặc cả hai tùy theo từng mô hình.",
+        "Trên API Chat Completions, người dùng cấu hình prompt_cache_options sang chế độ explicit và đánh dấu điểm ngắt prompt_cache_breakpoint tại tiền tố dùng chung. Thiết lập này giới hạn lượt ghi bộ đệm vào tiền tố dùng chung, còn nội dung sau điểm ngắt được tính theo giá đầu vào tiêu chuẩn.",
+        "Theo Amazon, người dùng tiết kiệm chi phí khi tái sử dụng tiền tố nhưng giá ghi phụ thuộc vào mô hình, trong đó lượt ghi bộ đệm có thể bị tính phí cao hơn đầu vào tiêu chuẩn."
+      ],
+      "same_event_coverage_ids": [
+        "4b632328230019a14519"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Amazon Bedrock hỗ trợ lưu đệm prompt rõ ràng cho các mô hình trọng số mở tùy theo API",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "amazon",
+          "url": "https://aws.amazon.com/blogs/machine-learning/use-prompt-caching-with-open-weight-models-on-amazon-bedrock/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.3,
+        "answers": {
+          "what": 10,
+          "why": 8,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "Readers miss that avoiding repeated processing can also reduce response latency.",
+            "fix": "Add the latency benefit, with the source’s conditional wording (outlet:p002)."
+          },
+          {
+            "question": "meaning",
+            "problem": "Readers are not told how to check whether caching benefits their workload.",
+            "fix": "Mention the per-response cache usage fields used to measure reads and writes (outlet:p087, outlet:p097)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "2614cca63b2c58924db876e6de6ff82edb664b8a2fbf29709940ace6121a3c7b",
+        "scored_at": "2026-11-16T17:44:14.701959+00:00"
+      }
+    },
+    {
+      "id": "d8af49590d91853de3c7",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.404media.co/ai-powered-copyright-hell/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b0a10fd30038ddbbe5bb"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "7e98012e3d4701368eed",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "top",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/16/us-tightens-ai-chip-export-controls-to-deter-chinese-companies-from-accessing-compute-remotely/",
+      "key_points": [
+        "TechCrunch đưa tin chính quyền Trump chuẩn bị siết kiểm soát xuất khẩu chip AI và trung tâm dữ liệu ngoài nước Mỹ. Theo quy định tạm thời của Bộ Thương mại Mỹ, doanh nghiệp phải xin giấy phép nếu hạ tầng cung cấp năng lực tính toán cho Trung Quốc hoặc các nước bị hạn chế.",
+        "Chính quyền Trump triển khai quy định nhằm ngăn doanh nghiệp Trung Quốc lách kiểm soát xuất khẩu qua việc truy cập hạ tầng AI từ xa. Văn bản quy định tạm thời nhận định rào cản này sẽ làm suy yếu việc dùng chip tiên tiến của Mỹ để huấn luyện mô hình AI cao cấp.",
+        "Quy định áp dụng cho hạ tầng trên 12 triệu TPP (tổng hiệu năng xử lý, tương đương tối đa khoảng 750 chip Nvidia H100 hoặc H200), nhưng loại trừ hệ thống gợi ý thương mại. Bộ Thương mại Mỹ cũng yêu cầu cấp phép với Malaysia, Singapore, Indonesia, Thái Lan và Brazil do nguy cơ chuyển hướng cao, ngoại trừ chip dành cho các công ty có trụ sở tại Mỹ.",
+        "Văn bản quy định tạm thời nêu mục tiêu ngăn nguy cơ mô hình AI tiên tiến có khả năng hỗ trợ hoạt động quân sự hoặc tình báo đe dọa an ninh quốc gia hay chính sách đối ngoại của Mỹ."
+      ],
+      "same_event_coverage_ids": [
+        "50020f454fadc7e06639"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Mỹ siết xuất khẩu chip AI toàn cầu nhằm chặn Trung Quốc truy cập hạ tầng tính toán từ xa",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/16/us-tightens-ai-chip-export-controls-to-deter-chinese-companies-from-accessing-compute-remotely/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": null
+    },
+    {
+      "id": "106eccb8cc6bc0fd77db",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.404media.co/how-an-ai-content-mill-put-a-real-musician-through-copyright-hell/",
+      "key_points": [
+        "Công ty Media Nov Records đã khiếu nại bản quyền khiến YouTube gỡ bản thu của Samantha Shokin sau khi video đạt 125.000 lượt xem. Khúc hát Bre Petrunko là bài dân ca Bulgaria thuộc phạm vi công cộng và Shokin đã tự thực hiện bản thu âm của riêng mình.",
+        "Media Nov Records tuyên bố rút yêu cầu gỡ bài vì video không có doanh thu hay lượt xem sau khi 404 Media liên hệ, dù khẳng định dự định tiến hành thủ tục pháp lý phù hợp. Trước đó, tạp chí 404 Media đã hỏi tác phẩm nào trong danh mục kích hoạt khiếu nại nhưng Media Nov Records không phản hồi.",
+        "Ở vụ việc này, hai đơn kháng nghị của Shokin đều bị từ chối, trong khi YouTube vận hành hệ thống tự động và có xu hướng tự động duyệt đơn khiếu nại. Nghệ sĩ này trước đó cũng phát hiện nhiều nhà sản xuất dùng giọng hát của cô qua gói nhạc mẫu bán ra mà cô không hay biết, trước khi bên phân phối xin lỗi và chia tiền tác quyền.",
+        "Tạp chí 404 Media nhận định vụ việc của Shokin là cơn ác mộng phơi bày nguy cơ AI bị dùng làm vũ khí chống lại các nhà sáng tạo. Tạp chí này cũng nhấn mạnh người sáng tạo dễ rơi vào bế tắc trước các hệ thống kiểm duyệt tự động của những tập đoàn công nghệ lớn."
+      ],
+      "same_event_coverage_ids": [
+        "58b891db6636c3229817"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Media Nov Records rút yêu cầu gỡ bản thu sau khi bị chất vấn về khiếu nại bản quyền trên YouTube",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "404-media",
+          "url": "https://www.404media.co/how-an-ai-content-mill-put-a-real-musician-through-copyright-hell/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": null
+    },
+    {
+      "id": "1ac8bff4575188931495",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "survey",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://jack-clark.net/2026/11/16/import-ai-481-ai-sub-contractors-a-wet-lab-for-ai-and-subterfuge-during-development/",
+      "key_points": [
+        "Theo tác giả Jack Clark, các nhà nghiên cứu phát triển bộ tiêu chuẩn FrontierML đo khả năng tác nhân AI (hệ thống AI tự hành) dùng vốn tự nâng cao hiệu năng trên 21 tác vụ học máy riêng biệt. Để tránh học vẹt, mô hình phải chạy trên máy chủ H100 cách ly mạng và được chấm điểm trên tập kiểm tra độc lập không công bố trước.",
+        "Các tác giả nghiên cứu đánh giá liệu tác nhân AI có thể sử dụng vốn hiệu quả để chi cho tính toán và dữ liệu khi cấp 10 USD, 50 USD và 200 USD cho mỗi tác vụ.",
+        "Về kết quả so sánh, mô hình Opus 5.5 đạt mức tăng điểm 58,8 với 200 USD nhưng vẫn xếp sau con người khi đo mức thay đổi điểm số trung bình trên 21 tác vụ. Chuẩn đối chứng con người tăng 56 điểm với 10 USD và 66,1 điểm với 200 USD, vượt mức tăng 45,4 điểm và 58,8 điểm của Opus 5.5, trong khi mô hình mở Kimi K3.1 Pro đạt mức tăng 29,6 điểm với 200 USD.",
+        "Tác giả Jack Clark nhận định AI có thể tự thuê ngoài để phát triển và hướng tới nền kinh tế máy móc, nơi các hệ thống AI tự phân công nhiệm vụ cho nhau. Dù vậy, mức tăng điểm của hệ thống AI hàng đầu vẫn xếp sau con người ở cả hai hạn mức ngân sách 10 USD và 200 USD."
+      ],
+      "same_event_coverage_ids": [
+        "f25d35147ae2b2f5d63a"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Mô hình Opus 5.5 tăng 58,8 điểm khi có 200 USD trên FrontierML nhưng vẫn xếp sau con người",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "import-ai",
+          "url": "https://jack-clark.net/2026/11/16/import-ai-481-ai-sub-contractors-a-wet-lab-for-ai-and-subterfuge-during-development/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": null
+    },
+    {
+      "id": "17da36c289197025300a",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.reuters.com/world/asia-pacific/top-scorer-south-korean-tax-exam-confesses-cheating-with-ai-2026-11-15/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "bd1cc9dba7903292a637"
+      ],
+      "split_coverage_ids": []
     }
   ]
 }
