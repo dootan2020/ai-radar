@@ -109,6 +109,9 @@
   ];
   const DEST = { 'index.html': 'feed', 'index.html#sap-toi': 'events' };
   const eventsOpen = !story && current === 'index.html' && location.hash === '#sap-toi';
+  // The 404 page (site/404.html, served for any unknown address, /tin/<old id>/ too) is none of the destinations, so
+  // the dock marks none of them.
+  const lost = !!document.getElementById('nf');
   const mobileNav = document.createElement('nav');
   mobileNav.className = 'mobile-nav';
   mobileNav.setAttribute('aria-label', 'Điều hướng chính');
@@ -118,7 +121,7 @@
     link.className = 'mobile-nav-link';
     if (file === 'ban-tin.html') link.setAttribute('aria-label', 'Bản tin sáng');
     if (DEST[file]) link.dataset.dest = DEST[file];   // the home's feed.js moves the mark between these two
-    const here = file === 'index.html#sap-toi' ? eventsOpen : file === current && !(file === 'index.html' && eventsOpen);
+    const here = !lost && (file === 'index.html#sap-toi' ? eventsOpen : file === current && !(file === 'index.html' && eventsOpen));
     if (here) link.setAttribute('aria-current', 'page');
     link.innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${paths}</svg><span>${label}</span>`;
     mobileNav.append(link);

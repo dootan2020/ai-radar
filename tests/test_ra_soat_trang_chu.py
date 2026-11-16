@@ -131,5 +131,14 @@ class OneSystem(unittest.TestCase):
         self.assertIn(".band-focus .msn-toplist ol", read("feed.js"))
 
 
+class NotFoundDock(unittest.TestCase):
+    def test_the_404_page_marks_no_destination(self):
+        # Under /tin/ the dock took the page for the feed and marked "Dòng tin" on the 404 page (coordinator, 16/11).
+        js = read("menu-cong-cu.js")
+        self.assertIn("const lost = !!document.getElementById('nf');", js)
+        self.assertIn("const here = !lost && (", js)
+        self.assertIn('id="nf"', read("404.html"))
+
+
 if __name__ == "__main__":
     unittest.main()

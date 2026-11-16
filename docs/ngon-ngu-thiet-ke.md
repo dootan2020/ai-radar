@@ -46,7 +46,8 @@ The captain approved the audit's open questions on 16/11 with *"Duyệt theo em"
 - "Chuyện lớn" headlines are 15 px, a card's headline; a row that no longer fits the card is left out, never cut.
 - "Tùy chỉnh" carries the way to "Nguồn tin" and "Chính sách riêng tư" (the home had none since the footer went, 09/11). On the extension's new tab they open on hco.news.
 - Reduced motion keeps the fades and stops the movement (principle 5).
-- The secondary pages share the home's shell and card style; the shell's classes are reused, not redefined.
+- The secondary pages (Bản tin, Nguồn tin, a story's page, Chính sách, the 404 page) wear the home's shell: the top row with "Tùy chỉnh" and the Google apps, the tinted panel with the Coral Tile, white cards. `site/trang-phu.css` draws it from the same tokens without loading the front page's stylesheet. The 404 page marks no destination in the phone dock.
+- The privacy page's reading column is 60ch (about 73 characters a line in Be Vietnam Pro).
 - The contact e-mail on the privacy page waits for the captain's choice.
 
 ## Phone lead story
