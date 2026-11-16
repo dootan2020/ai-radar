@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-15T23:22:03.653604+00:00",
-  "input_generated_at": "2026-11-15T22:45:55Z",
+  "generated_at": "2026-11-16T01:18:31.349846+00:00",
+  "input_generated_at": "2026-11-16T00:45:41Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -75200,6 +75200,348 @@
         "3e805333db2fd43eb513"
       ],
       "split_coverage_ids": []
+    },
+    {
+      "id": "30a591f34b62d835517b",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Routine financial wire report covering morning movements of the South Korean stock market (KOSPI), with AI industry events and Nvidia earnings cited only as broad market context.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://en.yna.co.kr/view/AEN20261116001651320",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "6e376cd7fe5b41873eb1"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "7df582dd9b4adb5a9683",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://en.yna.co.kr/view/AEN20261116002100315",
+      "key_points": [
+        "Theo Yonhap, Thủ tướng Hàn Quốc Han Seong-sook cam kết huy động mọi năng lực quốc gia nhằm ngăn gian lận bằng AI trong kỳ thi đại học tuần này.",
+        "Cam kết được đưa ra sau khi thủ khoa kỳ thi kế toán thuế năm nay thú nhận đã gian lận nhờ AI.",
+        "Thí sinh này thừa nhận đã dùng camera siêu nhỏ, điện thoại và AI tạo sinh trong cả hai vòng thi kế toán thuế. Người này cũng khai nhận đã dùng cùng thủ đoạn để gian lận ở kỳ thi kế toán viên công chứng.",
+        "Bà Han cho biết chính phủ sẽ lập đội phản ứng khẩn cấp liên ngành để xây dựng và thực hiện các biện pháp phòng ngừa và xử lý hậu quả toàn diện. Theo Yonhap, vụ việc làm gia tăng lo ngại gian lận AI có thể diễn ra tại kỳ thi đại học chỉ còn ba ngày nữa."
+      ],
+      "same_event_coverage_ids": [
+        "7bbcad3be4331e0ddb13",
+        "a3e8a4ecbc3526c66dbe"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Thủ tướng Hàn Quốc cam kết triển khai các biện pháp ngăn chặn gian lận bằng AI trong kỳ thi đại học",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "yonhap",
+          "url": "https://en.yna.co.kr/view/AEN20261116002100315"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "quote",
+            "summary_text": "xử lý hậu quả",
+            "explanation": "Han described “follow-up measures,” which does not specifically mean handling consequences (outlet:p005)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "Readers miss the concern that AI-assisted cheating could be more widespread and may have gone unnoticed in other exams.",
+            "fix": "Add that concern, attributed as such rather than as an established finding (outlet:p003)."
+          },
+          {
+            "question": "meaning",
+            "problem": "“Handling consequences” narrows the government's stated plan.",
+            "fix": "Render the plan as preventive and follow-up measures (outlet:p005)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "3818ffa54ce602ce5f82ec31073bbcdbd5507bb4a771596f03a93365ee84e5a6",
+        "scored_at": "2026-11-16T01:18:31.301180+00:00"
+      }
+    },
+    {
+      "id": "abe5808a98becefa39e6",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Urgent financial wire flash on Seoul stocks opening higher, referencing Nvidia earnings and AI events only as incidental market backdrop.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://en.yna.co.kr/view/AEN20261116001500320",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "10a6a02e99fac21bcc1a",
+        "26cfa63f7d449e472c1f"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "d16c86f834412880e1d6",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "First-party promotional wrap-up on NVIDIA's blog summarizing its AI Day Seoul event and showcasing customer adoption without independent reporting or a concrete product launch.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://blogs.nvidia.com/blog/ai-day-seoul-wrapup/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "435327da15a14dbceba0"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "7c3f119432e08b88a065",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://en.yna.co.kr/view/AEN20261116001700315",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b7d37fda1856bab25a35"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "e39f76e48e249d19e433",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://steveblank.com/2026/11/15/whats-next-for-nvidia/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "9a593011224ca05d9dd3"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "9eccd7516509bfbac7d2",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-15/nvidia-s-ceo-search-draws-fire-with-bessent-s-call-for-shakeup",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "19e10f39aecab7e0083e",
+        "8e8927e9e21d980c3384"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "094fa3e63726fc9325a0",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.businessinsider.com/reddit-traffic-down-13-percent-similarweb-google-ai-overviews-2026-11",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "85887cd57eaac6a3967a"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "61200927e23c6bf1a95c",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/15/indian-chip-startup-bharat-semi-lands-24m-seed-round-as-it-eyes-global-ai-sensor-market/",
+      "key_points": [
+        "Startup bán dẫn Ấn Độ Bharat Semi huy động 24 triệu USD vòng hạt giống để phát triển cảm biến hình ảnh tích hợp trí tuệ nhân tạo (AI). Theo TechCrunch, khoản đầu tư diễn ra khi doanh nghiệp gần năm năm tuổi chưa có doanh thu này tìm kiếm khách hàng tại Mỹ.",
+        "Đồng sáng lập Vrinda Kapoor cho biết công ty dùng vốn để mở rộng kỹ sư và đưa cảm biến ra thị trường. Cảm biến của hãng tích hợp xử lý ảnh và AI trên một chip, mà bà Kapoor cho biết có thể giảm ít nhất 70% chi phí so với thiết lập truyền thống.",
+        "Doanh nghiệp cho biết đã đạt thỏa thuận thiết kế với General Atomics của Mỹ và Kaynes Semicon của Ấn Độ. Bà Kapoor cho biết thêm mẫu cảm biến thế hệ hai tích hợp AI nâng cao dự kiến sẽ thử nghiệm mẫu vào giữa năm 2027.",
+        "Theo TechCrunch, cảm biến vẫn đang phát triển và chỉ hướng tới sản xuất thương mại vào năm 2027."
+      ],
+      "same_event_coverage_ids": [
+        "f60429ebe1c28f3d2fe5"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Startup bán dẫn Bharat Semi huy động 24 triệu USD phát triển cảm biến hình ảnh AI dù chưa có doanh thu",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/15/indian-chip-startup-bharat-semi-lands-24m-seed-round-as-it-eyes-global-ai-sensor-market/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.0,
+        "answers": {
+          "what": 9,
+          "why": 9,
+          "notable": 9,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "8ce459e75a67841036953b23d0c6f4dd3cdf48bb8d4b5c1202fbc2665bb3f601",
+        "scored_at": "2026-11-16T01:14:48.676103+00:00"
+      }
+    },
+    {
+      "id": "25d9d273928317deef7d",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.youtube.com/watch?v=7DO3mOl_OrI",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "a35f60331f2b90b4ca2b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "9c3eca1adbabfbf5f9f3",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-15/taisei-launches-150-million-ai-robotics-fund-with-pegasus-tech-ventures",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b1dd787f4ee38e3c012f"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "04ecb127ef381abdf894",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://x.com/btibor91/status/2122010249255432478",
+      "key_points": [
+        "OpenAI introduced ChatGPT Wallet to complete purchases with user approval.",
+        "ChatGPT Wallet is rolling out gradually to Pro subscribers in the United States."
+      ],
+      "same_event_coverage_ids": [
+        "3c2372681619f267f675"
+      ],
+      "split_coverage_ids": [
+        "3d545531986ff80dd46e"
+      ]
     }
   ]
 }
