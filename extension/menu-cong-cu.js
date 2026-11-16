@@ -117,7 +117,7 @@
   mobileNav.setAttribute('aria-label', 'Điều hướng chính');
   for (const [file, label, paths] of destinations) {
     const link = document.createElement('a');
-    link.href = !story && current === 'index.html' && file.startsWith('index.html#') ? file.slice('index.html'.length) : file === 'index.html' ? '#top' : file.startsWith('index.html#') ? file.slice(10) : `https://radar-ai-vn.pages.dev/${file}`;
+    link.href = !story && current === 'index.html' && file.startsWith('index.html#') ? file.slice('index.html'.length) : file === 'index.html' ? '#top' : file.startsWith('index.html#') ? file.slice(10) : `https://hco.news/${file}`;
     link.className = 'mobile-nav-link';
     if (file === 'ban-tin.html') link.setAttribute('aria-label', 'Bản tin sáng');
     if (DEST[file]) link.dataset.dest = DEST[file];   // the home's feed.js moves the mark between these two
