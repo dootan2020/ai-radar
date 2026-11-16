@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-16T11:21:48.505842+00:00",
-  "input_generated_at": "2026-11-16T10:46:07Z",
+  "generated_at": "2026-11-16T13:24:57.641937+00:00",
+  "input_generated_at": "2026-11-16T12:45:55Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -77022,6 +77022,805 @@
       "key_points": [],
       "same_event_coverage_ids": [
         "e28f62bddaebdf9aeb0e"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "806db9cd3ae0f854444a",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/16/freshworks-alums-raise-53m-to-take-on-salesforce-hubspot-with-ai-native-crm/",
+      "key_points": [
+        "Theo TechCrunch, công ty khởi nghiệp Dreamteam do các cựu lãnh đạo Freshworks thành lập đã huy động 53 triệu USD phát triển CRM (quản lý quan hệ khách hàng) tích hợp AI để cạnh tranh với Salesforce. Khoản tài trợ gồm vòng hạt giống và Series A do Together Fund cùng Accel dẫn đầu, có thêm Premji Invest tham gia.",
+        "Giám đốc điều hành Anand Venkatraman cho biết CRM truyền thống tốn nhiều thời gian nhập liệu thủ công nhưng cấp quản lý vẫn thiếu bức tranh kinh doanh tin cậy. Do đó, Dreamteam đặt mục tiêu giảm bớt thao tác này bằng cách tự động thu thập thông tin từ email và dùng 4 tác tử AI (chương trình trí tuệ nhân tạo tự hành) hỗ trợ bán hàng.",
+        "Theo ông Venkatraman, Dreamteam đã có hơn 100 khách hàng tại 13 quốc gia sau 3 tháng mở bán và thay thế Salesforce tại hãng y tế DMS Health.",
+        "Đồng sáng lập Senthil Kanthaswamy nhận định các công ty khởi nghiệp có khoảng trống 2 đến 5 năm để giành thị phần trước khi các đối thủ lớn kịp thích ứng với AI. Tuy nhiên, quỹ Andreessen Horowitz lưu ý việc thay thế trên diện rộng sẽ khó khăn vì các hệ thống CRM hiện tại nhiều khả năng vẫn là nơi lưu trữ hồ sơ khách hàng."
+      ],
+      "same_event_coverage_ids": [
+        "4aec8082d5445a03fc97"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Dreamteam huy động 53 triệu USD phát triển CRM tích hợp AI để cạnh tranh với Salesforce",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/16/freshworks-alums-raise-53m-to-take-on-salesforce-hubspot-with-ai-native-crm/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.95,
+        "answers": {
+          "what": 8,
+          "why": 9,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The reader misses that the product is presented as AI-native and targets HubSpot as well as Salesforce.",
+            "fix": "Describe Dreamteam’s AI-native CRM and name both competitors (outlet:p006)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "f8e185b73e4f656b698b216a601ada1c31448f57c186e5516995fb6634bbb060",
+        "scored_at": "2026-11-16T13:20:35.945015+00:00"
+      }
+    },
+    {
+      "id": "835bd7619830a3c3669f",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The content focuses on Federal Reserve rate policy and the Treasury market, with only an incidental passing mention of the AI trade.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-16/jpm-s-michele-looks-a-bit-silly-fed-missed-oct-hike-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "8ab505b81d535bdee863"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "7314896f1b6dc2d9998f",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://analyticsindiamag.com/ai-news/delhis-bharat-semi-raises-24-mn-to-develop-ai-image-sensors",
+      "key_points": [
+        "Công ty khởi nghiệp bán dẫn Bharat Semi tại Delhi đã huy động 24 triệu USD trong vòng hạt giống do Info Edge Group, South Park Commons và Indus Bridge Ventures dẫn đầu để phát triển cảm biến hình ảnh tích hợp AI. Doanh nghiệp dự kiến dùng nguồn vốn này để mở rộng đội ngũ kỹ sư và chuẩn bị cho khâu sản xuất thương mại.",
+        "Theo Analytics India Magazine, kiến trúc của Bharat Semi loại bỏ các linh kiện xử lý riêng biệt và tích hợp chức năng lên một vi mạch duy nhất. Cảm biến có thể lập trình này kết hợp các khâu thu nhận hình ảnh, xử lý và khả năng AI trên cùng một chip.",
+        "Dù sản phẩm vẫn đang hoàn thiện, công ty gần 5 năm tuổi này đã đạt thỏa thuận thiết kế với hãng công nghệ quốc phòng General Atomics của Mỹ và Kaynes Semicon tại Ấn Độ. Công nghệ trên nhắm đến việc hỗ trợ thiết bị bay không người lái xử lý dữ liệu hình ảnh mà không cần thêm phần cứng tính toán phụ trợ.",
+        "Đồng sáng lập Vrinda Kapoor cho biết thiết kế này có thể giảm ít nhất 70% chi phí hệ thống so với các cấu hình truyền thống. Tuy nhiên, các cảm biến hiện vẫn ở dạng nguyên mẫu và doanh nghiệp dự kiến phải đến năm 2027 mới bước vào giai đoạn sản xuất thương mại ban đầu."
+      ],
+      "same_event_coverage_ids": [
+        "68b577c336abb63d8c8b"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Bharat Semi huy động 24 triệu USD để phát triển cảm biến hình ảnh tích hợp AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "analytics-india-magazine",
+          "url": "https://analyticsindiamag.com/ai-news/delhis-bharat-semi-raises-24-mn-to-develop-ai-image-sensors"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "6aa505d94d69634edcfc3bd524814edb2fc79eec370b105473bdd7f3d7b96630",
+        "scored_at": "2026-11-16T13:20:35.945084+00:00"
+      }
+    },
+    {
+      "id": "2c67eda91193d3830302",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.scmp.com/tech/big-tech/article/3374612/apec-ceos-seek-common-ai-safeguards-adoption-accelerates-deloitte",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "42b8bfc2c626f82dd91d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "f7c7f042082737162edb",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-16/fed-s-barr-warns-ai-agents-may-fuel-future-bank-runs-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "f071992676eee2e09a59"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "b61354f9822bdccc0862",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://analyticsindiamag.com/ai-features/inside-ctrlss-44-gw-bet-on-indias-data-centre-boom",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "35d288d3f03a783f1599"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "43bcd4829b97519c5437",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://analyticsindiamag.com/ai-news/karnataka-bets-on-physical-ai-deeptech-at-bengaluru-tech-summit-2026",
+      "key_points": [
+        "Chính quyền bang Karnataka tổ chức Hội nghị Thượng đỉnh Công nghệ Bengaluru lần thứ 29 từ ngày 17 đến 19 tháng 11 tại BIEC với trọng tâm là AI vật lý, điện toán chủ quyền và công nghệ bán dẫn. Bộ trưởng Công nghệ Thông tin bang Priyank Kharge cho biết sự kiện mang chủ đề ‘AI & Beyond’ này đã vượt mốc 10.000 đại biểu đăng ký và có hơn 450 doanh nghiệp tham gia.",
+        "Theo ban tổ chức, sự kiện nhằm mở rộng ứng dụng AI ra ngoài phần mềm doanh nghiệp sang các ngành nông nghiệp, công nghệ sinh học, trò chơi, hệ thống công nghiệp và chính phủ điện tử.",
+        "Khu trưng bày AI vật lý do Bharat1.ai đồng tổ chức giới thiệu tập hợp robot hình người nội địa lớn nhất Ấn Độ theo mô tả của ban tổ chức, bên cạnh robot bốn chân, hệ thống di chuyển tự hành và drone dưới nước (aquatic drone). Trong khuôn khổ thử thách AI toàn quốc hợp tác với Sarvam AI, các đội chiến thắng sẽ nhận 15 lakh rupee tiền thưởng, 15 lakh rupee tín dụng tính toán và kỳ lưu trú tại AI Superpark của Bharat1.ai.",
+        "Theo chính quyền bang, hội nghị xem xét mở rộng các trung tâm năng lực toàn cầu (cơ sở công nghệ phục vụ doanh nghiệp quốc tế) tiên phong về AI tới các đô thị cấp hai, sau khi đã lập 100 cơ sở mới trong năm qua."
+      ],
+      "same_event_coverage_ids": [
+        "16cd957e75ac67ff9ca0",
+        "1b8b13d621e6d010f080"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Hội nghị Bengaluru từ ngày 17 đến 19/11 vượt mốc 10.000 đại biểu đăng ký và ưu tiên AI vật lý",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "analytics-india-magazine",
+          "url": "https://analyticsindiamag.com/ai-news/karnataka-bets-on-physical-ai-deeptech-at-bengaluru-tech-summit-2026"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.05,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 8,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "role",
+            "summary_text": "do Bharat1.ai đồng tổ chức",
+            "explanation": "Bharat1.ai co-curated the physical AI pavilion; the source does not call it a co-organizer (outlet:p005)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "các đội chiến thắng",
+            "explanation": "The source says winners will receive the prizes and residency, without specifying that the winners are teams (outlet:p006)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The reader is given an unsupported organizing role for Bharat1.ai.",
+            "fix": "Say Bharat1.ai co-curated the physical AI pavilion (outlet:p005)."
+          },
+          {
+            "question": "notable",
+            "problem": "The reader is told the challenge winners are teams, although their form is unspecified.",
+            "fix": "Refer simply to the winners (outlet:p006)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "b9310bcee6867924c514b21a174384a6f627de027189c1a8c748970be534d251",
+        "scored_at": "2026-11-16T13:24:57.604604+00:00"
+      }
+    },
+    {
+      "id": "b6d3a503f21ffefae9b7",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/newsletters/2026-11-16/anthropic-ipo-tests-whether-ai-models-can-rival-nvidia-s-rich-valuation",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "48e4810f378743bee545"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "2fcdcc27210fee67e141",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/13/2026/silicon-valleys-head-on-collision",
+      "key_points": [
+        "Theo Semafor, diễn đàn Silicon Valley & The World tuần này kết nối giới doanh nghiệp và chính trị toàn cầu, đồng thời mời công chúng đối thoại trực tiếp cùng CEO Sam Altman và Andy Jassy.",
+        "Tờ báo cho rằng sự kiện diễn ra khi công nghệ và chính trị đối đầu trực diện do Quốc hội Mỹ hoài nghi công nghệ, còn nhiều thống đốc cam kết dừng xây trung tâm dữ liệu.",
+        "Semafor nêu dẫn chứng Washington đối mặt câu hỏi về việc quản lý quan hệ giữa Trung Quốc với Nvidia, và vai trò can thiệp nếu có vào sự ra đi của CEO một hãng chip Mỹ.",
+        "Semafor thừa nhận chưa có sẵn mọi câu trả lời, song khẳng định sẽ nêu các câu hỏi đúng đắn thông qua những cuộc đối thoại tại sự kiện."
+      ],
+      "same_event_coverage_ids": [
+        "b08e37dc4da84e750200"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Semafor tổ chức diễn đàn Silicon Valley & The World kết nối giới công nghệ và chính trị",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/13/2026/silicon-valleys-head-on-collision"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 7.4,
+        "answers": {
+          "what": 8,
+          "why": 8,
+          "notable": 5,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "mời công chúng đối thoại trực tiếp cùng CEO Sam Altman và Andy Jassy",
+            "explanation": "Semafor invites readers to join live for conversations featuring those CEOs; it does not say members of the public can speak with them directly (outlet:p005)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "Readers may expect to participate in a direct conversation with the CEOs.",
+            "fix": "Say readers can follow the conversations live (outlet:p005)."
+          },
+          {
+            "question": "why",
+            "problem": "The political context loses the timing of the reported change.",
+            "fix": "Specify that the US is preparing to inaugurate the new Congress and governors described by Semafor (outlet:p002)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "8164af767657fa0518a341cc62cf9af0f9ea0cddfab672bdda3633dcd5897517",
+        "scored_at": "2026-11-16T13:24:57.604644+00:00"
+      }
+    },
+    {
+      "id": "f6f110911c6baac10e04",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.wired.com/story/nvidia-was-already-in-trouble-before-the-jensen-huang-mess/",
+      "key_points": [
+        "Nvidia đối mặt với danh sách đối thủ cạnh tranh ngày càng tăng ngay khi Giám đốc Tài chính Colette Kress tiếp quản vị trí điều hành sau khi cựu CEO Jensen Huang bị phế truất. Dù doanh thu của công ty đạt 215,94 tỷ USD vào tháng 1 năm 2026, các thách thức về công nghệ và thị trường đang ngày một gia tăng.",
+        "Theo Wired, các tập đoàn đám mây lớn gồm Google, Amazon và Microsoft đang tự phát triển chip chuyên dụng nhằm cắt giảm chi phí và bớt phụ thuộc vào Nvidia. Bên cạnh đó, các quy định kiểm soát xuất khẩu từ Washington cũng khiến vị thế của công ty tại thị trường Trung Quốc suy giảm.",
+        "Theo Silicon Analysis, thị phần chip tăng tốc AI của AMD đã tăng dần trong giai đoạn từ năm 2022 đến năm 2026. Bên cạnh đó, nhiều công ty khởi nghiệp cũng tham gia thị trường chip chuyên dụng, tiêu biểu như Cerebras bán dòng chip cỡ lớn và Taalas được AMD mua lại.",
+        "Chuyên gia phân tích Dan Hutchinson nhận định Nvidia có thể đang bước vào thời kỳ suy giảm như Intel khi thay thế một CEO kỹ thuật bằng giám đốc tài chính."
+      ],
+      "same_event_coverage_ids": [
+        "15b394d0d6b55d30361b"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nvidia đối mặt sức ép cạnh tranh gia tăng sau khi cựu CEO Jensen Huang bị bãi nhiệm",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "wired",
+          "url": "https://www.wired.com/story/nvidia-was-already-in-trouble-before-the-jensen-huang-mess/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 7.85,
+        "answers": {
+          "what": 10,
+          "why": 6,
+          "notable": 7,
+          "meaning": 7
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The reader learns that Huang was ousted but not the reason the source gives.",
+            "fix": "Add, with the source’s attribution and uncertainty intact, that his dealings with China played a major role, including the reported Megaspeed chip-access concerns (outlet:p015)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The reader misses how AI could weaken Nvidia’s CUDA advantage.",
+            "fix": "Explain that AI can rapidly port models to rival hardware, while noting that the source still describes Nvidia’s lead as large (outlet:p011, outlet:p021-p024)."
+          },
+          {
+            "question": "notable",
+            "problem": "The scale of the competitive and China-market changes is unclear.",
+            "fix": "Give AMD’s rise from 2% to 7–10% and, if discussing China, its fall from 20% to 8% of Nvidia revenue (outlet:p005, outlet:p013)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "abf220cee14ec0973b0c990c3195a4f6f3730148096214c1faae310a2367c9dc",
+        "scored_at": "2026-11-16T13:20:35.945176+00:00"
+      }
+    },
+    {
+      "id": "b4417f6b9de38d7879ea",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-16/ai-startup-dreamteam-raises-capital-to-challenge-salesforce-sap",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "3b11ea133ea679fed6b9"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "338a22398bdb5ce8f08d",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://analyticsindiamag.com/ai-news/india-joins-us-led-pact-to-secure-ai-and-semiconductor-supply-chains",
+      "key_points": [
+        "Ấn Độ đã ký Tuyên bố San Francisco cùng Mỹ và 8 quốc gia khác nhằm bảo vệ công nghệ thiết yếu và cơ sở hạ tầng cho chuỗi cung ứng AI. Thỏa thuận được ký ngày 15 tháng 11 tại San Francisco do Thứ trưởng Ngoại giao Mỹ Jacob Helberg chủ trì.",
+        "Theo Analytics India Magazine, thỏa thuận diễn ra trong bối cảnh cạnh tranh công nghệ giữa Mỹ và Trung Quốc gia tăng. Tuyên bố nhằm xây dựng nhận thức chung về công nghệ nhạy cảm hỗ trợ chuỗi cung ứng siêu trí tuệ (Super Intelligence).",
+        "Văn bản đề xuất lập 5 nhóm công tác về chính sách, ứng dụng SI, an ninh chuỗi cung ứng và khả năng phục hồi. Thỏa thuận bao quát phần mềm, linh kiện, thiết bị sản xuất dùng trong phát triển AI, cùng hạ tầng như cảng biển, mạng lưới viễn thông và năng lượng.",
+        "Theo Bộ Ngoại giao Mỹ, thỏa thuận khẳng định an ninh kinh tế là nền tảng của an ninh quốc gia. Các quốc gia tham gia cũng kêu gọi giảm phụ thuộc vào các chuỗi cung ứng tập trung và tăng cường đa dạng hóa để chống ép buộc kinh tế."
+      ],
+      "same_event_coverage_ids": [
+        "908b90eba152b96d7a58"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Ấn Độ cùng Mỹ và 8 quốc gia ký Tuyên bố San Francisco bảo vệ chuỗi cung ứng AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "analytics-india-magazine",
+          "url": "https://analyticsindiamag.com/ai-news/india-joins-us-led-pact-to-secure-ai-and-semiconductor-supply-chains"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.55,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 9
+        },
+        "hard_errors": [
+          {
+            "kind": "role",
+            "summary_text": "Thỏa thuận được ký ngày 15 tháng 11 tại San Francisco do Thứ trưởng Ngoại giao Mỹ Jacob Helberg chủ trì",
+            "explanation": "Jacob Helberg convened the Pax Silica Founders Retreat where the declaration was signed; the source does not say he presided over the signing or the agreement (outlet:p002)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The sentence assigns Helberg an unsupported role in the signing.",
+            "fix": "Say the declaration was signed at the Pax Silica Founders Retreat, which Helberg convened (outlet:p002)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "dec9019643b984542098a2cddb0b41362ed1e482161116d28854301d622e6373",
+        "scored_at": "2026-11-16T13:24:57.604672+00:00"
+      }
+    },
+    {
+      "id": "8b70999c9568eff0e2f5",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-16/fed-s-barr-says-ai-agents-could-fuel-future-bank-runs",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "adb705b8457b00308d39"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "b5e5963189af58f8551a",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.semafor.com/article/11/15/2026/taiwan-deputy-minister-on-jensen-huang-scandal-we-feel-sad",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "48ccffdfc82a52bbc578"
+      ],
+      "split_coverage_ids": [
+        "db19e649ebed9d4e07c0"
+      ]
+    },
+    {
+      "id": "7d5706e034e502d2820b",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Casual social media forum post on Reddit with no reporting, substance, or news value.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.reddit.com/r/google_antigravity/comments/1xx9nl3/google_ai_ultra_subscription_not_worth_it/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "51c3ab47969188a5eddd"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "02bb5dcb15f34a2a9ce8",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://analyticsindiamag.com/ai-news/alibaba-launches-qwen4-max-ai-model-with-focus-on-security",
+      "key_points": [
+        "Alibaba đã ra mắt Qwen4-Max, mô hình trí tuệ nhân tạo (AI) chủ lực mới nhất của hãng. Mô hình này kế nhiệm Qwen3.8-Max và được thiết kế phục vụ các tác vụ khoa học cùng chuyên môn phức tạp.",
+        "Theo Analytics India Magazine, trọng tâm an toàn được đưa ra sau khi cuộc đánh giá của hãng Cohere dấy lên lo ngại về hành vi của các mô hình Qwen tiền nhiệm.",
+        "Trong đánh giá Work360 của hãng, chi phí trung bình cho mỗi tác vụ đã giảm 62% từ 4,43 USD xuống 1,67 USD nhờ giảm giá giao diện lập trình ứng dụng (API). Trên bộ đo chuẩn Last Secure Code Bench, tỷ lệ mã nguồn vượt qua cả kiểm tra chức năng lẫn bảo mật ở cấp độ hàm của Qwen4-Max tăng từ 22% lên 31,8%.",
+        "Đợt ra mắt của Alibaba diễn ra giữa cuộc cạnh tranh gay gắt của các công ty công nghệ Trung Quốc nhằm tăng hiệu năng mô hình AI và giảm chi phí vận hành."
+      ],
+      "same_event_coverage_ids": [
+        "1ff96df71d185cd0916e",
+        "4447ebb8d2a13fcbb88b",
+        "7a84757270b57a54e34f"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Alibaba ra mắt mô hình AI chủ lực Qwen4-Max giúp giảm 62% chi phí tác vụ và siết chặt an ninh",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "analytics-india-magazine",
+          "url": "https://analyticsindiamag.com/ai-news/alibaba-launches-qwen4-max-ai-model-with-focus-on-security"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.35,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "Readers do not learn the available route to use Qwen4-Max.",
+            "fix": "Mention that developers can access it through a token plan or API, with availability through Alibaba’s listed platforms (outlet:p010)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "5490c7a2819eec5a5a5d9fd79c1994384bb51fbf415a1b16e70ebd55b857a9c2",
+        "scored_at": "2026-11-16T13:20:35.945226+00:00"
+      }
+    },
+    {
+      "id": "7e39aa9ab6607cea7607",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theguardian.com/books/ng-interactive/2026/nov/14/its-like-the-wild-west-how-ai-has-rocked-the-literary-world",
+      "key_points": [
+        "Một đại diện văn học chia sẻ với The Guardian rằng không khí xuất bản chính thống hiện như miền viễn Tây khi tác giả dùng trí tuệ nhân tạo (AI) để sáng tác sách.",
+        "Theo tác giả bài viết trên The Guardian, tình trạng này xảy ra do công nghệ tiến nhanh hơn khả năng đánh giá của ngành về việc tác giả dùng AI viết sách.",
+        "Điển hình là cuốn tiểu thuyết Death of an Author do Stephen Marche sáng tác năm 2023 bằng ba công cụ AI chỉ có thể phát hành dưới dạng sách nói vì lo ngại bản quyền.",
+        "Văn bản do máy móc sản xuất đối mặt rủi ro bị khiếu kiện pháp lý, dù luật bản quyền Mỹ bảo vệ tác phẩm có AI hỗ trợ, theo tác giả bài viết trên The Guardian. Trước các tranh cãi, cả phía ủng hộ lẫn phản đối AI đều kêu gọi nhà xuất bản sớm ban hành quy định hướng dẫn, trong khi đại diện AALA Hannah Bowman nhấn mạnh cần có quy trình đối thoại công bằng với tác giả."
+      ],
+      "same_event_coverage_ids": [
+        "c4d9ba0ea808f4a1965c"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Ngành xuất bản đối mặt biến động khi nghiên cứu ước tính một phần năm sách tự xuất bản chứa văn bản AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://www.theguardian.com/books/ng-interactive/2026/nov/14/its-like-the-wild-west-how-ai-has-rocked-the-literary-world"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 7.6,
+        "answers": {
+          "what": 8,
+          "why": 9,
+          "notable": 6,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "number",
+            "summary_text": "một phần năm sách tự xuất bản chứa văn bản AI",
+            "explanation": "The study estimates around one fifth of recently self-published books contain at least 25% AI-generated text; the headline extends the figure to self-published books generally and drops the threshold (outlet:p009)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The headline makes the study's estimate apply to a broader set of books and to any amount of AI text.",
+            "fix": "Specify recently self-published books and the at-least-25% AI-generated-text threshold; the study is also awaiting peer review (outlet:p009)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The copyright discussion leaves out why machine-produced text particularly concerns publishers.",
+            "fix": "Explain that the source treats AI-generated text as public domain under US copyright law, potentially leaving publishers without exclusive rights, while distinguishing AI-assisted work (outlet:p026)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "2da21a4e18c34d7215599988bcfaa959372c3bab000c713d93f19f9bd4e5c831",
+        "scored_at": "2026-11-16T13:24:57.604695+00:00"
+      }
+    },
+    {
+      "id": "60f3c7381bc61eae5e3d",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://openai.com/index/the-kings-trust-and-openai",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b648170bd94de4380e52"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "6119d934c86184bd79ef",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The report focuses on international diplomacy, summit politics, and personal controversies; references to Nvidia and AI hardware are incidental.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.semafor.com/article/11/15/2026/trump-to-meet-xi-and-putin-in-china",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "6222824f595a76dcb085",
+        "79b13c12b729779f2d6d"
       ],
       "split_coverage_ids": []
     }
