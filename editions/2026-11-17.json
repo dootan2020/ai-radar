@@ -1,0 +1,389 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-17",
+  "timezone": "Asia/Ho_Chi_Minh",
+  "window_start_at": "2026-11-15T23:00:00Z",
+  "cutoff_at": "2026-11-16T23:00:00Z",
+  "created_at": "2026-11-16T23:07:54Z",
+  "snapshot_generated_at": "2026-11-16T23:05:54Z",
+  "policy": {
+    "method": "daily-evidence-v3",
+    "max_stories": 5,
+    "window_hours": 24,
+    "cutoff_hour": 6,
+    "engagement_percentile_min": 0.8,
+    "publisher_coverage_excludes_forums": true,
+    "attention_requires_nonforum": true,
+    "forum_exception_percentile_min": 0.97,
+    "forum_exception_comments_min": 100,
+    "max_forum_only_stories": 1,
+    "score_measured_at": "2026-11-16T23:05:54Z",
+    "description": "Ưu tiên dấu hiệu công bố, số nhà xuất bản và tương tác đo được; sau đó theo điểm nóng và thời gian công bố"
+  },
+  "stories": [
+    {
+      "id": "d150a4aa414b8ce9f290",
+      "title": "NVIDIA Announces Collaboration With IBM and Fermi National Accelerator Laboratory to Launch Quantum-Classical Codesign Platform, Plus Error-Correction Breakthrough to Advance Practical Quantum Computing",
+      "title_vi": "NVIDIA công bố hợp tác với IBM và Phòng thí nghiệm gia tốc quốc gia Fermi để ra mắt nền tảng thiết kế mã hóa cổ điển lượng tử, cộng với đột phá sửa lỗi để thúc đẩy tính toán lượng tử thực tế",
+      "headline": "NVIDIA Announces Collaboration With IBM and Fermi National Accelerator Laboratory to Launch Quantum-Classical Codesign Platform, Plus…",
+      "headline_vi": "NVIDIA công bố hợp tác với IBM và Phòng thí nghiệm gia tốc quốc gia Fermi để ra mắt nền tảng thiết kế mã hóa cổ điển lượng tử, cộng với…",
+      "url": "https://nvidianews.nvidia.com/news/nvidia-announces-collaboration-with-ibm-and-fermi-national-accelerator-laboratory-to-launch-quantum-classical-codesign-platform-plus-error-correction-breakthrough-to-advance-practical-quantum-computing",
+      "published_at": "2026-11-16T16:00:00Z",
+      "kind": "research",
+      "time_basis": "published",
+      "editorial_headline_vi": "NVIDIA hợp tác với IBM và Fermilab phát triển nền tảng lượng tử, ra mắt thuật toán tăng tốc 13.000 lần",
+      "editorial_headline_verified": true,
+      "source_count": 2,
+      "coverage": [
+        {
+          "id": "d2aab1e2ba50dd95d22a",
+          "title": "Commerce Department moves to close AI chip loophole",
+          "title_vi": "Bộ Thương mại di chuyển để đóng lỗ hổng chip AI",
+          "headline": "Commerce Department moves to close AI chip loophole",
+          "headline_vi": "Bộ Thương mại di chuyển để đóng lỗ hổng chip AI",
+          "url": "https://www.nextgov.com/artificial-intelligence/2026/11/commerce-department-moves-close-ai-chip-loophole/417255/",
+          "published_at": "2026-11-16T19:32:00Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "nextgov-ai",
+          "publisher": "nextgov",
+          "entity": "nextgov",
+          "group": "press",
+          "observed_at": "2026-11-16T23:05:54Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "58e6dd1f679ef2a46092",
+          "title": "NVIDIA Announces Collaboration With IBM and Fermi National Accelerator Laboratory to Launch Quantum-Classical Codesign Platform, Plus Error-Correction Breakthrough to Advance Practical Quantum Computing",
+          "title_vi": "NVIDIA công bố hợp tác với IBM và Phòng thí nghiệm gia tốc quốc gia Fermi để ra mắt nền tảng thiết kế mã hóa cổ điển lượng tử, cộng với đột phá sửa lỗi để thúc đẩy tính toán lượng tử thực tế",
+          "headline": "NVIDIA Announces Collaboration With IBM and Fermi National Accelerator Laboratory to Launch Quantum-Classical Codesign Platform, Plus…",
+          "headline_vi": "NVIDIA công bố hợp tác với IBM và Phòng thí nghiệm gia tốc quốc gia Fermi để ra mắt nền tảng thiết kế mã hóa cổ điển lượng tử, cộng với…",
+          "url": "https://nvidianews.nvidia.com/news/nvidia-announces-collaboration-with-ibm-and-fermi-national-accelerator-laboratory-to-launch-quantum-classical-codesign-platform-plus-error-correction-breakthrough-to-advance-practical-quantum-computing",
+          "published_at": "2026-11-16T16:00:00Z",
+          "kind": "research",
+          "time_basis": "published",
+          "source": "nvidia-newsroom",
+          "publisher": "nvidia",
+          "entity": "nvidia",
+          "group": "lab",
+          "observed_at": "2026-11-16T23:05:54Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [
+          {
+            "code": "primary_release",
+            "text": "Tiêu đề nguồn gốc có dấu hiệu công bố model hoặc sản phẩm",
+            "observation_ids": [
+              "58e6dd1f679ef2a46092"
+            ]
+          },
+          {
+            "code": "publisher_coverage",
+            "text": "2 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "nextgov",
+              "nvidia"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "nextgov",
+            "nvidia"
+          ],
+          "age_hours_at_cutoff": 7.0,
+          "hot_score": 43.09,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "fd96ccdd509bd9584255",
+      "title": "GitHub Copilot weekly releases — November 9",
+      "title_vi": "GitHub Copilot phát hành hàng tuần 9 tháng 11",
+      "headline": "GitHub Copilot weekly releases — November 9",
+      "headline_vi": "GitHub Copilot phát hành hàng tuần 9 tháng 11",
+      "url": "https://github.blog/changelog/2026-11-16-github-copilot-weekly-releases-november-9",
+      "published_at": "2026-11-16T21:34:53Z",
+      "kind": "product",
+      "time_basis": "published",
+      "editorial_headline_vi": "Mã nguồn web DeepSeek lộ cơ chế hạn ngạch Coding Plan nhưng chưa công bố gói cước",
+      "editorial_headline_verified": true,
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "3933349c94107869aaa2",
+          "title": "GitHub Copilot weekly releases — November 9",
+          "title_vi": "GitHub Copilot phát hành hàng tuần 9 tháng 11",
+          "headline": "GitHub Copilot weekly releases — November 9",
+          "headline_vi": "GitHub Copilot phát hành hàng tuần 9 tháng 11",
+          "url": "https://github.blog/changelog/2026-11-16-github-copilot-weekly-releases-november-9",
+          "published_at": "2026-11-16T21:34:53Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "github-changelog",
+          "publisher": "github",
+          "entity": "github",
+          "group": "lab",
+          "observed_at": "2026-11-16T23:05:54Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [
+          {
+            "code": "primary_release",
+            "text": "Tiêu đề nguồn gốc có dấu hiệu công bố model hoặc sản phẩm",
+            "observation_ids": [
+              "3933349c94107869aaa2"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "github"
+          ],
+          "age_hours_at_cutoff": 1.4186,
+          "hot_score": 43.948,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "e1907b763e0a61166a88",
+      "title": "NVIDIA Introduces Nemotron for Science to Accelerate Discoveries With Agents",
+      "title_vi": "NVIDIA giới thiệu Nemotron cho khoa học để tăng tốc khám phá với các agent",
+      "headline": "NVIDIA Introduces Nemotron for Science to Accelerate Discoveries With Agents",
+      "headline_vi": "NVIDIA giới thiệu Nemotron cho khoa học để tăng tốc khám phá với các agent",
+      "url": "https://nvidianews.nvidia.com/news/nvidia-introduces-nemotron-for-science-to-accelerate-discoveries-with-agents",
+      "published_at": "2026-11-16T16:00:00Z",
+      "kind": "product",
+      "time_basis": "published",
+      "editorial_headline_vi": "NVIDIA ra mắt Nemotron for Science; mô hình Lila Sciences đạt 61% chính xác nhờ phản hồi phòng thí nghiệm",
+      "editorial_headline_verified": true,
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "5353859b62cd992e688d",
+          "title": "NVIDIA Introduces Nemotron for Science to Accelerate Discoveries With Agents",
+          "title_vi": "NVIDIA giới thiệu Nemotron cho khoa học để tăng tốc khám phá với các agent",
+          "headline": "NVIDIA Introduces Nemotron for Science to Accelerate Discoveries With Agents",
+          "headline_vi": "NVIDIA giới thiệu Nemotron cho khoa học để tăng tốc khám phá với các agent",
+          "url": "https://nvidianews.nvidia.com/news/nvidia-introduces-nemotron-for-science-to-accelerate-discoveries-with-agents",
+          "published_at": "2026-11-16T16:00:00Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "nvidia-newsroom",
+          "publisher": "nvidia",
+          "entity": "nvidia",
+          "group": "lab",
+          "observed_at": "2026-11-16T23:05:54Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [
+          {
+            "code": "primary_release",
+            "text": "Tiêu đề nguồn gốc có dấu hiệu công bố model hoặc sản phẩm",
+            "observation_ids": [
+              "5353859b62cd992e688d"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "nvidia"
+          ],
+          "age_hours_at_cutoff": 7.0,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "02bb5dcb15f34a2a9ce8",
+      "title": "Alibaba says new flagship AI model cuts task costs by 60% while tightening cyber guardrails",
+      "title_vi": "Alibaba cho biết mô hình AI hàng đầu mới cắt giảm chi phí nhiệm vụ 60% trong khi thắt chặt hàng rào mạng",
+      "headline": "Alibaba says new flagship AI model cuts task costs by 60% while tightening cyber guardrails",
+      "headline_vi": "Alibaba cho biết mô hình AI hàng đầu mới cắt giảm chi phí nhiệm vụ 60% trong khi thắt chặt hàng rào mạng",
+      "url": "https://www.scmp.com/tech/big-tech/article/3374540/alibaba-says-new-flagship-ai-model-cuts-task-costs-60-while-tightening-cyber-guardrails",
+      "published_at": "2026-11-16T03:56:53Z",
+      "kind": "product",
+      "time_basis": "published",
+      "editorial_headline_vi": "Alibaba ra mắt mô hình AI chủ lực Qwen4-Max giúp giảm 62% chi phí tác vụ và siết chặt an ninh",
+      "editorial_headline_verified": true,
+      "source_count": 3,
+      "coverage": [
+        {
+          "id": "7a84757270b57a54e34f",
+          "title": "Alibaba Launches Qwen4-Max AI Model With Focus on Security",
+          "title_vi": "Alibaba ra mắt mô hình AI Qwen4-Max tập trung vào an ninh",
+          "headline": "Alibaba Launches Qwen4-Max AI Model With Focus on Security",
+          "headline_vi": "Alibaba ra mắt mô hình AI Qwen4-Max tập trung vào an ninh",
+          "url": "https://analyticsindiamag.com/ai-news/alibaba-launches-qwen4-max-ai-model-with-focus-on-security",
+          "published_at": "2026-11-16T12:19:01Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "analytics-india-mag",
+          "publisher": "analytics-india-magazine",
+          "entity": "analytics-india-magazine",
+          "group": "press",
+          "observed_at": "2026-11-16T23:05:54Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "1ff96df71d185cd0916e",
+          "title": "Alibaba Unveils New Flagship AI Model in Riposte to US Rivals",
+          "title_vi": "Alibaba công bố mô hình AI mới tại Riposte cho các đối thủ của Mỹ",
+          "headline": "Alibaba Unveils New Flagship AI Model in Riposte to US Rivals",
+          "headline_vi": "Alibaba công bố mô hình AI mới tại Riposte cho các đối thủ của Mỹ",
+          "url": "https://www.bloomberg.com/news/articles/2026-11-16/alibaba-unveils-new-flagship-ai-model-in-riposte-to-us-rivals",
+          "published_at": "2026-11-16T02:00:00Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "bloomberg-tech",
+          "publisher": "bloomberg",
+          "entity": "bloomberg",
+          "group": "press",
+          "observed_at": "2026-11-16T11:05:53Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "4447ebb8d2a13fcbb88b",
+          "title": "Alibaba says new flagship AI model cuts task costs by 60% while tightening cyber guardrails",
+          "title_vi": "Alibaba cho biết mô hình AI hàng đầu mới cắt giảm chi phí nhiệm vụ 60% trong khi thắt chặt hàng rào mạng",
+          "headline": "Alibaba says new flagship AI model cuts task costs by 60% while tightening cyber guardrails",
+          "headline_vi": "Alibaba cho biết mô hình AI hàng đầu mới cắt giảm chi phí nhiệm vụ 60% trong khi thắt chặt hàng rào mạng",
+          "url": "https://www.scmp.com/tech/big-tech/article/3374540/alibaba-says-new-flagship-ai-model-cuts-task-costs-60-while-tightening-cyber-guardrails",
+          "published_at": "2026-11-16T03:56:53Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "scmp-tech",
+          "publisher": "scmp",
+          "entity": "scmp",
+          "group": "press",
+          "observed_at": "2026-11-16T23:05:54Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "3 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "analytics-india-magazine",
+              "bloomberg",
+              "scmp"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "analytics-india-magazine",
+            "bloomberg",
+            "scmp"
+          ],
+          "age_hours_at_cutoff": 19.0519,
+          "hot_score": 79.178,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "de38eff22c5a8ae67697",
+      "title": "DeepSeek users report chat limits as the service cites capacity constraints",
+      "title_vi": "Người dùng DeepSeek báo cáo giới hạn trò chuyện khi dịch vụ đề cập đến hạn chế dung lượng",
+      "headline": "DeepSeek users report chat limits as the service cites capacity constraints",
+      "headline_vi": "Người dùng DeepSeek báo cáo giới hạn trò chuyện khi dịch vụ đề cập đến hạn chế dung lượng",
+      "url": "https://technode.com/2026/11/16/deepseek-users-report-chat-limits-as-the-service-cites-capacity-constraints/",
+      "published_at": "2026-11-16T06:35:38Z",
+      "kind": "product",
+      "time_basis": "published",
+      "editorial_headline_vi": "Người dùng phản ánh ứng dụng và trang web DeepSeek bị giới hạn câu lệnh cùng hạn mức ngày",
+      "editorial_headline_verified": true,
+      "source_count": 2,
+      "coverage": [
+        {
+          "id": "8ca07dc06d28edd24bc6",
+          "title": "DeepSeek Users Report Daily Caps and Shorter Inputs on App and Web, Unconfirmed by DeepSeek",
+          "title_vi": "Người dùng DeepSeek báo cáo các mục nhập hàng ngày và ngắn hơn trên ứng dụng và web, không được xác nhận bởi DeepSeek",
+          "headline": "DeepSeek Users Report Daily Caps and Shorter Inputs on App and Web, Unconfirmed by DeepSeek",
+          "headline_vi": "Người dùng DeepSeek báo cáo các mục nhập hàng ngày và ngắn hơn trên ứng dụng và web, không được xác nhận bởi DeepSeek",
+          "url": "https://pandaily.com/deepseek-app-web-usage-limits-daily-quota-long-conversations-user-reports",
+          "published_at": "2026-11-16T06:59:01Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "pandaily",
+          "publisher": "pandaily",
+          "entity": "pandaily",
+          "group": "press",
+          "observed_at": "2026-11-16T23:05:54Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "2d28069f196e1102d81f",
+          "title": "DeepSeek users report chat limits as the service cites capacity constraints",
+          "title_vi": "Người dùng DeepSeek báo cáo giới hạn trò chuyện khi dịch vụ đề cập đến hạn chế dung lượng",
+          "headline": "DeepSeek users report chat limits as the service cites capacity constraints",
+          "headline_vi": "Người dùng DeepSeek báo cáo giới hạn trò chuyện khi dịch vụ đề cập đến hạn chế dung lượng",
+          "url": "https://technode.com/2026/11/16/deepseek-users-report-chat-limits-as-the-service-cites-capacity-constraints/",
+          "published_at": "2026-11-16T06:35:38Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "technode",
+          "publisher": "technode",
+          "entity": "technode",
+          "group": "press",
+          "observed_at": "2026-11-16T23:05:54Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "2 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "pandaily",
+              "technode"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "pandaily",
+            "technode"
+          ],
+          "age_hours_at_cutoff": 16.4061,
+          "hot_score": 38.186,
+          "engagement_percentile": null
+        }
+      }
+    }
+  ],
+  "source_health": {
+    "active_remote_sources": 77,
+    "successful_remote_sources": 76,
+    "failed_remote_sources": [
+      "restofworld"
+    ]
+  }
+}
