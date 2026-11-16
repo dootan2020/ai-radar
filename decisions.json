@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-16T01:18:31.349846+00:00",
-  "input_generated_at": "2026-11-16T00:45:41Z",
+  "generated_at": "2026-11-16T03:27:01.930425+00:00",
+  "input_generated_at": "2026-11-16T02:45:35Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -75237,10 +75237,10 @@
       "use_original_title": false,
       "source_url": "https://en.yna.co.kr/view/AEN20261116002100315",
       "key_points": [
-        "Theo Yonhap, Thủ tướng Hàn Quốc Han Seong-sook cam kết huy động mọi năng lực quốc gia nhằm ngăn gian lận bằng AI trong kỳ thi đại học tuần này.",
-        "Cam kết được đưa ra sau khi thủ khoa kỳ thi kế toán thuế năm nay thú nhận đã gian lận nhờ AI.",
-        "Thí sinh này thừa nhận đã dùng camera siêu nhỏ, điện thoại và AI tạo sinh trong cả hai vòng thi kế toán thuế. Người này cũng khai nhận đã dùng cùng thủ đoạn để gian lận ở kỳ thi kế toán viên công chứng.",
-        "Bà Han cho biết chính phủ sẽ lập đội phản ứng khẩn cấp liên ngành để xây dựng và thực hiện các biện pháp phòng ngừa và xử lý hậu quả toàn diện. Theo Yonhap, vụ việc làm gia tăng lo ngại gian lận AI có thể diễn ra tại kỳ thi đại học chỉ còn ba ngày nữa."
+        "Theo Yonhap, Thủ tướng Han Seong-sook cam kết huy động mọi năng lực quốc gia nhằm ngăn gian lận bằng trí tuệ nhân tạo (AI) trong kỳ thi đại học tuần này.",
+        "Cam kết được đưa ra sau khi thủ khoa kỳ thi kế toán thuế năm nay thú nhận gian lận nhờ AI.",
+        "Thí sinh này thừa nhận dùng camera siêu nhỏ, điện thoại và AI tạo sinh trong cả hai vòng thi. Người này cũng khai đã dùng thủ đoạn tương tự ở kỳ thi kế toán viên công chứng.",
+        "Theo Yonhap, vụ việc dấy lên lo ngại gian lận bằng AI có thể phổ biến hơn và chưa bị phát hiện ở các kỳ thi khác. Bà Han cho biết chính phủ sẽ lập đội khẩn cấp liên ngành để triển khai các biện pháp phòng ngừa và biện pháp tiếp theo toàn diện."
       ],
       "same_event_coverage_ids": [
         "7bbcad3be4331e0ddb13",
@@ -75248,7 +75248,7 @@
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Thủ tướng Hàn Quốc cam kết triển khai các biện pháp ngăn chặn gian lận bằng AI trong kỳ thi đại học",
+      "editorial_headline_vi": "Hàn Quốc dồn lực ngăn gian lận AI thi đại học sau khi thủ khoa kỳ thi kế toán thú tội",
       "summary_sources": [
         {
           "id": "outlet",
@@ -75261,30 +75261,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.7,
+        "value": 9.5,
         "answers": {
           "what": 10,
-          "why": 10,
+          "why": 9,
           "notable": 10,
           "meaning": 8
         },
-        "hard_errors": [
-          {
-            "kind": "quote",
-            "summary_text": "xử lý hậu quả",
-            "explanation": "Han described “follow-up measures,” which does not specifically mean handling consequences (outlet:p005)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
             "question": "meaning",
-            "problem": "Readers miss the concern that AI-assisted cheating could be more widespread and may have gone unnoticed in other exams.",
-            "fix": "Add that concern, attributed as such rather than as an established finding (outlet:p003)."
-          },
-          {
-            "question": "meaning",
-            "problem": "“Handling consequences” narrows the government's stated plan.",
-            "fix": "Render the plan as preventive and follow-up measures (outlet:p005)."
+            "problem": "The Vietnamese does not say that the emergency team is for this year's CSAT or that officials fear the method could be used there.",
+            "fix": "Connect the team and the stated concern explicitly to the college entrance exam, which was three days away (outlet:p003, outlet:p005)."
           }
         ],
         "writer_boats": [
@@ -75292,8 +75281,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "3818ffa54ce602ce5f82ec31073bbcdbd5507bb4a771596f03a93365ee84e5a6",
-        "scored_at": "2026-11-16T01:18:31.301180+00:00"
+        "prose_sha256": "65ea3fa229ccb7f67f3af3fc45e15201ef9621c9cd64f12c9142e76261283eab",
+        "scored_at": "2026-11-16T03:27:01.927593+00:00"
       }
     },
     {
@@ -75542,6 +75531,245 @@
       "split_coverage_ids": [
         "3d545531986ff80dd46e"
       ]
+    },
+    {
+      "id": "1fae6ca994c54f4b55e1",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://pandaily.com/future-doctor-medgpt-lung-cancer-multicenter-study-250-doctors",
+      "key_points": [
+        "Future Doctor tuyên bố mô hình MedGPT đạt điểm phác đồ cao hơn bác sĩ độc lập ở 88% lượt so sánh ca ung thư phổi phức tạp. Số liệu do công ty tự báo cáo, và Future Doctor chưa cho biết nghiên cứu đã qua bình duyệt (thẩm định độc lập) hay chưa.",
+        "Hệ thống lập nhiều phương án rồi đối chiếu với khoảng 201.000 đơn vị bằng chứng để loại bỏ các hướng xử lý còn rủi ro.",
+        "Theo công ty, điểm trung bình của bác sĩ tăng từ 53,40 lên 66,27 khi có MedGPT hỗ trợ, tương đương mức tăng tương đối 24,1%. Ở cùng điều kiện, MedGPT đạt 96,22 điểm phác đồ, vượt mức 71,38 của GPT-5.4 và 54,62 của Gemini 3.1 Pro.",
+        "Pandaily nhận định nghiên cứu có hạn chế vì chỉ chấm điểm phác đồ văn bản trên ca chọn lọc chứ không đo lường kết quả bệnh nhân. Trang tin cũng chỉ ra ba giám khảo AI đều cùng họ mô hình với các hệ thống AI tổng quát được đem ra so sánh."
+      ],
+      "same_event_coverage_ids": [
+        "44ffe12b1c9cf9f4ad50"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Future Doctor tuyên bố MedGPT đạt điểm phác đồ vượt bác sĩ ở 88% lượt so sánh ca ung thư phổi",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "pandaily",
+          "url": "https://pandaily.com/future-doctor-medgpt-lung-cancer-multicenter-study-250-doctors"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.65,
+        "answers": {
+          "what": 9,
+          "why": 8,
+          "notable": 8,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The reader cannot see the size and selected nature of the 88% comparison.",
+            "fix": "State that it was 660 of 750 comparisons across 40 complex, selected cases (outlet:p001–p002)."
+          },
+          {
+            "question": "what",
+            "problem": "“Bác sĩ độc lập” may be read as independent physicians rather than physicians working without assistance.",
+            "fix": "Specify “bác sĩ không có hỗ trợ” for the comparison group (outlet:p001–p002)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "7629cd0fd446db189345017455732b1385968f49b3941dc0e5ba723c4b7e4cf4",
+        "scored_at": "2026-11-16T03:23:48.640556+00:00"
+      }
+    },
+    {
+      "id": "d0985221f9b9e906ae26",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-16/alibaba-unveils-new-flagship-ai-model-in-riposte-to-us-rivals",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "1ff96df71d185cd0916e"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "207315e2275f0db88bd5",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-16/morgan-stanley-max-overweight-global-stocks-on-intact-ai-cycle",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "70676bea3a20f1fd7e78"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "87b76e5b13944ae023be",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/tech/1033355/apples-new-study-looks-to-improve-the-effectiveness-of-ai-health-tools",
+      "key_points": [
+        "Apple công bố nghiên cứu Apple Health AI Usage Study hợp tác cùng nền tảng y tế OpenEvidence. Người tham gia sẽ dùng một ứng dụng iOS mới để đặt câu hỏi y tế và đánh giá câu trả lời theo độ chính xác, độ chi tiết và tính liên quan.",
+        "Theo Apple, nghiên cứu nhằm cải thiện thiết kế và chức năng của các công cụ y tế AI, giúp đưa ra thông tin dễ hiểu và dễ hành động hơn. Công ty cũng muốn tìm hiểu cách người dùng tương tác với AI y tế đối thoại và mức độ hữu ích thực tế từ các câu trả lời.",
+        "Apple tìm kiếm tối đa 200.000 người tham gia từ 21 tuổi trở lên tại Mỹ sở hữu iPhone 15 Pro chạy iOS 26 trở lên. Người dùng có tùy chọn chia sẻ dữ liệu Apple HealthKit như hoạt động hay giấc ngủ để nhận câu trả lời sát bối cảnh cá nhân.",
+        "Apple cam kết bảo mật thông tin người dùng và khẳng định dữ liệu thu thập sẽ không được dùng để huấn luyện mô hình AI. Ứng dụng này chỉ nhận câu lệnh dạng văn bản và hoàn toàn không tích hợp với trợ lý Siri hay Apple Intelligence."
+      ],
+      "same_event_coverage_ids": [
+        "1e2ecbbe26593cab6ade",
+        "cc676cd81474f24b77bb"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Apple triển khai nghiên cứu AI y tế qua ứng dụng mới và tìm tới 200.000 người tham gia tại Mỹ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/tech/1033355/apples-new-study-looks-to-improve-the-effectiveness-of-ai-health-tools"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "413e8a392eec16a4e9f9757fab65578c7e444715ff09c10874b880f5036c2b6f",
+        "scored_at": "2026-11-16T03:23:48.640617+00:00"
+      }
+    },
+    {
+      "id": "452c8db5b98e9200a813",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-16/kakao-prepares-for-historic-split-of-internet-empire-in-ai-chase",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "8964d6b1a87889e39167"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "f8e095607fba60646967",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Business reporting regarding an order for electrical switchgear and power distribution equipment; AI is merely an incidental descriptor of the client's data center and not the main subject.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://en.yna.co.kr/view/AEN20261116002700320",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "e272ba89b19152f4d5c4"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "601a53017054bbcae56a",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Release announcement for Datasette, an open-source data exploration tool; the mention of Claude Fable 5.2 as a coding assistant is incidental AI.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://simonwillison.net/2026/Nov/15/datasette/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "e8599e322dcfbd679706"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "756ac6b73c7a66954f4d",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Release notes for Datasette Apps plugin; the mention of Claude Artifacts is an illustrative analogy, and the plugin itself is not an AI product.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://simonwillison.net/2026/Nov/15/datasette-apps/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "04515fa8569ab94b2111"
+      ],
+      "split_coverage_ids": []
     }
   ]
 }
