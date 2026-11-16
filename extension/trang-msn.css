@@ -27,6 +27,21 @@
 .top-now[data-fit="3"] .top-city { display: none; }
 .top-wx { display: inline-flex; align-items: center; gap: var(--space-6); font-weight: var(--weight-semibold); }
 .top-wx-ic { width: var(--top-wx-icon); height: var(--top-wx-icon); flex: none; }
+/* The symbols are drawn for the sky card's dark photo (white clouds, a pale moon). Where the corner sits on the page's own
+   surface (a phone, or no picture), the clouds take a grey mixed from the ink and the moon the sun's gold, so the symbol
+   does not fade into the page (audit 16/11). */
+:root[data-nen="off"] .top-wx-ic {
+  --msn-cloud: color-mix(in srgb, var(--color-ink) 22%, var(--color-canvas));
+  --msn-cloud-2: color-mix(in srgb, var(--color-ink) 40%, var(--color-canvas));
+  --msn-moon: var(--msn-sun);
+}
+@media (max-width: 767px) {
+  .top-wx-ic {
+    --msn-cloud: color-mix(in srgb, var(--color-ink) 22%, var(--color-canvas));
+    --msn-cloud-2: color-mix(in srgb, var(--color-ink) 40%, var(--color-canvas));
+    --msn-moon: var(--msn-sun);
+  }
+}
 .top-temp { font-size: var(--text-sub); }
 .top-date { font-weight: var(--weight-medium); }
 [data-wx="off"] .top-wx { display: none; }
@@ -95,6 +110,10 @@
   background: var(--color-accent-fill); transform-origin: 0 50%; will-change: transform;
 }
 .msn-head .sections .tab-pill.is-active { transition: transform var(--motion-state) var(--ease-flow); }
+/* "Sự kiện" (#sap-toi) has no tab: no tab is underlined there, the line fades out (feed.js renderChips drops
+   is-active, so this opacity transition applies) and comes back with the next tab. */
+.msn-head .sections .tab-pill:not(.is-active) { transition: opacity var(--motion-state) var(--ease-flow); }
+.msn-head .sections .tab-pill.is-away { opacity: 0; }
 /* When the sections scroll sideways, the edge that still hides sections fades out (feed.js sets data-more), so the
    reader sees there is more to the right; a tab that is fully in view is never faded. */
 .msn-head .sections[data-more="end"] { -webkit-mask-image: linear-gradient(to right, #000 calc(100% - var(--space-48)), transparent); mask-image: linear-gradient(to right, #000 calc(100% - var(--space-48)), transparent); }
@@ -243,8 +262,8 @@
 
 /* ---------- the lead carousel ---------- */
 .msn-lead { background: var(--msn-ink-card); color: var(--msn-on-ink); }
-.slide { position: absolute; inset: 0; opacity: 0; visibility: hidden; transition: opacity var(--duration-250) ease, visibility 0s linear var(--duration-250); }
-.slide.is-active { opacity: 1; visibility: visible; transition: opacity var(--duration-250) ease; }
+.slide { position: absolute; inset: 0; opacity: 0; visibility: hidden; transition: opacity var(--duration-250) var(--ease-flow), visibility 0s linear var(--duration-250); }
+.slide.is-active { opacity: 1; visibility: visible; transition: opacity var(--duration-250) var(--ease-flow); }
 .slide-media { position: absolute; inset: 0; background: var(--msn-ink-card); }
 .slide-media .ai-badge { top: var(--space-12); bottom: auto; right: var(--space-12); }
 .slide-box {
@@ -254,7 +273,9 @@
 }
 .slide-title {
   margin: 0; font-size: var(--msn-slide-title); line-height: 1.3; font-weight: var(--weight-bold); letter-spacing: -0.025em; color: var(--msn-on-ink);
-  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-wrap: pretty;
+  /* Three lines, not two: two cut the page's most important sentence mid-word on a desktop card ("…danh sác…",
+     audit 16/11); the card is tall enough for a third. */
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; text-wrap: pretty;
 }
 .slide .nc-kicker, .slide .nc-src { color: var(--msn-on-ink); }
 .slide .nc-meta { color: var(--msn-on-ink-2); }
@@ -299,8 +320,10 @@
 
 .msn-toplist li > b { min-width: var(--space-16); font-size: var(--text-tile); line-height: 1.1; font-weight: var(--weight-bold); color: var(--color-ink); }
 .top-text { display: flex; flex-direction: column; min-width: 0; }
+/* 15 px, a card's headline (captain, 16/11, "Duyệt theo em": the 13 px "Chuyện lớn" was the smallest headline on the
+   page); a row that no longer fits the card's height is left out (feed.js fitBandLists), never cut. */
 .msn-toplist .top-title {
-  font-size: var(--text-meta); line-height: 1.38; font-weight: var(--weight-semibold); color: var(--color-ink);
+  font-size: var(--msn-title); line-height: 1.38; font-weight: var(--weight-semibold); color: var(--color-ink);
   display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
 }
 .msn-toplist .is-read .top-title { color: var(--color-ink-2); }
@@ -436,18 +459,18 @@
 .cal-band {
   display: flex; justify-content: space-between; align-items: center; gap: var(--space-8); min-height: var(--card-head-zone); margin: 0; padding: 0 var(--space-16);
   background: var(--color-accent-fill); color: var(--color-on-accent);
-  font-size: var(--text-micro); line-height: 1.3; font-weight: var(--weight-bold); letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap;
+  font-size: var(--text-micro); line-height: 1.3; font-weight: var(--weight-bold); letter-spacing: var(--tracking-label); text-transform: uppercase; white-space: nowrap;
 }
 /* The big day and its weekday take the height the row leaves over, centred in it, so the spare room sits around the
    date instead of opening a band above the lunar half. The day follows the card's width. */
 .cal-hero { flex: 1 0 auto; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: var(--space-8) var(--space-16) 0; text-align: center; }
-.msn-cal .cal-day { font-size: clamp(var(--msn-cal-day-phone), var(--msn-cal-day-fluid), var(--msn-cal-day)); font-weight: var(--weight-bold); line-height: 0.9; letter-spacing: -0.06em; color: var(--color-ink); }
+.msn-cal .cal-day { font-size: clamp(var(--msn-cal-day-phone), var(--msn-cal-day-fluid), var(--msn-cal-day)); font-weight: var(--weight-bold); line-height: 0.9; letter-spacing: var(--tracking-number); color: var(--color-ink); }
 .cal-week { margin-top: var(--space-6); font-size: var(--text-small); font-weight: var(--weight-bold); line-height: 1.3; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-ink); }
 .cal-hero.is-sunday :is(.cal-day, .cal-week) { color: var(--color-accent); }
 .cal-moon { display: flex; flex-direction: column; gap: var(--space-8); margin: var(--space-12) var(--space-16) 0; }
 .cal-lunar { display: grid; grid-template-columns: auto 1fr; grid-template-rows: auto auto; column-gap: var(--space-8); align-items: end; margin: 0; }
 .cal-lunar b { grid-row: 1 / 3; font-size: var(--msn-cal-moon); line-height: 0.9; font-weight: var(--weight-bold); letter-spacing: -0.04em; color: var(--color-accent); }
-.cal-k { font-size: var(--text-micro); line-height: 1.3; font-weight: var(--weight-bold); letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-ink-2); }
+.cal-k { font-size: var(--text-micro); line-height: 1.3; font-weight: var(--weight-bold); letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--color-ink-2); }
 .cal-lunar span:last-child { font-size: var(--text-sub); line-height: 1.25; font-weight: var(--weight-bold); color: var(--color-ink); }
 .msn-cal .cal-canchi { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4) var(--space-8); margin: 0; padding: 0; list-style: none; }
 .cal-canchi li { font-size: var(--text-micro); line-height: 1.35; color: var(--color-ink-2); }
@@ -565,6 +588,12 @@
 .fresh-list li, .fresh-list .brief, .briefs li + li .brief { border-radius: 0; }
 /* Only whole rows (feed.js, fitFreshTile): a row that does not fit is left out. */
 .fresh-list > li[hidden] { display: none; }
+/* While rows wait below the tile's edge, the list's foot fades (feed.js fitFreshTile sets data-more), so the row the edge
+   cuts reads as "more below" (audit 16/11: a bare 14 px slice looked like a drawing fault). */
+.fresh-list[data-more="end"] {
+  -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - var(--space-32)), transparent);
+  mask-image: linear-gradient(to bottom, #000 calc(100% - var(--space-32)), transparent);
+}
 /* A row the last snapshot brought (feed.js, arrive) glows for a moment once it has slid in: a wash behind its text that
    comes up with the slide (--motion-arrive), holds, and goes in under 400 ms. Opacity only. */
 .fresh-list > li.is-arriving { position: relative; isolation: isolate; }
@@ -595,7 +624,7 @@
 .bt.bt-n1 > .bt-live { grid-column: 1 / -1; }
 .bt > :is(.bt-live, .bt-next, .bt-recent) { min-height: var(--band-h-top); }
 .bt-calm { margin: 0; padding: var(--space-8) var(--space-4) var(--space-4); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-ink-2); }
-.bt-eyebrow { margin: 0; font-size: var(--text-micro); line-height: 1.3; font-weight: var(--weight-bold); letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-ink-2); }
+.bt-eyebrow { margin: 0; font-size: var(--text-micro); line-height: 1.3; font-weight: var(--weight-bold); letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--color-ink-2); }
 .bt-name { font-size: var(--text-sub); line-height: 1.35; font-weight: var(--weight-semibold); letter-spacing: -0.015em; color: var(--color-ink); overflow-wrap: anywhere; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 .bt-meta { font-size: var(--text-meta); line-height: 1.5; color: var(--color-ink-2); }
 
@@ -610,7 +639,7 @@
 /* đang: the one coral surface */
 .bt-live {
   display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: calc(var(--space-16) + var(--space-4));
-  padding: calc(var(--space-16) + var(--space-4)); border-radius: var(--msn-card-r);
+  padding: var(--space-16); border-radius: var(--msn-card-r);
   background: var(--color-accent-fill); color: var(--color-on-accent);
 }
 .bt-live-text { display: flex; flex-direction: column; min-width: 0; }
@@ -639,13 +668,14 @@
 .bt-live .bt-play { width: calc(var(--btn-h) + var(--space-16)); height: calc(var(--btn-h) + var(--space-16)); }
 
 /* sắp: the next stream, in the event card's grammar (.msn-ev: the large number, the caption, the calendar pair) */
-.bt .bt-next { padding: var(--space-16) calc(var(--space-16) + var(--space-4)) calc(var(--space-16) + var(--space-4)); }
+/* Every card of the page has the home cards' 16 px inset (audit 16/11: 20 px was off the scale). */
+.bt .bt-next { padding: var(--space-16); }
 .bt-what { display: flex; flex-direction: column; gap: var(--space-4); margin-top: auto; min-width: 0; color: inherit; }
 .bt-thumb { width: 7.5rem; margin-bottom: var(--space-4); }
 .bt-thumb .bt-play { display: none; }
 
 /* đã: the replays still worth catching. A lone replay's screen takes the card's free height, so nothing is left empty. */
-.bt-recent { display: flex; flex-direction: column; gap: var(--space-12); padding: var(--space-16) calc(var(--space-16) + var(--space-4)) calc(var(--space-16) + var(--space-4)); }
+.bt-recent { display: flex; flex-direction: column; gap: var(--space-12); padding: var(--space-16); }
 .bt-first { display: flex; flex-direction: column; gap: var(--space-4); flex: 1; min-height: 0; color: inherit; }
 .bt-first .bt-screen { margin-bottom: var(--space-4); }
 .bt-recent .ev-more { margin: 0 0 calc(-1 * var(--space-8)); padding: 0; }
@@ -656,7 +686,7 @@
 }
 
 /* sắp: the events. The next one leads in the front card's grammar; beside it every event is a lane on one day axis. */
-.bt .bt-events { padding: var(--space-16) calc(var(--space-16) + var(--space-4)) calc(var(--space-16) + var(--space-4)); }
+.bt .bt-events { padding: var(--space-16); }
 .bt-ev-in { display: flex; flex-direction: column; }
 .bt-lead .ev-more { margin-top: var(--space-12); }
 .bt-axis { display: none; }
@@ -710,6 +740,9 @@
   .bt-next .bt-what { margin-top: var(--space-8); }
   .bt > .bt-h-recent { display: flex; order: 1; margin-top: var(--space-12); }
   .bt > .bt-recent { order: 1; }
+  /* With only replays, "Phát sóng" would stand over nothing: the replays have their own heading under the events. */
+  .bt.bt-replays-only > #bt-h1 { display: none; }
+  .bt.bt-replays-only > .bt-h-events { margin-top: 0; }
   .bt-recent > .bt-eyebrow { display: none; }
 }
 
@@ -735,6 +768,11 @@
    five, four and three columns; feed.js builds "Tin mới" and "Tin khác" from the same column count. A phone is one
    column. */
 .msn-grid.is-front { display: flex; flex-direction: column; gap: var(--band-gap); }
+/* The loading placeholder without the build's first band (the extension's new tab, an unbuilt page) keeps the grid's
+   own rows: in the bands' column its cells had no height and the loading page showed an empty panel from 700 px (audit
+   16/11). With the build's "Hôm nay" band in it (radar/front_lead.py) it stays a column, so the lead's picture sits
+   where the drawn page puts it. */
+#feed-skeleton.msn-grid.is-front:not(:has(> .band)) { display: grid; }
 .band { display: flex; flex-direction: column; min-width: 0; }
 .band[hidden] { display: none; }
 .band > .band-title { margin: 0 0 var(--space-12) var(--space-4); }
@@ -754,7 +792,7 @@
 /* Labels and headlines (captain, 10/11: the card names read like the headlines). A card's name is a small label; a
    band's heading is the one larger heading; a story's headline is never set like either. */
 .band :is(.tile .tile-title, .msn-toplist h2, .ev-head h2) {
-  margin: 0; font-size: var(--text-micro); line-height: 1.3; font-weight: var(--weight-bold); letter-spacing: 0.06em;
+  margin: 0; font-size: var(--text-micro); line-height: 1.3; font-weight: var(--weight-bold); letter-spacing: var(--tracking-label);
   text-transform: uppercase; color: var(--color-ink-2);
 }
 .band :is(.msn-toplist h2, .ev-head h2)::before { display: none; }
@@ -860,7 +898,7 @@
 .tk-sheet { min-width: 0; padding: var(--space-48); background: var(--color-surface); border-radius: var(--msn-card-r); box-shadow: var(--msn-shadow-rest); }
 .tk-dateline {
   display: flex; align-items: center; gap: var(--space-12); margin: 0 0 var(--space-32);
-  font-size: var(--text-micro); font-weight: var(--weight-semibold); letter-spacing: 0.08em; text-transform: uppercase;
+  font-size: var(--text-micro); font-weight: var(--weight-bold); letter-spacing: var(--tracking-label); text-transform: uppercase;
   font-variant-numeric: tabular-nums; color: var(--color-ink-3);
 }
 .tk-dateline::after { content: ""; flex: 1; height: var(--msn-hair); background: var(--color-hair); }
@@ -928,7 +966,7 @@
 
 /* "Điểm nhanh": a set column. The time in the margin, one headline, the source under it; read down each column. */
 .tk-briefs { margin-top: var(--space-48); padding-top: var(--space-12); border-top: var(--tk-rule) solid var(--color-ink); }
-.tk-briefs-label { margin: 0; font-size: var(--text-micro); font-weight: var(--weight-semibold); letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-ink-2); }
+.tk-briefs-label { margin: 0; font-size: var(--text-micro); font-weight: var(--weight-bold); letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--color-ink-2); }
 .tk-rows {
   display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: repeat(var(--tk-rows, 3), auto);
   grid-auto-flow: column; column-gap: var(--space-48); margin-top: var(--space-4);
@@ -987,13 +1025,17 @@
 }
 @media (hover: hover) and (pointer: fine) { .list-row:hover::before { background: var(--row-wash); } }
 .list-row:focus-visible, .list-row:has(:focus-visible), .list-row :focus-visible { outline: none; }
-.list-row:focus-visible::before, .list-row:has(:focus-visible)::before { background: var(--row-wash); outline: var(--focus-ring); outline-offset: 0; }
+/* The ring is drawn inside the row: a list that scrolls in its tile ("Vừa đăng") or a card that clips its edges would
+   otherwise cut it to one side (audit 16/11). */
+.list-row:focus-visible::before, .list-row:has(:focus-visible)::before { background: var(--row-wash); outline: var(--focus-ring); outline-offset: calc(-1 * var(--focus-offset)); }
 /* Rows that carry their own padding and dividers wash inside their box. */
 .msn-toplist li.list-row, .brief.list-row { --row-wash-x: 0px; --row-wash-y: 0px; }
 .arena-go.list-row { --row-wash-y: var(--space-4); }
 
 /* ---------- loading, more and the end ---------- */
-.msn-sk { background: var(--color-fill); box-shadow: none; animation: msn-breathe 1.2s ease-in-out infinite alternate; }
+/* A placeholder is a card's own surface on the panel, so it shows on the panel's tint in both themes (audit 16/11: the
+   fill it used was the panel's own colour in light, and the loading page looked empty). */
+.msn-sk { background: var(--color-surface); box-shadow: none; animation: msn-breathe 1.2s ease-in-out infinite alternate; }
 #feed-skeleton .msn-lead { grid-column: span 2; }
 /* With the build's lead picture in the placeholder (radar/front_lead.py), the hidden "reload" line takes no room, so the
    picture already sits where the drawn page puts it and does not move up when the page draws. */
@@ -1023,6 +1065,13 @@
 .feed-end .text-btn { min-height: var(--btn-h); padding: 0 var(--space-16); font-size: var(--text-small); color: var(--color-ink-2); text-decoration: none; }
 .feed-end .text-btn:hover { color: var(--color-ink); text-decoration: underline; }
 .msn-panel .feed-empty { margin-top: var(--space-24); }
+/* The data did not load (feed.js init): the message and "Tải lại" come first, in a card, above the weather and the
+   calendar, so the first screen says what happened (audit 16/11: it sat under the fold of an empty panel). */
+.msn-panel .feed-empty.is-error {
+  margin: 0 0 var(--msn-gap); padding: var(--space-32) var(--space-24);
+  background: var(--color-surface); border-radius: var(--msn-card-r); box-shadow: var(--msn-shadow-rest);
+}
+.msn-panel .feed-empty.is-error[hidden] { display: none; }
 .msn-grid .seg-b { min-height: var(--btn-h); }
 
 /* ---------- widths ---------- */
@@ -1105,8 +1154,13 @@
   .nc.no-photo .nc-title { font-size: var(--text-sub); -webkit-line-clamp: 6; }
   .nc.no-photo:not(.nc-big):not(.nc-wide) .nc-sum { display: none; }
   .nc:not(.nc-big):not(.nc-wide) .nc-fav { display: none; }
-  .msn-lead { grid-column: 1 / -1; height: var(--msn-lead-h-phone); }
-  .slide-box { left: var(--space-8); right: var(--space-8); bottom: var(--space-8); padding: var(--space-8) var(--space-12) var(--space-12); }
+  /* The lead grows with its headline: the slides share one grid cell, so the card is as tall as its tallest slide and
+     never shorter than --msn-lead-h-phone. A reader's large text no longer pushes the headline out of the card's top
+     (audit 16/11, text at 200 %). */
+  .msn-lead { grid-column: 1 / -1; display: grid; height: auto; min-height: var(--msn-lead-h-phone); }
+  .msn-lead > .slide { position: relative; inset: auto; grid-area: 1 / 1; display: flex; flex-direction: column; justify-content: flex-end; padding: var(--btn-h) var(--space-8) var(--space-8); }
+  .slide-box { position: relative; left: auto; right: auto; bottom: auto; padding: var(--space-8) var(--space-12) var(--space-12); }
+  .slide.no-photo .slide-box { inset: auto; }
   .lead-dots { left: var(--space-8); }
   /* The lead's headline is the page's most important sentence: on a phone it is never cut. */
   .slide-title { font-size: var(--text-title); display: block; -webkit-line-clamp: unset; overflow: visible; }
@@ -1187,7 +1241,7 @@
   .band > .band-title { margin: 0 0 var(--space-12) var(--space-4); font-size: var(--text-tile); letter-spacing: -0.02em; }
   .more-box { gap: var(--story-card-gap); }
   .more-box > .day-line.band-title { margin-top: calc(var(--band-gap) - var(--story-card-gap)); font-size: var(--text-tile); letter-spacing: -0.02em; }
-  .band .msn-lead { height: var(--msn-lead-h-phone); }
+  .band .msn-lead { height: auto; min-height: var(--msn-lead-h-phone); }
   .band .msn-wx { min-height: var(--msn-wx-h-phone); }
   .band .msn-cal { min-height: var(--msn-rowh-phone); }
   /* Calendar then the next event come first in "Điểm nhấn", right after the weather (owner, 14/11); the markup keeps its order, which the wider grids place by. */
@@ -1380,38 +1434,34 @@
 .tc-ext-go:hover { background: var(--color-fill); }
 .tc-ext-go:focus-visible { outline: var(--focus-ring); outline-offset: var(--msn-tight); }
 .tc-ext-go .i { width: var(--msn-fav); height: var(--msn-fav); flex: none; color: var(--color-ink-2); }
+/* The sources and the privacy policy (thanh-tren.js PAGES): rows like the extension's line, an arrow where it leaves. */
+.tc-pages { display: flex; flex-direction: column; margin-bottom: 0; padding-block: var(--space-4); }
+.tc-page { padding-inline: var(--space-4); margin-inline: calc(-1 * var(--space-4)); border-radius: var(--radius-8); color: inherit; text-decoration: none; transition: background-color var(--duration-150) ease; }
+.tc-page:hover { background: var(--color-fill); }
+.tc-page:focus-visible { outline: var(--focus-ring); outline-offset: calc(-1 * var(--focus-offset)); }
+.tc-page .i { width: var(--msn-fav); height: var(--msn-fav); flex: none; color: var(--color-ink-2); }
 
-/* ---------- the extension's card in the bottom-right corner (thanh-tren.js startOffer) ---------- */
-/* Captain, 12/11 09:20: a widget at the bottom right with a button that hides it. A small card in the panel's own material
-   (fill and shadow, no outline): the Coral Tile, what the extension gives, and two buttons, the Store's own "Thêm vào
-   Chrome" and "Ẩn". It rises from its corner after the reader scrolls or stays a moment, and leaves faster than it came.
-   Only a desktop Chromium browser with a mouse is offered it (thanh-tren.js canInstall); 1024 px and wider, so it never
-   sits over a narrow page's content. */
-.cai-widget { display: none; }
-@media (min-width: 1024px) and (pointer: fine) {
-  .cai-widget {
-    position: fixed; z-index: 70; right: var(--space-24); bottom: var(--space-24); width: min(var(--cai-w), calc(100vw - 2 * var(--space-24)));
-    display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: var(--space-16) var(--space-12);
-    padding: var(--space-16); background: var(--color-panel); color: var(--color-ink); border-radius: var(--msn-panel-r); box-shadow: var(--tc-shadow);
-    transform-origin: bottom right; opacity: 0; transform: translateY(var(--space-8));
-    transition: opacity var(--duration-150) var(--ease-exit), transform var(--duration-150) var(--ease-exit);
-  }
-  .cai-widget.is-in { opacity: 1; transform: none; transition: opacity var(--motion-state) var(--ease-flow), transform var(--motion-state) var(--ease-flow); }
-  .cai-widget[hidden] { display: none; }
-  /* The page's toasts share the corner: while the card shows, they stand above it. */
-  :root[data-cai] .toast-container { bottom: calc(var(--space-24) + var(--cai-h) + var(--space-12)); }
+/* ---------- the extension's invitation: a row in the page's flow (thanh-tren.js startOffer) ---------- */
+/* The bottom-right card (captain, 12/11 09:20) covered the calendar's day and "Sắp diễn ra" until it was hidden (audit
+   16/11); the captain approved a row in the flow instead (16/11, "Duyệt theo em"). It stands under "Hôm nay", across
+   the panel, in a card's material (fill and shadow, no outline): the Coral Tile, what the extension gives, the Store's
+   own "Thêm vào Chrome" and "Ẩn". Only a desktop Chromium browser with a mouse is offered it (thanh-tren.js canInstall). */
+.cai-row {
+  grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-8) var(--space-12);
+  padding: var(--space-8) var(--space-8) var(--space-8) var(--space-16);
+  background: var(--color-surface); color: var(--color-ink); border: 0; border-radius: var(--msn-card-r); box-shadow: var(--msn-shadow-rest);
 }
-.cai-logo { width: var(--cai-logo); height: var(--cai-logo); border-radius: var(--radius-8); }
-.cai-text { min-width: 0; }
+.cai-logo { width: var(--space-32); height: var(--space-32); flex: none; border-radius: var(--radius-8); }
+.cai-text { flex: 1 1 var(--tc-w); min-width: 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 var(--space-8); }
 .cai-title { margin: 0; font-size: var(--text-body); font-weight: var(--weight-bold); line-height: 1.3; letter-spacing: -0.01em; }
-.cai-line { margin: var(--space-4) 0 0; font-size: var(--text-meta); color: var(--color-ink-2); }
-.cai-acts { grid-column: 1 / -1; display: flex; gap: var(--space-8); }
+.cai-line { margin: 0; font-size: var(--text-meta); color: var(--color-ink-2); }
+.cai-acts { display: flex; flex: none; gap: var(--space-8); margin-left: auto; }
 .cai-go, .cai-x {
   display: inline-flex; align-items: center; justify-content: center; min-height: var(--btn-h); padding: 0 var(--space-16);
   border: 0; border-radius: var(--radius-full); font-size: var(--text-small); font-weight: var(--weight-bold); white-space: nowrap; text-decoration: none; cursor: pointer;
   transition: background-color var(--duration-150) ease, color var(--duration-150) ease, transform var(--duration-150) var(--ease-press);
 }
-.cai-go { flex: 1; background: var(--color-accent-fill); color: var(--color-on-accent); }
+.cai-go { background: var(--color-accent-fill); color: var(--color-on-accent); }
 .cai-go:hover { background: var(--color-accent-fill-hover); color: var(--color-on-accent-hover); }
 .cai-x { background: var(--color-fill); color: var(--color-ink-2); }
 .cai-x:hover { background: var(--color-seg-track); color: var(--color-ink); }
@@ -1425,14 +1475,49 @@
   .tc-sheet, .tc-sheet.is-open { transform: none; transition: opacity var(--duration-150) ease; }
   .tc-switch::before, .tc-layout { transition: none; }
   .tc-layout:active, .msn-top .top-tile:active, .msn-top .tool-launcher-button:active { transform: none; }
-  .cai-widget, .cai-widget.is-in { transform: none; transition: opacity var(--duration-150) ease; }
   .cai-go:active, .cai-x:active { transform: none; }
 }
+
+/* ---------- a phone turned sideways: a short window ---------- */
+/* Audit 16/11: at 844 x 390 the head and "Hôm nay" took 248 of 390 px and the lead's headline, at the card's foot, sat
+   below the window. In a window this short the top row tightens and the headline sits at the top of the lead's picture,
+   under its dots, so the first screen carries a headline. */
+@media (max-height: 500px) and (orientation: landscape) {
+  .msn-top { padding-top: var(--space-8); }
+  .msn-top-in { margin-bottom: var(--space-8); }
+  .msn-lead > .slide { justify-content: flex-start; }
+}
+@media (min-width: 768px) and (max-height: 500px) and (orientation: landscape) {
+  .slide-box { top: var(--btn-h); bottom: auto; }
+}
+/* Under 768 px wide the phone's top row has the room of a wide one: the search joins the day and the buttons on one row. */
+@media (max-width: 767px) and (max-height: 500px) and (orientation: landscape) {
+  .msn-top-in { grid-template-columns: auto minmax(0, 1fr) auto; }
+  .msn-top .news-search { grid-column: 2; grid-row: 1; }
+  .msn-top .masthead-actions { grid-column: 3; }
+}
+
+/* ---------- touch ---------- */
+/* No blue flash from Android's default tap colour on a story (audit 16/11): the cards answer a press themselves
+   (.nc:active, .list-row's wash), the dock already did. */
+:root { -webkit-tap-highlight-color: transparent; }
+
+/* ---------- the search field's keyboard focus ---------- */
+/* The field shows the ring every other control shows when it holds the caret (audit 16/11: only its fill changed). */
+.msn-top .ns-field:focus-within { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
+
+/* ---------- one segmented control ---------- */
+/* "Kho mã"'s lists ("Đang lên / Nhiều sao / Dùng ngay") take the look of the order on "Tin mới" and of "Giao diện"
+   (.tc-seg, .band-head .sort-switch): a grey track, the chosen side a raised pill (audit 16/11: a second, round style). */
+.msn-grid .seg:not(.seg-quiet), .band-grid .seg:not(.seg-quiet) { padding: var(--msn-tight); gap: var(--msn-tight); border-radius: var(--radius-8); background: var(--color-seg-track); }
+.msn-grid .seg:not(.seg-quiet) .tab-pill, .band-grid .seg:not(.seg-quiet) .tab-pill { background: var(--color-seg-thumb); box-shadow: var(--msn-shadow-rest); border-radius: var(--seg-thumb-r); }
+.msn-grid .seg:not(.seg-quiet) .seg-b, .band-grid .seg:not(.seg-quiet) .seg-b { border-radius: var(--seg-thumb-r); }
 
 @media (prefers-reduced-motion: reduce) {
   .nen-img { transition: none; }
   .fresh-list > li.is-arriving::after { animation: none; opacity: 0; }
-  .nc, .nc-img, .slide, .pager-dots button::before, .wx-days li, .wx-menu { transition-duration: 1ms !important; }
+  /* What moves stops (feed.css keeps only fades, at --motion-feedback); the carousel still cross-fades. */
+  .nc, .nc-img, .wx-days li, .wx-menu { transition-duration: 1ms !important; }
   .nc:hover, .nc:active { transform: none; }
   .nc:hover .nc-img { transform: none; }
   .msn-sk, .wx-skel i, .spinner { animation: none; }

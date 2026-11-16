@@ -84,19 +84,21 @@ class InvitationRules(unittest.TestCase):
 
 
 class InvitationStyle(unittest.TestCase):
-    def test_the_card_sits_in_the_bottom_right_corner_only_on_a_desktop_window_with_a_mouse(self):
+    def test_the_invitation_is_a_row_in_the_page_flow_that_covers_nothing(self):
+        # The bottom-right card (captain, 12/11 09:20) covered the calendar's day and "Sắp diễn ra" on the first screen
+        # (audit 16/11); the captain approved a row in the page's flow instead (16/11, "Duyệt theo em").
         css = read(SITE / "trang-msn.css")
-        self.assertIn(".cai-widget { display: none; }", css)
-        block = css[css.index(".cai-widget { display: none; }"):css.index(".cai-go:focus-visible")]
-        self.assertIn("@media (min-width: 1024px) and (pointer: fine) {", block)
-        self.assertIn("position: fixed; z-index: 70; right: var(--space-24); bottom: var(--space-24);", block)
-        self.assertIn("transform-origin: bottom right;", block)
-        # The page's toasts use the same corner (feed.css): while the card shows they stand above it.
-        self.assertIn("bottom: var(--space-24); right: var(--space-24);", read(SITE / "feed.css"))
-        self.assertIn(":root[data-cai] .toast-container { bottom: calc(var(--space-24) + var(--cai-h) + var(--space-12)); }", block)
+        self.assertNotIn(".cai-widget", css)
+        block = css[css.index(".cai-row {"):css.index(".cai-go:focus-visible")]
+        self.assertNotIn("position: fixed", block)
+        self.assertNotIn("position: absolute", block)
+        self.assertIn("grid-column: 1 / -1;", block)
         self.assertNotIn("border:", block.replace("border: 0;", ""))   # no outline (captain's standing taste)
         rules = re.sub(r"@media[^{]*\{", "", block)   # a breakpoint is not a design value
         self.assertNotRegex(rules, r"(?<![\w-])\d+px")   # every value from tokens
+        js = read(SITE / "thanh-tren.js")
+        self.assertIn("export const OFFER_AFTER = '#band-today';", js)   # under "Hôm nay", never over it
+        self.assertIn("band.after(card)", js)
 
     def test_the_old_top_row_tile_is_gone(self):
         for path in (SITE / "thanh-tren.js", SITE / "trang-msn.css"):
@@ -120,7 +122,6 @@ console.log(JSON.stringify({
   edge: tt.offerWords(tt.browserName(nav('Chromium', 'Microsoft Edge'))),
   coccoc: tt.offerWords(tt.browserName(nav('Chromium', 'CocCoc'))),
   other: tt.offerWords(tt.browserName(nav('Chromium'))),
-  delay: tt.OFFER_DELAY,
 }));
 """
         run = subprocess.run(["node", "--input-type=module", "-e", probe], cwd=ROOT, capture_output=True, text=True,
@@ -137,9 +138,10 @@ console.log(JSON.stringify({
         self.assertEqual(self.w["other"], {"title": "Tin AI trên mỗi tab mới", "line": "Extension miễn phí cho trình duyệt",
                                            "go": "Cài extension"})
 
-    def test_the_card_waits_a_moment_and_has_a_visible_hide_button(self):
-        self.assertGreaterEqual(self.w["delay"], 2000)
+    def test_the_row_has_a_visible_hide_button(self):
+        # A row in the flow covers nothing, so it no longer waits before it shows (the card waited 4 s, 12/11).
         js = read(SITE / "thanh-tren.js")
+        self.assertNotIn("OFFER_DELAY", js)
         self.assertIn('<button class="cai-x" type="button" aria-label="Ẩn gợi ý cài extension">Ẩn</button>', js)
         self.assertIn("<span>Extension Halcyon cho tab mới</span>", js)   # the permanent line in "Tùy chỉnh"
 

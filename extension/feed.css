@@ -52,7 +52,7 @@
   --motion-blur: 300ms;                     /* soft image blur-up settle */
   --media-backdrop-blur: var(--space-24);   /* the blurred copy behind the story page's picture: colour only, no detail */
   --photo-focus: 50% 40%;                   /* a card's picture is cropped around a point a little above its centre, where faces and products sit */
-  --motion-tab-glide: 280ms;                /* Apple-like tab indicator glide */
+  --motion-tab-glide: var(--motion-state);  /* every gliding line and pill: the section tabs' speed (audit 16/11: 250 and 280 ms) */
 }
 
 /* Tab pill indicator: calm Apple-like sliding pill for segmented groups and chips */
@@ -1082,11 +1082,14 @@ kbd { display: inline-block; min-width: 24px; padding: 2px var(--space-8); borde
   }
 }
 
+/* Reduced motion (captain, 16/11, "Duyệt theo em": keep the fades, stop the sliding): nothing moves, scales or grows
+   any more, while a change of opacity or colour still eases in over --motion-feedback, so a state never jumps in. */
 @media (prefers-reduced-motion: reduce){
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+    transition-property: opacity, visibility, color, background-color, border-color, box-shadow !important;
+    transition-duration: var(--motion-feedback) !important;
     scroll-behavior: auto !important;
   }
   .feed-card, .tile, .repo-cell {

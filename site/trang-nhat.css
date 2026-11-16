@@ -88,7 +88,8 @@
 .ns-results {
   position: absolute; z-index: 35; top: calc(100% + var(--space-8)); right: 0; width: min(var(--ns-results-w), calc(100vw - 2 * var(--page-pad)));
   max-height: min(70vh, 640px); overflow: auto; overscroll-behavior: contain;
-  background: var(--color-surface); border: 0; border-radius: var(--radius-24); box-shadow: var(--shadow-sheet);
+  /* One floating sheet: the radius of "Tùy chỉnh" and the Google apps (audit 16/11: 24 against 16). */
+  background: var(--color-surface); border: 0; border-radius: var(--msn-panel-r); box-shadow: var(--shadow-sheet);
   transform-origin: top right;
 }
 @media (prefers-reduced-motion: no-preference) {
@@ -201,7 +202,9 @@ mark { background: var(--color-mark); color: inherit; border-radius: 3px; paddin
 
 /* "Vừa đăng": the clock and the headline */
 .briefs { display: grid; margin: 0 calc(-1 * var(--space-8)); }
-.brief { display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: var(--space-8); min-height: var(--btn-h); padding: var(--space-12) var(--space-8); border-radius: var(--radius-12); }
+/* The time's column is at least 48 px and as wide as the time itself, so a reader's large text never runs the time
+   under the headline (audit 16/11, text at 200 %). */
+.brief { display: grid; grid-template-columns: minmax(48px, max-content) minmax(0, 1fr); gap: var(--space-8); min-height: var(--btn-h); padding: var(--space-12) var(--space-8); border-radius: var(--radius-12); }
 .briefs li + li .brief { border-top: 1px solid var(--color-hair); border-radius: 0 0 var(--radius-12) var(--radius-12); }
 .brief:focus-visible { outline-offset: -3px; }
 .brief time { padding-top: 1px; font-size: var(--text-meta); color: var(--color-ink-3); }

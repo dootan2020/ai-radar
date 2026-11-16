@@ -107,6 +107,7 @@
   --show-logo-light: block;                          /* header wordmark: the kit's primary variant on light surfaces */
   --show-logo-dark: none;
   --color-accent-wash: color-mix(in srgb, var(--brand-signature) 10%, transparent);
+  --color-current: var(--color-accent);              /* the label of the place the reader is on, on the coral wash (dock) */
   /* The front page (07/11, mockup "Trang nhất"): small coloured text is Plum on light (coral stays a fill), a stronger
      hairline for hover and focus, the search highlight, and a rise in a ranking. */
   --color-link: var(--brand-secondary);
@@ -157,6 +158,7 @@
   --leading-tight: 1.12;
   --tracking-display: -0.025em;
   --tracking-number: -0.04em;
+  --tracking-label: 0.06em;                          /* small capitals, one style: card labels, eyebrows, datelines (audit 16/11) */
   --weight-regular: 400; --weight-medium: 500; --weight-semibold: 600; --weight-bold: 700;
 
   --motion-feedback: var(--duration-150);           /* press, toggle; also the only motion kept under reduced motion */
@@ -350,8 +352,6 @@
   --band-tile-min: 20rem;
   /* "Tùy chỉnh": the panel at the top right, out of the top row's own button. */
   --tc-w: 22rem;
-  --cai-w: 20rem;                                    /* the extension's card in the bottom-right corner (thanh-tren.js) */
-  --cai-logo: 40px;                                  /* the Coral Tile in that card */
   --tc-shadow: 0 2px 6px oklch(var(--shadow-tint) / 0.12), 0 18px 48px oklch(var(--shadow-tint) / 0.22);
   --tc-switch-w: 44px; --tc-switch-h: 26px; --tc-knob: 20px;
   --tc-switch-off: color-mix(in srgb, var(--color-ink) 45%, transparent);
@@ -384,6 +384,7 @@
   --show-logo-light: none;                         /* the kit's dark variant: coral letters, Surface beak */
   --show-logo-dark: block;
   --color-accent-wash: color-mix(in srgb, var(--brand-signature) 16%, transparent);
+  --color-current: var(--color-ink);               /* coral-light on the dark wash read 3.64:1 (audit 16/11) */
   --color-link: var(--coral-light);
   --color-hair-strong: oklch(0.48 0.035 262);
   --color-mark: color-mix(in srgb, var(--brand-signature) 30%, transparent);
@@ -437,6 +438,7 @@
     --show-logo-light: none;                       /* the kit's dark variant: coral letters, Surface beak */
     --show-logo-dark: block;
     --color-accent-wash: color-mix(in srgb, var(--brand-signature) 16%, transparent);
+    --color-current: var(--color-ink);
   --color-link: var(--coral-light);
   --color-hair-strong: oklch(0.48 0.035 262);
   --color-mark: color-mix(in srgb, var(--brand-signature) 30%, transparent);

@@ -91,13 +91,22 @@ const SHEET = `<div class="tc-top"><h2 id="tc-h">Tùy chỉnh</h2>
   <fieldset class="tc-group"><legend>Giao diện</legend><div class="tc-seg">${THEMES.map(([v, name]) =>
     `<label><input class="sr" type="radio" name="tc-theme" value="${v}"><span>${name}</span></label>`).join('')}</div></fieldset>`;
 
+/* The way to the sources and the privacy policy (captain, 16/11, "Duyệt theo em": the home had no road to either since
+   the footer went, 09/11). The extension's new tab runs this same file from chrome-extension://, where the pages are
+   not, so there they open on hco.news. */
+export const PAGES = [['nguon', 'Nguồn tin'], ['chinh-sach-rieng-tu', 'Chính sách riêng tư']];
+export const pageBase = (loc = globalThis.location) => (loc && loc.protocol === 'chrome-extension:' ? 'https://hco.news/' : '/');
+export const pagesHTML = base => `<nav class="tc-group tc-pages" aria-label="Về Halcyon">${PAGES.map(([path, name]) =>
+  `<a class="tc-row tc-page" href="${base}${path}"><span>${name}</span><svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a>`).join('')}</nav>`;
+
 /* The extension (approved on the Chrome Web Store 11/11; captain 23:55: "đưa nó lên web cho mọi người có thể tải về",
    "làm gọn gàng, tinh tế cho anh"). Only the Store installs it (Chrome 71 removed inline install), and only a desktop
    Chromium browser can (Chrome, Edge, Cốc Cốc); a phone, Firefox, Safari and the extension's own new tab never see it.
    The link goes through /cai-dat/, a page that forwards to the Store, so the site's page counts show the clicks.
-   A small card in the bottom-right corner invites (captain, 12/11 09:20: "mọi người chẳng ai biết đặt làm thẻ mới thế nào
-   đâu. mọi người hay quen là tab, extension, có thể đặt widget ở góc dưới phải, có nút ẩn widget đi"). It waits until the
-   reader scrolls or has stayed a few seconds; "Ẩn", or a click on the Store button, hides it for good in this browser,
+   The invitation was a card in the bottom-right corner (captain, 12/11 09:20: "có thể đặt widget ở góc dưới phải, có
+   nút ẩn widget đi"); the 16/11 audit found it covering the calendar's day and "Sắp diễn ra" on the first screen, and
+   the captain approved a line in the page's flow instead (16/11: "Duyệt theo em"). The line stands between "Hôm nay"
+   and "Điểm nhấn", where it covers nothing; "Ẩn", or a click on the Store button, hides it for good in this browser,
    and the line in "Tùy chỉnh" stays as its permanent home. */
 export const OFFER_KEY = 'halcyon:cai-tien-ich';
 export const OFFER_HREF = '/cai-dat/';
@@ -126,7 +135,6 @@ export function offerWords(name) {
   return { title: 'Tin AI trên mỗi tab mới', line: `Extension miễn phí cho ${name ?? 'trình duyệt'}`,
     go: name ? `Thêm vào ${name}` : 'Cài extension' };
 }
-export const OFFER_DELAY = 4000;   // ms on the page before the card comes, unless the reader scrolls first
 const OFFER_ROW = `<div class="tc-group tc-ext"><a class="tc-row tc-ext-go" href="${OFFER_HREF}" target="_blank" rel="noopener">`
   + '<span>Extension Halcyon cho tab mới</span><svg class="i" aria-hidden="true"><use href="#i-out"/></svg></a></div>';
 const offerCard = w => `<img class="cai-logo" src="logo.svg" width="40" height="40" alt="">`
@@ -136,40 +144,33 @@ const offerCard = w => `<img class="cai-logo" src="logo.svg" width="40" height="
 
 const local = () => { try { return globalThis.localStorage; } catch { return null; } };
 
-/* The card in the bottom-right corner; the line in the sheet is drawn with the sheet (startTopRow). While the card
-   shows, the page's toasts (feed.css .toast-container, the same corner) sit above it (--cai-h, trang-msn.css). */
+/* The row under "Hôm nay"; the line in the sheet is drawn with the sheet (startTopRow). The front page redraws its bands
+   (a new snapshot, a tab switch), so the line goes back after "Hôm nay" whenever the band is drawn again, in the same
+   task, before the page paints: it never pushes what the reader already sees. Another view has no "Hôm nay" and no line. */
+export const OFFER_AFTER = '#band-today';
 export function startOffer(doc, storage, back) {
   if (offerHidden(storage)) return null;
-  const root = doc.documentElement;
   const card = doc.createElement('aside');
-  card.className = 'cai-widget';
+  card.className = 'cai-row';
   card.setAttribute('aria-label', 'Extension Halcyon');
-  card.hidden = true;
   card.innerHTML = offerCard(offerWords(browserName()));
-  doc.body.append(card);
-  let timer = 0;
-  const show = () => {
-    clearTimeout(timer);
-    removeEventListener('scroll', show);
-    if (!card.isConnected || !card.hidden) return;
-    card.hidden = false;
-    root.dataset.cai = '';
-    root.style.setProperty('--cai-h', `${card.offsetHeight}px`);
-    requestAnimationFrame(() => requestAnimationFrame(() => card.classList.add('is-in')));
+  const place = () => {
+    const band = doc.querySelector(OFFER_AFTER);
+    if (!band) card.remove();
+    else if (band.nextElementSibling !== card) band.after(card);
   };
+  const grid = doc.getElementById('feed-grid');
+  const watch = grid && typeof MutationObserver === 'function' ? new MutationObserver(place) : null;
+  watch?.observe(grid, { childList: true });
+  place();
   const hide = () => {
     hideOffer(storage);
-    clearTimeout(timer);
-    removeEventListener('scroll', show);
-    card.classList.remove('is-in');
-    delete root.dataset.cai;
-    setTimeout(() => card.remove(), 160);
+    watch?.disconnect();
+    card.remove();
   };
-  timer = setTimeout(show, OFFER_DELAY);
-  addEventListener('scroll', show, { passive: true, once: true });
   card.querySelector('.cai-go').addEventListener('click', hide);
   card.querySelector('.cai-x').addEventListener('click', () => { hide(); back?.focus({ preventScroll: true }); });
-  return { card, show, hide };
+  return { card, hide };
 }
 
 /* The corner is the row's first column (trang-msn.css); the search owns the middle one. When the whole line is wider
@@ -209,7 +210,7 @@ export function startTopRow(doc = document) {
   sheet.setAttribute('aria-labelledby', 'tc-h');
   sheet.hidden = true;
   const install = canInstall();
-  sheet.innerHTML = SHEET + (install ? OFFER_ROW : '');
+  sheet.innerHTML = SHEET + (install ? OFFER_ROW : '') + pagesHTML(pageBase());
   doc.body.append(sheet);
   if (install) {
     const offer = startOffer(doc, storage, btn);
