@@ -36,10 +36,20 @@ async function loadData() {
 }
 
 const nameOf = s => s.name || s.id;
+/* The name a reader sees: the catalogue's own name without what only the desk needs (a "(nguồn cộng đồng …)" note on a
+   community mirror) and without emoji (w2: "🚨 AI News | TestingCatalog", "Kevin Weil 🇺🇸"). The data stays as it is. */
+export function displayName(s) {
+  const shown = String(nameOf(s) ?? '')
+    .replace(/\s*\(nguồn cộng đồng[^)]*\)/giu, '')
+    .replace(/[\p{Extended_Pictographic}\p{Regional_Indicator}\u{FE0F}\u{200D}]/gu, '')
+    .replace(/\s{2,}/g, ' ')
+    .trim();
+  return shown || String(s.id ?? '');
+}
 
 function sourceItemHTML(s) {
-  const name = nameOf(s);
-  return `<li>${avatar(faceOfSource({ source: s.id, lab: s.lab, publisher: s.publisher }, SRC), 'xs')}<a href="${esc(safe(s.url))}" target="_blank" rel="noopener">${esc(name)}</a></li>`;
+  const name = displayName(s);
+  return `<li>${avatar(faceOfSource({ source: s.id, lab: s.lab, publisher: s.publisher }, SRC), 'xs')}<a href="${esc(safe(s.url))}" target="_blank" rel="noopener" title="${esc(name)}"><span class="src-nm">${esc(name)}</span></a></li>`;
 }
 
 /* Two quiet lines a reader may want: the machine-translation credit and where their marks are kept.
@@ -60,52 +70,17 @@ function footHTML() {
 function renderSources() {
   const seen = new Set();
   const srcs = asArray(D.sources)
-    .filter(s => s && s.id && !seen.has(nameOf(s)) && seen.add(nameOf(s)))
-    .sort((a, b) => nameOf(a).localeCompare(nameOf(b), 'vi'));
+    .filter(s => s && s.id && !seen.has(displayName(s)) && seen.add(displayName(s)))
+    .sort((a, b) => displayName(a).localeCompare(displayName(b), 'vi'));
   const listEl = $('#src-list');
   listEl.innerHTML = srcs.map(sourceItemHTML).join('');
   listEl.removeAttribute('aria-busy');
   $('#src-foot').innerHTML = footHTML();
 }
 
-function initTheme() {
-  const btn = $('#theme-btn');
-  if (!btn) return;
-  const getTheme = () => {
-    try {
-      const saved = JSON.parse(localStorage.getItem('air2:theme'));
-      if (saved === 'light' || saved === 'dark') return saved;
-    } catch {}
-    return matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-  };
-  const setTheme = t => {
-    document.documentElement.dataset.theme = t;
-    try { localStorage.setItem('air2:theme', JSON.stringify(t)); } catch {}
-    btn.setAttribute('aria-pressed', String(t === 'dark'));
-  };
-  btn.setAttribute('aria-pressed', String(getTheme() === 'dark'));
-  btn.addEventListener('click', () => {
-    const current = document.documentElement.dataset.theme || getTheme();
-    setTheme(current === 'dark' ? 'light' : 'dark');
-  });
-}
-
-function initKeys() {
-  const d = $('#keys');
-  if (!d) return;
-  $('#keys-open')?.addEventListener('click', () => d.showModal());
-  $('#keys-x')?.addEventListener('click', () => d.close());
-  d.addEventListener('click', e => { if (e.target === d) d.close(); });
-  document.addEventListener('keydown', e => {
-    if (e.target.matches('input, textarea')) return;
-    if (e.key === '?') { e.preventDefault(); d.showModal(); }
-    else if (e.key === '/') { e.preventDefault(); location.href = 'index.html#tim'; }
-  });
-}
-
+/* Light and dark live in "Tùy chỉnh" (trang-phu.js), as on the front page (captain, 11/11 13:54); the keyboard sheet left
+   with the front page's footer (09/11). */
 async function init() {
-  initTheme();
-  initKeys();
   watchImageErrors();
   try {
     await loadData();

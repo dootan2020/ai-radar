@@ -108,7 +108,10 @@ import {{
   renderEmptyStateHTML,
   renderMissingStateHTML,
   renderErrorStateHTML,
-  renderEndSectionHTML
+  renderEndSectionHTML,
+  kindIconId,
+  KIND_ICONS,
+  BanTinReader
 }} from {ban_tin_js};
 
 import fs from 'node:fs';
@@ -187,6 +190,21 @@ out.adjLatest = getAdjacentEditions(mockIndex, '2026-10-03');
 out.adjMiddle = getAdjacentEditions(mockIndex, '2026-10-02');
 out.adjOldest = getAdjacentEditions(mockIndex, '2026-10-01');
 out.adjMissing = getAdjacentEditions(mockIndex, '2026-09-01');
+
+// Kind icons: every kind, "other" and an unknown one resolve to a symbol id
+out.kindIcons = Object.fromEntries(['model', 'other', 'repository', 'event', 'video', undefined].map(k => [String(k), kindIconId(k)]));
+out.kindIconValues = [...new Set(Object.values(KIND_ICONS))];
+
+// The index cannot load: the reader draws its error state instead of staying on "Đang tải"
+globalThis.document = {{ getElementById: () => null }};
+globalThis.fetch = async () => {{ throw new Error('offline'); }};
+const reader = new BanTinReader();
+reader.boardEl = {{ innerHTML: 'skeleton', className: '', setAttribute() {{}}, removeAttribute() {{}} }};
+reader.currentDateBtnEl = {{ textContent: 'Đang tải' }};
+await reader.loadEdition(null);
+out.indexFailState = reader.state;
+out.indexFailBoard = reader.boardEl.innerHTML;
+out.indexFailDate = reader.currentDateBtnEl.textContent;
 
 process.stdout.write(JSON.stringify(out));
 """
@@ -281,6 +299,25 @@ class BanTinRenderLogicTests(unittest.TestCase):
         self.assertIn("Không thể tải bản tin", error_html)
         self.assertIn("bt-retry-btn", error_html)
         self.assertIn("Thử tải lại", error_html)
+
+    def test_index_failure_draws_the_error_state(self):
+        # w2, 16/11: a failed index left the page on the skeleton and "Đang tải" forever (loadEdition returned
+        # without drawing). The error state with its retry button must be drawn, and the day says it did not load.
+        self.assertEqual(self.out["indexFailState"], "error")
+        self.assertIn("Không thể tải bản tin", self.out["indexFailBoard"])
+        self.assertIn("bt-retry-btn", self.out["indexFailBoard"])
+        self.assertEqual(self.out["indexFailDate"], "Chưa tải được")
+
+    def test_every_kind_has_an_icon_in_the_sprite(self):
+        # w2, 16/11: kind "other" pointed at a missing #i-k-other and left an empty box before "Bài viết".
+        html = (SITE / "ban-tin.html").read_text(encoding="utf-8")
+        symbols = set(re.findall(r'<symbol id="([^"]+)"', html))
+        self.assertEqual(self.out["kindIcons"]["other"], "i-k-article")
+        self.assertEqual(self.out["kindIcons"]["video"], "i-k-article")
+        self.assertEqual(self.out["kindIcons"]["undefined"], "i-k-article")
+        for symbol in self.out["kindIconValues"]:
+            with self.subTest(symbol=symbol):
+                self.assertIn(symbol, symbols)
 
     def test_end_section_today(self):
         end_html = self.out["endSectionToday"]

@@ -171,8 +171,11 @@ class StoryPageRenderingTests(unittest.TestCase):
         self.assertIn('href="../../feed.css"', document)
         self.assertIn('href="../../story.css"', document)
         self.assertIn('src="../../story-page.js"', document)
-        self.assertIn('class="feed-bar"', document)
-        self.assertIn('class="story-page-container" id="story-root"', document)
+        # The front page's shell since 16/11 (captain, decision 1): top row, panel, the story in a card (site/trang-phu.css).
+        self.assertIn('class="masthead phu-top"', document)
+        self.assertIn('href="../../trang-phu.css"', document)
+        self.assertIn('class="story-page-container phu-card" id="story-root"', document)
+        self.assertNotIn('id="theme-btn"', document)
         self.assertIn('class="story-article"', document)
         self.assertIn('class="story-headline"', document)
         self.assertIn('class="story-summary-box story-source-desc"', document)

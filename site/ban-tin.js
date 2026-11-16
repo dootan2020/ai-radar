@@ -106,6 +106,16 @@ export function getAdjacentEditions(index, currentDate) {
   return { prev, next };
 }
 
+/* ---------- Icon loại tin ----------
+   Mỗi loại tin có một hình trong bộ icon của ban-tin.html. Loại không có hình riêng ("other" là "Bài viết", và mọi loại
+   mới sau này) dùng hình bài viết, để nhãn không bao giờ chừa một ô trống trước chữ (w2: thiếu #i-k-other). */
+export const KIND_ICONS = Object.freeze({ model: 'i-k-model', product: 'i-k-product', research: 'i-k-research',
+  paper: 'i-k-paper', podcast: 'i-k-podcast', forum: 'i-k-forum', social: 'i-k-social', repository: 'i-repo',
+  event: 'i-cal', other: 'i-k-article', article: 'i-k-article' });
+export function kindIconId(kind) {
+  return KIND_ICONS[kind] || 'i-k-article';
+}
+
 /* ---------- Sinh HTML cho từng ô tin (Bento Story Tile) ---------- */
 export function renderStoryTileHTML(story, isLead = false, sources = null) {
   const srcMap = (sources && sources instanceof Map) ? sources : KNOWN_SOURCES;
@@ -117,7 +127,7 @@ export function renderStoryTileHTML(story, isLead = false, sources = null) {
   const origHtml = origLine(story.title, story.title_vi, esc);
   const summary = getStorySummary(story);
   const kindLabel = KIND[story.kind] || 'Bài viết';
-  const kindIcon = story.kind ? `i-k-${story.kind}` : 'i-k-article';
+  const kindIcon = kindIconId(story.kind);
 
   // Nguồn thảo luận / bài viết khác trong coverage
   const extraSources = (story.coverage || []).filter(c => c && c.url && c.url !== story.url);
@@ -145,7 +155,7 @@ export function renderStoryTileHTML(story, isLead = false, sources = null) {
           <span class="bt-source-name">${esc(sourceDisplayName)}</span>
         </div>
         <span class="bt-story-kind">
-          <svg class="i"><use href="#${kindIcon}"/></svg>
+          <svg class="i" aria-hidden="true"><use href="#${kindIcon}"/></svg>
           ${esc(kindLabel)}
         </span>
         <time class="bt-published-time" datetime="${esc(story.published_at || '')}">
@@ -261,7 +271,6 @@ export class BanTinReader {
     this.currentDateBtnEl = null;
     this.prevBtnEl = null;
     this.nextBtnEl = null;
-    this.themeBtnEl = null;
   }
 
   bindElements() {
@@ -272,7 +281,6 @@ export class BanTinReader {
     this.currentDateBtnEl = document.getElementById('bt-current-date');
     this.prevBtnEl = document.getElementById('bt-prev');
     this.nextBtnEl = document.getElementById('bt-next');
-    this.themeBtnEl = document.getElementById('theme');
   }
 
   async loadIndex() {
@@ -314,7 +322,8 @@ export class BanTinReader {
   async loadEdition(date) {
     if (!this.index) {
       const ok = await this.loadIndex();
-      if (!ok) return;
+      // loadIndex đã đặt state = 'error'; vẽ lại để người đọc thấy lời báo lỗi và nút thử lại, không đứng mãi ở "Đang tải".
+      if (!ok) { this.render(); return; }
     }
 
     const targetDate = date || (this.index.latest ? this.index.latest.date : null);
@@ -364,23 +373,7 @@ export class BanTinReader {
     this.loadEdition(date);
   }
 
-  initTheme() {
-    if (!this.themeBtnEl) return;
-    const applyTheme = (theme) => {
-      document.documentElement.dataset.theme = theme;
-      this.themeBtnEl.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
-      try {
-        localStorage.setItem('air2:theme', JSON.stringify(theme));
-      } catch (e) { /* lưu trữ bị chặn */ }
-    };
-
-    this.themeBtnEl.addEventListener('click', () => {
-      const current = document.documentElement.dataset.theme ||
-        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-      const next = current === 'dark' ? 'light' : 'dark';
-      applyTheme(next);
-    });
-  }
+  /* Sáng / tối nằm trong "Tùy chỉnh" của vỏ trang (trang-phu.js), như trang chủ (anh Tuấn, 11/11 13:54). */
 
   initNavEvents() {
     if (this.prevBtnEl) {
@@ -412,8 +405,6 @@ export class BanTinReader {
       } else if (e.key === 'ArrowRight' || e.key === 'k' || e.key === 'K') {
         const { next } = getAdjacentEditions(this.index, this.currentDate);
         if (next) this.navigateToDate(next.date);
-      } else if (e.key === 't' || e.key === 'T') {
-        if (this.themeBtnEl) this.themeBtnEl.click();
       }
     });
   }
@@ -426,7 +417,7 @@ export class BanTinReader {
     if (this.prevBtnEl) this.prevBtnEl.disabled = !prev;
     if (this.nextBtnEl) this.nextBtnEl.disabled = !next;
     if (this.currentDateBtnEl) {
-      this.currentDateBtnEl.textContent = formatShortDateVi(this.currentDate) || 'Đang tải';
+      this.currentDateBtnEl.textContent = formatShortDateVi(this.currentDate) || (this.state === 'error' ? 'Chưa tải được' : 'Đang tải');
     }
 
     // 1. Trạng thái Loading
@@ -500,7 +491,6 @@ export class BanTinReader {
 
   async start() {
     this.bindElements();
-    this.initTheme();
     this.initNavEvents();
     await this.loadSources();
 

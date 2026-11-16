@@ -23,7 +23,9 @@
 <script>try { var t = JSON.parse(localStorage.getItem('air2:theme')); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}</script>
 <link rel="stylesheet" href="tokens.css">
 <link rel="stylesheet" href="fonts.css">
+<link rel="stylesheet" href="trang-phu.css">
 <link rel="stylesheet" href="ban-tin.css">
+<script type="module" src="trang-phu.js"></script>
 <script type="module" src="ban-tin.js"></script>
 <link rel="modulepreload" href="faces.js">
 <link rel="modulepreload" href="time-text.js">
@@ -44,8 +46,6 @@
   <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></symbol>
   <symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></symbol>
   <symbol id="i-cup" viewBox="0 0 24 24"><path d="M5 9h11v5a5 5 0 0 1-5 5h-1a5 5 0 0 1-5-5zM16 10.5h1.5a2.5 2.5 0 0 1 0 5H16M8 3.5c-.6.8-.6 1.7 0 2.5M11.5 3.5c-.6.8-.6 1.7 0 2.5"/></symbol>
-  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6L7 7M17 17l1.4 1.4M5.6 18.4L7 17M17 7l1.4-1.4"/></symbol>
-  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M19.5 14.5A7.5 7.5 0 0 1 9.5 4.5a7.5 7.5 0 1 0 10 10z"/></symbol>
   <symbol id="i-k-model" viewBox="0 0 24 24"><path d="M12 3.5l7.5 4.2v8.6L12 20.5l-7.5-4.2V7.7zM4.5 7.7L12 12l7.5-4.3M12 12v8.5"/></symbol>
   <symbol id="i-k-product" viewBox="0 0 24 24"><path d="M5.5 8.5h13l-1 11h-11zM9 8.5V7a3 3 0 0 1 6 0v1.5"/></symbol>
   <symbol id="i-k-research" viewBox="0 0 24 24"><path d="M9.5 3.5h5M10.5 3.5v6L5 19a1 1 0 0 0 .9 1.5h12.2A1 1 0 0 0 19 19l-5.5-9.5v-6M7.5 15h9"/></symbol>
@@ -57,31 +57,34 @@
   <symbol id="i-repo" viewBox="0 0 24 24"><path d="M6 4.5h10.5a1 1 0 0 1 1 1V17H7.5A1.5 1.5 0 0 0 6 18.5zM6 18.5A1.5 1.5 0 0 0 7.5 20h10M9.5 8.5h5"/></symbol>
 </svg>
 
-<header class="bt-bar" id="bar">
-  <a class="bt-brand" href="index.html" aria-label="Halcyon, về trang chính">
-    <img class="brand-icon" src="logo.svg" width="32" height="32" alt=""><img class="brand-logo brand-logo-light" src="wordmark.svg" width="160" height="44" alt=""><img class="brand-logo brand-logo-dark" src="wordmark-dark.svg" width="160" height="44" alt="">
-  </a>
-
-  <div class="bt-date-stepper" aria-label="Chọn ngày bản tin">
-    <button class="bt-nav-btn" id="bt-prev" type="button" aria-label="Bản tin ngày trước">
-      <svg class="i"><use href="#i-arrow-left"/></svg>
-    </button>
-    <span class="bt-current-date-btn" id="bt-current-date">Đang tải</span>
-    <button class="bt-nav-btn" id="bt-next" type="button" aria-label="Bản tin ngày sau">
-      <svg class="i"><use href="#i-arrow-right"/></svg>
-    </button>
-  </div>
-
-  <div class="bt-bar-actions">
-    <button class="theme" id="theme" type="button" aria-pressed="false" aria-label="Chuyển sang giao diện tối">
-      <svg class="i i-sun" aria-hidden="true"><use href="#i-sun"/></svg>
-      <svg class="i i-moon" aria-hidden="true"><use href="#i-moon"/></svg>
-    </button>
-    <div class="tool-launcher"></div>
+<!-- The front page's shell (trang-phu.css; captain 16/11, decision 1): "Tùy chỉnh" and the Google apps in the top row, the
+     Coral Tile and "halcyon" in the panel's header row, the edition's day stepper where the front page has "Bản tin sáng". -->
+<header class="masthead phu-top" id="masthead">
+  <div class="phu-top-in">
+    <div class="masthead-actions">
+      <button class="top-tile" id="phu-tc" type="button" aria-label="Tùy chỉnh" title="Tùy chỉnh" aria-expanded="false"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></svg></button>
+      <div class="tool-launcher"></div>
+    </div>
   </div>
 </header>
 
-<main class="bt-main" id="main-content">
+<main class="phu-panel bt-main" id="main-content">
+  <nav class="phu-head" id="bar" aria-label="Halcyon">
+    <a class="brand" href="index.html" aria-label="Halcyon, về trang nhất"><img class="brand-tile" src="logo.svg" width="34" height="34" alt=""><span class="brand-name" aria-hidden="true">halcyon</span></a>
+    <div class="phu-sections"><a class="phu-chip" href="index.html">Trang nhất</a><a class="phu-chip" href="ban-tin.html" aria-current="page">Bản tin sáng</a></div>
+    <div class="head-actions">
+      <div class="bt-date-stepper" role="group" aria-label="Chọn ngày bản tin">
+        <button class="bt-nav-btn" id="bt-prev" type="button" aria-label="Bản tin ngày trước">
+          <svg class="i" aria-hidden="true"><use href="#i-arrow-left"/></svg>
+        </button>
+        <span class="bt-current-date-btn" id="bt-current-date">Đang tải</span>
+        <button class="bt-nav-btn" id="bt-next" type="button" aria-label="Bản tin ngày sau">
+          <svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
   <header class="bt-masthead" id="top">
     <p class="bt-kicker">Điểm tin buổi sáng</p>
     <h1 class="bt-title" id="bt-title">Bản tin AI hôm nay</h1>

@@ -113,9 +113,24 @@ dialog.story-dialog::backdrop {
   }
 }
 
+/* Reduced motion keeps the fade and drops the slide and the scale (captain 16/11, decision 7; docs/ngon-ngu-thiet-ke.md
+   principle 5: only a 150 ms fade remains), so the panel never pops in without any transition. */
+@keyframes storyFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .story-dialog-scroller {
-    animation: none !important;
+    animation: storyFadeIn var(--duration-150) var(--ease-flow) !important;
+  }
+  .story-modal-close:hover,
+  .story-modal-close:active,
+  .story-icon-btn:hover,
+  .story-icon-btn:active,
+  .doc-icon-btn:hover,
+  .doc-icon-btn:active {
+    transform: none;
   }
 }
 
@@ -183,7 +198,7 @@ dialog.story-dialog::backdrop {
   padding: 1px var(--space-8);
   border-radius: var(--radius-4, 4px);
   background: var(--color-fill);
-  color: var(--color-ink-3);
+  color: var(--color-ink-2);   /* ink-3 on the fill measured 4.32:1, under AA (w2) */
   font-size: var(--text-micro);
   font-family: inherit;
   border: 0;
@@ -250,86 +265,7 @@ dialog.story-dialog::backdrop {
   border-color: var(--color-accent);
 }
 
-/* Story page top bar: stays on a single calm line at every width, matching the home bar */
-.feed-bar:has(.doc-nav) .feed-bar-in,
-.feed-bar-in:has(.doc-nav),
-.feed-bar-in:has(#doc-back-btn) {
-  flex-wrap: nowrap;
-  height: var(--bar-h);
-  align-items: center;
-  column-gap: var(--space-8);
-}
-
-@media (max-width: 767px) {
-  .feed-bar:has(.doc-nav) .feed-bar-in,
-  .feed-bar-in:has(.doc-nav),
-  .feed-bar-in:has(#doc-back-btn) {
-    padding-top: 0;
-    column-gap: var(--space-8);
-    height: var(--bar-h);
-    flex-wrap: nowrap;
-  }
-  .doc-nav {
-    order: 0;
-    flex-shrink: 0;
-  }
-  #doc-back-btn.story-modal-close {
-    min-width: 44px;
-    width: 44px;
-    height: 44px;
-    padding: 0;
-    justify-content: center;
-    border-radius: var(--radius-full);
-  }
-  #doc-back-btn span {
-    display: none;
-  }
-  .feed-bar:has(.doc-nav) .feed-brand,
-  .feed-bar-in:has(.doc-nav) .feed-brand,
-  .feed-bar-in:has(#doc-back-btn) .feed-brand {
-    order: 1;
-    flex: none;
-    font-size: var(--size-18);
-  }
-  .feed-bar:has(.doc-nav) .ed-link,
-  .feed-bar-in:has(.doc-nav) .ed-link,
-  .feed-bar-in:has(#doc-back-btn) .ed-link {
-    order: 2;
-    padding: 0 var(--space-12);
-    font-size: var(--text-small);
-    min-height: 44px;
-  }
-  .feed-bar:has(.doc-nav) .tc-link,
-  .feed-bar-in:has(.doc-nav) .tc-link,
-  .feed-bar-in:has(#doc-back-btn) .tc-link {
-    order: 3;
-    min-height: 44px;
-    min-width: 44px;
-    width: 44px;
-    height: 44px;
-    padding: 0;
-  }
-  .feed-bar:has(.doc-nav) .theme-btn,
-  .feed-bar-in:has(.doc-nav) .theme-btn,
-  .feed-bar-in:has(#doc-back-btn) .theme-btn {
-    order: 4;
-    width: 44px;
-    height: 44px;
-  }
-}
-
-@media (max-width: 359px) {
-  .feed-bar:has(.doc-nav) .feed-bar-in,
-  .feed-bar-in:has(.doc-nav),
-  .feed-bar-in:has(#doc-back-btn) {
-    column-gap: var(--space-4);
-  }
-  .feed-bar:has(.doc-nav) .ed-link,
-  .feed-bar-in:has(.doc-nav) .ed-link,
-  .feed-bar-in:has(#doc-back-btn) .ed-link {
-    padding: 0 var(--space-8);
-  }
-}
+/* A story's own page wears the front page's shell (trang-phu.css, captain 16/11): no top bar of its own here. */
 
 /* ==========================================================================
    3. ARTICLE CONTENT CONTAINER
@@ -479,7 +415,7 @@ dialog.story-dialog::backdrop {
   font-weight: var(--weight-bold);
   letter-spacing: var(--tracking-display);
   line-height: var(--leading-tight);
-  color: var(--color-heading);
+  color: var(--color-ink);   /* the front page's headline ink (decision 16/11: minor looks follow the front page) */
   text-wrap: balance;
   overflow-wrap: anywhere;
   margin: 0;
