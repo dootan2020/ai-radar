@@ -28,6 +28,7 @@ Halcyon does not collect, upload, sell, or share personal data, browsing history
    - api.open-meteo.com: the weather forecast for the city the reader picks from a fixed list (only that city's coordinates are sent).
    - ssl.gstatic.com: icons on the Google service buttons and in the Google apps menu.
    - The user's default search engine: receives a query only when the user submits the web search box, sent by Chrome, not by Halcyon.
+   - hco.news (Halcyon's website): a story's page, the morning edition and the sources page open there only when the reader clicks a link; the website counts page views with Cloudflare Web Analytics, without cookies, as the privacy policy's section 6 states. The new tab itself loads no analytics script.
    - calendar.google.com, other Google apps, creativecommons.org: opened only when the reader clicks them.
 ```
 *(Tiếng Việt: Halcyon không thu thập, tải lên, bán hay chia sẻ dữ liệu cá nhân, lịch sử duyệt web hay dữ liệu đo lường, và tab mới không tải công cụ thống kê nào. Trình duyệt kết nối thẳng tới các dịch vụ trên; mỗi dịch vụ nhận dữ liệu yêu cầu thông thường như địa chỉ IP. Dữ liệu bộ nhớ đệm và tùy chọn nằm trên máy người dùng.)*
