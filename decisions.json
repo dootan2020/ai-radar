@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-16T13:24:57.641937+00:00",
-  "input_generated_at": "2026-11-16T12:45:55Z",
+  "generated_at": "2026-11-16T15:38:01.469844+00:00",
+  "input_generated_at": "2026-11-16T14:56:20Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -77251,10 +77251,10 @@
       "use_original_title": true,
       "source_url": "https://analyticsindiamag.com/ai-news/karnataka-bets-on-physical-ai-deeptech-at-bengaluru-tech-summit-2026",
       "key_points": [
-        "Chính quyền bang Karnataka tổ chức Hội nghị Thượng đỉnh Công nghệ Bengaluru lần thứ 29 từ ngày 17 đến 19 tháng 11 tại BIEC với trọng tâm là AI vật lý, điện toán chủ quyền và công nghệ bán dẫn. Bộ trưởng Công nghệ Thông tin bang Priyank Kharge cho biết sự kiện mang chủ đề ‘AI & Beyond’ này đã vượt mốc 10.000 đại biểu đăng ký và có hơn 450 doanh nghiệp tham gia.",
-        "Theo ban tổ chức, sự kiện nhằm mở rộng ứng dụng AI ra ngoài phần mềm doanh nghiệp sang các ngành nông nghiệp, công nghệ sinh học, trò chơi, hệ thống công nghiệp và chính phủ điện tử.",
-        "Khu trưng bày AI vật lý do Bharat1.ai đồng tổ chức giới thiệu tập hợp robot hình người nội địa lớn nhất Ấn Độ theo mô tả của ban tổ chức, bên cạnh robot bốn chân, hệ thống di chuyển tự hành và drone dưới nước (aquatic drone). Trong khuôn khổ thử thách AI toàn quốc hợp tác với Sarvam AI, các đội chiến thắng sẽ nhận 15 lakh rupee tiền thưởng, 15 lakh rupee tín dụng tính toán và kỳ lưu trú tại AI Superpark của Bharat1.ai.",
-        "Theo chính quyền bang, hội nghị xem xét mở rộng các trung tâm năng lực toàn cầu (cơ sở công nghệ phục vụ doanh nghiệp quốc tế) tiên phong về AI tới các đô thị cấp hai, sau khi đã lập 100 cơ sở mới trong năm qua."
+        "Chính quyền bang Karnataka tổ chức Hội nghị Thượng đỉnh Công nghệ Bengaluru lần thứ 29 từ ngày 17 đến 19/11 tại Trung tâm Triển lãm Quốc tế Bangalore, tập trung vào AI vật lý (trí tuệ nhân tạo gắn với phần cứng), bán dẫn và điện toán chủ quyền.",
+        "Theo ban tổ chức, sự kiện nhằm mở rộng ứng dụng AI ra ngoài phần mềm doanh nghiệp sang nông nghiệp, công nghệ sinh học, trò chơi, hệ thống công nghiệp và chính phủ điện tử.",
+        "Điểm nhấn là khu trải nghiệm AI vật lý do sáng kiến Bharat1.ai đồng tuyển chọn, quy tụ bộ sưu tập robot hình người nội địa lớn nhất Ấn Độ theo mô tả của ban tổ chức. Bên cạnh đó, các thí sinh thắng cuộc thi do bang phối hợp cùng công ty Sarvam AI tổ chức sẽ nhận 15 lakh rupee tiền mặt, 15 lakh rupee tín dụng tính toán và kỳ lưu trú nghiên cứu.",
+        "Theo chính quyền bang, hội nghị xem xét mở rộng các trung tâm năng lực toàn cầu (cơ sở công nghệ phục vụ doanh nghiệp quốc tế) ưu tiên AI tới các đô thị cấp hai, sau khi lập 100 cơ sở mới trong năm qua."
       ],
       "same_event_coverage_ids": [
         "16cd957e75ac67ff9ca0",
@@ -77262,7 +77262,7 @@
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Hội nghị Bengaluru từ ngày 17 đến 19/11 vượt mốc 10.000 đại biểu đăng ký và ưu tiên AI vật lý",
+      "editorial_headline_vi": "Hội nghị Công nghệ Bengaluru 2026 vượt mốc 10.000 đại biểu đăng ký và tập trung vào AI vật lý",
       "summary_sources": [
         {
           "id": "outlet",
@@ -77275,35 +77275,25 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.05,
+        "value": 9.35,
         "answers": {
           "what": 9,
           "why": 10,
-          "notable": 8,
+          "notable": 9,
           "meaning": 10
         },
         "hard_errors": [
           {
-            "kind": "role",
-            "summary_text": "do Bharat1.ai đồng tổ chức",
-            "explanation": "Bharat1.ai co-curated the physical AI pavilion; the source does not call it a co-organizer (outlet:p005)."
-          },
-          {
             "kind": "fact",
-            "summary_text": "các đội chiến thắng",
-            "explanation": "The source says winners will receive the prizes and residency, without specifying that the winners are teams (outlet:p006)."
+            "summary_text": "kỳ lưu trú nghiên cứu",
+            "explanation": "The source says winners receive a residency at Bharat1.ai’s AI Superpark in Bengaluru; it does not specify a research residency (outlet:p006)."
           }
         ],
         "findings": [
           {
             "question": "notable",
-            "problem": "The reader is given an unsupported organizing role for Bharat1.ai.",
-            "fix": "Say Bharat1.ai co-curated the physical AI pavilion (outlet:p005)."
-          },
-          {
-            "question": "notable",
-            "problem": "The reader is told the challenge winners are teams, although their form is unspecified.",
-            "fix": "Refer simply to the winners (outlet:p006)."
+            "problem": "The prize description adds a research purpose and leaves out the residency location.",
+            "fix": "Say the winners receive a residency at Bharat1.ai’s AI Superpark in Bengaluru (outlet:p006)."
           }
         ],
         "writer_boats": [
@@ -77311,8 +77301,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "b9310bcee6867924c514b21a174384a6f627de027189c1a8c748970be534d251",
-        "scored_at": "2026-11-16T13:24:57.604604+00:00"
+        "prose_sha256": "387f3bc619013184a660733eff2a099d251a77b594d88822d15b05fab5bd961f",
+        "scored_at": "2026-11-16T15:38:01.463834+00:00"
       }
     },
     {
@@ -77350,17 +77340,17 @@
       "use_original_title": false,
       "source_url": "https://www.semafor.com/article/11/13/2026/silicon-valleys-head-on-collision",
       "key_points": [
-        "Theo Semafor, diễn đàn Silicon Valley & The World tuần này kết nối giới doanh nghiệp và chính trị toàn cầu, đồng thời mời công chúng đối thoại trực tiếp cùng CEO Sam Altman và Andy Jassy.",
-        "Tờ báo cho rằng sự kiện diễn ra khi công nghệ và chính trị đối đầu trực diện do Quốc hội Mỹ hoài nghi công nghệ, còn nhiều thống đốc cam kết dừng xây trung tâm dữ liệu.",
-        "Semafor nêu dẫn chứng Washington đối mặt câu hỏi về việc quản lý quan hệ giữa Trung Quốc với Nvidia, và vai trò can thiệp nếu có vào sự ra đi của CEO một hãng chip Mỹ.",
-        "Semafor thừa nhận chưa có sẵn mọi câu trả lời, song khẳng định sẽ nêu các câu hỏi đúng đắn thông qua những cuộc đối thoại tại sự kiện."
+        "Theo Semafor, diễn đàn Silicon Valley & The World diễn ra tuần này quy tụ các nhà lãnh đạo kinh doanh và chính trị toàn cầu tại giao điểm công nghệ và địa chính trị.",
+        "Tờ báo nhận định mâu thuẫn trở thành đối đầu trực diện khi Mỹ chuẩn bị nhậm chức Quốc hội mới hoài nghi công nghệ cùng các tân thống đốc cam kết dừng xây trung tâm dữ liệu.",
+        "Người đọc có thể theo dõi trực tiếp các cuộc trò chuyện với CEO Sam Altman của OpenAI và CEO Andy Jassy của Amazon cùng hàng chục lãnh đạo doanh nghiệp và thế giới khác.",
+        "Semafor thừa nhận chưa có sẵn mọi câu trả lời nhưng khẳng định sẽ đặt ra những câu hỏi xác đáng."
       ],
       "same_event_coverage_ids": [
         "b08e37dc4da84e750200"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Semafor tổ chức diễn đàn Silicon Valley & The World kết nối giới công nghệ và chính trị",
+      "editorial_headline_vi": "Semafor tổ chức diễn đàn công nghệ và chính trị khi nhiều thống đốc Mỹ cam kết dừng trung tâm dữ liệu",
       "summary_sources": [
         {
           "id": "outlet",
@@ -77373,30 +77363,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 7.4,
+        "value": 8.95,
         "answers": {
-          "what": 8,
+          "what": 9,
           "why": 8,
-          "notable": 5,
-          "meaning": 10
+          "notable": 10,
+          "meaning": 8
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "mời công chúng đối thoại trực tiếp cùng CEO Sam Altman và Andy Jassy",
-            "explanation": "Semafor invites readers to join live for conversations featuring those CEOs; it does not say members of the public can speak with them directly (outlet:p005)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "notable",
-            "problem": "Readers may expect to participate in a direct conversation with the CEOs.",
-            "fix": "Say readers can follow the conversations live (outlet:p005)."
-          },
-          {
-            "question": "why",
-            "problem": "The political context loses the timing of the reported change.",
-            "fix": "Specify that the US is preparing to inaugurate the new Congress and governors described by Semafor (outlet:p002)."
+            "question": "meaning",
+            "problem": "The reader gets little sense of the disagreements the forum intends to examine.",
+            "fix": "Add the source’s concrete disputes over AI development speed, open versus closed models, startups, large cloud companies and regulation (outlet:p004)."
           }
         ],
         "writer_boats": [
@@ -77404,8 +77383,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "8164af767657fa0518a341cc62cf9af0f9ea0cddfab672bdda3633dcd5897517",
-        "scored_at": "2026-11-16T13:24:57.604644+00:00"
+        "prose_sha256": "dc4dc092881f0c388c636ef0e78171573fb2265ad0fb1601ee9366857e318322",
+        "scored_at": "2026-11-16T15:34:36.788914+00:00"
       }
     },
     {
@@ -77520,17 +77499,17 @@
       "use_original_title": true,
       "source_url": "https://analyticsindiamag.com/ai-news/india-joins-us-led-pact-to-secure-ai-and-semiconductor-supply-chains",
       "key_points": [
-        "Ấn Độ đã ký Tuyên bố San Francisco cùng Mỹ và 8 quốc gia khác nhằm bảo vệ công nghệ thiết yếu và cơ sở hạ tầng cho chuỗi cung ứng AI. Thỏa thuận được ký ngày 15 tháng 11 tại San Francisco do Thứ trưởng Ngoại giao Mỹ Jacob Helberg chủ trì.",
-        "Theo Analytics India Magazine, thỏa thuận diễn ra trong bối cảnh cạnh tranh công nghệ giữa Mỹ và Trung Quốc gia tăng. Tuyên bố nhằm xây dựng nhận thức chung về công nghệ nhạy cảm hỗ trợ chuỗi cung ứng siêu trí tuệ (Super Intelligence).",
-        "Văn bản đề xuất lập 5 nhóm công tác về chính sách, ứng dụng SI, an ninh chuỗi cung ứng và khả năng phục hồi. Thỏa thuận bao quát phần mềm, linh kiện, thiết bị sản xuất dùng trong phát triển AI, cùng hạ tầng như cảng biển, mạng lưới viễn thông và năng lượng.",
-        "Theo Bộ Ngoại giao Mỹ, thỏa thuận khẳng định an ninh kinh tế là nền tảng của an ninh quốc gia. Các quốc gia tham gia cũng kêu gọi giảm phụ thuộc vào các chuỗi cung ứng tập trung và tăng cường đa dạng hóa để chống ép buộc kinh tế."
+        "Ấn Độ cùng Mỹ và 8 quốc gia ký Tuyên bố San Francisco để bảo vệ chuỗi cung ứng AI (trí tuệ nhân tạo) cùng các công nghệ thiết yếu và cơ sở hạ tầng nền tảng. Các nước ký kết khác bao gồm Úc, Israel, Nhật Bản, Hàn Quốc, Qatar, Singapore, Các Tiểu vương quốc Ả Rập Thống nhất và Vương quốc Anh.",
+        "Theo Analytics India Magazine, thỏa thuận diễn ra giữa bối cảnh cạnh tranh công nghệ ngày càng gia tăng giữa Mỹ và Trung Quốc. Văn bản này nhằm xây dựng hiểu biết chung về các công nghệ nhạy cảm và hạ tầng trọng yếu hỗ trợ chuỗi cung ứng siêu trí tuệ.",
+        "Tuyên bố được ký tại sự kiện Pax Silica Founders Retreat do Jacob Helberg triệu tập vào ngày 15 tháng 11 tại San Francisco. Văn bản đề xuất lập 5 nhóm công tác và bao quát từ linh kiện, phần mềm AI đến hạ tầng như cảng biển, mạng năng lượng.",
+        "Theo Bộ Ngoại giao Mỹ, thỏa thuận công nhận an ninh kinh tế là nền tảng của an ninh quốc gia khi xác định các gián đoạn công nghệ có thể đe dọa an ninh. Các nước tham gia cũng kêu gọi giảm phụ thuộc vào nguồn cung tập trung và tăng cường đa dạng hóa để chống ép buộc kinh tế."
       ],
       "same_event_coverage_ids": [
         "908b90eba152b96d7a58"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Ấn Độ cùng Mỹ và 8 quốc gia ký Tuyên bố San Francisco bảo vệ chuỗi cung ứng AI",
+      "editorial_headline_vi": "Ấn Độ cùng Mỹ và 8 nước ký Tuyên bố San Francisco bảo vệ chuỗi cung ứng trí tuệ nhân tạo",
       "summary_sources": [
         {
           "id": "outlet",
@@ -77543,34 +77522,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.55,
+        "value": 9.4,
         "answers": {
           "what": 10,
           "why": 10,
           "notable": 9,
-          "meaning": 9
+          "meaning": 8
         },
-        "hard_errors": [
-          {
-            "kind": "role",
-            "summary_text": "Thỏa thuận được ký ngày 15 tháng 11 tại San Francisco do Thứ trưởng Ngoại giao Mỹ Jacob Helberg chủ trì",
-            "explanation": "Jacob Helberg convened the Pax Silica Founders Retreat where the declaration was signed; the source does not say he presided over the signing or the agreement (outlet:p002)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "notable",
-            "problem": "The sentence assigns Helberg an unsupported role in the signing.",
-            "fix": "Say the declaration was signed at the Pax Silica Founders Retreat, which Helberg convened (outlet:p002)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "dec9019643b984542098a2cddb0b41362ed1e482161116d28854301d622e6373",
-        "scored_at": "2026-11-16T13:24:57.604672+00:00"
+        "prose_sha256": "13076e9dcecd7851b7572c95111b3ff2dff9e0281aab62d6af07a62a9bb77dc9",
+        "scored_at": "2026-11-16T15:34:36.788970+00:00"
       }
     },
     {
@@ -77721,17 +77688,17 @@
       "use_original_title": false,
       "source_url": "https://www.theguardian.com/books/ng-interactive/2026/nov/14/its-like-the-wild-west-how-ai-has-rocked-the-literary-world",
       "key_points": [
-        "Một đại diện văn học chia sẻ với The Guardian rằng không khí xuất bản chính thống hiện như miền viễn Tây khi tác giả dùng trí tuệ nhân tạo (AI) để sáng tác sách.",
-        "Theo tác giả bài viết trên The Guardian, tình trạng này xảy ra do công nghệ tiến nhanh hơn khả năng đánh giá của ngành về việc tác giả dùng AI viết sách.",
-        "Điển hình là cuốn tiểu thuyết Death of an Author do Stephen Marche sáng tác năm 2023 bằng ba công cụ AI chỉ có thể phát hành dưới dạng sách nói vì lo ngại bản quyền.",
-        "Văn bản do máy móc sản xuất đối mặt rủi ro bị khiếu kiện pháp lý, dù luật bản quyền Mỹ bảo vệ tác phẩm có AI hỗ trợ, theo tác giả bài viết trên The Guardian. Trước các tranh cãi, cả phía ủng hộ lẫn phản đối AI đều kêu gọi nhà xuất bản sớm ban hành quy định hướng dẫn, trong khi đại diện AALA Hannah Bowman nhấn mạnh cần có quy trình đối thoại công bằng với tác giả."
+        "Theo một đại diện văn học chia sẻ với The Guardian, ngành xuất bản chính thống đang như \"miền viễn Tây\" khi tác giả sử dụng trí tuệ nhân tạo (AI) để viết sách.",
+        "Tác giả bài viết trên The Guardian nhận định tình trạng này xảy ra do công nghệ tiến nhanh hơn khả năng đánh giá của ngành xuất bản về việc tác giả dùng AI sáng tác.",
+        "Cụ thể, một nghiên cứu đang chờ bình duyệt do Tuhin Chakrabarty tại Đại học Stony Brook dẫn đầu ước tính khoảng một phần năm sách mới tự xuất bản gần đây chứa ít nhất 25% văn bản AI. Trong khi đó, cuốn tiểu thuyết trinh thám Death of an Author được Stephen Marche sáng tác năm 2023 bằng ba chương trình AI chỉ có thể phát hành dạng sách nói do lo ngại về bản quyền.",
+        "Chủ tịch ủy ban đặc biệt về AI của Hiệp hội Đại diện Văn học Mỹ Hannah Bowman cho biết nội bộ giới đại diện đang tranh cãi về việc định kỳ dùng phần mềm phát hiện AI hay dựa trên sự tin cậy. Trước tình hình đó, cả bên ủng hộ lẫn phản đối đều thúc giục các nhà xuất bản nắm quyền quyết định cần dũng cảm ban hành chính sách rõ ràng để quy định những điều tác giả được và không được làm."
       ],
       "same_event_coverage_ids": [
         "c4d9ba0ea808f4a1965c"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Ngành xuất bản đối mặt biến động khi nghiên cứu ước tính một phần năm sách tự xuất bản chứa văn bản AI",
+      "editorial_headline_vi": "Nghiên cứu chờ bình duyệt ước tính một phần năm sách mới tự xuất bản chứa ít nhất 25% văn bản AI",
       "summary_sources": [
         {
           "id": "outlet",
@@ -77746,30 +77713,30 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 7.6,
+        "value": 9.2,
         "answers": {
-          "what": 8,
-          "why": 9,
-          "notable": 6,
-          "meaning": 8
+          "what": 9,
+          "why": 10,
+          "notable": 10,
+          "meaning": 7
         },
         "hard_errors": [
           {
-            "kind": "number",
-            "summary_text": "một phần năm sách tự xuất bản chứa văn bản AI",
-            "explanation": "The study estimates around one fifth of recently self-published books contain at least 25% AI-generated text; the headline extends the figure to self-published books generally and drops the threshold (outlet:p009)."
+            "kind": "role",
+            "summary_text": "cả bên ủng hộ lẫn phản đối đều thúc giục các nhà xuất bản nắm quyền quyết định cần dũng cảm ban hành chính sách rõ ràng để quy định những điều tác giả được và không được làm",
+            "explanation": "Both camps call for more publisher guidance, but the specific appeal to be 'brave' and publish extensive policies spelling out permitted author use is McIlroy’s, not a position the source attributes to both camps (outlet:p023)."
           }
         ],
         "findings": [
           {
-            "question": "notable",
-            "problem": "The headline makes the study's estimate apply to a broader set of books and to any amount of AI text.",
-            "fix": "Specify recently self-published books and the at-least-25% AI-generated-text threshold; the study is also awaiting peer review (outlet:p009)."
+            "question": "meaning",
+            "problem": "The text attributes McIlroy’s specific policy proposal to both supporters and opponents of AI.",
+            "fix": "State that both camps want more guidance, then attribute the call for extensive policies to McIlroy (outlet:p023)."
           },
           {
             "question": "meaning",
-            "problem": "The copyright discussion leaves out why machine-produced text particularly concerns publishers.",
-            "fix": "Explain that the source treats AI-generated text as public domain under US copyright law, potentially leaving publishers without exclusive rights, while distinguishing AI-assisted work (outlet:p026)."
+            "problem": "Readers miss the concrete copyright issue behind publishers’ uncertainty.",
+            "fix": "Explain that the source distinguishes protected AI-assisted work from machine-generated text that may lack US copyright protection (outlet:p026)."
           }
         ],
         "writer_boats": [
@@ -77777,8 +77744,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "2da21a4e18c34d7215599988bcfaa959372c3bab000c713d93f19f9bd4e5c831",
-        "scored_at": "2026-11-16T13:24:57.604695+00:00"
+        "prose_sha256": "38980f705b67d9842b165af391168296863bedb617006d29b49e52e0f54893cb",
+        "scored_at": "2026-11-16T15:38:01.463878+00:00"
       }
     },
     {
@@ -77823,6 +77790,798 @@
         "79b13c12b729779f2d6d"
       ],
       "split_coverage_ids": []
+    },
+    {
+      "id": "e59417f187ec16eb2dd4",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-16/anthropic-ipo-is-delaying-some-deals-moynihan-says-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "f63a24bf4d6c10a35cc1"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "50e7dd5231d03d9b5735",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-16/us-moves-to-restrict-remote-access-to-advanced-ai-chips-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "ffc1102966ac660565fd"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "13e80a83308b97e46bb2",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Broad executive interview focused on Bank of America earnings, consumer strength, and succession planning, with only incidental passing mentions of AI.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-16/bofa-s-moynihan-on-ipo-pipeline-ai-consumer-strength-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "db72121df1283773de34"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "7fb1e28de2e6ac9d3d7c",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Release changelog announcing GitHub Mobile support for iPhone Duo foldable screens; AI (Copilot) is only mentioned incidentally as one of several existing navigation tabs.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.blog/changelog/2026-11-16-take-github-mobile-with-you-on-iphone-duo",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "f5b0b574431186875693"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "fca136550be1c431b281",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "top tier needs four to eight verified key points",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "top tier needs four to eight verified key points"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/16/2026/us-moves-to-close-remote-access-chip-loophole",
+      "key_points": [
+        "Bộ Thương mại Mỹ vào thứ Hai đã ban hành các quy định tạm thời về kiểm soát công nghệ bán dẫn.",
+        "Semafor cho biết quy định nhằm ngăn các công ty AI Trung Quốc dùng chip qua nước thứ ba bằng cách khai thác trung tâm dữ liệu.",
+        "Quy định mới giới hạn quyền tiếp cận chip và máy chủ AI cao cấp tại một số quốc gia nhất định. Semafor dẫn chứng bốn nước Đông Nam Á gồm Indonesia, Malaysia, Singapore và Thái Lan là nơi hoạt động này từng diễn ra mạnh nhất.",
+        "Quy định cập nhật được đưa ra khi Bộ trưởng Howard Lutnick đối mặt áp lực siết kiểm soát xuất khẩu do bộ của ông bị cho là thực thi lỏng lẻo. Semafor cho biết áp lực tăng liên quan đến một công ty ở Singapore bị cáo buộc tuồn chip sang Trung Quốc."
+      ],
+      "same_event_coverage_ids": [
+        "48769da7abfef77a24e1"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Mỹ ban hành quy định tạm thời hạn chế truy cập chip AI từ xa tại bốn nước Đông Nam Á",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/16/2026/us-moves-to-close-remote-access-chip-loophole"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.65,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "b22dde427e85038bc5f42c1826b0c1229bb13bba60f09d3093477227a41c9372",
+        "scored_at": "2026-11-16T15:22:22.190495+00:00"
+      }
+    },
+    {
+      "id": "39ceb2e8ab2f8ae02dd0",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://arstechnica.com/ai/2026/11/jensen-huang-allies-build-a-war-room-to-get-him-back-at-nvidia/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "0343587b4a48dfdd6ed2"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "4c34a0e3e605a03cc999",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/tech/1034083/audible-audio-discovery-ai-feature-availability",
+      "key_points": [
+        "Audible ra mắt tính năng AI tóm tắt sách nói audio discovery, kết hợp các đoạn trích âm thanh, bản tổng quan và lời bình của tác giả. Theo The Verge, công cụ này giúp người dùng xác định mức độ phù hợp của tác phẩm trước khi bắt đầu lắng nghe.",
+        "The Verge cho biết bản tóm tắt âm thanh nhằm tránh để người dùng phải tra cứu trên nền tảng khác trước khi chọn sách. Giám đốc sản phẩm Andy Tsao của Audible nhận định tính năng giúp việc lựa chọn sách tự nhiên như nhận lời gợi ý từ một người bạn.",
+        "Hệ thống phát đoạn trích cùng tổng quan AI về chủ đề và phản hồi của người nghe từ dữ liệu đánh giá công khai. Công cụ cũng có thể bổ sung nhận xét của tác giả hoặc biên tập viên Audible trích từ các cuộc phỏng vấn trước đây.",
+        "The Verge cho biết tính năng audio discovery đang triển khai cho một số tác phẩm tiếng Anh tại Mỹ và dự kiến mở rộng sang khu vực khác. Đây là nỗ lực của Audible nhằm cạnh tranh với Spotify, bên cạnh việc mở rộng thử nghiệm beta cho hai tính năng Ask a Question và Recaps."
+      ],
+      "same_event_coverage_ids": [
+        "731fd093104de3f6a41c"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Audible ra mắt tính năng AI audio discovery tóm tắt cho một số sách nói tại Mỹ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/tech/1034083/audible-audio-discovery-ai-feature-availability"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.15,
+        "answers": {
+          "what": 9,
+          "why": 9,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "Readers miss Audible’s separate AI-personalized audiobook collections.",
+            "fix": "Add that Audible is rolling out US collections tailored to listening tastes to help users discover titles beyond bestseller lists (outlet:p021)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "454dc04a0702713c1c2b38f969b2aea3b68499e38a4ac5967f2b0387fc68fd95",
+        "scored_at": "2026-11-16T15:28:02.938926+00:00"
+      }
+    },
+    {
+      "id": "2fdf48c7e9e85e8a89cb",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/tech/1034110/google-ask-maps-ai-trip-planning",
+      "key_points": [
+        "Google Maps ra mắt tính năng AI lập lịch trình chuyến đi thông qua chatbot Ask Maps tích hợp Gemini. The Verge cho biết công cụ cho phép lên kế hoạch dạo chơi trong ngày hoặc chuyến đi kéo dài nhiều ngày.",
+        "Ask Maps tạo lịch trình từng ngày kèm danh sách điểm dừng, lộ trình và ghim đánh số trên bản đồ. Người dùng có thể chia sẻ lịch trình với bạn bè hoặc xuất sang Google Docs trên máy tính.",
+        "Google cho biết người dùng có thể lên kế hoạch mua sắm hoặc chuyến đi ba ngày gồm hoạt động đi bộ ven biển và ăn uống. Ask Maps còn hỗ trợ tìm kiếm địa điểm đã lưu và tìm lịch hẹn dịch vụ rồi gọi điện đến cơ sở cho người dùng.",
+        "The Verge cho biết tính năng lập lịch trình và tìm kiếm danh sách đã lưu đang triển khai tới hơn 200 quốc gia có Ask Maps. Trong khi đó, các mẹo trước chuyến đi và công cụ tìm lịch hẹn bước đầu chỉ ra mắt tại thị trường Mỹ."
+      ],
+      "same_event_coverage_ids": [
+        "d158538201412826ba89"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Google Maps bổ sung tính năng AI Ask Maps tạo lịch trình chuyến đi tới hơn 200 quốc gia",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/tech/1034110/google-ask-maps-ai-trip-planning"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "Readers miss that the itinerary remains useful during travel through live information.",
+            "fix": "Mention live traffic and opening hours, or the parking, charging, weather, delay, and toll details shown during a trip (outlet:p017)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "e024ee88353bb08035e4a73cb8cfad066cdb316eead74984060d218223e9d3c9",
+        "scored_at": "2026-11-16T15:28:02.938972+00:00"
+      }
+    },
+    {
+      "id": "11608d311d0047796796",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://blog.google/products-and-platforms/products/maps/ask-maps-holiday-travel-features-2026/",
+      "key_points": [
+        "Google ra mắt tính năng Ask Maps mới trên các thiết bị Android và iOS tại Mỹ cùng nhiều thị trường quốc tế. Bản cập nhật này giúp người dùng lập hành trình chi tiết từng chặng, tra cứu danh sách đã lưu và kiểm tra tình trạng phục vụ của các địa điểm.",
+        "Theo Google, các tính năng mới được triển khai nhằm giúp chuẩn bị kỳ nghỉ lễ và đơn giản hóa việc đi lại cũng như các công việc sinh hoạt theo mùa. Hãng cho biết người dùng có thể tạo lịch trình nhiều ngày kèm các chỉ dẫn thực tế và điều chỉnh điểm dừng ngay trên lộ trình.",
+        "Với các năng lực tác vụ tự chủ (tính năng agentic), Ask Maps có thể tìm chỗ trống và gọi điện để người dùng chọn đặt lịch hẹn dịch vụ. Công cụ này sẽ hiển thị các khung giờ trống tại những cơ sở lân cận như tiệm làm móng hay sửa xe để khách tự quyết định đăng ký.",
+        "Về phạm vi triển khai, Google cho biết tính năng mở rộng theo từng khu vực, trong đó việc lập hành trình khả dụng ở mọi nơi cung cấp Ask Maps tại hơn 200 quốc gia và vùng lãnh thổ. Ngược lại, các mẹo lộ trình trước chuyến đi và tiện ích tìm lịch hẹn chỉ ra mắt trước tại Mỹ trước khi mở rộng thêm."
+      ],
+      "same_event_coverage_ids": [
+        "bc936b58b79dc2c8e645"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Google cập nhật Ask Maps hỗ trợ lập lịch trình và tìm chỗ trống để người dùng đặt hẹn",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "google",
+          "url": "https://blog.google/products-and-platforms/products/maps/ask-maps-holiday-travel-features-2026/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "17a594fb61cc379fbdab24e17861480feb12279b6800f56ba90230c758f8ae5b",
+        "scored_at": "2026-11-16T15:28:02.938997+00:00"
+      }
+    },
+    {
+      "id": "de075b258f60b947312f",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/16/2026/industry-headwinds-wont-slow-ai-infrastructure-buildout-ceo-says",
+      "key_points": [
+        "Lãnh đạo tập đoàn Acwa nhận định làn sóng xây dựng hạ tầng AI quy mô lớn khó bị đình trệ bất chấp các trở ngại hiện nay. Theo tường thuật của Semafor, các áp lực đối với đà bùng nổ AI gồm vụ bê bối của Nvidia, sự phản đối từ công chúng và Quốc hội Mỹ mới có xu hướng siết quản lý.",
+        "Cùng thời điểm trên, Semafor ghi nhận tập đoàn Samsung ngỏ ý tham gia sâu hơn bằng việc xây trung tâm dữ liệu trong lĩnh vực AI.",
+        "Về phía quản lý, một quan chức cấp cao chính phủ Mỹ nhận định chính quyền có trách nhiệm truyền thông rõ hơn về cơ hội công nghệ cùng các mặt tích cực của AI. Quan điểm này được đưa ra khi giới lãnh đạo vẫn giữ sự lạc quan bất chấp tâm lý bức xúc kéo dài của cử tri Mỹ."
+      ],
+      "same_event_coverage_ids": [
+        "78dc4dba87e429a5bd5d"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Lãnh đạo Acwa nhận định đà xây hạ tầng AI khó đình trệ khi Samsung ngỏ ý xây trung tâm dữ liệu",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/16/2026/industry-headwinds-wont-slow-ai-infrastructure-buildout-ceo-says"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "3f8eaf4d3e0a0865112491af6895d2429ec9f08c1bc650f8c4c8be9bc92c3fbf",
+        "scored_at": "2026-11-16T15:28:02.939018+00:00"
+      }
+    },
+    {
+      "id": "a2c342f1cef14e387197",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "top tier needs four to eight verified key points",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "top tier needs four to eight verified key points"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/16/2026/government-pressure-grows-on-nvidias-huang-for-details-of-spy-scandal",
+      "key_points": [
+        "Chính phủ Mỹ gia tăng áp lực lên Nvidia xoay quanh việc liệu tập đoàn có cố tình bán công nghệ bị hạn chế cho Trung Quốc hay không. Sức ép này gia tăng trong lúc bê bối giữa cựu CEO Jensen Huang với một nghi can tình báo Trung Quốc lan rộng.",
+        "Về lý do bị chất vấn, Bộ trưởng Tài chính Mỹ nêu nghi vấn cố tình bán công nghệ bị hạn chế nhằm tăng doanh thu.",
+        "Trước sức ép trên, cựu CEO đồng ý điều trần kín trước các nhà lập pháp Mỹ, trong khi Bộ trưởng Tài chính yêu cầu cải tổ mạnh mẽ công ty.",
+        "Về tương lai nhân sự, bốn chuyên gia trên Fortune cảnh báo không có cơ hội quay lại và cho rằng giới ủng hộ đang đánh giá thấp quy mô khủng hoảng."
+      ],
+      "same_event_coverage_ids": [
+        "b6bf95e7b54a357f2c9a"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Mỹ gia tăng áp lực lên Nvidia về nghi vấn cố tình bán công nghệ cho Trung Quốc",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/16/2026/government-pressure-grows-on-nvidias-huang-for-details-of-spy-scandal"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 6.4,
+        "answers": {
+          "what": 6,
+          "why": 5,
+          "notable": 8,
+          "meaning": 6
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "cố tình bán công nghệ cho Trung Quốc",
+            "explanation": "The source questions whether Nvidia knowingly allowed the sale of restricted technology to China; it does not say Nvidia itself deliberately made the sale (outlet:p001)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "có cố tình bán công nghệ bị hạn chế cho Trung Quốc",
+            "explanation": "The source’s questioned action is knowingly allowing a sale, not deliberately selling the technology itself (outlet:p001)."
+          },
+          {
+            "kind": "cause",
+            "summary_text": "cố tình bán công nghệ bị hạn chế nhằm tăng doanh thu",
+            "explanation": "The Treasury secretary questioned whether Nvidia pursued sales to China to boost revenue. The source does not connect that possible motive specifically to a deliberate sale of restricted technology (outlet:p002)."
+          },
+          {
+            "kind": "cause",
+            "summary_text": "Trước sức ép trên",
+            "explanation": "The source reports Huang’s agreement to testify but does not say the government pressure caused that agreement (outlet:p002)."
+          },
+          {
+            "kind": "quote",
+            "summary_text": "giới ủng hộ đang đánh giá thấp quy mô khủng hoảng",
+            "explanation": "The experts warned specifically about supporters who focus solely on Huang’s infidelity, rather than supporters generally (outlet:p002)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "Readers are told Nvidia may have deliberately sold the technology itself.",
+            "fix": "Say the inquiry concerns whether Nvidia knowingly allowed restricted technology to be sold to China (outlet:p001)."
+          },
+          {
+            "question": "why",
+            "problem": "The revenue question is attached to a more specific alleged act than the source states.",
+            "fix": "Keep the secretary’s question about pursuing sales to China for revenue separate from the restricted technology inquiry (outlet:p002)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The experts’ criticism is extended to all Huang supporters.",
+            "fix": "Specify that their warning concerns supporters who focus only on his infidelity (outlet:p002)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "930242f22f77be488c57adcac9f96a62ac9b7c451032558c78773b3cc09ad5c4",
+        "scored_at": "2026-11-16T15:28:02.939042+00:00"
+      }
+    },
+    {
+      "id": "d1436b6477306116b9c1",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Sponsored marketing content published in partnership with Infosys promoting enterprise AI adoption, data platforms, and consulting services.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.technologyreview.com/2026/11/16/1146070/building-ai-that-can-work-across-the-enterprise/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b4c86df4d9facdda3a99"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "a0243e3626ac64967586",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/ai-artificial-intelligence/1031740/jensen-huang-nvidia-scandal-isnt-slowing-down",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "821f0abb7fe0277ccaf0"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "b8fed0cf81bccb218fc7",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Diplomatic reporting on a bilateral summit between South Korea and the Philippines focused primarily on defense manufacturing and bilateral trade, with only an incidental passing reference to AI.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://en.yna.co.kr/view/AEN20261116009051315",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "e1a515e258939c8150c8"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "21e886491b30cfff0403",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://openai.com/index/more-ways-to-move-care-forward-with-chatgpt-for-healthcare",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "68538f80e5678f43dd9b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "21b4758ab52123ac78ff",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://openai.com/index/advancing-computer-use-for-healthcare-teams",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "5bb3447531fdb7b90379"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "4e6009943a7de781fd19",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.anthropic.com/research/coordinated-vulnerability-disclosure-timelines",
+      "key_points": [
+        "Anthropic rút ngắn thời hạn công bố lỗ hổng nghiêm trọng xuống 30 ngày và 45 ngày cho các lỗi khác trong chính sách công bố phối hợp. Quy định mới áp dụng từ ngày 1 tháng 1 năm 2027, còn các báo cáo đang xử lý vẫn giữ nguyên hạn cũ.",
+        "Theo Anthropic, AI dò lỗi nhanh làm tăng khả năng nhiều bên cùng phát hiện một lỗi, khiến giả định lỗ hổng giữ kín nhiều tháng không còn đúng. Việc rút ngắn thời hạn nhằm bắt kịp đà tiến bộ của AI và hỗ trợ tốt nhất cho giới phòng thủ.",
+        "Anthropic dự kiến chuyển tiếp báo cáo cho bên điều phối ngoài sau 15 ngày nếu đối tác không phản hồi, thay vì 30 ngày. Đồng thời, công ty chờ 30 ngày sau khi có bản vá mới chia sẻ chi tiết kỹ thuật và giữ nguyên thời hạn 7 ngày cho lỗi đang bị khai thác.",
+        "Anthropic sẽ phối hợp xây dựng lộ trình khắc phục riêng cho các lỗi khó xử lý nhanh như hạ tầng thiết yếu hoặc cần đổi đặc tả kỹ thuật. Để giảm áp lực cho bên bảo trì, công ty sẽ gửi kèm hướng dẫn xử lý trong mỗi báo cáo, cùng bản vá hoặc giải pháp giảm thiểu nếu khả thi."
+      ],
+      "same_event_coverage_ids": [
+        "bef862f2254de93308c6"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Anthropic rút thời hạn công bố lỗ hổng nghiêm trọng xuống 30 ngày do AI dò lỗi nhanh",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "anthropic",
+          "url": "https://www.anthropic.com/research/coordinated-vulnerability-disclosure-timelines"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.05,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 9,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "Readers are not told that the updated policy excludes AI-discovered findings without human review.",
+            "fix": "Add that exception when describing the policy’s scope (outlet:p008)."
+          },
+          {
+            "question": "what",
+            "problem": "The effective date is given without its report-date condition.",
+            "fix": "Specify that the new windows apply to vulnerabilities reported to vendors or maintainers on or after January 1, 2027 (outlet:p003)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "d804c36e03bc26a41df6a447536500657667e7ec1fc29f945b301263e722c078",
+        "scored_at": "2026-11-16T15:28:02.939066+00:00"
+      }
+    },
+    {
+      "id": "1e1b19913bad04a67d93",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "An Ask HN community forum question and informal discussion thread lacking substantive news reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://news.ycombinator.com/item?id=50510540",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "08dca7d2ebd9a993353c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "6c2c64409dfbba0f00e1",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "top",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/ai-artificial-intelligence/1033984/congress-export-rules-ai-chips-china",
+      "key_points": [
+        "Theo The Verge, Quốc hội Mỹ siết chặt xuất khẩu chip AI và yêu cầu lãnh đạo Nvidia điều trần trước cơ quan lập pháp.",
+        "Cả hai đảng Dân chủ và Cộng hòa đều ủng hộ siết chặt các biện pháp kiểm soát xuất phát từ việc ông Huang dính líu đến mối quan hệ với một phụ nữ bị nghi là gián điệp Trung Quốc.",
+        "Lãnh đạo phe thiểu số Thượng viện Chuck Schumer và Chủ tịch Ủy ban Ngân hàng Thượng viện Tim Scott đã gửi văn bản yêu cầu ông Huang cùng Bộ trưởng Thương mại Howard Lutnick phải trả lời chất vấn công khai trước quốc hội.",
+        "Dù một số dự thảo cụ thể như Đạo luật An ninh Truy cập Từ xa có thể không được ban hành thành luật, Chủ tịch Hạ viện Mike Johnson cho biết Quốc hội đang đạt đồng thuận ngày càng cao trong việc hạn chế Trung Quốc tiếp cận chip xử lý mạnh."
+      ],
+      "same_event_coverage_ids": [
+        "7b92bfb13da88672b0f7"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Quốc hội Mỹ siết quy định xuất khẩu chip AI sang Trung Quốc sau bê bối cựu Tổng giám đốc Nvidia",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1033984/congress-export-rules-ai-chips-china"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 5.25,
+        "answers": {
+          "what": 4,
+          "why": 8,
+          "notable": 5,
+          "meaning": 5
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "Quốc hội Mỹ siết quy định xuất khẩu chip AI sang Trung Quốc",
+            "explanation": "Congress is looking to further restrict exports and lawmakers support measures and bills; the source does not report enacted tighter rules (outlet:p004, outlet:p018, outlet:p020)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "Quốc hội Mỹ siết chặt xuất khẩu chip AI",
+            "explanation": "The source reports an effort and support for tighter rules, not a completed tightening of exports (outlet:p018, outlet:p020)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "yêu cầu lãnh đạo Nvidia điều trần trước cơ quan lập pháp",
+            "explanation": "Lawmakers demanded testimony and Scott sent letters calling for public testimony; the source does not say Congress formally required Nvidia leaders to appear (outlet:p018, outlet:p019)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "một phụ nữ bị nghi là gián điệp Trung Quốc",
+            "explanation": "The source calls the person a suspected Chinese spy but does not specify their gender (outlet:p005, outlet:p018)."
+          },
+          {
+            "kind": "role",
+            "summary_text": "Chuck Schumer và Chủ tịch Ủy ban Ngân hàng Thượng viện Tim Scott đã gửi văn bản",
+            "explanation": "Schumer said Huang and the administration need to answer to Congress; Scott alone is reported to have sent letters (outlet:p019)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "Readers are told Congress has already tightened export rules.",
+            "fix": "Describe bipartisan support for proposed tighter rules and renewed interest in bills, without implying a rule has passed (outlet:p018, outlet:p020)."
+          },
+          {
+            "question": "notable",
+            "problem": "Readers are told Schumer joined Scott in sending testimony letters.",
+            "fix": "Separate Schumer’s public statement from Scott’s letters to Huang and Lutnick (outlet:p019)."
+          },
+          {
+            "question": "what",
+            "problem": "The testimony request sounds like an already binding congressional requirement.",
+            "fix": "Say lawmakers demanded testimony and Scott called for public testimony before his committee (outlet:p018, outlet:p019)."
+          },
+          {
+            "question": "notable",
+            "problem": "The account misses why the Remote Access Security Act is relevant now.",
+            "fix": "Add that the bill had stalled in the Senate and is receiving renewed interest, while its passage remains uncertain (outlet:p020)."
+          },
+          {
+            "question": "why",
+            "problem": "The Vietnamese supplies the suspected spy’s gender without source support.",
+            "fix": "Refer simply to a person suspected of being a Chinese spy (outlet:p005, outlet:p018)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "03977ac896ba4d80788edd35ca4a519cbb9162bea905e2a4146122940fb68564",
+        "scored_at": "2026-11-16T15:22:22.190797+00:00"
+      }
     }
   ]
 }
