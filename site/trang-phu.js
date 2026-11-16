@@ -94,9 +94,8 @@ export function startSettings(doc = document) {
   return { sheet, open, close };
 }
 
-/* The 404 page's search: the front page opens its news search with the words of ?q= (feed.js openSearchFromAddress, the
-   address tra-cuu.html forwards to). The pages' policy forbids form submission (form-action 'none'), so the script sends
-   the reader there itself. */
+/* The 404 page's search: the front page opens its news search with the words of ?q= (feed.js openSearchFromAddress).
+   The pages' policy forbids form submission (form-action 'none'), so the script sends the reader there itself. */
 export function searchHref(words) {
   const q = String(words ?? '').trim();
   return here('./') + (q ? `?q=${encodeURIComponent(q)}` : '#tim');
