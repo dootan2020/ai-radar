@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-16T05:16:49.110927+00:00",
-  "input_generated_at": "2026-11-16T04:45:49Z",
+  "generated_at": "2026-11-16T07:30:43.475317+00:00",
+  "input_generated_at": "2026-11-16T06:45:41Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -75831,6 +75831,640 @@
         "prose_sha256": "81db9bb1316c330eff3b479eab144d3dd35c238c4f8be293f44bd05baf9422e4",
         "scored_at": "2026-11-16T05:16:49.084881+00:00"
       }
+    },
+    {
+      "id": "7d663cac10bef3dab503",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://technode.com/2026/11/16/catax-ai-raises-rmb-40-million-to-bring-ai-agents-into-clinical-drug-development/",
+      "key_points": [
+        "Công ty khởi nghiệp CataX AI tại Thượng Hải đã huy động được 40 triệu nhân dân tệ trong vòng hạt giống từ đơn vị ươm mầm kiêm nhà đầu tư duy nhất Qiming Venture Partners.",
+        "Doanh nghiệp áp dụng mô hình vận hành Clinical-of-One, trong đó trưởng nhóm lâm sàng giám sát từng chương trình với sự hỗ trợ từ các chuyên gia cùng tác nhân AI (phần mềm tự hành). Các tác nhân AI đảm nhận xem xét nghiên cứu, soạn thảo tài liệu và xử lý dữ liệu, trong khi chuyên gia con người đưa ra những quyết định then chốt.",
+        "CataX AI dự định nhận cấp phép hoặc đồng phát triển ứng viên thuốc giai đoạn tiền lâm sàng hoặc lâm sàng sớm, đồng thời thúc đẩy qua bước chứng minh khái niệm lâm sàng. Doanh nghiệp cũng đặt mục tiêu tái sử dụng những bài học kinh nghiệm thu được qua các chương trình."
+      ],
+      "same_event_coverage_ids": [
+        "50b684112e9dd6e6c941"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "CataX AI huy động 40 triệu nhân dân tệ hạt giống và dự định đưa ứng viên thuốc qua chứng minh khái niệm lâm sàng",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "technode",
+          "url": "https://technode.com/2026/11/16/catax-ai-raises-rmb-40-million-to-bring-ai-agents-into-clinical-drug-development/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "58f41e37b286c297acaf1485707aa68c23de29bcebe88ed6e697cb6e1b73684a",
+        "scored_at": "2026-11-16T07:30:43.425037+00:00"
+      }
+    },
+    {
+      "id": "acb96696e59cba4702f2",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://technode.com/2026/11/16/deepseek-users-report-chat-limits-as-the-service-cites-capacity-constraints/",
+      "key_points": [
+        "Người dùng DeepSeek ghi nhận các hạn chế mới xuất hiện trên ứng dụng và trang web của công ty vào hôm Chủ nhật.",
+        "Một số người dùng nhận được thông báo rằng các cuộc trò chuyện dài không hoạt động hơn bảy ngày không thể tiếp tục do thiếu hụt năng lực tính toán.",
+        "Người dùng cũng phản ánh các câu lệnh riêng lẻ bị giới hạn khoảng 40.000 ký tự tiếng Trung và hệ thống hiện thông báo khi họ chạm hạn mức hằng ngày.",
+        "Theo IT Home, các hạn chế ảnh hưởng đến dịch vụ trò chuyện cá nhân, nơi người dùng có thể mất khả năng nối lại các trao đổi kéo dài. DeepSeek chưa thông báo thời điểm gỡ bỏ giới hạn, trong khi trang trạng thái ghi nhận tám sự cố từ tháng 10 tác động đến dịch vụ trò chuyện cùng các API (giao diện lập trình ứng dụng) V4 Pro và V4.1 Flash."
+      ],
+      "same_event_coverage_ids": [
+        "2d28069f196e1102d81f"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Người dùng DeepSeek phản ánh các hạn chế mới khi nhận thông báo thiếu năng lực tính toán cho hội thoại dài",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "technode",
+          "url": "https://technode.com/2026/11/16/deepseek-users-report-chat-limits-as-the-service-cites-capacity-constraints/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.85,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "598c55d2b3ae684d07504da395c753758c5819e89ddbb43b1b5a1db72df3b868",
+        "scored_at": "2026-11-16T07:30:43.425089+00:00"
+      }
+    },
+    {
+      "id": "e5401a990e77529bbb69",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://technode.com/2026/11/16/tencent-publishes-all-hands-notes-urging-teams-to-rebuild-their-businesses-around-ai/",
+      "key_points": [
+        "Tencent công bố biên bản cuộc họp toàn thể nhân dịp kỷ niệm, văn bản từng dấy lên đồn đoán sa thải vào tuần trước. Ban lãnh đạo kêu gọi mảng cốt lõi đưa AI vào sản phẩm hiện có, lập nhóm nhỏ phát triển sản phẩm mới và tinh gọn bộ máy quản lý.",
+        "Tài liệu phân chia vai trò cụ thể cho Xiaowei, Yuanbao và WorkBuddy trong các dòng sản phẩm AI dành cho người dùng và nơi làm việc. Tencent xem Xiaowei là trợ lý cá nhân, Yuanbao hỗ trợ nghiên cứu và ra quyết định, còn WorkBuddy là tác nhân AI (chương trình phần mềm tự hành) có khả năng thay mặt người dùng xử lý công việc.",
+        "Theo ban lãnh đạo, WorkBuddy là sản phẩm AI gốc đầu tiên đạt sức hút, trong khi các nhóm game, tài chính và bảo mật cùng tham gia phát triển năng lực cho các mô hình Hy."
+      ],
+      "same_event_coverage_ids": [
+        "8f9b6d8b0751aafdc2e6"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Tencent công bố biên bản cuộc họp toàn thể, yêu cầu các mảng cốt lõi ứng dụng AI và tinh gọn quản lý",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "technode",
+          "url": "https://technode.com/2026/11/16/tencent-publishes-all-hands-notes-urging-teams-to-rebuild-their-businesses-around-ai/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.6,
+        "answers": {
+          "what": 8,
+          "why": 8,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "văn bản từng dấy lên đồn đoán sa thải vào tuần trước",
+            "explanation": "The source says the meeting sparked layoff speculation last week; Tencent published the notes on Monday (outlet:p002)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The Vietnamese attributes last week’s layoff speculation to the notes instead of the meeting.",
+            "fix": "Say the anniversary all-hands meeting sparked the speculation and Tencent later published its notes (outlet:p002)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The management proposal loses its intended effect.",
+            "fix": "Add that executives called for faster decision-making alongside fewer management layers (outlet:p002)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "465f56281343026675a643c983707868062291ca42b37fc61c8c8e376406924f",
+        "scored_at": "2026-11-16T07:25:30.824387+00:00"
+      }
+    },
+    {
+      "id": "542d6941ef5333671a2d",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The report covers general Seoul stock market declines driven by broad tech sector losses, with only incidental mention of Nvidia jitters.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://en.yna.co.kr/view/AEN20261116006200320",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "6a3ab69bbb51bdd003d8",
+        "b194fa23f9270647a787"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "310a5c6fffda62618bdb",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The report focuses on investor flows into Indian equities driven by oil prices and earnings, with AI trade unwinding mentioned only incidentally.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-16/global-investors-return-to-indian-stocks-after-ai-trade-woes",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "ee8bee94106066b79ee5"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "ed8a714b90bf2d22a579",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "survey",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://about.fb.com/news/2026/11/94-of-singapore-small-business-owners-surveyed-say-more-ai-guidance-is-needed/",
+      "key_points": [
+        "Theo khảo sát của YouGov do Meta ủy quyền, 94% chủ doanh nghiệp nhỏ tại Singapore cho biết cần thêm hướng dẫn để hưởng trọn lợi ích từ AI. Tại sự kiện Meta Upskill Day 2026, Meta đã quy tụ hơn 180 doanh nghiệp nhỏ và nhà sáng tạo tham gia đào tạo công cụ AI.",
+        "Khóa đào tạo hướng dẫn doanh nghiệp dùng Meta Business Agent xử lý câu hỏi khách hàng qua WhatsApp và Messenger. Ngoài ra, ứng dụng web Dream Render chạy tại dreamrender.com hỗ trợ tạo bản thảo video từ mô tả ngắn hoặc hình ảnh trong vài phút.",
+        "Điển hình như SpeakEasy Lab ước tính Meta Business Agent giúp họ tiết kiệm 10 đến 15 giờ làm việc mỗi tuần khi xử lý thắc mắc thông thường. Bên cạnh đó, công ty khởi nghiệp Haldy sử dụng Dream Render cho nhu cầu video và ghi nhận công cụ giúp tăng nhanh hiện diện mạng xã hội.",
+        "Khảo sát cho thấy 82% chủ doanh nghiệp nhỏ tại Singapore từng dùng AI báo cáo tác động tích cực đến năng suất trong 12 tháng qua. Dù vậy, bài viết lưu ý kết quả này chỉ phản ánh một lát cắt đa dạng chứ không mang tính đại diện toàn quốc cho các doanh nghiệp nhỏ."
+      ],
+      "same_event_coverage_ids": [
+        "b14fb20aed26f10e23f9"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Meta mở đào tạo AI tại Singapore khi 94% doanh nghiệp nhỏ khảo sát cần thêm hướng dẫn",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "meta",
+          "url": "https://about.fb.com/news/2026/11/94-of-singapore-small-business-owners-surveyed-say-more-ai-guidance-is-needed/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.1,
+        "answers": {
+          "what": 9,
+          "why": 8,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The 82% figure is tied to surveyed owners whose businesses had used AI, while the Vietnamese wording can be read as owners who personally used it.",
+            "fix": "Specify “owners whose businesses had used AI” and retain the 12-month productivity measure (outlet:p016)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "5fc700aec0cc75f0756ffa920700a3e5f1b619de103d65fd1b9d7e5b2536a3f1",
+        "scored_at": "2026-11-16T07:30:43.425119+00:00"
+      }
+    },
+    {
+      "id": "fd2c7bfce97c2f76222b",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/15/2026/india-feels-less-threatened-by-ai-than-the-us-official-says",
+      "key_points": [
+        "Krishnan projected AI productivity gains across Indian agriculture, education, healthcare, and public sector administration.",
+        "India has approximately 6 million workers in IT and related services available to diffuse AI technology throughout its economy.",
+        "Expensive and scarce AI compute remains a major constraint for AI adoption in India."
+      ],
+      "same_event_coverage_ids": [
+        "6d5849476e13e665d6fe"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "3ccea5b9c692cb85adda",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://en.yna.co.kr/view/AEN20261116002152315",
+      "key_points": [
+        "Thủ tướng Hàn Quốc Han Seong-sook chỉ đạo xem xét ngắt sóng Wi-Fi công cộng tại các điểm thi đại học tuần này và buộc thí sinh nộp lại thiết bị thông minh. Bà yêu cầu Bộ Giáo dục kiểm tra chặt chẽ, đồng thời đề nghị Bộ Khoa học chủ động cân nhắc phương án vô hiệu hóa Wi-Fi để ngăn gian lận AI.",
+        "Theo Yonhap, động thái khẩn cấp diễn ra sau khi thủ khoa kỳ thi kế toán thuế năm nay thú nhận vào Chủ nhật rằng đã dùng AI để gian lận. Vụ việc làm dấy lên lo ngại về nguy cơ gian lận trong kỳ thi tuyển sinh đại học toàn quốc diễn ra vào thứ Năm tuần này.",
+        "Người này thừa nhận đã dùng camera siêu nhỏ, điện thoại cùng AI tạo sinh (trí tuệ nhân tạo tạo nội dung) trong cả hai vòng thi để đạt điểm cao bất thường. Thí sinh này cho biết thêm cũng từng áp dụng thủ đoạn tương tự trong một kỳ thi kế toán viên công chứng.",
+        "Thủ tướng Han Seong-sook nhận định quản lý thi truyền thống đã bộc lộ giới hạn trước các phương thức gian lận tinh vi như kính AI hay thiết bị siêu nhỏ. Bà yêu cầu điều tra kỹ lưỡng mọi dấu hiệu bất thường dựa trên dữ liệu khách quan để bảo đảm tính công bằng cho kỳ thi."
+      ],
+      "same_event_coverage_ids": [
+        "8fcd8993ed64f5eb0a35"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Hàn Quốc tính ngắt Wi-Fi kỳ thi đại học sau vụ thủ khoa kế toán thú nhận gian lận bằng AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "yonhap",
+          "url": "https://en.yna.co.kr/view/AEN20261116002152315"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The Vietnamese drops the condition on investigating abnormal signs, making Han's instruction sound broader than the source's specific post-exam point.",
+            "fix": "Say that if implausible signs are found, even after the exam, officials should examine them thoroughly using objective data (outlet:p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "ffd9279bb40eaec208f239d0c463c1ff98a019ba516f231cbd35f7f1ddce2412",
+        "scored_at": "2026-11-16T07:30:43.425144+00:00"
+      }
+    },
+    {
+      "id": "acd179b9ece621c2ac22",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.semafor.com/article/11/15/2026/taiwan-deputy-minister-on-jensen-huang-scandal-we-feel-sad",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "48ccffdfc82a52bbc578"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "2fee74160ca3a379d7ae",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/15/2026/us-official-says-government-needs-to-make-a-better-case-for-ai",
+      "key_points": [
+        "Thứ trưởng Ngoại giao Mỹ Jacob Helberg nhận định chính quyền các cấp có trách nhiệm giải thích rõ lợi ích và cơ hội của trí tuệ nhân tạo (AI) cho công chúng.",
+        "Theo ông Helberg, yêu cầu này nảy sinh sau khi kết quả bầu cử giữa kỳ cho thấy cử tri phản đối rộng rãi AI và các trung tâm dữ liệu.",
+        "Quan chức này dẫn dữ liệu cho thấy AI giúp nâng đỡ kinh tế Mỹ qua làn sóng đầu tư và tăng trưởng năng suất, đồng thời không gây mất việc làm hàng loạt.",
+        "Về mặt chiến lược, ông Helberg đánh giá chính sách công nghệ của Mỹ không nên quá ám ảnh về Trung Quốc. Ông nhấn mạnh nỗ lực bảo vệ chuỗi cung ứng Pax Silica được thiết kế để lấy nước Mỹ làm trung tâm."
+      ],
+      "same_event_coverage_ids": [
+        "a96f4c2027a262545eb5"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Quan chức ngoại giao Mỹ: Chính phủ cần giải thích rõ lợi ích của AI cho công chúng",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/15/2026/us-official-says-government-needs-to-make-a-better-case-for-ai"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "016a0c4e976eaa8530a9b8c09d5c5a1472539c374c7fa86ceec84cc0b1a84786",
+        "scored_at": "2026-11-16T07:25:30.824525+00:00"
+      }
+    },
+    {
+      "id": "025e2656487000edab45",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://en.yna.co.kr/view/AEN20261116005500315",
+      "key_points": [
+        "Giới chức giáo dục Hàn Quốc đang ráo riết siết chặt kỷ luật trước làn sóng gian lận bằng thiết bị hỗ trợ trí tuệ nhân tạo (AI) ngay trước kỳ thi tuyển sinh đại học quốc gia. Thủ tướng Han Seong-sook đã yêu cầu huy động toàn bộ năng lực quốc gia nhằm ngăn ngừa các sai phạm công nghệ cao trong kỳ thi này.",
+        "Theo Yonhap, sự phẫn nộ bùng lên sau khi thủ khoa kỳ thi kế toán thuế thú nhận dùng camera thu nhỏ và AI tạo sinh để gian lận trót lọt. Trước đó, bốn học sinh trung học cũng bị bắt quả tang dùng kính AI có khả năng quét đề và đưa ra lời giải trong vài giây.",
+        "Tại kỳ thi tuyển sinh năm nay, nhà chức trách cấm hoàn toàn thiết bị điện tử và bố trí nhân viên phát hiện kính AI tại 1.312 điểm thi. Thí sinh vi phạm sẽ bị hủy kết quả ngay lập tức, bị cấm thi đến ba năm và có thể bị xử lý hình sự.",
+        "Dư luận vẫn lo ngại về hiệu quả ngăn chặn gian lận thực tế, theo Yonhap, khi vẫn còn nhiều nghi ngại liệu các biện pháp của chính phủ có thể thực sự ngăn chặn thiết bị thông minh trong kỳ thi này hay không."
+      ],
+      "same_event_coverage_ids": [
+        "9d763f01258db21c13f9",
+        "c076520c4e4c31e27ab7"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Hàn Quốc triển khai nhân sự tại 1.312 điểm thi đại học để ngăn chặn gian lận bằng AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "yonhap",
+          "url": "https://en.yna.co.kr/view/AEN20261116005500315"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.0,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 5,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "cấm hoàn toàn thiết bị điện tử",
+            "explanation": "The source specifies a ban on electronic devices in exam rooms; it does not state a total ban throughout the test sites (outlet:p015)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "bị hủy kết quả ngay lập tức",
+            "explanation": "The source says results will be invalidated but gives no immediate timing (outlet:p017)."
+          },
+          {
+            "kind": "number",
+            "summary_text": "bị cấm thi đến ba năm",
+            "explanation": "The current penalty bars offenders from taking the exam next year. A three-year ban is being pursued, not yet stated as the rule (outlet:p017)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "Readers are told the three-year exam ban already applies.",
+            "fix": "State that the current ban covers next year’s exam and that the government is moving to extend it to three years (outlet:p017)."
+          },
+          {
+            "question": "notable",
+            "problem": "The device ban appears to cover the entire test site.",
+            "fix": "Specify that electronic devices are banned from exam rooms (outlet:p015)."
+          },
+          {
+            "question": "notable",
+            "problem": "The summary adds an immediate deadline for invalidating results.",
+            "fix": "Say results will be invalidated without specifying when (outlet:p017)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "ced821ff9c93a558da2e8ca331a1968a08a272d64717f713e8ed17d1a75f0b92",
+        "scored_at": "2026-11-16T07:25:30.824619+00:00"
+      }
+    },
+    {
+      "id": "af8c6e2b4ef91c4c6ed3",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-16/how-dual-class-stock-entrenches-founder-control-at-anthropic-spacex-google",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "5cf110d268b15981ed34"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "342b0ee989b95ecb004b",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The article focuses on Indian macroeconomic market performance and oil prices, with the global AI trade unwinding mentioned only incidentally.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-16/india-to-benefit-from-unwinding-of-ai-trade-top-official-says",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "a2fe60cb9b0f4f63bd8e"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "1fe2672ad8f8845e28f5",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.wsj.com/tech/ai/nvidias-days-as-an-open-checkbook-for-the-ai-economy-are-numbered-90c7b388",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "47bee9aad0ceea44d2ba"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "c360b04f134d791430bd",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The article focuses on foreign exchange markets and the depreciation of the Taiwan dollar; the AI boom is cited only as incidental macroeconomic context rather than being the main subject.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-15/new-taiwan-dollar-currency-paradox-ai-boom-twd-nt-tsmc-hon-hai",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c4ead751a549456a669c"
+      ],
+      "split_coverage_ids": []
     }
   ]
 }
