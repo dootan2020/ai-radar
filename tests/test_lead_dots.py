@@ -54,6 +54,60 @@ class LeadDots(unittest.TestCase):
         self.assertIn("height: var(--btn-h);", re.search(r"\.pager-dots button \{([^}]*)\}", css).group(1))
 
 
+TAP_HARNESS = r"""
+let shown = null;
+const showSlide = (lead, n) => { shown = n; };
+__TAP__
+const lead = { dataset: { slide: '1' } };
+const dots = { closest: () => lead, getBoundingClientRect: () => ({ left: 20, width: 92 }) };   // the row spans 20..112
+const button = slide => ({ closest: () => ({ dataset: { slide: String(slide) } }) });
+const row = { closest: () => null };
+const press = (target, e) => { shown = null; lead.dataset.slide = '1'; onDotsClick(e, target, dots); return shown; };
+const out = {
+  touchLeftHalf: press(button(0), { detail: 1, pointerType: 'touch', clientX: 40 }),
+  touchRightHalfOnLastDot: press(button(3), { detail: 1, pointerType: 'touch', clientX: 100 }),
+  touchBesideTheRow: press(row, { detail: 1, pointerType: 'touch', clientX: 10 }),
+  penRightHalf: press(button(2), { detail: 1, pointerType: 'pen', clientX: 90 }),
+  mouseOnADot: press(button(3), { detail: 1, pointerType: 'mouse', clientX: 100 }),
+  mouseBesideTheRow: press(row, { detail: 1, pointerType: 'mouse', clientX: 120 }),
+  keyboardOnADot: press(button(3), { detail: 0, pointerType: '', clientX: 0 }),
+};
+process.stdout.write(JSON.stringify(out));
+"""
+
+
+class LeadDotsTap(unittest.TestCase):
+    """Captain, 16/11 10:57 ("Làm theo em"): the 16 px dots are too small to touch, so the row answers a finger the way iOS
+    page dots do, left half one story back, right half one forward, over a 44 px tall strip; the row keeps the look approved in #176."""
+
+    @unittest.skipUnless(shutil.which("node"), "Node required for the carousel test")
+    def test_a_touch_steps_by_half_and_a_mouse_or_key_picks_the_dot(self):
+        feed = (SITE / "feed.js").read_text(encoding="utf-8")
+        start = feed.index("function onDotsClick(e, t, dots) {")
+        tap = feed[start:feed.index("\n}\n", start) + 2]
+        with tempfile.TemporaryDirectory() as tmp:
+            harness = Path(tmp) / "tap.mjs"
+            harness.write_text(TAP_HARNESS.replace("__TAP__", "let dotsPointer = 'mouse';\n" + tap), encoding="utf-8", newline="\n")
+            run = subprocess.run(["node", str(harness)], capture_output=True, text=True, encoding="utf-8", timeout=60)
+        self.assertEqual(run.returncode, 0, run.stderr)
+        self.assertEqual(json.loads(run.stdout), {
+            "touchLeftHalf": 0, "touchRightHalfOnLastDot": 2, "touchBesideTheRow": 0, "penRightHalf": 2,
+            "mouseOnADot": 3, "mouseBesideTheRow": 2, "keyboardOnADot": 3})
+        click = feed[feed.index("function onClick(e) {"):]
+        self.assertIn("const dots = t.closest('.lead-dots');\n  if (dots) { onDotsClick(e, t, dots); return; }", click.replace("\r\n", "\n"))
+
+    def test_the_touch_strip_is_the_rows_height_and_draws_nothing(self):
+        for folder in (SITE, ROOT / "extension"):
+            css = (folder / "trang-msn.css").read_text(encoding="utf-8")
+            strip = re.search(r"\.lead-dots::after \{([^}]*)\}", css).group(1)
+            self.assertIn('content: "";', strip)
+            self.assertIn("inset: 0 calc(-1 * var(--space-12));", strip)   # top and bottom 0: the row's 44 px
+            self.assertIn("z-index: -1;", strip)                           # under the dots' buttons
+            for prop in ("background", "box-shadow", "border", "outline"):
+                self.assertNotIn(prop, strip, folder.name)
+            self.assertIn("height: var(--btn-h);", re.search(r"\.pager-dots button \{([^}]*)\}", css).group(1))
+
+
 class PagerDots(unittest.TestCase):
     """Captain, 10/11 18:54: "2 dấu chấm của thẻ thời tiết nó nằm xa nhau quá / các dấu chấm trên carousel thì có viền, bỏ
     viền đi. bảo đảm các dấu chấm trên carousel phải đồng bộ với nhau". One dot style for every row of dots, no ring."""

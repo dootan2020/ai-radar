@@ -1187,8 +1187,9 @@ function renderNext() {
   if (!it && !e) return '';
   const live = !!it && it.status === 'live';
   const rows = it ? [] : events.slice(1, 1 + EV_ROWS);
-  const all = events.length > 1 + rows.length
-    ? `<a class="ev-all" href="#sap-toi"><span>Xem cả <span class="num">${events.length}</span><span class="sr"> sự kiện</span></span></a>` : '';
+  // The card always leads to "Sự kiện" (captain, 16/11 10:57): from 768 px there is no dock, so when the card already
+  // showed every event the desktop had no way in.
+  const all = '<a class="ev-all" href="#sap-toi"><span>Xem tất cả<span class="sr"> sự kiện</span></span></a>';
   const stream = it ? `<a class="ev-stream" href="${esc(safe(it.url))}" target="_blank" rel="noopener"${playAttr(it)}>
       <span class="ev-stream-k${live ? ' is-live' : ''}">${live ? '<span class="cd-dot" aria-hidden="true"></span>Trực tiếp' : esc(scheduleText(it.time_text))}${live && it.channel ? ` · ${esc(it.channel)}` : ''}</span>
       <span class="ev-stream-t"${langAttr(it.title)}>${esc(it.title)}</span></a>
@@ -2293,6 +2294,17 @@ function showSlide(lead, n) {
   slides.forEach((el, i) => { el.classList.toggle('is-active', i === k); el.inert = i !== k; });
   lead.querySelectorAll('.lead-dots button').forEach((b, i) => b.setAttribute('aria-current', String(i === k)));
   lead.dataset.slide = String(k);
+}
+/* The dots answer a finger the way iOS page dots do (captain, 16/11 10:57): a touch on the left half of the row goes back
+   one story, on the right half forward one, so nobody has to land on a 16 px dot. The row and the strip under it
+   (trang-msn.css, .lead-dots::after) are 44 px tall and reach the card's edge. A mouse click on a dot, and Enter or Space
+   on a focused one, still pick that story; a mouse click beside the dots steps as a touch does. */
+let dotsPointer = 'mouse';
+function onDotsClick(e, t, dots) {
+  const lead = dots.closest('.msn-lead'), dot = t.closest('button');
+  if (dot && (!e.detail || (e.pointerType || dotsPointer) === 'mouse')) { showSlide(lead, +dot.dataset.slide); return; }
+  const r = dots.getBoundingClientRect();
+  showSlide(lead, (+lead.dataset.slide || 0) + (e.clientX < r.left + r.width / 2 ? -1 : 1));
 }
 /* With no prev/next buttons, a horizontal swipe on the card moves one story (left = next); a vertical one still scrolls. */
 const SWIPE_MIN = 40;
@@ -3480,8 +3492,8 @@ function onClick(e) {
     else toast('Đã đánh dấu nhóm này đã xem');
     return;
   }
-  const dot = t.closest('.lead-dots button');
-  if (dot) { showSlide(dot.closest('.msn-lead'), +dot.dataset.slide); return; }
+  const dots = t.closest('.lead-dots');
+  if (dots) { onDotsClick(e, t, dots); return; }
   onOpenLink(e);
 }
 /* Opening a story by any link (left, middle or keyboard) marks it seen. */
@@ -3553,7 +3565,7 @@ function attachEvents() {
   $('#reset-filter-btn').addEventListener('click', () => setFilter('all'));
   // A waiting snapshot (applyPending) lets a scroll, a held finger or button finish before it changes the page.
   window.addEventListener('scroll', onPendingScroll, { passive: true });
-  document.addEventListener('pointerdown', () => { pointerDown = true; }, { capture: true, passive: true });
+  document.addEventListener('pointerdown', e => { pointerDown = true; dotsPointer = e.pointerType; }, { capture: true, passive: true });
   for (const type of ['pointerup', 'pointercancel']) document.addEventListener(type, () => { pointerDown = false; }, { capture: true, passive: true });
   window.addEventListener('blur', () => { pointerDown = false; });
   if (typeof ResizeObserver !== 'undefined') new ResizeObserver(measureBar).observe($('#bar'));

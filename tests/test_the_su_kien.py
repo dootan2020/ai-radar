@@ -205,7 +205,9 @@ class RenderedCard(unittest.TestCase):
                          [("NeurIPS 2026 — Paris", "9–13 thg 12 · Paris", "28 ngày"),
                           ("NeurIPS 2026 — Atlanta", "9–13 thg 12 · Atlanta", "28 ngày")])
         self.assertEqual(card["order"], [".ev-head", ".ev-count", ".ev-ruler", ".ev-link", ".calbtn", ".ev-more"])
-        self.assertIsNone(card["all"])
+        # Every event already shows, and the card still leads to "Sự kiện" (captain, 16/11 10:57): from 768 px there is
+        # no dock, so this link is the desktop's way in.
+        self.assertEqual(card["all"], "Xem tất cả sự kiện")
         for name in ("ba-1440", "ba-1024", "ba-375"):
             self.assertTrue(all(r["h"] >= 44 for r in self.runs[name]["card"]["rows"]), name)
 

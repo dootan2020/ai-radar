@@ -305,6 +305,10 @@
    dots move the story. */
 .msn-lead { touch-action: pan-y; }
 .lead-dots { position: absolute; top: 0; left: var(--space-12); z-index: 3; padding-inline: var(--space-6); }
+/* The row's touch area (captain, 16/11 10:57: a touch on its left half goes back one story, on its right half forward one;
+   feed.js onDotsClick): the row's own 44 px height, widened under the dots to the card's left edge and as far past the
+   last dot, so each half is wider than a finger. It draws nothing and sits under the dots' buttons. */
+.lead-dots::after { content: ""; position: absolute; inset: 0 calc(-1 * var(--space-12)); z-index: -1; }
 
 /* ---------- "Chuyện lớn": a numbered list ---------- */
 /* A card's header: the head zone of tokens.css (--card-head-*), the same on every card of a band. */
@@ -1162,6 +1166,7 @@
   .slide-box { position: relative; left: auto; right: auto; bottom: auto; padding: var(--space-8) var(--space-12) var(--space-12); }
   .slide.no-photo .slide-box { inset: auto; }
   .lead-dots { left: var(--space-8); }
+  .lead-dots::after { inset-inline: calc(-1 * var(--space-8)); }
   /* The lead's headline is the page's most important sentence: on a phone it is never cut. */
   .slide-title { font-size: var(--text-title); display: block; -webkit-line-clamp: unset; overflow: visible; }
   .slide.no-photo .slide-title { font-size: var(--text-tile); }

@@ -97,6 +97,10 @@ const MEASURE = () => {
     let pastX = 0, pastY = 0;
     for (const el of card.querySelectorAll('*')) {
       if (!shown(el) || el.closest('.sr') || el.classList.contains('sr')) continue;
+      // "Xem tất cả" lends its 8 px side padding to the card's padding, so its words end on the card's edge and its
+      // hover chip and touch target reach past them (trang-msn.css .ev-all). Its words are measured, not that chip:
+      // since 16/11 every card carries the link (captain, 10:57), where before only a card hiding events did.
+      if (el.classList.contains('ev-all')) continue;
       const b = r(el);
       pastX = Math.max(pastX, b.right - inner.right, inner.left - b.left);
       pastY = Math.max(pastY, b.bottom - inner.bottom);
