@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-16T07:30:43.475317+00:00",
-  "input_generated_at": "2026-11-16T06:45:41Z",
+  "generated_at": "2026-11-16T09:26:31.325091+00:00",
+  "input_generated_at": "2026-11-16T08:46:16Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -75961,16 +75961,17 @@
       "use_original_title": false,
       "source_url": "https://technode.com/2026/11/16/tencent-publishes-all-hands-notes-urging-teams-to-rebuild-their-businesses-around-ai/",
       "key_points": [
-        "Tencent công bố biên bản cuộc họp toàn thể nhân dịp kỷ niệm, văn bản từng dấy lên đồn đoán sa thải vào tuần trước. Ban lãnh đạo kêu gọi mảng cốt lõi đưa AI vào sản phẩm hiện có, lập nhóm nhỏ phát triển sản phẩm mới và tinh gọn bộ máy quản lý.",
-        "Tài liệu phân chia vai trò cụ thể cho Xiaowei, Yuanbao và WorkBuddy trong các dòng sản phẩm AI dành cho người dùng và nơi làm việc. Tencent xem Xiaowei là trợ lý cá nhân, Yuanbao hỗ trợ nghiên cứu và ra quyết định, còn WorkBuddy là tác nhân AI (chương trình phần mềm tự hành) có khả năng thay mặt người dùng xử lý công việc.",
-        "Theo ban lãnh đạo, WorkBuddy là sản phẩm AI gốc đầu tiên đạt sức hút, trong khi các nhóm game, tài chính và bảo mật cùng tham gia phát triển năng lực cho các mô hình Hy."
+        "Tencent công bố biên bản cuộc họp toàn thể kỷ niệm hôm thứ Hai, sau khi cuộc họp này dấy lên đồn đoán sa thải tuần trước. Ban lãnh đạo kêu gọi mảng cốt lõi đưa AI vào sản phẩm hiện có và cho các nhóm nhỏ xây dựng sản phẩm mới.",
+        "Biên bản phân định vai trò cụ thể cho các sản phẩm AI của Tencent. Hãng xem Xiaowei là trợ lý cá nhân, Yuanbao là công cụ nghiên cứu và ra quyết định, còn WorkBuddy là tác nhân AI (phần mềm tự hành) thay mặt người dùng làm việc.",
+        "Ban lãnh đạo chỉ ra WorkBuddy là sản phẩm AI gốc đầu tiên đạt sức hút. Họ cho biết các nhóm game, tài chính và an ninh đã cùng phát triển năng lực cho các mô hình Hy.",
+        "Ban lãnh đạo cũng kêu gọi giảm bớt tầng nấc quản lý và đẩy nhanh việc ra quyết định."
       ],
       "same_event_coverage_ids": [
         "8f9b6d8b0751aafdc2e6"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Tencent công bố biên bản cuộc họp toàn thể, yêu cầu các mảng cốt lõi ứng dụng AI và tinh gọn quản lý",
+      "editorial_headline_vi": "Tencent yêu cầu mảng cốt lõi dùng AI, giảm tầng nấc quản lý và đẩy nhanh ra quyết định",
       "summary_sources": [
         {
           "id": "outlet",
@@ -75983,39 +75984,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.6,
+        "value": 10.0,
         "answers": {
-          "what": 8,
-          "why": 8,
+          "what": 10,
+          "why": 10,
           "notable": 10,
-          "meaning": 8
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "văn bản từng dấy lên đồn đoán sa thải vào tuần trước",
-            "explanation": "The source says the meeting sparked layoff speculation last week; Tencent published the notes on Monday (outlet:p002)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "what",
-            "problem": "The Vietnamese attributes last week’s layoff speculation to the notes instead of the meeting.",
-            "fix": "Say the anniversary all-hands meeting sparked the speculation and Tencent later published its notes (outlet:p002)."
-          },
-          {
-            "question": "meaning",
-            "problem": "The management proposal loses its intended effect.",
-            "fix": "Add that executives called for faster decision-making alongside fewer management layers (outlet:p002)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "465f56281343026675a643c983707868062291ca42b37fc61c8c8e376406924f",
-        "scored_at": "2026-11-16T07:25:30.824387+00:00"
+        "prose_sha256": "656923a3b04ca310c9b7dd874583aefde49870d78bd8495ba0e04e16103c8a44",
+        "scored_at": "2026-11-16T09:26:31.304744+00:00"
       }
     },
     {
@@ -76311,10 +76295,10 @@
       "use_original_title": false,
       "source_url": "https://en.yna.co.kr/view/AEN20261116005500315",
       "key_points": [
-        "Giới chức giáo dục Hàn Quốc đang ráo riết siết chặt kỷ luật trước làn sóng gian lận bằng thiết bị hỗ trợ trí tuệ nhân tạo (AI) ngay trước kỳ thi tuyển sinh đại học quốc gia. Thủ tướng Han Seong-sook đã yêu cầu huy động toàn bộ năng lực quốc gia nhằm ngăn ngừa các sai phạm công nghệ cao trong kỳ thi này.",
-        "Theo Yonhap, sự phẫn nộ bùng lên sau khi thủ khoa kỳ thi kế toán thuế thú nhận dùng camera thu nhỏ và AI tạo sinh để gian lận trót lọt. Trước đó, bốn học sinh trung học cũng bị bắt quả tang dùng kính AI có khả năng quét đề và đưa ra lời giải trong vài giây.",
-        "Tại kỳ thi tuyển sinh năm nay, nhà chức trách cấm hoàn toàn thiết bị điện tử và bố trí nhân viên phát hiện kính AI tại 1.312 điểm thi. Thí sinh vi phạm sẽ bị hủy kết quả ngay lập tức, bị cấm thi đến ba năm và có thể bị xử lý hình sự.",
-        "Dư luận vẫn lo ngại về hiệu quả ngăn chặn gian lận thực tế, theo Yonhap, khi vẫn còn nhiều nghi ngại liệu các biện pháp của chính phủ có thể thực sự ngăn chặn thiết bị thông minh trong kỳ thi này hay không."
+        "Giới chức giáo dục Hàn Quốc đang khẩn trương ngăn chặn gian lận bằng thiết bị AI trước kỳ thi đại học quốc gia tuần này. Thủ tướng Han Seong-sook yêu cầu dồn lực ngăn ngừa sai phạm, trong khi nhân viên phát hiện kính AI được cử đến 1.312 điểm thi.",
+        "Theo Yonhap, dư luận phẫn nộ sau khi thủ khoa kỳ thi kế toán thuế thú nhận dùng camera siêu nhỏ, điện thoại và AI tạo sinh để gian lận. Thí sinh này chỉ làm sai 1 trên 160 câu ở vòng một, làm dấy lên lo ngại về nguy cơ gian lận công nghệ cao lan rộng.",
+        "Tại kỳ thi đại học, mọi thiết bị điện tử bị cấm mang vào phòng thi và thí sinh chỉ được đem dụng cụ viết cùng giấy nháp. Người vi phạm sẽ bị hủy kết quả và cấm thi năm tới, đồng thời chính phủ đang xúc tiến kéo dài thời gian cấm lên ba năm.",
+        "Dù vậy, theo Yonhap, nhiều lo ngại vẫn tồn tại về việc liệu các biện pháp của chính phủ có thể ngăn chặn hiệu quả thiết bị thông minh. Bộ Giáo dục chưa áp dụng máy dò thiết bị trong kỳ thi năm nay, còn một quan chức bộ cho rằng việc khám xét thân thể là khó khả thi."
       ],
       "same_event_coverage_ids": [
         "9d763f01258db21c13f9",
@@ -76322,7 +76306,7 @@
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Hàn Quốc triển khai nhân sự tại 1.312 điểm thi đại học để ngăn chặn gian lận bằng AI",
+      "editorial_headline_vi": "Hàn Quốc bố trí nhân viên phát hiện kính AI tại 1.312 điểm thi đại học để chống gian lận",
       "summary_sources": [
         {
           "id": "outlet",
@@ -76335,45 +76319,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.0,
+        "value": 9.85,
         "answers": {
           "what": 10,
-          "why": 9,
-          "notable": 5,
-          "meaning": 8
+          "why": 10,
+          "notable": 10,
+          "meaning": 9
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "cấm hoàn toàn thiết bị điện tử",
-            "explanation": "The source specifies a ban on electronic devices in exam rooms; it does not state a total ban throughout the test sites (outlet:p015)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "bị hủy kết quả ngay lập tức",
-            "explanation": "The source says results will be invalidated but gives no immediate timing (outlet:p017)."
-          },
-          {
-            "kind": "number",
-            "summary_text": "bị cấm thi đến ba năm",
-            "explanation": "The current penalty bars offenders from taking the exam next year. A three-year ban is being pursued, not yet stated as the rule (outlet:p017)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "notable",
-            "problem": "Readers are told the three-year exam ban already applies.",
-            "fix": "State that the current ban covers next year’s exam and that the government is moving to extend it to three years (outlet:p017)."
-          },
-          {
-            "question": "notable",
-            "problem": "The device ban appears to cover the entire test site.",
-            "fix": "Specify that electronic devices are banned from exam rooms (outlet:p015)."
-          },
-          {
-            "question": "notable",
-            "problem": "The summary adds an immediate deadline for invalidating results.",
-            "fix": "Say results will be invalidated without specifying when (outlet:p017)."
+            "question": "meaning",
+            "problem": "The reader misses the source’s concluding call for discussion of how educational assessment should change in the AI era.",
+            "fix": "If space permits, add that teachers’ representatives called for discussion of the Suneung and school grading practices (outlet:p024–p026)."
           }
         ],
         "writer_boats": [
@@ -76381,8 +76339,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "ced821ff9c93a558da2e8ca331a1968a08a272d64717f713e8ed17d1a75f0b92",
-        "scored_at": "2026-11-16T07:25:30.824619+00:00"
+        "prose_sha256": "78dbc0484dcf74fd601f4753988b0f6697fd7b53b3cc06321e39575653aad001",
+        "scored_at": "2026-11-16T09:26:31.304795+00:00"
       }
     },
     {
@@ -76465,6 +76423,440 @@
         "c4ead751a549456a669c"
       ],
       "split_coverage_ids": []
+    },
+    {
+      "id": "7d2fc185a476f908506b",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-16/bessent-says-nvidia-leadership-needs-dramatic-shakeup-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "2be5c459c58195e9acfd"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "0a314aa51390585502e8",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://en.yna.co.kr/view/AEN20261116008000315",
+      "key_points": [
+        "Tổng thống Hàn Quốc đề xuất sáng kiến AI với ASEAN, đồng thời cam kết bảo đảm mọi người đều được chia sẻ lợi ích từ những bước tiến của trí tuệ nhân tạo (AI). Đề xuất này được Tổng thống Lee Jae Myung đưa ra tại lễ khai mạc hội nghị thượng đỉnh ASEAN - Hàn Quốc ở Manila.",
+        "Xung đột địa chính trị và bất ổn kinh tế gia tăng là lý do ông Lee kêu gọi củng cố tình đoàn kết giữa hai bên.",
+        "Hướng tới thương mại hai chiều 300 tỷ USD mỗi năm là mục tiêu cụ thể khi hai bên đàm phán nâng cấp hiệp định thương mại tự do. Ngoài ra, Hàn Quốc còn đưa ra sáng kiến công nghiệp văn hóa sáng tạo dành cho thanh niên ASEAN.",
+        "Vai trò trụ cột của ASEAN trong hợp tác khu vực trở nên quan trọng hơn bao giờ hết giữa bối cảnh thế giới nhiều bất ổn, theo ông Lee. Nhà lãnh đạo này cam kết Hàn Quốc sẽ là đối tác hành động giúp thực hiện Tầm nhìn Cộng đồng ASEAN 2045."
+      ],
+      "same_event_coverage_ids": [
+        "de39a8e1c1eb588ecca2"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Hàn Quốc đề xuất sáng kiến AI cùng ASEAN và mục tiêu thương mại 300 tỷ USD",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "yonhap",
+          "url": "https://en.yna.co.kr/view/AEN20261116008000315"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.4,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The reader misses why Lee called ASEAN a key partner for South Korea.",
+            "fix": "Add his statement that ASEAN is a key partner in promoting lasting peace and stability on the Korean Peninsula (outlet:p007)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "e7aa73c3fcd810d6585c2fd5e7acce290367ec3a35deb38b6857fab8365c4baf",
+        "scored_at": "2026-11-16T09:17:21.861404+00:00"
+      }
+    },
+    {
+      "id": "6ffb91e5018494719f3f",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.scmp.com/tech/article/3374568/chinas-moonshot-ai-puts-kimi-models-race-science-discoveries",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "2ccab52e6569bdbe01d1"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "702c7611436e4302c21d",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-16/tech-stocks-plunge-as-investors-await-anthropic-ipo-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "4ae13c2c860e2945b675"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "0608be5b9d39a07fc8c8",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://pandaily.com/ace-robotics-ace-cap-0-code-as-policies-reusable-robot-skills",
+      "key_points": [
+        "ACE Robotics công bố phương pháp ACE-CaP-0, trong đó tác nhân AI (chương trình tự hành) viết và đóng băng mã điều khiển robot thành các kỹ năng tái sử dụng.",
+        "Nhóm tác giả giải thích việc gọi mô hình lớn liên tục làm chậm robot, trong khi mã hoàn chỉnh giúp tái sử dụng suy luận mà không cần quá nhiều thử nghiệm vật lý tốn kém.",
+        "Trong các bài kiểm tra do tác giả thực hiện trên 8 tác vụ thực tế, chương trình đóng băng thành công 221 trên 240 lượt thử nghiệm, đạt 92,1%. Có tổng cộng 7 tác vụ đạt ít nhất 90%, bao gồm cắm sạc đạt 100%, với thời gian thực hiện trung bình từ 0,97 đến 2,27 phút mỗi tác vụ.",
+        "Các chương trình này vận hành bằng cảm nhận và điều khiển riêng của robot mà không cần người hay tác nhân lập trình can thiệp. Tuy vậy, kết quả chỉ đo trên một thiết lập hai cánh tay robot do nhóm tự chọn và chưa được tái lập độc lập."
+      ],
+      "same_event_coverage_ids": [
+        "3f02a7b56b6c1dda2a32"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "AI tự viết mã điều khiển robot đạt tỷ lệ 92,1% trong thử nghiệm của tác giả theo ACE-CaP-0",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "pandaily",
+          "url": "https://pandaily.com/ace-robotics-ace-cap-0-code-as-policies-reusable-robot-skills"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.5,
+        "answers": {
+          "what": 8,
+          "why": 6,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "cause",
+            "summary_text": "mã hoàn chỉnh giúp tái sử dụng suy luận mà không cần quá nhiều thử nghiệm vật lý tốn kém",
+            "explanation": "The source says finished code reuses reasoning, but describes avoiding too many costly physical trials as a challenge in developing reliable code. It does not say finished code itself solves that challenge (outlet:p002)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The reader misses how the agent develops the skills.",
+            "fix": "Add that it can request human demonstrations, use simulation selectively, and revise code from real-robot feedback (outlet:p003–p007)."
+          },
+          {
+            "question": "why",
+            "problem": "The wording presents fewer physical trials as an effect of completed code.",
+            "fix": "State separately that repeated model calls slow execution and that developing reliable code without excessive physical trials is difficult (outlet:p002)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "6c1b47e155c0ba0a3b9cd1b1df0ba612560947b73d45cfd412209ad32dcbd358",
+        "scored_at": "2026-11-16T09:22:06.100753+00:00"
+      }
+    },
+    {
+      "id": "33c884fab55407878f98",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://pandaily.com/huawei-xiaoyi-ai-membership-credit-plans-xiaoyi-work-harmonyos",
+      "key_points": [
+        "Huawei thông báo ra mắt gói hội viên trả phí cho trợ lý AI Xiaoyi trên HarmonyOS và Windows vào ngày 16 tháng 11, gộp các tính năng trước đây vào một hệ thống tín chỉ.",
+        "Hệ thống tính điểm theo độ phức tạp công việc, từ 1 đến 5 tín chỉ cho tác vụ nhẹ và 50 đến 200 tín chỉ cho tác vụ tác nhân AI (chương trình tự hành) phức tạp. Chỉ các tính năng tác nhân nâng cao trên đám mây mới bị trừ điểm theo lượt, còn tính năng cơ bản trên thiết bị không tốn tín chỉ.",
+        "Theo IT Home và MyDrivers, gói khởi điểm có giá 49 nhân dân tệ mỗi tháng khi gia hạn tự động gồm 1.000 tín chỉ, trong khi gói Max giá 499 nhân dân tệ kèm 15.000 tín chỉ. Gói miễn phí giới hạn thời gian cũng cấp 200 tín chỉ mỗi tháng để người dùng trải nghiệm trước khi trả tiền.",
+        "Dù vậy, Pandaily ghi nhận Huawei chưa công bố mô hình nào xử lý từng tác vụ cũng như chưa đưa ra danh mục chi phí tín chỉ đầy đủ ngoài các mức ước tính."
+      ],
+      "same_event_coverage_ids": [
+        "b4705bdceda3d962e0bd"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Huawei ra mắt gói hội viên AI Xiaoyi theo tín chỉ với giá từ 49 nhân dân tệ mỗi tháng khi gia hạn tự động",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "pandaily",
+          "url": "https://pandaily.com/huawei-xiaoyi-ai-membership-credit-plans-xiaoyi-work-harmonyos"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.9,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 8,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The plan comparison omits Pro and the cloud storage included with Pro and Max.",
+            "fix": "Add Pro at 199 yuan per month with 6,000 credits and 200GB, and Max’s 2TB of storage (outlet:p005–p006)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The reader misses two practical options for using the membership.",
+            "fix": "Mention subscription and credit checks in Xiaoyi’s system-settings page, and the option to buy credit top-ups (outlet:p001, outlet:p007)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "87b040a9a66f553f722b7d35bb6451594d0a2332816cdd6f8019eb15918331d0",
+        "scored_at": "2026-11-16T09:22:06.100802+00:00"
+      }
+    },
+    {
+      "id": "0fb81f592c762340bfe4",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://technode.com/2026/11/16/tencent-launches-hy4-flash-cutting-ai-task-costs-by-95-in-internal-tests/",
+      "key_points": [
+        "Tencent launched Hy4 flash on Monday as a lower-cost multimodal AI model designed for tasks like research, slide creation, and spreadsheet editing.",
+        "Hy4 flash has 224 billion total parameters, activates 12 billion per forward pass, and supports a context window of up to one million tokens.",
+        "On Tencent's internal WorkIndex benchmark, Hy4 flash cost one-twentieth as much per task as the full Hy4 model.",
+        "API list prices for Hy4 flash are $0.07 per million input tokens, $0.281 per million output tokens, and $0.003 per million cached input tokens.",
+        "The model is available in WorkBuddy, Yuanbao, and Tencent Cloud's TokenHub, with plans to release weights and launch on OpenRouter."
+      ],
+      "same_event_coverage_ids": [
+        "9ae06c03e7200390d18a"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "de38eff22c5a8ae67697",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://technode.com/2026/11/16/deepseek-users-report-chat-limits-as-the-service-cites-capacity-constraints/",
+      "key_points": [
+        "Người dùng DeepSeek phản ánh các giới hạn sử dụng mới trên ứng dụng và trang web của công ty vào Chủ nhật. Theo Pandaily, các hạn chế này diễn ra trên dịch vụ trò chuyện miễn phí dù DeepSeek chưa chính thức xác nhận.",
+        "Một số người nhận được thông báo giải thích rằng hệ thống thiếu năng lực tính toán để khôi phục các cuộc trò chuyện dài ngưng hoạt động hơn 7 ngày.",
+        "Người dùng cũng phản ánh câu lệnh bị giới hạn khoảng 40.000 ký tự tiếng Trung và hệ thống hiển thị cảnh báo khi dùng hết hạn mức hàng ngày.",
+        "Theo IT Home, các hạn chế này khiến người dùng làm việc qua nhiều phiên có thể mất khả năng tiếp tục các cuộc trò chuyện dài. DeepSeek chưa thông báo thời điểm dỡ bỏ, trong khi trang trạng thái của công ty ghi nhận 8 sự cố kể từ tháng 10 ảnh hưởng tới dịch vụ trò chuyện và API."
+      ],
+      "same_event_coverage_ids": [
+        "2d28069f196e1102d81f",
+        "8ca07dc06d28edd24bc6"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Người dùng phản ánh ứng dụng và trang web DeepSeek bị giới hạn câu lệnh cùng hạn mức ngày",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "technode",
+          "url": "https://technode.com/2026/11/16/deepseek-users-report-chat-limits-as-the-service-cites-capacity-constraints/"
+        },
+        {
+          "id": "coverage1",
+          "role": "coverage",
+          "name": "pandaily",
+          "url": "https://pandaily.com/deepseek-app-web-usage-limits-daily-quota-long-conversations-user-reports"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "e59ee7432a0efd815ee3b4aa2a284bbececea1b7a3e82efb4edea2e381646a2c",
+        "scored_at": "2026-11-16T09:22:06.100831+00:00"
+      }
+    },
+    {
+      "id": "adf65f70bcfc77d468e6",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theguardian.com/technology/2026/nov/16/ai-related-child-sexual-abuse-material-rise-exploitation-deepfakes",
+      "key_points": [
+        "Báo cáo về việc dùng AI để bóc lột tình dục trẻ em tăng hơn 8.400% trong hai năm theo Childlight, dù việc cải thiện phát hiện và báo cáo có thể giải thích một phần mức tăng.",
+        "Nghiên cứu khảo sát báo cáo do các công ty công nghệ gửi đến Trung tâm Quốc gia về Trẻ em Mất tích và Bị bóc lột của Mỹ. Những hình ảnh này tuy giả mạo nhưng có thể bị dùng tống tiền trẻ em yêu cầu tiền hoặc thêm hình ảnh.",
+        "Tổ chức Childlight cho biết tài liệu lạm dụng trẻ em liên quan AI tăng từ khoảng 4.700 năm 2023 lên hơn 400.000 năm 2025, gồm hình ảnh dùng ứng dụng lột đồ.",
+        "Paul Stanfield, giám đốc điều hành Childlight, kêu gọi các chính phủ công nhận nạn bóc lột và lạm dụng tình dục trẻ em là tình trạng khẩn cấp y tế công cộng có thể phòng ngừa, đầu tư vào bằng chứng tốt hơn và hành động dựa trên đó. Ông cho rằng các chính phủ thường chưa có bức tranh đầy đủ về nơi trẻ bị xâm hại và những trẻ có nguy cơ cao nhất."
+      ],
+      "same_event_coverage_ids": [
+        "70af2b4b92c423988a80"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Báo cáo tài liệu bóc lột tình dục trẻ em dùng AI tăng hơn 8.400% lên hơn 400.000 vụ trong hai năm",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://www.theguardian.com/technology/2026/nov/16/ai-related-child-sexual-abuse-material-rise-exploitation-deepfakes"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": null
+    },
+    {
+      "id": "6acbb3beddcf2827d898",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/13/2026/bessent-knocks-lutnick-on-megaspeed",
+      "key_points": [
+        "Treasury Secretary Scott Bessent publicly blamed Commerce Secretary Howard Lutnick on CNBC for the administration's failure to blacklist AI firm Megaspeed.",
+        "Bessent stated that the Treasury Department had pushed to blacklist Megaspeed for months, but Commerce holds the authority.",
+        "Commerce Secretary Lutnick agreed to testify before Congress following allegations involving former Nvidia CEO Jensen Huang and a Megaspeed executive suspected of being a Chinese spy."
+      ],
+      "same_event_coverage_ids": [
+        "b040cb2d5e8a4fb8d1a8"
+      ],
+      "split_coverage_ids": [
+        "7b92bfb13da88672b0f7",
+        "b4feeee353a874552ba9"
+      ]
     }
   ]
 }
