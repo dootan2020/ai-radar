@@ -1,0 +1,160 @@
+/* Halcyon · the shell of the pages beside the front page: Bản tin, Nguồn tin, a story's page (/tin/<id>/), Chính sách and
+   the 404 page. Captain, 16/11 ("Duyệt theo em", decision 1): they wear the front page's shell and cards, so a reader who
+   steps off the front page stays on the same site. The front page draws it in trang-msn.css (.msn-top, .msn-panel,
+   .msn-head); this file draws the same two layers from the same tokens, without loading the front page's 117 KB
+   stylesheet: a top row with "Tùy chỉnh" and the Google apps at the top right, then a tinted panel whose header row holds
+   the Coral Tile and "halcyon", and white cards with --msn-card-r inside it. Light and dark are chosen in "Tùy chỉnh"
+   (trang-phu.js), never in the header (captain, 11/11 13:54). No outline anywhere (captain, 08/11 21:08). */
+
+/* ---------- a page that loads no other stylesheet (404.html): the base the others get from feed.css ---------- */
+.phu-alone { margin: 0; background: var(--color-canvas); color: var(--color-ink); font-family: var(--family); font-size: var(--text-body);
+  line-height: var(--leading-body); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; overflow-x: clip; }
+.phu-alone *, .phu-alone *::before, .phu-alone *::after { box-sizing: border-box; }
+.phu-alone a { color: inherit; text-decoration: none; }
+.phu-alone button, .phu-alone input { font: inherit; color: inherit; }
+.phu-alone h1, .phu-alone h2, .phu-alone p { margin: 0; }
+.phu-alone .i { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.phu-alone .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.phu-alone .skip { position: fixed; left: var(--space-16); top: -80px; z-index: 100; padding: var(--space-12) var(--space-16);
+  border-radius: var(--radius-12); background: var(--color-ink); color: var(--color-surface); transition: top var(--motion-feedback) var(--ease-flow); }
+.phu-alone .skip:focus { top: var(--space-16); }
+.phu-alone :focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
+
+/* ---------- the top row ---------- */
+.phu-top { padding: var(--top-pad) var(--msn-page-pad) 0; }
+.phu-top-in {
+  max-width: var(--msn-panel-max); margin: 0 auto var(--space-16);
+  display: flex; align-items: center; justify-content: flex-end; gap: var(--space-8); min-height: var(--btn-h);
+}
+.phu-top .masthead-actions { display: flex; align-items: center; gap: var(--space-8); margin-inline-start: auto; }
+.phu-top .tool-launcher { margin-inline-start: 0; }
+.phu-top .top-tile, .phu-top .tool-launcher-button {
+  display: grid; place-items: center; width: var(--btn-h); height: var(--btn-h); padding: 0; border: 0; border-radius: var(--radius-8);
+  background: var(--top-tile); color: var(--top-ink); cursor: pointer;
+  transition: background-color var(--duration-150) ease, transform var(--duration-150) var(--ease-press);
+}
+.phu-top .top-tile .i { width: var(--top-icon); height: var(--top-icon); stroke-width: 2; }
+.phu-top .top-tile:hover, .phu-top .top-tile[aria-expanded="true"],
+.phu-top .tool-launcher-button:hover, .phu-top .tool-launcher-button[aria-expanded="true"] { background: var(--top-tile-on); color: var(--top-ink); }
+.phu-top .top-tile:active, .phu-top .tool-launcher-button:active { transform: scale(0.96); }
+.phu-top .top-tile:focus-visible, .phu-top .tool-launcher-button:focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
+
+/* ---------- the panel and its header row ---------- */
+.phu-panel {
+  box-sizing: border-box; display: block;
+  max-width: var(--msn-panel-max); margin: 0 max(var(--msn-page-pad), calc((100% - var(--msn-panel-max)) / 2)) var(--space-48);
+  padding: var(--msn-panel-pad);
+  background: var(--color-panel-front); border: 0; border-radius: var(--msn-panel-r); box-shadow: var(--msn-shadow-panel);
+  min-height: calc(100svh - var(--top-pad) - var(--btn-h) - var(--space-16) - var(--space-48));
+}
+.phu-head { display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-8) var(--space-16); min-height: var(--msn-search-h); margin-bottom: var(--space-8); }
+.phu-head .brand {
+  flex: none; display: inline-flex; align-items: center; gap: var(--space-8); min-height: var(--btn-h); padding: 0 var(--space-6);
+  border-radius: var(--radius-8); color: var(--color-ink); text-decoration: none;
+}
+.phu-head .brand-tile { width: var(--msn-brand-tile); height: var(--msn-brand-tile); display: block; flex: none; }
+.phu-head .brand-name { font-size: var(--msn-brand-size); line-height: 1; font-weight: var(--weight-bold); letter-spacing: -0.055em; color: var(--color-ink); }
+.phu-head .brand:focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
+.phu-sections { display: flex; align-items: center; gap: var(--msn-tight); min-width: 0; }
+.phu-chip {
+  position: relative; display: inline-flex; align-items: center; height: var(--btn-h); padding: 0 var(--space-12); border-radius: var(--radius-8);
+  font-size: var(--text-small); font-weight: var(--weight-semibold); color: var(--color-ink-2); text-decoration: none; white-space: nowrap;
+  transition: background-color var(--duration-150) ease, color var(--duration-150) ease;
+}
+.phu-chip:hover:not([aria-current]) { background: var(--color-surface); color: var(--color-ink); }
+.phu-chip:focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
+/* The page the reader is on: the front page's section underline, under the label. */
+.phu-chip[aria-current="page"] { color: var(--color-ink); }
+.phu-chip[aria-current="page"]::after {
+  content: ""; position: absolute; left: var(--space-12); right: var(--space-12); bottom: var(--space-4);
+  height: var(--msn-tab-line); border-radius: var(--msn-tab-line); background: var(--color-accent-fill);
+}
+.phu-head .head-actions { display: flex; align-items: center; gap: var(--space-8); margin-inline-start: auto; flex: none; max-width: 100%; }
+/* "Bản tin sáng": the front page's coral pill (trang-msn.css .msn-head .ed-link), drawn here without feed.css. */
+.phu-head .ed-link {
+  position: relative; display: inline-flex; align-items: center; gap: var(--space-6); flex: none; min-height: var(--btn-h); padding: 0 var(--space-16);
+  border-radius: var(--radius-full); background: var(--color-accent-fill); color: var(--color-on-accent); text-decoration: none; white-space: nowrap;
+  font-size: var(--text-small); font-weight: var(--weight-bold); transition: background-color var(--duration-150) ease, transform var(--duration-150) var(--ease-press);
+}
+.phu-head .ed-link::before { display: none; }
+.phu-head .ed-link:hover { background: var(--color-accent-fill-hover); color: var(--color-on-accent-hover); }
+.phu-head .ed-link:active { transform: scale(0.97); }
+.phu-head .ed-link:focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
+.phu-head .ed-link .i { width: var(--msn-fav); height: var(--msn-fav); fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+/* A card inside the panel: white on the tinted panel, the front page's radius and resting shadow, no outline. */
+.phu-card {
+  box-sizing: border-box; background: var(--color-surface); color: var(--color-ink); border: 0;
+  border-radius: var(--msn-card-r); box-shadow: var(--msn-shadow-rest); padding: var(--space-24);
+}
+
+/* ---------- "Tùy chỉnh": a panel at the top right, grown out of its button (trang-phu.js) ---------- */
+/* The front page's sheet (trang-msn.css .tc-sheet) with what a sub-page can change: the theme, and the two pages the
+   front page's sheet also links (decision 4, 16/11). Non-blocking: the page stays usable behind it. */
+.phu-sheet {
+  --tc-top: calc(var(--top-pad) + var(--btn-h) + var(--space-8));
+  position: fixed; z-index: 80; top: var(--tc-top); right: var(--space-8);
+  width: min(var(--tc-w), calc(100vw - 2 * var(--space-8))); max-height: calc(100dvh - var(--tc-top) - var(--space-8));
+  box-sizing: border-box; overflow-y: auto; overscroll-behavior: contain; padding: var(--space-4) var(--space-12) var(--space-12);
+  background: var(--color-panel); color: var(--color-ink); border-radius: var(--msn-panel-r); box-shadow: var(--tc-shadow);
+  font-family: var(--family); line-height: var(--leading-body);
+  transform-origin: top right; opacity: 0; transform: translateY(calc(-1 * var(--space-4))) scale(0.98);
+  transition: opacity var(--duration-150) ease, transform var(--duration-150) var(--ease-exit);
+}
+.phu-sheet.is-open { opacity: 1; transform: none; transition: opacity var(--motion-state) var(--ease-flow), transform var(--motion-state) var(--ease-flow); }
+.phu-sheet[hidden] { display: none; }
+.phu-sheet:focus { outline: none; }
+.phu-sheet .tc-top { display: flex; align-items: center; justify-content: space-between; min-height: var(--btn-h); margin-bottom: var(--space-4); }
+.phu-sheet .tc-top h2 { margin: 0; padding-left: var(--space-4); font-size: var(--text-title); font-weight: var(--weight-bold); letter-spacing: -0.01em; }
+.phu-sheet .tc-close {
+  display: grid; place-items: center; width: var(--btn-h); height: var(--btn-h); padding: 0; border: 0; border-radius: var(--radius-8);
+  background: transparent; color: var(--color-ink-2); cursor: pointer;
+}
+.phu-sheet .tc-close:hover { background: var(--color-fill); color: var(--color-ink); }
+.phu-sheet .tc-close:focus-visible { outline: var(--focus-ring); outline-offset: var(--msn-tight); }
+.phu-sheet .i { width: var(--msn-fav); height: var(--msn-fav); flex: none; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.phu-sheet .tc-group { margin: 0 0 var(--space-8); padding: var(--space-12); border: 0; border-radius: var(--radius-12); background: var(--color-canvas); min-width: 0; }
+.phu-sheet .tc-group legend { float: left; width: 100%; margin: 0 0 var(--space-8); padding: 0; font-size: var(--text-meta); font-weight: var(--weight-semibold); color: var(--color-ink-2); }
+.phu-sheet .tc-group legend + * { clear: both; }
+.phu-sheet .tc-seg { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--msn-tight); padding: var(--msn-tight); border-radius: var(--radius-8); background: var(--color-seg-track); }
+.phu-sheet .tc-seg label {
+  display: grid; place-items: center; min-height: var(--btn-h); border-radius: var(--seg-thumb-r); font-size: var(--text-small); font-weight: var(--weight-medium);
+  color: var(--color-ink-2); cursor: pointer; transition: background-color var(--duration-150) ease, color var(--duration-150) ease;
+}
+.phu-sheet .tc-seg label:has(input:checked) { background: var(--color-seg-thumb); box-shadow: var(--msn-shadow-rest); color: var(--color-ink); font-weight: var(--weight-bold); }
+.phu-sheet .tc-seg label:has(input:focus-visible) { outline: var(--focus-ring); outline-offset: var(--msn-tight); }
+.phu-sheet .tc-row {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--space-12); min-height: var(--btn-h);
+  padding-inline: var(--space-4); margin-inline: calc(-1 * var(--space-4)); border-radius: var(--radius-8);
+  font-size: var(--text-small); font-weight: var(--weight-medium); color: inherit; text-decoration: none; transition: background-color var(--duration-150) ease;
+}
+.phu-sheet .tc-row:hover { background: var(--color-fill); }
+.phu-sheet .tc-row:focus-visible { outline: var(--focus-ring); outline-offset: var(--msn-tight); }
+.phu-sheet .tc-row .i { color: var(--color-ink-2); }
+.phu-sheet .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ---------- widths ---------- */
+@media (min-width: 768px) {
+  .phu-head { flex-wrap: nowrap; }
+}
+/* A phone: the panel meets the window's edges and only its top corners round, as on the front page; the sections give way
+   to the dock (menu-cong-cu.js), which carries the same destinations. */
+@media (max-width: 767px) {
+  .phu-top { padding: var(--space-8) var(--space-8) 0; }
+  .phu-top-in { margin-bottom: var(--space-8); }
+  .phu-panel { margin: 0 0 var(--space-32); padding: var(--space-12); border-radius: var(--msn-panel-r) var(--msn-panel-r) 0 0; }
+  .phu-head { gap: var(--space-8); }
+  .phu-head .brand-tile { width: var(--space-32); height: var(--space-32); }
+  .phu-head .brand-name { font-size: var(--text-tile); }
+  .phu-sections { display: none; }
+  .phu-card { padding: var(--space-16); }
+}
+
+/* Reduced motion keeps the fades and drops every movement (decision 7, 16/11). */
+@media (prefers-reduced-motion: reduce) {
+  .phu-sheet, .phu-sheet.is-open { transform: none; transition: opacity var(--motion-feedback) ease; }
+  .phu-top .top-tile:active, .phu-top .tool-launcher-button:active, .phu-head .ed-link:active { transform: none; }
+}
+@media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
+  .phu-sheet { box-shadow: var(--tc-shadow), 0 0 0 var(--msn-hair) var(--color-hair); }
+}

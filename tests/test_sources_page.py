@@ -28,7 +28,8 @@ class SourcesPageTestCase(unittest.TestCase):
             self.assertNotIn(removed, self.nguon_html)
 
     def test_directory_lists_every_source_by_name_without_counts_or_states(self):
-        self.assertIn("localeCompare(nameOf(b), 'vi')", self.nguon_js)
+        # Sorted by the name the reader sees (displayName drops a community mirror's note and emoji; w2, 16/11).
+        self.assertIn("localeCompare(displayName(b), 'vi')", self.nguon_js)
         for removed in ("s.count", "cleanErrorVi", "tin khớp", "nguồn chạy được", "Xếp hạng nóng", "startLive",
                         "Điểm đáng đọc", "Dữ liệu tạo lúc", "Lượt xem"):
             self.assertNotIn(removed, self.nguon_js)

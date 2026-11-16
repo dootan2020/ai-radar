@@ -1,9 +1,9 @@
-/* ai·radar · Trang Đọc Bản Tin Buổi Sáng (ban-tin.css)
-   Tuân thủ "Bento kiểu Apple" (Keynote posture) từ docs/ngon-ngu-thiet-ke.md và tokens.css.
-   - Ít ô, ô lớn, số to.
-   - Thang số riêng biệt, tabular-nums, tracking -0.04em.
-   - Khoảng thở 24-48px, góc bo ô 24px.
-   - Độ sâu: ô sáng hơn nền, không viền tĩnh, chỉ nâng bóng khi tương tác.
+/* Halcyon · Trang Đọc Bản Tin Buổi Sáng (ban-tin.css)
+   Vỏ và thẻ của trang chủ (anh Tuấn 16/11, "Duyệt theo em", quyết định 1): hàng trên, tấm panel và hàng đầu panel do
+   trang-phu.css vẽ; ở đây chỉ còn phần riêng của bản tin.
+   - Thẻ trắng trên tấm panel, bo --msn-card-r như thẻ trang chủ, bóng nghỉ, không viền.
+   - Trên điện thoại tiêu đề tin 18–21 px như thẻ tin trang chủ (quyết định 6).
+   - Giảm chuyển động: giữ mờ dần, tắt mọi chuyển động trượt (quyết định 7).
    - Chữ Be Vietnam Pro duy nhất, line-height 1.55 cho dấu tiếng Việt.
    - Không dùng gạch ngang em-dash trong giao diện hiển thị. */
 
@@ -27,10 +27,8 @@ html {
 }
 
 body {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  overflow-x: hidden;
+  margin: 0;
+  overflow-x: clip;
 }
 
 /* Accessibility skip link */
@@ -87,67 +85,25 @@ body {
   font-weight: var(--weight-bold);
 }
 
-/* ---------- Top Bar ---------- */
-.bt-bar {
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: var(--bar-h);
-  padding: 0 var(--page-pad);
-  background-color: var(--color-canvas);
-  border-bottom: 1px solid var(--color-hair);
-}
-
-.bt-brand {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-8);
-  text-decoration: none;
-  color: var(--color-ink);
-  font-size: var(--size-18);
-  font-weight: var(--weight-bold);
-  letter-spacing: var(--tracking-display);
-}
-.bt-brand b {
-  color: var(--color-ink);
-}
-/* The kit's wordmark (primary on light, dark variant on dark; tokens.css picks one). Kit clearspace is half the height of the h,
-   15px at 160px wide: 2px inside the file plus a 16px margin keeps every neighbour clear. A phone header row (56px) cannot hold
-   15px above and below the 40px-tall wordmark, so phones show the kit icon instead. */
-.brand-logo { width: 160px; height: auto; flex: none; margin-inline: var(--space-16); }
-.brand-logo-light { display: var(--show-logo-light); }
-.brand-logo-dark { display: var(--show-logo-dark); }
-.brand-icon { display: none; width: 32px; height: 32px; flex: none; }
-@media (max-width: 767px) {
-  .brand-logo-light, .brand-logo-dark { display: none; }
-  .brand-icon { display: block; }
-}
-.bt-brand:focus-visible {
-  outline: var(--focus-ring);
-  outline-offset: var(--focus-offset);
-  border-radius: var(--radius-8);
-}
-
-/* Date Stepper in Header */
+/* ---------- Day stepper, in the panel's header row (trang-phu.css .phu-head .head-actions) ---------- */
 .bt-date-stepper {
   display: inline-flex;
   align-items: center;
   gap: var(--space-4);
+  max-width: 100%;
   background-color: var(--color-surface);
-  padding: 2px 4px;
+  padding: var(--msn-tight);
   border-radius: var(--radius-full);
-  box-shadow: 0 1px 3px oklch(var(--shadow-tint) / 0.05);
+  box-shadow: var(--msn-shadow-rest);
 }
 
 .bt-nav-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
+  flex: none;
+  width: var(--btn-h);
+  height: var(--btn-h);
   border: none;
   background: transparent;
   color: var(--color-ink);
@@ -169,78 +125,30 @@ body {
   outline-offset: var(--focus-offset);
 }
 
+/* The day itself: never squeezed below its own width (at 200% text it showed only "1", w3), the row wraps instead. */
 .bt-current-date-btn {
-  border: none;
-  background: transparent;
+  flex: none;
   font-family: inherit;
   font-size: var(--text-small);
   font-weight: var(--weight-semibold);
+  font-variant-numeric: tabular-nums;
   color: var(--color-ink);
   padding: 0 var(--space-8);
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-4);
-  border-radius: var(--radius-full);
-  height: 32px;
-}
-.bt-current-date-btn:hover {
-  background-color: var(--color-fill);
-}
-.bt-current-date-btn:focus-visible {
-  outline: var(--focus-ring);
-  outline-offset: var(--focus-offset);
+  white-space: nowrap;
 }
 
-/* Theme Toggle Button */
-.bt-bar-actions {
-  display: flex;
-  align-items: center;
-  gap: var(--space-12);
-}
+/* menu-cong-cu.css narrows the old header's day to 76–110 px with an ellipsis (it fitted the retired .bt-bar); in the
+   panel's header row the row wraps instead, so the day keeps its whole width at any text size. */
+.phu-head .bt-date-stepper { flex: none; gap: var(--space-4); padding-inline: var(--msn-tight); }
+.phu-head .bt-current-date-btn { min-width: max-content; max-width: none; overflow: visible; text-overflow: clip; padding-inline: var(--space-8); }
 
-.theme {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  border: none;
-  background: transparent;
-  color: var(--color-ink-2);
-  border-radius: var(--radius-full);
-  cursor: pointer;
-  transition: background-color var(--motion-feedback) var(--ease-press),
-              color var(--motion-feedback) var(--ease-press);
-}
-.theme:hover {
-  background-color: var(--color-fill);
-  color: var(--color-ink);
-}
-.theme:focus-visible {
-  outline: var(--focus-ring);
-  outline-offset: var(--focus-offset);
-}
-.theme .i-moon { display: none; }
-[data-theme="dark"] .theme .i-sun { display: none; }
-[data-theme="dark"] .theme .i-moon { display: block; }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .theme .i-sun { display: none; }
-  :root:not([data-theme="light"]) .theme .i-moon { display: block; }
-}
-
-/* ---------- Main Layout ---------- */
+/* ---------- Main Layout: the panel (trang-phu.css .phu-panel) ---------- */
 .bt-main {
-  width: 100%;
-  max-width: var(--page-max);
-  margin: 0 auto;
-  padding: 0 var(--page-pad);
-  flex: 1;
+  display: block;
 }
-
 /* ---------- Masthead ---------- */
 .bt-masthead {
-  padding: var(--space-48) 0 var(--space-32) 0;
+  padding: var(--space-24) var(--space-8) var(--space-24);
   max-width: 960px;
 }
 
@@ -275,36 +183,39 @@ body {
 
 
 
-/* ---------- Bento Grid ---------- */
+/* ---------- The stories: the front page's cards on the panel ---------- */
 .bt-grid {
   display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: var(--grid-gap);
-  margin-top: var(--space-16);
-  margin-bottom: var(--space-64);
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--msn-gap);
 }
 
-/* Bento Tile Card */
+/* A story card: white on the tinted panel, the front page's radius and resting shadow, no outline (trang-msn.css). */
 .bt-tile {
   grid-column: span 12;
+  min-width: 0;
   background-color: var(--color-surface);
-  border-radius: var(--tile-radius);
-  padding: var(--tile-pad);
+  border-radius: var(--msn-card-r);
+  box-shadow: var(--msn-shadow-rest);
+  padding: var(--space-24);
   display: flex;
   flex-direction: column;
   position: relative;
   transition: transform var(--duration-250) var(--ease-flow),
               box-shadow var(--duration-250) var(--ease-flow);
 }
-.bt-tile:hover {
-  transform: translateY(var(--tile-hover-lift));
-  box-shadow: var(--shadow-lift);
+/* The lift answers a mouse only: a tap on a phone would leave the card raised (w2, Emil). */
+@media (hover: hover) and (pointer: fine) {
+  .bt-tile:not(.bt-skeleton):not(.bt-tile-status):hover {
+    transform: translateY(var(--tile-hover-lift));
+    box-shadow: var(--msn-shadow-card);
+  }
 }
+.bt-skeleton { min-height: 240px; }
 
-/* Lead or Hero Story */
+/* Lead story */
 .bt-tile-lead {
   grid-column: span 12;
-  padding: var(--tile-pad-hero);
 }
 
 /* Grid layout when multiple stories exist */
@@ -341,7 +252,7 @@ body {
   gap: 4px;
   font-size: var(--size-12);
   font-weight: var(--weight-medium);
-  color: var(--color-ink-3);
+  color: var(--color-ink-2);
   background-color: var(--color-fill);
   padding: 2px 8px;
   border-radius: var(--radius-full);
@@ -585,10 +496,11 @@ body {
 /* ---------- End of Edition Section ---------- */
 .bt-end-section {
   background-color: var(--color-surface);
-  border-radius: var(--tile-radius);
+  border-radius: var(--msn-card-r);
+  box-shadow: var(--msn-shadow-rest);
   padding: var(--space-48) var(--space-32);
   text-align: center;
-  margin: var(--space-32) 0 var(--space-96) 0;
+  margin: var(--msn-gap) 0 0 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -625,8 +537,12 @@ body {
   margin-bottom: var(--space-32);
 }
 
+/* A target a thumb can hit: 44 px tall, not the 22 px of its line (w2). */
 .bt-back-to-top {
-  margin-top: var(--space-32);
+  margin-top: var(--space-16);
+  min-height: var(--btn-h);
+  padding: 0 var(--space-12);
+  border-radius: var(--radius-full);
   font-size: var(--size-14);
   font-weight: var(--weight-medium);
   color: var(--color-accent);
@@ -645,12 +561,14 @@ body {
 }
 
 /* ---------- Skeleton Loading State ---------- */
+/* The loading card is a card (white on the panel) with grey bars, so it shows on the tinted panel. */
 .bt-skeleton {
-  background-color: var(--color-fill);
-  border-radius: var(--radius-8);
+  background-color: var(--color-surface);
+  border-radius: var(--msn-card-r);
   position: relative;
   overflow: hidden;
 }
+.bt-skeleton > [class^="sk-"] { background-color: var(--color-fill); }
 .bt-skeleton::after {
   content: "";
   position: absolute;
@@ -669,36 +587,37 @@ body {
 .sk-box { height: 80px; width: 100%; margin-bottom: 16px; border-radius: 12px; }
 
 /* ---------- Responsive Adjustments ---------- */
+/* A phone: story headlines at the front page's phone card sizes, 18 px, the lead 21 px (captain 16/11, decision 6;
+   tokens --text-title and --text-tile), so a screen holds more than one story. */
 @media (max-width: 767px) {
-  .bt-brand { white-space: nowrap; }
-  .bt-bar {
-    height: 56px;
-    padding: 0 var(--space-16);
-  }
-  .bt-main {
-    padding: 0 var(--space-16);
-  }
   .bt-masthead {
-    padding: var(--space-32) 0 var(--space-24) 0;
+    padding: var(--space-16) var(--space-4) var(--space-16);
   }
-  .bt-tile {
-    padding: var(--space-24);
+  .bt-title {
+    font-size: var(--text-feature);
   }
+  .bt-tile,
   .bt-tile-lead {
-    padding: var(--space-24);
+    padding: var(--space-16);
+  }
+  .bt-story-title {
+    font-size: var(--text-title);
+    line-height: var(--leading-snug);
+  }
+  .bt-tile-lead .bt-story-title {
+    font-size: var(--text-tile);
   }
   .bt-end-section {
     padding: var(--space-32) var(--space-16);
-    margin-bottom: var(--space-48);
   }
 }
 
-/* Reduced motion preference */
+/* Reduced motion keeps every fade and colour change and drops what moves (captain 16/11, decision 7): no lift, no
+   sweeping shimmer, no smooth scroll. */
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
+  html { scroll-behavior: auto; }
+  .bt-tile { transition: box-shadow var(--motion-feedback) ease; }
+  .bt-tile:hover { transform: none !important; }
+  .bt-skeleton::after { animation: none; display: none; }
+  .bt-btn-primary:active { transform: none; }
 }

@@ -26,151 +26,89 @@
 <meta name="twitter:image" content="https://hco.news/og-image.png">
 <link rel="canonical" href="https://hco.news/chinh-sach-rieng-tu.html">
 <meta name="referrer" content="strict-origin-when-cross-origin">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com/beacon.min.js/; style-src 'self' 'unsafe-inline'; img-src 'self' https: data:; font-src 'self'; connect-src 'self' https://cloudflareinsights.com; object-src 'none'; base-uri 'self'; form-action 'none';">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-jrWEGOojzbiKG0hVSa49bhxOv0fp+N41v7Y8Xjpx69c=' https://static.cloudflareinsights.com/beacon.min.js/; style-src 'self' 'unsafe-inline'; img-src 'self' https: data:; font-src 'self'; connect-src 'self' https://cloudflareinsights.com; object-src 'none'; base-uri 'self'; form-action 'none';">
 <!-- Áp dụng theme lưu trữ trước khi render để chống chớp sáng giao diện -->
 <script>try { var t = JSON.parse(localStorage.getItem('air2:theme')); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}</script>
 <link rel="stylesheet" href="tokens.css">
 <link rel="stylesheet" href="feed.css">
+<link rel="stylesheet" href="trang-phu.css">
+<script type="module" src="trang-phu.js"></script>
+<link rel="stylesheet" href="menu-cong-cu.css">
+<script defer src="menu-cong-cu.js"></script>
 <style>
-  .policy-container {
-    max-width: 860px;
-    margin: 0 auto;
-    padding: var(--space-32) var(--space-16) var(--space-96);
-  }
-  .policy-card {
-    background: var(--card-bg);
-    border-radius: var(--feed-radius);
-    padding: clamp(var(--space-24), 3vw, var(--space-48));
-    margin-bottom: var(--space-32);
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-  }
-  .policy-header {
-    margin-bottom: var(--space-32);
-    border-bottom: 1px solid var(--color-hair);
-    padding-bottom: var(--space-24);
-  }
+  /* One card on the front page's panel (trang-phu.css); every size and space below is a token of tokens.css (the page
+     used --size-24, --size-20 and --space-20, which do not exist, so its title fell to 16 px and its callout lost its
+     padding, w2). The reading column is 60ch: in Be Vietnam Pro that is at most about 73 characters a line (68ch measured up
+     to 83 at 1440 px). */
+  .policy-card { max-width: 60rem; margin: 0 auto; padding: clamp(var(--space-16), 4vw, var(--space-48)); }
+  .policy-header { max-width: 60ch; margin-bottom: var(--space-32); border-bottom: 1px solid var(--color-hair); padding-bottom: var(--space-24); }
   .policy-title {
-    font-size: clamp(var(--size-24), 3vw, var(--size-32));
-    font-weight: var(--weight-bold);
-    line-height: var(--feed-leading-title);
-    margin-bottom: var(--space-8);
+    font-size: clamp(var(--size-28), 1.2rem + 1.4vw, var(--size-32)); font-weight: var(--weight-bold);
+    line-height: var(--leading-tight); letter-spacing: var(--tracking-display); margin-bottom: var(--space-8); text-wrap: balance;
   }
-  .policy-meta {
-    font-size: var(--text-meta);
-    color: var(--color-ink-3);
-  }
-  .lang-nav {
-    display: flex;
-    gap: var(--space-12);
-    margin-top: var(--space-16);
-  }
+  .policy-meta { font-size: var(--text-meta); color: var(--color-ink-2); }
+  .lang-nav { display: flex; flex-wrap: wrap; gap: var(--space-8); margin-top: var(--space-16); }
   .lang-btn {
-    display: inline-flex;
-    align-items: center;
-    padding: var(--space-6) var(--space-12);
-    border-radius: var(--radius-8);
-    background: var(--color-fill);
-    font-size: var(--text-small);
-    font-weight: var(--weight-medium);
-    color: var(--color-ink);
+    display: inline-flex; align-items: center; min-height: var(--btn-h); padding: 0 var(--space-16); border-radius: var(--radius-full);
+    background: var(--color-fill); font-size: var(--text-small); font-weight: var(--weight-semibold); color: var(--color-ink);
+    transition: background-color var(--duration-150) ease;
   }
-  .lang-btn:hover {
-    background: var(--color-hair);
-  }
+  .lang-btn:hover { background: var(--color-seg-track); }
+  .policy-body { max-width: 60ch; }
+  .policy-header, .policy-body { margin-inline: auto; }
   .policy-body h2 {
-    font-size: var(--size-20);
-    font-weight: var(--weight-bold);
-    margin-top: var(--space-32);
-    margin-bottom: var(--space-12);
-    color: var(--color-ink);
+    font-size: var(--text-tile); font-weight: var(--weight-bold); line-height: var(--leading-snug); letter-spacing: -0.01em;
+    margin-top: var(--space-48); margin-bottom: var(--space-12); color: var(--color-ink); text-wrap: balance;
   }
-  .policy-body h3 {
-    font-size: var(--size-16);
-    font-weight: var(--weight-semibold);
-    margin-top: var(--space-20);
-    margin-bottom: var(--space-8);
-    color: var(--color-ink);
-  }
-  .policy-body p {
-    font-size: var(--text-body);
-    line-height: 1.7;
-    margin-bottom: var(--space-16);
-    color: var(--color-ink-2);
-  }
-  .policy-body ul {
-    margin-bottom: var(--space-16);
-    padding-left: var(--space-24);
-    list-style: disc;
-  }
-  .policy-body li {
-    font-size: var(--text-body);
-    line-height: 1.7;
-    margin-bottom: var(--space-8);
-    color: var(--color-ink-2);
-  }
+  .policy-body h2:first-child { margin-top: 0; }
+  .policy-body h3 { font-size: var(--text-title); font-weight: var(--weight-semibold); margin-top: var(--space-24); margin-bottom: var(--space-8); color: var(--color-ink); }
+  .policy-body p { font-size: var(--text-body); line-height: 1.7; margin-bottom: var(--space-16); color: var(--color-ink-2); }
+  .policy-body ul { margin-bottom: var(--space-16); padding-left: var(--space-24); list-style: disc; }
+  .policy-body li { font-size: var(--text-body); line-height: 1.7; margin-bottom: var(--space-8); color: var(--color-ink-2); }
+  .policy-body code { overflow-wrap: anywhere; }
   .policy-callout {
-    background: var(--color-fill);
-    border-left: 4px solid var(--color-accent);
-    padding: var(--space-16) var(--space-20);
-    border-radius: 0 var(--radius-8) var(--radius-8) 0;
-    margin: var(--space-24) 0;
+    background: var(--color-fill); border-left: 4px solid var(--color-accent-fill); padding: var(--space-16) var(--space-24);
+    border-radius: 0 var(--radius-8) var(--radius-8) 0; margin: var(--space-24) 0;
   }
-  .policy-callout p {
-    margin: 0;
-    font-weight: var(--weight-medium);
-    color: var(--color-ink);
-  }
-  .divider {
-    height: 1px;
-    background: var(--color-hair);
-    margin: var(--space-48) 0;
-  }
-</style>
+  .policy-callout p { margin: 0; font-weight: var(--weight-medium); color: var(--color-ink); }
+  .divider { height: 1px; background: var(--color-hair); margin: var(--space-48) 0; }
+  @media (max-width: 767px) { .policy-callout { padding: var(--space-12) var(--space-16); } }</style>
 </head>
 <body>
 <a class="skip" href="#content">Bỏ qua tới nội dung</a>
 
-<svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6L7 7M17 17l1.4 1.4M5.6 18.4L7 17M17 7l1.4-1.4"/></symbol>
-  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M19.5 14.5A7.5 7.5 0 0 1 9.5 4.5a7.5 7.5 0 1 0 10 10z"/></symbol>
-  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></symbol>
-</svg>
-
-<header class="feed-bar" id="bar">
-  <div class="feed-bar-in">
-    <a class="feed-brand" href="index.html" aria-label="Halcyon, về trang chính">
-      <img class="brand-icon" src="logo.svg" width="32" height="32" alt=""><img class="brand-logo brand-logo-light" src="wordmark.svg" width="160" height="44" alt=""><img class="brand-logo brand-logo-dark" src="wordmark-dark.svg" width="160" height="44" alt="">
-    </a>
-    <div class="feed-navigation">
-      <a class="filter-chip" href="index.html">Dòng tin</a>
-      <a class="filter-chip" href="ban-tin.html">Bản tin sáng</a>
-      <a class="filter-chip" href="nguon.html">Nguồn tin</a>
+<!-- The front page's shell (trang-phu.css; captain 16/11, decision 1). -->
+<header class="masthead phu-top" id="masthead">
+  <div class="phu-top-in">
+    <div class="masthead-actions">
+      <button class="top-tile" id="phu-tc" type="button" aria-label="Tùy chỉnh" title="Tùy chỉnh" aria-expanded="false"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></svg></button>
+      <div class="tool-launcher"></div>
     </div>
-    <a class="tc-link" href="index.html#tim" aria-label="Tìm trong tin Halcyon">
-      <svg class="i" aria-hidden="true"><use href="#i-search"/></svg>
-      <span class="tc-label">Tìm tin</span>
-    </a>
-    <button class="theme-btn" id="theme-btn" aria-pressed="false" aria-label="Chuyển chế độ sáng hoặc tối">
-      <svg class="i i-sun" aria-hidden="true"><use href="#i-sun"/></svg>
-      <svg class="i i-moon" aria-hidden="true"><use href="#i-moon"/></svg>
-    </button>
   </div>
 </header>
 
-<main class="policy-container" id="content">
-  <article class="policy-card">
+<main class="phu-panel" id="top">
+  <nav class="phu-head" id="bar" aria-label="Halcyon">
+    <a class="brand" href="index.html" aria-label="Halcyon, về trang nhất"><img class="brand-tile" src="logo.svg" width="34" height="34" alt=""><span class="brand-name" aria-hidden="true">halcyon</span></a>
+    <div class="phu-sections"><a class="phu-chip" href="index.html">Trang nhất</a><a class="phu-chip" href="chinh-sach-rieng-tu.html" aria-current="page">Quyền riêng tư</a></div>
+    <div class="head-actions">
+      <a class="ed-link" href="ban-tin.html"><span>Bản tin sáng</span><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5h10v10M19 5L6 18"/></svg></a>
+    </div>
+  </nav>
+
+  <article class="phu-card policy-card" id="content">
     <header class="policy-header">
-      <h1 class="policy-title">Chính Sách Quyền Riêng Tư / Privacy Policy</h1>
+      <h1 class="policy-title">Chính sách quyền riêng tư / Privacy Policy</h1>
       <p class="policy-meta">Cập nhật lần cuối: 11 tháng 11, 2026 · Áp dụng cho Website &amp; Tiện ích mở rộng Halcyon Chrome Extension</p>
       <nav class="lang-nav" aria-label="Chọn ngôn ngữ">
-        <a class="lang-btn" href="#tieng-viet">🇻🇳 Tiếng Việt</a>
-        <a class="lang-btn" href="#english">🇬🇧 English</a>
+        <a class="lang-btn" href="#tieng-viet" lang="vi">Tiếng Việt</a>
+        <a class="lang-btn" href="#english" lang="en">English</a>
       </nav>
     </header>
 
     <!-- PHẦN TIẾNG VIỆT -->
     <section class="policy-body" id="tieng-viet" lang="vi">
-      <h2>1. Cam Kết Quyền Riêng Tư Cốt Lõi</h2>
+      <h2>1. Cam kết quyền riêng tư cốt lõi</h2>
       <p>
         Chào mừng bạn đến với <strong>Halcyon</strong>. Chúng tôi xây dựng Halcyon như một nền tảng đọc tin tức trí tuệ nhân tạo (AI) tinh gọn, khách quan và đáng tin cậy. Chúng tôi tin rằng một công cụ tin tức tốt phải tôn trọng tối đa quyền riêng tư của độc giả.
       </p>
@@ -178,7 +116,7 @@
         <p><strong>Nguyên tắc cốt lõi:</strong> Halcyon <strong>KHÔNG</strong> thu thập, lưu trữ hay bán bất kỳ thông tin nhận dạng cá nhân nào của bạn. Chúng tôi không theo dõi lịch sử duyệt web, không tự xây dựng hồ sơ người dùng và không bán dữ liệu. Website <code>hco.news</code> chỉ dùng thống kê truy cập tổng hợp của Cloudflare Web Analytics, không dùng cookie (xem mục 6); tab mới của tiện ích không tải công cụ thống kê này.</p>
       </div>
 
-      <h2>2. Dữ Liệu Chúng Tôi Không Thu Thập</h2>
+      <h2>2. Dữ liệu chúng tôi không thu thập</h2>
       <p>Khi bạn truy cập website hoặc cài đặt tiện ích Halcyon Chrome Extension, chúng tôi hoàn toàn không thu thập:</p>
       <ul>
         <li><strong>Thông tin nhận dạng cá nhân (PII):</strong> Không yêu cầu tên, địa chỉ email, số điện thoại hay tài khoản cá nhân.</li>
@@ -188,7 +126,7 @@
         <li><strong>Dữ liệu tài chính, y tế hoặc giao dịch:</strong> Hoàn toàn không liên quan và không thu thập.</li>
       </ul>
 
-      <h2>3. Dữ Liệu Lưu Trữ Cục Bộ Trên Thiết Bị (Local Storage)</h2>
+      <h2>3. Dữ liệu lưu trữ cục bộ trên thiết bị (Local Storage)</h2>
       <p>
         Để mang lại trải nghiệm mở tab mới tức thì và hỗ trợ đọc ngoại tuyến, Halcyon lưu một số dữ liệu tĩnh hoàn toàn trên máy tính của bạn:
       </p>
@@ -198,7 +136,7 @@
       </ul>
       <p>Từ 768 px trở lên, ảnh nền trong ngày được lưu trong Cache Storage của trình duyệt để tab mới vẫn có ảnh khi mất mạng. Website <code>hco.news</code> dùng <code>localStorage</code> của trình duyệt cho cùng các mục đích (giao diện sáng/tối, trạng thái đọc, thành phố thời tiết). Các dữ liệu này nằm hoàn toàn trên thiết bị của bạn: dữ liệu của tiện ích tự động được xóa khi bạn gỡ tiện ích khỏi trình duyệt, còn dữ liệu của website được xóa khi bạn xóa dữ liệu trang web <code>hco.news</code> trong trình duyệt.</p>
 
-      <h2>4. Giải Trình Các Quyền Của Halcyon Chrome Extension</h2>
+      <h2>4. Giải trình các quyền của Halcyon Chrome Extension</h2>
       <p>Tiện ích Halcyon chỉ yêu cầu các quyền hạn tối thiểu để vận hành tính năng cốt lõi:</p>
       <ul>
         <li><strong><code>storage</code>:</strong> Dùng để lưu trữ bộ nhớ đệm tin tức AI và tùy chọn giao diện cục bộ trên máy bạn.</li>
@@ -207,7 +145,7 @@
         <li><strong>Quyền máy chủ (<code>https://radar-ai-vn.pages.dev/*</code>):</strong> Chỉ dùng để tải về dữ liệu tin tức công khai dạng JSON và hình ảnh minh họa bài viết từ máy chủ tĩnh chính thức của Halcyon.</li>
       </ul>
 
-      <h2>5. Dịch Vụ Bên Ngoài Được Tiện Ích Liên Hệ</h2>
+      <h2>5. Dịch vụ bên ngoài được tiện ích liên hệ</h2>
       <p>Tab mới gửi yêu cầu tới các dịch vụ sau để tải dữ liệu tin tức trực tiếp, avatar hoặc ảnh thu nhỏ bài viết. Khi kết nối, mỗi dịch vụ có thể nhận dữ liệu yêu cầu thông thường của trình duyệt, chẳng hạn địa chỉ IP.</p>
       <ul>
         <li><strong><code>radar-ai-vn.pages.dev</code>:</strong> dữ liệu tin tức công khai và nội dung bài viết của Halcyon.</li>
@@ -225,14 +163,14 @@
       </ul>
       <p>Halcyon không đính kèm thông tin cá nhân hoặc lịch sử duyệt web vào các yêu cầu này. Tiện ích không thu thập, tải lên, bán hoặc chia sẻ dữ liệu cá nhân. Từ khóa tìm kiếm do Chrome gửi tới công cụ tìm kiếm mặc định của bạn, không qua Halcyon.</p>
 
-      <h2>6. Website hco.news: Máy Chủ, Thống Kê Truy Cập Và Ảnh Minh Họa</h2>
+      <h2>6. Website hco.news: máy chủ, thống kê truy cập và ảnh minh họa</h2>
       <ul>
         <li><strong>Máy chủ:</strong> website <code>hco.news</code> chạy trên Cloudflare Pages. Như mọi máy chủ web, Cloudflare nhận dữ liệu yêu cầu thông thường của trình duyệt khi bạn mở trang, chẳng hạn địa chỉ IP và trang được yêu cầu.</li>
         <li><strong>Thống kê truy cập (<code>static.cloudflareinsights.com</code> và <code>cloudflareinsights.com</code>):</strong> các trang của website dùng Cloudflare Web Analytics để đếm lượt xem trang theo đường dẫn và đo tốc độ tải trang (số đo thời gian từ Performance API của trình duyệt và Core Web Vitals), ở dạng tổng hợp. Cloudflare cho biết công cụ này không dùng cookie hay <code>localStorage</code>, không ghi lại chuỗi truy vấn trong địa chỉ trang, không nhận dạng người dùng qua địa chỉ IP hay chuỗi User Agent và không theo dõi từng người dùng qua các trang web khác nhau. Khi trình duyệt kết nối, Cloudflare vẫn nhận dữ liệu yêu cầu thông thường như địa chỉ IP. Halcyon chỉ xem số liệu tổng hợp trong bảng điều khiển của Cloudflare. Tab mới của tiện ích không tải công cụ thống kê này: các trang của tiện ích nằm sẵn trong gói cài đặt và không nạp mã từ máy chủ ngoài.</li>
         <li><strong>Ảnh minh họa từ nhà xuất bản:</strong> trên <code>hco.news</code> và trên tab mới của tiện ích, nhiều ảnh minh họa tin được tải trực tiếp từ máy chủ của nhà xuất bản hoặc nguồn tin gốc (ví dụ <code>platform.theverge.com</code>, <code>techcrunch.com</code>, <code>img.semafor.com</code>, <code>media.wired.com</code>, <code>github.blog</code>). Khi ảnh hiện ra, trình duyệt của bạn kết nối tới các máy chủ đó, và họ nhận được địa chỉ IP của bạn cùng dữ liệu yêu cầu thông thường. Halcyon không gửi kèm thông tin cá nhân nào.</li>
       </ul>
 
-      <h2>7. Ba Cam Kết Theo Chính Sách Chrome Web Store</h2>
+      <h2>7. Ba cam kết theo chính sách Chrome Web Store</h2>
       <p>Chúng tôi cam kết tuân thủ tuyệt đối Chính sách Chương trình dành cho Nhà phát triển Chrome Web Store:</p>
       <ul>
         <li>Chúng tôi cam kết <strong>không bán</strong> dữ liệu người dùng cho bất kỳ bên thứ ba nào.</li>
@@ -240,7 +178,7 @@
         <li>Chúng tôi cam kết <strong>không sử dụng hoặc chuyển giao</strong> dữ liệu người dùng để xác định khả năng tín dụng hoặc phục vụ mục đích cho vay.</li>
       </ul>
 
-      <h2>8. Liên Kết Ngoài &amp; Bản Quyền</h2>
+      <h2>8. Liên kết ngoài và bản quyền</h2>
       <p>
         Mọi mẩu tin trên Halcyon đều dẫn trực tiếp đến bài viết gốc của tác giả và cơ quan báo chí xuất bản. Khi bạn bấm vào liên kết ra ngoài, chính sách quyền riêng tư của trang web đích sẽ được áp dụng.
       </p>
@@ -248,7 +186,7 @@
         <li><strong><code>www.youtube-nocookie.com</code> và <code>*.googlevideo.com</code>:</strong> chỉ trên website <code>hco.news</code>, khi bạn bấm phát một buổi phát trực tiếp hoặc video, trình phát YouTube ở chế độ bảo mật nâng cao được nhúng vào trang. Trang không gửi yêu cầu nào tới các máy chủ này trước khi bạn bấm phát.</li>
       </ul>
 
-      <h2>9. Liên Hệ</h2>
+      <h2>9. Liên hệ</h2>
       <p>
         Nếu bạn có bất kỳ câu hỏi nào về chính sách quyền riêng tư hoặc hoạt động kỹ thuật của Halcyon, vui lòng liên hệ qua trang chủ: <a href="https://hco.news/">https://hco.news/</a>.
       </p>
@@ -343,18 +281,5 @@
     </section>
   </article>
 </main>
-
-<script>
-  // Theme switcher
-  const themeBtn = document.getElementById('theme-btn');
-  if (themeBtn) {
-    themeBtn.addEventListener('click', () => {
-      const current = document.documentElement.dataset.theme;
-      const next = current === 'dark' ? 'light' : 'dark';
-      document.documentElement.dataset.theme = next;
-      try { localStorage.setItem('air2:theme', JSON.stringify(next)); } catch (e) {}
-    });
-  }
-</script>
 </body>
 </html>
