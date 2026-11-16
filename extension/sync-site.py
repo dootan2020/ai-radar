@@ -8,7 +8,12 @@ import shutil
 ROOT = Path(__file__).resolve().parents[1]
 SITE = ROOT / 'site'
 EXT = ROOT / 'extension'
-LIVE = 'https://radar-ai-vn.pages.dev/'
+# Every link a reader follows (the logo, the morning edition, a story, its copied link, the sources page, the menu)
+# opens on the site's own address. The data the new tab loads (JSON, pictures) stays on the Pages host that the
+# manifest's host_permissions name: a new host permission in an update disables the extension for every reader until
+# they accept it again, and sends the update back to the Store's permission review.
+LIVE = 'https://hco.news/'
+DATA = 'https://radar-ai-vn.pages.dev/'
 
 
 def replace_once(source, old, new):
@@ -132,18 +137,18 @@ def adapt_feed(feed):
     feed = replace_once(feed, "import { createNewsSearch } from './tim-tin.js';",
                         "import { createNewsSearch } from './tim-tin.js';\nimport { cachedSnapshot, normalizeSnapshot } from './snapshot.js';")
     feed = replace_once(feed, "const DATA_URL = customData ? qp : 'data/radar-ui.json';",
-                        f"const DATA_URL = '{LIVE}data/radar-ui.json';")
+                        f"const DATA_URL = '{DATA}data/radar-ui.json';")
     feed = replace_once(feed, "const SOURCES = customData ? [qp] : [DATA_URL, 'data/radar.json'];",
                         'const SOURCES = [DATA_URL];')
     feed = replace_once(feed, "const WINDOW_URL = customData ? null : 'data/radar-window.json';",
                         'const WINDOW_URL = null; // The worker supplies the first snapshot from chrome.storage.local.')
     feed = replace_once(feed, 'let complete = customData;', 'let complete = false;')
     feed = replace_once(feed, "const FIELD_RANKINGS_URL = 'data/field-rankings.json';",
-                        f"const FIELD_RANKINGS_URL = '{LIVE}data/field-rankings.json';")
+                        f"const FIELD_RANKINGS_URL = '{DATA}data/field-rankings.json';")
     feed = replace_once(feed, "const IMAGES_URL = 'feed-images.json';",
-                        f"const IMAGES_URL = '{LIVE}feed-images.json';\nconst PACKAGED_IMAGES_URL = 'feed-images.json';")
+                        f"const IMAGES_URL = '{DATA}feed-images.json';\nconst PACKAGED_IMAGES_URL = 'feed-images.json';")
     feed = replace_once(feed, "const PICKS_URL = 'editor-picks.json';",
-                        f"const PICKS_URL = '{LIVE}editor-picks.json';\nconst PACKAGED_PICKS_URL = 'editor-picks.json';")
+                        f"const PICKS_URL = '{DATA}editor-picks.json';\nconst PACKAGED_PICKS_URL = 'editor-picks.json';")
     start = feed.index('async function loadFirst() {')
     end = feed.index('\n/* ---------- small readers ---------- */', start)
     expected = """async function loadFirst() {
@@ -200,10 +205,10 @@ def sync():
     html = adapt_html((SITE / 'index.html').read_text(encoding='utf-8'))
     feed = adapt_feed((SITE / 'feed.js').read_text(encoding='utf-8'))
     arena = replace_once((SITE / 'arena.js').read_text(encoding='utf-8'),
-                         "fetch('data/arena.json'", f"fetch('{LIVE}data/arena.json'")
+                         "fetch('data/arena.json'", f"fetch('{DATA}data/arena.json'")
     story = replace_once((SITE / 'story.js').read_text(encoding='utf-8'),
                          'new URL(story.image.src, import.meta.url).href',
-                         f"new URL(story.image.src, '{LIVE}').href")
+                         f"new URL(story.image.src, '{DATA}').href")
     # The header's Google apps launcher and phone navigation bar. The extension has no site pages, so the
     # phone bar's "Dòng tin" is this new tab and the other destinations open on the live site.
     menu = replace_once((SITE / 'menu-cong-cu.js').read_text(encoding='utf-8'),
@@ -214,7 +219,7 @@ def sync():
         raise ValueError('Relative page link left in generated menu-cong-cu.js')
     # The news bar's search reads the live index; offline it searches the stories on the page.
     search = replace_once((SITE / 'tim-tin.js').read_text(encoding='utf-8'),
-                          "const SEARCH_URL = 'data/radar-search.json';", f"const SEARCH_URL = '{LIVE}data/radar-search.json';")
+                          "const SEARCH_URL = 'data/radar-search.json';", f"const SEARCH_URL = '{DATA}data/radar-search.json';")
     validate_urls(arena)
     validate_urls(story)
     validate_urls(search)

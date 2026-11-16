@@ -720,7 +720,8 @@ eventFeed.render(curatedEvents, [{id:'event-story', title:bengaluru.title, url:b
 assert.deepEqual(eventFeed.calOf({title:bengaluru.title, url:bengaluru.url}), bengaluruCal);
 // The front page's card beside the calendar, "Hai mươi lăm" (captain, 10/11 ~21:05): the nearest event's days left as
 // the card's large number, a day ruler, its caption, its calendar export and source; the next two as short schedule
-// rows; "Xem cả N" only when the card hides events; a live stream above it; nothing at all when nothing is coming.
+// rows; "Xem tất cả" to "Sự kiện" on every card (captain, 16/11 10:57: from 768 px there is no dock, so a card that
+// showed every event left the desktop no way in); a live stream above it; nothing at all when nothing is coming.
 const nextCard = eventFeed.next(curatedEvents);
 assert.equal(curatedEvents.length, 4, 'Bengaluru, NeurIPS Sydney and its two satellites');
 assert.match(nextCard, /class="msn-card msn-ev is-dense"/);
@@ -739,12 +740,14 @@ assert.ok(lead.indexOf('ev-count') < lead.indexOf('ev-ruler') && lead.indexOf('e
 assert.ok(nextCard.includes(`data-cal-ev="${bengaluru.id}"`) && nextCard.includes('ctz=Asia%2FKolkata'));
 assert.ok(nextCard.includes('aria-label="Thêm vào Google Lịch"') && nextCard.includes('<span><span class="calbtn-add">Thêm vào </span>Google Lịch</span>'));
 assert.ok(nextCard.includes(`href="${bengaluru.url}"`));
-assert.match(nextCard, /<a class="ev-all" href="#sap-toi"><span>Xem cả <span class="num">4<\/span><span class="sr"> sự kiện<\/span><\/span><\/a>/);
+const seeAll = '<a class="ev-all" href="#sap-toi"><span>Xem tất cả<span class="sr"> sự kiện</span></span></a>';
+assert.ok(nextCard.includes(seeAll), 'a card hiding an event leads to "Sự kiện"');
 const threeCard = eventFeed.next(curatedEvents.slice(1));
-assert.doesNotMatch(threeCard, /ev-all/, 'three events all show: no link');
+assert.ok(threeCard.includes(seeAll), 'three events all show: the link stays');
 assert.ok(threeCard.indexOf(sydney.title) < threeCard.indexOf('NeurIPS 2026 — Paris') && threeCard.indexOf('NeurIPS 2026 — Paris') < threeCard.indexOf('NeurIPS 2026 — Atlanta'));
 const oneCard = eventFeed.next([sydney]);
-assert.doesNotMatch(oneCard, /ev-all|is-dense|ev-more/);
+assert.doesNotMatch(oneCard, /is-dense|ev-more/);
+assert.ok(oneCard.includes(seeAll), 'one event: the link stays');
 assert.ok(oneCard.includes('<span class="ev-note">Chưa rõ giờ khai mạc</span>'));
 assert.equal(oneCard.split('<i').length - 1, 9, 'Sydney from 10 October: 56 days and 7 more is over 60 ticks, so 8 weeks and 1');
 assert.ok(oneCard.includes('<span>Mỗi vạch 1 tuần</span><b>6–12.12</b>'));

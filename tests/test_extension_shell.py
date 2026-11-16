@@ -13,7 +13,8 @@ EXT = ROOT / 'extension'
 SITE = ROOT / 'site'
 FIXTURE = ROOT / 'tests/fixtures/radar-window-sample.json'
 HEADLINE_FIXTURE = ROOT / 'tests/fixtures/audited-headlines-live.json'
-LIVE = 'https://radar-ai-vn.pages.dev/'
+LIVE = 'https://radar-ai-vn.pages.dev/'   # the data host the manifest's host_permissions name
+READER = 'https://hco.news/'              # where every link a reader follows opens (0.1.2)
 
 
 def node(script, *paths):
@@ -100,7 +101,7 @@ class ExtensionShellTests(unittest.TestCase):
         for local in re.findall(r'(?:href|src)="([^"#:]+)"', html):
             self.assertTrue((EXT / local).is_file(), f'newtab.html references missing {local}')
         menu = (EXT / 'menu-cong-cu.js').read_text(encoding='utf-8')
-        self.assertIn(": file === 'index.html' ? '#top' : file.startsWith('index.html#') ? file.slice(10) : `" + LIVE + "${file}`;", menu)
+        self.assertIn(": file === 'index.html' ? '#top' : file.startsWith('index.html#') ? file.slice(10) : `" + READER + "${file}`;", menu)
         self.assertNotIn('${prefix}${file}', menu)
         # The Google rows replace the site's top row and sit above the panel (captain, 07/11 18:03; Mẫu A, 08/11).
         self.assertLess(html.index('id="masthead"'), html.index('id="web-search"'))
@@ -109,15 +110,23 @@ class ExtensionShellTests(unittest.TestCase):
         for part in ('href="trang-msn.css"', 'id="news-search"'):
             self.assertIn(part, html)
         self.assertNotIn('the-lich.css', html)
-        self.assertIn(f'href="{LIVE}ban-tin.html"', html)
+        self.assertIn(f'href="{READER}ban-tin.html"', html)
+        self.assertIn(f'<a class="brand feed-brand" id="brand" href="{READER}"', html)
         self.assertNotIn('tra-cuu', html)
-        self.assertIn(f'href="{LIVE}tin/', feed)
+        self.assertIn(f'href="{READER}tin/', feed)
         self.assertNotIn('href="nguon.html"', feed)
-        self.assertIn(f"const storyHref = st => `{LIVE}tin/", feed)
-        self.assertIn(f"const EDITION_URL = '{LIVE}ban-tin.html';", feed)
+        self.assertIn(f"const storyHref = st => `{READER}tin/", feed)
+        self.assertIn(f"const EDITION_URL = '{READER}ban-tin.html';", feed)
+        self.assertIn(f"location.replace('{READER}nguon.html')", feed)
         self.assertIn("if (newsSearch) newsSearch.open();", feed)
         self.assertIn(f"const SEARCH_URL = '{LIVE}data/radar-search.json';", (EXT / 'tim-tin.js').read_text(encoding='utf-8'))
-        self.assertIn(f"const u = '{LIVE}tin/'", feed)
+        self.assertIn(f"const u = '{READER}tin/'", feed)
+        # The data host carries data only: no page a reader opens is addressed on it (0.1.2: the links moved to
+        # hco.news, the downloads and the host permission stayed, so the update asks for no new permission).
+        for name in ('newtab.html', 'feed.js', 'menu-cong-cu.js', 'story.js', 'tim-tin.js', 'arena.js'):
+            source = (EXT / name).read_text(encoding='utf-8')
+            for url in re.findall(re.escape(LIVE) + r"[^'\"`\s)]*", source):
+                self.assertRegex(url, r'^' + re.escape(LIVE) + r'(?:data/[\w-]+\.json|[\w-]+\.json)?$', f'{name}: {url}')
         self.assertIn('await cachedSnapshot()', feed)
         self.assertIn('whenIdle().then(async () => {', feed)
         self.assertIn(LIVE + 'data/arena.json', (EXT / 'arena.js').read_text(encoding='utf-8'))
