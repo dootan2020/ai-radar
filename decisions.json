@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-17T03:49:03.994737+00:00",
-  "input_generated_at": "2026-11-17T02:45:58Z",
+  "generated_at": "2026-11-17T05:34:04.236759+00:00",
+  "input_generated_at": "2026-11-17T04:46:04Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -82282,16 +82282,17 @@
       "use_original_title": false,
       "source_url": "https://www.semafor.com/article/11/16/2026/america-needs-to-have-more-jensens-perplexity-ceo-lauds-huang-as-industry-titan",
       "key_points": [
-        "CEO Perplexity ca ngợi Jensen Huang khi ông Aravind Srinivas cho rằng nước Mỹ cần thêm những nhà lãnh đạo khởi nghiệp như cựu CEO của Nvidia. Tuy nhiên, ông Srinivas né tránh trả lời liệu Nvidia có nên phục chức cho ông Huang sau khi cựu CEO từ chức vào tuần trước.",
-        "Theo Semafor, Perplexity chủ yếu điều hướng người dùng sang ChatGPT hay Claude thay vì vận hành mô hình nền tảng đầu bảng.",
-        "Người dùng chú trọng hoàn thành công việc là định hướng của Perplexity, khi ông Srinivas khẳng định khách hàng không quan tâm mô hình nào mà chỉ quan tâm việc có xong hay không."
+        "Nước Mỹ cần thêm các CEO công nghệ như Jensen Huang là nhận định của ông Aravind Srinivas, CEO của Perplexity, dù ông né tránh câu hỏi liệu hội đồng quản trị Nvidia có nên phục chức cho cựu lãnh đạo này.",
+        "Tinh thần kiên trì và điều hành như sắp phá sản là lý do ông Srinivas ca ngợi ông Huang, người từng khuyên ông phải hành động như thể công ty sắp cạn vốn sau sáu đến 12 tháng.",
+        "Tốc độ doanh thu quy năm 1 tỷ USD là mốc Perplexity vừa đạt được theo ông Srinivas, với tốc độ đốt tiền thấp hơn năm lần so với các tập đoàn lớn nhờ mô hình vốn hiệu quả.",
+        "Tổng hợp mô hình thay vì tự vận hành mô hình nền tảng là hướng đi của Perplexity theo Semafor, khi công ty điều hướng sang ChatGPT hay Claude vì khách hàng chỉ quan tâm công việc có hoàn thành hay không."
       ],
       "same_event_coverage_ids": [
         "cfb555d0cc97bf38f41d"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Perplexity cán mốc doanh thu 1 tỷ USD giữa lúc CEO ca ngợi cựu lãnh đạo Nvidia",
+      "editorial_headline_vi": "Perplexity đạt tốc độ doanh thu quy năm 1 tỷ USD khi CEO ca ngợi cựu lãnh đạo Nvidia",
       "summary_sources": [
         {
           "id": "outlet",
@@ -82304,35 +82305,40 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 4.95,
+        "value": 8.75,
         "answers": {
-          "what": 6,
-          "why": 3,
-          "notable": 4,
-          "meaning": 7
+          "what": 10,
+          "why": 9,
+          "notable": 7,
+          "meaning": 9
         },
         "hard_errors": [
           {
-            "kind": "number",
-            "summary_text": "Perplexity cán mốc doanh thu 1 tỷ USD",
-            "explanation": "The source says Perplexity crossed a $1 billion annual run rate, not that it had earned $1 billion in revenue (outlet:p007)."
+            "kind": "quote",
+            "summary_text": "công ty sắp cạn vốn",
+            "explanation": "Srinivas said Huang advised him to act as though the company could go out of business in six to 12 months; he did not specifically say it would run out of capital (outlet:p004)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "thấp hơn năm lần so với các tập đoàn lớn",
+            "explanation": "Srinivas compared Perplexity’s burn rate with hyperscalers, a narrower group than large corporations generally (outlet:p007)."
           }
         ],
         "findings": [
           {
-            "question": "what",
-            "problem": "The headline makes the $1 billion figure sound like revenue already earned.",
-            "fix": "Call it a $1 billion annual run rate, as Srinivas did (outlet:p007)."
+            "question": "notable",
+            "problem": "The comparison makes Perplexity’s reported burn rate sound lower than that of large corporations generally.",
+            "fix": "Specify that Srinivas compared it with hyperscalers (outlet:p007)."
           },
           {
             "question": "why",
-            "problem": "Readers do not learn why Srinivas held Huang up as an example.",
-            "fix": "Include Huang’s advice to act as though the business might run out of time, and Srinivas’s praise for his relentlessness and determination (outlet:p004)."
+            "problem": "The account turns a warning about going out of business into a specific warning about running out of capital.",
+            "fix": "Say Huang advised acting as if the company might go out of business within six to 12 months (outlet:p004)."
           },
           {
-            "question": "notable",
-            "problem": "The account leaves out the comparison that qualifies Perplexity’s financial claim.",
-            "fix": "Add that Srinivas said its burn rate was five times lower than hyperscalers’ and attributed this to a capital-efficient model (outlet:p007)."
+            "question": "meaning",
+            "problem": "Readers do not learn the context for the question about reinstating Huang.",
+            "fix": "Briefly note that the source says Huang had resigned after revelations about extramarital affairs and that reports described a possible comeback (outlet:p003, outlet:p006)."
           }
         ],
         "writer_boats": [
@@ -82340,8 +82346,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "47c3f01527dc531ac62c410a0e61b59764cf09122194643b34ed7e5c7889937f",
-        "scored_at": "2026-11-17T03:49:03.976994+00:00"
+        "prose_sha256": "73583f8ae66ce08675738159b2773042593a9bb0b529fd5bd213aa2c32ade67a",
+        "scored_at": "2026-11-17T05:29:16.943972+00:00"
       }
     },
     {
@@ -83308,10 +83314,10 @@
       "use_original_title": false,
       "source_url": "https://ourworldindata.org/no-matter-how-you-ask-more-americans-are-negative-than-positive-about-ai",
       "key_points": [
-        "Theo tác giả Max Roser trên trang Our World in Data, các cuộc khảo sát được chọn lọc cho thấy số người Mỹ có cái nhìn tiêu cực về trí tuệ nhân tạo (AI) luôn nhiều hơn số người có quan điểm tích cực.",
-        "Tác giả tổng hợp dữ liệu từ các khảo sát chọn mẫu xác suất đại diện gồm Pew, Gallup, Quinnipiac, Đại học Pennsylvania cùng Ipsos, đồng thời loại trừ các cuộc thăm dò trực tuyến tự nguyện.",
-        "Dù vậy, khi được hỏi về tác động đối với cá nhân trong khảo sát của Ipsos, 50% người tham gia coi AI là điều tốt cho bản thân so với 49% đánh giá là điều xấu.",
-        "Tác giả Max Roser nhận định mối bận tâm của công chúng là rất lớn, và ngành công nghiệp AI phải xem xét nghiêm túc các lo ngại này nếu muốn giành được niềm tin của người dân."
+        "Số người Mỹ có cái nhìn tiêu cực về AI nhiều hơn tích cực là kết quả nhất quán trên mọi khảo sát đại diện theo bài phân tích của tác giả Max Roser trên Our World in Data.",
+        "Tránh sai lệch do cách đặt câu hỏi là lý do tác giả tổng hợp dữ liệu từ nhiều cuộc thăm dò thay vì chỉ dựa vào một khảo sát đơn lẻ. Nghiên cứu chỉ chọn các khảo sát mẫu xác suất đại diện gồm Pew, Gallup, Quinnipiac, Annenberg và Ipsos, đồng thời loại trừ các khảo sát trực tuyến tự nguyện.",
+        "Ngoại lệ duy nhất là khi Ipsos hỏi về tác động cá nhân, với 50% người tham gia coi AI là điều tốt cho bản thân so với 49% coi là điều xấu.",
+        "Ngành công nghiệp AI phải xem xét nghiêm túc các lo ngại của công chúng nếu muốn gây dựng niềm tin là kết luận của tác giả Max Roser. Mối quan ngại này mở rộng tới cả rủi ro diệt vong khi 73% người Mỹ trong khảo sát của Quinnipiac tin rằng AI tương lai có thể đe dọa sự sống còn của nhân loại."
       ],
       "same_event_coverage_ids": [
         "23f139f44526abf46b82"
@@ -83333,19 +83339,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.1,
+        "value": 9.4,
         "answers": {
           "what": 10,
           "why": 10,
-          "notable": 7,
+          "notable": 8,
           "meaning": 10
         },
         "hard_errors": [],
         "findings": [
           {
             "question": "notable",
-            "problem": "The article gives the exceptional close result but no figure showing the main pattern’s size.",
-            "fix": "Add Pew’s 52% more concerned versus 9% more excited, with the question’s wording preserved (outlet:p006)."
+            "problem": "Readers get no figure showing the size of the main negative-versus-positive gap.",
+            "fix": "Add Pew’s 52% more concerned versus 9% more excited result, with its survey attribution (outlet:p006)."
           }
         ],
         "writer_boats": [
@@ -83353,8 +83359,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "028b59a7053ea0b1abdfb6bae4a45ecbefb1a96442ab6ef09e586d9989aa2bfe",
-        "scored_at": "2026-11-17T03:37:29.967320+00:00"
+        "prose_sha256": "a61c3d174dfe4ab898458a1217654d88acea6bb84fbce7c4a917207553f7abe7",
+        "scored_at": "2026-11-17T05:29:16.944021+00:00"
       }
     },
     {
@@ -83467,17 +83473,17 @@
       "use_original_title": false,
       "source_url": "https://github.blog/changelog/2026-11-16-vs-code-retires-the-local-harness-in-february-2027",
       "key_points": [
-        "Visual Studio Code 1.146 đánh dấu ngừng hỗ trợ Local harness điều phối các phiên đặc vụ (agent - chương trình AI tự hành) Copilot và sẽ gỡ bỏ vào tháng 2 năm 2027. Trong giai đoạn ba tháng chuyển tiếp, Local harness vẫn khả dụng tại các tổ chức cho phép.",
-        "Phần mềm thay thế là Microsoft Copilot harness được tích hợp trong VS Code và đã là mặc định từ bản 1.143. Bộ điều phối mới chia sẻ môi trường thực thi đặc vụ với Copilot CLI và ứng dụng GitHub Copilot.",
-        "Với Copilot harness, quản trị viên có thể thực thi quyền vận hành được quản lý và giới hạn vùng cách ly (sandbox) mà Local harness không thể áp dụng. Theo GitHub, việc chọn Copilot harness không chuyển các tệp của người dùng lên đám mây, nhưng cũng không tự động kích hoạt vùng cách ly.",
-        "Theo GitHub, cài đặt ngoại lệ tạm thời cho doanh nghiệp sẽ bị xóa cùng Local harness, nên việc giữ cấu hình không duy trì được phần mềm cũ. Người dùng cần chuyển sang Copilot dưới mục Session Target và kiểm tra tính tương thích của các tùy biến trước tháng 2 năm 2027."
+        "Visual Studio Code 1.146 đưa Local harness điều phối phiên đặc vụ (agent - chương trình AI tự hành) vào diện ngừng phát triển trước khi gỡ bỏ vào tháng 2 năm 2027. Phần mềm này vẫn khả dụng trong ba tháng chuyển tiếp nếu chính sách tổ chức cho phép.",
+        "Microsoft Copilot harness thay thế tích hợp sẵn trong VS Code, là mặc định từ bản 1.143 và chia sẻ môi trường thực thi với Copilot CLI cùng ứng dụng GitHub Copilot. Theo GitHub, lựa chọn Copilot harness không chuyển tệp lên đám mây, nhưng công cụ từ trình biên tập vẫn đòi hỏi kết nối với trình biên tập.",
+        "Áp dụng quyền vận hành và giới hạn vùng cách ly (sandbox) là khả năng quản trị viên có được với Copilot harness mà Local harness không hỗ trợ. Người dùng có thể tiếp tục gói Copilot Free, trong khi cổng kết nối Copilot connectors vẫn đang ở bản xem trước.",
+        "Cài đặt ngoại lệ tạm thời cho doanh nghiệp sẽ bị xóa cùng Local harness theo GitHub, nên việc duy trì cấu hình này không giúp giữ lại phần mềm cũ. Nếu vẫn dùng Local harness, người dùng cần chọn Copilot ở mục Session Target trước tháng 2 năm 2027 dù việc chuyển đổi không tự động áp dụng mọi tùy biến."
       ],
       "same_event_coverage_ids": [
         "2defd4d5604f3546f732"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "VS Code 1.146 ngừng hỗ trợ Local harness và sẽ gỡ bỏ hoàn toàn vào tháng 2 năm 2027",
+      "editorial_headline_vi": "VS Code 1.146 đưa Local harness vào diện ngừng phát triển, duy trì ba tháng trước khi gỡ bỏ vào tháng 2 năm 2027",
       "summary_sources": [
         {
           "id": "outlet",
@@ -83490,25 +83496,29 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.45,
+        "value": 9.4,
         "answers": {
-          "what": 6,
+          "what": 10,
           "why": 10,
-          "notable": 10,
-          "meaning": 9
+          "notable": 9,
+          "meaning": 8
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "ngừng hỗ trợ Local harness",
-            "explanation": "The headline and opening paragraph say support has ended. The source says VS Code 1.146 deprecates Local harness and that it remains available during the transition where policy permits (outlet:p002, outlet:p004)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "what",
-            "problem": "The reader may believe Local harness is already unsupported.",
-            "fix": "Use wording equivalent to “deprecates” in the headline and opening sentence, while retaining its February 2027 removal date and transition availability (outlet:p002–p004)."
+            "question": "meaning",
+            "problem": "A reader may assume selecting the Copilot harness enables sandboxing.",
+            "fix": "State that administrators must configure sandbox restrictions separately; selecting the harness does not enable them (outlet:p013)."
+          },
+          {
+            "question": "notable",
+            "problem": "The migration instruction omits the first step.",
+            "fix": "Tell users still on the Local harness to start a new VS Code session, then select Copilot under Session Target (outlet:p015)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The Copilot Free statement loses its eligibility condition.",
+            "fix": "Specify that users accessing models through GitHub Copilot can keep their existing plan, including Copilot Free; feature availability still depends on plan, settings, and organization policy (outlet:p012)."
           }
         ],
         "writer_boats": [
@@ -83516,8 +83526,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "b21bc6cf1f4526e46121ac97dc244573194aaeea3383393c3d30bc9db63c955f",
-        "scored_at": "2026-11-17T03:37:29.967392+00:00"
+        "prose_sha256": "c8e3eb44f29a04072bdbf988423db61ae272caa09bd6301876933c1b26a49c23",
+        "scored_at": "2026-11-17T05:34:04.224555+00:00"
       }
     },
     {
@@ -83612,6 +83622,472 @@
         "prose_sha256": "3bb25290e945f4105206650f3f5cdd502b1533ccde2e60f8577db1f975f7bd1a",
         "scored_at": "2026-11-17T03:37:29.967444+00:00"
       }
+    },
+    {
+      "id": "1145858c5c71aa68142d",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.semafor.com/article/11/16/2026/due-for-a-reset-mubadala-ceo-says-global-ai-economy-faces-compute-shortage",
+      "key_points": [
+        "Giám đốc điều hành quỹ Mubadala, ông Khaldoon Al Mubarak, nhận định kinh tế AI toàn cầu sắp bước vào một đợt tái thiết lập.",
+        "Theo ông Al Mubarak, quá trình xây dựng AI là một phần của chu kỳ sau giai đoạn kinh tế toàn cầu đã tăng trưởng rất thuận lợi.",
+        "Dù rót vốn lớn vào OpenAI và Anthropic qua đơn vị MGX, ông cho biết bảo đảm đủ năng lực tính toán là thách thức lớn nhất chứ không phải nguồn điện hay khả năng tiếp cận vốn.",
+        "Theo ông Al Mubarak, đợt điều chỉnh có thể chỉ là một mùa đông dễ chịu chứ mùa đông không có nghĩa là âm 30 độ."
+      ],
+      "same_event_coverage_ids": [
+        "258fe75f446daac9d29f"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "CEO quỹ Mubadala nhận định kinh tế AI đối mặt thiếu hụt năng lực tính toán và sắp bước vào đợt điều chỉnh",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/16/2026/due-for-a-reset-mubadala-ceo-says-global-ai-economy-faces-compute-shortage"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.0,
+        "answers": {
+          "what": 8,
+          "why": 10,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "qua đơn vị MGX",
+            "explanation": "MGX is described as a separate funding vehicle Mubadala co-founded, not simply a Mubadala unit (outlet:p004)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The reader misses that the expected reset also concerns the broader economy.",
+            "fix": "Name both the global AI buildout and the broader economy (outlet:p001)."
+          },
+          {
+            "question": "notable",
+            "problem": "Calling MGX a Mubadala unit gives the wrong relationship.",
+            "fix": "Describe MGX as a separate funding vehicle Mubadala co-founded (outlet:p004)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "3f895e0a8676666162001182343aea147786c032e08d485e15f40194026f67e8",
+        "scored_at": "2026-11-17T05:16:46.493570+00:00"
+      }
+    },
+    {
+      "id": "228353e957cfd83a2b35",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-17/impact-of-us-move-to-curb-chip-access-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "8e6e4d5f7b2fdb648470"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "72d5d290e903a3460b7d",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-17/anthropic-frenzy-echoes-dot-com-bubble-says-australiansuper-cio",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "935a6f9ed74477daf5ea"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "06a5e96473c37f4ffa83",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://analyticsindiamag.com/ai-features/he-left-accenture-to-build-an-embedded-slmnow-it-ranks-among-the-worlds-best",
+      "key_points": [
+        "Startup KiteFishAI tại Gurugram đang phát triển các mô hình ngôn ngữ và mô hình nhúng (biểu diễn văn bản bằng vectơ số để tìm kiếm theo ý nghĩa) thu nhỏ cho doanh nghiệp. Theo công ty, mô hình nhúng Nano-Em1-0.6B-v2.1 của họ từng xếp thứ chín toàn cầu trên bảng xếp hạng Massive Text Embedding Benchmark vào tháng 8 năm 2026.",
+        "Ông cho biết các công việc như trích xuất dữ liệu tài liệu, phân loại khiếu nại hay điều phối yêu cầu hỗ trợ đều có thể giao cho những hệ thống chuyên biệt.",
+        "KiteFishAI tuyên bố mô hình NanoI1 đạt điểm cao hơn Gemma-3-270M của Google trên các bài đánh giá tạo mã nguồn HumanEval, tạo kiểm thử EvalPlus và toán GSM8K. Dù vậy, công ty làm rõ kết quả này không biến mô hình thành vượt trội toàn diện so với hệ thống lớn mà chỉ tập trung vào ứng dụng hẹp.",
+        "Ngoài ra, ông nhận định mô hình nhỏ sẽ hoạt động song song chứ không thay thế hệ thống suy luận lớn hơn trong quy trình làm việc."
+      ],
+      "same_event_coverage_ids": [
+        "5890218cd70337c45af9"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "KiteFishAI tuyên bố mô hình NanoI1 đạt điểm cao hơn Gemma-3-270M của Google về tạo mã nguồn và toán",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "analytics-india-magazine",
+          "url": "https://analyticsindiamag.com/ai-features/he-left-accenture-to-build-an-embedded-slmnow-it-ranks-among-the-worlds-best"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.15,
+        "answers": {
+          "what": 9,
+          "why": 7,
+          "notable": 8,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The reader does not learn why KiteFishAI prioritises compact models.",
+            "fix": "Add that large-model token and computing costs can accumulate, while many routine enterprise tasks can use smaller specialised systems (outlet:p001–p002)."
+          },
+          {
+            "question": "notable",
+            "problem": "The reader lacks a concrete sense of how compact NanoI1 is.",
+            "fix": "Include its 155 million parameters and 311 MB file size (outlet:p020)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "cd39a8e6a27aa1e2682ef788fc93b3904e59ed0070413caae64aab4cd0b170ad",
+        "scored_at": "2026-11-17T05:20:59.558317+00:00"
+      }
+    },
+    {
+      "id": "86e1481849d0ca12ab0f",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://en.yna.co.kr/view/AEN20261117005500315",
+      "key_points": [
+        "Hôm thứ Ba, Văn phòng Tổng thống Hàn Quốc thông báo lập đội đặc nhiệm chuyên trách ngăn chặn gian lận bằng trí tuệ nhân tạo (AI). Đội phản ứng khẩn cấp này đã ra mắt dưới sự chỉ đạo của Chánh văn phòng Lim Kwang-hyun và họp phiên đầu tiên vào thứ Hai.",
+        "Phiên họp tập trung bàn giải pháp ngăn chặn gian lận trong kỳ thi tuyển sinh đại học vào thứ Năm và xử lý các trường hợp nghi vấn.",
+        "Chánh văn phòng Lim Kwang-hyun chỉ đạo các nhân sự liên quan, gồm văn phòng thư ký giáo dục, phòng tình huống và đội an ninh mạng, ứng trực khẩn cấp đến hết ngày thi đại học (CSAT) năm nay.",
+        "Cheong Wa Dae dự kiến duy trì đội đặc nhiệm trước mắt cho kỳ thi năm tới và xây dựng chiến lược dài hạn đối phó với công nghệ AI ngày càng tân tiến."
+      ],
+      "same_event_coverage_ids": [
+        "2f2d0d810d30866b6b99"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Văn phòng Tổng thống Hàn Quốc lập đội đặc nhiệm ngăn chặn gian lận thi cử bằng trí tuệ nhân tạo",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "yonhap",
+          "url": "https://en.yna.co.kr/view/AEN20261117005500315"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.4,
+        "answers": {
+          "what": 10,
+          "why": 8,
+          "notable": 8,
+          "meaning": 6
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "xây dựng chiến lược dài hạn đối phó với công nghệ AI ngày càng tân tiến",
+            "explanation": "The longer-term strategy concerns potential academic dishonesty involving increasingly advanced AI, not advanced AI technology generally (outlet:p004)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The long-term strategy appears to target AI technology itself.",
+            "fix": "Specify that it targets potential academic dishonesty involving increasingly advanced AI (outlet:p004)."
+          },
+          {
+            "question": "why",
+            "problem": "The trigger for forming the task force is missing.",
+            "fix": "Mention growing public concern about AI-assisted cheating (outlet:p001)."
+          },
+          {
+            "question": "notable",
+            "problem": "The account presents the meeting’s discussion topics as certain.",
+            "fix": "Retain the source’s qualification that the discussion *reportedly* focused on prevention and suspected cases (outlet:p002)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "71143c1ee29a5c3daf0680c0c15623733e7546c0b1789ccf6d33b9dfd8c3c7db",
+        "scored_at": "2026-11-17T05:20:59.558446+00:00"
+      }
+    },
+    {
+      "id": "bfbe2169b24a409407a2",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-17/china-ai-highflier-crashes-85-as-chip-fears-hit-model-makers",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "7a6713de8e6014090fb3"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "37edb30ddfa2b1382365",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-17/pimco-says-ai-bond-spreads-may-tighten-as-data-center-boom-slows",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "ce0acd793d81fd45bca2"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "47d4dbac91f32c843728",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "survey",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://en.yna.co.kr/view/AEN20261117002800320",
+      "key_points": [
+        "Báo cáo của Ngân hàng Trung ương Hàn Quốc (BOK) chỉ ra công cụ trí tuệ nhân tạo (AI) tạo sinh lan rộng nhanh nhưng tác động tăng năng suất còn hạn chế đối với người lao động.",
+        "Khảo sát trên 16.000 người ghi nhận thời lượng sử dụng AI hàng tuần tăng từ 5,9 giờ lên 8 giờ, với 28,4% người dùng trả phí dịch vụ trung bình 49.000 won mỗi tháng.",
+        "Tỷ lệ lao động dùng AI tăng từ 51,8% lên 66,5%, cao hơn mức 43% ở Mỹ và 31,5% ở Đức theo nghiên cứu riêng được trích dẫn. Người tham gia khảo sát cho biết AI giúp họ giảm 9,2% thời gian dành cho các nhiệm vụ công việc trong năm 2026, so với mức 3,8% của năm 2025.",
+        "BOK cho biết không tìm thấy mối tương quan rõ ràng giữa tỷ lệ tiết kiệm thời gian và mức tăng khối lượng hay cải thiện chất lượng công việc, dù nhiều lao động đã dùng thời gian tiết kiệm được cho nhiệm vụ cốt lõi."
+      ],
+      "same_event_coverage_ids": [
+        "f0d9f38c7c245246c489"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "BOK: Tỷ lệ lao động Hàn Quốc dùng AI đạt 66,5% nhưng mức tăng năng suất còn hạn chế",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "yonhap",
+          "url": "https://en.yna.co.kr/view/AEN20261117002800320"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "7256edd70f7cb7b3c93ab2ef6d11c45fa56ec88a06dc0b7af95e4dc7b9ac1bb1",
+        "scored_at": "2026-11-17T05:20:59.558512+00:00"
+      }
+    },
+    {
+      "id": "1aaa9f8ce00f1732277e",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.npr.org/2026/11/16/nx-s1-6042883/nvidia-jensen-huang-commerce-department",
+      "key_points": [
+        "Chính phủ Mỹ ban hành quy định ngăn truy cập từ xa vào chip AI (trí tuệ nhân tạo) và máy chủ tiên tiến, theo đài NPR. Quy định này nhằm bịt lỗ hổng có thể để các chính phủ đối địch tiếp cận công nghệ Mỹ qua trung tâm dữ liệu nước ngoài.",
+        "Tồn tại kẽ hở giúp doanh nghiệp Trung Quốc truy cập từ xa vào chip AI dù Mỹ cấm bán trực tiếp các linh kiện này, theo NPR. Cục Công nghiệp và An ninh Mỹ cho biết hạ tầng đám mây cho phép truy cập năng lực tính toán từ xa qua trung tâm dữ liệu ngoài nước bị kiểm soát.",
+        "Cựu CEO Jensen Huang của Nvidia từ chức giữa bê bối tình cảm với người bị tình báo Mỹ nghi là đặc vụ Trung Quốc, dù NPR chưa thể xác minh độc lập cáo buộc này. Trong khi đó, công ty Megaspeed tại Singapore khẳng định họ kinh doanh hợp pháp và đã thuê luật sư điều tra nội bộ.",
+        "Chính quyền Trump từng phản đối áp thêm quy định hạn chế tiếp cận công nghệ AI trước khi vụ bê bối tại Nvidia nổ ra, theo NPR. Dân biểu Yvette Clarke cho biết cựu CEO Huang dự kiến phải điều trần trước Quốc hội và nhiều khả năng sẽ có thêm các cuộc điều tra tiếp theo."
+      ],
+      "same_event_coverage_ids": [
+        "7cb1911a824a99b9a070",
+        "b9013f1bedd56f1782eb"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Mỹ siết quyền truy cập từ xa vào chip AI sau vụ cựu CEO Nvidia từ chức vì nghi vấn gián điệp",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://www.npr.org/2026/11/16/nx-s1-6042883/nvidia-jensen-huang-commerce-department"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 7.5,
+        "answers": {
+          "what": 9,
+          "why": 6,
+          "notable": 7,
+          "meaning": 7
+        },
+        "hard_errors": [
+          {
+            "kind": "cause",
+            "summary_text": "từ chức vì nghi vấn gián điệp",
+            "explanation": "The source says Huang stepped down amid fallout from unverified allegations involving a woman suspected of being a Chinese intelligence operative. It does not establish that suspected espionage caused his resignation (outlet:p012)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "Mỹ cấm bán trực tiếp các linh kiện này",
+            "explanation": "The source says sales of covered advanced chips to China typically require a BIS export license, rather than stating a blanket ban on direct sales (outlet:p021)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The headline presents suspected espionage as the established reason Huang resigned.",
+            "fix": "Say he resigned amid fallout from allegations that NPR had not independently verified (outlet:p012)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The reader is told direct chip sales are banned outright.",
+            "fix": "Describe the existing export license requirement for covered chip sales to China (outlet:p021)."
+          },
+          {
+            "question": "notable",
+            "problem": "Megaspeed's denial appears without the allegation it addresses.",
+            "fix": "Add that Megaspeed is suspected of selling Chinese companies remote access to U.S. AI chips (outlet:p006, outlet:p023)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "00c1cfa11744ba70371809f2c8d28e9c12df096ca435571aa771a0a5d49b0c0f",
+        "scored_at": "2026-11-17T05:16:46.494269+00:00"
+      }
+    },
+    {
+      "id": "34d18f2606ec330236e6",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare GitHub code repository documentation without an independent news report, official release announcement, or newsworthy event.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/sybil-solutions/inference-optimisation-skill",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "1d113e62b76ee2ab6fa5"
+      ],
+      "split_coverage_ids": []
     }
   ]
 }
