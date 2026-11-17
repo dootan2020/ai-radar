@@ -282,6 +282,9 @@ MIN_RUMOUR_SOURCES = 3        # a leak or unconfirmed report needs this many ind
 MIN_REPO_WEEK_STARS = 3000    # below this a trending repo is too often a clone or spam
 MAX_PER_DAY = 3
 MAX_HOT_PER_DAY = 1
+MAX_USABLE_PER_DAY = 2
+MIN_HOT_SOURCES = 2           # spec §1: "Tin nóng" needs at least 2 independent publishers
+HISTORY_DAYS = 14             # earlier days kept in the published file; only CHAIN_DAYS of them block
 LANE_HOT = "tin-nong"
 LANE_USABLE = "dung-duoc-ngay"
 LANE_NAMES = {LANE_HOT: "Tin nóng", LANE_USABLE: "Dùng được ngay"}
@@ -304,10 +307,13 @@ _PERSON_PROBE = re.compile(r"\b(investigat\w*|probe[sd]?)\b|điều tra", re.I)
 # Companies whose scandals readers follow; two drama stories naming one of them are one chain.
 _ORG = re.compile(r"\b(Nvidia|OpenAI|Google|Apple|Meta|Microsoft|Amazon|Anthropic|xAI|Tesla|Samsung|TikTok|"
                   r"ByteDance|Huawei|DeepSeek|Alibaba|Baidu|Intel|AMD|TSMC|Perplexity|Mistral)\b", re.I)
-_DRAMA_COMPANY = re.compile(r"\b(lawsuit|sues?|sued|suing|court|judge|ban(?:s|ned)?|probe|investigation|breach|"
-                            r"hack\w*|antitrust|fine[sd]?|settle\w*|outage|copyright)\b|khởi kiện|đâm đơn kiện|"
-                            r"bị kiện|kiện tụng|(?<!điều )kiện (?=[A-ZĐ])|tòa án|cấm|bị điều tra|mở (?:cuộc )?điều tra|tấn công mạng|"
-                            r"phạt|sập", re.I)
+# Every published story also carries a Vietnamese headline, so the English words must not match Vietnamese ones:
+# "ban hành" (issue), "ban đầu" (initial), "sự kiện" (event), "kiện toàn" (consolidate), and "fine-tuning".
+_DRAMA_COMPANY = re.compile(r"\b(lawsuit|sues?|sued|suing|court|judge|probe|investigation|breach|hack\w*|antitrust|"
+                            r"settle\w*|outage|copyright)\b|\bban(?:s|ned)?\b(?! (?:hành|đầu|giám|chỉ|lãnh|ngày|đêm|"
+                            r"tổ|biên|nhạc|bè))|\bfine[sd]?\b(?!-)|khởi kiện|đâm đơn kiện|bị kiện|kiện tụng|"
+                            r"(?<!điều )(?<!sự )(?-i:kiện (?=[A-ZĐ]))|tòa án|cấm|bị điều tra|mở (?:cuộc )?điều tra|"
+                            r"tấn công mạng|phạt|sập", re.I)
 # "Free" must be said outright: "available" and "rolls out" also describe paid model launches (back-test: a
 # Gemini model launch was scored as usable now).
 _FREE = re.compile(r"\b(free|open[- ]source|open[- ]weights?|no cost)\b|miễn phí|mã nguồn mở", re.I)
@@ -369,16 +375,24 @@ def editor_video_labels(row: dict | None) -> dict | None:
     return labels
 
 
-def _person_key(name: str) -> str:
-    """'Jensen Huang', 'Huang' and 'huang' are one person for chain grouping."""
+def _person_name(name: str) -> str:
+    """A name casefolded without accents: the editor's full name, or a surname from the keyword list."""
     norm = unicodedata.normalize("NFKD", name.strip().casefold())
-    words = "".join(c for c in norm if not unicodedata.combining(c)).split()
-    return words[-1] if words else ""
+    return " ".join("".join(c for c in norm if not unicodedata.combining(c)).split())
 
 
 def _people(story: dict, row: dict | None, labels: dict | None) -> set[str]:
     names = list(labels["named_people"]) if labels else [m.group(0) for m in _PERSON.finditer(_story_title(story, row))]
-    return {_person_key(n) for n in names if n.strip()}
+    return {key for key in (_person_name(n) for n in names) if key}
+
+
+def _same_person(a: str, b: str) -> bool:
+    """Full names must match exactly ("Nguyen Van Minh" is not "Tran Minh"); a keyword surname matches a full name
+    ending with it ("huang" and "jensen huang")."""
+    if a == b:
+        return True
+    short, full = sorted((a, b), key=lambda name: len(name.split()))
+    return len(short.split()) == 1 and len(full.split()) > 1 and full.split()[-1] == short
 
 
 def _keyword_hook(title: str) -> str:
@@ -470,8 +484,14 @@ def score_story(story: dict, row: dict | None = None) -> dict:
         gates.append(why_unverified)
     if leak and n < MIN_RUMOUR_SOURCES:
         gates.append("tin đồn/rò rỉ, dưới 3 nguồn độc lập")
-    if hook == "drama_person" and n < MIN_PERSON_DRAMA_SOURCES:
+    # Without editor labels the keyword list of famous names decides drama_person, so drama about anyone else
+    # ("OpenAI researcher fired after scandal") would bypass owner decision 1; the person-drama words decide it.
+    person_drama = hook == "drama_person" or (not labels and bool(_DRAMA_PERSON.search(title)))
+    if person_drama and n < MIN_PERSON_DRAMA_SOURCES:
         gates.append("drama về người cần ít nhất 3 nguồn độc lập")
+    lane = LANE_USABLE if hook == "usable_now" else LANE_HOT
+    if lane == LANE_HOT and n < MIN_HOT_SOURCES:
+        gates.append("tin nóng cần ít nhất 2 nguồn độc lập")
     if _SENSITIVE.search(title):
         gates.append("chủ đề nhạy cảm")
     if visual == 0:
@@ -480,7 +500,6 @@ def score_story(story: dict, row: dict | None = None) -> dict:
         gates.append("chỉ có ở nước ngoài")
 
     total = hook_points + vn_points + momentum + visual
-    lane = LANE_USABLE if hook == "usable_now" else LANE_HOT
     coverage_urls = [_str(c.get("url")) for c in story.get("coverage") or [] if isinstance(c, dict)]
     sid = story.get("id")
     return {
@@ -500,11 +519,23 @@ def score_story(story: dict, row: dict | None = None) -> dict:
         "hco_url": f"{SITE_BASE_URL.rstrip('/')}/tin/{sid}/" if sid else None,
         "source_urls": list(dict.fromkeys(u for u in [_str(story.get("url"))] + coverage_urls if u)),
         "visual_links": visual_links,
-        "people": sorted(_people(story, row, labels)),
-        "orgs": sorted({m.group(0).casefold() for m in _ORG.finditer(title)}) if hook.startswith("drama_") else [],
-        "subject": _str((row or {}).get("subject")).strip().casefold() or None,
+        "chain": {
+            "person_drama": person_drama,
+            "people": sorted(_people(story, row, labels)),
+            # Company names chain only personal drama (a CEO's scandal and his resignation), never two unrelated
+            # lawsuits or outages of one company.
+            "orgs": sorted({m.group(0).casefold() for m in _ORG.finditer(title)}) if person_drama else [],
+            "subject": _subject_key((row or {}).get("subject")),
+        },
         "hot_score": story.get("hot_score") if isinstance(story.get("hot_score"), (int, float)) else 0,
     }
+
+
+def _subject_key(subject) -> str | None:
+    """The editor's subject, when specific enough to name a chain: a bare "DeepSeek" covers a financing story and a
+    model launch alike, so a subject needs at least two words."""
+    key = " ".join(_str(subject).casefold().split())
+    return key if len(key.split()) >= 2 else None
 
 
 def score_repo(repo: dict) -> dict:
@@ -550,8 +581,12 @@ def score_repo(repo: dict) -> dict:
         "source_urls": [url] if url else [],
         "visual_links": [url] if url else [],
         "install_command": install or None,
-        "people": [], "subject": f"repo:{rid.casefold()}", "hot_score": week,
+        "chain": _repo_chain(rid), "hot_score": week,
     }
+
+
+def _repo_chain(rid) -> dict:
+    return {"person_drama": False, "people": [], "orgs": [], "subject": f"repo:{_str(rid).casefold()}"}
 
 
 def major_turn(candidate: dict) -> str | None:
@@ -560,15 +595,27 @@ def major_turn(candidate: dict) -> str | None:
     return next((kind for kind, pattern in _MAJOR_TURNS if pattern.search(text)), None)
 
 
+def _chain(c: dict) -> dict:
+    chain = c.get("chain")
+    return chain if isinstance(chain, dict) else {}
+
+
+def _names(value) -> list[str]:
+    return [v for v in value if isinstance(v, str)] if isinstance(value, list) else []
+
+
 def same_chain(a: dict, b: dict) -> bool:
-    """Two candidates belong to one story chain: a shared named person, two drama stories about one company, the
-    same editor subject, or the same event by title. The back-test grouped by title only and let one chain fill 7
-    of the top 10."""
-    if set(a.get("people") or ()) & set(b.get("people") or ()):
-        return True
-    if set(a.get("orgs") or ()) & set(b.get("orgs") or ()):
-        return True
-    if a.get("subject") and a.get("subject") == b.get("subject"):
+    """Two candidates belong to one story chain when, with at least one of them personal drama, they share a named
+    person or a company; or they share a specific editor subject; or they report the same event by title. The
+    back-test grouped by title only and let one chain fill 7 of the top 10. A person merely quoted in a launch does
+    not tie it to that person's later scandal, and two unrelated lawsuits against one company are two chains."""
+    ca, cb = _chain(a), _chain(b)
+    if ca.get("person_drama") is True or cb.get("person_drama") is True:
+        if any(_same_person(x, y) for x in _names(ca.get("people")) for y in _names(cb.get("people"))):
+            return True
+        if set(_names(ca.get("orgs"))) & set(_names(cb.get("orgs"))):
+            return True
+    if ca.get("subject") and ca.get("subject") == cb.get("subject"):
         return True
     return a.get("kind") == b.get("kind") == "story" and same_event(a, b)
 
@@ -577,12 +624,17 @@ def _at(candidate: dict) -> datetime | None:
     return instant(candidate.get("picked_at") or candidate.get("published_at"))
 
 
+def _vn_date(moment: datetime):
+    return moment.astimezone(VIETNAM).date()
+
+
 def chain_block(candidate: dict, kept: list[dict], now: datetime) -> str | None:
-    """Why the chain rule refuses this candidate, or None (then it may set candidate["chain_note"]). A chain
-    already shown in the last CHAIN_DAYS takes a follow-up only when it scores MAJOR_THRESHOLD and reports a kind
-    of major development the chain has not had."""
+    """Why the chain rule refuses this candidate, or None (then it may set candidate["chain_note"]). A chain shown
+    on one of the last CHAIN_DAYS Vietnam calendar days (today included) takes a follow-up only when it scores
+    MAJOR_THRESHOLD and reports a kind of major development the chain has not had."""
+    today = _vn_date(now)
     recent = [k for k in kept if same_chain(candidate, k)
-              and (_at(k) is None or now - _at(k) <= timedelta(days=CHAIN_DAYS))]
+              and (_at(k) is None or 0 <= (today - _vn_date(_at(k))).days < CHAIN_DAYS)]
     if not recent:
         return None
     turn = major_turn(candidate)
@@ -617,13 +669,13 @@ def _reason(c: dict) -> str:
 
 
 def pick_day(candidates: list[dict], kept: list[dict], now: datetime) -> tuple[list[dict], list[dict]]:
-    """Choose one day's picks: at most MAX_HOT_PER_DAY "Tin nóng" and "Dùng được ngay" filling up to MAX_PER_DAY
-    (two beside a hot pick, three without one), each at or above CANDIDATE_THRESHOLD and past every gate.
+    """Choose one day's picks: at most MAX_HOT_PER_DAY "Tin nóng" and MAX_USABLE_PER_DAY "Dùng được ngay", each at
+    or above CANDIDATE_THRESHOLD and past every gate. A day without a hot pick keeps its usable picks (owner decision
+    3) but still at most MAX_USABLE_PER_DAY (spec §4.2: "tối đa 1 tin làn A và 1–2 tin làn B").
     Returns (picks, refused) where refused lists strong candidates and why they were not taken."""
     picks, refused = [], []
     eligible = sorted((c for c in candidates if not c["gates"] and c["score"] >= CANDIDATE_THRESHOLD), key=_rank)
-    # "Tin nóng" first; "Dùng được ngay" then fills the rest of the day (owner decision 3).
-    for lane, limit in ((LANE_HOT, MAX_HOT_PER_DAY), (LANE_USABLE, MAX_PER_DAY)):
+    for lane, limit in ((LANE_HOT, MAX_HOT_PER_DAY), (LANE_USABLE, MAX_USABLE_PER_DAY)):
         taken = 0
         for c in (c for c in eligible if c["lane"] == lane):
             if taken >= limit or len(picks) >= MAX_PER_DAY:
@@ -649,51 +701,72 @@ def _public(c: dict) -> dict:
     return out
 
 
-def video_candidates(stories: list[dict], decision_rows: dict | None = None, repos: list[dict] | None = None,
-                     now: datetime | None = None, days: int = CHAIN_DAYS + 1,
-                     previous: dict | None = None) -> dict:
-    """The video candidates for the last `days` days ending at `now`, newest day first.
+def _history(previous: dict | None, today) -> list[dict]:
+    """The stored days of the last published file that are before today (Vietnam date), newest first, verbatim.
 
-    Each day is picked as it would have been at the same clock time that day, from stories published in the
-    FRESH_HOURS before it, so the chain rule sees the earlier days' picks without any stored state. The repos
-    section is a current snapshot only, so repos are scored for the newest day; earlier repo picks come from
-    `previous` (the last written file) when there is one.
+    These are the picks that were actually offered; they are never re-scored. A day dated today is dropped, so a
+    rerun recomputes today from scratch and today's earlier run never blocks it.
+    """
+    days = previous.get("days") if isinstance(previous, dict) else None
+    out = {}
+    for day in days if isinstance(days, list) else []:
+        if not isinstance(day, dict) or not isinstance(day.get("picks"), list):
+            continue
+        try:
+            date = datetime.strptime(_str(day.get("date")), "%Y-%m-%d").date()
+        except ValueError:
+            continue
+        if date < today and 0 < (today - date).days <= HISTORY_DAYS and date not in out:
+            out[date] = {**day, "picks": [p for p in day["picks"] if isinstance(p, dict) and isinstance(p.get("id"), str)
+                                          and p.get("lane") in LANE_NAMES]}
+    return [out[d] for d in sorted(out, reverse=True)]
+
+
+def _stored_pick(pick: dict, day: dict) -> dict:
+    """A stored pick as the chain rule reads it: its chain keys and the moment it was offered."""
+    chain = pick.get("chain") if isinstance(pick.get("chain"), dict) else (
+        _repo_chain(pick.get("id")) if pick.get("kind") == "repo" else {})
+    return {**pick, "chain": chain, "picked_at": pick.get("picked_at") or day.get("picked_at") or f"{day['date']}T12:00:00+07:00"}
+
+
+def video_candidates(stories: list[dict], decision_rows: dict | None = None, repos: list[dict] | None = None,
+                     now: datetime | None = None, previous: dict | None = None) -> dict:
+    """Today's video candidates (Vietnam date of `now`) plus the stored picks of earlier days, newest day first.
+
+    `previous` is the last published file (update.yml fetches it from hco.news). Its earlier days are the picker's
+    memory: kept verbatim, never re-scored with today's momentum, and their picks feed the 3-day chain rule. Only
+    today is computed, from stories published in the FRESH_HOURS before `now` that no stored day already picked,
+    and from the snapshot's repos. Without a previous file (first run, failed fetch) today is picked without
+    memory; earlier days are not replayed, because a replay files a story that heated up overnight under a day
+    already gone and would then be stored as a pick that was never offered.
     """
     now = now or datetime.now(timezone.utc)
+    today = _vn_date(now)
     rows = decision_rows or {}
+    history = _history(previous, today)
+    kept = [_stored_pick(p, day) for day in history for p in day["picks"]]
+    stored_ids = {p["id"] for p in kept}
     scored = [score_story(s, rows.get(s.get("id"))) for s in stories if isinstance(s, dict) and s.get("id")]
-    repo_cands = [score_repo(r) for r in repos or [] if isinstance(r, dict)]
-    kept = []
-    for day in (previous or {}).get("days") or []:
-        for p in day.get("picks") or [] if isinstance(day, dict) else []:
-            if isinstance(p, dict) and p.get("kind") == "repo" and p.get("picked_at"):
-                kept.append({**p, "subject": f"repo:{str(p.get('id')).casefold()}", "people": []})
-    out_days = []
-    picked_ids = set()
-    for back in range(days - 1, -1, -1):
-        at = now - timedelta(days=back)
-        pool = [c for c in scored if c["id"] not in picked_ids and _at(c) and timedelta(0) <= at - _at(c)
-                <= timedelta(hours=FRESH_HOURS)]
-        if back == 0:
-            pool += repo_cands
-        picks, refused = pick_day(pool, [k for k in kept if _at(k) and _at(k) < at], at)
-        kept += picks
-        picked_ids.update(p["id"] for p in picks)
-        excluded = sorted([c for c in pool if c["gates"]], key=_rank)[:5]
-        out_days.append({
-            "date": at.astimezone(VIETNAM).strftime("%Y-%m-%d"), "picked_at": at.isoformat(),
-            "repos_scored": back == 0,
-            "picks": [_public(p) | {"picked_at": p["picked_at"]} for p in picks],
-            "no_video": not picks,
-            "refused": [_public(c) for c in refused[:5]],
-            "excluded": [_public(c) for c in excluded],
-        })
+    pool = [c for c in scored if c["id"] not in stored_ids and _at(c)
+            and timedelta(0) <= now - _at(c) <= timedelta(hours=FRESH_HOURS)]
+    pool += [score_repo(r) for r in repos or [] if isinstance(r, dict)]
+    picks, refused = pick_day(pool, kept, now)
+    excluded = sorted([c for c in pool if c["gates"]], key=_rank)[:5]
+    today_out = {
+        "date": today.isoformat(), "picked_at": now.isoformat(),
+        "picks": [_public(p) | {"picked_at": p["picked_at"], "chain": _chain(p)} for p in picks],
+        "no_video": not picks,
+        "refused": [_public(c) for c in refused[:5]],
+        "excluded": [_public(c) for c in excluded],
+    }
     return {
-        "schema_version": 1, "version": CANDIDATES_VERSION, "generated_at": now.isoformat(),
+        "schema_version": 2, "version": CANDIDATES_VERSION, "generated_at": now.isoformat(),
+        "memory": "stored" if previous is not None and isinstance(previous, dict) else "cold-start",
         "rubric": {"threshold": CANDIDATE_THRESHOLD, "major_followup_threshold": MAJOR_THRESHOLD,
                    "chain_days": CHAIN_DAYS, "fresh_hours": FRESH_HOURS, "max_per_day": MAX_PER_DAY,
-                   "max_hot_per_day": MAX_HOT_PER_DAY, "hook_points": HOOK_POINTS},
-        "days": list(reversed(out_days)),
+                   "max_hot_per_day": MAX_HOT_PER_DAY, "max_usable_per_day": MAX_USABLE_PER_DAY,
+                   "min_hot_sources": MIN_HOT_SOURCES, "hook_points": HOOK_POINTS},
+        "days": [today_out] + history,
     }
 
 

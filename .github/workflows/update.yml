@@ -355,6 +355,21 @@ jobs:
         with:
           path: site/assets/cover
           key: radar-covers-v1-${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}
+      - name: Fetch published video candidates
+        if: steps.collect.outcome == 'success'
+        continue-on-error: true
+        timeout-minutes: 1
+        # The picks of earlier days are the 3-day memory of the video picker (radar.video_script.video_candidates).
+        # Missing or unreadable is a cold start, never a failure.
+        run: |
+          rm -f site/data/video-candidates.json
+          if ! curl -fsS --max-time 10 https://hco.news/data/video-candidates.json -o "$RUNNER_TEMP/video-candidates.json"; then
+            echo '::warning::Could not fetch published video candidates; picking today without stored history.'
+          elif python -c 'import json, sys; json.load(open(sys.argv[1], encoding="utf-8"))' "$RUNNER_TEMP/video-candidates.json"; then
+            mv "$RUNNER_TEMP/video-candidates.json" site/data/video-candidates.json
+          else
+            echo '::warning::Published video candidates are not JSON; picking today without stored history.'
+          fi
       - name: Generate daily video script
         id: video-script
         if: steps.collect.outcome == 'success'

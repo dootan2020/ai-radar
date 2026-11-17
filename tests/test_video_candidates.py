@@ -139,11 +139,59 @@ class GateTests(unittest.TestCase):
         s = story(LAWSUIT, title="Chatbot linked to teen suicide faces lawsuit")
         self.assertIn("chủ đề nhạy cảm", v.score_story(s, row(LAWSUIT))["gates"])
 
+    # Regression tests for the review of 2026-11-18 (F1-F3).
+    def test_person_drama_outside_the_name_list_needs_three_sources(self):
+        s = story(LAWSUIT, title="OpenAI researcher fired after scandal", title_vi="", source_count=1,
+                  url="https://www.youtube.com/watch?v=abc")
+        s["coverage"][0]["metrics"] = {"points": 350}
+        r = row(LAWSUIT, editorial_headline_vi="Nhà nghiên cứu OpenAI bị sa thải sau bê bối")
+        self.assertIn("drama về người cần ít nhất 3 nguồn độc lập", v.score_story(s, r)["gates"])
+        self.assertNotIn("drama về người cần ít nhất 3 nguồn độc lập",
+                         v.score_story({**s, "source_count": 3}, r)["gates"])
+        day = v.video_candidates([s], {LAWSUIT: r}, [], now=datetime(2026, 11, 17, 5, tzinfo=v.VIETNAM))
+        self.assertEqual(day["days"][0]["picks"], [])
+
+    def test_hot_lane_needs_two_independent_sources(self):
+        s = story(LAWSUIT, source_count=1, url="https://www.youtube.com/watch?v=abc")
+        s["coverage"][0]["metrics"] = {"points": 400}
+        self.assertIn("tin nóng cần ít nhất 2 nguồn độc lập", v.score_story(s, row(LAWSUIT))["gates"])
+        jobs = story(LAWSUIT, title="Amazon layoffs hit 16,000 workers as AI takes their jobs", title_vi="",
+                     source_count=1)
+        c = v.score_story(jobs, row(LAWSUIT, editorial_headline_vi="Amazon sa thải 16.000 nhân viên"))
+        self.assertEqual(c["breakdown"]["hook"]["hook"], "money_jobs")
+        self.assertIn("tin nóng cần ít nhất 2 nguồn độc lập", c["gates"])
+        self.assertNotIn("tin nóng cần ít nhất 2 nguồn độc lập", v.score_story(story(LAWSUIT), row(LAWSUIT))["gates"])
+
+    def test_vietnamese_headline_words_are_not_company_drama(self):
+        for title, headline in (("Google unveils Gemini 5 at I/O", "Google ra mắt Gemini 5 tại sự kiện I/O"),
+                                ("OpenAI issues new rules for GPT-6", "OpenAI ban hành quy tắc mới cho GPT-6"),
+                                ("Meta unveils a new model", "Meta công bố mô hình mới, bản ban đầu"),
+                                ("Anthropic restructures its team", "Anthropic kiện toàn đội ngũ"),
+                                ("Fine-tuning Llama gets cheaper", "Tinh chỉnh Llama rẻ hơn")):
+            c = v.score_story(story(LAUNCH, title=title, title_vi=""), row(LAUNCH, editorial_headline_vi=headline))
+            self.assertNotEqual(c["breakdown"]["hook"]["hook"], "drama_company", headline)
+            self.assertEqual(c["chain"]["orgs"], [], headline)
+        sued = v.score_story(story(LAUNCH, title="x", title_vi=""), row(LAUNCH, editorial_headline_vi="California kiện OpenAI"))
+        self.assertEqual(sued["breakdown"]["hook"]["hook"], "drama_company")
+        banned = v.score_story(story(LAUNCH, title="Italy bans DeepSeek", title_vi=""), row(LAUNCH))
+        self.assertEqual(banned["breakdown"]["hook"]["hook"], "drama_company")
+
+
+def vn(day, hour, minute=0):
+    return datetime(2026, 11, day, hour, minute, tzinfo=v.VIETNAM)
+
+
+def run(stories, repos, now, previous=None, rows=ROWS):
+    return v.video_candidates(stories, rows, repos, now=now, previous=previous)
+
+
+def picks_by_day(result):
+    return {d["date"]: [p["id"] for p in d["picks"]] for d in result["days"]}
+
 
 class ChainTests(unittest.TestCase):
-    def picked(self, sid, **changes):
-        c = v.score_story(story(sid, **changes), row(sid))
-        return {**c, "picked_at": c["published_at"]}
+    def picked(self, sid, at, **changes):
+        return {**v.score_story(story(sid, **changes), row(sid)), "picked_at": at.isoformat()}
 
     def test_same_person_and_same_company_drama_are_one_chain(self):
         lead = v.score_story(story(HUANG), row(HUANG))
@@ -153,73 +201,117 @@ class ChainTests(unittest.TestCase):
         self.assertTrue(v.same_chain(lead, transition))
         self.assertFalse(v.same_chain(lead, v.score_story(story(LAWSUIT), row(LAWSUIT))))
 
-    def test_editor_subject_groups_a_chain(self):
+    def test_editor_subject_groups_a_chain_only_when_specific(self):
         a = v.score_story(story(LAWSUIT), row(LAWSUIT, subject="California v OpenAI"))
         b = v.score_story(story(LAUNCH), row(LAUNCH, subject="california v openai"))
         self.assertTrue(v.same_chain(a, b))
+        a = v.score_story(story(LAWSUIT), row(LAWSUIT, subject="DeepSeek"))
+        b = v.score_story(story(LAUNCH), row(LAUNCH, subject="DeepSeek"))
+        self.assertFalse(v.same_chain(a, b))     # a bare company name covers a financing story and a launch alike
 
     def test_follow_up_needs_seventy_and_a_new_major_development(self):
-        lead = self.picked(HUANG)
-        now = v.instant(STORIES[TRANSITION]["published_at"])
+        lead = self.picked(HUANG, vn(10, 5))
         transition = v.score_story(story(TRANSITION), row(TRANSITION))
         self.assertGreaterEqual(transition["score"], v.MAJOR_THRESHOLD)
-        self.assertIsNone(v.chain_block(transition, [lead], now))          # resignation: new, 72 points
+        self.assertIsNone(v.chain_block(dict(transition), [lead], vn(12, 21, 30)))   # resignation: new, 72 points
         again = v.score_story(story(FOLLOW_UP, source_count=3), row(FOLLOW_UP))
         self.assertEqual(v.major_turn(again), "resignation")
-        later = v.instant(STORIES[FOLLOW_UP]["published_at"])
-        self.assertEqual(v.chain_block(again, [lead, {**transition, "picked_at": transition["published_at"]}], later),
+        shown = {**transition, "picked_at": vn(12, 21, 30).isoformat()}
+        self.assertEqual(v.chain_block(again, [lead, shown], vn(13, 22)),
                          "cùng chuỗi tin đã làm trong 3 ngày")              # a second resignation story is not new
         weak = {**transition, "score": 65}
-        self.assertEqual(v.chain_block(weak, [lead], now), "cùng chuỗi tin đã làm trong 3 ngày")
+        self.assertEqual(v.chain_block(weak, [lead], vn(12, 21, 30)), "cùng chuỗi tin đã làm trong 3 ngày")
 
-    def test_chain_reopens_after_three_days(self):
-        lead = self.picked(HUANG)
+    def test_chain_reopens_on_the_third_day_after(self):
+        lead = self.picked(HUANG, vn(10, 5))
         weak = {**v.score_story(story(TRANSITION), row(TRANSITION)), "score": 61}
-        at = v.instant(lead["picked_at"]) + timedelta(days=3, hours=1)
-        self.assertIsNone(v.chain_block(weak, [lead], at))
+        self.assertEqual(v.chain_block(dict(weak), [lead], vn(12, 23, 59)), "cùng chuỗi tin đã làm trong 3 ngày")
+        self.assertIsNone(v.chain_block(dict(weak), [lead], vn(13, 0, 1)))
 
     def test_one_chain_never_fills_a_week_of_picks(self):
-        # The back-test top 10 had 7 Jensen Huang stories; daily picks now carry at most the lead and one new turn.
+        # The back-test top 10 had 7 Jensen Huang stories. Runs at 05:00 and 21:30 each day, each fed the file the
+        # run before published, offer the lead and one new turn only.
         stories = [story(HUANG), story(TRANSITION), story(FOLLOW_UP, source_count=4)]
-        result = v.video_candidates(stories, ROWS, [], now=datetime(2026, 11, 15, 5, tzinfo=v.VIETNAM), days=7)
-        picked = [p["id"] for d in reversed(result["days"]) for p in d["picks"]]   # days are newest first
-        self.assertEqual(picked, [HUANG, TRANSITION])
+        previous = None
+        for day in range(10, 15):
+            for hour, minute in ((5, 0), (21, 30)):
+                previous = run(stories, [], vn(day, hour, minute), previous)
+        offered = [p for d in reversed(previous["days"]) for p in picks_by_day(previous)[d["date"]]]
+        self.assertEqual(offered, [HUANG, TRANSITION])
+
+    # Regression tests for the review of 2026-11-18 (F5, F6).
+    def test_two_unrelated_events_of_one_company_are_two_chains(self):
+        lawsuit = v.score_story(story(LAWSUIT), row(LAWSUIT))
+        outage = v.score_story(story(LAWSUIT, id="outage", title="OpenAI outage takes ChatGPT down for hours",
+                                     title_vi=""), row(LAWSUIT, editorial_headline_vi="ChatGPT sập nhiều giờ"))
+        self.assertEqual(outage["breakdown"]["hook"]["hook"], "drama_company")
+        self.assertFalse(v.same_chain(lawsuit, outage))
+
+    def test_a_person_quoted_outside_drama_does_not_chain(self):
+        a = v.score_story(story(LAWSUIT, title="Trump signs AI chip export order", title_vi=""),
+                          row(LAWSUIT, editorial_headline_vi="Trump ký lệnh xuất khẩu chip AI"))
+        b = v.score_story(story(LAUNCH, title="Trump praises new US AI datacenter", title_vi=""),
+                          row(LAUNCH, editorial_headline_vi="Trump khen trung tâm dữ liệu AI mới"))
+        self.assertFalse(v.same_chain(a, b))
+
+    def test_full_names_from_labels_do_not_collide_on_a_given_name(self):
+        drama = labels("drama_person", people=["Nguyễn Văn Minh"])
+        a = v.score_story(story(HUANG), row(HUANG, video_labels=drama))
+        b = v.score_story(story(LAWSUIT), row(LAWSUIT, video_labels=labels("drama_person", people=["Trần Minh"])))
+        self.assertFalse(v.same_chain(a, b))
+        c = v.score_story(story(FOLLOW_UP), row(FOLLOW_UP, video_labels=labels("drama_person", ["Nguyen Van Minh"])))
+        self.assertTrue(v.same_chain(a, c))
 
 
 class DayTests(unittest.TestCase):
-    def test_hot_lane_takes_one_and_repos_fill_to_three(self):
-        now = v.instant(STORIES[HUANG]["published_at"]) + timedelta(hours=6)
-        result = v.video_candidates([story(HUANG)], ROWS, list(REPOS.values()), now=now, days=1)
-        day = result["days"][0]
+    def test_hot_lane_takes_one_and_repos_two(self):
+        day = run([story(HUANG)], list(REPOS.values()), vn(10, 5))["days"][0]
         self.assertEqual([p["lane"] for p in day["picks"]], [v.LANE_HOT, v.LANE_USABLE, v.LANE_USABLE])
         self.assertEqual(day["picks"][1]["id"], "meta/astryx")
-        self.assertTrue(all(p["reason"] and p["breakdown"] for p in day["picks"]))
-        self.assertLessEqual(len(day["picks"]), v.MAX_PER_DAY)
+        self.assertTrue(all(p["reason"] and p["breakdown"] and p["chain"] for p in day["picks"]))
 
-    def test_without_a_hot_story_the_usable_lane_fills_the_day(self):
-        # Owner decision 3: no "Tin nóng" pick below the threshold; "Dùng được ngay" fills the day.
-        now = v.instant(STORIES[LAWSUIT]["published_at"]) + timedelta(hours=2)
-        result = v.video_candidates([story(LAWSUIT)], ROWS, list(REPOS.values()), now=now, days=1)
-        picks = result["days"][0]["picks"]
-        self.assertEqual([p["id"] for p in picks], ["meta/astryx", "mattpocock/skills"])
+    def test_without_a_hot_story_the_usable_lane_takes_at_most_two(self):
+        # Owner decision 3 with spec §4.2 (review F8): the usable lane fills a day without a hot pick, 1-2 slots.
+        repos = list(REPOS.values()) + [{**REPOS["meta/astryx"], "id": "example/third", "full_name": "example/third"}]
+        picks = run([story(LAWSUIT)], repos, vn(17, 5))["days"][0]["picks"]
+        self.assertEqual(len(picks), 2)
         self.assertFalse(any(p["lane"] == v.LANE_HOT for p in picks))
 
     def test_a_day_with_nothing_above_the_threshold_has_no_video(self):
-        now = v.instant(STORIES[LAWSUIT]["published_at"]) + timedelta(hours=2)
-        day = v.video_candidates([story(LAWSUIT), story(LAUNCH)], ROWS, [], now=now, days=1)["days"][0]
+        day = run([story(LAWSUIT), story(LAUNCH)], [], vn(17, 5))["days"][0]
         self.assertEqual((day["picks"], day["no_video"]), ([], True))
 
     def test_stories_older_than_48_hours_are_not_candidates(self):
-        now = v.instant(STORIES[HUANG]["published_at"]) + timedelta(hours=49)
-        self.assertEqual(v.video_candidates([story(HUANG)], ROWS, [], now=now, days=1)["days"][0]["picks"], [])
+        self.assertEqual(run([story(HUANG)], [], vn(11, 23))["days"][0]["picks"], [])
 
-    def test_previous_repo_pick_blocks_the_repo_for_three_days(self):
-        now = datetime(2026, 11, 18, 5, tzinfo=v.VIETNAM)
-        first = v.video_candidates([], {}, list(REPOS.values()), now=now, days=1)
-        again = v.video_candidates([], {}, list(REPOS.values()), now=now + timedelta(days=1), days=1, previous=first)
-        self.assertEqual([p["id"] for p in again["days"][0]["picks"]], [])
-        refused = {c["id"]: c["refused"] for c in again["days"][0]["refused"]}
-        self.assertEqual(refused["meta/astryx"], "cùng chuỗi tin đã làm trong 3 ngày")
+    # Regression tests for the review of 2026-11-18 (F4): the memory is the published file, not a replay.
+    def test_a_repo_is_offered_once_per_three_days_across_runs(self):
+        repos = list(REPOS.values())
+        first = run([], repos, vn(18, 5))
+        rerun = run([], repos, vn(18, 5, 20), first)                 # same day, 20 minutes later
+        self.assertEqual(picks_by_day(rerun)["2026-11-18"], ["meta/astryx", "mattpocock/skills"])
+        again = run([], repos, vn(18, 5, 40), rerun)
+        self.assertEqual(picks_by_day(again)["2026-11-18"], ["meta/astryx", "mattpocock/skills"])
+        d1 = run([], repos, vn(19, 5), again)
+        d2 = run([], repos, vn(20, 5), d1)
+        self.assertEqual((picks_by_day(d1)["2026-11-19"], picks_by_day(d2)["2026-11-20"]), ([], []))
+        self.assertEqual(picks_by_day(d2)["2026-11-18"], ["meta/astryx", "mattpocock/skills"])   # kept verbatim
+        d3 = run([], repos, vn(21, 5), d2)
+        self.assertEqual(picks_by_day(d3)["2026-11-21"], ["meta/astryx", "mattpocock/skills"])
+
+    def test_a_story_that_heats_up_overnight_is_offered_on_the_live_day(self):
+        cold = story(LAWSUIT, source_count=1)
+        day1 = run([cold], [], vn(17, 5))
+        self.assertEqual(picks_by_day(day1)["2026-11-17"], [])
+        hot = story(LAWSUIT, source_count=6)
+        hot["coverage"][0]["metrics"] = {"points": 400}
+        day2 = run([hot], [], vn(18, 5), day1)
+        self.assertEqual(picks_by_day(day2), {"2026-11-18": [LAWSUIT], "2026-11-17": []})
+
+    def test_bad_previous_file_is_a_cold_start(self):
+        for bad in (None, [], {"days": "x"}, {"days": [{"date": "x", "picks": []}, 3, {"date": "2026-11-17"}]}):
+            result = run([story(HUANG)], [], vn(10, 5), bad)
+            self.assertEqual(picks_by_day(result), {"2026-11-10": [HUANG]})
 
 
 class RepoTests(unittest.TestCase):
