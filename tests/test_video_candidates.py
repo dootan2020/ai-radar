@@ -254,6 +254,19 @@ class FileTests(unittest.TestCase):
             self.assertLessEqual(len(today["picks"]), 3)
             self.assertEqual(result["rubric"]["threshold"], 60)
 
+    def test_cli_writes_candidates_beside_the_script_output_without_a_model_call(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp = Path(tmp)
+            (tmp / "radar-ui.json").write_text(json.dumps({"stories": list(STORIES.values()),
+                                                           "repos": list(REPOS.values())}), encoding="utf-8")
+            code = v.main(["--input", str(tmp / "radar-ui.json"), "--output", str(tmp / "data" / "video-script.json"),
+                           "--ledger", str(tmp / "ledger.json"), "--ref", "main", "--decisions", str(tmp / "none.json"),
+                           "--now", "2026-11-17T10:00:00Z"])
+            self.assertEqual(code, 0)
+            self.assertTrue((tmp / "data" / "video-candidates.json").is_file())
+            self.assertFalse((tmp / "data" / "video-script.json").exists())   # outside the 05:00 window
+            self.assertFalse((tmp / "ledger.json").exists())
+
     def test_chief_rows_with_video_fields_validate(self):
         base = {"id": "x", "decision": "publish", "content_kind": "event_news", "analysis_kind": None,
                 "round": "chief", "reason": "ok", "importance_tier": "standard", "tier_capped": False,

@@ -1274,8 +1274,9 @@ def main(argv=None):
     parser.add_argument("--ref", default=None,
                         help="Git ref or branch name (non-main refs bypass schedule window)")
     parser.add_argument("--now", help="Explicit ISO timestamp for offline testing")
-    parser.add_argument("--candidates-output", default="site/data/video-candidates.json",
-                        help="Video candidates output path; empty string skips it")
+    parser.add_argument("--candidates-output", default=None,
+                        help="Video candidates output path (defaults to video-candidates.json beside --output, "
+                             "i.e. site/data/video-candidates.json); empty string skips it")
     parser.add_argument("--decisions", default=None,
                         help="Newsroom decisions path (defaults to RADAR_NEWSROOM_DECISIONS or phong-bao/decisions.json)")
     args = parser.parse_args(argv)
@@ -1294,9 +1295,11 @@ def main(argv=None):
             input_path = alt
 
     # Candidates are pure code (no model call), so they are refreshed on every run, outside the script window too.
-    if args.candidates_output and input_path.is_file():
+    candidates_path = (Path(args.output).with_name("video-candidates.json") if args.candidates_output is None
+                       else args.candidates_output)
+    if candidates_path and input_path.is_file():
         try:
-            result = write_video_candidates(input_path, args.candidates_output, args.decisions, now=now_val)
+            result = write_video_candidates(input_path, candidates_path, args.decisions, now=now_val)
             today = result["days"][0] if result["days"] else {}
             print(f"Video candidates written: date={today.get('date')}, picks={len(today.get('picks') or [])}")
         except Exception as error:  # the daily script must not depend on the candidates file
