@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-17T15:37:57.542634+00:00",
-  "input_generated_at": "2026-11-17T14:45:42Z",
+  "generated_at": "2026-11-17T17:39:06.454768+00:00",
+  "input_generated_at": "2026-11-17T16:46:20Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -85904,17 +85904,17 @@
       "use_original_title": true,
       "source_url": "https://analyticsindiamag.com/ai-news/dreamteam-raises-53-mn-to-build-ai-native-crm-with-ai-teammates",
       "key_points": [
-        "Theo Analytics India Magazine, Dreamteam huy động 53 triệu USD phát triển nền tảng CRM (quản lý quan hệ khách hàng) dùng nhiều cộng sự AI quản lý quy trình bán hàng. Vòng gọi vốn do Together Fund và Accel dẫn đầu, trong bối cảnh Dreamteam cho biết hơn 100 công ty đang sử dụng nền tảng.",
-        "Theo Dreamteam, nền tảng nhằm giảm thao tác thủ công và khắc phục hạn chế ghi chép của CRM truyền thống. Công ty lập luận rằng các hệ thống hiện tại thường bỏ sót chi tiết quan trọng từ hội thoại khách hàng, khiến nhân viên phải duy trì thông tin trên nhiều công cụ.",
-        "Nền tảng hiện cung cấp bốn cộng sự AI chuyên biệt kết nối qua Company Brain, nơi lưu trữ thông tin từ các cuộc gọi, email và cuộc họp. Trong đó, Rachel nghiên cứu khách hàng tiềm năng, Sally theo dõi giao dịch, Raj giám sát rủi ro kênh bán hàng và Alex xử lý cấu hình CRM.",
-        "Dù email cần người duyệt trước khi gửi, Dreamteam dự định mở rộng tác tử sang tìm kiếm khách hàng, gia hạn và mở rộng hợp đồng. Công ty cũng kỳ vọng các tác tử sẽ trao đổi trực tiếp với hệ thống AI của bên mua."
+        "Theo Analytics India Magazine, Dreamteam đã huy động 53 triệu USD qua các vòng hạt giống và Series A để phát triển nền tảng CRM (quản lý quan hệ khách hàng) dùng cộng sự AI. Khoản tài trợ do Together Fund và Accel dẫn đầu nhằm mở rộng nền tảng đang có hơn 100 doanh nghiệp sử dụng.",
+        "Theo Dreamteam, CRM truyền thống thường bỏ sót chi tiết quan trọng từ hội thoại khách hàng, khiến nhân viên phải lưu thông tin trên nhiều công cụ. Nền tảng mới được xây dựng nhằm giảm bớt các thao tác cập nhật thỏa thuận thủ công.",
+        "Nền tảng hiện có bốn cộng sự AI đảm nhận từng chức năng bán hàng: Rachel nghiên cứu khách hàng, Sally quản lý giao dịch, Raj giám sát quy trình bán hàng cùng rủi ro, và Alex cấu hình CRM. Bốn tác tử cùng kết nối qua hệ thống Company Brain để chia sẻ dữ liệu hội thoại và cuộc họp thay vì hoạt động riêng lẻ.",
+        "Dreamteam có kế hoạch mở rộng tác tử sang quản lý hành trình khách hàng gồm tìm kiếm khách hàng tiềm năng, gia hạn và mở rộng tài khoản. Dù vậy, công ty cho biết các tác tử chịu hạn mức phê duyệt và email bắt buộc phải có con người duyệt trước."
       ],
       "same_event_coverage_ids": [
         "136796c734e5134d4f9e"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Dreamteam huy động 53 triệu USD phát triển nền tảng CRM tích hợp các cộng sự AI",
+      "editorial_headline_vi": "Dreamteam gọi vốn 53 triệu USD qua hai vòng để phát triển CRM tích hợp cộng sự AI",
       "summary_sources": [
         {
           "id": "outlet",
@@ -85927,54 +85927,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.4,
+        "value": 9.7,
         "answers": {
-          "what": 8,
+          "what": 10,
           "why": 10,
-          "notable": 8,
-          "meaning": 8
+          "notable": 9,
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "Vòng gọi vốn",
-            "explanation": "The $53 million was raised across seed and Series A rounds, rather than one round (outlet:p001)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "Raj giám sát rủi ro kênh bán hàng",
-            "explanation": "Raj monitors sales pipelines and identifies potential risks; a sales channel is a different scope (outlet:p005)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "mở rộng hợp đồng",
-            "explanation": "Dreamteam plans for account expansion, which is broader than expanding contracts (outlet:p008)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "what",
-            "problem": "The reader may think the $53 million came from one funding round.",
-            "fix": "Say it was raised across seed and Series A rounds (outlet:p001)."
-          },
-          {
-            "question": "notable",
-            "problem": "Raj’s work is described as monitoring sales channels.",
-            "fix": "Describe Raj as monitoring sales pipelines and identifying potential risks (outlet:p005)."
-          },
-          {
-            "question": "meaning",
-            "problem": "The planned expansion is narrowed to contracts.",
-            "fix": "Use account expansion, alongside lead generation and renewals (outlet:p008)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "674b70a6d70934beb791157f600d557db643a52b3c3ddf70354e28d1311566db",
-        "scored_at": "2026-11-17T15:34:09.044820+00:00"
+        "prose_sha256": "d709ef1e128d1fff53c8b8eb954639de5f52653bc1fa4c90d51b96149b83353e",
+        "scored_at": "2026-11-17T17:34:48.128544+00:00"
       }
     },
     {
@@ -86322,17 +86290,17 @@
       "use_original_title": false,
       "source_url": "https://www.semafor.com/article/11/17/2026/nvidia-faces-its-own-lehman-moment",
       "key_points": [
-        "Giám đốc tài chính Colette Kress trở thành quyền tổng giám đốc điều hành Nvidia và trực tiếp chủ trì cuộc gọi báo cáo tài chính quan trọng của tập đoàn theo tác giả Liz Hoffman.",
-        "Bà Kress tiếp quản sau khi Jensen Huang từ chức giữa cuộc điều tra về quan hệ với nghi can gián điệp Trung Quốc và các cáo buộc tình cảm với cấp dưới.",
-        "Bà Callan ban đầu thuyết phục được nhà đầu tư giúp cổ phiếu tăng mạnh, nhưng sau đó phải rời đi khi các số liệu bị mổ xẻ và khủng hoảng niềm tin nhấn chìm công ty.",
-        "Hội đồng quản trị với chủ tịch độc lập mới sẽ quyết định thời hạn nắm quyền tạm thời của bà Kress. Dù vậy, Tổng giám đốc Citi Jane Fraser bày tỏ tin tưởng vào năng lực lãnh đạo hiện tại của bà."
+        "Giám đốc tài chính Colette Kress trở thành quyền CEO Nvidia và chuẩn bị phát biểu tại cuộc gọi báo cáo tài chính chiều nay theo Liz Hoffman của Semafor.",
+        "Bà Kress tiếp quản vị trí sau khi Jensen Huang từ chức giữa cuộc điều tra quan hệ với nghi can gián điệp Trung Quốc và các cáo buộc tình ái với cấp dưới.",
+        "Bà Kress chịu thêm áp lực khi báo The Wall Street Journal đưa tin ông Huang từng ví bà như 'con nai trước đèn pha' vào tháng 8. Bà cũng phải báo cáo trước hội đồng quản trị vừa có chủ tịch độc lập đầu tiên tuần trước, nơi quyết định thời hạn tạm quyền.",
+        "Jane Fraser của Citi cũng tin tưởng Nvidia ở thời điểm hiện tại đang nằm trong tay người có đủ năng lực."
       ],
       "same_event_coverage_ids": [
         "e04fc389a3eddbc43ada"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Colette Kress tạm quyền CEO Nvidia và chủ trì báo cáo tài chính sau khi Jensen Huang từ chức",
+      "editorial_headline_vi": "Colette Kress làm quyền CEO Nvidia giữa khủng hoảng và chuẩn bị phát biểu tại cuộc gọi báo cáo tài chính",
       "summary_sources": [
         {
           "id": "outlet",
@@ -86345,40 +86313,24 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 7.8,
+        "value": 8.3,
         "answers": {
-          "what": 8,
+          "what": 9,
           "why": 10,
-          "notable": 6,
-          "meaning": 8
+          "notable": 7,
+          "meaning": 7
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "trực tiếp chủ trì cuộc gọi báo cáo tài chính quan trọng",
-            "explanation": "The call was still upcoming when the source said Kress was taking the mic that afternoon; it does not report that she had already chaired it (outlet:p001)."
-          },
-          {
-            "kind": "role",
-            "summary_text": "Tổng giám đốc Citi Jane Fraser",
-            "explanation": "The supplied source identifies her only as Citi’s Jane Fraser and does not state her job title (outlet:p005)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "what",
-            "problem": "The call reads as an event that has already happened.",
-            "fix": "Say Kress is set to speak on the earnings call that afternoon (outlet:p001)."
-          },
-          {
             "question": "notable",
-            "problem": "The Callan episode appears without the source’s reason for comparing her with Kress.",
-            "fix": "Explain the “glass cliff” comparison and note the source’s contrasting assessment of Nvidia’s chip demand and balance sheet (outlet:p003–p004)."
+            "problem": "Readers miss why the source compares Kress with Erin Callan.",
+            "fix": "Add the 2008 Lehman case and the source’s “glass cliff” framing (outlet:p002–p003)."
           },
           {
             "question": "meaning",
-            "problem": "Fraser is given a title the supplied source does not establish.",
-            "fix": "Identify her as Citi’s Jane Fraser, as the source does (outlet:p005)."
+            "problem": "The headline’s crisis framing lacks the source’s qualification about Nvidia’s financial position.",
+            "fix": "State that chip demand and the balance sheet are strong, even as Kress faces a leadership test (outlet:p004)."
           }
         ],
         "writer_boats": [
@@ -86386,8 +86338,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "b0dcfa44e8c4ac1b6aebd10c2c0b742ad008e5dae2dcc803574ecc40e05d3261",
-        "scored_at": "2026-11-17T15:25:33.724553+00:00"
+        "prose_sha256": "8a57812f7330fe4ba6ddd61e8cf091b6e499fe4f81b30dd3b31163343acb51fb",
+        "scored_at": "2026-11-17T17:39:06.392558+00:00"
       }
     },
     {
@@ -86408,17 +86360,17 @@
       "use_original_title": false,
       "source_url": "https://www.semafor.com/article/11/17/2026/ai-isnt-out-of-energy-yet",
       "key_points": [
-        "Hoạt động xây dựng trung tâm dữ liệu tại Mỹ chưa dừng lại và các công ty năng lượng hỗ trợ vẫn thấy nhiều cơ hội phía trước theo nhận định của tác giả Tim trên Semafor.",
-        "Theo tác giả, nhu cầu điện năng tại Mỹ sẽ tiếp tục tăng, bất chấp các biến động chính trị hay sự ra đi của Jensen Huang tại Nvidia.",
-        "Ngoài ra, công ty khởi nghiệp Fermi vừa ký hợp đồng gần 300 triệu USD với Amazon.",
-        "Tác giả Tim lưu ý không phải dự án nào cũng thành công và các công ty thường có xu hướng nói quá về mình. Đồng thời, thách thức khí hậu vẫn chưa được xử lý thỏa đáng khi chỉ một số ít quốc gia nhỏ ký cam kết phát triển bền vững hạ tầng AI tại COP31."
+        "Theo góc nhìn của tác giả Tim trên Semafor, hoạt động xây dựng trung tâm dữ liệu tại Mỹ chưa dừng lại và các công ty năng lượng phục vụ lĩnh vực này vẫn thấy nhiều triển vọng lớn.",
+        "Lý do là kỳ vọng chi tiêu phần cứng AI không đổi theo Goldman Sachs và nhu cầu điện tăng không thể đảo ngược, trong khi BloombergNEF cho rằng bầu cử giữa kỳ không làm thay đổi quan điểm.",
+        "Minh chứng là Fermi, công ty khởi nghiệp năng lượng AI tại Texas từng suýt sụp đổ trong năm nay vì chật vật tìm khách hàng chủ chốt, vừa đạt thỏa thuận gần 300 triệu USD với Amazon.",
+        "Dù tác giả Tim khẳng định nhu cầu điện của Mỹ sẽ tiếp tục tăng, ông cảnh báo các doanh nghiệp dễ nói quá về mình và không phải dự án nào cũng thành công. Ngoài ra, bài toán khí hậu vẫn chưa được xử lý thỏa đáng khi mới chỉ có một số ít quốc gia nhỏ ký cam kết tại COP31 về phát triển bền vững hạ tầng AI."
       ],
       "same_event_coverage_ids": [
         "7c450a526049fbdd2edf"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Xây dựng trung tâm dữ liệu AI tại Mỹ chưa dừng lại khi ngành năng lượng vẫn thấy cơ hội",
+      "editorial_headline_vi": "Xây dựng trung tâm dữ liệu tại Mỹ chưa dừng lại khi các công ty năng lượng vẫn đón nhận cơ hội lớn",
       "summary_sources": [
         {
           "id": "outlet",
@@ -86431,24 +86383,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.95,
+        "value": 9.3,
         "answers": {
           "what": 10,
-          "why": 7,
+          "why": 8,
           "notable": 9,
-          "meaning": 9
+          "meaning": 10
         },
         "hard_errors": [],
         "findings": [
           {
             "question": "why",
-            "problem": "The outlook is stated with little of the source’s supporting evidence.",
-            "fix": "Add the unchanged $1.4 trillion AI hardware spending expectation or the analyst’s view that the midterms gave no concrete reason for a major revision (outlet:p006)."
-          },
-          {
-            "question": "notable",
-            "problem": "The Fermi deal loses the detail that makes it a strong example of resilience.",
-            "fix": "Note that Fermi had nearly imploded while struggling to secure an anchor customer (outlet:p006)."
+            "problem": "The outlook reads as more straightforward than Tim presents it.",
+            "fix": "Mention the potential for new state restrictions and declining Nvidia-linked capital before presenting the evidence that energy companies remain optimistic (outlet:p003, outlet:p006)."
           }
         ],
         "writer_boats": [
@@ -86456,8 +86403,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "d081d66e0d94d62056ebda7ba4990e0df2b04a1e2776c817db16553d5a5217a9",
-        "scored_at": "2026-11-17T15:25:33.724667+00:00"
+        "prose_sha256": "257a0d96e69c81310d15272ead9d799289f5cbcccce4ed49bd45cdc86f7fe030",
+        "scored_at": "2026-11-17T17:34:48.128462+00:00"
       }
     },
     {
@@ -86911,10 +86858,10 @@
       "use_original_title": false,
       "source_url": "https://www.theverge.com/tech/1035027/tech-leaders-nvidia-jensen-huang-theories",
       "key_points": [
-        "The Verge đưa tin nhiều lãnh đạo công nghệ nghi vấn việc ông Jensen Huang từ chức tại Nvidia sau hơn 33 năm là kết quả của một âm mưu hạ bệ cựu CEO.",
-        "Theo The Verge, thông tin về các mối quan hệ tình cảm bị cáo buộc của ông Huang đã khơi mào cho chuỗi sự việc dẫn tới quyết định từ chức. Tuy nhiên, các cơ quan Mỹ chưa xác nhận cáo buộc gián điệp liên quan đến bà Alice Huang như The New York Times nêu, khiến những người hoài nghi đặt câu hỏi về lý do ông mất chức.",
-        "Hơn 185.000 người, bao gồm Elon Musk, Tim Sweeney và Tobias Lütke, đã ký bức thư 'Stand with Jensen' kêu gọi phục chức cho ông. Nhà đầu tư David Sacks cho rằng câu chuyện gián điệp đang sụp đổ, còn Tim Sweeney lo ngại hội đồng quản trị Nvidia đã bị thao túng bởi tin đồn.",
-        "Bức thư 'Stand with Jensen' nhấn mạnh sự nghi ngờ không đủ làm căn cứ hạ bệ ông Huang, đồng thời yêu cầu mở cuộc điều tra làm rõ sự thật thay vì chấp nhận kết quả bị áp đặt. Hãng SemiAnalysis còn suy đoán vụ phế truất nhằm dọn đường cho dự luật siết chặt kiểm soát xuất khẩu chip AI sang Trung Quốc mà ông Huang từng phản đối."
+        "The Verge đưa tin nhiều lãnh đạo công nghệ nghi vấn việc ông Jensen Huang từ chức tại Nvidia sau hơn 33 năm là kết quả của một âm mưu hạ bệ cựu CEO. Nhiều nhân vật nổi tiếng đã kêu gọi phục chức cho ông giữa làn sóng hoài nghi về hoàn cảnh dẫn đến quyết định từ chức này.",
+        "Theo The Verge, mối quan hệ bị cáo buộc với bà Alice Huang đã khơi mào sự việc khiến ông từ chức, còn nghi vấn về hai nhân viên Nvidia chỉ được nêu ở các báo cáo sau đó. Tuy nhiên, giới chức Mỹ chưa xác nhận bà Alice Huang là gián điệp như The New York Times nêu, làm dấy lên nghi vấn về lý do ông mất chức.",
+        "Hơn 185.000 người, gồm Elon Musk, Tim Sweeney và Tobias Lütke, đã ký thư 'Stand with Jensen' yêu cầu phục chức cho ông và làm rõ sự thật. Nhà đầu tư David Sacks cho rằng câu chuyện gián điệp đang sụp đổ, còn Tim Sweeney lo ngại hội đồng quản trị Nvidia bị thao túng bởi tin đồn.",
+        "Hãng SemiAnalysis suy đoán vụ phế truất nhằm dọn đường cho dự luật an ninh RASA mà ông Huang từng phản đối. Dự luật này sẽ mở rộng kiểm soát xuất khẩu AI sang máy chủ đám mây cho phép công ty tại các quốc gia bị hạn chế thuê truy cập chip Nvidia."
       ],
       "same_event_coverage_ids": [
         "0c9c2b3f06b0443596e3"
@@ -86936,39 +86883,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.15,
+        "value": 9.65,
         "answers": {
           "what": 10,
-          "why": 8,
+          "why": 9,
           "notable": 10,
-          "meaning": 7
+          "meaning": 9
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "dự luật siết chặt kiểm soát xuất khẩu chip AI sang Trung Quốc",
-            "explanation": "The bill would extend AI export controls to cloud servers that let companies in restricted countries rent access to Nvidia AI chips. The source does not describe it as a bill restricting chip exports specifically to China (outlet:p022)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "meaning",
-            "problem": "The reader gets the wrong scope of the bill.",
-            "fix": "Say that the bill would extend export controls to cloud server access for companies in restricted countries (outlet:p022)."
-          },
-          {
-            "question": "why",
-            "problem": "The account of what started the resignation sequence merges several alleged relationships.",
-            "fix": "Identify the alleged relationship with Alice Huang as the one the source says set off the events, and describe the allegations involving Nvidia employees as subsequent reporting (outlet:p019)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "0e7f0afcaf3d5ca85fc014f2fd7767d66ecae3b857a93701ccf299c07555abab",
-        "scored_at": "2026-11-17T15:25:33.725725+00:00"
+        "prose_sha256": "67f54c758ceb11dd1e8dabede28e163bdcf76c0d56a1a7740ee2697942449d5d",
+        "scored_at": "2026-11-17T17:34:48.128609+00:00"
       }
     },
     {
@@ -87034,6 +86964,721 @@
         "scorer_provider": "codex",
         "prose_sha256": "8e4748f19fbd52561289a632c34d652d30d69f96929f2e30640599749306b446",
         "scored_at": "2026-11-17T15:25:33.726644+00:00"
+      }
+    },
+    {
+      "id": "179fb295e1eefeff5e65",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/17/daydreams-new-ai-agent-acts-as-your-personal-stylist-and-can-shop-for-you-too/",
+      "key_points": [
+        "Startup thời trang Daydream vừa ra mắt Daydream Agent, một AI agent (tác nhân trí tuệ nhân tạo) đóng vai trò chuyên gia tạo mẫu cá nhân giúp phối đồ và thử trang phục ảo. Công cụ này phát triển từ chatbot trước đây của hãng nhưng được bổ sung khả năng trực tiếp hoàn tất đơn mua sắm.",
+        "Daydream giải thích ý tưởng của công ty là đưa chuyên gia tạo mẫu cá nhân đến với mọi người dùng.",
+        "Theo Daydream, tác nhân này ghi nhớ phong cách cá nhân, sở thích về độ vừa vặn cùng ngân sách của người mua và có thể hoàn tất thanh toán bằng một cú nhấp chuột. Hệ thống kết hợp dữ liệu giá và tình trạng hàng theo thời gian thực từ hơn 10.000 thương hiệu thời trang để đưa ra các gợi ý trang phục.",
+        "Dù vậy, công ty cho biết họ vẫn giữ sự can thiệp của con người vì coi thời trang là nghệ thuật nhiều hơn là khoa học thuần túy."
+      ],
+      "same_event_coverage_ids": [
+        "902819a4a11de677801c"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Daydream ra mắt tác nhân AI tạo mẫu cá nhân có thể tự mua sắm từ hơn 10.000 thương hiệu",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/17/daydreams-new-ai-agent-acts-as-your-personal-stylist-and-can-shop-for-you-too/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.5,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "adc2969759db829f2c789a1330769859ff4e61411245e048f23dd2f5b02bc5c5",
+        "scored_at": "2026-11-17T17:21:39.878844+00:00"
+      }
+    },
+    {
+      "id": "6efb5f19162af72ab83c",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-17/compute-futures-aim-to-hedge-ai-risks-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "ee9edf740393a5d313a3"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "a787b22dc5d0e0a67eb1",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Social media post from Mistral AI promoting a three-month free trial offer of Vibe Pro in Europe without independent reporting or a new product release.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://x.com/MistralAI/status/2122713540666806397",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c4650e5cd5e8ced0f440"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "bb4c5a64ce8484baf7b4",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-17/de-nvidia-a-los-humanoides-ee-uu-vs-china-en-la-carrera-por-la-ia",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "fc14ec52b4a17dcecdfa"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "2c239231be0879697a48",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-17/ai-buildout-creates-enormous-financing-need-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "77745fa44dcf4962f100"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "03d123f8370c458b94d4",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Vendor blog post by AWS serving as a customer case study on how ArisGlobal scaled generative AI inference on Amazon Bedrock.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/how-arisglobal-scaled-generative-ai-inference-on-amazon-bedrock/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b98f52c611a847464aad"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "d0d526adf84440d87acb",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-17/consumer-strain-meets-ai-s-reality-check-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "fe01ed5ff9ec0e0cba28"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "d9c9ede6f978b5ba6fce",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "General newsletter roundup covering unrelated topics like GTA VI where AI is only referenced incidentally as one of several links.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.404media.co/defense-by-chatgpt/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "4065001d7d3f95a4ac0f"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "a8d6cfaec298d66393e8",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.404media.co/the-department-of-justice-is-using-ai-detector-pangram-against-defense-attorneys/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "7c8a29ba180713829303"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "5aeab96ba99ee1050f0f",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-17/top-ai-models-regularly-identify-civilians-as-military-targets-in-tests",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "dd284f0cf0fd2a2b7f0e"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "e04686f80cf8e47e92b3",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/17/voyage-labs-raises-12-million-for-a-specialized-ai-travel-assistant/",
+      "key_points": [
+        "Voyage Labs công bố huy động được 12 triệu USD để phát triển trợ lý du lịch AI chuyên biệt trong vòng hạt giống do Kleiner Perkins dẫn đầu.",
+        "Voyage Labs cho biết công ty lên kế hoạch dùng nguồn vốn này để mở rộng hợp tác với các nhà cung cấp và phát triển đội ngũ kỹ sư. Giám đốc công nghệ Yogesh Jain giải thích việc lập kế hoạch du lịch kéo dài nhiều ngày hoặc nhiều tuần rất phù hợp với đặc thù của các tác nhân AI vận hành dài hạn.",
+        "Sản phẩm chủ lực của công ty là Atlas hiện đang mở thử nghiệm giới hạn (private beta) như một trợ lý cá nhân đồng hành suốt chu trình chuyến đi. Công cụ này có thể đưa ra gợi ý dựa trên nhiều tuần hội thoại, đồng thời theo dõi biến động giá theo thời gian thực để tiến hành đặt vé máy bay và phòng khách sạn.",
+        "Trang tin TechCrunch nhận định thách thức lớn nhất của Atlas là khả năng cạnh tranh với các trợ lý AI đa năng do các phòng thí nghiệm hàng đầu phát triển. Đồng sáng lập Manik Gupta cũng thừa nhận lĩnh vực này đang thay đổi nhanh và khó có thể chắc chắn mô hình nào sẽ phát triển thành công trong tương lai."
+      ],
+      "same_event_coverage_ids": [
+        "74f9a3f1e7f9796c6a8a"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Voyage Labs huy động 12 triệu USD phát triển trợ lý AI Atlas chuyên hỗ trợ đặt vé và phòng du lịch",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/17/voyage-labs-raises-12-million-for-a-specialized-ai-travel-assistant/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.45,
+        "answers": {
+          "what": 10,
+          "why": 8,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "d014f3a275af062ef13f86fdae9805c89abd50cd1dc38514364326fb79d3a1ef",
+        "scored_at": "2026-11-17T17:21:39.879571+00:00"
+      }
+    },
+    {
+      "id": "cba43eddc376fdbb452f",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-17/nvidia-growth-guidance-is-pivotal-point-to-watch-luria-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "43b9a6998d03f0e15ba0"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "76dc46fd98b03354ed41",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://runta.com/blog/introducing-frontierharness-eval-v1-1/",
+      "key_points": [
+        "Runta hợp tác với Baseten công bố bảng xếp hạng FrontierHarness v1.1 qua 27.280 lượt chạy tác tử (agent - phần mềm tự thực hiện tác vụ). Bộ chuẩn đối sánh này đo hiệu năng 22 cấu hình khung điều phối trên 5 mô hình nguồn mở cùng 62 tác vụ dòng lệnh ở thiết lập mặc định.",
+        "Theo Runta, cuộc khảo sát xuất phát từ nhận định chi phí phụ thuộc vào sự kết hợp giữa từng harness và mô hình, khi một khung giá rẻ ở mô hình này có thể tốn kém ở mô hình khác. Thực nghiệm cho thấy số bước gửi lại ngữ cảnh là nguyên nhân chính gây tốn kém, thay vì độ dài câu lệnh hay số công cụ.",
+        "Kết quả cho thấy 64,5% chi phí suy luận bị tiêu tốn vào các lượt chạy không vượt qua bài kiểm tra, gồm 52,7% thất bại và 11,8% hết giờ. Điển hình trên mô hình DeepSeek, Cline CLI tốn chi phí tác vụ gấp 5,0 lần OpenCode v1 nhưng tỷ lệ vượt qua chỉ nhỉnh hơn 2,0 điểm phần trăm.",
+        "Runta kết luận chi phí cao hơn không mang lại tỷ lệ vượt qua bài kiểm tra cao hơn, khi hệ số tương quan giữa chi phí tác vụ và tỷ lệ đạt chỉ từ -0,39 đến +0,22. Dù vậy, nhóm nghiên cứu lưu ý thử nghiệm chỉ giới hạn ở các mô hình nguồn mở trên nền tảng Baseten, trong khi các mô hình đóng có thể đem lại kết quả khác."
+      ],
+      "same_event_coverage_ids": [
+        "e0774c76f62ac022ae26"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Đánh giá 27.280 lượt chạy tác tử: 64,5% chi phí suy luận bị tiêu tốn vào các lần thất bại",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://runta.com/blog/introducing-frontierharness-eval-v1-1/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 6.85,
+        "answers": {
+          "what": 6,
+          "why": 8,
+          "notable": 7,
+          "meaning": 7
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "A reader may see the cost findings as the study's main result without learning its answer to the question it set out to test.",
+            "fix": "State that the best-value harness differed by model and that users should consider changing harnesses when changing models (outlet:p002, outlet:p005-p006)."
+          },
+          {
+            "question": "notable",
+            "problem": "The examples do not show how strongly harness rankings changed across models.",
+            "fix": "Add the median shift of 11 out of 22 cost-rank places, or Codex CLI's move from first to 16th (outlet:p007)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "87b7178d0cce3afd6410a3d5d4f6241ade112a58607cebaf0a82445640e2f3f1",
+        "scored_at": "2026-11-17T17:21:39.880341+00:00"
+      }
+    },
+    {
+      "id": "47cf2ea6cc9a6d1fd3da",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-17/banks-pause-480-million-chip-loan-tied-to-china-s-bytedance",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "dc75bec479a7ca69a38d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "011b27afc6a841bff218",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://blogs.nvidia.com/blog/ian-buck-sc26/",
+      "key_points": [
+        "Tại hội nghị SC26 ở Chicago, Phó chủ tịch Ian Buck của NVIDIA công bố bộ công cụ mới cho tác tử AI trong nghiên cứu khoa học, hỗ trợ lập kế hoạch thí nghiệm trên hệ thống nội bộ. Hãng đồng thời giới thiệu chip Rubin HPC dự kiến ra mắt năm 2028 và chương trình hợp tác điện toán lượng tử cùng IBM và Fermilab.",
+        "Theo Ian Buck, bộ công cụ Nemotron for Science kết hợp mô hình mở Nemotron 3.5 Super VL với tập dữ liệu hóa học mở, vận hành cục bộ trên máy trạm hoặc siêu máy tính. Hệ thống tác tử sử dụng CPU thực thi các lệnh gọi công cụ và thu thập kết quả giữa các bước tính toán của mô hình.",
+        "Ian Buck cho biết tác tử tại Phòng thí nghiệm Quốc gia Argonne xác định hai vị trí liên kết mới từ một câu lệnh gợi ý khi tự lên kế hoạch thử nghiệm. Tại Viện Công nghệ Hoàng gia KTH, một tác tử khác tự sửa 81% trường hợp lỗi cấu hình mô phỏng GROMACS qua đêm trên máy chủ DGX Spark.",
+        "Đại diện NVIDIA nhận định ngăn xếp tính toán khoa học mới kết hợp giữa mô phỏng, AI và lượng tử sẽ dẫn dắt tương lai ngành điện toán. Dù vậy, ông lưu ý mô phỏng truyền thống vẫn là nền tảng cốt lõi, còn AI và tác tử chỉ đóng vai trò phối hợp song hành."
+      ],
+      "same_event_coverage_ids": [
+        "1d50f0ed21796b61763b"
+      ],
+      "split_coverage_ids": [
+        "4a07f8762314a7df0584"
+      ],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "NVIDIA ra mắt bộ công cụ Nemotron cho tác tử AI khoa học và chip Rubin HPC tại SC26",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "nvidia",
+          "url": "https://blogs.nvidia.com/blog/ian-buck-sc26/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.95,
+        "answers": {
+          "what": 8,
+          "why": 9,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The account leaves out one of the platform announcements from Buck's address.",
+            "fix": "Mention that NVIDIA also announced an expanded Vera CPU platform (outlet:p003)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "bfbdd8e0bf3693b2a1b10462cb45918eef44ff0e3aa6d035b5754c119d6ea100",
+        "scored_at": "2026-11-17T17:21:39.880628+00:00"
+      }
+    },
+    {
+      "id": "504d05770df7f67e5473",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-17/anthropic-is-said-to-guide-ipo-price-to-top-of-range-or-above",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "6ce0e888afdb06633835",
+        "c4f2eb664d8a16b85fc7"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "b8c4da37a11a45159077",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/16/2026/altimeters-gerstner-urges-nvidias-board-to-reconsider-huangs-ouster-to-get-this-right",
+      "key_points": [
+        "Giám đốc điều hành Brad Gerstner của Altimeter Capital đã kêu gọi hội đồng quản trị Nvidia xem xét lại việc phế truất Jensen Huang. Ông nhấn mạnh bản thân chưa rõ sự thật và lo ngại mọi người đang vội vã đưa ra phán xét.",
+        "Gerstner giải thích với Semafor rằng thành công của Nvidia quá quan trọng đối với an ninh quốc gia, nên hội đồng quản trị không thể đưa ra quyết định sai lầm.",
+        "Gerstner cho biết vào hôm thứ Hai rằng ông yêu cầu điều tra kỹ lưỡng thay vì phục chức ngay lập tức cho Huang. Trước đó vào hôm thứ Sáu, ông cùng Giám đốc điều hành Gavin Baker của Atreides Management đã gửi thư đề nghị hội đồng quản trị Nvidia tiến hành một quy trình thận trọng.",
+        "Theo các nguồn tin thân cận của Semafor, hội đồng quản trị Nvidia hiện không xem xét việc đưa Huang trở lại, dù cựu CEO này đang cân nhắc khả năng tái xuất."
+      ],
+      "same_event_coverage_ids": [
+        "07ebeabce06539ffe082",
+        "e04b9c8c57f6f9c4aac6"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "CEO Altimeter kêu gọi hội đồng quản trị Nvidia xem xét lại quyết định bãi nhiệm Jensen Huang",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/16/2026/altimeters-gerstner-urges-nvidias-board-to-reconsider-huangs-ouster-to-get-this-right"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.25,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 8,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The account of the letter leaves out its consequential detail: it explicitly keeps Huang’s possible return among the options.",
+            "fix": "State that the letter asks the board to leave all leadership options open, including a potential return, while Gerstner rejects immediate reinstatement (outlet:p006-p007)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "30be39561f623f216e58b6f6896fcdbb527676f0688bc3e953898a36331765f3",
+        "scored_at": "2026-11-17T17:21:39.880755+00:00"
+      }
+    },
+    {
+      "id": "f37a35c5d63c30570fa5",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The report focuses primarily on political and foreign policy friction within the Trump administration regarding China ahead of a presidential summit; the reference to Nvidia and chip export curbs is merely incidental context.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.semafor.com/article/11/17/2026/trumps-team-divided-on-china-policy-ahead-of-meeting-with-xi",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "47229b23815a1a8fd6d0",
+        "d558ae235eac5ca34517"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "4794d4873562de7620c3",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/17/isomorphic-labs-raises-5b-as-it-looks-to-take-drug-candidates-to-clinical-trials/",
+      "key_points": [
+        "Isomorphic Labs đã huy động 5 tỷ USD trong vòng gọi vốn Series C khi doanh nghiệp tìm cách đưa các ứng viên thuốc vào thử nghiệm lâm sàng. Nền tảng phát hiện thuốc bằng trí tuệ nhân tạo (AI) này được tách ra từ Google DeepMind vào năm 2021.",
+        "Theo TechCrunch, nguồn vốn mới sẽ được dùng để tiếp tục phát triển công cụ thiết kế thuốc và mở rộng sang nhiều loại dược phẩm hơn. Khoản tài trợ này diễn ra ngay sau vòng Series B trị giá 2,1 tỷ USD hồi tháng 5.",
+        "Vòng gọi vốn do Greenoaks cùng Sequoia Capital đồng dẫn dắt, với sự tham gia của Andreessen Horowitz và các quỹ hiện hữu gồm GV hay Temasek. Doanh nghiệp cho biết chương trình nghiên cứu đã đạt kết quả tiền lâm sàng tích cực về ung thư và miễn dịch học, đồng thời đã ký thỏa thuận với Eli Lilly, Novartis cùng Johnson & Johnson.",
+        "Isomorphic không công bố mức định giá mới, dù Bloomberg từng đưa tin công ty tìm kiếm mức định giá 50 tỷ USD. Đây là đợt huy động vốn đầu tiên kể từ khi Demis Hassabis rời chức lãnh đạo DeepMind để tập trung vào phát hiện thuốc."
+      ],
+      "same_event_coverage_ids": [
+        "6b5cd357475a93d198ec",
+        "c7831b6ff9176e962f9e"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Isomorphic Labs huy động 5 tỷ USD phát triển công cụ thiết kế thuốc khi tìm cách thử nghiệm lâm sàng",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/17/isomorphic-labs-raises-5b-as-it-looks-to-take-drug-candidates-to-clinical-trials/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "754adfe284b809bca55f35ad5b8ef87a82b14c64209105eba55aa2f22cb961e0",
+        "scored_at": "2026-11-17T17:26:39.403759+00:00"
+      }
+    },
+    {
+      "id": "9cfd8630394d52976b8b",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.cnn.com/2026/11/16/economy/ai-bubble-anthropic-ipo-recession",
+      "key_points": [
+        "Cựu Chủ tịch SEC Gary Gensler cảnh báo bong bóng AI có thể vỡ và gây suy thoái trước cuộc bầu cử tổng thống Mỹ tháng 11 năm 2028. Ông nhấn mạnh khoảng 800 tỷ USD mỗi năm đang đổ vào hạ tầng, còn Big Tech chi tiêu năm 2026 gấp 5 lần ba năm trước.",
+        "Gensler cho rằng lịch sử sẽ cho thấy các bên cho vay đã cấp quá nhiều tiền quá nhanh, tạo nên bản chất của những bong bóng sắp vỡ. Ông cảnh báo tài trợ vòng quanh và nợ ngoài bảng cân đối kế toán đang che giấu quy mô rủi ro thực tế của thị trường.",
+        "Ông dự báo đợt suy thoái tiềm tàng này có thể tương đương bong bóng dot-com, dù không khắc nghiệt như khủng hoảng tài chính năm 2008.",
+        "Trái lại, Ed Yardeni nhận định bong bóng đang xì hơi chứ không nhất thiết phải vỡ mà là một bong bóng tự điều chỉnh."
+      ],
+      "same_event_coverage_ids": [
+        "fa36caf863d939d8df77"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Cựu Chủ tịch SEC cảnh báo bong bóng AI có thể vỡ và gây suy thoái trước cuộc bầu cử tổng thống Mỹ năm 2028",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://www.cnn.com/2026/11/16/economy/ai-bubble-anthropic-ipo-recession"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.3,
+        "answers": {
+          "what": 9,
+          "why": 7,
+          "notable": 8,
+          "meaning": 9
+        },
+        "hard_errors": [
+          {
+            "kind": "quote",
+            "summary_text": "tài trợ vòng quanh và nợ ngoài bảng cân đối kế toán đang che giấu quy mô rủi ro thực tế của thị trường",
+            "explanation": "Gensler pointed to circular financing and complex off-balance-sheet financing, not specifically off-balance-sheet debt. He said these arrangements make it difficult to understand how much risk is being taken, rather than establishing that they are concealing the market's actual risk (outlet:p035)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The reader misses the source's central mismatch: money is flowing into AI faster than companies can turn a profit.",
+            "fix": "Add that mismatch and its stated concern about overinvestment and debt (outlet:p027, outlet:p029)."
+          },
+          {
+            "question": "why",
+            "problem": "The Vietnamese narrows off-balance-sheet financing to debt and presents uncertain risk as established concealment.",
+            "fix": "Describe complex off-balance-sheet financing as making the amount of risk difficult to assess, as Gensler said (outlet:p035)."
+          },
+          {
+            "question": "notable",
+            "problem": "The $800 billion annual figure reads as settled, although the source attributes it to some estimates.",
+            "fix": "Attribute the figure to estimates (outlet:p016)."
+          },
+          {
+            "question": "notable",
+            "problem": "The reader does not learn which businesses Gensler expects to suffer first.",
+            "fix": "Mention his warning that debt-heavy neocloud companies could face failures and bankruptcies (outlet:p039-p041)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "42d6d005bbb91a8b8ae7d12cd8a1bbd9f36d348e4c7c8db70353ce4549165fb2",
+        "scored_at": "2026-11-17T17:26:39.404019+00:00"
       }
     }
   ]
