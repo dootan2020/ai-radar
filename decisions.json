@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-17T05:34:04.236759+00:00",
-  "input_generated_at": "2026-11-17T04:46:04Z",
+  "generated_at": "2026-11-17T07:55:06.562194+00:00",
+  "input_generated_at": "2026-11-17T06:46:25Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -82649,17 +82649,17 @@
       "use_original_title": false,
       "source_url": "https://en.yna.co.kr/view/AEN20261117004000320",
       "key_points": [
-        "Theo Yonhap, chỉ số KOSPI của Hàn Quốc giảm mạnh 1,24% xuống mức 5.037,46 điểm vào cuối buổi sáng 17 tháng 11, sau khi có lúc rơi xuống đáy 4.984,83 điểm. Đây là phiên giảm điểm thứ tư liên tiếp của chỉ số này.",
-        "Hãng tin này cho biết đà giảm diễn ra do lo ngại kéo dài về đầu tư trí tuệ nhân tạo (AI) trước báo cáo thu nhập của Nvidia và kế hoạch chào sàn của Anthropic.",
-        "Tại Seoul, các cổ phiếu lớn phân hóa khi Samsung Electronics giảm 2,49% còn SK hynix nhích tăng 0,4%. Cùng thời điểm, Samsung Electro-Mechanics mất 1,4% trong khi công ty mẹ SK Square tăng 1,02%.",
-        "Yonhap ghi nhận ngành trí tuệ nhân tạo còn đối mặt áp lực giám sát gia tăng sau khi chính phủ Mỹ ban hành quy định mới hạn chế quyền truy cập từ xa vào chip và máy chủ tiên tiến."
+        "Theo Yonhap, chỉ số KOSPI của Hàn Quốc giảm 1,24% xuống mức 5.037,46 điểm vào cuối sáng ngày 17 tháng 11. Đây là phiên giảm thứ tư liên tiếp của chỉ số này sau khi có thời điểm chạm mức 4.984,83 điểm.",
+        "Thị trường sụt giảm trong bối cảnh lo ngại kéo dài về đầu tư trí tuệ nhân tạo trước báo cáo thu nhập của Nvidia và kế hoạch chào sàn của Anthropic.",
+        "Tại Seoul, các cổ phiếu vốn hóa lớn diễn biến trái chiều. Samsung Electronics giảm 2,49% và Samsung Electro-Mechanics mất 1,4%, trong khi SK hynix nhích tăng 0,4% và công ty mẹ SK Square tăng 1,02%.",
+        "Yonhap nhận định ngành trí tuệ nhân tạo còn đối mặt giám sát pháp lý gia tăng sau khi Mỹ ban hành quy định hạn chế quyền truy cập từ xa vào chip và máy chủ tiên tiến."
       ],
       "same_event_coverage_ids": [
         "1a9dc3a6281baacccbfe"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Chỉ số KOSPI của Hàn Quốc giảm 1,24% do lo ngại đầu tư AI trước báo cáo của Nvidia",
+      "editorial_headline_vi": "Chỉ số KOSPI giảm 1,24% trong phiên thứ tư liên tiếp giữa lo ngại kéo dài về đầu tư AI",
       "summary_sources": [
         {
           "id": "outlet",
@@ -82672,34 +82672,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 10.0,
+        "value": 9.7,
         "answers": {
           "what": 10,
           "why": 10,
-          "notable": 10,
+          "notable": 9,
           "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "role",
-            "summary_text": "Samsung Electro-Mechanics mất 1,4% trong khi công ty mẹ SK Square tăng 1,02%",
-            "explanation": "This wording presents SK Square as Samsung Electro-Mechanics’ parent. The source identifies SK Square as the parent of SK hynix (outlet:p011)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "notable",
-            "problem": "The sentence links SK Square to the wrong company.",
-            "fix": "State that SK Square is SK hynix’s parent (outlet:p011)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "a4be22a7ded3b569ce74e3de01701ead10ee221738a48598cf0184122ca98fbd",
-        "scored_at": "2026-11-17T03:37:29.967093+00:00"
+        "prose_sha256": "23321200a9eb61a3012fde8155247a684d7bc15703d5cdc92bddd5068f82de82",
+        "scored_at": "2026-11-17T07:55:06.542786+00:00"
       }
     },
     {
@@ -83015,17 +83003,17 @@
       "use_original_title": false,
       "source_url": "https://en.yna.co.kr/view/AEN20261117003200315",
       "key_points": [
-        "Thủ tướng Hàn Quốc Han Seong-sook tuyên bố sẽ loại bỏ triệt để gian lận bằng trí tuệ nhân tạo (AI) trong kỳ thi đại học CSAT tuần này.",
-        "Nguyên nhân là do lo ngại sau lời thú nhận của thủ khoa kỳ thi kế toán thuế năm nay rằng người này đã gian lận nhờ AI.",
-        "Chính phủ cấm hoàn toàn thiết bị thông minh, kiểm tra kỹ kính mắt, đồng hồ, cổ áo, đồng thời siết mạng Wi-Fi và yêu cầu để túi xách ngoài phòng thi.",
-        "Bà Han nhấn mạnh chính sách không khoan nhượng với mọi gian lận, kiên quyết hủy bài thi, thu hồi tư cách và chuyển cơ quan cảnh sát điều tra nếu phát hiện nghi vấn."
+        "Thủ tướng Han Seong-sook tuyên bố kích hoạt đội ứng phó khẩn cấp và tăng cường giám thị trong kỳ thi tuần này. Kỳ thi đại học (CSAT) vào thứ Năm cũng cấm hoàn toàn thí sinh mang thiết bị thông minh.",
+        "Theo Yonhap, quyết định này được đưa ra do lo ngại gian lận gia tăng sau khi thủ khoa kỳ thi kế toán thuế năm nay gây sốc với lời thú nhận đã gian lận nhờ AI.",
+        "Thí sinh phải tắt nguồn và nộp lại mọi thiết bị thông minh, đồng thời giám thị sẽ kiểm tra kỹ lưỡng kính mắt, đồng hồ, cổ áo và cúc áo. Chính quyền cũng siết chặt quản lý mạng Wi-Fi và yêu cầu để túi xách ngoài hành lang nhằm bảo đảm không có thiết bị thông minh nào hoạt động.",
+        "Bà Han nhấn mạnh chính phủ áp dụng chính sách không khoan nhượng và sẽ điều tra kỹ lưỡng mọi nghi vấn, với các biện pháp nghiêm khắc có thể gồm hủy kết quả thi, thu hồi tư cách hoặc đề nghị cảnh sát điều tra."
       ],
       "same_event_coverage_ids": [
         "193efda2ad72c089f351"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Hàn Quốc siết chặt kiểm tra để ngăn gian lận bằng AI trong kỳ thi đại học CSAT tuần này",
+      "editorial_headline_vi": "Hàn Quốc lập đội ứng phó khẩn cấp và tăng giám thị ngăn gian lận AI trong kỳ thi đại học",
       "summary_sources": [
         {
           "id": "outlet",
@@ -83038,30 +83026,25 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 7.95,
+        "value": 9.55,
         "answers": {
-          "what": 8,
+          "what": 10,
           "why": 10,
-          "notable": 8,
-          "meaning": 5
+          "notable": 9,
+          "meaning": 9
         },
         "hard_errors": [
           {
-            "kind": "quote",
-            "summary_text": "kiên quyết hủy bài thi, thu hồi tư cách và chuyển cơ quan cảnh sát điều tra nếu phát hiện nghi vấn",
-            "explanation": "Han said suspected cases would be thoroughly investigated and that stern action could include invalidating the exam, revoking eligibility, filing a criminal complaint or requesting a police investigation. She did not say every suspicion would automatically trigger all three measures (outlet:p006)."
+            "kind": "fact",
+            "summary_text": "yêu cầu để túi xách ngoài hành lang",
+            "explanation": "The source requires bags to be stored outside examination rooms; hallways are one example, not the required location (outlet:p005)."
           }
         ],
         "findings": [
           {
-            "question": "meaning",
-            "problem": "The reader is told that suspicion alone leads to definite penalties and police referral.",
-            "fix": "Say suspected cases will be investigated and that possible actions include exam invalidation, revoked eligibility, a criminal complaint or a request for police investigation (outlet:p006)."
-          },
-          {
-            "question": "what",
-            "problem": "Two announced parts of the response are absent.",
-            "fix": "Add the interagency emergency response team and additional proctors at test sites (outlet:p001, outlet:p006)."
+            "question": "notable",
+            "problem": "The reader may think every bag must be placed in a hallway.",
+            "fix": "Say bags must be kept outside exam rooms, for example in hallways (outlet:p005)."
           }
         ],
         "writer_boats": [
@@ -83069,8 +83052,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "38e724e8bea068dd90a949c9f20088b80a2267f0f84f8442c7c13cb671d90a1c",
-        "scored_at": "2026-11-17T03:32:46.636278+00:00"
+        "prose_sha256": "8ab6b80e781d7d487932237866db8f8896bd8a0e65d6b030acb1f7904359b686",
+        "scored_at": "2026-11-17T07:50:26.635928+00:00"
       }
     },
     {
@@ -83544,10 +83527,10 @@
       "use_original_title": false,
       "source_url": "https://en.yna.co.kr/view/AEN20261116002151315",
       "key_points": [
-        "Theo Yonhap, Thủ tướng Hàn Quốc Han Seong-sook cam kết dồn toàn bộ năng lực quốc gia để ngăn gian lận bằng trí tuệ nhân tạo (AI) trong kỳ thi đại học tuần này.",
-        "Yonhap cho biết động thái này diễn ra sau khi thủ khoa kỳ thi kế toán thuế thú nhận gian lận bằng AI. Lời thú tội dấy lên lo ngại gian lận bằng AI có thể đã lan rộng và có nguy cơ tái diễn ở kỳ thi đại học chỉ còn cách ba ngày.",
-        "Cụ thể, nam thí sinh thừa nhận dùng camera siêu nhỏ, điện thoại thông minh và AI tạo sinh qua hai vòng thi kế toán thuế. Lời thú tội xác nhận các nghi ngờ rằng điểm số cao bất thường là bất khả thi nếu không có AI, đồng thời thí sinh khai nhận đã dùng cách tương tự ở kỳ thi kế toán công chứng.",
-        "Nhận định quản lý truyền thống có giới hạn trước gian lận mới, bà yêu cầu nghiên cứu biện pháp kỹ thuật và triển khai công nghệ phát hiện tiên tiến ứng dụng AI."
+        "Thủ tướng Hàn Quốc Han Seong-sook cam kết dồn toàn lực ngăn chặn gian lận bằng AI trong kỳ thi đại học diễn ra tuần này sau vụ thủ khoa kế toán thuế thú nhận gian lận. Thủ tướng Han cho biết chính phủ sẽ lập đội ứng phó khẩn cấp liên bộ để triển khai các biện pháp ngăn ngừa toàn diện.",
+        "Theo Yonhap, thủ khoa kỳ thi kế toán thuế thú nhận gian lận dấy lên lo ngại phương thức này có thể xuất hiện ở kỳ thi đại học toàn quốc chỉ còn cách ba ngày.",
+        "Cụ thể, thí sinh thừa nhận dùng camera siêu nhỏ, điện thoại thông minh và AI tạo sinh trong cả hai vòng thi của kỳ thi kế toán thuế. Người này cũng khai nhận từng sử dụng cùng phương thức nói trên khi gian lận trong kỳ thi kế toán công chứng.",
+        "Thủ tướng yêu cầu xem xét các giải pháp kỹ thuật gồm phát triển và triển khai công nghệ phát hiện tiên tiến cho các kỳ thi quốc gia. Bà Han nhấn mạnh nếu phát hiện dấu hiệu bất thường sau kỳ thi, cơ quan chức năng phải điều tra kỹ lưỡng dựa trên dữ liệu khách quan để bảo đảm tính công bằng."
       ],
       "same_event_coverage_ids": [
         "7bbcad3be4331e0ddb13",
@@ -83555,7 +83538,7 @@
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Hàn Quốc lập đội khẩn cấp ngăn gian lận AI thi đại học sau khi thủ khoa thuế thú tội",
+      "editorial_headline_vi": "Hàn Quốc sẽ lập đội khẩn cấp ngăn gian lận AI thi đại học sau vụ thủ khoa kế toán thuế thú tội",
       "summary_sources": [
         {
           "id": "outlet",
@@ -83568,59 +83551,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 7.8,
+        "value": 9.65,
         "answers": {
-          "what": 6,
+          "what": 10,
           "why": 9,
           "notable": 10,
-          "meaning": 6
+          "meaning": 9
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "lập đội khẩn cấp",
-            "explanation": "Han said the government would establish an interagency emergency response team; the source does not say it had already been established (outlet:p007)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "có nguy cơ tái diễn ở kỳ thi đại học",
-            "explanation": "The source expresses concern that the method could be used in this year's college entrance exam. It does not report an earlier occurrence in that exam that could recur (outlet:p004)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "bà yêu cầu nghiên cứu biện pháp kỹ thuật và triển khai công nghệ phát hiện tiên tiến ứng dụng AI",
-            "explanation": "Han instructed officials to look for technical measures, including the development and deployment of advanced detection technologies. The source does not say she issued a firm instruction to deploy AI-based detection technology (outlet:p011)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "what",
-            "problem": "The headline presents the emergency team as already established.",
-            "fix": "Say Han announced that the government would establish the team (outlet:p007)."
-          },
-          {
-            "question": "why",
-            "problem": "“Tái diễn” suggests AI cheating had already occurred in the college entrance exam.",
-            "fix": "Say officials feared the method could be used in the upcoming exam (outlet:p004)."
-          },
-          {
-            "question": "meaning",
-            "problem": "The final paragraph turns exploration of detection measures into a firm deployment instruction.",
-            "fix": "Say Han asked officials to examine technical measures, including developing and deploying advanced detection technology (outlet:p011)."
-          },
-          {
-            "question": "meaning",
-            "problem": "Readers miss the planned checks after the exam and the wider response.",
-            "fix": "Add the proposed investigation of abnormal results using objective data and preventive measures for other state-administered exams (outlet:p008–p009)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "3bb25290e945f4105206650f3f5cdd502b1533ccde2e60f8577db1f975f7bd1a",
-        "scored_at": "2026-11-17T03:37:29.967444+00:00"
+        "prose_sha256": "090eb04044d88728dbfe4cefb28d8c16f1455065142eacfa4701178a277b0b91",
+        "scored_at": "2026-11-17T07:50:26.636041+00:00"
       }
     },
     {
@@ -83642,17 +83588,17 @@
       "use_original_title": true,
       "source_url": "https://www.semafor.com/article/11/16/2026/due-for-a-reset-mubadala-ceo-says-global-ai-economy-faces-compute-shortage",
       "key_points": [
-        "Giám đốc điều hành quỹ Mubadala, ông Khaldoon Al Mubarak, nhận định kinh tế AI toàn cầu sắp bước vào một đợt tái thiết lập.",
-        "Theo ông Al Mubarak, quá trình xây dựng AI là một phần của chu kỳ sau giai đoạn kinh tế toàn cầu đã tăng trưởng rất thuận lợi.",
-        "Dù rót vốn lớn vào OpenAI và Anthropic qua đơn vị MGX, ông cho biết bảo đảm đủ năng lực tính toán là thách thức lớn nhất chứ không phải nguồn điện hay khả năng tiếp cận vốn.",
-        "Theo ông Al Mubarak, đợt điều chỉnh có thể chỉ là một mùa đông dễ chịu chứ mùa đông không có nghĩa là âm 30 độ."
+        "Giám đốc điều hành quỹ Mubadala, ông Khaldoon Al Mubarak, nhận định quá trình xây dựng AI toàn cầu và nền kinh tế rộng lớn hơn sắp bước vào đợt tái thiết lập.",
+        "Ông Al Mubarak giải thích rằng quá trình phát triển AI là một phần của chu kỳ sau giai đoạn kinh tế toàn cầu tăng trưởng rất thuận lợi.",
+        "Quỹ đầu tư chủ quyền Abu Dhabi này đang rót vốn lớn vào các nhà phát triển trung tâm dữ liệu cùng OpenAI và Anthropic qua MGX, một phương tiện tài trợ riêng do quỹ đồng sáng lập.",
+        "Theo ông Al Mubarak, việc bảo đảm đủ năng lực tính toán là thách thức lớn nhất hiện nay, dù việc tiếp cận vốn vẫn ổn và năng lượng không đáng lo ngại. Ông cũng nhận định đợt điều chỉnh sắp tới có thể chỉ là một mùa đông dễ chịu chứ không phải mức âm 30 độ."
       ],
       "same_event_coverage_ids": [
         "258fe75f446daac9d29f"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "CEO quỹ Mubadala nhận định kinh tế AI đối mặt thiếu hụt năng lực tính toán và sắp bước vào đợt điều chỉnh",
+      "editorial_headline_vi": "CEO Mubadala nhận định quá trình xây dựng AI và nền kinh tế toàn cầu sắp tái thiết lập",
       "summary_sources": [
         {
           "id": "outlet",
@@ -83665,39 +83611,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.0,
+        "value": 9.4,
         "answers": {
-          "what": 8,
+          "what": 10,
           "why": 10,
-          "notable": 10,
-          "meaning": 8
+          "notable": 8,
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "qua đơn vị MGX",
-            "explanation": "MGX is described as a separate funding vehicle Mubadala co-founded, not simply a Mubadala unit (outlet:p004)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "what",
-            "problem": "The reader misses that the expected reset also concerns the broader economy.",
-            "fix": "Name both the global AI buildout and the broader economy (outlet:p001)."
-          },
-          {
-            "question": "notable",
-            "problem": "Calling MGX a Mubadala unit gives the wrong relationship.",
-            "fix": "Describe MGX as a separate funding vehicle Mubadala co-founded (outlet:p004)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "3f895e0a8676666162001182343aea147786c032e08d485e15f40194026f67e8",
-        "scored_at": "2026-11-17T05:16:46.493570+00:00"
+        "prose_sha256": "08bbebd3f9f62616e2feaea2f8d105bafbd90f2288745ec60ce17de5e98b8092",
+        "scored_at": "2026-11-17T07:50:26.635571+00:00"
       }
     },
     {
@@ -83757,17 +83686,17 @@
       "use_original_title": true,
       "source_url": "https://analyticsindiamag.com/ai-features/he-left-accenture-to-build-an-embedded-slmnow-it-ranks-among-the-worlds-best",
       "key_points": [
-        "Startup KiteFishAI tại Gurugram đang phát triển các mô hình ngôn ngữ và mô hình nhúng (biểu diễn văn bản bằng vectơ số để tìm kiếm theo ý nghĩa) thu nhỏ cho doanh nghiệp. Theo công ty, mô hình nhúng Nano-Em1-0.6B-v2.1 của họ từng xếp thứ chín toàn cầu trên bảng xếp hạng Massive Text Embedding Benchmark vào tháng 8 năm 2026.",
-        "Ông cho biết các công việc như trích xuất dữ liệu tài liệu, phân loại khiếu nại hay điều phối yêu cầu hỗ trợ đều có thể giao cho những hệ thống chuyên biệt.",
-        "KiteFishAI tuyên bố mô hình NanoI1 đạt điểm cao hơn Gemma-3-270M của Google trên các bài đánh giá tạo mã nguồn HumanEval, tạo kiểm thử EvalPlus và toán GSM8K. Dù vậy, công ty làm rõ kết quả này không biến mô hình thành vượt trội toàn diện so với hệ thống lớn mà chỉ tập trung vào ứng dụng hẹp.",
-        "Ngoài ra, ông nhận định mô hình nhỏ sẽ hoạt động song song chứ không thay thế hệ thống suy luận lớn hơn trong quy trình làm việc."
+        "Startup KiteFishAI tại Gurugram đang phát triển các mô hình ngôn ngữ và mô hình nhúng (biểu diễn văn bản bằng vectơ số để tìm kiếm theo ý nghĩa) kích thước nhỏ cho doanh nghiệp. Theo công ty, mô hình Nano-Em1-0.6B-v2.1 của họ từng xếp thứ chín toàn cầu trên bảng xếp hạng MTEB vào tháng 8 năm 2026.",
+        "Chiến lược này bắt nguồn từ việc các mô hình lớn rất tốn kém khi chi phí mã token tích tụ, trong khi nhiều tác vụ doanh nghiệp không đòi hỏi mô hình khổng lồ. Nhà sáng lập Anuj Gupta nhận định những việc như trích xuất tài liệu, phân loại khiếu nại hay điều phối hỗ trợ đều có thể giao cho hệ thống nhỏ chuyên biệt.",
+        "KiteFishAI tuyên bố NanoI1 đạt điểm cao hơn Gemma-3-270M của Google trên các bài đánh giá tạo mã nguồn HumanEval, tạo kiểm thử EvalPlus và toán GSM8K.",
+        "Dù vậy, KiteFishAI làm rõ các kết quả này không biến mô hình thành vượt trội toàn diện so với hệ thống lớn mà chỉ phục vụ ứng dụng hẹp. Ông Gupta nhận định mô hình nhỏ sẽ hoạt động song song chứ không thay thế hệ thống suy luận lớn trong quy trình làm việc."
       ],
       "same_event_coverage_ids": [
         "5890218cd70337c45af9"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "KiteFishAI tuyên bố mô hình NanoI1 đạt điểm cao hơn Gemma-3-270M của Google về tạo mã nguồn và toán",
+      "editorial_headline_vi": "KiteFishAI tuyên bố mô hình NanoI1 311 MB vượt Gemma-3-270M của Google về tạo mã và toán",
       "summary_sources": [
         {
           "id": "outlet",
@@ -83780,33 +83709,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.15,
+        "value": 9.7,
         "answers": {
-          "what": 9,
-          "why": 7,
-          "notable": 8,
-          "meaning": 8
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 10
         },
         "hard_errors": [],
-        "findings": [
-          {
-            "question": "why",
-            "problem": "The reader does not learn why KiteFishAI prioritises compact models.",
-            "fix": "Add that large-model token and computing costs can accumulate, while many routine enterprise tasks can use smaller specialised systems (outlet:p001–p002)."
-          },
-          {
-            "question": "notable",
-            "problem": "The reader lacks a concrete sense of how compact NanoI1 is.",
-            "fix": "Include its 155 million parameters and 311 MB file size (outlet:p020)."
-          }
-        ],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "cd39a8e6a27aa1e2682ef788fc93b3904e59ed0070413caae64aab4cd0b170ad",
-        "scored_at": "2026-11-17T05:20:59.558317+00:00"
+        "prose_sha256": "a7a93f56e8ca5d17dbdf1752e69a14c72bb187592ae3d817d2a1d12ddbd7f838",
+        "scored_at": "2026-11-17T07:50:26.635720+00:00"
       }
     },
     {
@@ -83825,17 +83743,17 @@
       "use_original_title": false,
       "source_url": "https://en.yna.co.kr/view/AEN20261117005500315",
       "key_points": [
-        "Hôm thứ Ba, Văn phòng Tổng thống Hàn Quốc thông báo lập đội đặc nhiệm chuyên trách ngăn chặn gian lận bằng trí tuệ nhân tạo (AI). Đội phản ứng khẩn cấp này đã ra mắt dưới sự chỉ đạo của Chánh văn phòng Lim Kwang-hyun và họp phiên đầu tiên vào thứ Hai.",
-        "Phiên họp tập trung bàn giải pháp ngăn chặn gian lận trong kỳ thi tuyển sinh đại học vào thứ Năm và xử lý các trường hợp nghi vấn.",
-        "Chánh văn phòng Lim Kwang-hyun chỉ đạo các nhân sự liên quan, gồm văn phòng thư ký giáo dục, phòng tình huống và đội an ninh mạng, ứng trực khẩn cấp đến hết ngày thi đại học (CSAT) năm nay.",
-        "Cheong Wa Dae dự kiến duy trì đội đặc nhiệm trước mắt cho kỳ thi năm tới và xây dựng chiến lược dài hạn đối phó với công nghệ AI ngày càng tân tiến."
+        "Hôm thứ Ba, Văn phòng Tổng thống Hàn Quốc thông báo lập đội đặc nhiệm đối phó với gian lận thi cử bằng trí tuệ nhân tạo (AI). Đội phản ứng khẩn cấp do Chánh văn phòng Lim Kwang-hyun chỉ đạo đã họp phiên đầu tiên vào thứ Hai.",
+        "Theo Văn phòng Tổng thống, đội đặc nhiệm được thành lập trước những lo ngại ngày càng tăng trong công chúng về tình trạng gian lận nhờ trí tuệ nhân tạo.",
+        "Thảo luận tại phiên họp được cho là tập trung vào việc ngăn chặn gian lận trong kỳ thi đại học vào thứ Năm và xử lý ca nghi vấn. Ông Lim chỉ đạo các nhân sự liên quan ứng trực khẩn cấp đến hết ngày thi đại học (CSAT) năm nay.",
+        "Cheong Wa Dae dự kiến duy trì đội đặc nhiệm cho kỳ thi năm tới và xây dựng chiến lược dài hạn nhằm giải quyết gian lận học thuật tiềm ẩn liên quan đến AI ngày càng tân tiến."
       ],
       "same_event_coverage_ids": [
         "2f2d0d810d30866b6b99"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Văn phòng Tổng thống Hàn Quốc lập đội đặc nhiệm ngăn chặn gian lận thi cử bằng trí tuệ nhân tạo",
+      "editorial_headline_vi": "Văn phòng Tổng thống Hàn Quốc lập đội đặc nhiệm ngăn chặn gian lận thi cử bằng AI",
       "summary_sources": [
         {
           "id": "outlet",
@@ -83848,44 +83766,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.4,
+        "value": 10.0,
         "answers": {
           "what": 10,
-          "why": 8,
-          "notable": 8,
-          "meaning": 6
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "xây dựng chiến lược dài hạn đối phó với công nghệ AI ngày càng tân tiến",
-            "explanation": "The longer-term strategy concerns potential academic dishonesty involving increasingly advanced AI, not advanced AI technology generally (outlet:p004)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "meaning",
-            "problem": "The long-term strategy appears to target AI technology itself.",
-            "fix": "Specify that it targets potential academic dishonesty involving increasingly advanced AI (outlet:p004)."
-          },
-          {
-            "question": "why",
-            "problem": "The trigger for forming the task force is missing.",
-            "fix": "Mention growing public concern about AI-assisted cheating (outlet:p001)."
-          },
-          {
-            "question": "notable",
-            "problem": "The account presents the meeting’s discussion topics as certain.",
-            "fix": "Retain the source’s qualification that the discussion *reportedly* focused on prevention and suspected cases (outlet:p002)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "71143c1ee29a5c3daf0680c0c15623733e7546c0b1789ccf6d33b9dfd8c3c7db",
-        "scored_at": "2026-11-17T05:20:59.558446+00:00"
+        "prose_sha256": "d57fed8878fc9287eb4d5d728205e1c62d6c4cd27ce2d873e9c9a3d13c11c9ab",
+        "scored_at": "2026-11-17T07:50:26.635776+00:00"
       }
     },
     {
@@ -84001,10 +83897,10 @@
       "use_original_title": false,
       "source_url": "https://www.npr.org/2026/11/16/nx-s1-6042883/nvidia-jensen-huang-commerce-department",
       "key_points": [
-        "Chính phủ Mỹ ban hành quy định ngăn truy cập từ xa vào chip AI (trí tuệ nhân tạo) và máy chủ tiên tiến, theo đài NPR. Quy định này nhằm bịt lỗ hổng có thể để các chính phủ đối địch tiếp cận công nghệ Mỹ qua trung tâm dữ liệu nước ngoài.",
-        "Tồn tại kẽ hở giúp doanh nghiệp Trung Quốc truy cập từ xa vào chip AI dù Mỹ cấm bán trực tiếp các linh kiện này, theo NPR. Cục Công nghiệp và An ninh Mỹ cho biết hạ tầng đám mây cho phép truy cập năng lực tính toán từ xa qua trung tâm dữ liệu ngoài nước bị kiểm soát.",
-        "Cựu CEO Jensen Huang của Nvidia từ chức giữa bê bối tình cảm với người bị tình báo Mỹ nghi là đặc vụ Trung Quốc, dù NPR chưa thể xác minh độc lập cáo buộc này. Trong khi đó, công ty Megaspeed tại Singapore khẳng định họ kinh doanh hợp pháp và đã thuê luật sư điều tra nội bộ.",
-        "Chính quyền Trump từng phản đối áp thêm quy định hạn chế tiếp cận công nghệ AI trước khi vụ bê bối tại Nvidia nổ ra, theo NPR. Dân biểu Yvette Clarke cho biết cựu CEO Huang dự kiến phải điều trần trước Quốc hội và nhiều khả năng sẽ có thêm các cuộc điều tra tiếp theo."
+        "Chính phủ Mỹ công bố quy định ngăn chặn truy cập từ xa vào chip và máy chủ AI tiên tiến qua các trung tâm dữ liệu nước ngoài. Theo BIS, hạ tầng đám mây phát triển nhanh đã cho phép tiếp cận năng lực tính toán tiên tiến từ ngoài các quốc gia chịu kiểm soát.",
+        "Theo NPR, động thái này xuất hiện giữa khủng hoảng tại Nvidia sau tin cựu CEO Jensen Huang có quan hệ với người bị nghi là điệp viên Trung Quốc, dù NPR chưa xác minh độc lập. Ông Huang đã từ chức tuần trước, đồng thời từng đích thân vận động Tổng thống Trump nới lỏng hạn chế bán chip sang Trung Quốc.",
+        "Công ty trung tâm dữ liệu Megaspeed tại Singapore bị nghi bán quyền truy cập từ xa chip AI cho các công ty Trung Quốc. Megaspeed khẳng định họ kinh doanh hợp pháp và đã thuê luật sư bên ngoài tiến hành điều tra nội bộ.",
+        "Trong khi ông Huang và Bộ trưởng Howard Lutnick dự kiến điều trần trước Quốc hội, Hạ nghị sĩ Yvette Clarke cho biết nhiều khả năng sẽ có thêm điều tra khi đảng Dân chủ kiểm soát Quốc hội vào tháng 1 năm 2027."
       ],
       "same_event_coverage_ids": [
         "7cb1911a824a99b9a070",
@@ -84012,7 +83908,7 @@
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Mỹ siết quyền truy cập từ xa vào chip AI sau vụ cựu CEO Nvidia từ chức vì nghi vấn gián điệp",
+      "editorial_headline_vi": "Mỹ ban hành quy định siết chặt quyền truy cập từ xa vào chip AI giữa bê bối tại Nvidia",
       "summary_sources": [
         {
           "id": "outlet",
@@ -84025,40 +83921,24 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 7.5,
+        "value": 7.95,
         "answers": {
           "what": 9,
           "why": 6,
-          "notable": 7,
-          "meaning": 7
+          "notable": 9,
+          "meaning": 6
         },
-        "hard_errors": [
-          {
-            "kind": "cause",
-            "summary_text": "từ chức vì nghi vấn gián điệp",
-            "explanation": "The source says Huang stepped down amid fallout from unverified allegations involving a woman suspected of being a Chinese intelligence operative. It does not establish that suspected espionage caused his resignation (outlet:p012)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "Mỹ cấm bán trực tiếp các linh kiện này",
-            "explanation": "The source says sales of covered advanced chips to China typically require a BIS export license, rather than stating a blanket ban on direct sales (outlet:p021)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
             "question": "why",
-            "problem": "The headline presents suspected espionage as the established reason Huang resigned.",
-            "fix": "Say he resigned amid fallout from allegations that NPR had not independently verified (outlet:p012)."
+            "problem": "The reader does not learn which loophole the rule addresses.",
+            "fix": "Explain that Chinese companies could remotely use restricted U.S. chips despite limits on their physical sale to China (outlet:p018)."
           },
           {
             "question": "meaning",
-            "problem": "The reader is told direct chip sales are banned outright.",
-            "fix": "Describe the existing export license requirement for covered chip sales to China (outlet:p021)."
-          },
-          {
-            "question": "notable",
-            "problem": "Megaspeed's denial appears without the allegation it addresses.",
-            "fix": "Add that Megaspeed is suspected of selling Chinese companies remote access to U.S. AI chips (outlet:p006, outlet:p023)."
+            "problem": "The rule’s stated security aim and its qualification about legitimate use are absent.",
+            "fix": "State that it reinforces existing restrictions on remote arrangements that could threaten U.S. national security, while the government says legitimate commercial use remains a goal (outlet:p017–p019)."
           }
         ],
         "writer_boats": [
@@ -84066,8 +83946,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "00c1cfa11744ba70371809f2c8d28e9c12df096ca435571aa771a0a5d49b0c0f",
-        "scored_at": "2026-11-17T05:16:46.494269+00:00"
+        "prose_sha256": "e881192bc490b42f777eb64863e10f84d3a6165129ab6543d476ce687888494a",
+        "scored_at": "2026-11-17T07:55:06.542845+00:00"
       }
     },
     {
@@ -84088,6 +83968,642 @@
         "1d113e62b76ee2ab6fa5"
       ],
       "split_coverage_ids": []
+    },
+    {
+      "id": "4fe3cc88efa55b9644f9",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "top tier needs four to eight verified key points",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "top tier needs four to eight verified key points"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/16/us-tightens-ai-chip-export-controls-to-deter-chinese-companies-from-accessing-compute-remotely/",
+      "key_points": [
+        "Theo TechCrunch, chính quyền Tổng thống Trump chuẩn bị áp đặt quy định kiểm soát xuất khẩu mới với chip AI và trung tâm dữ liệu ngoài nước Mỹ. Biện pháp này yêu cầu cấp phép nếu hạ tầng có thể cung cấp năng lực tính toán cho các công ty thuộc nhóm cấm vận D:5 như Trung Quốc.",
+        "TechCrunch cho biết động thái này nhằm ngăn các công ty Trung Quốc vượt kiểm soát xuất khẩu bằng cách truy cập hạ tầng AI từ xa ở nước ngoài. Việc siết chặt diễn ra khi Megaspeed bị nghi mua hàng nghìn chip Nvidia để cấp năng lực tính toán cho doanh nghiệp Trung Quốc.",
+        "Quy định áp dụng cho hạ tầng vượt 12 triệu tổng hiệu năng xử lý (TPP - chỉ số đo lường sức mạnh tính toán của Mỹ), nhưng không áp dụng với hệ thống gợi ý thương mại.",
+        "Quy định tạm thời khẳng định hạn chế mới sẽ làm suy yếu khả năng dùng bán dẫn tiên tiến của Mỹ để huấn luyện mô hình AI của các công ty thuộc diện lo ngại. Văn bản của Bộ Thương mại Mỹ lưu ý việc tiếp cận mức tính toán này có thể hỗ trợ các hoạt động quân sự đe dọa an ninh quốc gia."
+      ],
+      "same_event_coverage_ids": [
+        "ae827c2e7a0dab456043"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Mỹ siết kiểm soát xuất khẩu chip AI nhằm chặn Trung Quốc truy cập hạ tầng tính toán từ xa",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch.com",
+          "url": "https://techcrunch.com/2026/11/16/us-tightens-ai-chip-export-controls-to-deter-chinese-companies-from-accessing-compute-remotely/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.9,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 8,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The reader does not learn that the license requirement concerns exporting, reexporting or transferring chips and servers to qualifying data centers anywhere in the world.",
+            "fix": "State the licensed actions and worldwide scope (outlet:p007)."
+          },
+          {
+            "question": "notable",
+            "problem": "The threshold lacks the source's useful scale comparison, and the coverage of access through intermediaries is absent.",
+            "fix": "Add the approximate 750-chip comparison and mention brokers or other intermediaries (outlet:p013)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "2f7dbd69ba967fcdd0004b31dffb5f0fc76cc1e9ea5bbba1a97ed0e7de06897c",
+        "scored_at": "2026-11-17T07:33:07.717242+00:00"
+      }
+    },
+    {
+      "id": "86965da16fc3f6de1fe7",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "General financial market report covering the decline of South Korean stocks, containing only a passing incidental reference to AI concerns.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://en.yna.co.kr/view/AEN20261117006400320",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "1d35ce8142fdfa6559c4",
+        "8d5fbe73ce94a7c8abdc"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "4989f241df5d7fd30e90",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://technode.com/2026/11/17/former-meituan-and-feishu-executives-reportedly-team-up-to-build-an-ai-recording-ring/",
+      "key_points": [
+        "Theo Sina Tech, ông Liu Yanxiang, cựu lãnh đạo mảng vé và vận tải của Meituan, đã rời công ty. Ông hợp tác cùng cựu lãnh đạo phụ trách vận hành quốc tế của Feishu thành lập Huling Technology tại Bắc Kinh.",
+        "Theo TechNode, chiếc nhẫn của Huling được thiết kế xoay quanh tính năng thu âm giọng nói. Người dùng có thể nhấn đúp nút vật lý khi bắt đầu ghi âm, rồi phần mềm sẽ chuyển lời nói thành văn bản và trích xuất công việc hoặc sự kiện lịch.",
+        "Theo Sina Tech, startup này được cho là đã huy động hàng chục triệu nhân dân tệ ở vòng hạt giống và đang chuẩn bị gọi vòng thiên thần. Doanh nghiệp nhắm tới những thời điểm việc rút điện thoại bất tiện, như khi đi lại hoặc ngay trước giờ đi ngủ."
+      ],
+      "same_event_coverage_ids": [
+        "fd055b490f56ee2d4973"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Cựu lãnh đạo Meituan và Feishu hợp tác phát triển nhẫn ghi âm giọng nói tại Bắc Kinh",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "technode",
+          "url": "https://technode.com/2026/11/17/former-meituan-and-feishu-executives-reportedly-team-up-to-build-an-ai-recording-ring/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.65,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "10dd2a6be870a3a19881f57c5d89c0f9f5f2128dc8af4325881d71f17cd5901c",
+        "scored_at": "2026-11-17T07:41:02.727279+00:00"
+      }
+    },
+    {
+      "id": "d5bb39a269b457bf8a2c",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://technode.com/2026/11/17/apple-adds-generative-ai-compliance-filings-to-app-store-connect-in-china/",
+      "key_points": [
+        "Theo IT Home, Apple đã mở trang tuân thủ trên App Store Connect cho ứng dụng tại Trung Quốc đại lục. Mục này tiếp nhận khai báo cho ứng dụng cung cấp nội dung do trí tuệ nhân tạo (AI) tạo ra, nội dung tổng hợp hoặc thuộc diện đánh giá an ninh.",
+        "Quy định áp dụng cho các tính năng như phần mềm trò chuyện (chatbot), tạo ảnh, video, cũng như chỉnh sửa giọng nói hoặc khuôn mặt. Nhà phát triển dùng công nghệ của bên thứ ba có thể cần nộp thêm thỏa thuận cấp phép hoặc thỏa thuận sử dụng.",
+        "Theo IT Home, các ứng dụng hiện hành có hạn nộp thông tin đến ngày 31 tháng 1 năm 2027, còn ứng dụng mới phải gửi ngay khi nộp duyệt. Trang này cũng tiếp nhận hồ sơ và báo cáo đối với các tính năng bắt buộc phải qua đánh giá an ninh."
+      ],
+      "same_event_coverage_ids": [
+        "3fb4a071ea4c1b447e9e"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Apple mở mục khai báo tuân thủ nội dung do AI tạo ra trên App Store Connect tại Trung Quốc",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "technode",
+          "url": "https://technode.com/2026/11/17/apple-adds-generative-ai-compliance-filings-to-app-store-connect-in-china/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "b93fab2460c1fbbbc03d90c53a63cd8477d4e2dad9371355e0e4c4c247e8e335",
+        "scored_at": "2026-11-17T07:41:02.727335+00:00"
+      }
+    },
+    {
+      "id": "41bc94f01e3fc91a2b0c",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://technode.com/2026/11/17/huawei-details-kirin-9050-display-processor-that-enhances-sdr-content/",
+      "key_points": [
+        "Huawei đã công bố chi tiết về bộ xử lý hiển thị trên dòng chip Kirin 9050 vào hôm thứ Ba. Thông tin này nối tiếp chuỗi phân tích kỹ thuật của hãng về bộ vi xử lý trung tâm, đồ họa, modem và giải mã video.",
+        "Bộ xử lý hỗ trợ công nghệ AI-HDR2020 mở rộng dải độ sáng và màu sắc của các nội dung dải động tiêu chuẩn (SDR). Huawei cho biết tính năng này có thể mang lại nhiều chi tiết hơn ở vùng sáng và vùng tối khi hiển thị tư liệu SDR.",
+        "Bộ xử lý đem lại quyền kiểm soát chi tiết hơn đối với từng điểm ảnh riêng lẻ trên thiết bị. Huawei tuyên bố chip kết hợp cùng phần cứng màn hình chuyển đổi nhanh sang chế độ riêng tư và tối ưu hóa chất lượng hình ảnh."
+      ],
+      "same_event_coverage_ids": [
+        "89bb3cc16fcb0ca4b659"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Huawei công bố chi tiết về bộ xử lý hiển thị nâng cấp nội dung SDR trên chip Kirin 9050",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "technode",
+          "url": "https://technode.com/2026/11/17/huawei-details-kirin-9050-display-processor-that-enhances-sdr-content/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "8bc910d495d0d0048b81fd072476e5428afd0fd2b2c6bba785d9d56ecba1ae43",
+        "scored_at": "2026-11-17T07:33:07.717537+00:00"
+      }
+    },
+    {
+      "id": "60b2c1343562198ef62e",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://technode.com/2026/11/17/baidus-robin-li-warns-of-ai-bubble-risk-as-applications-lag-infrastructure-spending/",
+      "key_points": [
+        "Giám đốc điều hành Baidu Robin Li cảnh báo ngành trí tuệ nhân tạo có thể đối mặt bong bóng nếu các doanh nghiệp không thể biến việc ứng dụng thành lợi nhuận cao hơn.",
+        "Tại Hội nghị Thượng đỉnh CEO APEC ở Thâm Quyến, ông Li cho biết việc phổ biến ứng dụng AI chưa đạt kỳ vọng dù chi tiêu hạ tầng lớn, mô hình phát triển nhanh và lượng dùng token (đơn vị dữ liệu ngôn ngữ) tăng.",
+        "Về dẫn chứng cụ thể, ông Li nêu ra những thay đổi nội bộ tại Baidu, gắn với chủ đề tổ chức doanh nghiệp xoay quanh AI từng nêu ở sự kiện Baidu World.",
+        "Ông Li cho rằng các công ty cần tư duy lại cách tổ chức công việc để chuyển đổi năng lực AI thành lợi nhuận kinh doanh."
+      ],
+      "same_event_coverage_ids": [
+        "fdfd2e2cfcdeb65c3571"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "CEO Baidu Robin Li cảnh báo nguy cơ bong bóng AI nếu doanh nghiệp không thể biến công nghệ thành lợi nhuận",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "technode",
+          "url": "https://technode.com/2026/11/17/baidus-robin-li-warns-of-ai-bubble-risk-as-applications-lag-infrastructure-spending/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.85,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "bbfb251a125c35211857b29e3b54bdee94f6e2fea617ced99f2ac7eff96864b0",
+        "scored_at": "2026-11-17T07:33:07.717566+00:00"
+      }
+    },
+    {
+      "id": "c36ac417ea4b7c051238",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "too few verified claims for summary; no verified summary for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "too few verified claims for summary",
+        "no verified summary for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://en.yna.co.kr/view/AEN20261117006700315",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "ccf7307a48946c62a9d1"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "963c56e22cfcb15196bc",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-17/baidu-s-robin-li-says-ai-needs-monetization-to-avoid-bubble-risk",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "f1808c097f09e7fe186c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "fba317a26ce46e4d88e9",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Promotional product landing page and sales pitch on GitHub for a token optimization tool lacking independent reporting or a formal release announcement.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/localixai/tokendoctor",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "eb0b59ae46ea3ee78649"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "b82b64ef90f76e66fb00",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Vendor marketing customer story showcasing Revolut's adoption of OpenAI models.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://openai.com/business/customer-stories/revolut",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "3ec1547c69d3f9eeb635"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "91e33e06713a1eccfbf9",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://en.yna.co.kr/view/AEN20261116005551315",
+      "key_points": [
+        "Education authorities in South Korea face challenges from hidden AI-assisted cheating devices ahead of the national college entrance exam.",
+        "The top scorer of this year's certified tax accountant exam in South Korea confessed to cheating on both rounds using a miniature camera, a smartphone, and generative AI.",
+        "The examinee missed only one out of 160 questions in the first round of the tax accountant test before achieving high marks in the second.",
+        "The cheating confession prompted public outrage and led police to open a formal investigation."
+      ],
+      "same_event_coverage_ids": [
+        "9d763f01258db21c13f9",
+        "c076520c4e4c31e27ab7"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "e4a8115b95ceaf0352ad",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.21339",
+      "key_points": [
+        "Researchers presented MovieRoll, a base-to-distilled framework connecting streaming fine-tuning, long-rollout distillation, and long-horizon inference for video generation.",
+        "MovieRoll introduces Window-wise Teacher Forcing to jointly denoise chunks at progressive noise levels with bidirectional attention within windows and causal access to history.",
+        "The framework uses hierarchical KV-cache compression (HieraKV) to efficiently retain historical context during long-form video generation."
+      ],
+      "same_event_coverage_ids": [
+        "6a1b334687172cfa0bad"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "c5ab32674d99cad8b53b",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.21003",
+      "key_points": [
+        "Nhóm K2 ra mắt bộ sáu mô hình ngôn ngữ mở hoàn toàn K2-Horizon, từ bản đặc 0,9 tỷ đến bản MoE 375 tỷ tham số. Theo nhóm nghiên cứu, các mô hình dẫn đầu hoặc cạnh tranh với mô hình mở cùng cỡ trên bài đo chuẩn (công cụ đánh giá) về tác tử (AI tự chủ) và lập trình.",
+        "Nhóm tác giả cho biết loạt mô hình nhằm phục vụ suy luận và tác vụ tác tử trong khoa học, lập trình cùng tự động hóa. Để tăng cường suy luận, nhóm áp dụng cơ chế chú ý MoVA cùng cổng softplus linh hoạt có cơ sở lý thuyết.",
+        "Mô hình 36B-A4B đạt hiệu năng gần tương đương bản đặc 32B trên cùng dữ liệu huấn luyện, với một phần bảy tham số kích hoạt. Nhóm cũng ra mắt bộ điều hợp Uno giúp tăng tốc giải mã tới 2,2 lần mà không cần mô hình nháp.",
+        "Đợt phát hành theo chuẩn LLM360 để đảm bảo tính minh bạch và tái lập, khi mở toàn bộ điểm kiểm tra trung gian, dữ liệu, nhật ký và mã nguồn. Nhóm tác giả cũng công bố chi tiết quy trình tạo dữ liệu, cho thấy dữ liệu tổng hợp có thể là thành phần tiền huấn luyện chính ở quy mô lớn."
+      ],
+      "same_event_coverage_ids": [
+        "4a208d26d5a40d764728"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nhóm K2 ra mắt bộ sáu mô hình mở K2-Horizon với bản 36B-A4B gần tương đương mô hình đặc 32B",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.21003"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.55,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The evidence behind the synthetic-data conclusion is less concrete.",
+            "fix": "Add that the disclosed pipelines produced roughly 10 trillion synthetic pre-training tokens (outlet:p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "d689bb88841dbababdecec5feb312d85823c36c5d6a8dfa70e0037afe9cc6de7",
+        "scored_at": "2026-11-17T07:41:02.727366+00:00"
+      }
+    },
+    {
+      "id": "93cc8665b2e2fcc4f842",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.20986",
+      "key_points": [
+        "Nhóm tác giả công bố hệ thống Calpha, bước đầu giúp mô hình ngôn ngữ lớn xuất cấu trúc chuỗi đơn protein. Theo đó, mô hình Qwen3.5-9B đọc chuỗi protein bổ sung đặc trưng phần dư ESM2 và kích hoạt đầu SimpleFold chỉ qua các trạng thái phần dư của Qwen.",
+        "Theo nhóm tác giả, dự án xuất phát từ việc năng lực dự đoán cấu trúc protein và suy luận ngôn ngữ vốn tách rời nhau. Nhóm tác giả so sánh Calpha với mô hình cơ sở ESM2-3B và SimpleFold-3B, dù hai bên khác nhau về trọng số huấn luyện, thời lượng và độ dài đoạn cắt.",
+        "Với chuỗi ngắn từ 100 đến 299 phần dư, cả ba khoảng tin cậy bắt cặp giữa hai hệ thống đều chứa số 0.",
+        "Nghiên cứu kết luận mô hình ngôn ngữ có thể tự xuất cấu trúc chuỗi đơn, nhưng việc huấn luyện protein làm giảm độ chính xác trên tập con 350 câu hỏi MMLU-Pro từ 77,4% xuống 70,3%. Theo nhóm tác giả, việc dự đoán phức hợp protein và đưa suy luận ngôn ngữ vào tọa độ dự đoán vẫn thuộc về nghiên cứu tương lai."
+      ],
+      "same_event_coverage_ids": [
+        "4c6c7d1742577384e273"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Qwen3.5-9B xuất cấu trúc chuỗi đơn protein nhưng giảm độ chính xác trên tập con MMLU-Pro",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.20986"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.45,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 8,
+          "meaning": 6
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "Readers miss a central limitation: the model scores lower on longer chains in the current comparisons.",
+            "fix": "State that the mean differences for 300–600-residue chains were −0.044, −0.160 and −0.025 across the three evaluated sets (outlet:p009)."
+          },
+          {
+            "question": "notable",
+            "problem": "The Vietnamese gives no absolute structure-prediction scores.",
+            "fix": "If space permits, add the mean TM-scores of 0.808, 0.635 and 0.900, naming their respective evaluation sets (outlet:p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "7c332bd29cc853636153521fa0b61223f488b6b2b074820748fb822d1ec476fa",
+        "scored_at": "2026-11-17T07:41:02.727398+00:00"
+      }
+    },
+    {
+      "id": "00073ad318ab8a97d606",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.20404",
+      "key_points": [
+        "Theo nhóm nghiên cứu, phản hồi tiềm ẩn đóng vai trò như bộ khuếch đại tính toán và dữ liệu khi huấn luyện mô hình Transformer. Kỹ thuật này đưa trạng thái tầng cao nhất của mỗi token (đơn vị từ tố) vào đầu vào token kế tiếp để đạt cùng độ mất mát với ít tính toán hoặc dữ liệu hơn.",
+        "Nghiên cứu xuất phát từ thực tế khi dữ liệu chất lượng cao cạn kiệt, việc huấn luyện lặp lại qua nhiều chu kỳ (epoch) giảm dần hiệu quả.",
+        "Thực nghiệm cho thấy phản hồi tiềm ẩn giúp tiết kiệm tối đa 48% lượng tính toán và 47% dữ liệu độc nhất so với Transformer tiêu chuẩn. Mức tiết kiệm này tăng theo lượng dữ liệu và số lần lặp lại, ngoại trừ khi dữ liệu độc nhất quá khan hiếm so với quy mô mô hình.",
+        "Nhóm tác giả đánh giá phản hồi tiềm ẩn sử dụng FLOP tốt hơn cho một quy mô mô hình nhất định khi dữ liệu là giới hạn thay vì tính toán. Quy luật mở rộng quy mô do nhóm xây dựng từ các kích thước 60M đến 271M tham số dự đoán độ mất mát ở quy mô 778M với sai số dưới 0,3%."
+      ],
+      "same_event_coverage_ids": [
+        "e95bc224c874e1207b84"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Cơ chế phản hồi tiềm ẩn giúp mô hình tiết kiệm tối đa 48% tính toán và 47% dữ liệu độc nhất",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.20404"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.9,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 8,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "Readers do not learn which variable was held fixed for each reported saving.",
+            "fix": "State that the compute saving is measured with unique data fixed, while the unique-data saving is measured with epochs fixed (outlet:p009)."
+          },
+          {
+            "question": "notable",
+            "problem": "The Vietnamese says savings grow with the amount of data, losing the source’s comparison to model size.",
+            "fix": "Specify that savings grow with unique data per parameter and with repetition (outlet:p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "e434c5b2a5bae6b13fd5a28ce35ba51efb48b3fcbad103b92e44b2e36a69529a",
+        "scored_at": "2026-11-17T07:41:02.727435+00:00"
+      }
     }
   ]
 }
