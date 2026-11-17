@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-17T07:55:06.562194+00:00",
-  "input_generated_at": "2026-11-17T06:46:25Z",
+  "generated_at": "2026-11-17T09:39:09.213305+00:00",
+  "input_generated_at": "2026-11-17T08:45:54Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -84484,17 +84484,17 @@
       "use_original_title": false,
       "source_url": "https://arxiv.org/abs/2611.20986",
       "key_points": [
-        "Nhóm tác giả công bố hệ thống Calpha, bước đầu giúp mô hình ngôn ngữ lớn xuất cấu trúc chuỗi đơn protein. Theo đó, mô hình Qwen3.5-9B đọc chuỗi protein bổ sung đặc trưng phần dư ESM2 và kích hoạt đầu SimpleFold chỉ qua các trạng thái phần dư của Qwen.",
-        "Theo nhóm tác giả, dự án xuất phát từ việc năng lực dự đoán cấu trúc protein và suy luận ngôn ngữ vốn tách rời nhau. Nhóm tác giả so sánh Calpha với mô hình cơ sở ESM2-3B và SimpleFold-3B, dù hai bên khác nhau về trọng số huấn luyện, thời lượng và độ dài đoạn cắt.",
-        "Với chuỗi ngắn từ 100 đến 299 phần dư, cả ba khoảng tin cậy bắt cặp giữa hai hệ thống đều chứa số 0.",
-        "Nghiên cứu kết luận mô hình ngôn ngữ có thể tự xuất cấu trúc chuỗi đơn, nhưng việc huấn luyện protein làm giảm độ chính xác trên tập con 350 câu hỏi MMLU-Pro từ 77,4% xuống 70,3%. Theo nhóm tác giả, việc dự đoán phức hợp protein và đưa suy luận ngôn ngữ vào tọa độ dự đoán vẫn thuộc về nghiên cứu tương lai."
+        "Nhóm tác giả công bố dự án Calpha, bước đầu giúp mô hình ngôn ngữ lớn xuất cấu trúc chuỗi đơn protein. Theo đó, Qwen3.5-9B nhận diện đặc trưng ESM2 để kích hoạt đầu SimpleFold xuất tọa độ qua các trạng thái phần dư.",
+        "Theo nhóm nghiên cứu, dự án nhằm kết nối dự đoán cấu trúc phân tử sinh học với suy luận ngôn ngữ đang tách rời. Họ so sánh Calpha với mô hình đối chứng ESM2-3B và SimpleFold-3B, dù hai bên khác nhau về trọng số, thời lượng và độ dài đoạn cắt.",
+        "Dưới yêu cầu gấp nếp cố định, Calpha đạt điểm TM-score trung bình (thước đo độ tương đồng cấu trúc) là 0,808 trên tập phát triển FoldBench-334, 0,635 trên các miền CASP16 và 0,900 trên tập PDB dạng CAMEO. So với mô hình đối chứng, khoảng tin cậy ở chuỗi 100–299 phần dư chứa số 0, nhưng chuỗi dài 300–600 phần dư kém hơn với chênh lệch trung bình là -0,044, -0,160 và -0,025.",
+        "Nhóm tác giả kết luận mô hình có thể tự xuất cấu trúc chuỗi đơn, song việc huấn luyện protein làm giảm độ chính xác trên tập con 350 câu hỏi MMLU-Pro (bộ kiểm chuẩn suy luận) từ 77,4% xuống 70,3%. Ngoài ra, khả năng dự đoán phức hợp, hiểu cấu trúc và để suy luận ngôn ngữ tác động lên tọa độ vẫn là những mục tiêu tương lai."
       ],
       "same_event_coverage_ids": [
         "4c6c7d1742577384e273"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Qwen3.5-9B xuất cấu trúc chuỗi đơn protein nhưng giảm độ chính xác trên tập con MMLU-Pro",
+      "editorial_headline_vi": "Qwen3.5-9B xuất cấu trúc chuỗi đơn protein nhưng giảm điểm chuỗi dài và độ chính xác MMLU-Pro",
       "summary_sources": [
         {
           "id": "outlet",
@@ -84507,24 +84507,25 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.45,
+        "value": 9.3,
         "answers": {
-          "what": 9,
+          "what": 8,
           "why": 10,
-          "notable": 8,
-          "meaning": 6
+          "notable": 10,
+          "meaning": 10
         },
-        "hard_errors": [],
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "nhận diện đặc trưng ESM2 để kích hoạt đầu SimpleFold",
+            "explanation": "The source says Qwen reads a sequence enriched with ESM2 residue features and can emit a token that invokes the pretrained SimpleFold head. It does not say that recognizing ESM2 features triggers the head (outlet:p009)."
+          }
+        ],
         "findings": [
           {
-            "question": "meaning",
-            "problem": "Readers miss a central limitation: the model scores lower on longer chains in the current comparisons.",
-            "fix": "State that the mean differences for 300–600-residue chains were −0.044, −0.160 and −0.025 across the three evaluated sets (outlet:p009)."
-          },
-          {
-            "question": "notable",
-            "problem": "The Vietnamese gives no absolute structure-prediction scores.",
-            "fix": "If space permits, add the mean TM-scores of 0.808, 0.635 and 0.900, naming their respective evaluation sets (outlet:p009)."
+            "question": "what",
+            "problem": "The reader may infer the wrong trigger for structure prediction.",
+            "fix": "Say Qwen reads a sequence enriched with ESM2 residue features and can emit a token to invoke the pretrained SimpleFold head (outlet:p009)."
           }
         ],
         "writer_boats": [
@@ -84532,8 +84533,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "7c332bd29cc853636153521fa0b61223f488b6b2b074820748fb822d1ec476fa",
-        "scored_at": "2026-11-17T07:41:02.727398+00:00"
+        "prose_sha256": "8a5ec0bed9ec03c46bcf1c97f61428dfeceb3f3cf0368e890ec542d525f720a5",
+        "scored_at": "2026-11-17T09:39:09.190712+00:00"
       }
     },
     {
@@ -84603,6 +84604,806 @@
         "scorer_provider": "codex",
         "prose_sha256": "e434c5b2a5bae6b13fd5a28ce35ba51efb48b3fcbad103b92e44b2e36a69529a",
         "scored_at": "2026-11-17T07:41:02.727435+00:00"
+      }
+    },
+    {
+      "id": "aa2decaf2424a2549a5c",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-17/clampdown-on-china-chip-loophole-puts-billions-in-loans-at-risk",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "7c84a1127438da2583ab"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "2a065df9537ad90f8428",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://analyticsindiamag.com/ai-news/openai-names-pragya-misra-to-head-india-and-south-asia-business-expansion",
+      "key_points": [
+        "Bà Pragya Misra chuyển sang lãnh đạo mảng phát triển kinh doanh của OpenAI tại Ấn Độ và Nam Á sau thời gian phụ trách chiến lược và đối ngoại. Theo Analytics India Magazine, bà là nhân sự đầu tiên của công ty tại Ấn Độ khi gia nhập vào tháng 4 năm 2024.",
+        "Theo Analytics India Magazine, quyết định này diễn ra khi OpenAI tìm cách tăng cường hợp tác với các doanh nghiệp Ấn Độ và mở rộng sử dụng công nghệ.",
+        "Trong vai trò mới, bà Misra tập trung xây dựng quan hệ đối tác giúp doanh nghiệp ứng dụng trí tuệ nhân tạo (AI) và phát triển hạ tầng cần thiết. Bà Misra cho biết Ấn Độ hiện là thị trường lớn nhất của ChatGPT và công ty đang tìm người kế nhiệm công việc đối ngoại.",
+        "Analytics India Magazine nhận định sự thay đổi này đặt bà Misra vào vị trí trung tâm trong các nỗ lực phát triển kinh doanh của OpenAI tại Ấn Độ và Nam Á."
+      ],
+      "same_event_coverage_ids": [
+        "6f1e7157d2bfff1ae3a0"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "OpenAI bổ nhiệm bà Pragya Misra phụ trách phát triển kinh doanh tại Ấn Độ và Nam Á",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "analytics-india-magazine",
+          "url": "https://analyticsindiamag.com/ai-news/openai-names-pragya-misra-to-head-india-and-south-asia-business-expansion"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "90066b77b8ba8262ccd810321d7fbf3baf242ee89c38c00b01eca2fc360674f1",
+        "scored_at": "2026-11-17T09:23:48.909397+00:00"
+      }
+    },
+    {
+      "id": "feab717fde9c5e4aeca5",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://analyticsindiamag.com/ai-news/karnataka-unveils-six-initiatives-to-strengthen-its-ai-and-semiconductor-ecosystem",
+      "key_points": [
+        "Karnataka officially launched the Karnataka AI Hub at IIIT-Bengaluru with a previously approved budget of ₹35 crore, serving as a first step toward a proposed AI University.",
+        "The state announced BRAINZ, a 9-acre robotics and AI innovation facility at IISc with ARTPARK targeting ₹1,000 crore in investments over five years.",
+        "Karnataka announced support for semiconductor facilities at IISc, including a 200-mm research and pilot-line facility and the INFIfab national fabrication center."
+      ],
+      "same_event_coverage_ids": [
+        "0575a1b5ebec470c9b20"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "471bd79a076f1806dbeb",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.npr.org/2026/11/16/nx-s1-6042883/nvidia-jensen-huang-commerce-department",
+      "key_points": [
+        "Chính phủ Mỹ công bố quy định ngăn chặn quyền truy cập từ xa vào chip và máy chủ trí tuệ nhân tạo (AI) tiên tiến qua các trung tâm dữ liệu ở nước ngoài.",
+        "Theo NPR, vụ việc xuất phát từ bê bối tình báo tại Nvidia và lỗ hổng trung tâm dữ liệu ở nước ngoài từng cho phép các chính phủ đối thủ tiếp cận công nghệ AI của Mỹ. Cơ quan tình báo Mỹ nghi ngờ cựu Tổng giám đốc Jensen Huang có quan hệ tình cảm với một phụ nữ bị nghi là điệp viên Trung Quốc, dù NPR chưa thể độc lập xác minh cáo buộc này.",
+        "Giới chức Mỹ đã mở cuộc điều tra hình sự với công ty Megaspeed tại Singapore do nghi ngờ bán quyền truy cập chip cho Trung Quốc. Megaspeed khẳng định họ kinh doanh hợp pháp và đã thuê luật sư bên ngoài để điều tra nội bộ.",
+        "Cơ quan BIS nhấn mạnh quy định nhằm đảm bảo công nghệ nhạy cảm không bị khai thác đe dọa an ninh quốc gia. Theo NPR, trước bê bối Nvidia, chính quyền Tổng thống Trump từng phản đối ban hành thêm quy định hạn chế quyền tiếp cận của nước ngoài."
+      ],
+      "same_event_coverage_ids": [
+        "7cb1911a824a99b9a070",
+        "b7d19b07e3b29f216750"
+      ],
+      "split_coverage_ids": [
+        "b9013f1bedd56f1782eb"
+      ],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Mỹ siết quy định chặn Trung Quốc truy cập từ xa vào chip AI sau bê bối tại Nvidia",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://www.npr.org/2026/11/16/nx-s1-6042883/nvidia-jensen-huang-commerce-department"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 7.75,
+        "answers": {
+          "what": 9,
+          "why": 5,
+          "notable": 7,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "cause",
+            "summary_text": "vụ việc xuất phát từ bê bối tình báo tại Nvidia",
+            "explanation": "The source places the rule amid the fallout from the Nvidia allegations, but identifies the remote-access loophole as the regulatory problem; it does not establish the scandal as the rule’s cause (outlet:p012, outlet:p016–p018)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "lỗ hổng trung tâm dữ liệu ở nước ngoài từng cho phép các chính phủ đối thủ tiếp cận công nghệ AI của Mỹ",
+            "explanation": "The source says the loophole could let adversarial governments gain access and that Chinese companies could access restricted chips remotely. It does not report that adversarial governments actually did so (outlet:p009, outlet:p018)."
+          },
+          {
+            "kind": "cause",
+            "summary_text": "do nghi ngờ bán quyền truy cập chip cho Trung Quốc",
+            "explanation": "The source reports suspected sales of remote access to Chinese companies, but says the investigation began over potential export-control violations and that the criminal investigation followed an on-site check. It does not give suspected access sales as the stated reason for opening the criminal investigation (outlet:p006, outlet:p024, outlet:p027)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The reader is told the Nvidia scandal caused the rule.",
+            "fix": "Describe the announcement as coming amid Nvidia fallout, and identify the remote-access loophole as the problem the rule addresses (outlet:p012, outlet:p016–p018)."
+          },
+          {
+            "question": "why",
+            "problem": "Potential access by adversarial governments is presented as access that already occurred.",
+            "fix": "Keep the source’s distinction between what the loophole could permit and what has been established (outlet:p009, outlet:p018)."
+          },
+          {
+            "question": "notable",
+            "problem": "The reason given for opening the Megaspeed criminal investigation is more specific than the source supports.",
+            "fix": "Say authorities began the investigation after an on-site check, amid a probe into potential export-control violations (outlet:p024, outlet:p027)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "3bf71d349d683e18a950d77e8733afb83ae95f4cd2f5578b6240111ae5cf491f",
+        "scored_at": "2026-11-17T09:23:48.909536+00:00"
+      }
+    },
+    {
+      "id": "1f6388993982b90e17e1",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Macro-level IT industry forecast by Gartner on total enterprise IT spending in India, where AI infrastructure is only cited in passing as one of 여러 growth drivers.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://analyticsindiamag.com/ai-news/indias-it-spending-to-reach-169-trillion-in-2027-gartner-forecast",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "fb713f42cde5b21cea76"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "badb32fbee7ebe28e30f",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://en.yna.co.kr/view/AEN20261117008100315",
+      "key_points": [
+        "Công tố viên Hàn Quốc đề nghị mức án ba năm tù cho nam sinh viên tạo deepfake tình dục. Bị cáo là một học viên cao học người Trung Quốc bị truy tố tạo hơn 1.000 tài liệu bóc lột tình dục.",
+        "Theo Yonhap, các tài liệu deepfake được tạo bằng cách ghép khuôn mặt các sinh viên cùng phòng nghiên cứu vào video và hình ảnh khiêu dâm.",
+        "Hành vi này diễn ra trong sáu tháng, tạo ra 1.141 ấn phẩm bóc lột tình dục nhắm vào bảy nạn nhân trong trường học.",
+        "Tại phiên phúc thẩm ở Tòa án quận Bắc Seoul, công tố viên còn đề nghị tịch thu thiết bị, cấm làm việc với trẻ vị thành niên 10 năm và yêu cầu bị cáo điều trị bạo lực tình dục."
+      ],
+      "same_event_coverage_ids": [
+        "37972f87618fd9b22657"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Hàn Quốc đề nghị 3 năm tù cho nam sinh viên làm hơn 1.000 video deepfake khiêu dâm",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "yonhap",
+          "url": "https://en.yna.co.kr/view/AEN20261117008100315"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.25,
+        "answers": {
+          "what": 8,
+          "why": 10,
+          "notable": 8,
+          "meaning": 7
+        },
+        "hard_errors": [
+          {
+            "kind": "number",
+            "summary_text": "hơn 1.000 video deepfake khiêu dâm",
+            "explanation": "The count is for more than 1,000 deepfake materials, comprising videos and images; the source does not say more than 1,000 were videos (outlet:p001, outlet:p003)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The headline makes the count sound like a count of videos alone.",
+            "fix": "Call them more than 1,000 deepfake materials or images and videos (outlet:p001, outlet:p003)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The reader lacks the comparison and next step in the appeal.",
+            "fix": "Add that the first-instance sentence was 1½ years and the appellate ruling is scheduled for December 15 (outlet:p003–p004)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "935337b3e7f672359a1977a9f7e94436a287f2f18d42ee58cd34476c1fe078a5",
+        "scored_at": "2026-11-17T09:23:48.909589+00:00"
+      }
+    },
+    {
+      "id": "039a031b5324b5b45131",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-17/us-chip-curbs-force-xi-to-weigh-response-before-trump-summit",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "3bfee7835371a60b43e0"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "42fd0d40dc6b6c5bacfd",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://technode.com/2026/11/17/kuaishou-kling-sora-hong-kong-ipo/",
+      "key_points": [
+        "Theo Bloomberg, Kling được đưa tin đã chọn các ngân hàng cho đợt phát hành cổ phiếu lần đầu ra công chúng (IPO) tại Hồng Kông với khả năng huy động ít nhất 1 tỷ USD. Kế hoạch này diễn ra khi OpenAI công bố sẽ đóng cửa đối thủ Sora sau gần hai năm cạnh tranh.",
+        "TechNode nhận định Kuaishou tiếp tục đầu tư nhờ Kling sớm mang lại doanh thu lớn, đạt hơn 20 triệu USD trong tháng 12 năm 2025 khi Sora vẫn hoạt động. Trang tin này giải thích người dùng sẵn sàng chi trả khi cảnh quay gần đạt yêu cầu và chi phí tạo lại rẻ hơn tìm phương án khác.",
+        "Đến quý 2 năm 2026, doanh thu của Kling đã vượt 850 triệu nhân dân tệ, cao hơn gấp ba lần so với cùng kỳ năm trước.",
+        "TechNode nhận định kế hoạch IPO được đưa tin sẽ cho phép giới đầu tư định giá riêng Kling thay vì gắn liền với công ty mẹ Kuaishou. Dù vậy, trang tin này lưu ý Google và ByteDance vẫn tiếp tục cung cấp những lựa chọn khác cho người dùng."
+      ],
+      "same_event_coverage_ids": [
+        "aea67c5e0fb768e9b331"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Theo Bloomberg, Kling chọn ngân hàng cho đợt IPO tại Hồng Kông với khả năng huy động ít nhất 1 tỷ USD",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "technode",
+          "url": "https://technode.com/2026/11/17/kuaishou-kling-sora-hong-kong-ipo/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.05,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 9,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The reader misses why the article thinks Kling could remain useful after the initial novelty fades.",
+            "fix": "Add the point that control and character consistency across shots help editors obtain the next shot they need (outlet:p007, outlet:p014)."
+          },
+          {
+            "question": "what",
+            "problem": "The corporate step preceding a possible IPO is missing.",
+            "fix": "Mention Kuaishou’s announced plan to place Kling in a separate subsidiary and bring in outside investors (outlet:p013)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "e5ff40741996aadf8f0fd0a626398d949675a81d8497b8da80ec6277c617f600",
+        "scored_at": "2026-11-17T09:32:12.133999+00:00"
+      }
+    },
+    {
+      "id": "021f74907630cdcb1791",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://analyticsindiamag.com/ai-features/ai-tools-are-making-us-sound-the-same-at-workunless-youre-a-woman",
+      "key_points": [
+        "Nghiên cứu của Đại học Johns Hopkins cho thấy câu lệnh mang đặc điểm ngôn ngữ nữ giới thường khiến AI tạo văn bản ít phức tạp và kém trang trọng hơn. Hiệu ứng này rõ nhất ở thư điện tử và đơn xin việc, trong khi kết quả với thư từ chức yếu hơn.",
+        "Giáo sư Anjalie Field cho biết rất khó xác định nguyên nhân chính xác, song bà suy đoán tín hiệu ngôn ngữ đã lấn át yếu tố tên gọi. Thực tế, việc đổi tên sang nam hay nữ hầu như không đổi kết quả, cho thấy ngôn từ câu lệnh tác động mạnh hơn tên đính kèm.",
+        "Ở thử nghiệm sơ bộ, mô hình đánh giá ưu tiên phản hồi từ câu lệnh mang đặc tính nam giới thường xuyên hơn mỗi khi thể hiện sự thiên vị.",
+        "Bà Sambratha Shetty nhận định các đợt kiểm toán ẩn danh truyền thống có thể bỏ sót vấn đề do AI phản hồi theo cách diễn đạt thay vì danh tính. Tuy nhiên, nghiên cứu chưa chứng minh được những khác biệt này dẫn đến sai lệch trong đánh giá của con người hay kết quả tuyển dụng."
+      ],
+      "same_event_coverage_ids": [
+        "3014195544ea56753d1d"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nghiên cứu của Đại học Johns Hopkins: Câu lệnh mang phong cách nữ giới khiến AI viết kém trang trọng",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "analytics-india-magazine",
+          "url": "https://analyticsindiamag.com/ai-features/ai-tools-are-making-us-sound-the-same-at-workunless-youre-a-woman"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.7,
+        "answers": {
+          "what": 9,
+          "why": 9,
+          "notable": 8,
+          "meaning": 9
+        },
+        "hard_errors": [
+          {
+            "kind": "role",
+            "summary_text": "Giáo sư Anjalie Field",
+            "explanation": "The source identifies Field specifically as an Assistant Professor of Computer Science, not simply a professor (outlet:p008)."
+          },
+          {
+            "kind": "quote",
+            "summary_text": "mỗi khi thể hiện sự thiên vị",
+            "explanation": "The source says the judging model favoured male-associated outputs more often when it expressed a preference; expressing a preference is not itself a finding that it displayed bias on every such occasion (outlet:p009)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The preliminary judging result sounds broader than its stated test and condition.",
+            "fix": "Specify that it came from 105 comparisons and that the male-associated responses were favoured more often when the judge expressed a preference (outlet:p009)."
+          },
+          {
+            "question": "why",
+            "problem": "Field’s academic title is overstated.",
+            "fix": "Identify her as an Assistant Professor of Computer Science, or omit the title (outlet:p008)."
+          },
+          {
+            "question": "what",
+            "problem": "The description of the generated writing loses one measured direction of difference.",
+            "fix": "Add that the responses were generally more readable, and keep the association with women qualified rather than exclusive (outlet:p002, outlet:p013)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "bb860fe9627bd0b1d90e50eb30a37cec9cd31dd8b7e9f64678cebc02a2c49e41",
+        "scored_at": "2026-11-17T09:32:12.134067+00:00"
+      }
+    },
+    {
+      "id": "d2967af27dc4f870e80f",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://pandaily.com/huawei-kirin-9050-display-dpu-ai-hdr-pixel-control",
+      "key_points": [
+        "Ngày 17 tháng 11, Huawei công bố chi tiết khối xử lý hiển thị của Kirin 9050 hỗ trợ AI-HDR2020 và kiểm soát điểm ảnh chính xác cao. Theo Pandaily, đợt cập nhật này chỉ mô tả cách xử lý hình ảnh trên màn hình chứ không phải ra mắt chip mới.",
+        "Theo tài liệu Huawei do IT Home dẫn lại, AI-HDR2020 xử lý nội dung dải tương phản tiêu chuẩn thông thường thành hình ảnh có dải sáng phong phú hơn. Khối DPU phối hợp cùng vi mạch điều khiển màn hình trong kiểm soát điểm ảnh và chuyển đổi chế độ riêng tư.",
+        "MyDrivers dẫn lời Huawei rằng 364 ứng dụng video thích ứng với công nghệ mới, dù không có danh sách kiểm tra độc lập từng ứng dụng. Ngoài ra, hình ảnh cảnh lửa trại minh họa chỉ do Huawei tự trình diễn chứ chưa có đánh giá độc lập.",
+        "Pandaily nhận định lợi ích hiển thị vẫn là tuyên bố phụ thuộc vào thiết bị và phần mềm hỗ trợ. Trang tin này nhấn mạnh việc xử lý nội dung không đồng nghĩa với nguồn HDR mới hay khôi phục được thông tin bị thiếu từ cảnh quay gốc."
+      ],
+      "same_event_coverage_ids": [
+        "c797a9541364ef93c01a"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Huawei công bố khối DPU trên Kirin 9050 với AI-HDR2020 và tuyên bố thích ứng 364 ứng dụng",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "pandaily",
+          "url": "https://pandaily.com/huawei-kirin-9050-display-dpu-ai-hdr-pixel-control"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.65,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "a42bd46d6f50e6466aa4a4963338b934fdc1179fddec29e51843ef475295a9be",
+        "scored_at": "2026-11-17T09:23:48.909708+00:00"
+      }
+    },
+    {
+      "id": "0e7f690aa4ff229bd2e8",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Vendor-published customer case study and promotional article on openai.com detailing its cyber defense collaboration with NATO and allied agencies.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://openai.com/index/strengthening-nato-allied-cyber-defences-ai",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "8550febd3bdd358dd110"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "8d08a43735bbd2dc558a",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Routine stock market daily financial report on the Seoul KOSPI index closing lower, where AI boom jitters and Nvidia are only mentioned as background market sentiment.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://en.yna.co.kr/view/AEN20261116006151320",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "32db8cbdd610d1c18194",
+        "6a3ab69bbb51bdd003d8",
+        "b194fa23f9270647a787",
+        "de9416000006295ea8bc"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "fe2b8f99dd2caa2df644",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.21607",
+      "key_points": [
+        "Nhóm tác giả giới thiệu ScaleVLA kết nối khung mô hình 552 tỷ tham số DeepSeek-V4.1-Flash với mạng khuếch tán hành động, so sánh các mô hình từ 2 tỷ đến 552 tỷ tham số trong cùng thiết lập huấn luyện. Nghiên cứu đánh giá ba năng lực gồm hiệu quả học theo mẫu, khả năng khái quát hóa và thao tác chính xác.",
+        "Theo nhóm nghiên cứu, hầu hết chính sách robot hiện vẫn dựa vào khung mô hình nhỏ trong khi tiềm năng tiền huấn luyện phần lớn chưa được khai thác. Nhóm tác giả đặt câu hỏi liệu biểu diễn quy mô đỉnh cao có thể tạo nền tảng vững chắc hơn cho robot học tập.",
+        "Về hiệu quả học theo mẫu, 10 lượt thị phạm giúp ScaleVLA đạt tỷ lệ thành công 87,8%, vượt mức 85,6% của khung 2 tỷ tham số dùng 50 lượt. Ở thử nghiệm cắm sạc thực tế, tỷ lệ thành công tăng từ 4/10 lên 9/10 lần, tập trung ở khâu căn chỉnh nhạy cảm tiếp xúc.",
+        "Nhóm tác giả nhận định các mô hình thị giác - ngôn ngữ đỉnh cao có thể làm nền tảng biểu diễn cho chính sách robot thay vì chỉ là tác nhân suy luận. Dù có quy mô lớn, ScaleVLA đạt độ trễ trung vị 216 mili giây cho mỗi đoạn hành động trong thử nghiệm."
+      ],
+      "same_event_coverage_ids": [
+        "0a797045f9fab0e7ec70"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Mô hình robot ScaleVLA 552 tỷ tham số vượt khung 2B chỉ với 10 lượt thị phạm",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.21607"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "76f0a5a61b892149db6fe7f92b5bfc3ba21766a46641d56e82b75ef14a603f86",
+        "scored_at": "2026-11-17T09:23:48.909737+00:00"
+      }
+    },
+    {
+      "id": "dfb491120696e6649fa4",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.21218",
+      "key_points": [
+        "Nhóm tác giả công bố InclusionMed, sáng kiến đánh giá mở trí tuệ nhân tạo (AI) phục vụ y tế toàn diện.",
+        "Theo nhóm nghiên cứu, độ bao phủ của các chuẩn đánh giá hiện chưa đồng đều dù AI y tế đòi hỏi kiểm tra trên nhiều vai trò và cơ sở điều trị. Khung InclusionMed Atlas tổ chức các bộ chuẩn theo 3 vai trò y tế và 3 nhóm năng lực AI.",
+        "Khi đánh giá các mô hình ngôn ngữ lớn hàng đầu, chỉ số InclusionMed Index ghi nhận điểm tổng thể chỉ từ 17,5 đến 49,1 trên thang 100. Phân tích tác vụ cho thấy 10 mô hình đứng đầu đều đạt điểm giao tiếp với bệnh nhân cao hơn năng lực ra quyết định lâm sàng.",
+        "Nhóm tác giả kết luận rằng cần mở rộng đánh giá cho các nhu cầu y tế đa dạng và lựa chọn mô hình theo từng ngữ cảnh. Thứ hạng mô hình thay đổi theo từng vai trò hay năng lực, trong khi các mô hình cùng điểm vẫn chênh lệch lớn về chi phí suy luận ước tính."
+      ],
+      "same_event_coverage_ids": [
+        "41d363ccdc826fce93fd"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nghiên cứu InclusionMed: Các mô hình AI y tế hàng đầu chỉ đạt từ 17,5 đến 49,1 trên 100 điểm",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.21218"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The reader does not learn how limited the first Atlas’s coverage remains.",
+            "fix": "State that its five benchmarks cover only three of nine role–capability cells (outlet:p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "3eb964518429a41c260e4cfb74bfb624eabf900b0fed8124caf212c137c52b4b",
+        "scored_at": "2026-11-17T09:32:12.134102+00:00"
+      }
+    },
+    {
+      "id": "8155a6a35a41dd30729f",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.20385",
+      "key_points": [
+        "Tác giả Emilio Ferrara phát hiện không mô hình nào tự dự đoán kết quả vật lý đáng tin cậy khi thiếu trợ giúp trên bộ chuẩn (hệ thống đánh giá tiêu chuẩn) DominoBench. Nghiên cứu thử nghiệm 30 mô hình từ 10 họ trên 854 ảnh tĩnh vật thể rắn 2D được mô phỏng.",
+        "Tác giả đặt vấn đề nghiên cứu vì việc mô hình mô tả trôi chảy cảnh vật gợi ý chúng có thể dự đoán phản ứng dây chuyền. DominoBench gồm 427 cặp tối thiểu với thay đổi một đến ba ô lưới quyết định người sống sót, kèm thang gợi ý bốn mức đến phép tính quyết định.",
+        "Khi thiếu trợ giúp, các mô hình hàng đầu từ Anthropic, Google và OpenAI chỉ đúng cả cặp tối đa 34% và đúng người đổi số phận tối đa 72%. Khi được cung cấp cả phép tính quyết định lẫn các đại lượng gồm cả tốc độ mà ảnh tĩnh không thể hiển thị, chúng đạt 82-92%, còn mô hình mở nhỏ chỉ đạt mức ngẫu nhiên.",
+        "Dự đoán vật lý từ ảnh tĩnh thất bại ở bước định lượng, khi các mô hình mạnh nhất biết dùng đại lượng quyết định nhưng không tự đưa ra trong thử nghiệm. Tác giả Emilio Ferrara kết luận mô tả trôi chảy không chứng minh dự đoán chính xác, vì mô hình trong thế giới vật lý phải tự tính đại lượng quyết định mà không cần gợi ý."
+      ],
+      "same_event_coverage_ids": [
+        "439aba758610b574f3c6"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "AI hàng đầu chỉ trả lời đúng tối đa 34% cặp bài toán vật lý khi thiếu trợ giúp trên DominoBench",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.20385"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.85,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "6dc4705797c6cdd0412be00129b1e9e9580df6ae68a94f298dff5e061f9328da",
+        "scored_at": "2026-11-17T09:32:12.134131+00:00"
+      }
+    },
+    {
+      "id": "39ab9d52d537600337df",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.20882",
+      "key_points": [
+        "Bài báo của Bowen Liu và 9 đồng tác giả ghi nhận điểm Score@1 của 16 tác tử lập trình (AI viết mã kết hợp khung điều phối) dao động từ 25,5% đến 67,4% trên Accelerate Bench 1.1. Bộ tiêu chuẩn gồm 32 tác vụ tối ưu hóa CPU từ các ứng dụng khoa học và thi đấu siêu máy tính.",
+        "Nhóm tác giả chỉ ra việc tối ưu ứng dụng đòi hỏi phối hợp toàn diện vì cùng một mã nguồn chạy từ 0,29 lần đến 2,12 lần chỉ tùy thuộc thiết lập biên dịch và môi trường thực thi (runtime settings). Ngoài ra, một thay đổi mã mang lại mức tăng tốc 1,01 lần hoặc 6,4 lần tùy thuộc vào thay đổi khác.",
+        "Hai tác tử dẫn đầu đạt mức tăng tốc ít nhất 2 lần trên 22 tác vụ trở lên trong số 32 tác vụ. Ngược lại, 14 tác tử còn lại chỉ đạt mức tăng 2 lần trên 8 đến 17 tác vụ, và có 125 trong số 412 kết quả chạy đúng của nhóm này chỉ tăng tốc dưới 1,25 lần.",
+        "Nhóm nghiên cứu cho biết Accelerate Bench kết hợp khối lượng công việc thực thi với chương trình và quỹ đạo của tác tử để đánh giá cả mức tăng hiệu năng lẫn quy trình xử lý phía sau."
+      ],
+      "same_event_coverage_ids": [
+        "430862f08ae37dbb0eca"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Hai tác tử lập trình tăng tốc ít nhất 2 lần trên 22 tác vụ ở bộ tiêu chuẩn Accelerate Bench",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.20882"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.8,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "3ca2a5b17d569264d5d76c8667bec29ab9f73b4aa9b36c77897a194f2ab5c913",
+        "scored_at": "2026-11-17T09:32:12.134155+00:00"
       }
     }
   ]
