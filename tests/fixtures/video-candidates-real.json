@@ -1,0 +1,614 @@
+{
+ "note": "Trimmed from the hco.news snapshot of 2026-11-17 17:26 UTC, the 12/11 radar-ui.json and the newsroom decisions.json; fields the video picker reads only.",
+ "stories": [
+  {
+   "id": "33a0483307191e736514",
+   "title": "Nvidia CEO's affair becomes a national security problem",
+   "title_vi": "Chuyện của CEO Nvidia trở thành vấn đề an ninh quốc gia",
+   "published_at": "2026-11-09T15:23:20Z",
+   "url": "https://arstechnica.com/tech-policy/2026/11/ceo-jensen-huang-admits-affair-as-nvidia-probes-possible-chinese-espionage/",
+   "source_count": 5,
+   "hot_score": 87.324,
+   "image": {
+    "src": "https://cdn.arstechnica.net/wp-content/uploads/2026/03/huang-1152x648.jpg",
+    "via": "feed-media",
+    "kind": "photo",
+    "verified": true,
+    "quality": {
+     "version": 2,
+     "keep": true,
+     "reason": "no-dominant-text-or-logo-detected",
+     "flat_fraction": 0.764,
+     "smooth_fraction": 0.668,
+     "glyphs": 0,
+     "text_area": 0.0,
+     "large_glyphs": 0,
+     "large_text_area": 0.0,
+     "checked_at": 1794386747.2861304
+    }
+   },
+   "coverage": [
+    {
+     "url": "https://arstechnica.com/tech-policy/2026/11/ceo-jensen-huang-admits-affair-as-nvidia-probes-possible-chinese-espionage/",
+     "metrics": {}
+    },
+    {
+     "url": "https://www.scmp.com/news/article/3374047/nvidia-ceo-jensen-huangs-affair-everything-you-need-know",
+     "metrics": {}
+    },
+    {
+     "url": "https://www.semafor.com/article/11/11/2026/white-house-hit-by-intensified-scrutiny-over-knowledge-of-nvidia-ceos-affair",
+     "metrics": {}
+    },
+    {
+     "url": "https://techcrunch.com/2026/11/10/nvidia-ceo-jensen-huangs-affair-with-alleged-chinese-spy-a-timeline/",
+     "metrics": {}
+    },
+    {
+     "url": "https://www.bloomberg.com/news/newsletters/2026-11-10/nvidia-ceo-jensen-huang-s-affair-shows-pitfalls-of-imperious-leaders",
+     "metrics": {}
+    }
+   ]
+  },
+  {
+   "id": "75fc88ac047912f1bb09",
+   "title": "NVIDIA Announces CEO Transition",
+   "title_vi": "NVIDIA thông báo chuyển giao CEO",
+   "published_at": "2026-11-12T13:48:00Z",
+   "url": "https://nvidianews.nvidia.com/news/nvidia-announces-ceo-transition",
+   "source_count": 6,
+   "hot_score": null,
+   "image": {
+    "src": "https://cdn.i-scmp.com/sites/default/files/styles/1280x720/public/d8/images/canvas/2026/11/12/b493fd37-ed93-464e-b50f-4884cae60712_aeff017f.jpg?itok=HaWM5knG&v=1794492276",
+    "via": "feed-media",
+    "kind": "photo",
+    "verified": true,
+    "quality": {
+     "version": 2,
+     "keep": true,
+     "reason": "no-dominant-text-or-logo-detected",
+     "flat_fraction": 0.17,
+     "smooth_fraction": 0.621,
+     "glyphs": 0,
+     "text_area": 0.0,
+     "large_glyphs": 0,
+     "large_text_area": 0.0,
+     "checked_at": 1794847605.7955222
+    }
+   },
+   "coverage": [
+    {
+     "url": "https://nvidianews.nvidia.com/news/nvidia-announces-ceo-transition",
+     "metrics": {}
+    },
+    {
+     "url": "https://www.scmp.com/tech/big-tech/article/3374255/jensen-huang-resigns-nvidia-ceo-amid-affair-scandal",
+     "metrics": {}
+    },
+    {
+     "url": "https://analyticsindiamag.com/ai-news/in-a-stunning-fall-jensen-huang-resigns-as-nvidia-chief-after-33-years",
+     "metrics": {}
+    },
+    {
+     "url": "https://techcrunch.com/2026/11/12/democrats-launch-nvidia-investigation-write-scathing-letter-on-huangs-scheme-with-trump/",
+     "metrics": {}
+    },
+    {
+     "url": "https://apnews.com/article/nvidia-megaspeed-china-singapore-huang-5403f152a601cf82ce939f1d24fffa0f",
+     "metrics": {
+      "points": 3982
+     }
+    },
+    {
+     "url": "https://www.theverge.com/ai-artificial-intelligence/1030422/nvidia-jensen-huang-ai-china-alice-huang",
+     "metrics": {}
+    }
+   ]
+  },
+  {
+   "id": "cd1d1951ef503cb3a6c3",
+   "title": "Will Jensen Huang’s downfall tip the scales against open-source AI?",
+   "title_vi": "Sự sụp đổ của Jensen Huang sẽ làm giảm sự cân bằng với AI mã nguồn mở?",
+   "published_at": "2026-11-13T14:00:09Z",
+   "url": "https://www.scmp.com/tech/big-tech/article/3374376/will-jensen-huangs-downfall-tip-scales-against-open-source-ai",
+   "source_count": 2,
+   "hot_score": null,
+   "image": {
+    "src": "https://i.ytimg.com/vi/YYU_geUwQoA/hqdefault.jpg",
+    "via": "youtube",
+    "kind": "photo",
+    "verified": true,
+    "quality": {
+     "version": 2,
+     "keep": true,
+     "reason": "no-dominant-text-or-logo-detected",
+     "flat_fraction": 0.432,
+     "smooth_fraction": 0.389,
+     "glyphs": 20,
+     "text_area": 0.112,
+     "large_glyphs": 16,
+     "large_text_area": 0.102,
+     "checked_at": 1794926767.9186275
+    }
+   },
+   "coverage": [
+    {
+     "url": "https://www.scmp.com/tech/big-tech/article/3374376/will-jensen-huangs-downfall-tip-scales-against-open-source-ai",
+     "metrics": {}
+    },
+    {
+     "url": "https://www.youtube.com/watch?v=YYU_geUwQoA",
+     "metrics": {
+      "points": 5
+     }
+    }
+   ]
+  },
+  {
+   "id": "9836df3492903c3f1307",
+   "title": "Apple has new Mac app coming to make running local AI models easy",
+   "title_vi": "Apple có ứng dụng Mac mới đến để làm cho việc chạy các mô hình AI cục bộ dễ dàng hơn",
+   "published_at": "2026-11-10T21:25:03Z",
+   "url": "https://9to5mac.com/2026/11/10/apple-has-new-mac-app-coming-to-make-running-local-ai-models-easy/",
+   "source_count": 1,
+   "hot_score": null,
+   "image": {
+    "src": "https://9to5mac.com/wp-content/uploads/sites/6/2026/10/Mac-mini.jpg?quality=82&strip=all&resize=1200,628",
+    "via": "linked-article",
+    "kind": "photo",
+    "verified": true,
+    "quality": {
+     "version": 2,
+     "keep": true,
+     "reason": "no-dominant-text-or-logo-detected",
+     "flat_fraction": 0.311,
+     "smooth_fraction": 0.766,
+     "glyphs": 0,
+     "text_area": 0.0,
+     "large_glyphs": 0,
+     "large_text_area": 0.0,
+     "checked_at": 1794867293.9395733
+    }
+   },
+   "coverage": [
+    {
+     "url": "https://9to5mac.com/2026/11/10/apple-has-new-mac-app-coming-to-make-running-local-ai-models-easy/",
+     "metrics": {
+      "points": 576
+     }
+    },
+    {
+     "url": "https://9to5mac.com/2026/11/10/apple-has-new-mac-app-coming-to-make-running-local-ai-models-easy/",
+     "metrics": {
+      "points": 467
+     }
+    }
+   ]
+  },
+  {
+   "id": "55cb0588b3e8436e78b2",
+   "title": "Gemini 4 Carbon is now available",
+   "title_vi": "Gemini 4 Carbon hiện có sẵn",
+   "published_at": "2026-11-10T16:03:47Z",
+   "url": "https://deepmind.google/blog/gemini-4-carbon-is-now-available/",
+   "source_count": 1,
+   "hot_score": null,
+   "image": {
+    "src": "https://storage.googleapis.com/gweb-uniblog-publish-prod/images/gemini_4_carbon_key_art_16-9_lockup.width-1300.jpg",
+    "via": "og:image",
+    "kind": "photo",
+    "verified": true,
+    "quality": {
+     "version": 2,
+     "keep": true,
+     "reason": "no-dominant-text-or-logo-detected",
+     "flat_fraction": 0.266,
+     "smooth_fraction": 0.851,
+     "glyphs": 0,
+     "text_area": 0.0,
+     "large_glyphs": 0,
+     "large_text_area": 0.0,
+     "checked_at": 1794847606.0925605
+    }
+   },
+   "coverage": [
+    {
+     "url": "https://deepmind.google/blog/gemini-4-carbon-is-now-available/",
+     "metrics": {}
+    }
+   ]
+  },
+  {
+   "id": "a90e63d4594ce7aea5b9",
+   "title": "California state AG sues OpenAI over rogue agent incidents",
+   "title_vi": "Công tố viên bang California kiện OpenAI vì các vụ phiêu lưu",
+   "published_at": "2026-11-16T20:07:13Z",
+   "url": "https://techcrunch.com/2026/11/16/california-state-ag-sues-openai-over-rogue-agent-incidents/",
+   "source_count": 3,
+   "hot_score": 29.21,
+   "image": {
+    "src": "https://techcrunch.com/wp-content/uploads/2026/11/1920px-Rob_Bonta_at_Central_Bay_Operations_and_Maintenance_Facility_opening_December_2018.jpeg?resize=1200,981",
+    "via": "og:image",
+    "kind": "photo",
+    "verified": true,
+    "quality": {
+     "version": 2,
+     "keep": true,
+     "reason": "no-dominant-text-or-logo-detected",
+     "flat_fraction": 0.254,
+     "smooth_fraction": 0.506,
+     "glyphs": 0,
+     "text_area": 0.0,
+     "large_glyphs": 0,
+     "large_text_area": 0.0,
+     "checked_at": 1794860782.163362
+    }
+   },
+   "coverage": [
+    {
+     "url": "https://techcrunch.com/2026/11/16/california-state-ag-sues-openai-over-rogue-agent-incidents/",
+     "metrics": {}
+    },
+    {
+     "url": "https://www.theverge.com/ai-artificial-intelligence/1034815/california-openai-hugging-face-lawsuit",
+     "metrics": {}
+    },
+    {
+     "url": "https://calmatters.org/economy/technology/2026/11/california-is-suing-openai-over-hugging-face-hack/",
+     "metrics": {
+      "points": 11
+     }
+    }
+   ]
+  },
+  {
+   "id": "6cb43935e4fe29e18262",
+   "title": "Phota Labs uses AI to turn everyday photos into professional-looking shots",
+   "title_vi": "Phota Labs sử dụng AI để biến hình ảnh hàng ngày thành ảnh có vẻ chuyên nghiệp",
+   "published_at": "2026-11-12T17:00:00Z",
+   "url": "https://techcrunch.com/2026/11/12/phota-labs-uses-ai-to-turn-everyday-photos-into-professional-looking-shots/",
+   "source_count": 1,
+   "hot_score": null,
+   "image": {
+    "src": "https://techcrunch.com/wp-content/uploads/2026/11/04_Holiday_Lights_before_after.jpg?resize=1200,867",
+    "via": "og:image",
+    "kind": "photo",
+    "verified": true,
+    "quality": {
+     "version": 2,
+     "keep": true,
+     "reason": "no-dominant-text-or-logo-detected",
+     "flat_fraction": 0.454,
+     "smooth_fraction": 0.43,
+     "glyphs": 26,
+     "text_area": 0.011,
+     "large_glyphs": 3,
+     "large_text_area": 0.027,
+     "checked_at": 1794849967.714615
+    }
+   },
+   "coverage": [
+    {
+     "url": "https://techcrunch.com/2026/11/12/phota-labs-uses-ai-to-turn-everyday-photos-into-professional-looking-shots/",
+     "metrics": {}
+    }
+   ]
+  }
+ ],
+ "decisions": [
+  {
+   "id": "33a0483307191e736514",
+   "decision": "publish",
+   "use_original_title": false,
+   "editorial_headline_vi": "Nvidia điều tra CEO Jensen Huang sau khi thừa nhận quan hệ với nhà điều hành bị nghi làm gián điệp",
+   "key_points": [
+    "Theo Semafor, Nvidia cho biết đã mở cuộc điều tra độc lập về CEO Jensen Huang sau khi ông thừa nhận có quan hệ ngoài luồng với một nhà điều hành người Trung Quốc bị nghi làm gián điệp cho Bắc Kinh. Trong thư gửi nhân viên, ông Huang xin lỗi sâu sắc tới gia đình cùng đồng nghiệp và thừa nhận bản thân không có lời bào chữa nào cho hành vi của mình."
+   ]
+  },
+  {
+   "id": "75fc88ac047912f1bb09",
+   "decision": "publish",
+   "use_original_title": false,
+   "editorial_headline_vi": "WIRED: CEO Nvidia từ chức sau khi hãng mở điều tra về quan hệ với người bị nghi liên quan tình báo Trung Quốc",
+   "key_points": [
+    "Theo WIRED, Jensen Huang từ chức CEO Nvidia sau khi hãng mở cuộc điều tra về quan hệ tình cảm của ông với một người bị nghi liên quan tình báo Trung Quốc. Nvidia xác nhận ông cũng rời chức President và ghế hội đồng quản trị, có hiệu lực ngay lập tức."
+   ]
+  },
+  {
+   "id": "cd1d1951ef503cb3a6c3",
+   "decision": "publish",
+   "use_original_title": false,
+   "editorial_headline_vi": "Jensen Huang từ chức CEO Nvidia, dấy lên nghi vấn về hỗ trợ AI nguồn mở và thương vụ Hugging Face",
+   "key_points": [
+    "CEO Jensen Huang của Nvidia đã từ chức sau khi thừa nhận quan hệ với một người bị nghi là gián điệp Trung Quốc, theo TechCrunch."
+   ]
+  },
+  {
+   "id": "9836df3492903c3f1307",
+   "decision": "publish",
+   "use_original_title": false,
+   "editorial_headline_vi": "Leaker Aaron Perris tiết lộ Apple phát triển ứng dụng Harbor biến Mac thành máy chủ AI",
+   "key_points": [
+    "Leaker Aaron Perris phát hiện bằng chứng cho thấy Apple đang phát triển một ứng dụng mới dành cho máy Mac mang tên Harbor. Công cụ này biến máy Mac thành máy chủ suy luận AI (quá trình mô hình đưa ra dự đoán) riêng tư, cho phép chạy các mô hình có trọng số mở trên vi xử lý Apple silicon mà không gửi dữ liệu lên đám mây."
+   ]
+  },
+  {
+   "id": "55cb0588b3e8436e78b2",
+   "decision": "publish",
+   "use_original_title": false,
+   "editorial_headline_vi": "Gemini 4 Carbon tìm ra lỗ hổng zero-day trong chưa đầy hai giờ khi quét hai nhà cung cấp SaaS",
+   "key_points": [
+    "Google phát hành mô hình Gemini 4 Carbon vào ngày 10 tháng 11 năm 2026 cho lập trình viên, doanh nghiệp và người dùng. Theo Google, giá API giới thiệu là 2 USD mỗi triệu token đầu vào và 10 USD mỗi triệu token đầu ra cho lập trình viên cùng doanh nghiệp trả phí, đồng thời mô hình triển khai tới thuê bao Google AI Ultra trên Antigravity, ứng dụng Gemini và AI Mode."
+   ]
+  },
+  {
+   "id": "a90e63d4594ce7aea5b9",
+   "decision": "publish",
+   "use_original_title": false,
+   "editorial_headline_vi": "California kiện OpenAI vì tác tử AI xâm phạm hệ thống an ninh và gây nguy hại công cộng",
+   "key_points": [
+    "OpenAI đang đối mặt vụ kiện từ Tổng chưởng lý bang California với cáo buộc quy trình đào tạo và an ninh lỏng lẻo gây nguy cơ thường trực cho cộng đồng."
+   ]
+  },
+  {
+   "id": "6cb43935e4fe29e18262",
+   "decision": "publish",
+   "use_original_title": false,
+   "editorial_headline_vi": "Phota Labs ra ứng dụng iOS miễn phí dùng AI biến ảnh thường thành ảnh trông chuyên nghiệp",
+   "key_points": [
+    "Phota Labs ra ứng dụng iOS miễn phí dùng AI chỉnh ảnh chụp hằng ngày thành ảnh trông như do nhiếp ảnh gia thực hiện, theo TechCrunch. Công ty tập trung sửa chính bức ảnh đã chụp trong khi giữ vẻ tự nhiên của người trong ảnh."
+   ]
+  }
+ ],
+ "repos": [
+  {
+   "id": "meta/astryx",
+   "full_name": "meta/astryx",
+   "url": "https://github.com/meta/astryx",
+   "description": "An open source design system that's fully customizable and agent ready",
+   "label": "dung-ngay",
+   "category": null,
+   "areas": [],
+   "why": "Dùng ngay · cài: `npm i -g @astryxdesign/cli` · bản v0.7.16 ra 3 ngày trước · MIT · có trang sản phẩm/tài liệu",
+   "license": "MIT",
+   "license_flag": null,
+   "stars": 30019,
+   "stars_gained_7d": 10939,
+   "stars_gained": {
+    "day": null,
+    "week": 10939,
+    "month": null
+   },
+   "trending_rank": {
+    "day": null,
+    "week": 3,
+    "month": null
+   },
+   "forks": 2346,
+   "forks_source": "api",
+   "created_at": "2026-01-09T16:20:32Z",
+   "ai_related": true,
+   "signals": {
+    "readme_measured": true,
+    "d1": 25,
+    "install_command": "npm i -g @astryxdesign/cli",
+    "install_type": "binary",
+    "release_tag": "v0.7.16",
+    "release_days_ago": 3,
+    "d2": 10,
+    "has_binary_assets": false,
+    "d3": null,
+    "has_demo": false,
+    "has_product_page": true,
+    "d4": 10,
+    "has_docker": false,
+    "d5": null,
+    "license": "MIT",
+    "x1": 15,
+    "has_examples": false,
+    "x2": null,
+    "has_quickstart": true,
+    "x3": 10,
+    "pushed_days_ago": 0,
+    "x4": 5,
+    "has_paper": false,
+    "has_manifest": true,
+    "n2_penalty": null,
+    "non_commercial": false,
+    "d_score": 45,
+    "x_score": 30,
+    "api_enriched": true
+   },
+   "source": "github-trending"
+  },
+  {
+   "id": "mattpocock/skills",
+   "full_name": "mattpocock/skills",
+   "url": "https://github.com/mattpocock/skills",
+   "description": "Skills for Real Engineers. Straight from my .agents directory.",
+   "label": "dung-ngay",
+   "category": "agent-code",
+   "areas": [
+    "agent-code"
+   ],
+   "why": "Dùng ngay · cài: `npx skills@latest add mattpocock/skills -a <agent>  # cursor, opencode, devin, windsurf, amp, pi; omit -a to choose` · bản v1.3.2 ra 13 ngày trước · MIT · có trang sản phẩm/tài liệu",
+   "license": "MIT",
+   "license_flag": null,
+   "stars": 322057,
+   "stars_gained_7d": 9575,
+   "stars_gained": {
+    "day": null,
+    "week": 9575,
+    "month": null
+   },
+   "trending_rank": {
+    "day": null,
+    "week": 7,
+    "month": null
+   },
+   "forks": 27007,
+   "forks_source": "api",
+   "created_at": "2026-02-03T11:15:53Z",
+   "ai_related": true,
+   "signals": {
+    "readme_measured": true,
+    "d1": 25,
+    "install_command": "npx skills@latest add mattpocock/skills -a <agent>  # cursor, opencode, devin, windsurf, amp, pi; omit -a to choose",
+    "install_type": "binary",
+    "release_tag": "v1.3.2",
+    "release_days_ago": 13,
+    "d2": 10,
+    "has_binary_assets": false,
+    "d3": null,
+    "has_demo": false,
+    "has_product_page": true,
+    "d4": 10,
+    "has_docker": false,
+    "d5": null,
+    "license": "MIT",
+    "x1": 15,
+    "has_examples": false,
+    "x2": null,
+    "has_quickstart": true,
+    "x3": 10,
+    "pushed_days_ago": 0,
+    "x4": 5,
+    "has_paper": false,
+    "has_manifest": true,
+    "n2_penalty": null,
+    "non_commercial": false,
+    "d_score": 45,
+    "x_score": 30,
+    "api_enriched": true
+   },
+   "source": "github-trending",
+   "description_vi": "Skills cho các kỹ sư thực thụ. Trực tiếp từ thư mục .agents của tôi."
+  },
+  {
+   "id": "google-labs-code/stitch-skills",
+   "full_name": "google-labs-code/stitch-skills",
+   "url": "https://github.com/google-labs-code/stitch-skills",
+   "description": "A library of Agent Skills designed to work with the Stitch MCP server. Each skill follows the Agent Skills open standard, for compatibility with coding agents such as Antigravity, Gemini CLI, Claude Code, Cursor.",
+   "label": "dung-ngay",
+   "category": "agent-code",
+   "areas": [
+    "agent-code",
+    "browser-mcp"
+   ],
+   "why": "Dùng ngay · cài: `npx plugins add google-labs-code/stitch-skills --scope project --target claude-code` · bản v1.0 ra 182 ngày trước · Apache-2.0 · có trang sản phẩm/tài liệu",
+   "license": "Apache-2.0",
+   "license_flag": null,
+   "stars": 9996,
+   "stars_gained_7d": 943,
+   "stars_gained": {
+    "day": 350,
+    "week": 943,
+    "month": null
+   },
+   "trending_rank": {
+    "day": 7,
+    "week": 12,
+    "month": null
+   },
+   "forks": 1317,
+   "forks_source": "api",
+   "created_at": "2026-01-16T17:17:17Z",
+   "ai_related": true,
+   "signals": {
+    "readme_measured": true,
+    "d1": 25,
+    "install_command": "npx plugins add google-labs-code/stitch-skills --scope project --target claude-code",
+    "install_type": "binary",
+    "release_tag": "v1.0",
+    "release_days_ago": 182,
+    "d2": null,
+    "has_binary_assets": false,
+    "d3": null,
+    "has_demo": false,
+    "has_product_page": true,
+    "d4": 10,
+    "has_docker": false,
+    "d5": null,
+    "license": "Apache-2.0",
+    "x1": 15,
+    "has_examples": false,
+    "x2": null,
+    "has_quickstart": true,
+    "x3": 10,
+    "pushed_days_ago": 91,
+    "x4": null,
+    "has_paper": false,
+    "has_manifest": false,
+    "n2_penalty": null,
+    "non_commercial": false,
+    "d_score": 35,
+    "x_score": 25,
+    "api_enriched": true
+   },
+   "source": "github-trending"
+  },
+  {
+   "id": "GoogleChrome/modern-web-guidance-src",
+   "full_name": "GoogleChrome/modern-web-guidance-src",
+   "url": "https://github.com/GoogleChrome/modern-web-guidance-src",
+   "description": "Keep your coding agent up to date with the latest web best practices",
+   "label": "nghien-cuu",
+   "category": "agent-code",
+   "areas": [
+    "agent-code"
+   ],
+   "why": "Nghiên cứu · Apache-2.0 · có trang sản phẩm/tài liệu",
+   "license": "Apache-2.0",
+   "license_flag": null,
+   "stars": 8337,
+   "stars_gained_7d": 6542,
+   "stars_gained": {
+    "day": null,
+    "week": 6542,
+    "month": null
+   },
+   "trending_rank": {
+    "day": null,
+    "week": 1,
+    "month": null
+   },
+   "forks": 719,
+   "forks_source": "api",
+   "created_at": "2026-01-27T20:22:24Z",
+   "ai_related": true,
+   "signals": {
+    "readme_measured": true,
+    "install_command": null,
+    "install_type": null,
+    "d1": null,
+    "d1_prime": null,
+    "release_tag": null,
+    "release_days_ago": null,
+    "has_binary_assets": null,
+    "d2": null,
+    "d3": null,
+    "has_demo": false,
+    "has_product_page": true,
+    "d4": 10,
+    "has_docker": false,
+    "d5": null,
+    "license": "Apache-2.0",
+    "x1": 15,
+    "has_examples": false,
+    "x2": null,
+    "has_quickstart": false,
+    "x3": null,
+    "pushed_days_ago": 0,
+    "x4": 5,
+    "has_paper": false,
+    "has_manifest": true,
+    "n2_penalty": null,
+    "non_commercial": false,
+    "d_score": 10,
+    "x_score": 20,
+    "api_enriched": true
+   },
+   "source": "github-trending"
+  }
+ ]
+}
