@@ -1,0 +1,395 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-18",
+  "timezone": "Asia/Ho_Chi_Minh",
+  "window_start_at": "2026-11-16T23:00:00Z",
+  "cutoff_at": "2026-11-17T23:00:00Z",
+  "created_at": "2026-11-17T23:09:08Z",
+  "snapshot_generated_at": "2026-11-17T23:06:15Z",
+  "policy": {
+    "method": "daily-evidence-v3",
+    "max_stories": 5,
+    "window_hours": 24,
+    "cutoff_hour": 6,
+    "engagement_percentile_min": 0.8,
+    "publisher_coverage_excludes_forums": true,
+    "attention_requires_nonforum": true,
+    "forum_exception_percentile_min": 0.97,
+    "forum_exception_comments_min": 100,
+    "max_forum_only_stories": 1,
+    "score_measured_at": "2026-11-17T23:06:15Z",
+    "description": "Ưu tiên dấu hiệu công bố, số nhà xuất bản và tương tác đo được; sau đó theo điểm nóng và thời gian công bố"
+  },
+  "stories": [
+    {
+      "id": "c381f1f20c433e7d3983",
+      "title": "GitHub Copilot app, Microsoft Ignite releases",
+      "title_vi": "Ứng dụng GitHub Copilot, Microsoft Ignite phát hành",
+      "headline": "GitHub Copilot app, Microsoft Ignite releases",
+      "headline_vi": "Ứng dụng GitHub Copilot, Microsoft Ignite phát hành",
+      "url": "https://github.blog/changelog/2026-11-17-github-copilot-app-microsoft-ignite-releases",
+      "published_at": "2026-11-17T18:03:42Z",
+      "kind": "product",
+      "time_basis": "published",
+      "editorial_headline_vi": "Ứng dụng GitHub Copilot thử nghiệm công khai tích hợp Azure DevOps và duyệt web",
+      "editorial_headline_verified": true,
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "e2734ae997115a80e141",
+          "title": "GitHub Copilot app, Microsoft Ignite releases",
+          "title_vi": "Ứng dụng GitHub Copilot, Microsoft Ignite phát hành",
+          "headline": "GitHub Copilot app, Microsoft Ignite releases",
+          "headline_vi": "Ứng dụng GitHub Copilot, Microsoft Ignite phát hành",
+          "url": "https://github.blog/changelog/2026-11-17-github-copilot-app-microsoft-ignite-releases",
+          "published_at": "2026-11-17T18:03:42Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "github-changelog",
+          "publisher": "github",
+          "entity": "github",
+          "group": "lab",
+          "observed_at": "2026-11-17T23:06:15Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "b91761af201dd21f9ea8",
+          "title": "Launch HN: StarSling (YC P25) – Self-improving CI for agent-volume repos",
+          "title_vi": "Launch HN: StarSling (YC P25) CI tự cải thiện cho số lượng agent",
+          "headline": "Launch HN: StarSling (YC P25) – Self-improving CI for agent-volume repos",
+          "headline_vi": "Launch HN: StarSling (YC P25) CI tự cải thiện cho số lượng agent",
+          "url": "https://starsling.dev",
+          "published_at": "2026-11-17T19:01:43Z",
+          "kind": "forum",
+          "time_basis": "published",
+          "source": "hn-front",
+          "publisher": "hacker-news",
+          "entity": "hacker-news",
+          "group": "forum",
+          "observed_at": "2026-11-17T23:06:15Z",
+          "discussion_url": "https://news.ycombinator.com/item?id=50536468",
+          "metrics": {
+            "points": 40,
+            "comments": 20
+          }
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [
+          {
+            "code": "primary_release",
+            "text": "Tiêu đề nguồn gốc có dấu hiệu công bố model hoặc sản phẩm",
+            "observation_ids": [
+              "e2734ae997115a80e141"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "github"
+          ],
+          "age_hours_at_cutoff": 4.9383,
+          "hot_score": 36.146,
+          "engagement_percentile": 0.3385416666666667
+        }
+      }
+    },
+    {
+      "id": "453bf04922152159bc47",
+      "title": "GitHub Copilot in JetBrains, Ignite releases",
+      "headline": "GitHub Copilot in JetBrains, Ignite releases",
+      "url": "https://github.blog/changelog/2026-11-17-github-copilot-in-jetbrains-ignite-releases",
+      "published_at": "2026-11-17T18:00:59Z",
+      "kind": "product",
+      "time_basis": "published",
+      "editorial_headline_vi": "GitHub Copilot trên JetBrains bổ sung cloud sandbox thử nghiệm và dừng hỗ trợ bản IDE 2025.2",
+      "editorial_headline_verified": true,
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "31e197cad9e1fed8399d",
+          "title": "GitHub Copilot in JetBrains, Ignite releases",
+          "headline": "GitHub Copilot in JetBrains, Ignite releases",
+          "url": "https://github.blog/changelog/2026-11-17-github-copilot-in-jetbrains-ignite-releases",
+          "published_at": "2026-11-17T18:00:59Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "github-changelog",
+          "publisher": "github",
+          "entity": "github",
+          "group": "lab",
+          "observed_at": "2026-11-17T23:06:15Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [
+          {
+            "code": "primary_release",
+            "text": "Tiêu đề nguồn gốc có dấu hiệu công bố model hoặc sản phẩm",
+            "observation_ids": [
+              "31e197cad9e1fed8399d"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "github"
+          ],
+          "age_hours_at_cutoff": 4.9836,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "89be98d92d9e645fab74",
+      "title": "Jensen Huang says he’s willing to return as Nvidia CEO",
+      "title_vi": "Jensen Huang nói anh ấy sẵn sàng trở lại làm CEO của Nvidia",
+      "headline": "Jensen Huang says he’s willing to return as Nvidia CEO",
+      "headline_vi": "Jensen Huang nói anh ấy sẵn sàng trở lại làm CEO của Nvidia",
+      "url": "https://www.theverge.com/tech/1035420/jensen-huang-nvidia-return-as-ceo-statement",
+      "published_at": "2026-11-17T16:09:57Z",
+      "kind": "other",
+      "time_basis": "published",
+      "editorial_headline_vi": "Cựu CEO Jensen Huang sẵn sàng trở lại nhưng hội đồng quản trị Nvidia không xem xét phục chức",
+      "editorial_headline_verified": true,
+      "source_count": 3,
+      "coverage": [
+        {
+          "id": "6c3472085655b06b83b6",
+          "title": "Nvidia chairman rules out ex-CEO Huang's return",
+          "title_vi": "Chủ tịch Nvidia đã loại trừ sự trở lại của cựu CEO Huang",
+          "headline": "Nvidia chairman rules out ex-CEO Huang's return",
+          "headline_vi": "Chủ tịch Nvidia đã loại trừ sự trở lại của cựu CEO Huang",
+          "url": "https://www.semafor.com/article/11/17/2026/nvidia-chairman-harvey-jones-rules-out-ex-ceo-jensen-huangs-return",
+          "published_at": "2026-11-17T22:40:24Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "semafor",
+          "publisher": "semafor",
+          "entity": "semafor",
+          "group": "press",
+          "observed_at": "2026-11-17T23:06:15Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "0bc919291c3f8cab9cd4",
+          "title": "Jensen Huang says he would be ‘honored’ if allowed to return as Nvidia CEO",
+          "headline": "Jensen Huang says he would be ‘honored’ if allowed to return as Nvidia CEO",
+          "url": "https://techcrunch.com/2026/11/17/jensen-huang-says-he-would-be-honored-if-allowed-to-return-as-nvidia-ceo/",
+          "published_at": "2026-11-17T16:44:15Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "techcrunch-ai",
+          "publisher": "techcrunch",
+          "entity": "techcrunch",
+          "group": "press",
+          "observed_at": "2026-11-17T23:06:15Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "a586f35d3a5bb044cc30",
+          "title": "Jensen Huang says he’s willing to return as Nvidia CEO",
+          "title_vi": "Jensen Huang nói anh ấy sẵn sàng trở lại làm CEO của Nvidia",
+          "headline": "Jensen Huang says he’s willing to return as Nvidia CEO",
+          "headline_vi": "Jensen Huang nói anh ấy sẵn sàng trở lại làm CEO của Nvidia",
+          "url": "https://www.theverge.com/tech/1035420/jensen-huang-nvidia-return-as-ceo-statement",
+          "published_at": "2026-11-17T16:09:57Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "verge-ai",
+          "publisher": "the-verge",
+          "entity": "the-verge",
+          "group": "press",
+          "observed_at": "2026-11-17T23:06:15Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "3 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "semafor",
+              "techcrunch",
+              "the-verge"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "semafor",
+            "techcrunch",
+            "the-verge"
+          ],
+          "age_hours_at_cutoff": 6.8342,
+          "hot_score": 93.913,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "8864acd078c8740c3683",
+      "title": "‘China question’: Nvidia crisis and new US chip curbs split Washington and Silicon Valley",
+      "title_vi": "'Câu hỏi Trung Quốc': Cuộc khủng hoảng Nvidia và hạn chế chip mới của Mỹ chia rẽ Washington và Thung lũng Silicon",
+      "headline": "‘China question’: Nvidia crisis and new US chip curbs split Washington and Silicon Valley",
+      "headline_vi": "'Câu hỏi Trung Quốc': Cuộc khủng hoảng Nvidia và hạn chế chip mới của Mỹ chia rẽ Washington và Thung lũng Silicon",
+      "url": "https://www.scmp.com/tech/tech-war/article/3374770/china-question-nvidia-crisis-and-new-us-chip-curbs-split-washington-and-silicon-valley",
+      "published_at": "2026-11-17T15:00:09Z",
+      "kind": "other",
+      "time_basis": "published",
+      "editorial_headline_vi": "Mỹ ban hành quy định chặn doanh nghiệp Trung Quốc truy cập từ xa vào chip AI tiên tiến",
+      "editorial_headline_verified": true,
+      "source_count": 2,
+      "coverage": [
+        {
+          "id": "b7d19b07e3b29f216750",
+          "title": "US Moves to Curb China’s Remote Access to Nvidia’s Chips",
+          "title_vi": "Hoa Kỳ tiến hành hạn chế quyền truy cập từ xa của Trung Quốc vào chip của Nvidia",
+          "headline": "US Moves to Curb China’s Remote Access to Nvidia’s Chips",
+          "headline_vi": "Hoa Kỳ tiến hành hạn chế quyền truy cập từ xa của Trung Quốc vào chip của Nvidia",
+          "url": "https://www.bloomberg.com/news/videos/2026-11-17/us-moves-to-curb-china-s-remote-access-to-nvidia-s-chips-video",
+          "published_at": "2026-11-17T08:19:10Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "bloomberg-tech",
+          "publisher": "bloomberg",
+          "entity": "bloomberg",
+          "group": "press",
+          "observed_at": "2026-11-17T11:40:16Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "a21a876c7429d1e08231",
+          "title": "‘China question’: Nvidia crisis and new US chip curbs split Washington and Silicon Valley",
+          "title_vi": "'Câu hỏi Trung Quốc': Cuộc khủng hoảng Nvidia và hạn chế chip mới của Mỹ chia rẽ Washington và Thung lũng Silicon",
+          "headline": "‘China question’: Nvidia crisis and new US chip curbs split Washington and Silicon Valley",
+          "headline_vi": "'Câu hỏi Trung Quốc': Cuộc khủng hoảng Nvidia và hạn chế chip mới của Mỹ chia rẽ Washington và Thung lũng Silicon",
+          "url": "https://www.scmp.com/tech/tech-war/article/3374770/china-question-nvidia-crisis-and-new-us-chip-curbs-split-washington-and-silicon-valley",
+          "published_at": "2026-11-17T15:00:09Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "scmp-tech",
+          "publisher": "scmp",
+          "entity": "scmp",
+          "group": "press",
+          "observed_at": "2026-11-17T23:06:15Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "2 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "bloomberg",
+              "scmp"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "bloomberg",
+            "scmp"
+          ],
+          "age_hours_at_cutoff": 7.9975,
+          "hot_score": 47.095,
+          "engagement_percentile": 0.24719101123595505
+        }
+      }
+    },
+    {
+      "id": "f020eabb2235e562e682",
+      "title": "Altimeter’s Gerstner says Nvidia’s board should keep door open to Huang’s return: ‘Get this right’",
+      "title_vi": "Gerstner của Altimeter nói rằng hội đồng quản trị của Nvidia nên giữ cánh cửa mở cho sự trở lại của Huang: 'Hãy làm điều này đúng'",
+      "headline": "Altimeter’s Gerstner says Nvidia’s board should keep door open to Huang’s return: ‘Get this right’",
+      "headline_vi": "Gerstner của Altimeter nói rằng hội đồng quản trị của Nvidia nên giữ cánh cửa mở cho sự trở lại của Huang: 'Hãy làm điều này đúng'",
+      "url": "https://www.semafor.com/article/11/16/2026/altimeters-gerstner-urges-nvidias-board-to-reconsider-huangs-ouster-to-get-this-right",
+      "published_at": "2026-11-17T13:46:21Z",
+      "kind": "other",
+      "time_basis": "published",
+      "editorial_headline_vi": "CEO Altimeter đề xuất Nvidia thận trọng xem xét khả năng để cựu CEO Jensen Huang trở lại",
+      "editorial_headline_verified": true,
+      "source_count": 2,
+      "coverage": [
+        {
+          "id": "e04b9c8c57f6f9c4aac6",
+          "title": "Nvidia’s Jensen Huang Open to Rejoining as CEO Pending Board Decision",
+          "title_vi": "Jensen Huang của Nvidia mở cửa để gia nhập lại làm CEO Đợi quyết định của hội đồng quản trị",
+          "headline": "Nvidia’s Jensen Huang Open to Rejoining as CEO Pending Board Decision",
+          "headline_vi": "Jensen Huang của Nvidia mở cửa để gia nhập lại làm CEO Đợi quyết định của hội đồng quản trị",
+          "url": "https://www.bloomberg.com/news/articles/2026-11-17/huang-is-willing-to-return-as-nvidia-ceo-if-board-allows-it",
+          "published_at": "2026-11-17T16:08:11Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "bloomberg-tech",
+          "publisher": "bloomberg",
+          "entity": "bloomberg",
+          "group": "press",
+          "observed_at": "2026-11-17T21:26:01Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "07ebeabce06539ffe082",
+          "title": "Altimeter’s Gerstner says Nvidia’s board should keep door open to Huang’s return: ‘Get this right’",
+          "title_vi": "Gerstner của Altimeter nói rằng hội đồng quản trị của Nvidia nên giữ cánh cửa mở cho sự trở lại của Huang: 'Hãy làm điều này đúng'",
+          "headline": "Altimeter’s Gerstner says Nvidia’s board should keep door open to Huang’s return: ‘Get this right’",
+          "headline_vi": "Gerstner của Altimeter nói rằng hội đồng quản trị của Nvidia nên giữ cánh cửa mở cho sự trở lại của Huang: 'Hãy làm điều này đúng'",
+          "url": "https://www.semafor.com/article/11/16/2026/altimeters-gerstner-urges-nvidias-board-to-reconsider-huangs-ouster-to-get-this-right",
+          "published_at": "2026-11-17T13:46:21Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "semafor",
+          "publisher": "semafor",
+          "entity": "semafor",
+          "group": "press",
+          "observed_at": "2026-11-17T23:06:15Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "2 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "bloomberg",
+              "semafor"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "bloomberg",
+            "semafor"
+          ],
+          "age_hours_at_cutoff": 9.2275,
+          "hot_score": 44.389,
+          "engagement_percentile": null
+        }
+      }
+    }
+  ],
+  "source_health": {
+    "active_remote_sources": 77,
+    "successful_remote_sources": 77,
+    "failed_remote_sources": []
+  }
+}
