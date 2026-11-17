@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-17T20:14:58.669451+00:00",
-  "input_generated_at": "2026-11-17T18:47:10Z",
+  "generated_at": "2026-11-17T21:58:54.768345+00:00",
+  "input_generated_at": "2026-11-17T20:46:06Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -87293,9 +87293,9 @@
       "use_original_title": true,
       "source_url": "https://runta.com/blog/introducing-frontierharness-eval-v1-1/",
       "key_points": [
-        "Theo Runta, người dùng nên cân nhắc đổi khung điều phối (harness - môi trường điều phối tác tử) khi đổi mô hình do mỗi mô hình có khung đạt hiệu quả chi phí tối ưu riêng. Kết luận này dựa trên chuẩn đối sánh (benchmark - bài kiểm tra tiêu chuẩn) FrontierHarness v1.1 gồm 27.280 lượt chạy trên 22 cấu hình và 5 mô hình nguồn mở.",
+        "Theo Runta, người dùng nên cân nhắc đổi khung điều phối (harness - môi trường điều phối tác tử) khi đổi mô hình do mỗi mô hình có khung tối ưu chi phí riêng. Kết luận này dựa trên chuẩn đối sánh (benchmark - bài kiểm tra tiêu chuẩn) FrontierHarness v1.1 gồm 27.280 lượt chạy trên 22 cấu hình và 5 mô hình nguồn mở.",
         "Runta giải thích chi phí phụ thuộc vào sự kết hợp giữa khung điều phối và mô hình, khi một khung giá rẻ với mô hình này có thể tốn kém với mô hình khác. Nhóm nghiên cứu so sánh 22 cấu hình khung điều phối ở thiết lập mặc định trên 62 tác vụ dòng lệnh.",
-        "Thứ hạng chi phí thay đổi mạnh giữa các mô hình theo chi phí mỗi tác vụ, khi mức trung vị của các khung dịch chuyển 11 trên 22 bậc và Codex CLI rơi từ hạng nhất với GLM-5.3 xuống thứ 16 với Kimi-K3.",
+        "Theo chi phí mỗi tác vụ, mức trung vị của các khung điều phối dịch chuyển 11 trên 22 bậc, trong đó Codex CLI rơi từ hạng nhất với GLM-5.3 xuống thứ 16 với Kimi-K3.",
         "Runta kết luận chi phí cao hơn không mang lại tỷ lệ vượt qua bài kiểm tra cao hơn, khi hệ số tương quan giữa chi phí mỗi tác vụ và tỷ lệ đạt chỉ từ -0,39 đến +0,22. Nhóm nghiên cứu lưu ý kết quả chỉ đo trên mô hình nguồn mở tại Baseten, còn mô hình đóng hoặc nhà cung cấp khác có thể làm đổi thứ hạng chi phí."
       ],
       "same_event_coverage_ids": [
@@ -87303,7 +87303,7 @@
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Runta: Đổi mô hình cần đổi khung điều phối tác tử khi thứ hạng chi phí dịch chuyển tới 11 bậc",
+      "editorial_headline_vi": "Runta: Nên cân nhắc đổi khung điều phối khi đổi mô hình do thứ hạng chi phí trung vị dịch chuyển 11 bậc",
       "summary_sources": [
         {
           "id": "outlet",
@@ -87318,35 +87318,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.0,
+        "value": 9.3,
         "answers": {
           "what": 8,
           "why": 10,
-          "notable": 9,
+          "notable": 10,
           "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "Đổi mô hình cần đổi khung điều phối tác tử",
-            "explanation": "The source says users should consider switching harnesses when switching models, not that they must do so (outlet:p005)."
-          },
-          {
-            "kind": "number",
-            "summary_text": "dịch chuyển tới 11 bậc",
-            "explanation": "The source reports a median movement of 11 of 22 places, not a maximum of 11; Codex CLI alone moved 15 places between the cited models (outlet:p007)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
             "question": "what",
-            "problem": "The headline turns advice to consider a switch into a requirement.",
-            "fix": "Say users should consider changing harnesses when changing models (outlet:p005)."
-          },
-          {
-            "question": "notable",
-            "problem": "The headline presents 11 places as a possible ceiling.",
-            "fix": "Identify 11 places as the median cost-rank movement (outlet:p007)."
+            "problem": "A reader may take “khung tối ưu chi phí” to mean the cheapest harness. The source selects best value using cost per pass, with a stated exception for a higher pass rate (outlet:p012, outlet:p029).",
+            "fix": "Describe the choice as the best balance of pass rate and cost, rather than cost alone."
           }
         ],
         "writer_boats": [
@@ -87354,8 +87338,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "17b8123ec3f7dd361715ab8345eca81934ad1998a6a103232e4f59c3d673be88",
-        "scored_at": "2026-11-17T20:14:58.644861+00:00"
+        "prose_sha256": "17bf28cc03ce1d235763d880e43fcdb4a8324fdaf95c6fd6d29b10234d36e555",
+        "scored_at": "2026-11-17T21:51:49.574979+00:00"
       }
     },
     {
@@ -87624,17 +87608,17 @@
       "use_original_title": false,
       "source_url": "https://www.cnn.com/2026/11/16/economy/ai-bubble-anthropic-ipo-recession",
       "key_points": [
-        "Cựu Chủ tịch SEC Gary Gensler cảnh báo cơn sốt AI là bong bóng có khả năng vỡ và gây suy thoái trước cuộc bầu cử tổng thống Mỹ năm 2028. Theo một số ước tính, khoảng 800 tỷ USD mỗi năm đang đổ vào hạ tầng AI, trong khi Big Tech chi tiêu năm 2026 gấp 5 lần ba năm trước.",
-        "Theo CNN, dòng vốn đổ vào AI nhanh hơn khả năng sinh lời, gây ra sự lệch pha không bền vững cùng nỗi lo doanh nghiệp đầu tư quá mức và ngập trong nợ nần. Gensler cũng cảnh báo việc tài trợ vòng quanh và các cấu trúc tài trợ phức tạp ngoài bảng cân đối kế toán khiến mức độ rủi ro rất khó xác định.",
-        "Gensler nhận định các hãng lớn sẽ trụ vững, nhưng những công ty đám mây chuyên biệt (neocloud) ngập trong nợ nần sẽ chịu đổ vỡ và phá sản đầu tiên. Ông cho rằng các bên cho vay trong quá khứ đã cấp quá nhiều tiền trong thời gian quá nhanh.",
-        "Gensler dự báo suy thoái tiềm tàng có thể tương đương bong bóng dot-com, dù không khắc nghiệt như khủng hoảng tài chính năm 2008. Ngược lại, Chủ tịch Ed Yardeni của Yardeni Research cho rằng đây là bong bóng tự điều chỉnh và không nhất thiết phải nổ tung."
+        "Cơn sốt AI là bong bóng có khả năng vỡ và gây suy thoái trước cuộc bầu cử tổng thống Mỹ năm 2028, theo cựu Chủ tịch SEC Gary Gensler. Theo ước tính được ông Gensler dẫn lại, khoảng 800 tỷ USD mỗi năm đổ vào hạ tầng AI và Big Tech năm 2026 chi gấp 5 lần ba năm trước.",
+        "Tiền đổ vào AI nhanh hơn khả năng sinh lời, gây mất cân đối khi doanh nghiệp gánh nợ lớn theo CNN.",
+        "Các công ty đám mây chuyên biệt neocloud (nền tảng cho thuê siêu máy tính cho nhà phát triển AI) đối mặt nguy cơ đổ vỡ và phá sản, dù các hãng lớn vẫn trụ vững theo ông Gensler. Elon Musk cũng cảnh báo phần lớn trong hơn 200 đơn vị neocloud sẽ bị đào thải.",
+        "Đợt suy thoái tiềm tàng có thể tương đương bong bóng dot-com nhưng không gay gắt như khủng hoảng tài chính năm 2008, theo dự báo của ông Gensler trước tháng 11/2028. Trái lại, Ed Yardeni, president của Yardeni Research, cho rằng bong bóng sẽ tự điều chỉnh chứ không nổ tung, khi nỗi lo ngại giúp ngăn đà tăng nóng."
       ],
       "same_event_coverage_ids": [
         "fa36caf863d939d8df77"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Cựu Chủ tịch SEC cảnh báo bong bóng AI có thể vỡ và gây suy thoái kinh tế trước năm 2028",
+      "editorial_headline_vi": "Cựu Chủ tịch SEC cảnh báo bong bóng AI có thể vỡ và gây suy thoái trước bầu cử tổng thống Mỹ tháng 11/2028",
       "summary_sources": [
         {
           "id": "outlet",
@@ -87647,34 +87631,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.3,
+        "value": 9.8,
         "answers": {
-          "what": 8,
-          "why": 10,
+          "what": 10,
+          "why": 9,
           "notable": 10,
           "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "number",
-            "summary_text": "trước năm 2028",
-            "explanation": "Gensler predicts repricing and economic softening before November 2028, not necessarily before the year 2028 begins (outlet:p047-p048)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "what",
-            "problem": "The headline moves the predicted timing earlier than the source states.",
-            "fix": "Say “trước cuộc bầu cử tổng thống Mỹ tháng 11/2028” or equivalent (outlet:p047-p048)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "54e7b8e6d7317ef946041063ae9dd706b53b1fcdb1ede5d94a228bb6cb504d28",
-        "scored_at": "2026-11-17T20:14:58.644968+00:00"
+        "prose_sha256": "91a96770be8760b5cfb3e7a81a319949ac348989fc7e44ad3900e595b80032ac",
+        "scored_at": "2026-11-17T21:55:26.766301+00:00"
       }
     },
     {
@@ -87695,17 +87667,17 @@
       "use_original_title": false,
       "source_url": "https://techcrunch.com/2026/11/17/as-decision-model-use-skyrockets-is-customization-is-the-next-frontier/",
       "key_points": [
-        "Mô hình ra quyết định (mô hình AI chuyên lựa chọn nhanh giữa các phương án định sẵn thay vì tạo văn bản) đã chiếm hơn một phần tư số yêu cầu trên bộ định tuyến Vercel vào tháng 10 năm 2026, theo ghi nhận của TechCrunch.",
-        "TechCrunch nhận định các mô hình này hữu ích trong môi trường vận hành thực tế, nơi việc đưa ra quyết định nhanh được ưu tiên hơn năng lực lập luận chậm và tốn kém của các mô hình tiên phong.",
-        "Công ty khởi nghiệp Sqwish công bố vòng hạt giống 3 triệu USD cho mô hình kettei fat, trong khi Microsoft cũng lập tức cung cấp mô hình Microsoft-Decision-1.1 trên nền tảng đám mây Azure. Tuy nhiên, Phó chủ tịch kỹ thuật Achint Srivastava của Microsoft cảnh báo các mô hình chỉ tối ưu cho điểm chuẩn (bài kiểm tra đánh giá hiệu năng tiêu chuẩn) sẽ nhanh chóng thất bại trong môi trường doanh nghiệp thực tế.",
-        "Đồng sáng lập Federica Freddi của Sqwish dự đoán mô hình ra quyết định sẽ phối hợp cùng các mô hình ngôn ngữ lớn tiên phong trong các hệ thống tương lai."
+        "Nhu cầu mô hình ra quyết định (mô hình AI chọn nhanh phương án định sẵn thay vì sinh văn bản) tăng vọt khi chiếm hơn một phần tư truy vấn trên bộ định tuyến Vercel vào tháng 10 năm 2026. Dòng Jev của TypeSafe tiếp tục dẫn đầu với hơn 1,5 tỷ truy vấn trên OpenRouter tuần trước.",
+        "TechCrunch cho biết các mô hình này phát triển mạnh do môi trường thực tế cần quyết định nhanh hơn là sự lập luận chậm và đắt đỏ từ mô hình tiên phong. Dù dễ tạo mô hình, TypeSafe nhận định khâu khó khăn nhất là căn chỉnh phán đoán bằng dữ liệu tổng hợp.",
+        "Công ty khởi nghiệp Sqwish vừa công bố vòng tiền hạt giống (pre-seed) 3 triệu USD cho doanh nghiệp sở hữu mô hình kettei fat. Đồng thời, Giám đốc điều hành Satya Nadella cho biết Microsoft lập tức triển khai mô hình Microsoft-Decision-1.1 trên Azure.",
+        "Về khả năng tùy biến bằng dữ liệu riêng của khách hàng, Sqwish cung cấp công cụ hậu đào tạo tích hợp giúp mô hình cải thiện phán đoán từ dữ liệu vận hành tải lên. Bên cạnh đó, các nhà phát triển cho rằng thay vì chỉ nhìn vào điểm chuẩn (bài kiểm tra tiêu chuẩn), việc trực tiếp thay thế và thử nghiệm trong bối cảnh cụ thể mới là thước đo thực tế."
       ],
       "same_event_coverage_ids": [
         "0976c4de3e66da971433"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Mô hình ra quyết định chiếm hơn một phần tư truy vấn Vercel khi Microsoft và startup mở rộng cung cấp",
+      "editorial_headline_vi": "Mô hình ra quyết định chiếm hơn một phần tư truy vấn Vercel khi Microsoft và các startup nhập cuộc",
       "summary_sources": [
         {
           "id": "outlet",
@@ -87718,44 +87690,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 7.5,
+        "value": 9.65,
         "answers": {
-          "what": 8,
-          "why": 7,
-          "notable": 8,
-          "meaning": 6
+          "what": 10,
+          "why": 9,
+          "notable": 10,
+          "meaning": 9
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "vòng hạt giống 3 triệu USD cho mô hình kettei fat",
-            "explanation": "Sqwish announced a $3 million pre-seed round for the company, which is behind kettei fat; the source does not call it a seed round for the model (outlet:p010)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "meaning",
-            "problem": "The reader misses the customization idea that anchors the article.",
-            "fix": "Explain that Sqwish offers post-training tools that use each customer’s production data to improve the model’s judgment (outlet:p011–p012)."
-          },
-          {
-            "question": "notable",
-            "problem": "The funding stage and recipient are misstated.",
-            "fix": "Call it Sqwish’s $3 million pre-seed round and identify kettei fat as its model (outlet:p010)."
-          },
-          {
-            "question": "meaning",
-            "problem": "The reader gets a benchmark warning but not the article’s practical way to judge a model.",
-            "fix": "Say developers can substitute a model and test it in their own setting (outlet:p013–p014)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "3045aa1a650b7200332cdf3e2dee8c24ef7d16e54a276d8ca961180c3a230168",
-        "scored_at": "2026-11-17T19:55:30.582092+00:00"
+        "prose_sha256": "b57a57406a2626c279279a1fad10bb43a613d64b144786b0aeba9e143dd64762",
+        "scored_at": "2026-11-17T21:51:49.574803+00:00"
       }
     },
     {
@@ -87874,7 +87824,25 @@
       ],
       "summary_limitations": [],
       "key_points_prompt_version": "summary-vi-7-bullets",
-      "score": null
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.8,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "343fd60bfcdcfa7782093b8a4fab8dfe735d74d3c1b71cfcbd373aab0d848c26",
+        "scored_at": "2026-11-17T21:58:54.764722+00:00"
+      }
     },
     {
       "id": "5a600a844d9b7ef8d45f",
@@ -87911,7 +87879,25 @@
       ],
       "summary_limitations": [],
       "key_points_prompt_version": "summary-vi-7-bullets",
-      "score": null
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "78e2119fd33c464ff5720259538e8b6e5904965c943dcfaab0faf3d9520d97f8",
+        "scored_at": "2026-11-17T21:58:54.764770+00:00"
+      }
     },
     {
       "id": "c381f1f20c433e7d3983",
@@ -87953,7 +87939,31 @@
       ],
       "summary_limitations": [],
       "key_points_prompt_version": "summary-vi-7-bullets",
-      "score": null
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.0,
+        "answers": {
+          "what": 10,
+          "why": 8,
+          "notable": 8,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "A reader lacks the steps needed to turn on browser use.",
+            "fix": "Specify that it requires the GitHub Copilot extension for Chrome and that users must enable both Computer Use and Browser Use in Settings > Computer Use (outlet:p008–p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "a61c11f59f0568a6c1f3b9df6aab39fcbaacf0b47ccd7528b62b68ce329539e3",
+        "scored_at": "2026-11-17T21:58:54.764806+00:00"
+      }
     },
     {
       "id": "6beb5088ff95eeeac7d6",
@@ -87990,7 +88000,52 @@
       ],
       "summary_limitations": [],
       "key_points_prompt_version": "summary-vi-7-bullets",
-      "score": null
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.6,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 7,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "chọn mức Lite cho tài liệu hoặc mức Max cho logic xác thực",
+            "explanation": "The source offers these as illustrative review needs: a documentation update may only need Lite, while an authentication change benefits from Max. It does not say Adaptive always makes those choices (outlet:p005)."
+          },
+          {
+            "kind": "number",
+            "summary_text": "qua 150 đối tác kỹ thuật",
+            "explanation": "GitHub says it collaborates with more than 150 technical partners to build secret detectors, rather than specifying 150 partners (outlet:p015)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The reader may expect Adaptive to assign fixed effort levels to documentation and authentication changes.",
+            "fix": "Present Lite and Max as examples of what those changes may need; Adaptive chooses among Lite, Balanced, and Max based on each pull request’s complexity and risk (outlet:p005)."
+          },
+          {
+            "question": "notable",
+            "problem": "The partner count loses the source’s lower-bound qualifier.",
+            "fix": "Say GitHub works with more than 150 technical partners to build detectors for more than 500 known secret types (outlet:p015)."
+          },
+          {
+            "question": "meaning",
+            "problem": "A reader may not realize Adaptive must be selected or configured.",
+            "fix": "Add that Balanced remains the default review effort and users can select Adaptive for a pull request or make it their default (outlet:p007)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "8b7f4a65309b2b676b1a8b8fe267b80ee2b4ac5214da9d4829c9f3fd76b85d74",
+        "scored_at": "2026-11-17T21:58:54.764841+00:00"
+      }
     },
     {
       "id": "467e19c06d56952c4a19",
@@ -88031,7 +88086,36 @@
       ],
       "summary_limitations": [],
       "key_points_prompt_version": "summary-vi-7-bullets",
-      "score": null
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.25,
+        "answers": {
+          "what": 10,
+          "why": 8,
+          "notable": 7,
+          "meaning": 7
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "Readers may think every subscriber on a listed plan is eligible.",
+            "fix": "State that availability is for eligible subscribers on annual plans (outlet:p011)."
+          },
+          {
+            "question": "meaning",
+            "problem": "Readers do not learn how to select the models or that usage-based billing applies.",
+            "fix": "Mention the model picker in the supported Copilot tools and usage-based billing (outlet:p007, outlet:p012–p022)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "792640eacffb78110ca2d0642a022b282d10b43dcc52e06cd2ffdc597bdb34d2",
+        "scored_at": "2026-11-17T21:58:54.764870+00:00"
+      }
     },
     {
       "id": "4cc1e304d76813ff3924",
@@ -88247,7 +88331,37 @@
       ],
       "summary_limitations": [],
       "key_points_prompt_version": "summary-vi-7-bullets",
-      "score": null
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.45,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 6,
+          "meaning": 9
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "các yêu cầu kéo không bị con người yêu cầu sửa sau đó",
+            "explanation": "This signal is limited to pull requests reviewed by Copilot that received no later change request from a human reviewer (outlet:p007)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The third signal appears to cover all pull requests without a later human change request.",
+            "fix": "Specify that it covers pull requests Copilot reviewed (outlet:p007)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "fc92c1fb3aad0db7ee78df5fad280943f0a8bfa1a64709d957db3c703351f05a",
+        "scored_at": "2026-11-17T21:58:54.764905+00:00"
+      }
     },
     {
       "id": "1811a0441af94992354e",
@@ -88287,7 +88401,37 @@
       ],
       "summary_limitations": [],
       "key_points_prompt_version": "summary-vi-7-bullets",
-      "score": null
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.3,
+        "answers": {
+          "what": 6,
+          "why": 10,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "phát hành GitHub Copilot Evals dưới dạng bài kiểm thử có thể lặp lại",
+            "explanation": "GitHub Copilot Evals is the tool for creating and running evaluations; an individual eval is the repeatable test (outlet:p002, outlet:p004, outlet:p007–p009)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "Readers may confuse the Copilot Evals tool with one individual test.",
+            "fix": "Describe Copilot Evals as a tool that lets users create and run repeatable tests of AI behavior (outlet:p002, outlet:p004, outlet:p007–p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "b4c4fc3e0791818ae631d5cf12a5a61ba9967ed9631d4b41926b78593972a233",
+        "scored_at": "2026-11-17T21:58:54.764931+00:00"
+      }
     },
     {
       "id": "3212e751c4906b22aa1b",
@@ -88327,7 +88471,42 @@
       ],
       "summary_limitations": [],
       "key_points_prompt_version": "summary-vi-7-bullets",
-      "score": null
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.9,
+        "answers": {
+          "what": 10,
+          "why": 6,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "quote",
+            "summary_text": "các cổng kết nối (connector - cơ chế liên kết ứng dụng) là lý do chính giúp Muse làm được nhiều việc thường ngày",
+            "explanation": "Meta calls connectors 'a big reason' Muse can do so much, not the single main reason (outlet:p014)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The wording makes connectors sound like Meta's primary explanation.",
+            "fix": "Call connectors a major reason Muse can handle many tasks (outlet:p014)."
+          },
+          {
+            "question": "meaning",
+            "problem": "Readers miss two concrete privacy controls.",
+            "fix": "Add that users choose what Muse can access and that Muse Secure VM keeps passwords and payment methods out of the agent's view (outlet:p011, outlet:p021)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "13bdb8942e4b5bc396cb6947106c26d692c738ec81d30a78f442537973aead4e",
+        "scored_at": "2026-11-17T21:58:54.764958+00:00"
+      }
     },
     {
       "id": "8e55f6eef948ab1e1263",
@@ -88417,17 +88596,17 @@
       "use_original_title": false,
       "source_url": "https://www.semafor.com/article/11/17/2026/amazon-ceo-says-us-ai-lead-over-china-depends-on-building-more-data-centers",
       "key_points": [
-        "Andy Jassy, Giám đốc điều hành của Amazon, cảnh báo việc Mỹ thoái lui khỏi hạ tầng AI là sai lầm lịch sử sau làn sóng phản đối trung tâm dữ liệu trong kỳ bầu cử giữa nhiệm kỳ.",
-        "Theo ông Jassy, việc để đối thủ kiểm soát tiêu chuẩn công nghệ sẽ khiến nước Mỹ phải hối tiếc trong thời gian rất dài.",
-        "Dù hiện chặn tác nhân Muse của Meta, Amazon vẫn đang thảo luận với các đối tác về khả năng mở cửa trang thương mại điện tử.",
-        "Đồng thời, ông khẳng định Amazon chỉ mở cửa cho tác nhân AI khi đạt được giá trị trao đổi thỏa đáng, điều hiện chưa có."
+        "CEO Andy Jassy của Amazon cảnh báo Mỹ không được thoái lui hạ tầng AI, nhấn mạnh đây sẽ là sai lầm lịch sử sau làn sóng phản đối trung tâm dữ liệu trong kỳ bầu cử giữa nhiệm kỳ.",
+        "Ông Jassy giải thích sự thoái lui sẽ mở đường cho các nước như Trung Quốc thiết lập mọi quy chuẩn, khiến Mỹ phải hối tiếc dài hạn.",
+        "Về điều kiện mở cửa cho tác nhân AI (chương trình tự hành), Amazon hiện chặn Muse của Meta nhưng vẫn đang thảo luận. Dù vậy, ông Jassy khẳng định chỉ mở cửa khi có trao đổi giá trị thỏa đáng và trải nghiệm tích cực cho khách hàng, điều hiện chưa có.",
+        "Trước phản ứng dư luận, ông thừa nhận các công ty công nghệ cần làm tốt hơn và hợp tác chặt chẽ hơn với cộng đồng."
       ],
       "same_event_coverage_ids": [
         "9dc4bbc43f8ab76855dd"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "CEO Amazon: Mỹ sẽ phạm sai lầm lịch sử nếu ngừng xây dựng trung tâm dữ liệu AI",
+      "editorial_headline_vi": "CEO Amazon: Mỹ sẽ phạm sai lầm lịch sử nếu ngừng xây dựng hạ tầng AI và để Trung Quốc lập quy chuẩn",
       "summary_sources": [
         {
           "id": "outlet",
@@ -88440,38 +88619,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.25,
+        "value": 10.0,
         "answers": {
           "what": 10,
-          "why": 8,
-          "notable": 7,
-          "meaning": 7
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
         },
         "hard_errors": [],
-        "findings": [
-          {
-            "question": "notable",
-            "problem": "Amazon’s condition for opening its site sounds limited to a satisfactory value exchange.",
-            "fix": "Add Jassy’s separate requirement for a positive customer experience, which he says is absent at present (outlet:p009)."
-          },
-          {
-            "question": "why",
-            "problem": "The warning loses Jassy’s specific example of who might set the norms.",
-            "fix": "Name China as his example, while keeping it framed as a scenario he fears (outlet:p002)."
-          },
-          {
-            "question": "meaning",
-            "problem": "The reader misses Jassy’s acknowledgment of the backlash.",
-            "fix": "Include his statement that technology companies need to work more closely with communities (outlet:p004)."
-          }
-        ],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "7149ea2a07bc6c2c53c9c7b4d5dedeec27d3f27d98a6ee4be9eb2ee0bb037388",
-        "scored_at": "2026-11-17T19:55:30.583522+00:00"
+        "prose_sha256": "808d7bce9cebc0eafbd07edf716bc7fb4992c1e868681221724f2c01caf34392",
+        "scored_at": "2026-11-17T21:51:49.574891+00:00"
       }
     },
     {
@@ -88686,7 +88849,31 @@
       ],
       "summary_limitations": [],
       "key_points_prompt_version": "summary-vi-7-bullets",
-      "score": null
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.4,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "Readers do not learn which model versions were tested.",
+            "fix": "State that Vals tested commercial models, while the source says it is unclear whether their safeguards would apply to models supplied for military use (outlet:p021)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "6165bfc59f63e291d520390a8b960fbb4d0c78f4cf7e7390a8bdecd2d1629944",
+        "scored_at": "2026-11-17T21:58:54.764985+00:00"
+      }
     },
     {
       "id": "ca337b2b3ceee43a2510",
@@ -88785,7 +88972,25 @@
         "partial_source"
       ],
       "key_points_prompt_version": "summary-vi-7-bullets",
-      "score": null
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "73602d9a31c875306d6739b18e5dc7f20cb84cd6083b59b918a23b955c9b889e",
+        "scored_at": "2026-11-17T21:58:54.765009+00:00"
+      }
     },
     {
       "id": "1c55d3d1e6c03df7f551",
@@ -88870,17 +89075,17 @@
       "use_original_title": false,
       "source_url": "https://www.theverge.com/policy/1035410/doj-megaspeed-nvidia-investigation-update",
       "key_points": [
-        "Bộ Tư pháp và Bộ Thương mại Mỹ thông báo đang điều tra Megaspeed, công ty trung tâm dữ liệu tại Singapore liên quan đến việc cựu CEO Jensen Huang của Nvidia từ chức. Theo The Verge, Megaspeed thu hút sự chú ý lớn từ dư luận sau khi quan hệ tình cảm cá nhân của ông Huang bị phanh phui.",
-        "Bộ Tư pháp và Bộ Thương mại Mỹ cho biết việc làm rõ sự thật và xử lý thông tin sai lệch sau khi có tin đồn cuộc điều tra bị dừng là vì lợi ích công chúng. Hai cơ quan nhấn mạnh họ thường không bình luận về các cuộc điều tra đang diễn ra.",
-        "Vào tháng 6 năm 2025, giới chức Mỹ cùng cảnh sát Singapore đã kiểm tra trực tiếp tại Megaspeed và thẩm vấn cựu CEO Alice Huang về nghi vấn vi phạm xuất khẩu. Cũng trong tháng đó, Nvidia đã đưa Megaspeed vào danh sách cấm bán hàng sau khi nhận yêu cầu cung cấp hồ sơ từ giới điều tra.",
-        "Dù không nêu chi tiết vụ án, hai bộ tuyên bố sẽ xử lý kịch khung pháp luật nếu có bất kỳ hành vi phạm tội hình sự nào xảy ra. The Verge nhận định vụ việc làm dấy lên lo ngại an ninh quốc gia và sự giám sát gắt gao với hoạt động xuất khẩu chip của Nvidia."
+        "Bộ Tư pháp và Bộ Thương mại Mỹ đang điều tra Megaspeed, công ty trung tâm dữ liệu tại Singapore liên quan đến việc cựu CEO Jensen Huang của Nvidia từ chức.",
+        "Theo Bộ Thương mại Mỹ, cuộc điều tra bắt nguồn từ nghi vấn vi phạm kiểm soát xuất khẩu và chuyển hướng chất bán dẫn nhạy cảm được phát hiện vào năm 2024. Sau các biện pháp thực thi ban đầu, Bộ Tư pháp Mỹ đã tiếp quản vai trò dẫn đầu cuộc điều tra hình sự đối với Megaspeed.",
+        "Vào tháng 6 năm 2025, giới chức Mỹ đã kiểm tra trực tiếp tại chỗ và thẩm vấn CEO Alice Huang của Megaspeed cùng cảnh sát Singapore. Cùng thời điểm, Nvidia đã đưa Megaspeed vào danh sách cấm bán hàng sau khi các nhà điều tra yêu cầu cung cấp hồ sơ bán hàng.",
+        "Bộ Tư pháp và Bộ Thương mại Mỹ khẳng định sẽ áp dụng đầy đủ quy định pháp luật với bất kỳ hành vi phạm tội nào có thể đã xảy ra. The Verge nhận định vụ bê bối đã làm dấy lên lo ngại về an ninh quốc gia và sự giám sát đối với việc xuất khẩu chip sang Trung Quốc của Nvidia."
       ],
       "same_event_coverage_ids": [
         "0f8c4a1911243e15f3b9"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Bộ Tư pháp Mỹ xác nhận dẫn đầu cuộc điều tra hình sự đối với công ty Megaspeed",
+      "editorial_headline_vi": "Bộ Tư pháp Mỹ điều tra hình sự Megaspeed do nghi vấn chuyển hướng chip bán dẫn nhạy cảm",
       "summary_sources": [
         {
           "id": "outlet",
@@ -88893,40 +89098,24 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 7.15,
+        "value": 9.0,
         "answers": {
-          "what": 9,
-          "why": 5,
-          "notable": 7,
-          "meaning": 6
+          "what": 8,
+          "why": 10,
+          "notable": 10,
+          "meaning": 8
         },
-        "hard_errors": [
-          {
-            "kind": "role",
-            "summary_text": "cựu CEO Alice Huang",
-            "explanation": "The source calls Alice Huang Megaspeed's CEO when investigators interviewed her in June 2025; it says she left the company in August 2025 (outlet:p020, outlet:p023)."
-          },
-          {
-            "kind": "quote",
-            "summary_text": "sẽ xử lý kịch khung pháp luật",
-            "explanation": "The departments said they would bring the full extent of the law against any criminal conduct that may have occurred. They did not promise a maximum penalty or specify a case outcome (outlet:p024)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "why",
-            "problem": "The reader learns why the agencies spoke publicly but not why Commerce opened the investigation.",
-            "fix": "Add the suspicious activity involving potential sensitive-semiconductor diversion and possible export-control violations (outlet:p023)."
-          },
-          {
-            "question": "notable",
-            "problem": "Alice Huang is given the wrong role at the time of the June 2025 interview.",
-            "fix": "Call her Megaspeed's CEO at the time, or omit the title (outlet:p020, outlet:p023)."
+            "question": "what",
+            "problem": "The reader misses why the agencies made this announcement.",
+            "fix": "Explain that it followed reporting that the Commerce investigation had halted, and that the agencies said the DOJ had taken the lead instead (outlet:p018, outlet:p021–p023)."
           },
           {
             "question": "meaning",
-            "problem": "The agencies' legal pledge is made more definite and punitive than their statement.",
-            "fix": "Use their conditional wording about applying the full extent of the law to any criminal conduct that may have occurred (outlet:p024)."
+            "problem": "The Vietnamese does not convey how little the statement reveals about the case’s current status.",
+            "fix": "Add that the statement provides no further detail on the current status and promises action only for criminal conduct that may have occurred (outlet:p024)."
           }
         ],
         "writer_boats": [
@@ -88934,8 +89123,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "ed4e6736cb0cd3bfe07e3dfe63271c188b08f88a31de2a8ab0c9c9c1b0d8166f",
-        "scored_at": "2026-11-17T19:55:30.583670+00:00"
+        "prose_sha256": "449e1ce7f9e48f885ae6d82bf0205a05d8fd07e7649117f470d32c97691b7b3a",
+        "scored_at": "2026-11-17T21:51:49.574927+00:00"
       }
     },
     {
@@ -88955,10 +89144,10 @@
       "use_original_title": false,
       "source_url": "https://www.theverge.com/tech/1035420/jensen-huang-nvidia-return-as-ceo-statement",
       "key_points": [
-        "Theo The Wall Street Journal, ông Jensen Huang cho biết ông sẵn sàng trở lại làm CEO Nvidia nếu hội đồng quản trị yêu cầu. Ông Huang vừa từ chức vào tuần trước vì bê bối tình cảm cá nhân, khiến Giám đốc tài chính Colette Kress phải tạm thời tiếp quản điều hành.",
-        "Ông Huang giải thích thiện chí quay lại xuất phát từ sự ủng hộ mạnh mẽ của nhân viên, nhà đầu tư, đối tác và khách hàng. Nhà sáng lập này khẳng định sẽ rất vinh dự trở lại nếu hội đồng quản trị đánh giá điều đó đem lại lợi ích tốt nhất cho doanh nghiệp.",
-        "Theo The Verge, hơn 193.000 người cùng nhiều lãnh đạo công nghệ như Elon Musk và Tim Sweeney đã ký thư kêu gọi đưa ông quay lại. Tổng thống Donald Trump cũng ủng hộ phương án này khi nhận định công khai rằng việc ông Huang trở lại chắc chắn không phải ý tưởng tồi.",
-        "Dù nhận được sự ủng hộ rộng rãi, đài CNN đưa tin hội đồng quản trị Nvidia hiện không xem xét việc phục chức cho ông Jensen Huang. Bản thân ông Huang trước đó cũng nhấn mạnh việc tái nhiệm hoàn toàn phụ thuộc vào quyết định vì lợi ích doanh nghiệp từ hội đồng quản trị."
+        "Cựu CEO Jensen Huang tuyên bố sẵn sàng trở lại điều hành Nvidia nếu hội đồng quản trị công ty mong muốn điều này. Ông Huang vừa từ chức vào tuần trước vì bê bối tình cảm cá nhân, khiến Giám đốc tài chính Colette Kress phải tạm thời tiếp quản quyền điều hành.",
+        "Theo ông Huang, quyết định này xuất phát từ làn sóng kêu gọi quay lại từ nhân viên, nhà đầu tư, đối tác kinh doanh và khách hàng của Nvidia. Cựu CEO thừa nhận đã phạm sai lầm nghiêm trọng trong đời tư, gây rắc rối cho hội đồng quản trị và cam kết hợp tác với cuộc điều tra độc lập.",
+        "Hơn 193.000 người đã ký thư kêu gọi đưa ông quay lại, bao gồm các lãnh đạo công nghệ như Elon Musk và Tim Sweeney. Tổng thống Donald Trump cũng ủng hộ khi nhận định việc ông Huang trở lại làm CEO chắc chắn không phải là ý tưởng tồi.",
+        "Ông Huang nêu rõ chỉ vinh dự trở lại nếu hội đồng quản trị nhận thấy điều đó mang lại lợi ích tốt nhất cho cổ đông, nhân viên, công ty và nước Mỹ. Dù nhận được sự ủng hộ rộng rãi, đài CNN đưa tin hội đồng quản trị Nvidia hiện không xem xét việc phục chức cho ông."
       ],
       "same_event_coverage_ids": [
         "024fe7ab3cc2c90d0533",
@@ -88968,7 +89157,7 @@
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Jensen Huang tuyên bố sẵn sàng trở lại làm CEO Nvidia nếu hội đồng quản trị chấp thuận",
+      "editorial_headline_vi": "Cựu CEO Jensen Huang sẵn sàng trở lại nhưng hội đồng quản trị Nvidia không xem xét phục chức",
       "summary_sources": [
         {
           "id": "outlet",
@@ -88981,39 +89170,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.1,
+        "value": 10.0,
         "answers": {
           "what": 10,
-          "why": 7,
+          "why": 10,
           "notable": 10,
-          "meaning": 8
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "role",
-            "summary_text": "Nhà sáng lập này",
-            "explanation": "The supplied source identifies Huang as Nvidia’s former CEO and says building Nvidia was his life’s work, but does not identify him as a founder (outlet:p018, outlet:p026)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "meaning",
-            "problem": "The reader gets a narrower version of Huang’s condition for returning.",
-            "fix": "State that Huang named the interests of shareholders, employees, Nvidia and America, subject to the board’s judgment (outlet:p019)."
-          },
-          {
-            "question": "what",
-            "problem": "The Vietnamese calls Huang a founder without support in the supplied source.",
-            "fix": "Refer to him as the former CEO, the role established by the source (outlet:p018)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "c002344f75d5eb7d3346d51394f625806e7c73d46241273624372ce8843a2461",
-        "scored_at": "2026-11-17T19:55:30.583732+00:00"
+        "prose_sha256": "07cf250bd12cf07ad4bbf4f30cab365ebc077d17d0dbab0db1faa64db323589d",
+        "scored_at": "2026-11-17T21:51:49.574953+00:00"
       }
     },
     {
@@ -89056,7 +89228,25 @@
       ],
       "summary_limitations": [],
       "key_points_prompt_version": "summary-vi-7-bullets",
-      "score": null
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "cefa27cdc86b003548359cde1ce6ce7f95242139b9ab03cb5109401ca26368c4",
+        "scored_at": "2026-11-17T21:58:54.765031+00:00"
+      }
     },
     {
       "id": "accfdc99034c311298c1",
@@ -89101,7 +89291,42 @@
         "partial_source"
       ],
       "key_points_prompt_version": "summary-vi-7-bullets",
-      "score": null
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 7.75,
+        "answers": {
+          "what": 6,
+          "why": 8,
+          "notable": 10,
+          "meaning": 7
+        },
+        "hard_errors": [
+          {
+            "kind": "main_event_missing",
+            "summary_text": "",
+            "explanation": "The Vietnamese omits the source’s opening report of another alleged covert Nvidia influence operation promoting chip sales to China (outlet:p014)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The headline makes the value decline and oversight committee the story’s central development, so readers miss the alleged influence operation.",
+            "fix": "Lead with the author’s claim about Nvidia promoting chip sales to China and include the alleged covert operation, attributed to him (outlet:p001, outlet:p014)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The CIA counterpoint appears without the author’s stated conclusion about why it does not change his assessment.",
+            "fix": "Add that Mowshowitz says uncertainty over Alice Huang’s formal spy status does not materially alter his conclusions about Nvidia or Jensen Huang (outlet:p015–p016, outlet:p024)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "a56f2e24bbbd18bf1513b3a6768ae6e2d64cfdb3f06660d6aa0cad7c7d5c0273",
+        "scored_at": "2026-11-17T21:58:54.765055+00:00"
+      }
     },
     {
       "id": "25449032934427cabb8e",
@@ -89188,7 +89413,1252 @@
         "partial_source"
       ],
       "key_points_prompt_version": "summary-vi-7-bullets",
-      "score": null
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.15,
+        "answers": {
+          "what": 10,
+          "why": 8,
+          "notable": 9,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "Readers are not told why sharing an API key creates a billing risk.",
+            "fix": "Explain that anyone holding the key can make requests billed to the customer (outlet:p003)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The account of customer control omits the ability to end a link.",
+            "fix": "Add that customers can unlink a platform at any time in Console (outlet:p016)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "30be8bf630384fe19c2a78d5a0f556a798f4f5ff3d7f013dfe3d974679a5c8f0",
+        "scored_at": "2026-11-17T21:58:54.765081+00:00"
+      }
+    },
+    {
+      "id": "8f44aba23a12aa0f3000",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.youtube.com/watch?v=o7D3wiHnU4k",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "e2f6de715145f46a39fd"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Speed of AI achieving expert capabilities",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "85bd515d71fb7a7aa42c",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://arstechnica.com/tech-policy/2026/11/trump-was-in-bed-with-jensen-critics-balk-at-huangs-wish-to-return-to-nvidia/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "7d0160e934f37d04dd86"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Jensen Huang Nvidia apology and federal probes",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Jensen Huang",
+          "Donald Trump"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "fbeca82073091b7eabe0",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/govern-and-discover-records-with-common-metadata-in-aws-agent-registry/",
+      "key_points": [
+        "AWS Agent Registry chính thức cung cấp lược đồ siêu dữ liệu tùy chỉnh gồm các cặp khóa-giá trị do tổ chức quy định. Quy chuẩn này áp dụng cho các tác tử (chương trình AI tự hành), máy chủ MCP (giao thức ngữ cảnh mô hình) và kỹ năng trong kho lưu trữ.",
+        "Amazon cho biết các tổ chức cần cách thức nhất quán để mô tả, quản trị và tìm kiếm tài nguyên khi xây dựng nhiều tác tử hơn. Trước đây, doanh nghiệp không có cách nào định nghĩa và lưu trữ các thuộc tính riêng như đơn vị kinh doanh hay môi trường phát triển trên từng bản ghi.",
+        "Hệ thống từ chối bản ghi kèm mã lỗi ValidationException nếu phát hiện trường không xác định, thiếu trường bắt buộc hoặc giá trị không hợp lệ. Bản ghi thiếu siêu dữ liệu sẽ bị gắn nhãn NON_COMPLIANT và không thể gửi đi phê duyệt cho đến khi điền đủ thông tin.",
+        "Amazon nhận định việc chuẩn hóa trường dữ liệu giúp hệ thống hỗ trợ và mở rộng quy mô quản trị cũng như tính tuân thủ. Tuy nhiên, trạng thái hợp chuẩn chỉ xác nhận dữ liệu khớp với lược đồ chứ chưa phải là phê duyệt, và chỉ bản ghi đã duyệt mới xuất hiện khi tìm kiếm."
+      ],
+      "same_event_coverage_ids": [
+        "adbc6b78401290a54af7"
+      ],
+      "split_coverage_ids": [],
+      "subject": "AWS Agent Registry custom metadata schemas launch",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "AWS Agent Registry bổ sung lược đồ siêu dữ liệu tùy chỉnh để quản trị và kiểm soát tài nguyên tác tử",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "amazon",
+          "url": "https://aws.amazon.com/blogs/machine-learning/govern-and-discover-records-with-common-metadata-in-aws-agent-registry/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.35,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "11506523b10892d28f53cf498fb48906615f279cdd5060fdeff75a55f55ad3cf",
+        "scored_at": "2026-11-17T21:33:39.966303+00:00"
+      }
+    },
+    {
+      "id": "1673851a5d77ce2c5516",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Technical how-to architectural guide walking through three tested OAuth patterns for connecting Bedrock AgentCore to Snowflake Cortex AI over MCP.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/secure-oauth-patterns-for-snowflake-cortex-ai-through-amazon-bedrock-agentcore/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "343d6fbccbb6f392aa11"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "06a3c97f0e71685ece38",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/17/2026/ai-companies-lost-voters-on-narrative-and-execution-alphabets-porat-says",
+      "key_points": [
+        "Giám đốc đầu tư Alphabet thừa nhận các công ty AI chưa thuyết phục được cử tri Mỹ rằng khoản tiền hàng nghìn tỷ USD đổ vào các trung tâm dữ liệu là xứng đáng.",
+        "Cử tri phản đối vì lo ngại chi phí sinh hoạt theo ghi nhận trực tiếp từ các chuyến đi của bà Porat. Theo Semafor, làn sóng phản đối lưỡng đảng cũng khiến cử tri chặn các dự án mở rộng và bầu những nhà lập pháp phần lớn ủng hộ làm chậm đà xây dựng AI.",
+        "Google dự kiến chi tới 205 tỷ USD chi phí vốn trong năm nay và dự báo con số này sẽ còn tăng vào năm 2027. Ngược lại, bà Porat lập luận rằng hầu hết người Mỹ vẫn hào hứng trước các cơ hội việc làm từ làn sóng AI.",
+        "Giới đầu tư lo ngại Google và các tập đoàn công nghệ có thể đang chi tiêu quá mức sau khi dòng tiền tự do gần đây của công ty chuyển sang âm."
+      ],
+      "same_event_coverage_ids": [
+        "fdbc4b0364d6d9730fdd"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Ruth Porat on public backlash to AI data center buildouts",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Ruth Porat",
+          "Liz Hoffman"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Google dự kiến chi 205 tỷ USD chi phí vốn trong khi Alphabet thừa nhận chưa thuyết phục được cử tri",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/17/2026/ai-companies-lost-voters-on-narrative-and-execution-alphabets-porat-says"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.7,
+        "answers": {
+          "what": 10,
+          "why": 5,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "cause",
+            "summary_text": "Cử tri phản đối vì lo ngại chi phí sinh hoạt",
+            "explanation": "The source reports opposition to data-center building and separately quotes Porat hearing affordability concerns. It does not explicitly say living costs caused that opposition (outlet:p002–p003)."
+          },
+          {
+            "kind": "number",
+            "summary_text": "Google dự kiến chi 205 tỷ USD chi phí vốn",
+            "explanation": "The headline drops the limit: the source says Google is expected to spend up to $205 billion, not a definite $205 billion (outlet:p007)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The reader is told a specific cause for voter opposition that the source does not establish.",
+            "fix": "Report affordability as a concern Porat heard, without assigning it as the cause of the votes (outlet:p002–p003)."
+          },
+          {
+            "question": "notable",
+            "problem": "The headline presents the spending forecast as an exact amount.",
+            "fix": "Say “up to $205 billion” in the headline, as the body and source do (outlet:p007)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "9804c517c7913715e592a00d61dc212d35be9138ad840acb5c20cd79bcd012de",
+        "scored_at": "2026-11-17T21:40:10.468077+00:00"
+      }
+    },
+    {
+      "id": "be466738ec1cd018ad1e",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.404media.co/a-man-and-his-muse-ai-agent-sue-meta/",
+      "key_points": [
+        "Theo trang tin 404 Media, ông Joe Thomas tại South Carolina đã dùng tác tử AI (chương trình trí tuệ nhân tạo tự hành) Muse của Meta để kiện chính tập đoàn này.",
+        "Bộ lọc của Meta vô hiệu hóa tài khoản do nghi ngờ tác tử AI là tin tặc khi công cụ tự đăng video lên trang. Bị gián đoạn nguồn khách hàng, tác tử AI đã tự gửi thư tới các nghị sĩ và tự nộp hồ sơ kiện thay cho ông Thomas.",
+        "Đơn kiện tại Tòa án hạt Oconee cho biết ông Thomas mất ít nhất 25.000 USD việc làm và đòi Meta bồi thường 75.000 USD. Tác tử này còn khiếu nại tới Thượng nghị sĩ Tim Scott và các cơ quan liên bang, sau đó nhân viên Meta đã liên hệ mở lại tài khoản.",
+        "Tác giả trên 404 Media nhận định các tác tử AI có nguy cơ làm quá tải những hệ thống xã hội vốn thiết kế cho con người. Dù vậy, tác giả bài viết cũng nhấn mạnh vụ kiện thực tế này rõ ràng có thể không thành công."
+      ],
+      "same_event_coverage_ids": [
+        "94ba0e332eed44736e3f"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Lawsuit filed against Meta using Meta Muse AI agent",
+      "video_labels": {
+        "video_hook": "drama_company",
+        "named_people": [
+          "Joe Thomas",
+          "Mark Zuckerberg",
+          "Tim Scott"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Người đàn ông Mỹ dùng tác tử AI của Meta để kiện chính Meta đòi 75.000 USD sau khi bị khóa trang kinh doanh",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "404-media",
+          "url": "https://www.404media.co/a-man-and-his-muse-ai-agent-sue-meta/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.15,
+        "answers": {
+          "what": 9,
+          "why": 7,
+          "notable": 8,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "cause",
+            "summary_text": "khi công cụ tự đăng video lên trang",
+            "explanation": "The source says the pages were disabled after Thomas gave the agent access and Meta’s system suspected it was a hacker. It describes video posting as another agent activity, not the stated trigger for disabling the pages (outlet:p003)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "tự nộp hồ sơ kiện thay cho ông Thomas",
+            "explanation": "Thomas said Baby Mia handled and filed the lawsuit, but the source also specifies that Thomas signed the paperwork. Presented without that qualification, the summary implies the agent completed the filing independently of him (outlet:p004, outlet:p020)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The account lock appears tied to video posting.",
+            "fix": "State that Meta’s system suspected the agent was a hacker after Thomas gave it access to the pages (outlet:p003)."
+          },
+          {
+            "question": "notable",
+            "problem": "The agent appears to have filed the lawsuit entirely on its own.",
+            "fix": "Add that Thomas signed the paperwork, while he said Baby Mia handled the case (outlet:p004, outlet:p020)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The author’s point about inadequate customer support is missing.",
+            "fix": "Explain that the author sees the case as shifting support burdens to journalists, public offices and courts (outlet:p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "e76ceda85c276fb7acbc7538514ccd77c2497d16fff404dbf041278f105bda0d",
+        "scored_at": "2026-11-17T21:33:39.966441+00:00"
+      }
+    },
+    {
+      "id": "ad51fbe72793e606257b",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/17/2026/universities-public-sector-are-priced-out-of-ai-fei-fei-li-says",
+      "key_points": [
+        "Bà Fei-Fei Li, Tổng giám đốc World Labs, nhận định khu vực công và các trường đại học đang bỏ lỡ thành quả của cuộc cách mạng AI.",
+        "Theo bà Li, các trường đại học và khu vực công không thể bắt kịp tốc độ phát triển vì bị gạt ra ngoài bởi chi phí quá đắt đỏ. Bà nhấn mạnh nguồn lực về lượng token và tài nguyên tính toán của họ đang ở mức cực kỳ hạn chế.",
+        "Bà Li kiến nghị giới lập pháp phân bổ nguồn lực để khu vực công hưởng lợi từ AI khi chi phí sử dụng rất cao. Đồng thời, bà cho biết các trường đại học có trách nhiệm nghiên cứu và đánh giá đối chuẩn (benchmark - đo lường hiệu năng) AI nhằm duy trì trách nhiệm giải trình trước xã hội.",
+        "Bà Li cảnh báo đây sẽ trở thành một thất bại lớn của thời đại nếu xã hội không cấp nguồn lực nghiêm túc cho khu vực công."
+      ],
+      "same_event_coverage_ids": [
+        "a7a13a80943942c424a1"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Fei-Fei Li on public sector and academia priced out of AI",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Fei-Fei Li",
+          "Andrew Edgecliffe-Johnson",
+          "Jake Angelo"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Bà Fei-Fei Li cảnh báo đại học và khu vực công bị gạt khỏi AI do chi phí quá đắt đỏ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/17/2026/universities-public-sector-are-priced-out-of-ai-fei-fei-li-says"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.4,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 8,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "quote",
+            "summary_text": "nhằm duy trì trách nhiệm giải trình trước xã hội",
+            "explanation": "This makes the universities accountable to society. Li instead says universities should research and benchmark AI to hold society accountable (outlet:p004)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The reader gets the direction of accountability wrong.",
+            "fix": "Say universities help hold society accountable through AI research and benchmarking (outlet:p004)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "18c2367bbc6fcdbd590946e202db4a5aa56f437fad3f31918d803ffe7681ae60",
+        "scored_at": "2026-11-17T21:40:10.468144+00:00"
+      }
+    },
+    {
+      "id": "63b2d9f9a60dad3ce920",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/announcing-ai-data-preparation-capabilities-in-amazon-sagemaker-build-high-quality-datasets-for-model-development-workflows/",
+      "key_points": [
+        "Amazon bổ sung các tính năng chuẩn bị dữ liệu AI mới cho Amazon SageMaker AI. Người dùng có thể tạo dữ liệu tổng hợp, đánh giá và hoàn thiện dữ liệu qua Python SDK hoặc kỹ năng tác tử (AI agent - trợ lý tự động).",
+        "Theo Amazon, chuẩn bị dữ liệu là khâu chậm nhất do dữ liệu gán nhãn khan hiếm, đắt đỏ và vướng quy định bảo mật. Tình trạng trùng lặp hay nhiễu nhãn khiến chuyên gia dữ liệu mất nhiều tuần xử lý thay vì xây dựng mô hình.",
+        "Công cụ hỗ trợ tự động gán nhãn theo điểm tin cậy, duyệt thủ công các hàng điểm thấp và biến đổi định dạng dữ liệu. Điển hình như Splunk đã dùng tính năng tạo dữ liệu tổng hợp để xây dựng mô hình đánh giá cho sản phẩm Giám sát Tác tử (Agent Observability).",
+        "Theo Amazon, các đội ngũ có thể dùng riêng lẻ từng tính năng hoặc kết hợp tạo dữ liệu, biến đổi, kiểm định và huấn luyện thành quy trình hoàn chỉnh. Người dùng nắm toàn quyền kiểm soát khi có thể trực tiếp kiểm tra và thay đổi mã nguồn lẫn đặc tả kỹ thuật."
+      ],
+      "same_event_coverage_ids": [
+        "ee612e78ec8665ad114e"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Amazon SageMaker AI data preparation launch",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Amazon bổ sung tính năng chuẩn bị dữ liệu AI cho SageMaker qua bộ công cụ Python và tác tử",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "amazon",
+          "url": "https://aws.amazon.com/blogs/machine-learning/announcing-ai-data-preparation-capabilities-in-amazon-sagemaker-build-high-quality-datasets-for-model-development-workflows/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.3,
+        "answers": {
+          "what": 10,
+          "why": 8,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "chuẩn bị dữ liệu là khâu chậm nhất",
+            "explanation": "The source says data preparation is often the slowest part, not invariably the slowest part (outlet:p003)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The reader gets an unconditional claim about project timelines.",
+            "fix": "Restore “often” when describing data preparation as the slowest part (outlet:p003)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "8069e238035e5668499021b3b052f215a6659fc161faa6f794073450680aad01",
+        "scored_at": "2026-11-17T21:40:10.468178+00:00"
+      }
+    },
+    {
+      "id": "2fb55c3571a040c5ae0c",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/17/model-ml-raises-250m-to-automate-investment-banking-grunt-work/",
+      "key_points": [
+        "Model ML, công ty khởi nghiệp tại London, đã huy động 250 triệu USD ở vòng Series B với mức định giá 1,5 tỷ USD. Vòng vốn do General Atlantic và QED Investors đồng dẫn dắt, diễn ra một năm sau vòng Series A trị giá 75 triệu USD.",
+        "Startup này phát triển các tác tử trí tuệ nhân tạo (AI agent) tích hợp vào hệ thống khách hàng gồm Excel và PowerPoint. Model ML cho biết các tác tử nhận biết bối cảnh thương vụ và tự động cập nhật mô hình tài chính khi có thông tin mới.",
+        "Thị trường tự động hóa tác vụ ngành ngân hàng và tư vấn còn có những công ty khởi nghiệp khác gồm Hebbia và Rogo. Trong đó, Rogo đã huy động 160 triệu USD tại mức định giá 2 tỷ USD vào tháng 4.",
+        "Dù Anthropic và OpenAI cũng có công cụ tài chính, Model ML cho biết họ vận hành bằng các mô hình nguồn mở. Công ty tuyên bố việc này cho phép họ hoạt động ở mức chi phí khoảng 2% so với các mô hình tiên phong và mang lại kết quả nhanh hơn."
+      ],
+      "same_event_coverage_ids": [
+        "ab77d8fd1e5da06b7247"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Model ML $250M Series B funding at $1.5B valuation",
+      "video_labels": {
+        "video_hook": "money_jobs",
+        "named_people": [
+          "Chaz Englander",
+          "Arnie Englander",
+          "Marina Temkin"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Startup Model ML huy động 250 triệu USD tại mức định giá 1,5 tỷ USD ở vòng Series B",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/17/model-ml-raises-250m-to-automate-investment-banking-grunt-work/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.4,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "Readers get only a partial picture of what Model ML automates.",
+            "fix": "Name the work traditionally done by junior bankers and consultants: financial models, pitch decks, and due-diligence reports (outlet:p007)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "d0263a5df1c6d1ce4fc588e4a984084a6cf74931d1cee05341c6a3bc1934a83f",
+        "scored_at": "2026-11-17T21:33:39.966526+00:00"
+      }
+    },
+    {
+      "id": "97f82e89cc7a6cabd091",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-17/genesis-ai-hits-3-5b-valuation-in-robotics-bet-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "163d0b4042d1ea7883de"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "711f61309f8448fb9651",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/17/2026/uns-top-tech-envoy-says-us-china-ai-race-causing-global-alarm",
+      "key_points": [
+        "Đặc phái viên công nghệ của Liên Hợp Quốc, ông Amandeep Singh Gill, cảnh báo cuộc đua AI giữa Mỹ và Trung Quốc đang gây lo ngại toàn cầu. Dù không cạnh tranh với các phòng thí nghiệm hàng đầu, các nước khác vẫn muốn tự xây dựng mô hình và hạ tầng riêng.",
+        "Theo ông Gill, các quốc gia không muốn mất quyền tự quyết và lo ngại áp lực chạy đua khiến các quy tắc an toàn bị xem nhẹ.",
+        "Về hạ tầng, ông dẫn chứng Ethiopia với hơn 130 triệu dân cần lượng lớn GPU, nhưng công suất đơn thuần là không đủ nếu thiếu điện và mạng.",
+        "Ông Gill nhận định việc xây dựng năng lực sẽ giúp thu hẹp khoảng cách AI và bảo đảm quyền tiếp cận công nghệ mới nổi. Theo ông, giải quyết các bài toán xã hội như y tế hay nguồn nước sẽ chứng minh lợi ích thực tế của AI."
+      ],
+      "same_event_coverage_ids": [
+        "c4d758ffc5a456f8f6f0"
+      ],
+      "split_coverage_ids": [],
+      "subject": "UN tech envoy on US-China AI race and global safety risks",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Amandeep Singh Gill",
+          "Mohammed Sergie"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Đặc phái viên Liên Hợp Quốc cảnh báo cuộc đua AI Mỹ - Trung gây lo ngại toàn cầu",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/17/2026/uns-top-tech-envoy-says-us-china-ai-race-causing-global-alarm"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.65,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "16f897e2c25eaa74374e19f4512dceab5a9cea4b5e1234252ec9b55b6ddf68df",
+        "scored_at": "2026-11-17T21:33:39.966548+00:00"
+      }
+    },
+    {
+      "id": "fac4c9e0149a0508bc56",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-17/anthropic-ipo-highlights-ai-s-private-market-wealth-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "8e87b2443303f1d69bce"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "5155d276fe9ac7b2f125",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/getting-ai-out-of-the-demo-and-into-businesses-globally/",
+      "key_points": [
+        "AWS launched AWS Forward Deployed Engineering (FDE) to help organizations take generative AI workflows from prototype into production.",
+        "The offering is available to commercial and public sector customers in 15 countries, including the U.S., Brazil, Japan, Germany, and Saudi Arabia."
+      ],
+      "same_event_coverage_ids": [
+        "8e90746d83dbdd8a7e35"
+      ],
+      "split_coverage_ids": [],
+      "subject": "AWS Forward Deployed Engineering launch",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "af36944b8f532014f977",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/17/google-expands-access-to-gemini-tasks-which-can-help-with-calls-purchases/",
+      "key_points": [
+        "Google mở rộng tính năng Gemini Tasks miễn phí cho hàng trăm triệu người dùng mô hình Gemini 4 Hydrogen mới. Công cụ từng thử nghiệm từ tháng 5 với tên Gemini Spark và trước đó chỉ dành cho thuê bao Google AI Ultra tại Mỹ.",
+        "Người dùng kích hoạt bằng cách gạt nút trong ứng dụng từ Trò chuyện (Chat) sang Nhiệm vụ (Tasks). Sau khi bật, người dùng có thể gửi tin nhắn hoặc gọi điện trực tiếp ra lệnh cho ứng dụng.",
+        "Google cho biết ứng dụng có thể thay người dùng đặt lịch hẹn, mua sắm qua Google Pay và đăng nhập website khi được yêu cầu. Josh Woodword, Phó chủ tịch Gemini, chia sẻ đã dùng tính năng này đặt lịch bảo dưỡng xe và phân tích hóa đơn điện.",
+        "TechCrunch nhận định Tasks đưa Gemini thành trợ lý cá nhân (chương trình AI tự hành xử lý công việc) đảm nhiệm tác vụ thư ký thay vì chỉ hỏi đáp thông tin. Tuy vậy, phạm vi phát hành miễn phí hiện giới hạn cho những ai đang dùng mô hình Gemini 4 Hydrogen."
+      ],
+      "same_event_coverage_ids": [
+        "57440912c256c92b7eec"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Google Gemini Tasks",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Josh Woodword"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Google cung cấp miễn phí tính năng Gemini Tasks hỗ trợ gọi điện và thanh toán cho người dùng",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/17/google-expands-access-to-gemini-tasks-which-can-help-with-calls-purchases/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "114cdfd4a7a6d4bc370e61e5571e28efef4db010b9531c53bedbaf3fdb6f86a1",
+        "scored_at": "2026-11-17T21:33:39.966572+00:00"
+      }
+    },
+    {
+      "id": "20774146b79ca781277a",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/tech/1035756/google-spark-ai-tasks-free",
+      "key_points": [
+        "Google đổi tên tác tử AI (trợ lý ảo tự hành) Spark thành Tasks và cung cấp miễn phí trên Gemini. Tính năng này chạy trên mô hình Gemini 4 Hydrogen, hỗ trợ lập lịch và tìm chi phí thừa trong thư điện tử.",
+        "Người dùng kích hoạt bằng cách chuyển nút gạt trên trang chủ Gemini từ Chat sang Tasks. Google cho biết tác vụ được xử lý trong máy ảo cô lập phần cứng riêng cho từng tài khoản.",
+        "Đợt ra mắt đưa tính năng vốn chỉ cho thuê bao trả phí tới người dùng tại sáu nước như Mỹ, Nhật Bản và Ấn Độ. Riêng người dùng Mỹ có thêm tính năng giao việc qua tin nhắn, đối chiếu giá hoặc thanh toán qua Google Pay.",
+        "The Verge nhận định Tasks giúp Google hòa vào làn sóng AI tự hành mới cùng Claude Duet hay Dots. Dù vậy, khi thực hiện việc nhạy cảm như mua sắm, hệ thống sẽ dừng lại hỏi ý kiến người dùng."
+      ],
+      "same_event_coverage_ids": [
+        "a8cffeee57b7e83b7bcf"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Google Gemini Tasks",
+      "video_labels": {
+        "video_hook": "usable_now",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Google đổi tên tác tử Spark thành Tasks và miễn phí tính năng tự hành tại sáu quốc gia",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/tech/1035756/google-spark-ai-tasks-free"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "1338b86a35fbe098465984dca89fc5336c1fdba73a9f5b5de91295f21cb1b9d8",
+        "scored_at": "2026-11-17T21:33:39.966592+00:00"
+      }
+    },
+    {
+      "id": "96459ac2e66a9472e954",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "How-to developer guide detailing architecture and setup steps for integrating WhatsApp with Amazon Bedrock AgentCore.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/build-whatsapp-ai-agents-with-amazon-bedrock-agentcore/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "7bc4bacb8c122f968793"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "92ead912d06bbf7e268a",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/17/google-to-keep-gemini-chats-for-two-months-up-from-72-hours-even-with-history-off/",
+      "key_points": [
+        "Google sẽ kéo dài thời gian lưu trữ các cuộc trò chuyện tạm thời trên Gemini lên khoảng hai tháng trên toàn cầu trong vài tuần tới. Theo TechCrunch, mức lưu trữ mới áp dụng cả khi tắt lịch sử chat và tăng vọt so với quy định 72 giờ trước đây.",
+        "Google cho biết việc kéo dài thời gian lưu trữ nhằm nâng cao an toàn và bảo mật khi hệ thống AI ngày càng thông minh hơn. Hãng cũng dẫn thêm lý do cần phản hồi người dùng, xử lý góp ý, bảo vệ dịch vụ và dự phòng sự cố hệ thống.",
+        "Theo TechCrunch, mức lưu trữ mới tăng mạnh so với mốc lưu trữ 72 giờ trước đó trong trung tâm quyền riêng tư của Gemini. Để so sánh, TechCrunch cho biết OpenAI có thể lưu chat tạm thời trên ChatGPT tối đa 30 ngày, còn Anthropic mặc định giữ 30 ngày trên Claude.",
+        "Cùng lúc đó, Google tách riêng cài đặt lịch sử hội thoại và huấn luyện AI, cho phép người dùng giữ bản ghi chat mà không bị dùng để đào tạo mô hình. Google cam kết hội thoại tạm thời không dùng để huấn luyện AI, đồng thời mặc định tắt cài đặt này với tài khoản từng tắt lưu hoạt động."
+      ],
+      "same_event_coverage_ids": [
+        "d84d79f8af414cb65583"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Google Gemini chat retention policy",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Google kéo dài thời gian lưu hội thoại Gemini lên hai tháng dù người dùng tắt lịch sử",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/17/google-to-keep-gemini-chats-for-two-months-up-from-72-hours-even-with-history-off/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.85,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "“This setting” leaves unclear which of the two new controls defaults to off.",
+            "fix": "Say that both chat history and AI training settings default to off for users who previously disabled Keep Activity (outlet:p011)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "e2f94dad664714ae65788e89b24804d0d5ae2edbe89c39bb1e7c5523b2fd5183",
+        "scored_at": "2026-11-17T21:33:39.966614+00:00"
+      }
+    },
+    {
+      "id": "0e3f508ae6127569ad64",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-17/bloomberg-tech-11-17-2026-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b3060607feb31966966c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "8ce030f36baac94da435",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-17/states-press-for-scrutiny-in-sale-of-chatbot-said-to-harm-kids",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "097286990fbf0ba9ef40"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "f052a201011f772082ac",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-17/nvidia-scandal-has-raised-red-flags-california-ag-says",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "502744c4dacbf62f16b0"
+      ],
+      "split_coverage_ids": [
+        "821f0abb7fe0277ccaf0"
+      ]
+    },
+    {
+      "id": "233f4988e8c3601e84ee",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://newsletter.posthog.com/p/decision-models",
+      "key_points": [
+        "Theo tác giả Jina Yoon, PostHog đưa mô hình quyết định (công cụ phân loại kèm xác suất) vào môi trường thực tế cho tác vụ đơn giản. Thay vì phản hồi dài dòng như mô hình ngôn ngữ lớn (LLM), mô hình này trả về câu trả lời có cấu trúc thể hiện rõ độ bất định.",
+        "Theo Yoon, mô hình quyết định rẻ hơn tới 444,6 lần và nhanh hơn 193,6 lần so với mô hình hàng đầu. Ưu thế này cho phép kỹ sư dùng chúng làm cổng sàng lọc để kiểm tra xem có cần thực hiện lệnh gọi LLM tốn kém hay không.",
+        "98,7% tóm tắt phiên tại Replay Vision bỏ qua lệnh gọi LLM trong thực tế sau hai câu hỏi kiểm tra thông tin cá nhân. Dù vậy, Yoon lưu ý điểm 0,85 vẫn có khoảng 150 kết quả sai trên 1.000 lượt kiểm tra, nên công ty đặt ngưỡng thấp ở mức 0,4 để tránh lọt dữ liệu cá nhân.",
+        "Yoon nhấn mạnh ngưỡng xác suất không thể dùng chung mà phải được thiết lập riêng cho từng tác vụ và từng mô hình. Đối với trường hợp chưa chắc chắn, nhóm nghiên cứu nội bộ của PostHog sử dụng mô hình lai Jeeves có khả năng suy luận trước khi quyết định."
+      ],
+      "same_event_coverage_ids": [
+        "9e5d04ce544435862780"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Decision models vs large language models",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Jina Yoon"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "PostHog dùng mô hình quyết định giúp 98,7% tóm tắt tại Replay Vision bỏ qua LLM trong thực tế",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://newsletter.posthog.com/p/decision-models"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.9,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 9,
+          "meaning": 6
+        },
+        "hard_errors": [
+          {
+            "kind": "number",
+            "summary_text": "nhanh hơn 193,6 lần",
+            "explanation": "The source says decision models are up to 193.6 times faster than frontier models; the Vietnamese presents that maximum as a general comparison (outlet:p017)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "nhóm nghiên cứu nội bộ của PostHog sử dụng mô hình lai Jeeves",
+            "explanation": "The source says the internal research team developed Jeeves. It says PostHog uses Jeeves by default when a decision call does not specify a model, and that Jeeves reasons before deciding when it is unsure (outlet:p066–p067)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The reader is told the research team uses Jeeves in a particular situation, instead of learning who developed it and when PostHog uses it by default.",
+            "fix": "Attribute Jeeves’ development to the research team and describe its default use for decision calls without a named model (outlet:p066–p067)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The reader misses the stated boundary for decision models.",
+            "fix": "Add that multi-step reasoning and open-ended work should go to LLMs (outlet:p052–p053, outlet:p062–p065)."
+          },
+          {
+            "question": "why",
+            "problem": "The speed figure reads as a typical or fixed advantage.",
+            "fix": "Qualify it as “up to 193.6 times faster” (outlet:p017)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "23ee30f9ca2880d78bd6a89a0f1ae4e0365d1825dca023769801ccc64f801672",
+        "scored_at": "2026-11-17T21:40:10.468229+00:00"
+      }
+    },
+    {
+      "id": "0bb2ec330a9d3ac445b9",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://github.blog/changelog/2026-11-17-secret-scanning-on-demand-for-developers-and-agents",
+      "key_points": [
+        "Chuyên gia đánh giá bảo mật của Copilot hiện tích hợp tính năng quét mã bí mật của GitHub. Người dùng có thể thử nghiệm bản xem trước công khai (public preview) trên Copilot CLI, ứng dụng Copilot, Copilot SDK và Copilot code review.",
+        "Theo GitHub, tính năng này nhằm giúp lập trình viên và agent (trợ lý trí tuệ nhân tạo tự động) phát hiện mã bí mật trong thay đổi mã nguồn trước khi hợp nhất. Hãng giải thích việc rà soát cần bắt kịp phương thức phát triển phần mềm mới khi người dùng cộng tác cùng các tác tử trí tuệ nhân tạo.",
+        "Hệ thống có thể phát hiện hơn 500 loại mã bí mật định sẵn và dùng mô hình học máy tinh chỉnh đọc ngữ cảnh mã để nhận diện mật khẩu. Người dùng có thể chạy lệnh /security-review trong Copilot CLI hoặc tích hợp quy trình kiểm tra vào các agent qua Copilot SDK.",
+        "Đợt rà soát này chỉ kiểm tra thay đổi mã nguồn mà không quét lịch sử kho lưu trữ, đồng thời mặc định ở trạng thái tắt. Theo GitHub, người dùng không cần mua gói bổ sung nhưng các lượt quét sẽ tiêu hao hạn mức tín dụng trí tuệ nhân tạo (AI credits)."
+      ],
+      "same_event_coverage_ids": [
+        "9efb1d842c4a00b800c0"
+      ],
+      "split_coverage_ids": [],
+      "subject": "GitHub Copilot secret scanning integration",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "GitHub thử nghiệm quét mã bí mật trong thay đổi mã nguồn trên Copilot cho lập trình viên và agent",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "github",
+          "url": "https://github.blog/changelog/2026-11-17-secret-scanning-on-demand-for-developers-and-agents"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "ee3b046b899e01c8b52cbc2fa26e049e6c6fd9b1ba9fdcc617a4fc21a136de72",
+        "scored_at": "2026-11-17T21:40:10.468261+00:00"
+      }
+    },
+    {
+      "id": "57e7781a892d4960f0cc",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://openai.com/index/introducing-gpt-6-2-astra-sol",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "2e2b10f010e073febec3",
+        "3b86549095ef4a503b36",
+        "6028e8d9a1b0e0a8e7fd"
+      ],
+      "split_coverage_ids": [],
+      "subject": "OpenAI GPT-6.2 Astra and Sol launch",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "a9da0aa637efb456bdaa",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.scmp.com/tech/article/3374710/what-watch-nvidias-first-earnings-report-jensen-huang-resigned",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "265bfb8a44260ddb70f9",
+        "d2c30cf21d9db4795b7f"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Nvidia quarterly earnings preview post-Jensen Huang",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Jensen Huang",
+          "Colette Kress"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      }
     }
   ]
 }
