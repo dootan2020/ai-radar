@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-17T01:34:50.470384+00:00",
-  "input_generated_at": "2026-11-17T00:45:57Z",
+  "generated_at": "2026-11-17T03:49:03.994737+00:00",
+  "input_generated_at": "2026-11-17T02:45:58Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -81421,17 +81421,17 @@
       "use_original_title": false,
       "source_url": "https://www.semafor.com/article/11/16/2026/ai-makes-everyone-more-vulnerable",
       "key_points": [
-        "Giám đốc điều hành AT&T John Stankey nhận định tại sự kiện của Semafor rằng trí tuệ nhân tạo (AI) đang khiến mọi người dễ bị tổn thương hơn, ít nhất là trong thời điểm hiện tại.",
-        "Theo ông Stankey, mức độ lo âu của cộng đồng hiện khá cao do các rủi ro an ninh mạng gia tăng bắt nguồn từ AI.",
-        "Lãnh đạo AT&T cảnh báo những hệ lụy cụ thể như nguy cơ một khu đô thị lớn bị mất điện kéo dài hoặc điện thoại di động bị ngắt kết nối khỏi mạng viễn thông.",
-        "Ông Stankey kết luận công nghệ sẽ xây trên nền tảng tồi nếu làm kinh tế bị gián đoạn và đánh mất niềm tin của công chúng, đồng thời cho rằng các quy định bổ sung từ chính phủ có thể không phải là lời giải."
+        "Giám đốc điều hành AT&T John Stankey nhận định tại sự kiện của Semafor rằng mọi người đang dễ bị tổn thương hơn vì trí tuệ nhân tạo (AI), ít nhất là ở thời điểm hiện tại.",
+        "Theo ông Stankey, mức độ lo âu của cộng đồng hiện khá cao do các rủi ro an ninh mạng gia tăng bắt nguồn từ AI, dù rất khó để biết đầy đủ tác động thực sự của các mô hình này.",
+        "Lãnh đạo AT&T cảnh báo nguy cơ một khu đô thị bị mất điện trong một khoảng thời gian hoặc điện thoại di động mất sóng, coi đây là các hệ lụy hạ nguồn cần phòng ngừa bên cạnh lo ngại quanh các trung tâm dữ liệu.",
+        "Ông Stankey cho rằng cần thời gian để tìm cách biến AI thành lợi thế giúp an toàn hơn thay vì là gánh nặng, dù ông tin rằng tình thế này có thể đảo ngược."
       ],
       "same_event_coverage_ids": [
         "ef8bb7e439d85e749dd2"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "CEO AT&T cảnh báo AI đang khiến mọi người dễ tổn thương hơn vì rủi ro an ninh mạng",
+      "editorial_headline_vi": "CEO AT&T cảnh báo AI khiến mọi người dễ tổn thương hơn trước rủi ro an ninh mạng",
       "summary_sources": [
         {
           "id": "outlet",
@@ -81444,30 +81444,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 7.95,
+        "value": 9.7,
         "answers": {
-          "what": 9,
-          "why": 9,
-          "notable": 6,
+          "what": 10,
+          "why": 10,
+          "notable": 10,
           "meaning": 8
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "mất điện kéo dài",
-            "explanation": "Stankey described a hypothetical metropolitan area lacking power 'for a period of time'; he did not specify a prolonged outage (outlet:p004)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "notable",
-            "problem": "The outage example loses its data-center context and gains an unsupported duration.",
-            "fix": "Present power loss and dropped connections as hypothetical downstream risks raised during the data-center discussion, without calling the outage prolonged (outlet:p004)."
-          },
-          {
             "question": "meaning",
-            "problem": "The reader misses Stankey’s view that AI could eventually improve safety.",
-            "fix": "Add his qualified belief that turning the technology from a liability into an advantage will take time (outlet:p002)."
+            "problem": "The reader misses why Stankey considers infrastructure failures consequential.",
+            "fix": "Add his warning that lost public trust or interrupted business would leave the technology on a bad foundation (outlet:p005)."
           }
         ],
         "writer_boats": [
@@ -81475,8 +81464,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "aa05bd7629c50b42bfaddb6fc5b61041af537c17316205a37534b2c9fc66853f",
-        "scored_at": "2026-11-16T23:18:00.145821+00:00"
+        "prose_sha256": "dfc1877695fa1008caeda521fafaf81ed9cde9a06b105a3543a2b331718639f1",
+        "scored_at": "2026-11-17T03:45:05.486630+00:00"
       }
     },
     {
@@ -81554,17 +81543,17 @@
       "use_original_title": false,
       "source_url": "https://techcrunch.com/2026/11/16/all-the-questions-nvidia-should-answer-on-tuesday-but-probably-wont/",
       "key_points": [
-        "Theo góc nhìn của tác giả trên TechCrunch, Giám đốc điều hành tạm quyền Colette Kress sắp bước vào kỳ báo cáo tài chính quý ba quan trọng khi lần đầu đại diện Nvidia mà không có Jensen Huang.",
-        "Biến động này xảy ra sau khi ông Huang bị buộc từ chức tuần trước vì thừa nhận có quan hệ với một nữ lãnh đạo khách hàng bị nghi là gián điệp Trung Quốc. Nvidia hiện phải mở cuộc điều tra nội bộ và đối mặt các cuộc điều tra từ Quốc hội Mỹ trước nghi vấn chip hạn chế bị tuồn sang Trung Quốc.",
-        "TechCrunch nhận xét Nvidia đổi sang báo cáo doanh thu theo trụ sở làm che giấu doanh số Singapore và ảnh hưởng của Megaspeed, thay vì dựa trên địa chỉ giao hàng.",
-        "Loạt câu hỏi TechCrunch cho rằng CEO tạm quyền cần giải đáp bao gồm mức độ can dự tiếp theo của ông Huang và việc kiểm soát điểm đến của các dòng chip bị hạn chế. Trang tin này cũng chờ đợi tín hiệu liệu Nvidia có đảo ngược mục tiêu bán hàng sang Trung Quốc hay sẽ thận trọng hơn với các thỏa thuận đầu tư AI."
+        "Theo tác giả bài viết trên TechCrunch, Giám đốc điều hành tạm quyền Colette Kress chuẩn bị bước vào ngày quan trọng khi lần đầu công bố kết quả quý ba của Nvidia mà không có nhà sáng lập Jensen Huang.",
+        "Tình trạng hỗn loạn diễn ra sau khi ông Huang bị buộc từ chức vì thừa nhận ngoại tình với nữ lãnh đạo khách hàng bị nghi là gián điệp Trung Quốc. Trước các nghi vấn về việc chip hạn chế bị tuồn sang Trung Quốc, Nvidia đã hứa tiến hành điều tra nội bộ, trong bối cảnh Quốc hội Mỹ cũng chuẩn bị chất vấn và điều tra công ty.",
+        "TechCrunch chỉ trích thay đổi này đã che giấu hoàn toàn doanh số tại Singapore từng chiếm 22% tổng doanh thu quý hai năm trước và xóa mờ ảnh hưởng của Megaspeed.",
+        "Theo TechCrunch, vụ việc đặt ra bài học về quyền lực tập trung quá nhiều vào một người và trang tin này sẽ chờ đợi thông tin xem Nvidia có tái cấu trúc bộ máy hay không. Ngoài ra, dư luận cũng đón đợi các chỉ dấu liệu CEO tạm quyền có đảo ngược mục tiêu tại Trung Quốc hay thận trọng hơn với các thương vụ AI."
       ],
       "same_event_coverage_ids": [
         "adbeb289bacbafe2e078"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "TechCrunch đặt loạt câu hỏi cho CEO tạm quyền Nvidia về kiểm soát chip và các thương vụ AI",
+      "editorial_headline_vi": "CEO tạm quyền Nvidia đối mặt các câu hỏi về kiểm soát chip và khả năng tái cấu trúc",
       "summary_sources": [
         {
           "id": "outlet",
@@ -81577,30 +81566,40 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.7,
+        "value": 8.05,
         "answers": {
-          "what": 10,
-          "why": 8,
+          "what": 8,
+          "why": 9,
           "notable": 8,
-          "meaning": 8
+          "meaning": 7
         },
         "hard_errors": [
           {
             "kind": "fact",
-            "summary_text": "Nvidia hiện phải mở cuộc điều tra nội bộ",
-            "explanation": "The source says Nvidia promised to conduct an internal investigation; it does not say the company was required to open one (outlet:p009)."
+            "summary_text": "Quốc hội Mỹ cũng chuẩn bị chất vấn và điều tra công ty",
+            "explanation": "The source says Huang was ordered to answer questions before congressional committees, while top Democrats vowed to investigate the company. It does not say Congress was preparing to question the company (outlet:p009)."
+          },
+          {
+            "kind": "role",
+            "summary_text": "dư luận cũng đón đợi",
+            "explanation": "The source frames these as matters the TechCrunch writer will listen for, not as expectations attributed to the public (outlet:p017–p021)."
           }
         ],
         "findings": [
           {
-            "question": "why",
-            "problem": "The reader is told Nvidia must open an internal investigation.",
-            "fix": "Say Nvidia promised to conduct one (outlet:p009)."
+            "question": "what",
+            "problem": "The reader could believe congressional questioning is directed at Nvidia.",
+            "fix": "Specify that Huang was ordered to answer committee questions, while Democrats vowed to investigate the company (outlet:p009)."
           },
           {
             "question": "meaning",
-            "problem": "The reader misses the question of whether Nvidia will change its governance after Huang’s departure.",
-            "fix": "Add that TechCrunch is listening for how Nvidia might restructure itself (outlet:p021)."
+            "problem": "The Vietnamese attributes the watch points to public opinion without source support.",
+            "fix": "Attribute the questions about China policy and AI deals to TechCrunch's writer (outlet:p017–p021)."
+          },
+          {
+            "question": "notable",
+            "problem": "The reader misses the concrete chip-control question raised by the Singapore reporting change.",
+            "fix": "Add that TechCrunch wants to hear how Nvidia tracks the final destination of restricted chips (outlet:p017)."
           }
         ],
         "writer_boats": [
@@ -81608,8 +81607,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "c812e2d85178bcf68b19dc198077a9df1424951179a61f7ae4e849183f29efcf",
-        "scored_at": "2026-11-17T01:31:30.703516+00:00"
+        "prose_sha256": "a7cc2eca36489bc30d3be815c96859f90f57c024fde6dc5a850aafbba54fb9d4",
+        "scored_at": "2026-11-17T03:45:05.486658+00:00"
       }
     },
     {
@@ -82142,17 +82141,17 @@
       "use_original_title": false,
       "source_url": "https://simonwillison.net/2026/Nov/16/llm/",
       "key_points": [
-        "Nhà phát triển Simon Willison đã phát hành bản cập nhật vá lỗi llm 0.37.3 cho công cụ truy cập mô hình ngôn ngữ lớn từ dòng lệnh.",
-        "Simon Willison cho biết bản sửa lỗi trong SQLite 3.54.1 làm hỏng mã ghi log của LLM khi Homebrew phân phối phiên bản SQLite mới nhất này.",
-        "Theo D. Richard Hipp, SQLite 3.54.1 thay đổi kiểu trả về của truy vấn con json_array thành chuỗi văn bản SQL thay vì JSON đúng như tài liệu quy định.",
-        "Theo Simon Willison, hành vi của bản 3.54.1 là chính xác theo tài liệu kỹ thuật, và phần mềm khắc phục sự cố bằng cách bổ sung hàm chuyển đổi json vào truy vấn con."
+        "Bản vá lỗi llm 0.37.3 được phát hành cho công cụ dòng lệnh giúp truy cập các mô hình ngôn ngữ lớn.",
+        "SQLite 3.54.1 làm hỏng mã ghi log của LLM, theo Simon Willison, sau khi Homebrew cập nhật phiên bản cơ sở dữ liệu này. Sự cố xảy ra do truy vấn con trả về văn bản SQL khiến json_object tạo ra kết quả {\"a\":\"[1]\"} ở bản 3.54.1 thay vì {\"a\":[1]} như bản 3.54.0.",
+        "Cách khắc phục tạm thời bằng SQL được tác giả giới thiệu là bổ sung hàm json vào trước truy vấn con bên trong truy vấn json_object.",
+        "Hành vi của SQLite 3.54.1 là chính xác, theo D. Richard Hipp, do tài liệu quy định truy vấn con trả về văn bản SQL chứ không phải JSON và bản 3.54.0 trước đó là một lỗi."
       ],
       "same_event_coverage_ids": [
         "9f2aba0c17c380b88191"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Công cụ LLM phát hành bản 0.37.3 sửa lỗi ghi log do thay đổi từ SQLite 3.54.1",
+      "editorial_headline_vi": "LLM phát hành bản vá 0.37.3 để khắc phục lỗi ghi log phát sinh từ bản SQLite 3.54.1",
       "summary_sources": [
         {
           "id": "outlet",
@@ -82165,54 +82164,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 7.2,
+        "value": 9.7,
         "answers": {
           "what": 10,
-          "why": 5,
-          "notable": 6,
-          "meaning": 6
+          "why": 10,
+          "notable": 9,
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "SQLite 3.54.1 thay đổi kiểu trả về của truy vấn con json_array thành chuỗi văn bản SQL thay vì JSON",
-            "explanation": "Hipp says the subquery returns SQL text according to the documentation. What changed between versions was how json_object handled that result: the complete query produced an array in 3.54.0 and a string in 3.54.1 (outlet:p005-p012)."
-          },
-          {
-            "kind": "role",
-            "summary_text": "Theo Simon Willison, hành vi của bản 3.54.1 là chính xác theo tài liệu kỹ thuật",
-            "explanation": "The source expressly attributes this explanation to D. Richard Hipp (outlet:p011-p012)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "phần mềm khắc phục sự cố bằng cách bổ sung hàm chuyển đổi json vào truy vấn con",
-            "explanation": "The source shows a SQL workaround using json(), but does not say that this is the change implemented in LLM 0.37.3 (outlet:p003, outlet:p013-p014)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "why",
-            "problem": "The explanation incorrectly locates the type change in the subquery.",
-            "fix": "Explain that the subquery returns SQL text and that SQLite 3.54.1 correctly makes json_object treat it as a string; give the two resulting outputs (outlet:p005-p012)."
-          },
-          {
-            "question": "meaning",
-            "problem": "The correctness explanation is credited to the wrong person.",
-            "fix": "Attribute it to D. Richard Hipp (outlet:p011-p012)."
-          },
-          {
-            "question": "notable",
-            "problem": "The article’s example workaround is presented as LLM’s confirmed implementation.",
-            "fix": "Describe json() as the SQL workaround shown in the source, without claiming it is the release’s code change (outlet:p013-p014)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "fbc7661ff78152b8fd63be68cc5c75e08607ff83cf1f867b51ab88f0cdf67a48",
-        "scored_at": "2026-11-17T01:18:14.495422+00:00"
+        "prose_sha256": "ba1051bdec7e8f74fa8760e5f3776b11a73a1ad36aefefb2f570a0446adf6bb3",
+        "scored_at": "2026-11-17T03:45:05.486552+00:00"
       }
     },
     {
@@ -82315,17 +82282,16 @@
       "use_original_title": false,
       "source_url": "https://www.semafor.com/article/11/16/2026/america-needs-to-have-more-jensens-perplexity-ceo-lauds-huang-as-industry-titan",
       "key_points": [
-        "CEO Aravind Srinivas của Perplexity ca ngợi cựu CEO của Nvidia là ông Jensen Huang và nhận định nước Mỹ cần thêm các lãnh đạo công nghệ như vậy. Nhận định này được đưa ra sau khi ông Huang từ chức CEO vào tuần trước.",
-        "Ông Srinivas chia sẻ các nhà sáng lập nên học tập thái độ bền bỉ và luôn vượt giới hạn từ ông Huang, người luôn vận hành doanh nghiệp như thể sẽ cạn vốn trong 30 ngày tới.",
-        "Lãnh đạo này cũng công bố Perplexity đã đạt mốc doanh thu quy năm một tỷ USD với tốc độ đốt tiền thấp hơn năm lần so với các hãng công nghệ lớn nhờ mô hình tiết kiệm vốn.",
-        "Semafor cho biết Perplexity giữ chi phí thấp nhờ định vị là công cụ tổng hợp điều hướng lệnh sang các mô hình như ChatGPT hay Claude, dựa trên niềm tin người dùng chỉ bận tâm công việc có hoàn thành hay không."
+        "CEO Perplexity ca ngợi Jensen Huang khi ông Aravind Srinivas cho rằng nước Mỹ cần thêm những nhà lãnh đạo khởi nghiệp như cựu CEO của Nvidia. Tuy nhiên, ông Srinivas né tránh trả lời liệu Nvidia có nên phục chức cho ông Huang sau khi cựu CEO từ chức vào tuần trước.",
+        "Theo Semafor, Perplexity chủ yếu điều hướng người dùng sang ChatGPT hay Claude thay vì vận hành mô hình nền tảng đầu bảng.",
+        "Người dùng chú trọng hoàn thành công việc là định hướng của Perplexity, khi ông Srinivas khẳng định khách hàng không quan tâm mô hình nào mà chỉ quan tâm việc có xong hay không."
       ],
       "same_event_coverage_ids": [
         "cfb555d0cc97bf38f41d"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Perplexity đạt doanh thu quy năm 1 tỷ USD khi CEO lên tiếng ca ngợi Jensen Huang",
+      "editorial_headline_vi": "Perplexity cán mốc doanh thu 1 tỷ USD giữa lúc CEO ca ngợi cựu lãnh đạo Nvidia",
       "summary_sources": [
         {
           "id": "outlet",
@@ -82338,35 +82304,35 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.7,
+        "value": 4.95,
         "answers": {
-          "what": 10,
-          "why": 8,
-          "notable": 8,
-          "meaning": 8
+          "what": 6,
+          "why": 3,
+          "notable": 4,
+          "meaning": 7
         },
         "hard_errors": [
           {
-            "kind": "quote",
-            "summary_text": "sẽ cạn vốn trong 30 ngày tới",
-            "explanation": "Srinivas said Huang would run the company as if it would go out of business in 30 days; he did not specifically say it would run out of capital (outlet:p004)."
+            "kind": "number",
+            "summary_text": "Perplexity cán mốc doanh thu 1 tỷ USD",
+            "explanation": "The source says Perplexity crossed a $1 billion annual run rate, not that it had earned $1 billion in revenue (outlet:p007)."
           }
         ],
         "findings": [
           {
-            "question": "meaning",
-            "problem": "The praise appears unqualified because the reader is not told that Srinivas avoided endorsing Huang’s reinstatement.",
-            "fix": "Add that Srinivas dodged the reinstatement question, and that the source reports reputational damage following revelations of Huang’s extramarital affairs (outlet:p003, p006)."
+            "question": "what",
+            "problem": "The headline makes the $1 billion figure sound like revenue already earned.",
+            "fix": "Call it a $1 billion annual run rate, as Srinivas did (outlet:p007)."
           },
           {
             "question": "why",
-            "problem": "The Vietnamese narrows a warning about business failure to a shortage of capital.",
-            "fix": "Say Huang acted as though the company could go out of business within 30 days (outlet:p004)."
+            "problem": "Readers do not learn why Srinivas held Huang up as an example.",
+            "fix": "Include Huang’s advice to act as though the business might run out of time, and Srinivas’s praise for his relentlessness and determination (outlet:p004)."
           },
           {
             "question": "notable",
-            "problem": "“Large technology companies” makes the burn-rate comparison broader than the source states.",
-            "fix": "Specify that Srinivas compared Perplexity’s burn rate with that of hyperscalers (outlet:p007)."
+            "problem": "The account leaves out the comparison that qualifies Perplexity’s financial claim.",
+            "fix": "Add that Srinivas said its burn rate was five times lower than hyperscalers’ and attributed this to a capital-efficient model (outlet:p007)."
           }
         ],
         "writer_boats": [
@@ -82374,8 +82340,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "0bd2febd01279b01256486402c14e2f42c9a07dfd4f24c4475b2ff48038d92d1",
-        "scored_at": "2026-11-17T01:18:14.495468+00:00"
+        "prose_sha256": "47c3f01527dc531ac62c410a0e61b59764cf09122194643b34ed7e5c7889937f",
+        "scored_at": "2026-11-17T03:49:03.976994+00:00"
       }
     },
     {
@@ -82640,6 +82606,1012 @@
         "4f6081d8aa6864266f4e"
       ],
       "split_coverage_ids": []
+    },
+    {
+      "id": "78da506253f58f0d28a2",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-17/more-volatility-forecast-for-ai-as-nvidia-earnings-loom-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "23b322321aefb00b54e6"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "6390d802270cecb27299",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://en.yna.co.kr/view/AEN20261117004000320",
+      "key_points": [
+        "Theo Yonhap, chỉ số KOSPI của Hàn Quốc giảm mạnh 1,24% xuống mức 5.037,46 điểm vào cuối buổi sáng 17 tháng 11, sau khi có lúc rơi xuống đáy 4.984,83 điểm. Đây là phiên giảm điểm thứ tư liên tiếp của chỉ số này.",
+        "Hãng tin này cho biết đà giảm diễn ra do lo ngại kéo dài về đầu tư trí tuệ nhân tạo (AI) trước báo cáo thu nhập của Nvidia và kế hoạch chào sàn của Anthropic.",
+        "Tại Seoul, các cổ phiếu lớn phân hóa khi Samsung Electronics giảm 2,49% còn SK hynix nhích tăng 0,4%. Cùng thời điểm, Samsung Electro-Mechanics mất 1,4% trong khi công ty mẹ SK Square tăng 1,02%.",
+        "Yonhap ghi nhận ngành trí tuệ nhân tạo còn đối mặt áp lực giám sát gia tăng sau khi chính phủ Mỹ ban hành quy định mới hạn chế quyền truy cập từ xa vào chip và máy chủ tiên tiến."
+      ],
+      "same_event_coverage_ids": [
+        "1a9dc3a6281baacccbfe"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Chỉ số KOSPI của Hàn Quốc giảm 1,24% do lo ngại đầu tư AI trước báo cáo của Nvidia",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "yonhap",
+          "url": "https://en.yna.co.kr/view/AEN20261117004000320"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "role",
+            "summary_text": "Samsung Electro-Mechanics mất 1,4% trong khi công ty mẹ SK Square tăng 1,02%",
+            "explanation": "This wording presents SK Square as Samsung Electro-Mechanics’ parent. The source identifies SK Square as the parent of SK hynix (outlet:p011)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The sentence links SK Square to the wrong company.",
+            "fix": "State that SK Square is SK hynix’s parent (outlet:p011)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "a4be22a7ded3b569ce74e3de01701ead10ee221738a48598cf0184122ca98fbd",
+        "scored_at": "2026-11-17T03:37:29.967093+00:00"
+      }
+    },
+    {
+      "id": "28f2c86abf73e63f45aa",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://en.yna.co.kr/view/AEN20261117003600315",
+      "key_points": [
+        "Đảng cầm quyền Hàn Quốc thúc đẩy luật cấm thi đến 10 năm với gian lận bằng trí tuệ nhân tạo trong các kỳ thi quốc gia gồm cả thi đại học, theo lãnh đạo đảng Kim Min-seok.",
+        "Động thái diễn ra sau khi thủ khoa kỳ thi kế toán thuế thừa nhận dùng camera siêu nhỏ và thiết bị AI để gian lận, làm dấy lên lo ngại trước kỳ thi đại học.",
+        "Nghị sĩ Kim Min-seok cho biết hiện người gian lận thi quốc gia bị cấm 5 năm, trong khi kỳ thi đại học chỉ cấm thi lại vào năm kế tiếp.",
+        "Ông Kim nhận định mức cấm 10 năm sẽ tước vĩnh viễn cơ hội thi của người vi phạm và răn đe nguy cơ gian lận ngay từ đầu."
+      ],
+      "same_event_coverage_ids": [
+        "f8d7a0ced4040398d302"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Đảng cầm quyền Hàn Quốc muốn cấm thi tới 10 năm với hành vi gian lận bằng AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "yonhap",
+          "url": "https://en.yna.co.kr/view/AEN20261117003600315"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "c622c24ba2cde8eb9c8c285a3db1c8e575254acf966f029f3809f64ef5599361",
+        "scored_at": "2026-11-17T03:32:46.635512+00:00"
+      }
+    },
+    {
+      "id": "36e38c5e31f8a29ce491",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "A Show HN promotional pitch for an interactive course without independent news reporting or a substantive software release.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://studio.sinapsdata.com.br",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "96a1c7a39dd72562062f"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "98a28f62678c5c8b0674",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://en.yna.co.kr/view/AEN20261117003300315",
+      "key_points": [
+        "Former Seoul city councilor Lee Jong-bae filed a complaint with police against Education Minister Choi Kyo-jin accusing him of dereliction of duty over AI-assisted cheating.",
+        "The complaint was submitted after Choi stated during a National Assembly education committee session that catching all forms of AI-assisted cheating would be difficult.",
+        "The complaint comes amid heightened anxiety ahead of South Korea's College Scholastic Ability Test following an AI cheating admission on the national tax accountant exam."
+      ],
+      "same_event_coverage_ids": [
+        "5decccd7795a78cd4b80"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "a994afcd6ae39b31e182",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://pandaily.com/metastone-multimodal-inference-service-adaptive-cache-context-engine",
+      "key_points": [
+        "Theo Pandaily dẫn nguồn QbitAI, METASTONE của Trung Quốc đã ra mắt dịch vụ suy luận đa phương thức kết hợp tăng tốc tạo video, quản lý bộ nhớ đệm và công cụ Context Engine. Nền tảng này hỗ trợ chuyển tài liệu tham khảo thành các hướng dẫn tạo video có cấu trúc.",
+        "METASTONE cho biết dịch vụ nhắm đến quy trình sản xuất thực tế nhằm giảm áp lực bộ nhớ và hỗ trợ các tác vụ chạy đồng thời. Hệ thống tái sử dụng kết quả tính toán từ bộ nhớ đệm khi mức độ rủi ro thấp và hiệu chỉnh lại khi lỗi có nguy cơ tích tụ.",
+        "Trong điều kiện công bố, METASTONE tự báo cáo tốc độ tăng trung bình 2,48 lần so với phương pháp tính toán dày đặc mà vẫn giữ chất lượng. Tuy nhiên, Pandaily lưu ý đây là kết quả tự thử nghiệm của nhà cung cấp chứ chưa được kiểm chứng độc lập trên nhiều phần cứng hay khối lượng công việc khác nhau.",
+        "Pandaily nhận định việc đóng gói nhiều tầng tối ưu vào dịch vụ sản xuất chưa thể chứng minh chất lượng hình ảnh sẽ không đổi ở mọi mức tăng tốc."
+      ],
+      "same_event_coverage_ids": [
+        "5432006c113cc27f321b"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "METASTONE ra mắt dịch vụ suy luận đa phương thức, tự công bố tăng tốc video 2,48 lần",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "pandaily",
+          "url": "https://pandaily.com/metastone-multimodal-inference-service-adaptive-cache-context-engine"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.7,
+        "answers": {
+          "what": 9,
+          "why": 9,
+          "notable": 8,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The 2.48-times figure may read as a newly reported result.",
+            "fix": "State that the figure had appeared in September reporting and that the new development is the broader service and its workflow components (outlet:p005)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "3fbd204bdb4218392fd09baf4a89e6f53eaa04c0af8056ddb716a539cfeabd78",
+        "scored_at": "2026-11-17T03:32:46.635577+00:00"
+      }
+    },
+    {
+      "id": "b15ff586ccb80698d6aa",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://pandaily.com/doubao-work-industry-workbenches-professional-skills-tools-sharing",
+      "key_points": [
+        "Theo Jiemian dẫn lại thông tin từ Doubao Work, ứng dụng này đã ra mắt tính năng bàn làm việc cho 21 kịch bản nghề nghiệp vào ngày 16 tháng 11, tích hợp sẵn các kỹ năng và công cụ chuyên sâu. Tính năng này hiện có mặt trên cả phần mềm Doubao Work và ứng dụng Doubao dành cho máy tính để bàn.",
+        "Doubao cho biết thiết kế này giúp giảm bớt công sức thiết lập nhờ tổ chức trợ lý ảo (agent - phần mềm tự động thực hiện tác vụ) xoay quanh các tác vụ định kỳ thay vì phải ghép nối đơn lẻ. Dẫu vậy, thông báo của công ty không cung cấp bất kỳ đánh giá độc lập nào về mức độ cải thiện năng suất.",
+        "Không gian giáo viên hỗ trợ soạn giáo án và học liệu từ sách giáo khoa, đồng thời có thể chuyển câu hỏi thành các mô hình minh họa tương tác với thông số tùy chỉnh. Bên cạnh các mẫu cài sẵn, Doubao cho biết người dùng còn có thể tự thiết lập, lưu và chia sẻ không gian làm việc cá nhân cho người khác.",
+        "Pandaily nhận định giá trị của tính năng sẽ phụ thuộc vào độ phù hợp công cụ và chất lượng công việc cuối cùng, điều không thể chứng minh chỉ bằng số lượng kịch bản có sẵn."
+      ],
+      "same_event_coverage_ids": [
+        "0b0696569f80d1fd01e0"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Doubao Work ra mắt tính năng bàn làm việc tích hợp sẵn công cụ cho 21 kịch bản nghề nghiệp",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "pandaily",
+          "url": "https://pandaily.com/doubao-work-industry-workbenches-professional-skills-tools-sharing"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.25,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 8,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "4fd96e1fbfb0e8be63c259e11aab3292602841476402a50818972986146d8ee1",
+        "scored_at": "2026-11-17T03:37:29.967270+00:00"
+      }
+    },
+    {
+      "id": "25213c4509c0a512abdd",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://pandaily.com/alibaba-qwenwork-third-party-model-selection-kimi-glm-deepseek",
+      "key_points": [
+        "Theo Leiphone, trợ lý văn phòng QwenWork của Alibaba đã bổ sung các mô hình trí tuệ nhân tạo (AI) bên thứ ba từ Kimi, GLM, DeepSeek, MiniMax và Step bên cạnh dòng Qwen nội bộ. Lựa chọn này mở cho người dùng phiên bản cá nhân lẫn doanh nghiệp tiêu chuẩn.",
+        "Alibaba cho biết việc mở rộng nhằm đáp ứng sự khác biệt về năng lực suy luận, tốc độ và lượng token tiêu thụ của từng công việc. Pandaily lưu ý đây là các tùy chọn bên trong QwenWork chứ không phải sự hợp tác phát hành mô hình chung.",
+        "Alibaba gợi ý Qwen4-Max cho tác vụ suy luận phức tạp, đồng thời đề xuất GLM-5.3 và DeepSeek-V4-Pro khi rà soát kế hoạch hoặc tạo bản trình bày. Đối với việc soạn thảo hay trích xuất thông tin, hãng gợi ý các bản giá rẻ như GLM-5.3-Flash và DeepSeek-V4.1-Flash.",
+        "Pandaily nhận định cập nhật này đa dạng hóa lựa chọn cho doanh nghiệp, nhưng bài công bố không đưa ra bài kiểm tra tiêu chuẩn (benchmark) chung nào để xác định mô hình tối ưu."
+      ],
+      "same_event_coverage_ids": [
+        "8c8cff1083ec212320ff"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "QwenWork của Alibaba bổ sung các mô hình AI bên thứ ba từ Kimi, GLM và DeepSeek",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "pandaily",
+          "url": "https://pandaily.com/alibaba-qwenwork-third-party-model-selection-kimi-glm-deepseek"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.9,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 8,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "Enterprise readers miss a practical part of the update: administrators can restrict which models different people see.",
+            "fix": "Add that access can be configured by department, user group or individual member (outlet:p006)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "1373645b4312fb564e65b1e6b45c56b4d307d0d09fbb66a450e853ca8023f80e",
+        "scored_at": "2026-11-17T03:32:46.635647+00:00"
+      }
+    },
+    {
+      "id": "ec84a98c50b98130ad5e",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/16/2026/medical-students-should-learn-the-hard-way-ai-startup-ceo-says",
+      "key_points": [
+        "OpenEvidence CEO Daniel Nadler stated at Semafor's Silicon Valley & The World conference that cognitive offloading is an acute risk and medical students should do paper exams.",
+        "Nadler advised students to train classically and ensure mastery of the material rather than relying entirely on AI.",
+        "Medical AI startup OpenEvidence reached a $15 billion valuation on its platform that synthesizes complex medical literature for physicians."
+      ],
+      "same_event_coverage_ids": [
+        "19f1a44d53ef3cb393c7"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "bc9272bde3b8d9217c86",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://en.yna.co.kr/view/AEN20261117003200315",
+      "key_points": [
+        "Thủ tướng Hàn Quốc Han Seong-sook tuyên bố sẽ loại bỏ triệt để gian lận bằng trí tuệ nhân tạo (AI) trong kỳ thi đại học CSAT tuần này.",
+        "Nguyên nhân là do lo ngại sau lời thú nhận của thủ khoa kỳ thi kế toán thuế năm nay rằng người này đã gian lận nhờ AI.",
+        "Chính phủ cấm hoàn toàn thiết bị thông minh, kiểm tra kỹ kính mắt, đồng hồ, cổ áo, đồng thời siết mạng Wi-Fi và yêu cầu để túi xách ngoài phòng thi.",
+        "Bà Han nhấn mạnh chính sách không khoan nhượng với mọi gian lận, kiên quyết hủy bài thi, thu hồi tư cách và chuyển cơ quan cảnh sát điều tra nếu phát hiện nghi vấn."
+      ],
+      "same_event_coverage_ids": [
+        "193efda2ad72c089f351"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Hàn Quốc siết chặt kiểm tra để ngăn gian lận bằng AI trong kỳ thi đại học CSAT tuần này",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "yonhap",
+          "url": "https://en.yna.co.kr/view/AEN20261117003200315"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 7.95,
+        "answers": {
+          "what": 8,
+          "why": 10,
+          "notable": 8,
+          "meaning": 5
+        },
+        "hard_errors": [
+          {
+            "kind": "quote",
+            "summary_text": "kiên quyết hủy bài thi, thu hồi tư cách và chuyển cơ quan cảnh sát điều tra nếu phát hiện nghi vấn",
+            "explanation": "Han said suspected cases would be thoroughly investigated and that stern action could include invalidating the exam, revoking eligibility, filing a criminal complaint or requesting a police investigation. She did not say every suspicion would automatically trigger all three measures (outlet:p006)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The reader is told that suspicion alone leads to definite penalties and police referral.",
+            "fix": "Say suspected cases will be investigated and that possible actions include exam invalidation, revoked eligibility, a criminal complaint or a request for police investigation (outlet:p006)."
+          },
+          {
+            "question": "what",
+            "problem": "Two announced parts of the response are absent.",
+            "fix": "Add the interagency emergency response team and additional proctors at test sites (outlet:p001, outlet:p006)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "38e724e8bea068dd90a949c9f20088b80a2267f0f84f8442c7c13cb671d90a1c",
+        "scored_at": "2026-11-17T03:32:46.636278+00:00"
+      }
+    },
+    {
+      "id": "ba59527fde1390462f01",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/anthropic-says-claude-mythos-slashed-software-work-to-onboard-amd-gpus-from-up-to-12-months-to-around-three-days-writing-almost-100-percent-of-kernels-autonomously-chips-away-at-nvidias-cuda-moat",
+      "key_points": [
+        "Anthropic thông báo mô hình Claude Mythos Preview đã hoàn thành việc đưa trí tuệ nhân tạo (AI) chạy trên chip GPU AMD chỉ trong ba ngày mà gần như không cần con người can thiệp. Theo Tom Brown từ Anthropic, khối lượng công việc này trước đây từng mất sáu đến 12 tháng của hàng chục kỹ sư.",
+        "Theo Anthropic, AI tự viết hoặc chuyển mã gần như 100% nhân xử lý (kernel), dù công ty lưu ý mốc ba ngày chỉ áp dụng cho khâu xử lý câu lệnh của một mô hình trên GPU AMD MI355X ở mức hiệu năng hữu ích.",
+        "Dù vậy, CEO Jensen Huang của Nvidia coi Anthropic chỉ là trường hợp cá biệt chứ không phải xu hướng, còn SemiAnalysis lưu ý rằng AI lập trình vẫn luôn cần phần cứng GPU thực tế để kiểm thử.",
+        "Tom's Hardware nhận định rào cản đưa mô hình lên chip mới đang giảm và làm thu hẹp con hào CUDA của Nvidia, song con hào này chưa biến mất vì các dòng chip chưa thể thay thế hoàn toàn cho nhau."
+      ],
+      "same_event_coverage_ids": [
+        "d7443e1c82bc973b89c5"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Claude Mythos giúp rút ngắn thời gian đưa AI lên chip AMD xuống ba ngày nhưng chưa xóa bỏ con hào CUDA",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/anthropic-says-claude-mythos-slashed-software-work-to-onboard-amd-gpus-from-up-to-12-months-to-around-three-days-writing-almost-100-percent-of-kernels-autonomously-chips-away-at-nvidias-cuda-moat"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.65,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "8213c107a5fbe1d1d58e067159f952f35d88a74f0a6225df392dc7b9c4f68815",
+        "scored_at": "2026-11-17T03:32:46.636322+00:00"
+      }
+    },
+    {
+      "id": "351085f08cbb5e8ef9aa",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/16/2026/openai-cfo-says-latest-funding-round-was-unplanned-prompted-by-news-report",
+      "key_points": [
+        "OpenAI CFO Sarah Friar stated the company was closing out a funding round at a $1.25 trillion valuation following a $122 billion fundraise in March.",
+        "Friar stated the latest fundraise was unplanned and opportunistic, triggered by inbound investor interest after an erroneous publication report.",
+        "OpenAI's advertising model achieved more than $1 billion in revenue in under 200 days, setting a company record.",
+        "Friar stated that Anthropic's planned IPO is good for the AI ecosystem and good for OpenAI."
+      ],
+      "same_event_coverage_ids": [
+        "9387fe7bee3b082bf7c2"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "e0412a8d364b0f8c0fb2",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The report focuses on Bloom Energy's fuel cell business, stock performance, and power grid constraints; artificial intelligence is only referenced incidentally as a background driver of energy demand.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.semafor.com/article/11/16/2026/bloom-energy-sees-nothing-but-a-huge-opportunity",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c826bf4e17cd2f2a3b6f"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "2e879494c34bf4ebb744",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://en.yna.co.kr/view/AEN20261117002200320",
+      "key_points": [
+        "Công ty khởi nghiệp AI Upstage của Hàn Quốc cho biết đã hợp tác với Cohere của Canada trong mảng giải pháp AI có chủ quyền.",
+        "Theo thỏa thuận, Upstage tích hợp mô hình Solar Pro, Solar Mini và nền tảng Document Parse vào nền tảng tác tử AI (hệ thống tự hành thực hiện tác vụ) North của Cohere.",
+        "Giải pháp kết hợp được triển khai qua hệ thống cài đặt cục bộ và đám mây riêng ảo (VPC), dành cho các đơn vị có yêu cầu bảo mật dữ liệu và pháp lý nghiêm ngặt.",
+        "Theo hai công ty, mối quan hệ đối tác dự kiến mở rộng ra khu vực châu Á - Thái Bình Dương, tập trung vào các giải pháp cho phép tổ chức duy trì quyền kiểm soát dữ liệu."
+      ],
+      "same_event_coverage_ids": [
+        "e8a729d01dba3c4d1ed4"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Upstage hợp tác với Cohere để phát triển các giải pháp AI có chủ quyền cho doanh nghiệp",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "yonhap",
+          "url": "https://en.yna.co.kr/view/AEN20261117002200320"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.65,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "280863cc4a5a3793628bc630cc9f0c6d1dca62546763f8faa4dabdb4118c8ea7",
+        "scored_at": "2026-11-17T03:32:46.636348+00:00"
+      }
+    },
+    {
+      "id": "284ae1eeb930c9f4ca9d",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/16/2026/ai-leaders-helping-drive-unnaturally-negative-narrative-palo-alto-networks-ceo-says",
+      "key_points": [
+        "Tại sự kiện của Semafor, Tổng Giám đốc Nikesh Arora của Palo Alto Networks cho rằng lãnh đạo các hãng AI hàng đầu đang thúc đẩy góc nhìn tiêu cực bất thường về công nghệ.",
+        "Trả lời phỏng vấn MIT Technology Review, ông Arora lập luận việc quá tập trung vào rủi ro đang che lấp các lợi ích tiềm năng mà công nghệ AI mang lại.",
+        "Phản bác lo ngại về rào cản xây trung tâm dữ liệu, ông Arora cho rằng sự khan hiếm năng lực tính toán sẽ thúc đẩy doanh nghiệp sáng tạo công nghệ nén hiệu quả hơn.",
+        "Dẫu vậy, ông Arora thừa nhận năng lực AI tăng cũng làm tăng rủi ro an ninh mạng do dễ phát hiện lỗ hổng phần mềm, cảnh báo nguy cơ hệ thống bị buộc ngắt kết nối để vá lỗi."
+      ],
+      "same_event_coverage_ids": [
+        "b4485a097ea5dd5dea66"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "CEO Palo Alto Networks: Lãnh đạo các hãng AI đang thúc đẩy góc nhìn tiêu cực bất thường",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/16/2026/ai-leaders-helping-drive-unnaturally-negative-narrative-palo-alto-networks-ceo-says"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.1,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 8,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The reader misses Arora’s stated conclusion that cybersecurity risks have no quick solution.",
+            "fix": "Add his qualification that companies will have to work through these risks over time (outlet:p012)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "b5ddc56a78aa15e9da3801f5316e5dccc22465afe1a0651373d5274ce6169546",
+        "scored_at": "2026-11-17T03:32:46.636378+00:00"
+      }
+    },
+    {
+      "id": "70166ae57b6ace3d8692",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "survey",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://ourworldindata.org/no-matter-how-you-ask-more-americans-are-negative-than-positive-about-ai",
+      "key_points": [
+        "Theo tác giả Max Roser trên trang Our World in Data, các cuộc khảo sát được chọn lọc cho thấy số người Mỹ có cái nhìn tiêu cực về trí tuệ nhân tạo (AI) luôn nhiều hơn số người có quan điểm tích cực.",
+        "Tác giả tổng hợp dữ liệu từ các khảo sát chọn mẫu xác suất đại diện gồm Pew, Gallup, Quinnipiac, Đại học Pennsylvania cùng Ipsos, đồng thời loại trừ các cuộc thăm dò trực tuyến tự nguyện.",
+        "Dù vậy, khi được hỏi về tác động đối với cá nhân trong khảo sát của Ipsos, 50% người tham gia coi AI là điều tốt cho bản thân so với 49% đánh giá là điều xấu.",
+        "Tác giả Max Roser nhận định mối bận tâm của công chúng là rất lớn, và ngành công nghiệp AI phải xem xét nghiêm túc các lo ngại này nếu muốn giành được niềm tin của người dân."
+      ],
+      "same_event_coverage_ids": [
+        "23f139f44526abf46b82"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Các khảo sát tại Mỹ cho thấy số người có cái nhìn tiêu cực về AI nhiều hơn tích cực",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://ourworldindata.org/no-matter-how-you-ask-more-americans-are-negative-than-positive-about-ai"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.1,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 7,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The article gives the exceptional close result but no figure showing the main pattern’s size.",
+            "fix": "Add Pew’s 52% more concerned versus 9% more excited, with the question’s wording preserved (outlet:p006)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "028b59a7053ea0b1abdfb6bae4a45ecbefb1a96442ab6ef09e586d9989aa2bfe",
+        "scored_at": "2026-11-17T03:37:29.967320+00:00"
+      }
+    },
+    {
+      "id": "6728e97750a58875b293",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://cloudnativenow.com/features/kubernetes-is-strengthening-its-position-as-the-ai-platform-of-choice/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "a2cf091ed5c1d036c37e"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "a06076806a0e698d5e36",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://github.blog/changelog/2026-11-16-control-where-github-copilot-customizations-come-from",
+      "key_points": [
+        "Quản trị viên doanh nghiệp có thể bắt buộc tùy biến Copilot đến từ plugin hoặc cài đặt quản lý thay vì cấu hình riêng lẻ. Quy định áp dụng trên GitHub Enterprise Cloud cho gói Copilot Business hoặc Copilot Enterprise.",
+        "Cài đặt strictPluginOnlyCustomization chặn các tùy biến độc lập từ người dùng và dự án. Các plugin hợp lệ và cài đặt quản lý vẫn hoạt động theo chính sách tổ chức.",
+        "Doanh nghiệp có thể áp dụng giới hạn cho cả năm danh mục hoặc riêng lẻ từng loại gồm kỹ năng, tác nhân (agent - chương trình AI tự hành), hook, máy chủ MCP và tiện ích mở rộng.",
+        "Theo GitHub, thiết lập này giúp phân phối công cụ MCP và canvas đã duyệt mà không cần tắt hoàn toàn tính năng. Dù vậy, chế độ chỉ dùng plugin không chỉ giới hạn ở plugin doanh nghiệp và không thay thế danh sách cho phép của chợ tiện ích."
+      ],
+      "same_event_coverage_ids": [
+        "a7e39440ba398c361316"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "GitHub cho phép quản trị viên doanh nghiệp chặn tùy biến Copilot riêng lẻ, chỉ nhận từ plugin",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "github",
+          "url": "https://github.blog/changelog/2026-11-16-control-where-github-copilot-customizations-come-from"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.05,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 8,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "Readers may take “tiện ích mở rộng” to include VS Code Marketplace extensions.",
+            "fix": "Specify executable Copilot extensions, including canvas providers, and exclude VS Code Marketplace extensions (outlet:p005)."
+          },
+          {
+            "question": "what",
+            "problem": "The eligibility description omits who must have the Copilot licenses.",
+            "fix": "Specify members whose Copilot Business or Copilot Enterprise licenses were issued by the enterprise or one of its organizations (outlet:p008)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "2febad73f29ebe993bc347bd78e7f99230b7bf9a76a7f01f9ee09989273d7fa2",
+        "scored_at": "2026-11-17T03:32:46.636569+00:00"
+      }
+    },
+    {
+      "id": "c04e20070f0fc9a3b030",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://github.blog/changelog/2026-11-16-vs-code-retires-the-local-harness-in-february-2027",
+      "key_points": [
+        "Visual Studio Code 1.146 đánh dấu ngừng hỗ trợ Local harness điều phối các phiên đặc vụ (agent - chương trình AI tự hành) Copilot và sẽ gỡ bỏ vào tháng 2 năm 2027. Trong giai đoạn ba tháng chuyển tiếp, Local harness vẫn khả dụng tại các tổ chức cho phép.",
+        "Phần mềm thay thế là Microsoft Copilot harness được tích hợp trong VS Code và đã là mặc định từ bản 1.143. Bộ điều phối mới chia sẻ môi trường thực thi đặc vụ với Copilot CLI và ứng dụng GitHub Copilot.",
+        "Với Copilot harness, quản trị viên có thể thực thi quyền vận hành được quản lý và giới hạn vùng cách ly (sandbox) mà Local harness không thể áp dụng. Theo GitHub, việc chọn Copilot harness không chuyển các tệp của người dùng lên đám mây, nhưng cũng không tự động kích hoạt vùng cách ly.",
+        "Theo GitHub, cài đặt ngoại lệ tạm thời cho doanh nghiệp sẽ bị xóa cùng Local harness, nên việc giữ cấu hình không duy trì được phần mềm cũ. Người dùng cần chuyển sang Copilot dưới mục Session Target và kiểm tra tính tương thích của các tùy biến trước tháng 2 năm 2027."
+      ],
+      "same_event_coverage_ids": [
+        "2defd4d5604f3546f732"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "VS Code 1.146 ngừng hỗ trợ Local harness và sẽ gỡ bỏ hoàn toàn vào tháng 2 năm 2027",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "github",
+          "url": "https://github.blog/changelog/2026-11-16-vs-code-retires-the-local-harness-in-february-2027"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.45,
+        "answers": {
+          "what": 6,
+          "why": 10,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "ngừng hỗ trợ Local harness",
+            "explanation": "The headline and opening paragraph say support has ended. The source says VS Code 1.146 deprecates Local harness and that it remains available during the transition where policy permits (outlet:p002, outlet:p004)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The reader may believe Local harness is already unsupported.",
+            "fix": "Use wording equivalent to “deprecates” in the headline and opening sentence, while retaining its February 2027 removal date and transition availability (outlet:p002–p004)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "b21bc6cf1f4526e46121ac97dc244573194aaeea3383393c3d30bc9db63c955f",
+        "scored_at": "2026-11-17T03:37:29.967392+00:00"
+      }
+    },
+    {
+      "id": "d16304036294cd614878",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://en.yna.co.kr/view/AEN20261116002151315",
+      "key_points": [
+        "Theo Yonhap, Thủ tướng Hàn Quốc Han Seong-sook cam kết dồn toàn bộ năng lực quốc gia để ngăn gian lận bằng trí tuệ nhân tạo (AI) trong kỳ thi đại học tuần này.",
+        "Yonhap cho biết động thái này diễn ra sau khi thủ khoa kỳ thi kế toán thuế thú nhận gian lận bằng AI. Lời thú tội dấy lên lo ngại gian lận bằng AI có thể đã lan rộng và có nguy cơ tái diễn ở kỳ thi đại học chỉ còn cách ba ngày.",
+        "Cụ thể, nam thí sinh thừa nhận dùng camera siêu nhỏ, điện thoại thông minh và AI tạo sinh qua hai vòng thi kế toán thuế. Lời thú tội xác nhận các nghi ngờ rằng điểm số cao bất thường là bất khả thi nếu không có AI, đồng thời thí sinh khai nhận đã dùng cách tương tự ở kỳ thi kế toán công chứng.",
+        "Nhận định quản lý truyền thống có giới hạn trước gian lận mới, bà yêu cầu nghiên cứu biện pháp kỹ thuật và triển khai công nghệ phát hiện tiên tiến ứng dụng AI."
+      ],
+      "same_event_coverage_ids": [
+        "7bbcad3be4331e0ddb13",
+        "a3e8a4ecbc3526c66dbe"
+      ],
+      "split_coverage_ids": [],
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Hàn Quốc lập đội khẩn cấp ngăn gian lận AI thi đại học sau khi thủ khoa thuế thú tội",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "yonhap",
+          "url": "https://en.yna.co.kr/view/AEN20261116002151315"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 7.8,
+        "answers": {
+          "what": 6,
+          "why": 9,
+          "notable": 10,
+          "meaning": 6
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "lập đội khẩn cấp",
+            "explanation": "Han said the government would establish an interagency emergency response team; the source does not say it had already been established (outlet:p007)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "có nguy cơ tái diễn ở kỳ thi đại học",
+            "explanation": "The source expresses concern that the method could be used in this year's college entrance exam. It does not report an earlier occurrence in that exam that could recur (outlet:p004)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "bà yêu cầu nghiên cứu biện pháp kỹ thuật và triển khai công nghệ phát hiện tiên tiến ứng dụng AI",
+            "explanation": "Han instructed officials to look for technical measures, including the development and deployment of advanced detection technologies. The source does not say she issued a firm instruction to deploy AI-based detection technology (outlet:p011)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The headline presents the emergency team as already established.",
+            "fix": "Say Han announced that the government would establish the team (outlet:p007)."
+          },
+          {
+            "question": "why",
+            "problem": "“Tái diễn” suggests AI cheating had already occurred in the college entrance exam.",
+            "fix": "Say officials feared the method could be used in the upcoming exam (outlet:p004)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The final paragraph turns exploration of detection measures into a firm deployment instruction.",
+            "fix": "Say Han asked officials to examine technical measures, including developing and deploying advanced detection technology (outlet:p011)."
+          },
+          {
+            "question": "meaning",
+            "problem": "Readers miss the planned checks after the exam and the wider response.",
+            "fix": "Add the proposed investigation of abnormal results using objective data and preventive measures for other state-administered exams (outlet:p008–p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "3bb25290e945f4105206650f3f5cdd502b1533ccde2e60f8577db1f975f7bd1a",
+        "scored_at": "2026-11-17T03:37:29.967444+00:00"
+      }
     }
   ]
 }
