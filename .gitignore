@@ -11,3 +11,6 @@ shadow-summary.md
 !/site/tin/_sample/**
 # Covers drawn by radar/covers.py in the workflow; kept in the Actions cache, never committed
 /site/assets/cover/
+# Third-party voice reference clips and their transcripts stay local; only profile.toml is committed
+/voice_profiles/**/reference.wav
+/voice_profiles/**/reference.txt
