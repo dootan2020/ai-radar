@@ -21,6 +21,37 @@ JUNK_KINDS = {
 }
 DECISIONS = ("hold", "publish")
 ROUNDS = ("intake", "reporter", "editor", "checker", "chief")
+# Labels the editor adds for the short-video desk on its existing call (owner, 2026-11-18: no new model call).
+# They are optional: a reply without them, or with a malformed one, keeps every other field and simply carries
+# video_labels=None, so the video picker falls back to its keyword rules for that story.
+VIDEO_HOOKS = ("drama_person", "drama_company", "usable_now", "money_jobs", "launch", "other")
+VIDEO_LABEL_FIELDS = ("video_hook", "named_people", "availability", "is_leak")
+_REGION_LOCKED = re.compile(r"^region_locked:\S.{0,79}$", re.S)
+
+
+def video_labels(row: dict[str, Any] | None) -> dict[str, Any] | None:
+    """The editor's video labels from a model reply, or None when any label is missing or malformed."""
+    if not isinstance(row, dict):
+        return None
+    hook, people, availability, leak = (row.get(name) for name in VIDEO_LABEL_FIELDS)
+    if hook not in VIDEO_HOOKS or type(leak) is not bool:
+        return None
+    if not isinstance(people, list) or len(people) > 12 or not all(
+            isinstance(p, str) and 0 < len(p.strip()) <= 80 for p in people):
+        return None
+    if not isinstance(availability, str) or not (
+            availability in ("global", "unknown") or _REGION_LOCKED.match(availability.strip())):
+        return None
+    names = []
+    for person in people:
+        if person.strip().casefold() not in {n.casefold() for n in names}:
+            names.append(person.strip())
+    return {"video_hook": hook, "named_people": names, "availability": availability.strip(), "is_leak": leak}
+
+
+def validate_video_labels(value: Any) -> bool:
+    """A stored video_labels value: None, or exactly what video_labels() returns."""
+    return value is None or (isinstance(value, dict) and video_labels(value) == value)
 
 PROMPT_INJECTION_PATTERNS = (
     re.compile(r"\bsystem\s+override\b", re.I),
@@ -105,12 +136,15 @@ DESK_CONTRACTS = {
             "reason", "subject", "event_type", "importance", "event_at",
             "claims", "same_event_coverage_ids",
         ],
+        "optional_model_reply_fields": list(VIDEO_LABEL_FIELDS),
         "output_fields": [
             "id", "news", "content_kind", "analysis_kind", "reason",
             "invalid_response", "junk_kind", "subject", "event_type",
             "importance", "event_at", "claims", "same_event_coverage_ids",
             "split_coverage_ids", "provider", "boat",
         ],
+        # video_labels: {video_hook, named_people, availability, is_leak} or None (see video_labels()).
+        "optional_output_fields": ["video_labels"],
         "rejectable_reply_conditions": [
             "model_failure reported",
             "news is not a boolean",
@@ -233,6 +267,8 @@ DESK_CONTRACTS = {
         "optional_output_fields": [
             "written_by", "editorial_headline_vi", "summary_sources", "summary_limitations",
             "key_points_prompt_version", "score",
+            # Carried from the editor for the short-video picker (radar.video_script.video_candidates).
+            "subject", "video_labels",
         ],
         "hold_conditions": [
             "intake rejected (fail-closed)",
@@ -352,7 +388,7 @@ def validate_editor_output(row: dict[str, Any]) -> bool:
         return False
     if type(row["news"]) is not bool or type(row["invalid_response"]) is not bool:
         return False
-    return True
+    return validate_video_labels(row.get("video_labels"))
 
 
 def validate_checker_reply(row: dict[str, Any] | None, editor_boat: str | None = None) -> bool:
@@ -436,6 +472,10 @@ def validate_chief_output(row: dict[str, Any]) -> bool:
     if type(row["tier_capped"]) is not bool or type(row["use_original_title"]) is not bool:
         return False
     if not isinstance(row["degradation_reasons"], list) or not isinstance(row["key_points"], list):
+        return False
+    if not validate_video_labels(row.get("video_labels")):
+        return False
+    if row.get("subject") is not None and not isinstance(row["subject"], str):
         return False
     written_by = row.get("written_by")
     if written_by is not None:

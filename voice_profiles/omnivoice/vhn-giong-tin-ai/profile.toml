@@ -1,0 +1,16 @@
+# reference.wav and reference.txt are third-party and never committed: they live only in the owner's local ai-radar checkout, in this same folder (checked by reference_sha256).
+schema_version = 1
+id = "vhn-giong-tin-ai"
+name = "vhn-giong-tin-ai"
+engine = "omnivoice"
+model = "k2-fsa/OmniVoice"
+language = "vi"
+reference_audio = "reference.wav"
+reference_text = "reference.txt"
+reference_sha256 = "968a380473e5b5370b143824b155df8ad5579e9b2b50955cdb81634d13cc9052"
+num_step = 16
+speed = 1.0
+created_at = "2026-11-17T17:27:41.905475+00:00"
+authorization_confirmed = true
+authorization_note = "Owner 2026-11-18 00:21: common stock AI voice used by many channels, free to use"
+source_url = "owner-supplied TikTok audio (Vietnam Health News), local file only"

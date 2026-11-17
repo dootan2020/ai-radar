@@ -378,6 +378,37 @@ class NewsroomTests(unittest.TestCase):
         self.assertEqual(len(calls), 2)
         self.assertEqual(len(calls[1]), 3)
 
+    def test_editor_carries_video_labels_and_chief_passes_them_to_published_rows(self):
+        stories = fixture("snapshot.json")["stories"][:3]
+        ids = [story["id"] for story in stories]
+        base = {"news": True, "junk_kind": None, "reason": "News event", "subject": "Nvidia CEO",
+                "event_type": "resignation", "importance": "standard", "event_at": None, "claims": [],
+                "same_event_coverage_ids": []}
+        replies = {
+            ids[0]: {**base, "id": ids[0], "video_hook": "drama_person", "named_people": ["Jensen Huang"],
+                     "availability": "global", "is_leak": False},
+            ids[1]: {**base, "id": ids[1], "video_hook": "viral", "named_people": [], "availability": "global",
+                     "is_leak": False},
+            ids[2]: {**base, "id": ids[2]},
+        }
+        intake = {sid: {"pass": True} for sid in ids}
+        reporter = {sid: {"selected_url": None, "representative_status": "unavailable", "source_text": "",
+                          "readable": True, "reason": "pass"} for sid in ids}
+        editor, _ = _editor(stories, intake, reporter, self.tools, self.discovery, FixtureRunner({"editor": replies}))
+        self.assertEqual(editor[ids[0]]["video_labels"], {"video_hook": "drama_person", "named_people": ["Jensen Huang"],
+                                                          "availability": "global", "is_leak": False})
+        # A malformed or missing label never costs the story its news verdict.
+        self.assertEqual((editor[ids[1]]["news"], editor[ids[1]]["video_labels"]), (True, None))
+        self.assertEqual((editor[ids[2]]["news"], editor[ids[2]]["video_labels"]), (True, None))
+        self.assertIn("video_hook exactly one of drama_person", EDITOR_PROMPT)
+        now = datetime(2026, 11, 18, tzinfo=timezone.utc)
+        checker = {sid: {"verified": True, "title_supported": True, "reason": "pass"} for sid in ids}
+        intake[ids[2]] = {"pass": False, "reason": "held at intake"}
+        rows = {row["id"]: row for row in _chief(stories, intake, reporter, editor, checker, now)}
+        self.assertEqual((rows[ids[0]]["subject"], rows[ids[0]]["video_labels"]["video_hook"]),
+                         ("Nvidia CEO", "drama_person"))
+        self.assertNotIn("video_labels", rows[ids[2]])     # a held story carries nothing for the video desk
+
     def test_editor_preserves_unknown_junk_and_zero_claim_news(self):
         stories = fixture("snapshot.json")["stories"][:3]
         stories.append({**stories[0], "id": "no-verdict"})

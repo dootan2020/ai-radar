@@ -21,6 +21,7 @@ import unicodedata
 from radar.common import iso_date
 from radar.items import instant
 from radar.pipeline import write_atomic
+from radar.site_config import SITE_BASE_URL
 from radar import summary_budget
 from radar import gemini_paid_budget
 from radar import summary_gemini as gemini
@@ -260,6 +261,534 @@ def choose_picks(stories: list[dict],
                 out.append(s)
 
     return out[:3]
+
+
+# ---------- Video candidates: the 0-3 stories a day most worth a short video ----------
+#
+# The rubric is the research proposal the owner approved on 2026-11-18 01:04 ("Duyệt cả 3"), with his three
+# decisions: (1) drama about a person is allowed only on verified facts carried by at least 3 independent
+# sources; (2) the video labels ride on the existing editor call, never a new model call; (3) a day with no
+# "Tin nóng" story at or above the threshold gets none, the "Dùng được ngay" lane fills it, and when that is
+# empty too the day has no video. Weights are a first proposal, to be recalibrated against Halcyon's own
+# 48-hour view counts after the first 10-15 videos. Pure code: no model call, no network.
+
+CANDIDATES_VERSION = "video-diem-1"
+CANDIDATE_THRESHOLD = 60
+MAJOR_THRESHOLD = 70          # a follow-up in a recent chain must reach this and be a new major development
+CHAIN_DAYS = 3                # one video per story chain per 3 days
+FRESH_HOURS = 48              # a story is a candidate for 48 hours after publication
+MIN_PERSON_DRAMA_SOURCES = 3  # owner decision 1
+MIN_RUMOUR_SOURCES = 3        # a leak or unconfirmed report needs this many independent publishers
+MIN_REPO_WEEK_STARS = 3000    # below this a trending repo is too often a clone or spam
+MAX_PER_DAY = 3
+MAX_HOT_PER_DAY = 1
+MAX_USABLE_PER_DAY = 2
+MIN_HOT_SOURCES = 2           # spec §1: "Tin nóng" needs at least 2 independent publishers
+HISTORY_DAYS = 14             # earlier days kept in the published file; only CHAIN_DAYS of them block
+LANE_HOT = "tin-nong"
+LANE_USABLE = "dung-duoc-ngay"
+LANE_NAMES = {LANE_HOT: "Tin nóng", LANE_USABLE: "Dùng được ngay"}
+VIDEO_HOOKS = ("drama_person", "drama_company", "usable_now", "money_jobs", "launch", "other")
+HOOK_POINTS = {"drama_person": 40, "usable_now": 35, "drama_company": 30, "money_jobs": 25, "launch": 10, "other": 5}
+HOOK_NAMES = {"drama_person": "drama có tên người thật", "drama_company": "drama công ty",
+              "usable_now": "miễn phí, dùng được ngay", "money_jobs": "tiền và việc làm",
+              "launch": "ra mắt model/sản phẩm", "other": "loại khác"}
+
+# Keyword fallback for stories the editor has not labelled yet (decided before the labels existed).
+_PERSON = re.compile(r"\b(Huang|Altman|Musk|Zuckerberg|Pichai|Nadella|Amodei|Hassabis|Kress|Bezos|Cook|Sutskever|"
+                     r"Karpathy|Murati|LeCun|Suleyman|Brockman|Trump)\b", re.I)
+_DRAMA_PERSON = re.compile(r"\b(resign\w*|step(?:s|ped)? down|ousted|fired|scandal|affair|testif\w*|arrest\w*|"
+                           r"indict\w*|quits?|feud|accus\w*|blasts?|slams?|reinstat\w*)\b|"
+                           r"từ chức|bê bối|sa thải CEO|bị cách chức|ngoại tình|điều trần|cáo buộc|chỉ trích|"
+                           r"phục chức", re.I)
+# An investigation is drama only when it names a person ("Nvidia investigates CEO Jensen Huang"), not in
+# "Blueprint coordinates AI agents to investigate production issues".
+_PERSON_PROBE = re.compile(r"\b(investigat\w*|probe[sd]?)\b|điều tra", re.I)
+# Companies whose scandals readers follow; two drama stories naming one of them are one chain.
+_ORG = re.compile(r"\b(Nvidia|OpenAI|Google|Apple|Meta|Microsoft|Amazon|Anthropic|xAI|Tesla|Samsung|TikTok|"
+                  r"ByteDance|Huawei|DeepSeek|Alibaba|Baidu|Intel|AMD|TSMC|Perplexity|Mistral)\b", re.I)
+# Every published story also carries a Vietnamese headline, so the English words must not match Vietnamese ones:
+# "ban hành" (issue), "ban đầu" (initial), "sự kiện" (event), "kiện toàn" (consolidate), and "fine-tuning".
+_DRAMA_COMPANY = re.compile(r"\b(lawsuit|sues?|sued|suing|court|judge|probe|investigation|breach|hack\w*|antitrust|"
+                            r"settle\w*|outage|copyright)\b|\bban(?:s|ned)?\b(?! (?:hành|đầu|giám|chỉ|lãnh|ngày|đêm|"
+                            r"tổ|biên|nhạc|bè))|\bfine[sd]?\b(?!-)|khởi kiện|đâm đơn kiện|bị kiện|kiện tụng|"
+                            r"(?<!điều )(?<!sự )(?-i:kiện (?=[A-ZĐ]))|tòa án|cấm|bị điều tra|mở (?:cuộc )?điều tra|"
+                            r"tấn công mạng|phạt|sập", re.I)
+# "Free" must be said outright: "available" and "rolls out" also describe paid model launches (back-test: a
+# Gemini model launch was scored as usable now).
+_FREE = re.compile(r"\b(free|open[- ]source|open[- ]weights?|no cost)\b|miễn phí|mã nguồn mở", re.I)
+_MODEL_LAUNCH = re.compile(r"\b(model|GPT-?\d|Gemini \d|Claude|Llama|Qwen|DeepSeek|Grok \d|benchmark|"
+                           r"release[sd]?|launch\w*|unveil\w*|announc\w*|introduc\w*)\b|ra mắt|công bố|mô hình", re.I)
+_POPULAR_TOOL = re.compile(r"\b(ChatGPT|Gemini|Claude|Copilot|CapCut|Canva|Photoshop|Siri|iPhone|Android|Chrome|"
+                           r"YouTube|TikTok|Facebook|Instagram|WhatsApp|Zalo|Grok|Midjourney|Sora|Veo|NotebookLM|"
+                           r"Granola|Notion|Excel|Word|PowerPoint)\b", re.I)
+_REPLACEABLE_TOOL = re.compile(r"\b(CapCut|ChatGPT Plus|Canva|Photoshop|Premiere|Midjourney|Notion|Granola|"
+                               r"Grammarly|Otter|Descript)\b", re.I)
+_MONEY_JOBS = re.compile(r"\b(layoffs?|lay off|job cuts?|jobs?|salar\w*|hiring|workers?|employees?|"
+                         r"price (?:cut|hike)|cheaper|subscription)\b|sa thải|việc làm|lương|giảm giá|tăng giá", re.I)
+_VIETNAM = re.compile(r"Viet ?nam|Việt Nam|tiếng Việt|\bVN\b|Viettel|FPT|VinAI|Vingroup|VinFast|Zalo|MoMo|\bVNG\b|"
+                      r"Hà Nội|TP\.? ?HCM|Sài Gòn", re.I)
+_VN_BRAND = re.compile(r"\b(ChatGPT|OpenAI|Gemini|Google|Apple|iPhone|Siri|Samsung|TikTok|Meta|Facebook|Nvidia|"
+                       r"Microsoft|Tesla|Elon Musk|Jensen Huang|Sam Altman)\b", re.I)
+# Rumour and leak words (back-test: a leaker's rumour passed because "leaker" was not in the list).
+_RUMOUR = re.compile(r"\b(reportedly|rumou?r\w*|leak(?:er|ers|ed|s)?|tipster|insiders?|sources say|"
+                     r"people familiar|according to (?:a )?(?:report|sources)|in talks|considering|alleged\w*)\b|"
+                     r"tin đồn|được cho là|rò rỉ|theo nguồn tin|đang đàm phán|cân nhắc", re.I)
+_SENSITIVE = re.compile(r"\b(suicide|self-harm|child|children|minors?|killed|death|dies|died|war|military|weapons?|"
+                        r"missiles?|South China Sea|elections?)\b|tự tử|tự hại|trẻ em|tử vong|chiến tranh|"
+                        r"quân sự|vũ khí|Biển Đông|bầu cử", re.I)
+_REGION_ONLY = re.compile(r"\b(in the US|U\.S\.-only|US-only|only in|in America|in China|in Japan|in Korea|"
+                          r"in the UK|in Europe|in India)\b|chỉ có ở|chỉ tại|tại Mỹ|ở Mỹ|tại Trung Quốc|tại Nhật|"
+                          r"tại Hàn|tại Anh|tại châu Âu|tại Ấn Độ", re.I)
+# A new major development in a chain: the kind of turn, so a second story of the same turn is not "new".
+_MAJOR_TURNS = (
+    ("resignation", re.compile(r"\b(resign\w*|step(?:s|ped)? down|ousted|fired)\b|từ chức|bị cách chức|sa thải CEO", re.I)),
+    ("return", re.compile(r"\b(reinstat\w*|returns?|comeback|rehired)\b|phục chức|quay lại|trở lại", re.I)),
+    ("verdict", re.compile(r"\b(verdict|ruling|rules|convicted|cleared|charged|indicted|settles?|findings?|"
+                           r"concludes?)\b|kết luận|phán quyết|bị truy tố|dàn xếp", re.I)),
+    ("arrest", re.compile(r"\b(arrest\w*)\b|bị bắt", re.I)),
+)
+_VIDEO_URL = re.compile(r"https?://(?:www\.|m\.)?(?:youtube\.com|youtu\.be|vimeo\.com)/", re.I)
+_REPO_URL = re.compile(r"https?://(?:www\.)?github\.com/[\w.-]+/[\w.-]+", re.I)
+
+
+def _str(value) -> str:
+    return value if isinstance(value, str) else ""
+
+
+def _story_title(story: dict, row: dict | None) -> str:
+    row = row or {}
+    return " ".join(filter(None, [_str(story.get("title")), _str(story.get("title_vi")),
+                                  _str(row.get("editorial_headline_vi")) or _str(story.get("editorial_headline_vi"))]))
+
+
+def editor_video_labels(row: dict | None) -> dict | None:
+    """The editor's video labels on a decision row, or None for older rows (and malformed ones)."""
+    labels = (row or {}).get("video_labels")
+    if not isinstance(labels, dict) or labels.get("video_hook") not in VIDEO_HOOKS:
+        return None
+    if type(labels.get("is_leak")) is not bool or not isinstance(labels.get("availability"), str):
+        return None
+    people = labels.get("named_people")
+    if not isinstance(people, list) or not all(isinstance(p, str) for p in people):
+        return None
+    return labels
+
+
+def _person_name(name: str) -> str:
+    """A name casefolded without accents: the editor's full name, or a surname from the keyword list."""
+    norm = unicodedata.normalize("NFKD", name.strip().casefold())
+    return " ".join("".join(c for c in norm if not unicodedata.combining(c)).split())
+
+
+def _people(story: dict, row: dict | None, labels: dict | None) -> set[str]:
+    names = list(labels["named_people"]) if labels else [m.group(0) for m in _PERSON.finditer(_story_title(story, row))]
+    return {key for key in (_person_name(n) for n in names) if key}
+
+
+def _same_person(a: str, b: str) -> bool:
+    """Full names must match exactly ("Nguyen Van Minh" is not "Tran Minh"); a keyword surname matches a full name
+    ending with it ("huang" and "jensen huang")."""
+    if a == b:
+        return True
+    short, full = sorted((a, b), key=lambda name: len(name.split()))
+    return len(short.split()) == 1 and len(full.split()) > 1 and full.split()[-1] == short
+
+
+def _keyword_hook(title: str) -> str:
+    if _PERSON.search(title) and (_DRAMA_PERSON.search(title) or _PERSON_PROBE.search(title)):
+        return "drama_person"
+    if _DRAMA_COMPANY.search(title) or _DRAMA_PERSON.search(title):
+        return "drama_company"
+    if _FREE.search(title):
+        return "usable_now"
+    if _MONEY_JOBS.search(title):
+        return "money_jobs"
+    if _MODEL_LAUNCH.search(title):
+        return "launch"
+    return "other"
+
+
+def _region_locked(availability: str) -> bool:
+    return availability.startswith("region_locked:") and not _VIETNAM.search(availability)
+
+
+def _story_visual(story: dict) -> tuple[int, str, list[str]]:
+    """(points, why, links) for the strongest real visual: a video, a repo page, or a real photo. AI art is none."""
+    covs = [c for c in story.get("coverage") or [] if isinstance(c, dict)]
+    urls = [u for u in [_str(story.get("url"))] + [_str(c.get("url")) for c in covs] if u]
+    videos = [u for u in urls if _VIDEO_URL.match(u)]
+    videos += [_str(m.get("url")) for c in covs for m in c.get("media") or []
+               if isinstance(m, dict) and m.get("type") == "video" and _str(m.get("url")).startswith("https://")]
+    if videos:
+        return 20, "có video demo", list(dict.fromkeys(videos))
+    repos = [u for u in urls if _REPO_URL.match(u)]
+    if repos:
+        return 12, "trang repo có README minh hoạ", list(dict.fromkeys(repos))
+    img = story.get("image") if isinstance(story.get("image"), dict) else {}
+    src = _str(img.get("src"))
+    if (src.startswith("https://") and img.get("via") != "ai" and img.get("kind") != "ai"
+            and (img.get("quality") or {}).get("keep", True) is not False):
+        return 10, f"ảnh thật từ nguồn ({img.get('via') or 'nguồn'})", [src]
+    return 0, "không có hình thật", []
+
+
+def _momentum(story: dict) -> tuple[int, dict]:
+    n = story.get("source_count") if isinstance(story.get("source_count"), int) else 0
+    points = {0: 0, 1: 0, 2: 5, 3: 10, 4: 15}.get(n, 20)
+    hn = max([c["metrics"]["points"] for c in story.get("coverage") or [] if isinstance(c, dict)
+              and isinstance(c.get("metrics"), dict) and isinstance(c["metrics"].get("points"), (int, float))],
+             default=0)
+    points += 10 if hn >= 300 else 5 if hn >= 100 else 0
+    return min(points, 25), {"sources": n, "hn_points": int(hn)}
+
+
+def _verified(story: dict, row: dict | None) -> str | None:
+    """Why the story is not a verified hco.news article, or None. A video must lead to a checked article."""
+    if row is None:
+        # Snapshots built for readers only hold stories whose desk prose passed (radar.newsroom_decisions).
+        return None if story.get("key_points_source") == "nguoi-viet" and story.get("key_points") else \
+            "chưa có quyết định phòng báo"
+    if row.get("decision") != "publish":
+        return "phòng báo giữ lại"
+    if row.get("use_original_title"):
+        return "tiêu đề chưa được kiểm"
+    if not row.get("key_points"):
+        return "không có tóm tắt đã kiểm"
+    return None
+
+
+def score_story(story: dict, row: dict | None = None) -> dict:
+    """Score one feed story on the 100-point rubric and list every exclusion gate it fails."""
+    labels = editor_video_labels(row)
+    title = _story_title(story, row)
+    text = " ".join([title] + [p for p in (row or {}).get("key_points") or story.get("key_points") or []
+                               if isinstance(p, str)])
+    hook = labels["video_hook"] if labels else _keyword_hook(title)
+    hook_points = HOOK_POINTS[hook] + (5 if hook == "usable_now" and _REPLACEABLE_TOOL.search(title) else 0)
+    availability = labels["availability"] if labels else ("region_locked:" if _REGION_ONLY.search(title) else "unknown")
+    if _VIETNAM.search(text) or (hook == "usable_now" and availability == "global"):
+        vn_points, vn_why = 15, "nhắc Việt Nam hoặc dùng được ở Việt Nam"
+    elif _VN_BRAND.search(title):
+        vn_points, vn_why = 7, "thương hiệu người Việt dùng hằng ngày"
+    else:
+        vn_points, vn_why = 0, "không có góc Việt Nam"
+    momentum, signals = _momentum(story)
+    visual, visual_why, visual_links = _story_visual(story)
+    n = signals["sources"]
+    leak = labels["is_leak"] if labels else bool(_RUMOUR.search(title))
+
+    gates = []
+    why_unverified = _verified(story, row)
+    if why_unverified:
+        gates.append(why_unverified)
+    if leak and n < MIN_RUMOUR_SOURCES:
+        gates.append("tin đồn/rò rỉ, dưới 3 nguồn độc lập")
+    # Without editor labels the keyword list of famous names decides drama_person, so drama about anyone else
+    # ("OpenAI researcher fired after scandal") would bypass owner decision 1; the person-drama words decide it.
+    person_drama = hook == "drama_person" or (not labels and bool(_DRAMA_PERSON.search(title)))
+    if person_drama and n < MIN_PERSON_DRAMA_SOURCES:
+        gates.append("drama về người cần ít nhất 3 nguồn độc lập")
+    lane = LANE_USABLE if hook == "usable_now" else LANE_HOT
+    if lane == LANE_HOT and n < MIN_HOT_SOURCES:
+        gates.append("tin nóng cần ít nhất 2 nguồn độc lập")
+    if _SENSITIVE.search(title):
+        gates.append("chủ đề nhạy cảm")
+    if visual == 0:
+        gates.append("không có hình thật")
+    if hook == "usable_now" and _region_locked(availability) and not _VIETNAM.search(text):
+        gates.append("chỉ có ở nước ngoài")
+
+    total = hook_points + vn_points + momentum + visual
+    coverage_urls = [_str(c.get("url")) for c in story.get("coverage") or [] if isinstance(c, dict)]
+    sid = story.get("id")
+    return {
+        "id": sid, "kind": "story", "lane": lane, "score": total,
+        "breakdown": {
+            "hook": {"points": hook_points, "max": 40, "hook": hook, "why": HOOK_NAMES[hook],
+                     "labels": "editor" if labels else "keyword"},
+            "vietnam": {"points": vn_points, "max": 15, "why": vn_why},
+            "momentum": {"points": momentum, "max": 25, **signals},
+            "visual": {"points": visual, "max": 20, "why": visual_why},
+        },
+        "gates": gates,
+        "title": _str(story.get("title")),
+        "headline_vi": _str((row or {}).get("editorial_headline_vi")) or _str(story.get("editorial_headline_vi"))
+        or _str(story.get("title_vi")),
+        "published_at": _str(story.get("published_at")),
+        "hco_url": f"{SITE_BASE_URL.rstrip('/')}/tin/{sid}/" if sid else None,
+        "source_urls": list(dict.fromkeys(u for u in [_str(story.get("url"))] + coverage_urls if u)),
+        "visual_links": visual_links,
+        "chain": {
+            "person_drama": person_drama,
+            "people": sorted(_people(story, row, labels)),
+            # Company names chain only personal drama (a CEO's scandal and his resignation), never two unrelated
+            # lawsuits or outages of one company.
+            "orgs": sorted({m.group(0).casefold() for m in _ORG.finditer(title)}) if person_drama else [],
+            "subject": _subject_key((row or {}).get("subject")),
+        },
+        "hot_score": story.get("hot_score") if isinstance(story.get("hot_score"), (int, float)) else 0,
+    }
+
+
+def _subject_key(subject) -> str | None:
+    """The editor's subject, when specific enough to name a chain: a bare "DeepSeek" covers a financing story and a
+    model launch alike, so a subject needs at least two words."""
+    key = " ".join(_str(subject).casefold().split())
+    return key if len(key.split()) >= 2 else None
+
+
+def score_repo(repo: dict) -> dict:
+    """Score one entry of the snapshot's `repos` section for the "Dùng được ngay" lane."""
+    signals = repo.get("signals") if isinstance(repo.get("signals"), dict) else {}
+    week = (repo.get("stars_gained") or {}).get("week") if isinstance(repo.get("stars_gained"), dict) else None
+    week = week if isinstance(week, int) else repo.get("stars_gained_7d") if isinstance(repo.get("stars_gained_7d"), int) else 0
+    install = _str(signals.get("install_command")).strip()
+    desc = " ".join([_str(repo.get("description")), _str(repo.get("description_vi"))])
+    hook_points = HOOK_POINTS["usable_now"] + (5 if _REPLACEABLE_TOOL.search(desc) else 0)
+    momentum = 20 if week >= 10000 else 15 if week >= 5000 else 0
+    url = _str(repo.get("url"))
+    if signals.get("has_demo") or install:
+        visual, visual_why = 20, "có demo" if signals.get("has_demo") else "tự quay màn hình được: có lệnh cài"
+    elif signals.get("has_product_page") or signals.get("readme_measured"):
+        visual, visual_why = 12, "trang repo có README minh hoạ"
+    else:
+        visual, visual_why = 0, "không quay được"
+    gates = []
+    if repo.get("label") != "dung-ngay":
+        gates.append("không phải công cụ dùng ngay")
+    if week < MIN_REPO_WEEK_STARS:
+        gates.append("repo dưới 3.000 sao/tuần")
+    if not install and not signals.get("has_demo"):
+        gates.append("không có lệnh cài hay demo để quay")
+    if visual == 0:
+        gates.append("không có hình thật")
+    rid = _str(repo.get("id")) or _str(repo.get("full_name"))
+    return {
+        "id": rid, "kind": "repo", "lane": LANE_USABLE, "score": hook_points + 15 + momentum + visual,
+        "breakdown": {
+            "hook": {"points": hook_points, "max": 40, "hook": "usable_now", "why": HOOK_NAMES["usable_now"],
+                     "labels": "repos"},
+            "vietnam": {"points": 15, "max": 15, "why": "repo mở, cài được ở Việt Nam"},
+            "momentum": {"points": momentum, "max": 25, "stars_week": week, "stars": repo.get("stars")},
+            "visual": {"points": visual, "max": 20, "why": visual_why},
+        },
+        "gates": gates,
+        "title": rid,
+        "headline_vi": _str(repo.get("description_vi")) or _str(repo.get("description")),
+        "published_at": None,
+        "hco_url": None,  # repos have no article page on hco.news
+        "source_urls": [url] if url else [],
+        "visual_links": [url] if url else [],
+        "install_command": install or None,
+        "chain": _repo_chain(rid), "hot_score": week,
+    }
+
+
+def _repo_chain(rid) -> dict:
+    return {"person_drama": False, "people": [], "orgs": [], "subject": f"repo:{_str(rid).casefold()}"}
+
+
+def major_turn(candidate: dict) -> str | None:
+    """The kind of major development a story reports (resignation, return, verdict, arrest), or None."""
+    text = " ".join([candidate.get("title") or "", candidate.get("headline_vi") or ""])
+    return next((kind for kind, pattern in _MAJOR_TURNS if pattern.search(text)), None)
+
+
+def _chain(c: dict) -> dict:
+    chain = c.get("chain")
+    return chain if isinstance(chain, dict) else {}
+
+
+def _names(value) -> list[str]:
+    return [v for v in value if isinstance(v, str)] if isinstance(value, list) else []
+
+
+def same_chain(a: dict, b: dict) -> bool:
+    """Two candidates belong to one story chain when, with at least one of them personal drama, they share a named
+    person or a company; or they share a specific editor subject; or they report the same event by title. The
+    back-test grouped by title only and let one chain fill 7 of the top 10. A person merely quoted in a launch does
+    not tie it to that person's later scandal, and two unrelated lawsuits against one company are two chains."""
+    ca, cb = _chain(a), _chain(b)
+    if ca.get("person_drama") is True or cb.get("person_drama") is True:
+        if any(_same_person(x, y) for x in _names(ca.get("people")) for y in _names(cb.get("people"))):
+            return True
+        if set(_names(ca.get("orgs"))) & set(_names(cb.get("orgs"))):
+            return True
+    if ca.get("subject") and ca.get("subject") == cb.get("subject"):
+        return True
+    return a.get("kind") == b.get("kind") == "story" and same_event(a, b)
+
+
+def _at(candidate: dict) -> datetime | None:
+    return instant(candidate.get("picked_at") or candidate.get("published_at"))
+
+
+def _vn_date(moment: datetime):
+    return moment.astimezone(VIETNAM).date()
+
+
+def chain_block(candidate: dict, kept: list[dict], now: datetime) -> str | None:
+    """Why the chain rule refuses this candidate, or None (then it may set candidate["chain_note"]). A chain shown
+    on one of the last CHAIN_DAYS Vietnam calendar days (today included) takes a follow-up only when it scores
+    MAJOR_THRESHOLD and reports a kind of major development the chain has not had."""
+    today = _vn_date(now)
+    recent = [k for k in kept if same_chain(candidate, k)
+              and (_at(k) is None or 0 <= (today - _vn_date(_at(k))).days < CHAIN_DAYS)]
+    if not recent:
+        return None
+    turn = major_turn(candidate)
+    seen = {major_turn(k) for k in recent}
+    if candidate["score"] >= MAJOR_THRESHOLD and turn and turn not in seen:
+        candidate["chain_note"] = f"diễn biến mới lớn ({turn}) của chuỗi tin đã làm"
+        return None
+    return "cùng chuỗi tin đã làm trong 3 ngày"
+
+
+def _rank(c: dict):
+    return (-c["score"], -(c.get("hot_score") or 0), c.get("id") or "")
+
+
+def _reason(c: dict) -> str:
+    b = c["breakdown"]
+    parts = [f"{LANE_NAMES[c['lane']]} {c['score']}/100", b["hook"]["why"]]
+    if c["kind"] == "repo":
+        parts.append(f"+{b['momentum']['stars_week']:,} sao/tuần".replace(",", "."))
+        if c.get("install_command"):
+            parts.append(f"cài: {c['install_command']}")
+    else:
+        parts.append(f"{b['momentum']['sources']} nguồn độc lập")
+        if b["momentum"]["hn_points"]:
+            parts.append(f"HN {b['momentum']['hn_points']} điểm")
+    parts.append(b["visual"]["why"])
+    if b["vietnam"]["points"]:
+        parts.append(b["vietnam"]["why"])
+    if c.get("chain_note"):
+        parts.append(c["chain_note"])
+    return "; ".join(parts)
+
+
+def pick_day(candidates: list[dict], kept: list[dict], now: datetime) -> tuple[list[dict], list[dict]]:
+    """Choose one day's picks: at most MAX_HOT_PER_DAY "Tin nóng" and MAX_USABLE_PER_DAY "Dùng được ngay", each at
+    or above CANDIDATE_THRESHOLD and past every gate. A day without a hot pick keeps its usable picks (owner decision
+    3) but still at most MAX_USABLE_PER_DAY (spec §4.2: "tối đa 1 tin làn A và 1–2 tin làn B").
+    Returns (picks, refused) where refused lists strong candidates and why they were not taken."""
+    picks, refused = [], []
+    eligible = sorted((c for c in candidates if not c["gates"] and c["score"] >= CANDIDATE_THRESHOLD), key=_rank)
+    for lane, limit in ((LANE_HOT, MAX_HOT_PER_DAY), (LANE_USABLE, MAX_USABLE_PER_DAY)):
+        taken = 0
+        for c in (c for c in eligible if c["lane"] == lane):
+            if taken >= limit or len(picks) >= MAX_PER_DAY:
+                refused.append({**c, "refused": "đã đủ chỗ trong ngày"})
+                continue
+            c = dict(c)
+            blocked = chain_block(c, kept + picks, now)
+            if blocked:
+                refused.append({**c, "refused": blocked})
+                continue
+            picks.append({**c, "picked_at": now.isoformat()})
+            taken += 1
+    for p in picks:
+        p["reason"] = _reason(p)
+    return picks, refused
+
+
+def _public(c: dict) -> dict:
+    keys = ("id", "kind", "lane", "score", "breakdown", "reason", "title", "headline_vi", "published_at",
+            "hco_url", "source_urls", "visual_links", "install_command", "gates", "refused")
+    out = {k: c[k] for k in keys if k in c and c[k] is not None}
+    out["lane_name"] = LANE_NAMES[c["lane"]]
+    return out
+
+
+def _history(previous: dict | None, today) -> list[dict]:
+    """The stored days of the last published file that are before today (Vietnam date), newest first, verbatim.
+
+    These are the picks that were actually offered; they are never re-scored. A day dated today is dropped, so a
+    rerun recomputes today from scratch and today's earlier run never blocks it.
+    """
+    days = previous.get("days") if isinstance(previous, dict) else None
+    out = {}
+    for day in days if isinstance(days, list) else []:
+        if not isinstance(day, dict) or not isinstance(day.get("picks"), list):
+            continue
+        try:
+            date = datetime.strptime(_str(day.get("date")), "%Y-%m-%d").date()
+        except ValueError:
+            continue
+        if date < today and 0 < (today - date).days <= HISTORY_DAYS and date not in out:
+            out[date] = {**day, "picks": [p for p in day["picks"] if isinstance(p, dict) and isinstance(p.get("id"), str)
+                                          and p.get("lane") in LANE_NAMES]}
+    return [out[d] for d in sorted(out, reverse=True)]
+
+
+def _stored_pick(pick: dict, day: dict) -> dict:
+    """A stored pick as the chain rule reads it: its chain keys and the moment it was offered."""
+    chain = pick.get("chain") if isinstance(pick.get("chain"), dict) else (
+        _repo_chain(pick.get("id")) if pick.get("kind") == "repo" else {})
+    return {**pick, "chain": chain, "picked_at": pick.get("picked_at") or day.get("picked_at") or f"{day['date']}T12:00:00+07:00"}
+
+
+def video_candidates(stories: list[dict], decision_rows: dict | None = None, repos: list[dict] | None = None,
+                     now: datetime | None = None, previous: dict | None = None) -> dict:
+    """Today's video candidates (Vietnam date of `now`) plus the stored picks of earlier days, newest day first.
+
+    `previous` is the last published file (update.yml fetches it from hco.news). Its earlier days are the picker's
+    memory: kept verbatim, never re-scored with today's momentum, and their picks feed the 3-day chain rule. Only
+    today is computed, from stories published in the FRESH_HOURS before `now` that no stored day already picked,
+    and from the snapshot's repos. Without a previous file (first run, failed fetch) today is picked without
+    memory; earlier days are not replayed, because a replay files a story that heated up overnight under a day
+    already gone and would then be stored as a pick that was never offered.
+    """
+    now = now or datetime.now(timezone.utc)
+    today = _vn_date(now)
+    rows = decision_rows or {}
+    history = _history(previous, today)
+    kept = [_stored_pick(p, day) for day in history for p in day["picks"]]
+    stored_ids = {p["id"] for p in kept}
+    scored = [score_story(s, rows.get(s.get("id"))) for s in stories if isinstance(s, dict) and s.get("id")]
+    pool = [c for c in scored if c["id"] not in stored_ids and _at(c)
+            and timedelta(0) <= now - _at(c) <= timedelta(hours=FRESH_HOURS)]
+    pool += [score_repo(r) for r in repos or [] if isinstance(r, dict)]
+    picks, refused = pick_day(pool, kept, now)
+    excluded = sorted([c for c in pool if c["gates"]], key=_rank)[:5]
+    today_out = {
+        "date": today.isoformat(), "picked_at": now.isoformat(),
+        "picks": [_public(p) | {"picked_at": p["picked_at"], "chain": _chain(p)} for p in picks],
+        "no_video": not picks,
+        "refused": [_public(c) for c in refused[:5]],
+        "excluded": [_public(c) for c in excluded],
+    }
+    return {
+        "schema_version": 2, "version": CANDIDATES_VERSION, "generated_at": now.isoformat(),
+        "memory": "stored" if previous is not None and isinstance(previous, dict) else "cold-start",
+        "rubric": {"threshold": CANDIDATE_THRESHOLD, "major_followup_threshold": MAJOR_THRESHOLD,
+                   "chain_days": CHAIN_DAYS, "fresh_hours": FRESH_HOURS, "max_per_day": MAX_PER_DAY,
+                   "max_hot_per_day": MAX_HOT_PER_DAY, "max_usable_per_day": MAX_USABLE_PER_DAY,
+                   "min_hot_sources": MIN_HOT_SOURCES, "hook_points": HOOK_POINTS},
+        "days": [today_out] + history,
+    }
+
+
+def write_video_candidates(input_path: str | Path, output_path: str | Path, decisions_path: str | Path | None = None,
+                           now: datetime | None = None) -> dict:
+    """Read the snapshot and newsroom decisions, write the candidates file atomically, return its payload."""
+    from radar.newsroom_decisions import load_decisions, story_decisions
+    payload = json.loads(Path(input_path).read_text(encoding="utf-8"))
+    stories = [s for s in payload.get("stories") or [] if isinstance(s, dict)]
+    decisions = load_decisions(decisions_path, now=now) if decisions_path is not None else load_decisions(now=now)
+    rows = story_decisions(stories, decisions) if decisions is not None else {}
+    previous = None
+    output_path = Path(output_path)
+    if output_path.is_file():
+        try:
+            previous = json.loads(output_path.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            previous = None
+    result = video_candidates(stories, rows, payload.get("repos") or [], now=now, previous=previous)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    write_atomic(result, output_path)
+    return result
 
 
 # ---------- Mechanical fact extraction & verification ----------
@@ -818,6 +1347,11 @@ def main(argv=None):
     parser.add_argument("--ref", default=None,
                         help="Git ref or branch name (non-main refs bypass schedule window)")
     parser.add_argument("--now", help="Explicit ISO timestamp for offline testing")
+    parser.add_argument("--candidates-output", default=None,
+                        help="Video candidates output path (defaults to video-candidates.json beside --output, "
+                             "i.e. site/data/video-candidates.json); empty string skips it")
+    parser.add_argument("--decisions", default=None,
+                        help="Newsroom decisions path (defaults to RADAR_NEWSROOM_DECISIONS or phong-bao/decisions.json)")
     args = parser.parse_args(argv)
 
     now_val = None
@@ -832,6 +1366,17 @@ def main(argv=None):
         alt = input_path.with_name("radar.json")
         if alt.is_file():
             input_path = alt
+
+    # Candidates are pure code (no model call), so they are refreshed on every run, outside the script window too.
+    candidates_path = (Path(args.output).with_name("video-candidates.json") if args.candidates_output is None
+                       else args.candidates_output)
+    if candidates_path and input_path.is_file():
+        try:
+            result = write_video_candidates(input_path, candidates_path, args.decisions, now=now_val)
+            today = result["days"][0] if result["days"] else {}
+            print(f"Video candidates written: date={today.get('date')}, picks={len(today.get('picks') or [])}")
+        except Exception as error:  # the daily script must not depend on the candidates file
+            print(f"Video candidates failed: {error}")
 
     res = generate_video_script(
         input_path=input_path,
