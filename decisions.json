@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-18T13:37:25.769502+00:00",
-  "input_generated_at": "2026-11-18T12:45:57Z",
+  "generated_at": "2026-11-18T15:30:04.032355+00:00",
+  "input_generated_at": "2026-11-18T14:45:42Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -95480,10 +95480,10 @@
       "use_original_title": false,
       "source_url": "https://www.technologyreview.com/2026/11/18/1148816/smell-startup-osmo-ai-nose-good-as-humans/",
       "key_points": [
-        "Nhà sáng lập Alex Wiltschko tuyên bố mô hình AI của Osmo đã đạt trí tuệ khứu giác ngang người trong vài tháng qua. Theo công ty, mô hình phân biệt mùi như người bình thường và tạo mùi ngang chuyên gia tập sự.",
-        "Hệ thống vận hành dựa trên tập dữ liệu gồm hơn 10 triệu nhãn do người đánh giá và 800 triệu đơn vị mùi hương. Osmo dùng quang phổ kế cùng cảm biến hóa học chạy liên tục kết hợp 70 nhân sự được đào tạo ngửi mẫu.",
-        "Công nghệ của Osmo đã được dùng tạo hương thương phẩm cho Procter & Gamble. Ngoài ra, công ty nhận khoản tài trợ 3,5 triệu USD từ Quỹ Gates, xác định tám chất xua côn trùng tốt hơn DEET và hỗ trợ StockX phát hiện giày giả.",
-        "Cựu giáo sư Michael Schmuker nhận định Osmo có thể bỏ lỡ một số yếu tố độc đáo của khứu giác người khi chưa tính đến ngữ cảnh, dù ông xem công nghệ này là một thành tựu. Trong khi đó, chuyên gia Avery Gilbert chỉ trích một số tuyên bố tiếp thị của công ty thiếu chứng cứ và bằng sáng chế vẫn dựa vào con người thay vì AI."
+        "Nhà sáng lập Alex Wiltschko tuyên bố mô hình AI của Osmo đã đạt trí tuệ khứu giác ngang người. Theo công ty, mô hình có thể phát hiện và phân biệt mùi như người bình thường, đồng thời tạo mùi ngang nhà thiết kế nước hoa tập sự.",
+        "Wiltschko cho biết mục tiêu của Osmo là mang lại khứu giác cho máy tính khi dữ liệu mùi trước đó rất hiếm, với chưa đầy 200.000 mô tả từ con người. Công ty đã tự tạo tập dữ liệu hơn 10 triệu nhãn và 800 triệu đơn vị mùi nhờ cảm biến hóa học cùng 70 nhân sự chuyên ngửi mẫu.",
+        "Công nghệ của Osmo đã được dùng tạo hương thương phẩm cho Procter & Gamble. Nhận tài trợ 3,5 triệu USD từ Quỹ Gates, công ty xác định tám chất xua côn trùng tốt hơn DEET và hỗ trợ StockX phát hiện giày giả.",
+        "Để mở rộng sang chẩn đoán y tế, chuyên gia Michael Schmuker nhấn mạnh cảm biến và mô hình AI cần phải cải thiện hơn rất nhiều. Ông cũng nhận định Osmo có thể bỏ lỡ yếu tố khứu giác độc đáo do thiếu ngữ cảnh, dù điều này ít ảnh hưởng trong phòng thí nghiệm nước hoa."
       ],
       "same_event_coverage_ids": [
         "bbd3703b3d810bcda6d9"
@@ -95499,7 +95499,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Osmo tuyên bố AI đạt khứu giác ngang người dù chuyên gia chỉ trích một số tuyên bố thiếu chứng cứ",
+      "editorial_headline_vi": "Osmo tuyên bố AI đạt khứu giác ngang người nhưng cần cải thiện cảm biến cho chẩn đoán y tế",
       "summary_sources": [
         {
           "id": "outlet",
@@ -95514,29 +95514,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 7.15,
+        "value": 9.4,
         "answers": {
-          "what": 8,
-          "why": 3,
+          "what": 10,
+          "why": 10,
           "notable": 9,
-          "meaning": 7
+          "meaning": 8
         },
         "hard_errors": [],
         "findings": [
           {
-            "question": "why",
-            "problem": "Readers do not learn why Osmo assembled such a large smell dataset.",
-            "fix": "Add Wiltschko's goal of giving computers a sense of smell and the shortage of good existing smell data (outlet:p002, outlet:p005)."
-          },
-          {
             "question": "meaning",
-            "problem": "The account leaves out the technical condition on broader real-world uses.",
-            "fix": "Explain that Schmuker says sensors and models must improve, especially for medical diagnosis (outlet:p014–p015)."
-          },
-          {
-            "question": "what",
-            "problem": "The description of “human-level” ability loses two parts of Osmo's stated definition.",
-            "fix": "Specify detection as well as discrimination, and identify the creation comparison as a junior perfume designer (outlet:p004)."
+            "problem": "The reader misses a distinct criticism of how well Osmo’s claims are documented.",
+            "fix": "Add that smell scientist Avery Gilbert says some marketing claims are undocumented and that patent filings still rely on human sensory panels and perfumers; Osmo did not respond in time for publication (outlet:p011)."
           }
         ],
         "writer_boats": [
@@ -95544,8 +95534,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "82cfb2089059b82f9a98a30bd780546846927b7a5211e37cc2f398dd16018c54",
-        "scored_at": "2026-11-18T13:37:25.763440+00:00"
+        "prose_sha256": "5124d4e49974128e6e91fbdb9e95375168438fc83b2c997ba8029b11c1a18eba",
+        "scored_at": "2026-11-18T15:30:03.984067+00:00"
       }
     },
     {
@@ -96397,6 +96387,718 @@
         "15913986a6186838d0f3"
       ],
       "split_coverage_ids": []
+    },
+    {
+      "id": "074541d70eead7aa07a9",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-18/anthropic-said-to-guide-ipo-pricing-above-market-range-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "3e2559b6817a3592b4f8"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "5f4a2610d601bfa70028",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://blogs.nvidia.com/blog/rtx-spark-desktop-local-ai-available-now/",
+      "key_points": [
+        "Các hãng ASUS, Dell và MSI chính thức mở bán dòng máy tính để bàn nhỏ gọn NVIDIA RTX Spark chạy Windows cho tác tử AI (hệ thống AI tự hành) và tinh chỉnh mô hình cục bộ. Theo NVIDIA, thiết bị chuyên dụng này giữ cho tác tử hoạt động liên tục khi máy tính xách tay bận xử lý việc khác.",
+        "Dòng máy này vận hành với CPU Grace 20 nhân, GPU Blackwell RTX có 6.144 nhân CUDA và bộ nhớ hợp nhất tối đa 128GB. Hệ thống kết nối mạng Ethernet 10 Gigabit hỗ trợ truyền tải tập dữ liệu lớn và tệp mô hình với bộ lưu trữ mạng.",
+        "NVIDIA nêu ví dụ mẫu ASUS ProArt GR1X được chế tạo để chạy các tác tử AI cá nhân liên tục 24/7.",
+        "NVIDIA khẳng định việc chạy các mô hình được hỗ trợ tại cục bộ giúp lưu giữ mã nguồn và dữ liệu ngay trên máy tính. Hãng cho biết việc tránh phát sinh phí giao diện lập trình ứng dụng (API) tính theo token đám mây chỉ áp dụng đối với các mô hình được hỗ trợ và cho những tác vụ đó."
+      ],
+      "same_event_coverage_ids": [
+        "af16b140e9ffe3f31223"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Nvidia RTX Spark compact desktops",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "ASUS, Dell và MSI mở bán máy tính để bàn NVIDIA RTX Spark hỗ trợ chạy tác tử AI cục bộ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "nvidia",
+          "url": "https://blogs.nvidia.com/blog/rtx-spark-desktop-local-ai-available-now/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.45,
+        "answers": {
+          "what": 9,
+          "why": 9,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The reader misses the software expansion announced alongside the desktops.",
+            "fix": "Add a brief mention of the Adobe, Blender and ComfyUI workflows (outlet:p004–p005)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "2082a3fb249b4c7161c320186bb2908330a2ef282a9117ea1c8f8aa005730cd9",
+        "scored_at": "2026-11-18T15:20:28.494322+00:00"
+      }
+    },
+    {
+      "id": "ddf152f6d3b592a40ce9",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/games/1036140/will-wright-mymems-ai-game-interview",
+      "key_points": [
+        "Tác giả của các loạt game SimCity và The Sims, Will Wright, đang phát triển tựa game di động MyMems xây dựng xung quanh trí tuệ nhân tạo (AI). Dự án do Gallium Studios thực hiện dự kiến phát hành năm 2027 nhằm biến tiểu sử người chơi thành thế giới ảo.",
+        "Will Wright giải thích ý tưởng này bắt nguồn từ việc người chơi từng tìm cách đưa gia đình ngoài đời thực vào thế giới The Sims. Nhóm phát triển MyMems muốn tiếp nối thói quen đó bằng cách để toàn bộ trải nghiệm tập trung vào bản thân người dùng.",
+        "Người chơi có thể kể mẩu chuyện ngắn vào điện thoại để tạo mảnh ghép trên bản đồ, đồng thời thêm hình đại diện (avatar) AI mô phỏng người quen. Các thế giới ảo này có thể được người chơi giữ riêng tư hoặc chia sẻ với người khác tùy theo ý muốn.",
+        "Đại diện Gallium Studios nhấn mạnh đây là trò chơi mô phỏng xã hội ấm cúng để tương tác vui vẻ và dần phản chiếu đại diện người chơi, không phải nhật ký di sản. Dù nhóm phát triển lo ngại phản ứng tiêu cực trước AI tạo sinh, Will Wright coi AI là công cụ tuyệt vời nhưng thừa nhận lo ngại về quyền tác giả là có cơ sở."
+      ],
+      "same_event_coverage_ids": [
+        "6b71ea3ae958656f89cd"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Will Wright's MyMems game",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Will Wright"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Tác giả The Sims phát triển game di động MyMems dùng AI để biến ký ức người chơi thành thế giới ảo",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/games/1036140/will-wright-mymems-ai-game-interview"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.85,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "ca1adab06252ca11e075b3a4f48db79796cf016c1a75bcfc43e1376a14f0919b",
+        "scored_at": "2026-11-18T15:25:53.681610+00:00"
+      }
+    },
+    {
+      "id": "629f7eba64de05b8a939",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.sas.upenn.edu/~jesusfv/Peer_Review.pdf",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "3e47ec0a15327304a31a",
+        "94df68f23e58c8192feb"
+      ],
+      "split_coverage_ids": [],
+      "subject": "AI-generated text and peer review",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "40dfc92acb09a0eec88f",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The Ferguson CFO interview primarily covers housing, industrial demand and an acquisition; AI is one demand driver among several.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-18/ferguson-cfo-on-ai-growth-and-housing-pressure-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "14e8564439368bd69c6c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "b77022d6d1523f83a1ee",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-18/tencent-says-us-chip-curbs-to-slow-chinese-ai-in-the-short-run",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "a77574f08bf81efb841e"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "9bbfe27f366de32ec884",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/18/2026/cassava-technologies-seeks-1b-for-nvidia-chips",
+      "key_points": [
+        "Theo Bloomberg, Cassava Technologies đang tìm kiếm tới 1 tỷ USD mua chip Nvidia khi một trong những tập đoàn công nghệ lớn nhất châu Phi nỗ lực xây dựng hạ tầng điện toán trên toàn lục địa.",
+        "Semafor cho biết nỗ lực gọi vốn này phục vụ tham vọng của tỷ phú Strive Masiyiwa trong việc xây dựng hạ tầng điện toán đón đầu làn sóng AI.",
+        "Phần lớn số tiền dự kiến được dùng mua chip cho các trung tâm dữ liệu khắp lục địa, phần còn lại nâng cấp hạ tầng số xử lý tác vụ AI.",
+        "Theo báo cáo năm 2026 của Hiệp hội Trung tâm Dữ liệu Châu Phi, khu vực này chỉ chiếm tỷ trọng rất nhỏ trong công suất toàn cầu, khiến các doanh nghiệp thiếu hụt năng lực tính toán AI phải phụ thuộc vào hạ tầng hạn chế tại đây."
+      ],
+      "same_event_coverage_ids": [
+        "0fb38cb52b99299ea6ba",
+        "32a8b021852489383792"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Cassava Technologies' AI infrastructure fundraising",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Strive Masiyiwa",
+          "Cyril Ramaphosa"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Cassava Technologies tìm kiếm tới 1 tỷ USD mua chip Nvidia phát triển hạ tầng AI tại châu Phi",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/18/2026/cassava-technologies-seeks-1b-for-nvidia-chips"
+        },
+        {
+          "id": "coverage1",
+          "role": "coverage",
+          "name": "bloomberg",
+          "url": "https://www.bloomberg.com/news/articles/2026-11-17/cassava-seeks-1-billion-for-nvidia-chips-to-power-ai-in-africa"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "5cdb4f83f7d79b267d94db9e78f424ec4fb2cfb8bcf00dea6fea50fe4bbefc55",
+        "scored_at": "2026-11-18T15:20:28.494598+00:00"
+      }
+    },
+    {
+      "id": "ed600e779b960340727c",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-18/don-t-yet-know-the-ai-model-as-credit-investors-carlyle-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "3a1077581ac3d4db84aa"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "7a2313bf1a0888665254",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The brief remark concerns Nvidia's leadership and relationships; the card offers no substantive AI-focused reporting or analysis.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-18/nvidia-is-more-than-one-person-coreweave-says-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "7b1a0d262a1071b47b86"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "4ce9e81419d46f0bef64",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-18/edward-yardeni-on-ai-trade-normal-for-longer-rates-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "69cacd3226d7a794fc06"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "fe4a44b3f4f4ca72eb20",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-18/carlyle-s-jenkins-sees-no-rush-to-chase-ai-data-center-deals",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "85d200e21c7e6ebe7d0d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "b9b3936785bef30064f9",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/18/nvidia-clarifies-when-it-will-and-wont-keep-financing-neoclouds/",
+      "key_points": [
+        "Nvidia làm rõ điều kiện bảo lãnh khoản vay cho khách hàng, khẳng định việc cam kết bảo lãnh không đồng nghĩa với việc trực tiếp cung cấp tài chính. Quyền Giám đốc Điều hành Colette Kress đưa ra tuyên bố sau khi ông Jensen Huang rời đi, giữa lúc công ty đạt lợi nhuận quý ba 64,9 tỷ USD.",
+        "Bà Kress cho biết bảo lãnh chỉ bắt đầu có hiệu lực khi đối tác hoàn tất huy động vốn, đồng thời sẵn sàng mua sắm và lắp đặt hệ thống tính toán của Nvidia. Trường hợp dự án chậm tiến độ hoặc gặp trở ngại xây dựng, cam kết bảo lãnh sẽ không còn tồn tại.",
+        "Theo TechCrunch, khoản bảo lãnh 105 tỷ USD cho OpenAI tại khu trung tâm dữ liệu PORTS-Pike ở Ohio là thỏa thuận lớn nhất được công bố vào tháng 8. Nvidia cho biết OpenAI cam kết sử dụng độc quyền thiết bị của hãng đổi lại khoản bảo lãnh đó.",
+        "Theo bà Kress, Nvidia sẽ chọn lọc hơn trong việc hỗ trợ tài chính trong tương lai, dù công ty không từ bỏ việc tài trợ cho các trung tâm dữ liệu mới. TechCrunch nhận xét bà không có ý định rút lại sự hỗ trợ đối với khách hàng của Nvidia, nhưng phát tín hiệu rằng thời kỳ giao dịch tự do dưới thời ông Huang có thể đã kết thúc."
+      ],
+      "same_event_coverage_ids": [
+        "93f7104fd64ed45c6efb"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Nvidia's neocloud loan guarantees",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Colette Kress",
+          "Jensen Huang",
+          "Elon Musk"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nvidia làm rõ điều kiện bảo lãnh khoản vay trung tâm dữ liệu AI và siết chặt tiêu chí chọn đối tác",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/18/nvidia-clarifies-when-it-will-and-wont-keep-financing-neoclouds/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.0,
+        "answers": {
+          "what": 10,
+          "why": 8,
+          "notable": 9,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The reader could take the clarified guarantee conditions as a new policy.",
+            "fix": "Add that Kress called them a clarification of existing terms, not a policy change (outlet:p012)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "e2537232dae0deb6c6f260989eabb822729bfe26402c8f4e2da7b4e3c14ccae5",
+        "scored_at": "2026-11-18T15:20:28.494651+00:00"
+      }
+    },
+    {
+      "id": "4b998ea032e3e6db6a58",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-18/physical-ai-startup-humyn-raises-47-million-from-accel-prosus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "7bccd64a00bd7937ac95"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "cfe899da4bc5ab39b441",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/17/2026/some-nvidia-directors-push-to-bring-huang-back-despite-board-opposition",
+      "key_points": [
+        "A faction of Nvidia directors is pushing for Jensen Huang's return despite the company's statement that it does not plan to reinstate him, according to people familiar with the matter.",
+        "Nvidia chairman Harvey Jones said the board had unanimously accepted Huang's resignation.",
+        "ARM CEO Rene Haas and Marvell CEO Matt Murphy have been considered in the search for Huang's replacement, according to people familiar with the deliberations."
+      ],
+      "same_event_coverage_ids": [
+        "3d44fcdcb2c6b433c63e"
+      ],
+      "split_coverage_ids": [
+        "d60d8fb0a715c04b653f",
+        "e53f499d6d8260e1e6f2"
+      ],
+      "subject": "Nvidia directors' push to restore Jensen Huang",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Jensen Huang",
+          "Harvey Jones",
+          "Rene Haas",
+          "Matt Murphy"
+        ],
+        "availability": "unknown",
+        "is_leak": true
+      }
+    },
+    {
+      "id": "5b89a2db7f60ae9099b7",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://huggingface.co/blog/rumble-2-flash",
+      "key_points": [
+        "Reson8 phát hành mã nguồn mở Rumble-2-Flash theo giấy phép Apache 2.0, mô hình nhận dạng giọng nói 0,5 tỷ tham số hỗ trợ hơn 40 ngôn ngữ. Mô hình sử dụng kiến trúc Qwen3-ASR để tương thích sẵn với Transformers và vLLM mà không cần mã tùy biến.",
+        "Để tìm giới hạn thu nhỏ mô hình trước khi giảm độ chính xác, Reson8 chưng cất mô hình Rumble-2 bằng kỹ thuật chưng cất on-policy (on-policy distillation). Phương pháp này giúp mô hình học sinh tự chuyển văn bản rồi nhận phản hồi theo từng mã từ (token), kết hợp kỹ thuật GOLD để so khớp hai bộ từ vựng.",
+        "Trên bài kiểm chuẩn cuộc gọi gồm 302 giờ của AppTek, Rumble-2-Flash đạt tỷ lệ lỗi từ (WER) 7,86%, ngang ngửa mức 7,78% của mô hình Nemotron 3.5 Transcribe 30 tỷ tham số từ Nvidia. Tuy nhiên, Qwen3-ASR bản 1,7 tỷ tham số là mô hình so sánh duy nhất đạt kết quả tốt hơn với tỷ lệ lỗi 7,4%.",
+        "Người dùng có thể tải trọng số tại Reson8/Rumble-2-Flash trên Hub hoặc gọi qua giao diện lập trình ứng dụng (API) của Reson8."
+      ],
+      "same_event_coverage_ids": [
+        "91814fbba5112942f7b8"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Rumble-2-Flash speech model",
+      "video_labels": {
+        "video_hook": "usable_now",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Reson8 ra mắt mô hình nhận dạng giọng nói 0,5 tỷ tham số đạt kết quả ngang đối thủ 30 tỷ trên bài kiểm chuẩn",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://huggingface.co/blog/rumble-2-flash"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.3,
+        "answers": {
+          "what": 10,
+          "why": 8,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "mô hình học sinh tự chuyển văn bản",
+            "explanation": "The student model transcribes the audio itself; it does not convert text (outlet:p032)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The description of distillation gives the reader the wrong input for the student model.",
+            "fix": "Say that the student transcribes audio itself and the teacher grades its transcript token by token (outlet:p032)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "bb5ff0b9a309d77a4196b6455481708ccdc7b799a83728d1f7ad5b3743b02f66",
+        "scored_at": "2026-11-18T15:25:53.681870+00:00"
+      }
+    },
+    {
+      "id": "8864acd078c8740c3683",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.scmp.com/tech/tech-war/article/3374770/china-question-nvidia-crisis-and-new-us-chip-curbs-split-washington-and-silicon-valley",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "a21a876c7429d1e08231"
+      ],
+      "split_coverage_ids": [
+        "763505c5472892d6761e",
+        "902488793e8cd72fcd19",
+        "adbeb289bacbafe2e078",
+        "d59b02c30daa04c27ae7"
+      ],
+      "subject": "US divisions over AI chip policy toward China",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "f58df824a3e6ce851362",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/17/2026/nvidia-faces-its-own-lehman-moment",
+      "key_points": [
+        "Colette Kress sẽ phát biểu tại cuộc gọi thu nhập chiều nay của Nvidia trên cương vị CEO tạm quyền theo Semafor, sau khi được thăng chức giữa giai đoạn biến động.",
+        "Jensen Huang từ chức giữa cuộc điều tra tình ái liên quan một người bị nghi là gián điệp Trung Quốc theo Semafor, bên cạnh các cáo buộc riêng biệt về những mối quan hệ khác với cấp dưới.",
+        "Erin Callan từng rơi vào vách đá kính (phụ nữ được thăng chức khi khủng hoảng) tại Lehman Brothers theo Semafor, khi bị thay thế năm 2008 sau đòn mổ xẻ số liệu của bên bán khống. Khác với Lehman, Semafor nhận định nhu cầu chip của Nvidia vẫn rất mạnh, dù Kress đối mặt thông tin từ The Wall Street Journal rằng Huang từng gọi bà như nai trước đèn xe.",
+        "Hội đồng quản trị sẽ quyết định thời gian tạm quyền của Kress theo Semafor, sau khi ban này vừa bổ nhiệm chủ tịch độc lập đầu tiên vào tuần trước. Jane Fraser của Citi nhận định với Semafor rằng Nvidia ở thời điểm hiện tại vẫn nằm trong tay nhân sự có năng lực."
+      ],
+      "same_event_coverage_ids": [
+        "265bfb8a44260ddb70f9",
+        "e04fc389a3eddbc43ada"
+      ],
+      "split_coverage_ids": [
+        "6ae67e2fbe5770458270"
+      ],
+      "subject": "Nvidia",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Colette Kress",
+          "Erin Callan",
+          "David Einhorn",
+          "Jensen Huang"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "CEO tạm quyền Colette Kress chuẩn bị phát biểu tại cuộc gọi thu nhập Nvidia sau khi Jensen Huang từ chức",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/17/2026/nvidia-faces-its-own-lehman-moment"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.25,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 8,
+          "meaning": 9
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "bị thay thế năm 2008",
+            "explanation": "The source says Callan was out by June 2008; it does not say she was replaced or specify how she left (outlet:p003)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The account of Callan’s departure states a manner of departure the source does not establish.",
+            "fix": "Say only that Callan was out by June 2008, after a short seller began challenging her numbers (outlet:p003)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "86465a21fc185180123d5667840af3fb3289957fbd9cf7b43e4142791208af9a",
+        "scored_at": "2026-11-18T15:25:53.681974+00:00"
+      }
     }
   ]
 }
