@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-18T11:38:30.645136+00:00",
-  "input_generated_at": "2026-11-18T10:46:14Z",
+  "generated_at": "2026-11-18T13:37:25.769502+00:00",
+  "input_generated_at": "2026-11-18T12:45:57Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -95480,10 +95480,10 @@
       "use_original_title": false,
       "source_url": "https://www.technologyreview.com/2026/11/18/1148816/smell-startup-osmo-ai-nose-good-as-humans/",
       "key_points": [
-        "Nhà sáng lập Alex Wiltschko tuyên bố mô hình của startup Osmo đã đạt trí tuệ khứu giác ngang con người trong vài tháng qua. Theo Osmo, hệ thống có thể nhận biết mùi như người bình thường, tạo mùi tương đương chuyên gia tập sự và đã được ngành hương liệu sử dụng.",
-        "Theo Wiltschko, thách thức chính là sự khan hiếm dữ liệu khi các cơ sở dữ liệu trước đó có chưa đầy 200.000 mô tả mùi hương từ con người. Trước chi phí cảm biến đắt đỏ và ngành hương liệu khép kín, Osmo tự xây dựng hơn 10 triệu nhãn mô tả cùng 800 triệu token mùi hương mô tả chính xác phân tử và nồng độ tạo mùi.",
-        "Công nghệ của Osmo đã được ứng dụng tạo hương thơm bán lẻ cho các tập đoàn như Procter & Gamble và giúp sàn StockX phát hiện giày giả. Ngoài ra, Quỹ Gates đã cấp khoản tài trợ 3,5 triệu USD để Osmo đánh giá các phân tử xua côn trùng truyền bệnh, giúp công ty tìm ra tám chất xua côn trùng tốt hơn DEET.",
-        "Cựu giáo sư Michael Schmuker nhận định cảm biến và mô hình cần cải thiện nhiều hơn để phục vụ các mục tiêu lớn như chẩn đoán y tế. Schmuker cũng cảnh báo mô hình có thể bỏ lỡ đặc trưng khứu giác độc nhất của con người do thiếu ngữ cảnh ngoài phòng thí nghiệm có kiểm soát."
+        "Nhà sáng lập Alex Wiltschko tuyên bố mô hình AI của Osmo đã đạt trí tuệ khứu giác ngang người trong vài tháng qua. Theo công ty, mô hình phân biệt mùi như người bình thường và tạo mùi ngang chuyên gia tập sự.",
+        "Hệ thống vận hành dựa trên tập dữ liệu gồm hơn 10 triệu nhãn do người đánh giá và 800 triệu đơn vị mùi hương. Osmo dùng quang phổ kế cùng cảm biến hóa học chạy liên tục kết hợp 70 nhân sự được đào tạo ngửi mẫu.",
+        "Công nghệ của Osmo đã được dùng tạo hương thương phẩm cho Procter & Gamble. Ngoài ra, công ty nhận khoản tài trợ 3,5 triệu USD từ Quỹ Gates, xác định tám chất xua côn trùng tốt hơn DEET và hỗ trợ StockX phát hiện giày giả.",
+        "Cựu giáo sư Michael Schmuker nhận định Osmo có thể bỏ lỡ một số yếu tố độc đáo của khứu giác người khi chưa tính đến ngữ cảnh, dù ông xem công nghệ này là một thành tựu. Trong khi đó, chuyên gia Avery Gilbert chỉ trích một số tuyên bố tiếp thị của công ty thiếu chứng cứ và bằng sáng chế vẫn dựa vào con người thay vì AI."
       ],
       "same_event_coverage_ids": [
         "bbd3703b3d810bcda6d9"
@@ -95499,7 +95499,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Startup Osmo tuyên bố mô hình AI đạt trí tuệ khứu giác ngang người khi phân biệt và tạo mùi",
+      "editorial_headline_vi": "Osmo tuyên bố AI đạt khứu giác ngang người dù chuyên gia chỉ trích một số tuyên bố thiếu chứng cứ",
       "summary_sources": [
         {
           "id": "outlet",
@@ -95514,30 +95514,29 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.1,
+        "value": 7.15,
         "answers": {
-          "what": 10,
-          "why": 10,
-          "notable": 8,
-          "meaning": 8
+          "what": 8,
+          "why": 3,
+          "notable": 9,
+          "meaning": 7
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "giúp sàn StockX phát hiện giày giả",
-            "explanation": "The source says Osmo worked with StockX on using smell to spot counterfeit sneakers; it does not report that the work successfully detected counterfeit shoes (outlet:p010)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "what",
-            "problem": "The reader is told Osmo helped StockX detect counterfeit shoes as an accomplished result.",
-            "fix": "Say Osmo worked with StockX on a method to spot counterfeit sneakers through differences in the shoes’ chemical composition (outlet:p010)."
+            "question": "why",
+            "problem": "Readers do not learn why Osmo assembled such a large smell dataset.",
+            "fix": "Add Wiltschko's goal of giving computers a sense of smell and the shortage of good existing smell data (outlet:p002, outlet:p005)."
           },
           {
             "question": "meaning",
-            "problem": "The reader does not see that Osmo’s broader claims are contested.",
-            "fix": "Add that smell scientist Avery Gilbert argues some marketing claims are undocumented and patent filings still rely on human sensory panels and perfumers (outlet:p011)."
+            "problem": "The account leaves out the technical condition on broader real-world uses.",
+            "fix": "Explain that Schmuker says sensors and models must improve, especially for medical diagnosis (outlet:p014–p015)."
+          },
+          {
+            "question": "what",
+            "problem": "The description of “human-level” ability loses two parts of Osmo's stated definition.",
+            "fix": "Specify detection as well as discrimination, and identify the creation comparison as a junior perfume designer (outlet:p004)."
           }
         ],
         "writer_boats": [
@@ -95545,8 +95544,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "b3aa07ea4dd76dc46977a216a1a368677f2838a455a2cebcf625d7abeb99e43a",
-        "scored_at": "2026-11-18T11:26:31.902086+00:00"
+        "prose_sha256": "82cfb2089059b82f9a98a30bd780546846927b7a5211e37cc2f398dd16018c54",
+        "scored_at": "2026-11-18T13:37:25.763440+00:00"
       }
     },
     {
@@ -95585,10 +95584,10 @@
       "use_original_title": true,
       "source_url": "https://energy-based-reasoners.github.io/",
       "key_points": [
-        "Nhóm nghiên cứu giới thiệu Energy-Based Reasoners (EBRs - mô hình lý luận dựa trên năng lượng), đạt hiệu năng tương đương hoặc vượt trội các mô hình lý luận tuần hoàn trước đó trên bốn bộ chuẩn thuật toán. Hệ thống dùng hàm năng lượng để chấm điểm trạng thái ẩn, đồng thời lấy đạo hàm dẫn hướng tinh chỉnh và báo hiệu dừng suy luận.",
-        "Theo nhóm tác giả, các mô hình lặp hiện nay thiếu thước đo rõ ràng về tiến độ để biết thời điểm dừng và tinh chỉnh trạng thái suy luận. EBR giải quyết hạn chế này bằng cách cập nhật lặp theo đạo hàm hàm năng lượng, kết hợp huấn luyện khám phá nhằm tìm kiếm nhiều phương án giải hợp lệ.",
-        "Trên chuẩn Sudoku-Extreme, việc dừng mỗi nhánh khi đạo hàm xuống dưới ngưỡng cho phép giữ độ chính xác 99,9% với lượng FLOPs ít hơn 345 lần so với mô hình EqR. Cơ chế dừng theo ngưỡng này đạt độ chính xác tương đương nhưng tốn ít hơn 10,9 lần phép tính so với phiên bản EBR có độ sâu cố định.",
-        "Nhóm tác giả nhận định kết quả chứng minh mô hình dựa trên năng lượng là hướng tiếp cận triển vọng cho năng lực lý luận mạnh mẽ. Tuy vậy, các kết luận này mới được xác lập trên bốn bộ chuẩn thuật toán với giá trị đo trung bình qua ba lần thử nghiệm ngẫu nhiên."
+        "Nhóm tác giả giới thiệu Energy-Based Reasoners (EBRs - mô hình lý luận dựa trên năng lượng), đạt hiệu năng tương đương hoặc vượt mô hình tuần hoàn trên bốn bộ chuẩn thuật toán. Trên Sudoku-Extreme, EBR đạt độ chính xác 99,9% với chi phí suy luận ít hơn 345 lần so với mô hình xếp sau và giữ chi phí huấn luyện tương đương.",
+        "Theo nhóm nghiên cứu, các mô hình lặp hiện thiếu thước đo tiến độ để biết thời điểm dừng suy luận và cách cải thiện trạng thái. EBR dùng đạo hàm năng lượng để tinh chỉnh, đồng thời huấn luyện khám phá nhằm tìm thêm trạng thái nghiệm và định hình trường năng lượng trên tập trạng thái rộng hơn.",
+        "Cơ chế dừng theo ngưỡng đạo hàm giúp EBR giữ độ chính xác 99,9% với lượng FLOPs ít hơn 10,9 lần so với bản cố định độ sâu và ít hơn 345 lần so với EqR. Trên các bài thử đa nghiệm, mô hình đạt độ bao phủ nghiệm hợp lệ riêng biệt cao nhất với độ chính xác mẫu đơn gần 100%.",
+        "Nhóm tác giả nhận định kết quả này gợi mở mô hình dựa trên năng lượng là hướng tiếp cận triển vọng cho năng lực lý luận. Dù vậy, kết quả mới giới hạn ở bốn bộ chuẩn thuật toán, trong đó phép đối chuẩn với các mô hình trước tính trung bình qua ba lần chạy ngẫu nhiên."
       ],
       "same_event_coverage_ids": [
         "c8075a630fa5a05346dd"
@@ -95602,7 +95601,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Mô hình EBR đạt độ chính xác 99,9% trên Sudoku-Extreme với chi phí tính toán ít hơn 345 lần",
+      "editorial_headline_vi": "Mô hình EBR đạt độ chính xác 99,9% trên Sudoku-Extreme với chi phí suy luận ít hơn 345 lần",
       "summary_sources": [
         {
           "id": "outlet",
@@ -95615,54 +95614,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 7.85,
+        "value": 10.0,
         "answers": {
           "what": 10,
-          "why": 3,
+          "why": 10,
           "notable": 10,
-          "meaning": 5
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "cause",
-            "summary_text": "huấn luyện khám phá nhằm tìm kiếm nhiều phương án giải hợp lệ",
-            "explanation": "The stated purpose of exploration-based training is to discover additional modes and better shape the energy landscape over a broader set of states. Coverage of distinct valid solutions is reported separately as a result (outlet:p001)."
-          },
-          {
-            "kind": "quote",
-            "summary_text": "kết quả chứng minh mô hình dựa trên năng lượng là hướng tiếp cận triển vọng",
-            "explanation": "The authors say the results suggest a promising approach, a weaker conclusion than “prove” (outlet:p001)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "các kết luận này mới được xác lập trên bốn bộ chuẩn thuật toán với giá trị đo trung bình qua ba lần thử nghiệm ngẫu nhiên",
-            "explanation": "The source reports results across four benchmarks, but the three-seed mean and standard deviation appear in a specific comparison caption; it does not apply that qualification to every conclusion (outlet:p001, outlet:p010)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "why",
-            "problem": "The purpose assigned to exploration-based training differs from the paper’s stated purpose.",
-            "fix": "Say it discovers additional modes and shapes the energy landscape across a broader set of states; report valid-solution coverage separately as a result (outlet:p001)."
-          },
-          {
-            "question": "meaning",
-            "problem": "“Proves” makes the authors’ conclusion too certain.",
-            "fix": "Use “suggests” or an equivalent qualified formulation (outlet:p001)."
-          },
-          {
-            "question": "meaning",
-            "problem": "The three-seed statistic is presented as applying to all benchmark conclusions.",
-            "fix": "Attach it only to the comparison for which the source specifies mean and standard deviation over three seeds (outlet:p010)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "72970b0e68f602e2831a05ecf30218cd18628006faf5c87f3ab3a125947c600f",
-        "scored_at": "2026-11-18T11:21:38.351537+00:00"
+        "prose_sha256": "8c83665d5a91555a0ef5ed1047906a842101a730f1c505e238f2122f04828271",
+        "scored_at": "2026-11-18T13:33:32.332285+00:00"
       }
     },
     {
@@ -95831,6 +95798,605 @@
         "prose_sha256": "d72aef9d34d90212032e02cac4deaf7f253cdfe786e0debbc208b7a963fe444e",
         "scored_at": "2026-11-18T11:26:31.902127+00:00"
       }
+    },
+    {
+      "id": "4931deb43406c692d34f",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/17/2026/inside-googles-push-to-make-ai-the-new-auto-tune",
+      "key_points": [
+        "Theo Semafor, Google ra mắt chương trình lưu trú nghệ sĩ Flow Music Sessions để đưa trí tuệ nhân tạo (AI) vào sáng tác. Hãng định vị Flow Music như công cụ bổ trợ tựa Auto-Tune, thay vì chỉ tạo bài hát từ câu lệnh.",
+        "Semafor nhận định tập đoàn muốn chứng minh AI không thay thế nghệ sĩ. Google kỳ vọng thuyết phục giới sáng tạo đón nhận công nghệ theo các điều kiện của chính họ.",
+        "Tại đây, nhà sản xuất Mike Costanzo lập trình tiện ích chọn tiếng trống perfect kick trên Spaces để rút ngắn thời gian tìm kiếm. Costanzo tự chọn thể loại rồi nhấn phím nhạc định âm, phần việc còn lại do tiện ích tự xử lý.",
+        "Dù vậy, nhóm nhạc sĩ độc lập đã khởi kiện vì cáo buộc Google đào tạo mô hình Lyria 3 trên bản ghi YouTube mà không xin phép hay bồi thường. Phía Google đã yêu cầu bác đơn kiện vì lập luận điều khoản YouTube vốn đã cấp phép đào tạo AI."
+      ],
+      "same_event_coverage_ids": [
+        "b3a9bef2c0f0b7691484"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Google Flow Music",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Google mở chương trình lưu trú âm nhạc AI nhằm thuyết phục nghệ sĩ giữa vụ kiện bản quyền",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/17/2026/inside-googles-push-to-make-ai-the-new-auto-tune"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "41c8b96e0896cd40a4730bfb16205265988697b844679e65b927ae0df546e76a",
+        "scored_at": "2026-11-18T13:23:07.500967+00:00"
+      }
+    },
+    {
+      "id": "aeeab8295128578020c6",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/18/2026/qia-ceo-isnt-worried-about-blip-in-ai-super-cycle",
+      "key_points": [
+        "Qatar Investment Authority CEO Mohammed Al-Sowaidi said the $580 billion fund is not concerned by the recent dip in AI company valuations.",
+        "Al-Sowaidi characterized current AI development as an innovation super cycle that will inevitably experience market ups and downs.",
+        "QIA reaffirmed its commitment to invest $500 billion in the United States over the next decade."
+      ],
+      "same_event_coverage_ids": [
+        "7a4fe6616ecb6f337cbc"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Qatar Investment Authority",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Mohammed Al-Sowaidi"
+        ],
+        "availability": "global",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "a426717202403016988b",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/newsletters/2026-11-18/anthropic-s-ipo-is-a-test-of-vc-s-big-bet-strategy",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "0a6b0a999452c6762771"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "2c4163c7e21d994db2e8",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/18/felicis-leads-7-5m-bet-on-unsiloed-ai-to-make-enterprise-documents-usable-by-ai-agents/",
+      "key_points": [
+        "Công ty khởi nghiệp Unsiloed AI huy động 7,5 triệu USD vòng hạt giống do Felicis dẫn đầu để mở khóa tài liệu cho tác tử AI (hệ thống trí tuệ nhân tạo tự hành). Nguồn vốn có Y Combinator tham gia sẽ phục vụ tuyển dụng kỹ sư và phát triển dữ liệu độc quyền.",
+        "Theo TechCrunch, hệ thống AI thường xử lý kém tài liệu phức tạp chứa bảng biểu, dễ gây sai sót cho ngân hàng hay bệnh viện. Do mô hình ngôn ngữ lớn mang tính xác suất, Unsiloed xử lý riêng văn bản và hình ảnh để trích xuất dữ liệu có nguồn đối chiếu.",
+        "Về hiệu năng, Unsiloed đạt độ chính xác 99,78% trên 542 tài liệu tài chính của khách hàng qua 84.000 điểm dữ liệu. Ở bài đánh giá chuẩn (benchmark) olmOCR-Bench gồm 1.403 trang PDF do công ty tự thử nghiệm, Unsiloed đạt 88,0 điểm, vượt mức 66,0 của Reducto và 39,9 của Unstructured.",
+        "TechCrunch nhận định startup này gia nhập thị trường đã đông đúc và phải cạnh tranh với Reducto, Unstructured cũng như Microsoft. Dù vậy, kết quả thử nghiệm đạt độ chính xác cao trên 542 tài liệu tài chính vẫn chưa được kiểm chứng độc lập."
+      ],
+      "same_event_coverage_ids": [
+        "70f026939b295a40574c"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Unsiloed AI",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Aarthi Ramamurthy",
+          "Beth Turner"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Unsiloed AI gọi vốn 7,5 triệu USD để xử lý tài liệu phức tạp phục vụ tác tử AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/18/felicis-leads-7-5m-bet-on-unsiloed-ai-to-make-enterprise-documents-usable-by-ai-agents/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.85,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The Vietnamese leaves out evidence that the product is already in use.",
+            "fix": "Add a concrete deployment, such as the bank processing documents or the law firm handling contracts and old case files (outlet:p012)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "3d0ac107d817f2ba4505393b6d61cba39994d372ae74130ecc5132a15f42687c",
+        "scored_at": "2026-11-18T13:23:07.501018+00:00"
+      }
+    },
+    {
+      "id": "17603efd6cddb9eda480",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-18/ai-trade-is-alive-and-well-yardeni-says-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "a49322af2a728e6e61ec"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "f0907922d74c9e450257",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Enterprise IT infrastructure and data center services contract with no substantive focus on artificial intelligence.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://analyticsindiamag.com/ai-news/network-rail-awards-133-million-infrastructure-contract-to-cognizant",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "f0ac3cb214456019f787"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "30e070ca02fb3450d52d",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://analyticsindiamag.com/ai-news/hitachi-systems-india-sets-up-bengaluru-gdc-to-tackle-frontier-ai-risks",
+      "key_points": [
+        "Hitachi Systems India ra mắt Trung tâm Phân phối Toàn cầu Tiên tiến tại Bengaluru cùng CrowdStrike của Mỹ. Trung tâm sẽ cung cấp dịch vụ quản lý an ninh qua nền tảng Falcon, gồm bảo vệ trước các lỗ hổng khi ứng dụng trí tuệ nhân tạo (AI).",
+        "Bà Amanda Adams tại CrowdStrike cho biết AI đang mở rộng bề mặt tấn công và đẩy nhanh việc khai thác lỗ hổng. Hồi tháng 9, một biến thể mã độc Windows đã dùng bốn mô hình AI để chọn hành vi tiếp theo, cho thấy tin tặc có thể dùng AI tự động hóa một phần cuộc tấn công.",
+        "CrowdStrike tuyên bố Falcon Next-Gen SIEM giúp tăng tốc tìm kiếm tới 150 lần và hạ tới 80% chi phí sở hữu so với hệ thống SIEM (quản lý thông tin và sự kiện an ninh) cũ. Giải pháp Falcon Guardian cũng được đưa vào nhằm bảo vệ tác tử AI (phần mềm tự hành) và có công tắc ngắt khẩn cấp để chấm dứt tác tử độc hại.",
+        "Theo Analytics India Magazine, dịch vụ này hỗ trợ doanh nghiệp chuyển dịch sang trung tâm vận hành an ninh tự hành. Ông Rajeev Garg thuộc Hitachi Systems India cho biết các khối ngân hàng, tài chính và y tế là khách hàng mục tiêu để dùng một nhà cung cấp an ninh duy nhất."
+      ],
+      "same_event_coverage_ids": [
+        "bbea3cd7450cb6f98ef7"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Hitachi Systems India",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "region_locked:Asia Pacific and Middle East",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Hitachi Systems India mở trung tâm phân phối toàn cầu tại Bengaluru ứng phó rủi ro AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "analytics-india-magazine",
+          "url": "https://analyticsindiamag.com/ai-news/hitachi-systems-india-sets-up-bengaluru-gdc-to-tackle-frontier-ai-risks"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.25,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 8,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The account does not explain how the partnership will identify and address AI-related vulnerabilities.",
+            "fix": "Mention Hitachi's participation in Project QuiltWorks and its advisory and remediation work through FAIRR (outlet:p002–p004)."
+          },
+          {
+            "question": "meaning",
+            "problem": "Readers do not learn where the centre will serve customers.",
+            "fix": "State that its service area covers India, Asia Pacific and the Middle East (outlet:p002)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "bcdcfefc6dcefa9a93969bd55b68dbf45d3db4636bf665cf43eef08a4e82a0d3",
+        "scored_at": "2026-11-18T13:23:07.501047+00:00"
+      }
+    },
+    {
+      "id": "ddb370c34e5553db3786",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/18/accel-backs-indias-humyn-labs-to-supply-training-data-needed-by-u-s-robotics-ai-developers/",
+      "key_points": [
+        "Theo TechCrunch, công ty khởi nghiệp Humyn Labs của Ấn Độ đã huy động 47 triệu USD vòng Series A để hỗ trợ các công ty robot tại Mỹ phát triển mô hình AI trong môi trường thực tế. Khoản tài trợ gồm 26 triệu USD vốn cổ phần do Accel dẫn đầu và 21 triệu USD vốn vay mạo hiểm do Lighthouse Canton bảo trợ.",
+        "TechCrunch cho biết nhu cầu dữ liệu thế giới thực để huấn luyện robot ngày càng tăng, trong khi việc tìm kiếm nguồn dữ liệu chất lượng trên toàn cầu vẫn gặp nhiều khó khăn.",
+        "Nhằm cạnh tranh, Humyn Labs tự phát triển phần cứng hai camera và phần mềm gắn nhãn (đánh dấu hoạt động để AI học hỏi) đời thường tại hơn 20 quốc gia. Doanh nghiệp hiện có 12 khách hàng với 10 triệu USD doanh thu từ tháng 4 đến tháng 10 năm 2026, trong đó khoảng 90% doanh thu đến từ Mỹ.",
+        "Tuy nhiên, TechCrunch nhận định hoạt động này đang dấy lên những lo ngại về quyền riêng tư và sự đồng thuận, đặc biệt khi việc ghi hình diễn ra bên trong nhà ở."
+      ],
+      "same_event_coverage_ids": [
+        "7ec1288cd07713fc4a4f"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Humyn Labs",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Humyn Labs của Ấn Độ gọi vốn 47 triệu USD để cung cấp dữ liệu đời thực huấn luyện robot cho Mỹ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/18/accel-backs-indias-humyn-labs-to-supply-training-data-needed-by-u-s-robotics-ai-developers/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.3,
+        "answers": {
+          "what": 10,
+          "why": 8,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The reader is not told why $21 million of the financing is debt.",
+            "fix": "Explain that Humyn Labs pays workers and collection partners daily or weekly but typically receives customer payment 30 to 60 days later, so borrowing bridges the gap (outlet:p015)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "2a97daf5b7ffe2e8a6bc3fcc12d8dda983c6c5aea3b36ac8c7b861bb060efdcb",
+        "scored_at": "2026-11-18T13:17:22.857299+00:00"
+      }
+    },
+    {
+      "id": "25fecc94404a01d36781",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Geopolitical summit reporting centered on free trade and protectionism with only a passing reference to AI cooperation.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.semafor.com/article/11/18/2026/xi-criticizes-western-protectionism-and-calls-for-free-trade",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c448f661a2ddb819830d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "60cc0321fde80c116406",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.semafor.com/article/11/18/2026/japans-exports-surge-thanks-to-its-role-in-ai-supply-chain",
+      "key_points": [
+        "Theo Semafor, xuất khẩu của Nhật Bản tăng vọt vượt dự báo nhờ vai trò trong chuỗi cung ứng trí tuệ nhân tạo (AI).",
+        "Đà tăng này diễn ra do nhu cầu xây dựng hạ tầng AI toàn cầu tăng cao, đưa các doanh nghiệp Nhật Bản, Trung Quốc và Hàn Quốc thành nhà sản xuất chip cùng thiết bị then chốt.",
+        "Tại Trung Quốc, giữa lúc số liệu chính thức cho thấy đà suy giảm ngày càng sâu, giới phân tích tại Trivium nhấn mạnh sản xuất liên quan AI là mảng duy nhất có đầu tư tăng trưởng. Trong khi đó, một viện nghiên cứu chính sách nhà nước của Hàn Quốc đã nâng dự báo tăng trưởng năm tới nhờ nhu cầu từ AI.",
+        "Tuy nhiên, các nhà kinh tế lo ngại các quốc gia Đông Á sẽ ngày càng phụ thuộc vào đà tăng tốc bán phần cứng."
+      ],
+      "same_event_coverage_ids": [
+        "0cc5b53a5bfb1bed280d"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Asian AI Hardware Exports",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Xuất khẩu Nhật Bản tăng vọt vượt dự báo nhờ vai trò then chốt trong chuỗi cung ứng AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/18/2026/japans-exports-surge-thanks-to-its-role-in-ai-supply-chain"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "b0b96f830f3611cb9259a02e62eb9b6c4535b0c52aca1728d95eb382a64dde5c",
+        "scored_at": "2026-11-18T13:23:07.501069+00:00"
+      }
+    },
+    {
+      "id": "e8cbe174d2c5483f30f0",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "top tier needs four to eight verified key points",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "top tier needs four to eight verified key points"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/18/2026/nvidias-board-divided-over-calls-for-huangs-return",
+      "key_points": [
+        "Theo Semafor, chủ tịch tập đoàn Nvidia tuyên bố sẽ tìm kiếm giám đốc điều hành mới từ bên ngoài, dù một số thành viên hội đồng quản trị ủng hộ đưa cựu lãnh đạo Jensen Huang trở lại.",
+        "Theo Semafor, lãnh đạo của hai hãng chip đối thủ ARM và Marvell đang trực tiếp tham gia cuộc đua kế nhiệm vị trí của Huang, giữa lúc các căng thẳng nội bộ có thể tiếp tục xuất hiện tại buổi họp toàn thể công ty.",
+        "Jeff Bezos nhận định nhân sự bên ngoài có cơ hội thành công cực kỳ mong manh trước mảng kinh doanh phức tạp của Nvidia, đồng thời khuyên tập đoàn nên tìm kiếm người kế nhiệm từ nội bộ."
+      ],
+      "same_event_coverage_ids": [
+        "00f7222b86cf56e1dc9f"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Nvidia",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Jensen Huang",
+          "Jeff Bezos"
+        ],
+        "availability": "global",
+        "is_leak": true
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Chủ tịch Nvidia tuyên bố tìm CEO mới bên ngoài giữa bất đồng về việc đưa Jensen Huang trở lại",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/18/2026/nvidias-board-divided-over-calls-for-huangs-return"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The reader misses the source’s stated consequence of the leadership split.",
+            "fix": "Add that the divisions cast doubt on the future of Nvidia, a company central to the AI boom (outlet:p001)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "789017f963bc950f2dedbad11c59db14ceb569a6f1176a71fd68a653ef7b71fc",
+        "scored_at": "2026-11-18T13:17:22.857345+00:00"
+      }
+    },
+    {
+      "id": "942518637ca001c7d154",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/ai-artificial-intelligence/1036415/suno-visuals-ai-generated-video-images-feature",
+      "key_points": [
+        "Suno introduced Visuals, a new feature allowing users to create AI-generated images and 15-second video clips synced to Suno songs.",
+        "The Visuals tool automatically lipsyncs generated video clips to song lyrics and produces artwork for tracks based on text prompts.",
+        "The feature is available across desktop web, iOS, and Android applications under the Create mode tab."
+      ],
+      "same_event_coverage_ids": [
+        "049c8aa05cf142bfdf19"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Suno",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "4d4acb6840bf12080bd2",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Financial reporting analyzing Apple's equity valuation multiples and safe-haven status, with only passing references to broader tech market volatility.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-18/apple-s-haven-status-makes-it-one-of-priciest-stocks-in-market",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "62de4814581d5164264f"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "1a6294c30a3aae4d3b52",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Product landing page and demo documentation for a CLI tool without independent reporting or formal release notes.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://pirateface.co/articles/pirate-face-cli",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "15913986a6186838d0f3"
+      ],
+      "split_coverage_ids": []
     }
   ]
 }
