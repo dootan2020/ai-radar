@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-18T15:30:04.032355+00:00",
-  "input_generated_at": "2026-11-18T14:45:42Z",
+  "generated_at": "2026-11-18T17:31:24.817188+00:00",
+  "input_generated_at": "2026-11-18T16:26:04Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -96918,10 +96918,10 @@
       "use_original_title": false,
       "source_url": "https://huggingface.co/blog/rumble-2-flash",
       "key_points": [
-        "Reson8 phát hành mã nguồn mở Rumble-2-Flash theo giấy phép Apache 2.0, mô hình nhận dạng giọng nói 0,5 tỷ tham số hỗ trợ hơn 40 ngôn ngữ. Mô hình sử dụng kiến trúc Qwen3-ASR để tương thích sẵn với Transformers và vLLM mà không cần mã tùy biến.",
-        "Để tìm giới hạn thu nhỏ mô hình trước khi giảm độ chính xác, Reson8 chưng cất mô hình Rumble-2 bằng kỹ thuật chưng cất on-policy (on-policy distillation). Phương pháp này giúp mô hình học sinh tự chuyển văn bản rồi nhận phản hồi theo từng mã từ (token), kết hợp kỹ thuật GOLD để so khớp hai bộ từ vựng.",
-        "Trên bài kiểm chuẩn cuộc gọi gồm 302 giờ của AppTek, Rumble-2-Flash đạt tỷ lệ lỗi từ (WER) 7,86%, ngang ngửa mức 7,78% của mô hình Nemotron 3.5 Transcribe 30 tỷ tham số từ Nvidia. Tuy nhiên, Qwen3-ASR bản 1,7 tỷ tham số là mô hình so sánh duy nhất đạt kết quả tốt hơn với tỷ lệ lỗi 7,4%.",
-        "Người dùng có thể tải trọng số tại Reson8/Rumble-2-Flash trên Hub hoặc gọi qua giao diện lập trình ứng dụng (API) của Reson8."
+        "Reson8 phát hành mã nguồn mở Rumble-2-Flash theo giấy phép Apache 2.0, mô hình nhận dạng giọng nói 0,5 tỷ tham số hỗ trợ hơn 40 ngôn ngữ.",
+        "Để tìm giới hạn thu nhỏ mô hình trước khi giảm độ chính xác, Reson8 chưng cất mô hình Rumble-2 bằng kỹ thuật chưng cất on-policy (on-policy distillation). Theo Reson8, mô hình học sinh tự chép lại âm thanh rồi được mô hình giáo viên chấm điểm từng mã từ (token), kết hợp kỹ thuật GOLD để so khớp hai bộ từ vựng.",
+        "Rumble-2-Flash đạt tỷ lệ lỗi từ 7,86% trên bài kiểm chuẩn AppTek gồm 302 giờ cuộc gọi với 14 chất giọng tiếng Anh, ngang mức 7,78% của mô hình Nemotron 3.5 Transcribe 30 tỷ tham số từ Nvidia. Dù vậy, Qwen3-ASR bản 1,7 tỷ tham số là mô hình so sánh duy nhất đạt kết quả tốt hơn với tỷ lệ lỗi 7,4%.",
+        "Theo Reson8, người dùng có thể tải trọng số trên Hub tại Reson8/Rumble-2-Flash hoặc gọi qua giao diện lập trình ứng dụng (API) của công ty."
       ],
       "same_event_coverage_ids": [
         "91814fbba5112942f7b8"
@@ -96948,34 +96948,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.3,
+        "value": 9.8,
         "answers": {
           "what": 10,
-          "why": 8,
+          "why": 9,
           "notable": 10,
-          "meaning": 8
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "mô hình học sinh tự chuyển văn bản",
-            "explanation": "The student model transcribes the audio itself; it does not convert text (outlet:p032)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "why",
-            "problem": "The description of distillation gives the reader the wrong input for the student model.",
-            "fix": "Say that the student transcribes audio itself and the teacher grades its transcript token by token (outlet:p032)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "bb5ff0b9a309d77a4196b6455481708ccdc7b799a83728d1f7ad5b3743b02f66",
-        "scored_at": "2026-11-18T15:25:53.681870+00:00"
+        "prose_sha256": "992eace464d1ac3d97ba5e7d577630d7ef0c7069e4227c28db9a58d46b5c5a4a",
+        "scored_at": "2026-11-18T17:31:24.810129+00:00"
       }
     },
     {
@@ -97032,10 +97020,10 @@
       "use_original_title": false,
       "source_url": "https://www.semafor.com/article/11/17/2026/nvidia-faces-its-own-lehman-moment",
       "key_points": [
-        "Colette Kress sẽ phát biểu tại cuộc gọi thu nhập chiều nay của Nvidia trên cương vị CEO tạm quyền theo Semafor, sau khi được thăng chức giữa giai đoạn biến động.",
-        "Jensen Huang từ chức giữa cuộc điều tra tình ái liên quan một người bị nghi là gián điệp Trung Quốc theo Semafor, bên cạnh các cáo buộc riêng biệt về những mối quan hệ khác với cấp dưới.",
-        "Erin Callan từng rơi vào vách đá kính (phụ nữ được thăng chức khi khủng hoảng) tại Lehman Brothers theo Semafor, khi bị thay thế năm 2008 sau đòn mổ xẻ số liệu của bên bán khống. Khác với Lehman, Semafor nhận định nhu cầu chip của Nvidia vẫn rất mạnh, dù Kress đối mặt thông tin từ The Wall Street Journal rằng Huang từng gọi bà như nai trước đèn xe.",
-        "Hội đồng quản trị sẽ quyết định thời gian tạm quyền của Kress theo Semafor, sau khi ban này vừa bổ nhiệm chủ tịch độc lập đầu tiên vào tuần trước. Jane Fraser của Citi nhận định với Semafor rằng Nvidia ở thời điểm hiện tại vẫn nằm trong tay nhân sự có năng lực."
+        "Theo Semafor, Colette Kress sẽ phát biểu tại cuộc gọi thu nhập chiều nay của Nvidia trên cương vị CEO tạm quyền sau khi được thăng chức giữa giai đoạn biến động.",
+        "Theo Semafor, Jensen Huang từ chức giữa cuộc điều tra tình ái với người bị nghi là gián điệp Trung Quốc, cùng các cáo buộc quan hệ với cấp dưới.",
+        "Theo Semafor, Erin Callan phải rời nhiệm sở vào tháng 6 năm 2008 sau đòn mổ xẻ của bên bán khống, trở thành ví dụ về vách đá kính (phụ nữ được thăng chức vào tâm điểm chú ý ngay lúc bên bờ vực).",
+        "Hội đồng quản trị vừa có chủ tịch độc lập đầu tiên sẽ quyết định thời hạn tạm quyền của Kress theo Semafor. Jane Fraser của Citi nhận định với Semafor rằng Nvidia ở thời điểm hiện tại vẫn nằm trong tay nhân sự có năng lực."
       ],
       "same_event_coverage_ids": [
         "265bfb8a44260ddb70f9",
@@ -97070,25 +97058,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.25,
+        "value": 9.1,
         "answers": {
           "what": 10,
           "why": 10,
           "notable": 8,
-          "meaning": 9
+          "meaning": 8
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "bị thay thế năm 2008",
-            "explanation": "The source says Callan was out by June 2008; it does not say she was replaced or specify how she left (outlet:p003)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "notable",
-            "problem": "The account of Callan’s departure states a manner of departure the source does not establish.",
-            "fix": "Say only that Callan was out by June 2008, after a short seller began challenging her numbers (outlet:p003)."
+            "question": "meaning",
+            "problem": "The Callan comparison lacks the source’s qualification that Nvidia’s circumstances differ from Lehman’s.",
+            "fix": "Add that the source says demand for Nvidia’s chips is unquestioned and its balance sheet is strong (outlet:p004)."
           }
         ],
         "writer_boats": [
@@ -97096,9 +97078,454 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "86465a21fc185180123d5667840af3fb3289957fbd9cf7b43e4142791208af9a",
-        "scored_at": "2026-11-18T15:25:53.681974+00:00"
+        "prose_sha256": "e0c6dcbe0a0a2eda2557973fe1bdafc6f4e02ecd0e7f618d43760e274f0ea521",
+        "scored_at": "2026-11-18T17:31:24.810193+00:00"
       }
+    },
+    {
+      "id": "13cad68c9c2626fc3fea",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://fedscoop.com/google-again-extends-gsa-onegov-deal-for-gemini/",
+      "key_points": [
+        "Google đã gia hạn thỏa thuận OneGov cho bộ công cụ AI Gemini với Cơ quan Dịch vụ Tổng hợp (GSA), theo bản cập nhật trang web hôm thứ Ba. Thỏa thuận hết hạn vào Chủ nhật và nay kéo dài đến ngày 28 tháng 2 năm 2027, dù Google và GSA không bình luận.",
+        "Theo trang web, gói hợp đồng gồm Gemini, nền tảng AI cùng các sản phẩm Google Cloud Platform đạt chuẩn bảo mật cao FedRAMP High. Thỏa thuận này nối tiếp hợp đồng Google Workspace từng giảm giá 71% trước đó.",
+        "Hợp đồng tính phí 0,47 USD cho mỗi cơ quan trong một năm đối với gói Gemini và giảm 20% cho dịch vụ đám mây của hãng. FedScoop cho biết đây là lần gia hạn OneGov thứ hai, diễn ra sau khi Google công bố bản xem trước gói AI dạng tác tử (agentic AI - hệ thống tự thực hiện chuỗi tác vụ).",
+        "GSA khẳng định cơ quan này chỉ gia hạn thỏa thuận khi phù hợp để bảo đảm tiếp cận công cụ AI và tối ưu ngân sách công. Theo thông cáo tháng 9 của GSA, chương trình OneGov đã giúp tiết kiệm gần 1,7 tỷ USD chi phí, gồm 1,4 tỷ USD từ công cụ AI cho 3,5 triệu nhân viên liên bang."
+      ],
+      "same_event_coverage_ids": [
+        "9a4fc8d8cafaf49e2861"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Google",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Google gia hạn thỏa thuận OneGov cung cấp AI Gemini cho chính phủ Mỹ với giá 0,47 USD",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "fedscoop",
+          "url": "https://fedscoop.com/google-again-extends-gsa-onegov-deal-for-gemini/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.35,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 9,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The 20% discount lacks its pricing basis and service scope.",
+            "fix": "Specify that it is 20% off list prices for first-party cloud services (outlet:p007)."
+          },
+          {
+            "question": "what",
+            "problem": "The account blurs the two organizations' responses to the reporter.",
+            "fix": "Say the GSA did not immediately respond, while Google declined to comment (outlet:p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "669d315fd0ff25d0c3dd0b080ecd80fdc03cc5ccd457057e901d8738bbf77a49",
+        "scored_at": "2026-11-18T17:19:43.641737+00:00"
+      }
+    },
+    {
+      "id": "c87d9b57db30aa442337",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-18/viral-patel-on-ai-s-investment-boom-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "f0310479c0d5dc9ebad5"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "3431cd1ca2905ae5ee86",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-18/anthropic-s-low-profile-cfo-guides-firm-through-cone-of-uncertainty",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c56f39d11ca9e108d927"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "4270e297502a029b32d7",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/ai-artificial-intelligence/1036549/nvidia-amd-earnings-fall-2026-chips-pause-frontier-models",
+      "key_points": [
+        "Doanh thu trung tâm dữ liệu của Nvidia tăng 110% so với cùng kỳ năm trước lên 107,6 tỷ USD trong ba tháng kết thúc ngày 25 tháng 10. Cùng kỳ, hãng chip AMD cũng đạt quý kinh doanh lớn nhất lịch sử khi tổng doanh thu tăng 45% lên 13,4 tỷ USD.",
+        "The Verge nhận định nhu cầu ngày càng tăng đối với suy luận (quá trình vận hành các mô hình AI sẵn có) có thể giúp ngành chip tránh bị tổn hại bởi đà giảm tốc huấn luyện. Chuyên gia Neil Shah tại Counterpoint Research cho biết các tác vụ suy luận đòi hỏi nhiều hạ tầng tính toán hơn huấn luyện, tạo ra mức tăng ròng về nhu cầu cho mọi loại chip tăng tốc.",
+        "Nền tảng Rubin tạo ra gần 20 tỷ USD doanh thu ngay trong quý đầu tiên xuất xưởng sản xuất. Hiện các tủ rack của nền tảng này đã vận hành tại CoreWeave, Google, Microsoft cùng Oracle, trong khi Meta cũng dự kiến mở rộng triển khai.",
+        "The Verge nhận định hiện chưa có nhiều dấu hiệu cho thấy đà giảm tốc huấn luyện mô hình biên làm tổn hại doanh số chip. Dù vậy, chuyên gia Neil Shah lưu ý các thỏa thuận mua sắm điện toán có sẵn có thể khiến tác động tài chính từ việc giảm tốc mất khoảng sáu tháng mới bộc lộ."
+      ],
+      "same_event_coverage_ids": [
+        "e083aab881c505df1088"
+      ],
+      "split_coverage_ids": [],
+      "subject": "AI chip demand",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Dario Amodei",
+          "Rani Molla"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Doanh thu trung tâm dữ liệu Nvidia tăng 110%, đà giảm tốc AI chưa có dấu hiệu làm hại doanh số",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1036549/nvidia-amd-earnings-fall-2026-chips-pause-frontier-models"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.95,
+        "answers": {
+          "what": 9,
+          "why": 8,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "Cùng kỳ",
+            "explanation": "The source says AMD reported its results earlier in the month; it does not establish that AMD and Nvidia reported for the same period (outlet:p024, outlet:p027)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "đà giảm tốc AI",
+            "explanation": "The source discusses a possible slowdown in frontier training, says the observed pause appears to have been brief, and describes AI usage as growing. It does not report a general, ongoing AI slowdown (outlet:p019–p022, outlet:p031–p038)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "“Cùng kỳ” tells readers that AMD’s and Nvidia’s figures cover the same period without source support.",
+            "fix": "Say AMD reported its biggest quarter earlier in the month (outlet:p027)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The headline presents a broad AI slowdown as an established trend.",
+            "fix": "Refer specifically to the concern about slower frontier training and note that the reported pause was brief (outlet:p019–p022)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The reader misses the article’s concluding risk to Nvidia: customers may keep expanding AI while moving to cheaper custom chips.",
+            "fix": "Add that distinction and attribute the custom processor shipment forecast to Counterpoint (outlet:p040–p043)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "f4021fee9495c600a7a3b9646520bb50d02c175231d9196581f4896761b8acc0",
+        "scored_at": "2026-11-18T17:23:42.067224+00:00"
+      }
+    },
+    {
+      "id": "68a47bce3a0d7be197b5",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.wired.com/story/just-ridiculous-a-famed-philosopher-takes-on-ai-consciousness/",
+      "key_points": [
+        "Triết gia Thomas Nagel cho rằng việc coi các mô hình ngôn ngữ lớn hiện nay có ý thức là nực cười, dù ấn tượng trước độ chân thực của chúng. Nhận định được giáo sư 89 tuổi chia sẻ với tạp chí Wired sau khi nhận giải thưởng Berggruen trị giá 1 triệu USD.",
+        "Ông lập luận rằng các trung tâm dữ liệu phức tạp hoàn toàn không có điểm chung nào với đặc tính vật lý của một hệ thần kinh.",
+        "Điển hình như Claude, ông Nagel chỉ ra các mô hình ngôn ngữ lớn chỉ bắt chước lời nói con người với độ thuyết phục cao. Ông nhấn mạnh cỗ máy này không có đời sống tâm trí để con người phải bận tâm chăm sóc quyền lợi.",
+        "Ông cảnh báo thêm rằng dù các hệ thống này không có ý thức, việc nhiều người tin rằng chúng có ý thức là một điều rất tồi tệ."
+      ],
+      "same_event_coverage_ids": [
+        "09b5c6a3758198874206"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Thomas Nagel",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Thomas Nagel",
+          "Peter Singer",
+          "Ruth Bader Ginsburg"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Triết gia Thomas Nagel cho rằng việc coi các mô hình ngôn ngữ lớn hiện nay có ý thức là nực cười",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "wired",
+          "url": "https://www.wired.com/story/just-ridiculous-a-famed-philosopher-takes-on-ai-consciousness/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.65,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "30a18b38c79eeeb82019e9f97c20dbc30dbb84509deb72a2e1f2a25a67cc2e4f",
+        "scored_at": "2026-11-18T17:23:42.067260+00:00"
+      }
+    },
+    {
+      "id": "aef632472a5e3af7f91b",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://huggingface.co/blog/ibm-research/time-series-powered-streamhouse",
+      "key_points": [
+        "IBM và Confluent đưa các mô hình nền tảng chuỗi thời gian của IBM tích hợp trực tiếp trên nền tảng Confluent dưới dạng các hàm tích hợp sẵn. Nhóm mô hình này đạt hơn 50 triệu lượt tải và chạy trên bộ xử lý trung tâm (CPU) mà không cần GPU.",
+        "Thông tin kinh doanh thường bị trễ do phân tán ở các hệ thống xử lý theo lô định kỳ.",
+        "Trong sản xuất kem, mô hình TTM dự báo tỷ lệ sản phẩm đạt chuẩn trước bốn giờ từ dữ liệu đo mỗi 10 phút để chỉnh thiết bị. Với tài chính, mô hình PatchTST-FM dự báo khối lượng giao dịch 30 phút kế tiếp trên mỗi nến một phút để điều phối lệnh.",
+        "Tuy vậy, nhóm nghiên cứu lưu ý việc cập nhật dự báo còn phụ thuộc vào cấu hình đường ống và yêu cầu của mô hình."
+      ],
+      "same_event_coverage_ids": [
+        "bd1e8be33347839ba0f8"
+      ],
+      "split_coverage_ids": [],
+      "subject": "IBM Research",
+      "video_labels": null,
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "IBM đưa mô hình chuỗi thời gian hơn 50 triệu lượt tải lên Confluent để chạy trực tiếp trên CPU",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://huggingface.co/blog/ibm-research/time-series-powered-streamhouse"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.8,
+        "answers": {
+          "what": 9,
+          "why": 8,
+          "notable": 10,
+          "meaning": 7
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The reader gets the caveat but largely misses the operational benefit.",
+            "fix": "Explain that forecasts and anomaly signals can reach applications and decision-makers sooner as data flows, subject to pipeline configuration (outlet:p063, outlet:p077–p078)."
+          },
+          {
+            "question": "what",
+            "problem": "The deployment options are absent.",
+            "fix": "Add that the built-in models run in Confluent Cloud and on premises (outlet:p066)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "47effd8c5cc5d64f6b9b0e1b743c433019bedac40a9994f0e833171962322dd4",
+        "scored_at": "2026-11-18T17:19:43.641873+00:00"
+      }
+    },
+    {
+      "id": "2023faf93d7d342dd2ad",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Technical developer blog describing GPU kernel optimizations and eigensolvers for plane-wave DFT simulation in VASP; mentions machine learning only in passing.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://developer.nvidia.com/blog/tackling-gpu-bottlenecks-in-plane-wave-dft-with-k-point-batching-and-mixed-precision/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c8c489d5e4472371df40"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "9739882e8ba7c47334c8",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-18/nyc-comptroller-says-pensions-are-ready-to-fight-for-ai-safety",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "0d6305fc3ffc6ee48306"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "e7c4908e584f5e820cfe",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.technologyreview.com/2026/11/18/1148650/ai-hype-index-ai-is-everywhere/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "a582d5f62d2d018746ff"
+      ],
+      "split_coverage_ids": [],
+      "subject": "AI hype",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Sam Altman",
+          "Andrew Garfield",
+          "Elon Musk",
+          "Lee Sedol",
+          "Thore Graepel"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "ff72ed70a122fa83d724",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-18/union-nurses-tell-researchers-that-ai-can-make-their-jobs-harder",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "585c380932d7464b45b1"
+      ],
+      "split_coverage_ids": []
     }
   ]
 }
