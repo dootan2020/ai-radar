@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-18T17:31:24.817188+00:00",
-  "input_generated_at": "2026-11-18T16:26:04Z",
+  "generated_at": "2026-11-18T19:56:35.332329+00:00",
+  "input_generated_at": "2026-11-18T18:46:18Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -97211,10 +97211,10 @@
       "use_original_title": false,
       "source_url": "https://www.theverge.com/ai-artificial-intelligence/1036549/nvidia-amd-earnings-fall-2026-chips-pause-frontier-models",
       "key_points": [
-        "Doanh thu trung tâm dữ liệu của Nvidia tăng 110% so với cùng kỳ năm trước lên 107,6 tỷ USD trong ba tháng kết thúc ngày 25 tháng 10. Cùng kỳ, hãng chip AMD cũng đạt quý kinh doanh lớn nhất lịch sử khi tổng doanh thu tăng 45% lên 13,4 tỷ USD.",
-        "The Verge nhận định nhu cầu ngày càng tăng đối với suy luận (quá trình vận hành các mô hình AI sẵn có) có thể giúp ngành chip tránh bị tổn hại bởi đà giảm tốc huấn luyện. Chuyên gia Neil Shah tại Counterpoint Research cho biết các tác vụ suy luận đòi hỏi nhiều hạ tầng tính toán hơn huấn luyện, tạo ra mức tăng ròng về nhu cầu cho mọi loại chip tăng tốc.",
-        "Nền tảng Rubin tạo ra gần 20 tỷ USD doanh thu ngay trong quý đầu tiên xuất xưởng sản xuất. Hiện các tủ rack của nền tảng này đã vận hành tại CoreWeave, Google, Microsoft cùng Oracle, trong khi Meta cũng dự kiến mở rộng triển khai.",
-        "The Verge nhận định hiện chưa có nhiều dấu hiệu cho thấy đà giảm tốc huấn luyện mô hình biên làm tổn hại doanh số chip. Dù vậy, chuyên gia Neil Shah lưu ý các thỏa thuận mua sắm điện toán có sẵn có thể khiến tác động tài chính từ việc giảm tốc mất khoảng sáu tháng mới bộc lộ."
+        "Doanh thu trung tâm dữ liệu của Nvidia tăng 110% lên 107,6 tỷ USD trong ba tháng kết thúc ngày 25 tháng 10. Hồi đầu tháng này, AMD cũng báo cáo quý lớn nhất lịch sử với doanh thu tăng 45% lên 13,4 tỷ USD.",
+        "The Verge nhận định nhu cầu suy luận AI gia tăng (quá trình vận hành các mô hình sẵn có) có thể giúp ngành chip tránh bị tổn hại bởi đà giảm tốc huấn luyện. Tạp chí này chỉ ra đợt gián đoạn huấn luyện thực tế rất ngắn ngủi khi OpenAI tái khởi động sau 10 ngày và Anthropic vẫn ra mắt các bản nâng cấp.",
+        "Nền tảng Rubin tạo ra gần 20 tỷ USD doanh thu ngay trong quý đầu xuất xưởng và đã vận hành tại Google, Microsoft cùng Oracle. Tại AMD, các hệ thống Helios dùng chip MI450 mới cũng sớm được OpenAI và Anthropic đưa vào vận hành.",
+        "The Verge nhận định mối đe dọa lớn hơn với Nvidia có thể không phải là việc các công ty AI phát triển chậm lại, mà là nguy cơ họ tìm đến các dòng chip rẻ hơn. Theo dự báo của Counterpoint Research, lượng vi xử lý máy chủ AI tự thiết kế xuất xưởng sẽ vượt qua GPU trung tâm dữ liệu vào năm 2028."
       ],
       "same_event_coverage_ids": [
         "e083aab881c505df1088"
@@ -97231,7 +97231,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Doanh thu trung tâm dữ liệu Nvidia tăng 110%, đà giảm tốc AI chưa có dấu hiệu làm hại doanh số",
+      "editorial_headline_vi": "Doanh thu trung tâm dữ liệu Nvidia tăng 110%, đợt tạm dừng huấn luyện mô hình biên ngắn ngủi chưa làm hại doanh số",
       "summary_sources": [
         {
           "id": "outlet",
@@ -97244,49 +97244,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.95,
+        "value": 9.6,
         "answers": {
-          "what": 9,
+          "what": 10,
           "why": 8,
           "notable": 10,
-          "meaning": 8
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "Cùng kỳ",
-            "explanation": "The source says AMD reported its results earlier in the month; it does not establish that AMD and Nvidia reported for the same period (outlet:p024, outlet:p027)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "đà giảm tốc AI",
-            "explanation": "The source discusses a possible slowdown in frontier training, says the observed pause appears to have been brief, and describes AI usage as growing. It does not report a general, ongoing AI slowdown (outlet:p019–p022, outlet:p031–p038)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "what",
-            "problem": "“Cùng kỳ” tells readers that AMD’s and Nvidia’s figures cover the same period without source support.",
-            "fix": "Say AMD reported its biggest quarter earlier in the month (outlet:p027)."
-          },
-          {
-            "question": "meaning",
-            "problem": "The headline presents a broad AI slowdown as an established trend.",
-            "fix": "Refer specifically to the concern about slower frontier training and note that the reported pause was brief (outlet:p019–p022)."
-          },
-          {
-            "question": "meaning",
-            "problem": "The reader misses the article’s concluding risk to Nvidia: customers may keep expanding AI while moving to cheaper custom chips.",
-            "fix": "Add that distinction and attribute the custom processor shipment forecast to Counterpoint (outlet:p040–p043)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "f4021fee9495c600a7a3b9646520bb50d02c175231d9196581f4896761b8acc0",
-        "scored_at": "2026-11-18T17:23:42.067224+00:00"
+        "prose_sha256": "a08360ef9b34707a5442f2fea1f9e7402277d85d6cfab182d2592021d9cf77f8",
+        "scored_at": "2026-11-18T19:53:47.615184+00:00"
       }
     },
     {
@@ -97376,10 +97349,10 @@
       "use_original_title": false,
       "source_url": "https://huggingface.co/blog/ibm-research/time-series-powered-streamhouse",
       "key_points": [
-        "IBM và Confluent đưa các mô hình nền tảng chuỗi thời gian của IBM tích hợp trực tiếp trên nền tảng Confluent dưới dạng các hàm tích hợp sẵn. Nhóm mô hình này đạt hơn 50 triệu lượt tải và chạy trên bộ xử lý trung tâm (CPU) mà không cần GPU.",
-        "Thông tin kinh doanh thường bị trễ do phân tán ở các hệ thống xử lý theo lô định kỳ.",
-        "Trong sản xuất kem, mô hình TTM dự báo tỷ lệ sản phẩm đạt chuẩn trước bốn giờ từ dữ liệu đo mỗi 10 phút để chỉnh thiết bị. Với tài chính, mô hình PatchTST-FM dự báo khối lượng giao dịch 30 phút kế tiếp trên mỗi nến một phút để điều phối lệnh.",
-        "Tuy vậy, nhóm nghiên cứu lưu ý việc cập nhật dự báo còn phụ thuộc vào cấu hình đường ống và yêu cầu của mô hình."
+        "Mô hình chuỗi thời gian của IBM tích hợp trực tiếp trên Confluent ở cả đám mây và tại chỗ dưới dạng các hàm tích hợp sẵn. Nhóm mô hình này đã đạt hơn 50 triệu lượt tải và vận hành trực tiếp trên CPU mà không cần GPU.",
+        "Nhóm tác giả nhận định dự báo đưa ra sau sự kiện thường quá muộn để tác động đến kết quả khi cần chuyển đổi tín hiệu thành quyết định kịp thời.",
+        "Trong thực tế, mô hình TTM dự báo tỷ lệ đạt chuẩn trước 4 giờ từ dữ liệu SCADA và kiểm nghiệm mỗi 10 phút trên dây chuyền kem. Với giao dịch tài chính, mô hình PatchTST-FM dự báo khối lượng giao dịch trong 30 phút kế tiếp trên từng nến một phút để thuật toán điều phối lệnh.",
+        "Nhóm tác giả nhận định dự báo và dấu hiệu bất thường có thể chuyển đến ứng dụng vận hành sớm hơn để kết hợp với ngữ cảnh kinh doanh và đánh giá con người. Dù vậy, việc cập nhật dự báo liên tục vẫn phụ thuộc vào cấu hình đường ống và yêu cầu của mô hình."
       ],
       "same_event_coverage_ids": [
         "bd1e8be33347839ba0f8"
@@ -97388,7 +97361,7 @@
       "subject": "IBM Research",
       "video_labels": null,
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "IBM đưa mô hình chuỗi thời gian hơn 50 triệu lượt tải lên Confluent để chạy trực tiếp trên CPU",
+      "editorial_headline_vi": "IBM tích hợp mô hình chuỗi thời gian trên Confluent Cloud và hạ tầng tại chỗ, vận hành trực tiếp trên CPU",
       "summary_sources": [
         {
           "id": "outlet",
@@ -97403,24 +97376,30 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.8,
+        "value": 8.15,
         "answers": {
-          "what": 9,
-          "why": 8,
-          "notable": 10,
-          "meaning": 7
+          "what": 10,
+          "why": 9,
+          "notable": 5,
+          "meaning": 9
         },
-        "hard_errors": [],
-        "findings": [
+        "hard_errors": [
           {
-            "question": "meaning",
-            "problem": "The reader gets the caveat but largely misses the operational benefit.",
-            "fix": "Explain that forecasts and anomaly signals can reach applications and decision-makers sooner as data flows, subject to pipeline configuration (outlet:p063, outlet:p077–p078)."
+            "kind": "fact",
+            "summary_text": "Trong thực tế, mô hình TTM dự báo tỷ lệ đạt chuẩn trước 4 giờ từ dữ liệu SCADA và kiểm nghiệm mỗi 10 phút trên dây chuyền kem.",
+            "explanation": "The ice cream line is an illustrative scenario of how organizations could use the model, not a reported real-world deployment (outlet:p082–p085)."
           },
           {
-            "question": "what",
-            "problem": "The deployment options are absent.",
-            "fix": "Add that the built-in models run in Confluent Cloud and on premises (outlet:p066)."
+            "kind": "fact",
+            "summary_text": "Với giao dịch tài chính, mô hình PatchTST-FM dự báo khối lượng giao dịch trong 30 phút kế tiếp trên từng nến một phút để thuật toán điều phối lệnh.",
+            "explanation": "This trading workflow is also presented as an illustrative scenario, not a reported operating deployment (outlet:p082, outlet:p106–p107)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The reader is led to believe the ice cream and trading examples are actual deployments.",
+            "fix": "Introduce both as illustrative use cases that organizations could implement, as the source does (outlet:p082–p085, outlet:p106)."
           }
         ],
         "writer_boats": [
@@ -97428,8 +97407,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "47effd8c5cc5d64f6b9b0e1b743c433019bedac40a9994f0e833171962322dd4",
-        "scored_at": "2026-11-18T17:19:43.641873+00:00"
+        "prose_sha256": "43e671e9339846323bebb52c3fe611c84150f149918a0ce80eac9523c73328f9",
+        "scored_at": "2026-11-18T19:53:47.615244+00:00"
       }
     },
     {
@@ -97526,6 +97505,1537 @@
         "585c380932d7464b45b1"
       ],
       "split_coverage_ids": []
+    },
+    {
+      "id": "7132415e461f71d94422",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.theverge.com/ai-artificial-intelligence/1036776/nvidia-earnings-kress-jensen-huang-petition",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "72b2ce825e4c87513452"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Nvidia and Jensen Huang's leadership in AI",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Elon Musk",
+          "Jensen Huang"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "4cbc2f772836afc10cfb",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-18/anthropic-ipo-is-fairly-priced-says-dharmesh-thakker-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "f61c48a838bfd8d9d46c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "29e7e8242d1604a5f87d",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The card reports a corporate ransomware and infostealer credential leak listing for Nvidia without any discussion of artificial intelligence, models, or AI hardware; AI relevance is purely incidental.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.ransomware.live/id/TlZJRElBQHRoZWdlbnRsZW1lbg",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "5e5bf3390a17eda49231"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "c6019d771d83f6f6b5ac",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-18/fortress-s-burton-investors-more-discerning-on-ai-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "af4fd9c2798a89f0f317"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "ca9ca0837de1673fe715",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://deepmind.google/blog/genie-4-is-now-available/",
+      "key_points": [
+        "Google bắt đầu triển khai trải nghiệm Project Genie mới cho người dùng Google AI Ultra đủ điều kiện, gồm Genie 4, tác tử (chương trình hỗ trợ tự động) và thư viện cộng đồng. Người dùng có thể tạo lập và bước vào các thế giới tương tác trực tiếp từ trình duyệt.",
+        "Theo Google, bản cập nhật ra mắt do người thử nghiệm ban đầu muốn kiểm soát sâu hơn trong thế giới ảo cùng cách tạo lập và chia sẻ dễ dàng hơn. Tác tử Project Genie hỗ trợ dựng không gian qua hội thoại tự nhiên thay vì chỉ dùng câu lệnh đơn lẻ.",
+        "Genie 4 cho phép chỉnh sửa môi trường theo thời gian thực bằng câu lệnh giữa phiên và tích hợp âm thanh gốc thích ứng. Bản nâng cấp Genie 3 hỗ trợ kéo dài thời gian khám phá đến 3 phút mỗi lượt tạo.",
+        "Thuê bao Google AI Ultra đủ điều kiện có thể trải nghiệm ngay, trong khi người dùng Google AI Pro được đăng ký danh sách chờ. Google lưu ý Genie 3 và Genie 4 vẫn thuộc phạm vi nghiên cứu tiên phong, nơi hãng đang xử lý các thách thức như độ trễ máy quay, tương tác vật lý phức tạp, độ chuẩn xác âm thanh và tính ổn định cảnh quan."
+      ],
+      "same_event_coverage_ids": [
+        "f33d689a36fe384735c2"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Google DeepMind Genie 4 release",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Diego Rivas",
+          "Pavan Kumar"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Google ra mắt Project Genie mới kèm Genie 4 và thư viện cộng đồng cho gói AI Ultra",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "google",
+          "url": "https://deepmind.google/blog/genie-4-is-now-available/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "6e64706aa600a9755bdc57f69fc490ce68610ff7df3f9b78bae814ef5bda6c55",
+        "scored_at": "2026-11-18T19:45:00.219225+00:00"
+      }
+    },
+    {
+      "id": "250d36200f3262bcc870",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-18/bloomberg-tech-11-18-2026-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "81a89e981edf45a46ad0"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "36bbeb249216ceb6a04b",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/18/googles-ai-feature-in-search-gets-its-own-incognito-mode/",
+      "key_points": [
+        "Google thông báo bổ sung tính năng chuỗi trò chuyện tạm thời vào chế độ AI Mode trong tìm kiếm. Theo Google, các cuộc trao đổi trong chuỗi này không xuất hiện lại trong lịch sử tìm kiếm hay phần đề xuất.",
+        "Google cho biết người dùng chỉ cần nhấp vào biểu tượng chuỗi tạm thời ở góc trên bên phải của AI Mode. Thao tác này vận hành tương tự tùy chọn trên Gemini độc lập, và màn hình trở lại tìm kiếm bình thường khi đóng hội thoại.",
+        "Google thông báo tùy chọn trò chuyện tạm thời trong AI Mode được triển khai toàn cầu trên máy tính và thiết bị di động ở mọi ngôn ngữ hỗ trợ. Theo hãng, phiên tương tác lập tức tách rời khỏi tài khoản người dùng ngay khi chuỗi tạm thời bắt đầu.",
+        "Theo TechCrunch, điều này đồng nghĩa phản hồi từ AI không dựa trên sở thích quá khứ và không tác động đến dữ liệu cá nhân hóa tương lai. Tác giả trên TechCrunch nhận định tùy chọn này thuận tiện khi người dùng tìm hiểu chủ đề mang tính riêng tư hoặc chỉ tra cứu một lần."
+      ],
+      "same_event_coverage_ids": [
+        "5cd2d468083fc8c920ab"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Google AI Mode in Search incognito mode",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Sarah Perez"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Google ra mắt chuỗi trò chuyện tạm thời cho AI Mode không xuất hiện lại trong lịch sử tìm kiếm",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/18/googles-ai-feature-in-search-gets-its-own-incognito-mode/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.8,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "ebe0fdea0d50930dc25de17bdeeb25744565832bb1f2ddd613f3c18582cd3590",
+        "scored_at": "2026-11-18T19:45:00.219265+00:00"
+      }
+    },
+    {
+      "id": "afd83cc34ffc3c55f8d2",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "General business reporting on Apollo launching a €10 billion European private-credit arm focused on defense supply chains, where AI is merely a passing buzzword in the headline.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-18/apollo-sees-huge-europe-finance-demand-for-ai-defense-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "38caf57d0c23e37efd8a"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "0f630d55962bbccdcbe9",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-18/anthropic-ipo-demand-sets-stage-for-historic-debut-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "66f288c9c248c98a51ed"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "1f66b4c0f78c28c192ae",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-18/open-interest-11-18-2026-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "8e3d66529b8667b306b9"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "517936deee735fc76839",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "survey",
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://supercite.ai/blog/ai-answers-change-every-day",
+      "key_points": [
+        "Theo Supercite, 84% câu trả lời gợi ý thương hiệu của trí tuệ nhân tạo (AI) đã thay đổi danh sách chỉ sau một ngày.",
+        "Supercite giải thích công cụ AI tìm kiếm web mỗi khi trả lời và đọc các trang khác nhau, dẫn đến danh sách thương hiệu thay đổi. Sự hoán đổi nguồn diễn ra liên tục khi chỉ 42% số trang web được trích dẫn ở ngày đầu tiên tiếp tục xuất hiện vào ngày hôm sau.",
+        "Thương hiệu xếp thứ nhất vẫn được nêu tên vào ngày hôm sau ở 90% số lần, nhưng chỉ giữ được vị trí số một ở 63% số trường hợp. Trong khi đó, các thương hiệu nhỏ hơn chỉ giữ được 51% vị trí so với 73% của những thương hiệu dẫn đầu ngành.",
+        "Supercite khuyến cáo doanh nghiệp không nên tin vào một lần kiểm tra duy nhất vì ảnh chụp màn hình chỉ phản ánh một mẫu đơn lẻ. Nhóm tác giả lưu ý đây là số liệu sơ bộ và sự thay đổi hàng ngày bao gồm cả yếu tố ngẫu nhiên của công cụ AI."
+      ],
+      "same_event_coverage_ids": [
+        "a4c18bb8405b75092612",
+        "d0bbed59774ce7a7e230"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Volatility of AI buying recommendations",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Thử nghiệm 839 câu trả lời AI: 84% gợi ý thương hiệu thay đổi chỉ sau một ngày",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://supercite.ai/blog/ai-answers-change-every-day"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.0,
+        "answers": {
+          "what": 8,
+          "why": 10,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "Readers lack the setting behind the 84% figure.",
+            "fix": "State that the authors compared 839 answers to 210 buying questions across four engines, asked in English as a US user on November 17 and 18, 2026 (outlet:p081)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The advice stops at avoiding a single check.",
+            "fix": "Add the source’s practical measure: repeat the same questions and track how often a brand appears and which pages the engines cite (outlet:p074–p077)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "a4094766b2c7e88500c7fb9ab049bb675387d180350d971d122267f2036aa4e6",
+        "scored_at": "2026-11-18T19:45:00.219353+00:00"
+      }
+    },
+    {
+      "id": "120da5d8476ca5b48f81",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/tech/1036729/disney-star-wars-anzellans-animatronic-amazon-aws-cloud-ai",
+      "key_points": [
+        "Walt Disney Imagineering vừa ra mắt ba nguyên mẫu người máy Audio-Animatronic ứng dụng trí tuệ nhân tạo (AI) trên đám mây AWS của Amazon. Các robot này có thể phản hồi trực tiếp khách tham quan trong thời gian thực mà không cần người giấu mặt điều khiển.",
+        "Mỗi robot dùng camera và micro ẩn ghi nhận cử chỉ cùng giọng nói của khách rồi chuyển dữ liệu lên máy chủ AWS. Một mô hình AI phản xạ nhanh thực hiện tương tác tức thì như đảo mắt chú ý, kết hợp các mô hình lớn hơn xử lý tương tác dài.",
+        "Các mẫu robot này mang tên Vilo Vele, Kado Bre’a và Jibu Bre’a, sở hữu nét tính cách riêng biệt.",
+        "The Verge cho biết cử chỉ và lời thoại không do AI tự tạo mà được đội ngũ Disney Imagineers biên soạn trước. Dù AI hỗ trợ điều hướng, robot không đi lệch kịch bản và công nghệ này hiện mới dừng ở mức nguyên mẫu trước khi có thể vào công viên."
+      ],
+      "same_event_coverage_ids": [
+        "22aa3f1acc7fa9d23120"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Disney Imagineering AI Star Wars animatronics reveal",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Andrew Liszewski"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Disney thử nghiệm ba robot Star Wars dùng AI trên đám mây AWS tương tác trực tiếp",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/tech/1036729/disney-star-wars-anzellans-animatronic-amazon-aws-cloud-ai"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.45,
+        "answers": {
+          "what": 10,
+          "why": 8,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "Readers do not learn where the public can first interact with the prototypes.",
+            "fix": "Add that their first public appearance is planned for the AWS re:Invent conference in Las Vegas later that month; park use is only a possibility (outlet:p016)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "eae286dfc042e32a8afc4ba5ec183a4c26b8a585ebba272c5893689c84e1b52e",
+        "scored_at": "2026-11-18T19:45:00.219406+00:00"
+      }
+    },
+    {
+      "id": "ad0cf1980afafe9673d7",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.nextgov.com/artificial-intelligence/2026/11/major-ai-platforms-generated-viable-plans-terrorist-attacks-gao-finds/417305/",
+      "key_points": [
+        "Bốn nền tảng AI phổ biến gồm ChatGPT, Claude, Gemini và Grok đã tạo ra kế hoạch tấn công khả thi nhắm vào hạ tầng trọng yếu của Mỹ trong đợt thử nghiệm bí mật của chính phủ. Báo cáo của Văn phòng Trách nhiệm Chính phủ Mỹ (GAO - cơ quan giám sát liên bang) cho biết cả bốn nền tảng đều cung cấp dữ liệu hỗ trợ kẻ xấu lên kế hoạch tấn công.",
+        "Báo cáo của GAO chỉ ra rằng các điều tra viên đã vượt qua các rào chắn bảo vệ nhờ sử dụng những kỹ thuật luồn lách thông thường. Dù hệ thống từng bước ngăn chặn hay khóa tài khoản, nhóm thử nghiệm vẫn vô hiệu hóa được các biện pháp an toàn này.",
+        "Theo GAO, các nền tảng đã cung cấp chi tiết cách chế tạo bom tự chế gây thương vong lớn và nhắm vào lưới điện để gây thiệt hại kinh tế.",
+        "Thượng nghị sĩ Maggie Hassan nhận định mối đe dọa an toàn từ AI không còn là lý thuyết, thúc đẩy Quốc hội Mỹ sớm xem xét ban hành luật kiểm soát. Tuy nhiên, GAO thừa nhận kết quả này chỉ là đánh giá tại một thời điểm nhất định và không đại diện cho một mẫu có ý nghĩa thống kê."
+      ],
+      "same_event_coverage_ids": [
+        "95209477edc3d4bb2d5f"
+      ],
+      "split_coverage_ids": [],
+      "subject": "GAO investigation into major AI platform safety failures",
+      "video_labels": {
+        "video_hook": "drama_company",
+        "named_people": [
+          "Grace Dille"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "GAO phát hiện 4 nền tảng AI lớn tạo kế hoạch tấn công cơ sở hạ tầng của Mỹ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "nextgov",
+          "url": "https://www.nextgov.com/artificial-intelligence/2026/11/major-ai-platforms-generated-viable-plans-terrorist-attacks-gao-finds/417305/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.25,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 8,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "Readers miss how quickly the plans were produced and that experts assessed their usability.",
+            "fix": "Add that each platform took less than 12 hours and that GAO worked with experts to verify the information could be used (outlet:p027)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "b25f87bd3c917cbf5f878633315ff5f643416f4410f4868f2cc3320a1bec19e6",
+        "scored_at": "2026-11-18T19:32:53.960513+00:00"
+      }
+    },
+    {
+      "id": "276d6b33ec17971fb70b",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.wired.com/story/inside-nvidias-first-all-hands-without-jensen-huang-as-ceo/",
+      "key_points": [
+        "Theo bài viết trên WIRED, Giám đốc điều hành tạm quyền Colette Kress của Nvidia đã nói với nhân viên rằng họ có thể kỳ vọng được tăng lương và cấp thêm cổ phần vào tháng 12, sớm hơn nhiều tháng so với kế hoạch. Cuộc họp nội bộ này diễn ra sau khi cựu CEO kiêm nhà đồng sáng lập Jensen Huang từ chức vào tuần trước.",
+        "Biện pháp nâng đãi ngộ được đưa ra nhằm ưu tiên ổn định hàng ngũ nhân sự, điều mà bà Kress khẳng định là mục tiêu quan trọng nhất của ban lãnh đạo. Theo bà Kress, các thắc mắc về chế độ thù lao chiếm tỷ lệ cao nhất trong số 700 câu hỏi nhân viên gửi về trước cuộc họp.",
+        "Chủ tịch hội đồng quản trị Harvey Jones tái khẳng định công ty chấp thuận đơn từ chức của ông Huang do vi phạm chuẩn mực cá nhân và sẽ không mời ông quay lại. Bất chấp các kiến nghị đòi phục chức cho ông Huang, hội đồng quản trị khẳng định đang tìm kiếm một nhà lãnh đạo mới từ cả nội bộ lẫn bên ngoài.",
+        "Giới đầu tư bày tỏ lo ngại nguy cơ chảy máu nhân tài tại Nvidia, đặc biệt trong giai đoạn thị trường chip trí tuệ nhân tạo cạnh tranh ngày càng gay gắt."
+      ],
+      "same_event_coverage_ids": [
+        "2f82cd38be341f80cb2b"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Nvidia post-Jensen Huang all-hands meeting",
+      "video_labels": {
+        "video_hook": "money_jobs",
+        "named_people": [
+          "Colette Kress",
+          "Jensen Huang"
+        ],
+        "availability": "unknown",
+        "is_leak": true
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nvidia cam kết tăng lương và cấp thêm cổ phần sau khi Jensen Huang từ chức CEO",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "wired",
+          "url": "https://www.wired.com/story/inside-nvidias-first-all-hands-without-jensen-huang-as-ceo/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.65,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "b91775d044ffaae98562e0f6af67936fbe95d7e7ecb64fbe494ae0ca7a375266",
+        "scored_at": "2026-11-18T19:32:53.960921+00:00"
+      }
+    },
+    {
+      "id": "42ab85f3d5b2fc42240c",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/18/more-banks-says-customers-using-ai-agents-are-on-their-own-even-if-they-get-hacked/",
+      "key_points": [
+        "Citibank vừa đổi điều khoản dịch vụ, tuyên bố khách hàng dùng công cụ AI bên thứ ba để quản lý tài chính phải tự chịu mọi rủi ro. Ngân hàng lớn thứ ba nước Mỹ nhấn mạnh quy định áp dụng ngay cả khi tài khoản bị tin tặc tấn công.",
+        "TechCrunch nhận định các ngân hàng lo ngại tác tử AI (công cụ trí tuệ nhân tạo tự động hóa thao tác) thiếu tin cậy và đe dọa vị thế cạnh tranh của họ.",
+        "Theo Citi, nếu công cụ AI làm lộ thông tin đăng nhập hoặc bị hack, khách hàng phải chịu trách nhiệm về mọi hành động của tin tặc. JPMorgan, Bank of America, PNC và Citizens cũng áp dụng chính sách tương tự, trong khi công cụ của Anthropic chỉ cho phép đọc chứ không thể chuyển tiền.",
+        "TechCrunch đánh giá các ngân hàng sẽ đấu tranh giành quyền kiểm soát nếu tác tử AI trở thành kênh tương tác tài chính phổ biến. Dù vậy, điều khoản của Citi nêu rõ khách hàng dùng tác tử AI do chính ngân hàng cung cấp sẽ không phải chịu thêm trách nhiệm này."
+      ],
+      "same_event_coverage_ids": [
+        "a3c1f59f22e9e33b113a"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Citibank AI agent terms of service update",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Tim Fernholz"
+        ],
+        "availability": "region_locked:United States",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Citibank từ chối chịu trách nhiệm nếu công cụ AI bị hack trong khi hàng loạt ngân hàng Mỹ siết điều khoản",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/18/more-banks-says-customers-using-ai-agents-are-on-their-own-even-if-they-get-hacked/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.45,
+        "answers": {
+          "what": 8,
+          "why": 8,
+          "notable": 9,
+          "meaning": 9
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "ngay cả khi tài khoản bị tin tặc tấn công",
+            "explanation": "The source specifies liability when a third-party AI tool leaks credentials or is hacked, and hackers then act through the customer’s account. It does not say the rule covers any hacking of the account (outlet:p011)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "JPMorgan, Bank of America, PNC và Citizens cũng áp dụng chính sách tương tự",
+            "explanation": "This follows the specific claim about liability for hackers’ actions, but the source establishes that extension only for Citi. It reports similar policies at JPMorgan and Bank of America, a terms change at PNC, and a Citizens warning about AI assistants’ actions (outlet:p010–p011)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The opening makes Citi’s rule sound applicable whenever a bank account is hacked.",
+            "fix": "Specify that the source ties hacker liability to a third-party AI tool leaking credentials or being hacked (outlet:p011)."
+          },
+          {
+            "question": "what",
+            "problem": "Grouping four other banks after the hacker-liability sentence implies that all adopted Citi’s exact extension.",
+            "fix": "Separate their reported actions: similar policies at JPMorgan and Bank of America, changed terms at PNC, and a Citizens warning about AI assistant activity (outlet:p010–p011)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "3aa5301ea2c547d86bd6460ea4af164b869eb6e5faa3f9abd2c5f2c14ab23864",
+        "scored_at": "2026-11-18T19:45:00.219440+00:00"
+      }
+    },
+    {
+      "id": "9bcf073a13fee76fb667",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Self-promotional founder launch pitch on Hacker News without independent reporting or a substantive technical release.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://news.ycombinator.com/item?id=50549188",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "99479edff6b736810285",
+        "b8f4b83d19ec87491284"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "28fdadc7aa8f6bbc36f2",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.youtube.com/watch?v=-PQpJAdp7gw",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "4a168e1184602490bcfe"
+      ],
+      "split_coverage_ids": [],
+      "subject": "OpenAI and Anthropic cybersecurity",
+      "video_labels": {
+        "video_hook": "drama_company",
+        "named_people": [
+          "Paul Christiano"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "e0a5680da648bf1e9f0c",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Developer how-to guide and tutorial demonstrating how to curate and generate physical AI datasets with NVIDIA Cosmos.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://developer.nvidia.com/blog/build-training-ready-physical-ai-datasets-with-two-prompts-in-nvidia-cosmos/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "5578ed080b13ef9cdc0c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "0191a8cf5007a7e305ee",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://blog.google/innovation-and-ai/products/gemini-app/gemini-lower-memory-devices/",
+      "key_points": [
+        "Google thông báo ứng dụng Gemini hiện đã có mặt trên các thiết bị Android (Go edition) đủ điều kiện có bộ nhớ thấp. Bước tiến này đưa trợ lý AI cá nhân tiếp cận thêm hàng trăm triệu người dùng trên toàn cầu.",
+        "Google cho biết công ty đã tái cấu trúc ứng dụng để trải nghiệm cốt lõi chạy mượt mà trên phần cứng ít bộ nhớ hơn.",
+        "Để trải nghiệm, người dùng có thể tải ứng dụng từ Google Play, bấm giữ phím nguồn trên máy hỗ trợ hoặc tìm trên thiết bị cài sẵn từ Transsion. Người dùng cũng có thể đàm thoại bằng hơn 45 ngôn ngữ qua Gemini Live, tạo ảnh với Nano Banana và hướng camera để dịch thuật.",
+        "Google nhấn mạnh cải tiến này giúp người dùng vượt qua giới hạn phần cứng vốn trước đây chỉ hỗ trợ các khẩu lệnh cơ bản trên thiết bị bộ nhớ thấp."
+      ],
+      "same_event_coverage_ids": [
+        "0492d4c586f5eb31c6d4"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Google Gemini",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Angus Logan"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Google phát hành ứng dụng Gemini cho các thiết bị Android Go bộ nhớ thấp đủ điều kiện",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "google",
+          "url": "https://blog.google/innovation-and-ai/products/gemini-app/gemini-lower-memory-devices/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.4,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 8,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "tìm trên thiết bị cài sẵn từ Transsion",
+            "explanation": "The source says to look for Gemini preloaded on upcoming devices from partners like Transsion, not that those preloaded devices are already available (outlet:p007)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "Readers may think Transsion devices with Gemini preloaded are available now.",
+            "fix": "Say preloading is expected on upcoming partner devices (outlet:p007)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "8da60591c70e346d90ac8ebfb550fe98c080eb77d1cdd248c279ee3a93fc49d5",
+        "scored_at": "2026-11-18T19:45:00.219469+00:00"
+      }
+    },
+    {
+      "id": "5281208e9399046e0173",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Casual social media post posing a speculative question without news reporting or substantive analysis.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://twitter.com/kouhxp/status/2123096768996892959",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "2a6c759ae26bd860182c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "6468382737345bd88a85",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.businesswire.com/news/home/20261118974464/en/Anthropic-is-Not-a-Safe-AI-Company---Broad-Coalition-of-Scientists-Legal-Scholars-and-Tech-Leaders-Challenge-Anthropics-Safety-Branding-Ahead-of-IPO",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "7aaacc5f215ea1c33b9b",
+        "80170600ce2e222e76c7"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Anthropic",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "c2d4af1db8b7b20e4f19",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.wired.com/story/artex-ai-hacking-tools/",
+      "key_points": [
+        "Theo tạp chí WIRED, nhiều ngân hàng, công ty và cơ quan chính phủ bị nhắm tới từ cuối tháng 8 bởi làn sóng công cụ kiểm thử xâm nhập (mô phỏng tấn công) tích hợp AI. Nổi bật nhất là Artex, khung nguồn mở viết bằng Go do lập trình viên ẩn danh Autumn-27 phát hành trên GitHub vào tháng 7.",
+        "Các nhà nghiên cứu cho biết người dùng không cần kỹ năng cao vẫn hoàn thành vụ tấn công trong vài giờ thay vì nhiều ngày.",
+        "Theo hãng CrowdStrike, nhóm tin tặc Vapor Panda liên quan đến Trung Quốc đã dùng Artex trong tháng 10 nhắm vào hơn 200 tổ chức, gồm các viện chính sách và hãng quốc phòng Mỹ. Ngoài ra, nền tảng Dosu cho biết Artex từng gửi 80.000 yêu cầu tới các hệ thống của họ chỉ trong 90 phút.",
+        "Theo các nhà nghiên cứu, những nguyên tắc bảo mật cơ bản có thể giúp phòng vệ trước nhiều cách tiếp cận từ kẻ dùng Artex. Chuyên gia Silas Cutler tại công ty Censys nhận định các công cụ này hiện không lén lút vì tạo ra rất nhiều tín hiệu bất thường trong hệ thống."
+      ],
+      "same_event_coverage_ids": [
+        "16982d449056dbb0b7ed"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Artex AI hacking tool",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Tin tặc dùng công cụ AI Artex nhắm vào hơn 200 tổ chức với tốc độ cao nhưng hiện dễ bị phát hiện",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "wired",
+          "url": "https://www.wired.com/story/artex-ai-hacking-tools/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.45,
+        "answers": {
+          "what": 10,
+          "why": 8,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "Readers learn that attacks are faster but not what produces that speed.",
+            "fix": "Explain that the frameworks direct AI models to use existing security tools and carry out plans written by human operators (outlet:p002, outlet:p007–p008)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "7abee08ee55aeeeed851ab4f9671fc0bce5cc64cd342b505f3e80e2d651299b4",
+        "scored_at": "2026-11-18T19:45:00.219493+00:00"
+      }
+    },
+    {
+      "id": "f5b869b89561f8d7235c",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://microsoft.ai/news/microsoft-ignite-2026/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "be2489fcb0745eea6dfa",
+        "f7220a2f22303cc58f9c"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Microsoft AI",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "f6f0576c6cc397f30abc",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://europeanbusinessmagazine.com/ai-agents-better-questions-kpmg/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "49ed9cd3312098388833",
+        "d1b2148b1b1ba1ea9237"
+      ],
+      "split_coverage_ids": [],
+      "subject": "KPMG",
+      "video_labels": {
+        "video_hook": "money_jobs",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "c673da4621d68af63552",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "podcast",
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.ppfideas.com/episodes/can-universities-survive-ai-vs-higher-education",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "1c9f2cb78a6b4b641cfc",
+        "5cc9f1838618990195ea"
+      ],
+      "split_coverage_ids": [],
+      "subject": "AI and higher education",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Paul Sagar",
+          "David"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "6e60ec8c10b2996b7013",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/games/1036140/will-wright-mymems-ai-game-interview",
+      "key_points": [
+        "Will Wright, tác giả của SimCity và The Sims, đang phát triển tựa game mô phỏng MyMems tích hợp trí tuệ nhân tạo (AI) trên thiết bị di động. Trò chơi do Gallium Studios phát triển, dự kiến ra mắt năm 2027 nhằm biến tiểu sử cá nhân thành thế giới ảo.",
+        "Will Wright giải thích rằng người chơi từng tự nhiên đưa gia đình thực tế vào game, nên MyMems muốn tiếp tục khai thác trải nghiệm này.",
+        "Người chơi có thể nói câu chuyện ngắn vào điện thoại để tạo mảnh ghép ký ức và hình đại diện AI mô phỏng người quen ngoài đời. Dự án kết hợp lối dựng thế giới ấm cúng với mô phỏng xã hội chuyên sâu, vận hành trên nền tảng công nghệ Behavior Engine của Artificial Agency.",
+        "Quản lý Anthony Maitz cho biết việc để người chơi tự sáng tạo từng phần giúp tránh cảm giác gian lận khi dùng AI. Dù coi AI là công cụ tuyệt vời, Will Wright thừa nhận nhiều người chơi phản đối AI và lo ngại về quyền tác giả là có cơ sở."
+      ],
+      "same_event_coverage_ids": [
+        "001a8131b993c322f292",
+        "6b71ea3ae958656f89cd"
+      ],
+      "split_coverage_ids": [],
+      "subject": "MyMems",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Will Wright",
+          "Jay Peters"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Tác giả The Sims phát triển game MyMems dùng AI tái hiện ký ức người chơi vào năm 2027",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/games/1036140/will-wright-mymems-ai-game-interview"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.2,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 9,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The account of what players can do with their worlds is thinner than the source’s.",
+            "fix": "Add that players can keep their worlds private or share them, and that the team describes MyMems as something to play with rather than necessarily a legacy diary (outlet:p016, outlet:p019)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "082ab8daee1f95d8df801ebebfd1e99f4b3e7b06c351bc3bbe21c8cc1f09e347",
+        "scored_at": "2026-11-18T19:45:00.219517+00:00"
+      }
+    },
+    {
+      "id": "b1eacb0f2acb963339e4",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.scmp.com/tech/big-tech/article/3374902/tencent-profit-dips-sixfold-increase-ai-infrastructure-spending-sacrifices-margin",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "3b01cacd264172f2d747",
+        "dd48f59d41ed6a972624"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Tencent Holdings",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "67952d9a918d2536a7bf",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://openai.com/index/inside-the-codex-sandbox",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "fcd27c4a9d3b4952df21"
+      ],
+      "split_coverage_ids": [],
+      "subject": "OpenAI Codex",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "ec56b5eff9affb1c339e",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://huggingface.co/blog/moe-expert-streaming",
+      "key_points": [
+        "Tác giả Tarek Ziadé phát triển kỹ thuật truyền chuyên gia MoE từ SSD trên Transformers, giúp chạy mô hình 180 tỷ tham số trên máy Mac 32GB. Phương pháp này biến bộ nhớ đệm thành nhóm vị trí (slot pool) giữa các tầng để tận dụng nhân tính toán sẵn có mà không cần viết lại mã.",
+        "Thử nghiệm bắt nguồn từ việc cơ chế Accelerate quá chậm do sao chép toàn bộ khối chuyên gia của mỗi tầng cho từng token thay vì định tuyến theo nhu cầu. Theo tác giả, hạn chế này khiến tốc độ của Transformers trên card A10G giảm xuống chỉ còn 0,16 token mỗi giây.",
+        "Khi giải mã chuỗi 200 token trên máy Mac M5, kỹ thuật này đạt 13,9 token mỗi giây, bám sát mức 14,8 token mỗi giây của Strata. Thử nghiệm được đo trên cùng câu lệnh gợi ý, đồng thời tắt tính năng suy nghĩ và cơ chế dự đoán suy đoán.",
+        "Theo tác giả Tarek Ziadé, độ trễ còn lại chủ yếu do việc xếp hàng lệnh phía máy tính khiến bộ xử lý đồ họa phải chờ giữa các tầng. Tác giả nhận định giải pháp tối ưu trên luồng MPS của PyTorch chưa được xây dựng do nguy cơ gây treo máy."
+      ],
+      "same_event_coverage_ids": [
+        "94e758ee2fa4ef465067"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Hugging Face Transformers",
+      "video_labels": {
+        "video_hook": "usable_now",
+        "named_people": [
+          "Tarek Ziadé"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Truyền chuyên gia từ SSD trên Transformers giúp chạy mô hình AI 180B đạt 13,9 token/s trên máy Mac 32GB",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://huggingface.co/blog/moe-expert-streaming"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.5,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "không cần viết lại mã",
+            "explanation": "The source says no custom expert matrix multiplication was needed, not that no code needed rewriting. The work included a Transformers PR, a model-specific package and Metal kernels (outlet:p040, outlet:p044, outlet:p046, outlet:p059)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The wording suggests the approach required no code changes.",
+            "fix": "Say it reused the existing grouped_mm kernel without a custom expert matrix multiplication; the project still involved new code (outlet:p040, outlet:p044)."
+          },
+          {
+            "question": "meaning",
+            "problem": "A reader may take the close benchmark result as sufficient for the author's own workflow.",
+            "fix": "Add that Ziadé still expected the laptop to be too slow for how he uses coding agents (outlet:p019, outlet:p039)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "8264f4305f609c0929978fd97aee965b850fe78db9e761f1e3c73f64b957dd1f",
+        "scored_at": "2026-11-18T19:45:00.219541+00:00"
+      }
+    },
+    {
+      "id": "68ddb817fe4001c0fc7b",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://openai.com/index/advancing-chip-design-with-our-models",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "653ac04f9f4f414b8083",
+        "f6e4bdea4a0fb7899424"
+      ],
+      "split_coverage_ids": [],
+      "subject": "OpenAI",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "184d931227f2504de1a3",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://openai.com/index/the-silent-consensus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "e613a334ea11520ea63b"
+      ],
+      "split_coverage_ids": [],
+      "subject": "AI and society",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Dean Ball"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "a5220f5df1a9ac318378",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/17/2026/anthropic-momentum-builds-ahead-of-ipo",
+      "key_points": [
+        "Anthropic is reportedly targeting a higher share price than previously planned for its upcoming IPO amid strong demand despite a downturn in tech shares.",
+        "Anthropic's IPO has drawn nearly seven times as many orders as there are available shares.",
+        "Anthropic is committed to roughly $900 billion in infrastructure financing, increasing pressure to maintain premium token pricing relative to hyperscalers and open-weight models."
+      ],
+      "same_event_coverage_ids": [
+        "52301bbaed4f39e94fda",
+        "bd020f6f55e459b5fdbe"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Anthropic",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Derek Thompson"
+        ],
+        "availability": "unknown",
+        "is_leak": true
+      }
+    },
+    {
+      "id": "1030bbe139c979c4319e",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/news/1035957/meta-alexandr-wang-sam-altman-instagram-ai-deepfake",
+      "key_points": [
+        "Theo The Verge, Giám đốc AI của Meta là Alexandr Wang đã đăng video AI có Sam Altman, đối thủ cạnh tranh hàng đầu, lên mạng xã hội Instagram.",
+        "Theo The Verge, bài đăng nhằm quảng bá trợ lý AI Muse của Meta thông qua chiến dịch được một số người mô tả là chống lại PR truyền thống.",
+        "Trong clip AI, Sam Altman mặc đồ lông thú trong cuộc gọi video bốn bên cùng Wang, Mark Zuckerberg và vẽ mặt giống linh vật Jolly của Muse. Video này được đính kèm dòng chú thích đề cập đến chiến lược sản phẩm của OpenAI giữa cuộc đua phát triển trợ lý AI.",
+        "The Verge cho biết chính sách Meta cho phép video AI có dán nhãn như bài đăng của Wang, nhưng không bắt buộc với ảnh tĩnh. Người phát ngôn Tracy Clayton của Meta lưu ý clip đã được dán nhãn AI, đồng thời chỉ ra Altman từng chủ động cung cấp diện mạo cho công cụ tạo nội dung AI."
+      ],
+      "same_event_coverage_ids": [
+        "1204cad3eef12a852297"
+      ],
+      "split_coverage_ids": [
+        "e37e60ae48b8cc85cff6"
+      ],
+      "subject": "Instagram AI deepfakes and Meta executive's promotional video parodying Sam Altman",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Alexandr Wang",
+          "Mark Zuckerberg",
+          "Sam Altman"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Giám đốc AI của Meta đăng video AI về Sam Altman theo chính sách cho phép gắn nhãn",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/news/1035957/meta-alexandr-wang-sam-altman-instagram-ai-deepfake"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.2,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 9,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "c5c8aaef2e682e34041ee91b433772e08f4ea430be446209d440946f956d0ef5",
+        "scored_at": "2026-11-18T19:45:00.219559+00:00"
+      }
+    },
+    {
+      "id": "327034ed1b49f420bffe",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/tech/1035420/jensen-huang-nvidia-return-as-ceo-statement",
+      "key_points": [
+        "Theo The Verge, Jensen Huang sẵn sàng quay lại làm CEO Nvidia nếu hội đồng quản trị công ty mong muốn điều đó, dù ông mới từ chức vào tuần trước. Quyết định từ chức diễn ra sau các thông tin về hai mối quan hệ tình cảm ngoài luồng, khiến Giám đốc tài chính Colette Kress phải tiếp quản vị trí CEO tạm quyền.",
+        "Ông Huang cho biết lý do ngỏ ý quay lại là vì nhận được làn sóng kêu gọi từ nhân viên và đối tác, cùng các nhà đầu tư và khách hàng sau khi rời nhiệm sở.",
+        "Hơn 193.000 người ký thư kêu gọi đưa ông trở lại vị trí lãnh đạo, trong đó có các lãnh đạo công nghệ như Elon Musk và Tim Sweeney. Bên cạnh đó, Tổng thống Donald Trump cũng lên tiếng ủng hộ việc ông quay lại khi tuyên bố đây chắc chắn không phải là một ý tưởng tồi.",
+        "Dù vậy, ông Huang chỉ trở lại nếu hội đồng quản trị thấy có lợi nhất cho các cổ đông, nhân viên, công ty và nước Mỹ. Tuy nhiên, các nguồn tin của The Verge và CNN cho biết hội đồng quản trị Nvidia hiện không xem xét việc phục chức cho ông."
+      ],
+      "same_event_coverage_ids": [
+        "a586f35d3a5bb044cc30"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Jensen Huang's willingness to return as Nvidia CEO",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Jensen Huang"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Jensen Huang ngỏ ý trở lại làm CEO Nvidia nhưng hội đồng quản trị không xem xét phục chức",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/tech/1035420/jensen-huang-nvidia-return-as-ceo-statement"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.85,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [
+          {
+            "kind": "role",
+            "summary_text": "các nguồn tin của The Verge và CNN",
+            "explanation": "The source does not identify separate sources belonging to The Verge and CNN. The Verge cites an earlier report and CNN's report that the board was not considering reinstatement (outlet:p022, outlet:p031)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The Vietnamese attributes the board's position to sources of The Verge and CNN.",
+            "fix": "Attribute the latest report to CNN and describe the earlier position as previously reported, as the source does (outlet:p022, outlet:p031)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "ea9777ce1092c93dcae1583cb2425b36e98e391c962c89ef5a92725a8086ebed",
+        "scored_at": "2026-11-18T19:45:00.219581+00:00"
+      }
     }
   ]
 }
