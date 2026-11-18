@@ -1,0 +1,389 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-19",
+  "timezone": "Asia/Ho_Chi_Minh",
+  "window_start_at": "2026-11-17T23:00:00Z",
+  "cutoff_at": "2026-11-18T23:00:00Z",
+  "created_at": "2026-11-18T23:08:00Z",
+  "snapshot_generated_at": "2026-11-18T23:05:50Z",
+  "policy": {
+    "method": "daily-evidence-v3",
+    "max_stories": 5,
+    "window_hours": 24,
+    "cutoff_hour": 6,
+    "engagement_percentile_min": 0.8,
+    "publisher_coverage_excludes_forums": true,
+    "attention_requires_nonforum": true,
+    "forum_exception_percentile_min": 0.97,
+    "forum_exception_comments_min": 100,
+    "max_forum_only_stories": 1,
+    "score_measured_at": "2026-11-18T23:05:50Z",
+    "description": "Ưu tiên dấu hiệu công bố, số nhà xuất bản và tương tác đo được; sau đó theo điểm nóng và thời gian công bố"
+  },
+  "stories": [
+    {
+      "id": "0191a8cf5007a7e305ee",
+      "title": "The Gemini app is now available on lower-memory Android devices.",
+      "title_vi": "Ứng dụng Gemini hiện có trên các thiết bị Android có bộ nhớ thấp hơn.",
+      "headline": "The Gemini app is now available on lower-memory Android devices.",
+      "headline_vi": "Ứng dụng Gemini hiện có trên các thiết bị Android có bộ nhớ thấp hơn.",
+      "url": "https://blog.google/innovation-and-ai/products/gemini-app/gemini-lower-memory-devices/",
+      "published_at": "2026-11-18T17:00:00Z",
+      "kind": "product",
+      "time_basis": "published",
+      "editorial_headline_vi": "Google phát hành ứng dụng Gemini cho các thiết bị Android Go bộ nhớ thấp đủ điều kiện",
+      "editorial_headline_verified": true,
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "0492d4c586f5eb31c6d4",
+          "title": "The Gemini app is now available on lower-memory Android devices.",
+          "title_vi": "Ứng dụng Gemini hiện có trên các thiết bị Android có bộ nhớ thấp hơn.",
+          "headline": "The Gemini app is now available on lower-memory Android devices.",
+          "headline_vi": "Ứng dụng Gemini hiện có trên các thiết bị Android có bộ nhớ thấp hơn.",
+          "url": "https://blog.google/innovation-and-ai/products/gemini-app/gemini-lower-memory-devices/",
+          "published_at": "2026-11-18T17:00:00Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "google-ai",
+          "publisher": "google",
+          "entity": "google",
+          "group": "lab",
+          "observed_at": "2026-11-18T23:05:50Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [
+          {
+            "code": "primary_release",
+            "text": "Tiêu đề nguồn gốc có dấu hiệu công bố model hoặc sản phẩm",
+            "observation_ids": [
+              "0492d4c586f5eb31c6d4"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "google"
+          ],
+          "age_hours_at_cutoff": 6.0,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "591236888382df2bc009",
+      "title": "Satya Nadella says he’s AGI-pilled now",
+      "title_vi": "Satya Nadella nói anh ta đang dùng thuốc AGI.",
+      "headline": "Satya Nadella says he’s AGI-pilled now",
+      "headline_vi": "Satya Nadella nói anh ta đang dùng thuốc AGI.",
+      "url": "https://www.theverge.com/tech/1036111/satya-nadella-says-hes-agi-pilled-now",
+      "published_at": "2026-11-17T23:41:18Z",
+      "kind": "other",
+      "time_basis": "published",
+      "editorial_headline_vi": "Satya Nadella cảnh báo nguy cơ sụp đổ kinh tế nếu một mô hình AI độc quyền",
+      "editorial_headline_verified": true,
+      "source_count": 2,
+      "coverage": [
+        {
+          "id": "8109a6192d59b802ebd2",
+          "title": "Satya Nadella predicts AI agents will reshuffle the economics of the web",
+          "title_vi": "Satya Nadella dự đoán các agent AI sẽ tái cấu trúc nền kinh tế của web",
+          "headline": "Satya Nadella predicts AI agents will reshuffle the economics of the web",
+          "headline_vi": "Satya Nadella dự đoán các agent AI sẽ tái cấu trúc nền kinh tế của web",
+          "url": "https://techcrunch.com/2026/11/18/satya-nadella-predicts-ai-agents-will-reshuffle-the-economics-of-the-web/",
+          "published_at": "2026-11-18T22:58:11Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "techcrunch-ai",
+          "publisher": "techcrunch",
+          "entity": "techcrunch",
+          "group": "press",
+          "observed_at": "2026-11-18T23:05:50Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "4c268dfa6e86a1195d65",
+          "title": "Satya Nadella says he’s AGI-pilled now",
+          "title_vi": "Satya Nadella nói anh ta đang dùng thuốc AGI.",
+          "headline": "Satya Nadella says he’s AGI-pilled now",
+          "headline_vi": "Satya Nadella nói anh ta đang dùng thuốc AGI.",
+          "url": "https://www.theverge.com/tech/1036111/satya-nadella-says-hes-agi-pilled-now",
+          "published_at": "2026-11-17T23:41:18Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "verge-ai",
+          "publisher": "the-verge",
+          "entity": "the-verge",
+          "group": "press",
+          "observed_at": "2026-11-18T23:05:50Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "2 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "techcrunch",
+              "the-verge"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "techcrunch",
+            "the-verge"
+          ],
+          "age_hours_at_cutoff": 23.3117,
+          "hot_score": 50.47,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "6e60ec8c10b2996b7013",
+      "title": "Will Wright’s next game uses AI to map your memories",
+      "title_vi": "Trò chơi tiếp theo của Will Wright sử dụng AI để lập bản đồ ký ức của bạn",
+      "headline": "Will Wright’s next game uses AI to map your memories",
+      "headline_vi": "Trò chơi tiếp theo của Will Wright sử dụng AI để lập bản đồ ký ức của bạn",
+      "url": "https://www.theverge.com/games/1036140/will-wright-mymems-ai-game-interview",
+      "published_at": "2026-11-18T14:00:00Z",
+      "kind": "other",
+      "time_basis": "published",
+      "editorial_headline_vi": "Tác giả The Sims phát triển game MyMems dùng AI tái hiện ký ức người chơi vào năm 2027",
+      "editorial_headline_verified": true,
+      "source_count": 2,
+      "coverage": [
+        {
+          "id": "001a8131b993c322f292",
+          "title": "Will Wright's next simulation will use AI to mine content from your memories",
+          "title_vi": "Phiên bản mô phỏng tiếp theo của Will Wright sẽ sử dụng AI để khai thác nội dung từ ký ức của bạn",
+          "headline": "Will Wright's next simulation will use AI to mine content from your memories",
+          "headline_vi": "Phiên bản mô phỏng tiếp theo của Will Wright sẽ sử dụng AI để khai thác nội dung từ ký ức của bạn",
+          "url": "https://arstechnica.com/gaming/2026/11/will-wrights-next-simulation-will-use-ai-to-mine-content-from-your-memories/",
+          "published_at": "2026-11-18T18:10:33Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "ars-ai",
+          "publisher": "ars-technica",
+          "entity": "ars-technica",
+          "group": "press",
+          "observed_at": "2026-11-18T23:05:50Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "6b71ea3ae958656f89cd",
+          "title": "Will Wright’s next game uses AI to map your memories",
+          "title_vi": "Trò chơi tiếp theo của Will Wright sử dụng AI để lập bản đồ ký ức của bạn",
+          "headline": "Will Wright’s next game uses AI to map your memories",
+          "headline_vi": "Trò chơi tiếp theo của Will Wright sử dụng AI để lập bản đồ ký ức của bạn",
+          "url": "https://www.theverge.com/games/1036140/will-wright-mymems-ai-game-interview",
+          "published_at": "2026-11-18T14:00:00Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "verge-ai",
+          "publisher": "the-verge",
+          "entity": "the-verge",
+          "group": "press",
+          "observed_at": "2026-11-18T23:05:50Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "2 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "ars-technica",
+              "the-verge"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "ars-technica",
+            "the-verge"
+          ],
+          "age_hours_at_cutoff": 9.0,
+          "hot_score": 48.194,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "1a1450d8414407906972",
+      "title": "Some Nvidia directors continue push to bring Huang back",
+      "title_vi": "Một số giám đốc Nvidia tiếp tục thúc đẩy Huang trở lại",
+      "headline": "Some Nvidia directors continue push to bring Huang back",
+      "headline_vi": "Một số giám đốc Nvidia tiếp tục thúc đẩy Huang trở lại",
+      "url": "https://www.semafor.com/article/11/17/2026/some-nvidia-directors-push-to-bring-huang-back-despite-board-opposition",
+      "published_at": "2026-11-18T02:17:01Z",
+      "kind": "other",
+      "time_basis": "published",
+      "editorial_headline_vi": "Nguồn tin cho biết một nhóm giám đốc Nvidia vận động đưa Jensen Huang trở lại làm CEO",
+      "editorial_headline_verified": true,
+      "source_count": 2,
+      "coverage": [
+        {
+          "id": "d60d8fb0a715c04b653f",
+          "title": "Nvidia Does Not Intend to Bring Back Huang as CEO, Chair Says",
+          "title_vi": "Nvidia không có ý định đưa Huang trở lại làm CEO, Chủ tịch nói",
+          "headline": "Nvidia Does Not Intend to Bring Back Huang as CEO, Chair Says",
+          "headline_vi": "Nvidia không có ý định đưa Huang trở lại làm CEO, Chủ tịch nói",
+          "url": "https://www.bloomberg.com/news/videos/2026-11-17/nvidia-chair-says-huang-isn-t-coming-back-as-ceo-video",
+          "published_at": "2026-11-17T23:12:06Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "bloomberg-tech",
+          "publisher": "bloomberg",
+          "entity": "bloomberg",
+          "group": "press",
+          "observed_at": "2026-11-18T07:46:00Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "3d44fcdcb2c6b433c63e",
+          "title": "Some Nvidia directors continue push to bring Huang back",
+          "title_vi": "Một số giám đốc Nvidia tiếp tục thúc đẩy Huang trở lại",
+          "headline": "Some Nvidia directors continue push to bring Huang back",
+          "headline_vi": "Một số giám đốc Nvidia tiếp tục thúc đẩy Huang trở lại",
+          "url": "https://www.semafor.com/article/11/17/2026/some-nvidia-directors-push-to-bring-huang-back-despite-board-opposition",
+          "published_at": "2026-11-18T02:17:01Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "semafor",
+          "publisher": "semafor",
+          "entity": "semafor",
+          "group": "press",
+          "observed_at": "2026-11-18T23:05:50Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "2 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "bloomberg",
+              "semafor"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "bloomberg",
+            "semafor"
+          ],
+          "age_hours_at_cutoff": 20.7164,
+          "hot_score": 41.357,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "6663bdbb07465939d1ff",
+      "title": "AI is killing All About Berlin",
+      "title_vi": "AI đang giết chết mọi người ở Berlin.",
+      "headline": "AI is killing All About Berlin",
+      "headline_vi": "AI đang giết chết mọi người ở Berlin.",
+      "url": "https://nicolasbouliane.com/blog/death-by-ai",
+      "published_at": "2026-11-18T06:47:26Z",
+      "kind": "forum",
+      "time_basis": "published",
+      "editorial_headline_vi": "All About Berlin mất tới 75% lượng truy cập vì tính năng tổng quan bằng AI của Google",
+      "editorial_headline_verified": true,
+      "source_count": 0,
+      "coverage": [
+        {
+          "id": "566c4c57ef8f48a259c5",
+          "title": "AI is killing All About Berlin",
+          "title_vi": "AI đang giết chết mọi người ở Berlin.",
+          "headline": "AI is killing All About Berlin",
+          "headline_vi": "AI đang giết chết mọi người ở Berlin.",
+          "url": "https://nicolasbouliane.com/blog/death-by-ai",
+          "published_at": "2026-11-18T06:47:26Z",
+          "kind": "forum",
+          "time_basis": "published",
+          "source": "hn-ai",
+          "publisher": "hacker-news",
+          "entity": "hacker-news",
+          "group": "forum",
+          "observed_at": "2026-11-18T23:05:50Z",
+          "discussion_url": "https://news.ycombinator.com/item?id=50542705",
+          "metrics": {
+            "points": 744,
+            "comments": 678
+          }
+        },
+        {
+          "id": "1cda688fa2f4669e3f8d",
+          "title": "AI is killing All About Berlin",
+          "title_vi": "AI đang giết chết mọi người ở Berlin.",
+          "headline": "AI is killing All About Berlin",
+          "headline_vi": "AI đang giết chết mọi người ở Berlin.",
+          "url": "https://nicolasbouliane.com/blog/death-by-ai",
+          "published_at": "2026-11-18T06:47:26Z",
+          "kind": "forum",
+          "time_basis": "published",
+          "source": "hn-front",
+          "publisher": "hacker-news",
+          "entity": "hacker-news",
+          "group": "forum",
+          "observed_at": "2026-11-18T15:36:25Z",
+          "discussion_url": "https://news.ycombinator.com/item?id=50542705",
+          "metrics": {
+            "points": 643,
+            "comments": 592
+          }
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [
+          {
+            "code": "measured_attention",
+            "text": "Ngoại lệ diễn đàn: tương tác thuộc nhóm 3% cao nhất và ít nhất 100 bình luận",
+            "percentile": 0.978494623655914,
+            "measurement": {
+              "source": "hn-ai",
+              "metric": "points",
+              "value": 744,
+              "observed_at": "2026-11-18T23:05:50Z",
+              "velocity_per_hour": null,
+              "previous_observed_at": null,
+              "previous_value": null
+            }
+          }
+        ],
+        "signals": {
+          "publishers": [],
+          "age_hours_at_cutoff": 16.2094,
+          "hot_score": 33.206,
+          "engagement_percentile": 0.978494623655914
+        }
+      }
+    }
+  ],
+  "source_health": {
+    "active_remote_sources": 77,
+    "successful_remote_sources": 77,
+    "failed_remote_sources": []
+  }
+}
