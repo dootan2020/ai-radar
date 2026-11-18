@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-17T21:58:54.768345+00:00",
-  "input_generated_at": "2026-11-17T20:46:06Z",
+  "generated_at": "2026-11-18T00:02:26.643866+00:00",
+  "input_generated_at": "2026-11-17T22:45:54Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -87979,17 +87979,17 @@
       "use_original_title": false,
       "source_url": "https://github.blog/changelog/2026-11-17-copilot-code-review-adaptive-effort-secret-detection-and-more",
       "key_points": [
-        "GitHub cập nhật Copilot code review và chính thức phát hành cho Azure Repos sau thời gian thử nghiệm. Bản cập nhật này cũng đưa vào bản xem trước tính năng phát hiện thông tin bí mật (secret) và đọc ngữ cảnh đa kho cho các gói từ Copilot Pro đến Enterprise.",
-        "GitHub cho biết cơ chế Adaptive tự động chọn mức rà soát thay cho con người thay vì người dùng phải tự quyết định cho từng yêu cầu kéo mã (pull request). Hệ thống đánh giá độ phức tạp và rủi ro để chọn mức Lite cho tài liệu hoặc mức Max cho logic xác thực.",
-        "Về bảo mật, công cụ phát hiện hơn 500 loại bí mật qua 150 đối tác kỹ thuật bằng phương pháp xác định như biểu thức chính quy (regex). Đồng thời, Copilot code review kết hợp mô hình ngôn ngữ lớn (LLM) để tìm kiếm các thông tin xác thực bị lộ không có định dạng sẵn.",
-        "Tính năng mở rộng ngữ cảnh rà soát chỉ áp dụng cho kho công khai trong bản xem trước công khai hiện tại. Ngoài ra, GitHub quy định Adaptive không bao giờ chọn mức nỗ lực vượt quá ngưỡng tối đa đã thiết lập và các tính năng xem trước có thể thay đổi."
+        "GitHub thử nghiệm tính năng Adaptive trên Copilot code review giúp khớp độ sâu rà soát với từng yêu cầu kéo mã (pull request). Tính năng này cùng khả năng phát hiện bí mật mở cho các gói từ Pro đến Enterprise, còn bản Azure Repos đã phát hành chính thức.",
+        "Theo GitHub, tính năng mới giúp giải quyết việc người dùng phải tự quyết định mức rà soát cho mỗi pull request trong cài đặt hoặc khi yêu cầu. Cơ chế này tự động chọn mức rà soát để thay đổi thông thường được duyệt nhanh, còn phần rủi ro được kiểm tra kỹ hơn.",
+        "Hệ thống chọn mức Lite, Balanced hoặc Max theo độ phức tạp và rủi ro, ví dụ sửa tài liệu chỉ cần Lite còn logic xác thực hưởng lợi từ Max. GitHub cũng hợp tác với hơn 150 đối tác kỹ thuật để quét hơn 500 loại bí mật bằng regex, kết hợp AI tìm thông tin xác thực không có định dạng chuẩn.",
+        "Dẫu vậy, Balanced vẫn là mức mặc định và người dùng phải chủ động chọn Adaptive cho từng pull request hoặc trong cài đặt. Adaptive không bao giờ vượt mức trần của tổ chức, đồng thời ngữ cảnh đa kho chỉ áp dụng cho kho công khai và tính năng xem trước có thể thay đổi."
       ],
       "same_event_coverage_ids": [
         "8d1be6b7341508209e2e"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "GitHub phát hành Copilot code review cho Azure Repos và thử nghiệm tính năng Adaptive",
+      "editorial_headline_vi": "GitHub thử nghiệm tính năng Adaptive tự chọn mức rà soát pull request cho Copilot",
       "summary_sources": [
         {
           "id": "outlet",
@@ -88002,40 +88002,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.6,
+        "value": 9.3,
         "answers": {
-          "what": 10,
-          "why": 9,
-          "notable": 7,
-          "meaning": 8
+          "what": 8,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "chọn mức Lite cho tài liệu hoặc mức Max cho logic xác thực",
-            "explanation": "The source offers these as illustrative review needs: a documentation update may only need Lite, while an authentication change benefits from Max. It does not say Adaptive always makes those choices (outlet:p005)."
-          },
-          {
-            "kind": "number",
-            "summary_text": "qua 150 đối tác kỹ thuật",
-            "explanation": "GitHub says it collaborates with more than 150 technical partners to build secret detectors, rather than specifying 150 partners (outlet:p015)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "notable",
-            "problem": "The reader may expect Adaptive to assign fixed effort levels to documentation and authentication changes.",
-            "fix": "Present Lite and Max as examples of what those changes may need; Adaptive chooses among Lite, Balanced, and Max based on each pull request’s complexity and risk (outlet:p005)."
-          },
-          {
-            "question": "notable",
-            "problem": "The partner count loses the source’s lower-bound qualifier.",
-            "fix": "Say GitHub works with more than 150 technical partners to build detectors for more than 500 known secret types (outlet:p015)."
-          },
-          {
-            "question": "meaning",
-            "problem": "A reader may not realize Adaptive must be selected or configured.",
-            "fix": "Add that Balanced remains the default review effort and users can select Adaptive for a pull request or make it their default (outlet:p007)."
+            "question": "what",
+            "problem": "The reader is not told what cross-repository context does.",
+            "fix": "Say that Copilot can read related public repositories during review to find dependent code and relevant documentation (outlet:p011–p012)."
           }
         ],
         "writer_boats": [
@@ -88043,8 +88022,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "8b7f4a65309b2b676b1a8b8fe267b80ee2b4ac5214da9d4829c9f3fd76b85d74",
-        "scored_at": "2026-11-17T21:58:54.764841+00:00"
+        "prose_sha256": "745c355b853f0f2948b3e9b437729b0c275cc7588280d386a8fb8b978c67d6e9",
+        "scored_at": "2026-11-17T23:58:21.090666+00:00"
       }
     },
     {
@@ -88065,17 +88044,17 @@
       "use_original_title": false,
       "source_url": "https://github.blog/changelog/2026-11-17-mai-code-2-and-mai-code-2-flash-in-github-copilot",
       "key_points": [
-        "GitHub bổ sung hai mô hình MAI Code 2 và MAI Code 2 Flash vào hệ thống Copilot phục vụ các quy trình kỹ thuật phần mềm. Trong đó, MAI Code 2 hướng đến các tác vụ phức tạp còn MAI Code 2 Flash tối ưu cho quy trình làm việc nhẹ nhàng hàng ngày.",
-        "Mô hình MAI Code 2 xử lý việc gỡ lỗi sâu, triển khai trên nhiều tệp, tái cấu trúc mã và suy luận trên toàn bộ kho lưu trữ. Phiên bản MAI Code 2 Flash hoạt động như một công cụ chi phí thấp, thực hiện giải thích mã nguồn, chỉnh sửa theo mục tiêu và sửa lỗi thường ngày.",
-        "Phiên bản MAI Code 2 Flash mở rộng hỗ trợ cho tài khoản Copilot Free và Student bên cạnh các gói trả phí. Ngược lại, mô hình MAI Code 2 chỉ giới hạn cho người dùng các gói trả phí từ Copilot Pro đến Enterprise.",
-        "Quản trị viên các gói Copilot Business và Enterprise có thể kiểm soát quyền truy cập mô hình MAI thông qua chính sách trong phần cài đặt."
+        "Theo GitHub, hai mô hình MAI Code 2 và MAI Code 2 Flash có mặt trên GitHub Copilot, mở rộng khả năng sang kỹ thuật phần mềm dạng tác tử.",
+        "Mô hình MAI Code 2 là công cụ lập trình đa năng xử lý các tác vụ phức tạp như gỡ lỗi sâu, triển khai đa tệp và suy luận toàn kho lưu trữ. Trong khi đó, MAI Code 2 Flash là mô hình gọn nhẹ tối ưu chi phí cho các công việc hàng ngày như giải thích mã, chỉnh sửa theo mục tiêu và lặp nhanh.",
+        "Các mô hình này khả dụng cho thuê bao gói năm đủ điều kiện của GitHub Copilot. Theo đó, MAI Code 2 có mặt trên Copilot Pro, Pro+, Max, Business và Enterprise, còn MAI Code 2 Flash xuất hiện trên cả Copilot Free và Student.",
+        "GitHub thông báo các mô hình này áp dụng tính phí theo mức sử dụng. Người dùng có thể chọn mô hình qua bộ chọn mô hình trong các công cụ hỗ trợ như Visual Studio Code, Visual Studio hay Copilot CLI."
       ],
       "same_event_coverage_ids": [
         "eb4417797af4a0b42e82"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "GitHub thêm MAI Code 2 cho tác vụ phức tạp và MAI Code 2 Flash cho công việc hàng ngày",
+      "editorial_headline_vi": "GitHub ra mắt mô hình MAI Code 2 cho tác vụ phức tạp và MAI Code 2 Flash cho thuê bao gói năm",
       "summary_sources": [
         {
           "id": "outlet",
@@ -88088,33 +88067,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.25,
+        "value": 10.0,
         "answers": {
           "what": 10,
-          "why": 8,
-          "notable": 7,
-          "meaning": 7
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
         },
         "hard_errors": [],
-        "findings": [
-          {
-            "question": "notable",
-            "problem": "Readers may think every subscriber on a listed plan is eligible.",
-            "fix": "State that availability is for eligible subscribers on annual plans (outlet:p011)."
-          },
-          {
-            "question": "meaning",
-            "problem": "Readers do not learn how to select the models or that usage-based billing applies.",
-            "fix": "Mention the model picker in the supported Copilot tools and usage-based billing (outlet:p007, outlet:p012–p022)."
-          }
-        ],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "792640eacffb78110ca2d0642a022b282d10b43dcc52e06cd2ffdc597bdb34d2",
-        "scored_at": "2026-11-17T21:58:54.764870+00:00"
+        "prose_sha256": "b88234d1f5f43061659df327716f4b0568418af3ae6473fe6264f06c4d4a2faf",
+        "scored_at": "2026-11-17T23:58:21.090687+00:00"
       }
     },
     {
@@ -88310,17 +88278,17 @@
       "use_original_title": false,
       "source_url": "https://github.blog/changelog/2026-11-17-track-copilot-code-review-outcomes-in-repository-insights",
       "key_points": [
-        "GitHub ra mắt trang Repository insights tập hợp kết quả đánh giá mã của Copilot vào một nơi, ở đầu thẻ Insights của kho lưu trữ. Người dùng có quyền đọc kho lưu trữ có thể xem kết quả đánh giá mã của Copilot trên trang này.",
-        "Theo GitHub, hệ thống hiển thị tỷ lệ nhận xét có thể đánh giá đã được xử lý cùng xu hướng theo thời gian. Các danh mục phản hồi từ Copilot cùng những chỉ số này cũng có trong báo cáo hàng ngày qua API.",
-        "Theo GitHub, trang hiển thị bốn tín hiệu tóm tắt cho từng kho lưu trữ, gồm các nhận xét được xử lý và các nhận xét nghiêm trọng cao đã được xử lý. Hai tín hiệu còn lại theo dõi các yêu cầu kéo không bị con người yêu cầu sửa sau đó và các yêu cầu kéo đã hợp nhất mà không qua Copilot đánh giá.",
-        "GitHub nhận định dữ liệu này giúp tìm kho mã thiếu độ bao phủ đánh giá và tập trung hỗ trợ nơi mang lại tác động lớn nhất. Theo GitHub, tính năng này yêu cầu chính sách đo lường mức sử dụng Copilot phải được kích hoạt từ trước."
+        "GitHub ra mắt trang Repository insights tập hợp kết quả đánh giá mã của Copilot ở đầu thẻ Insights của kho lưu trữ. Người dùng có quyền đọc kho lưu trữ có thể xem kết quả đánh giá mã trên trang này.",
+        "Trang hiển thị tỷ lệ nhận xét có thể đánh giá đã được xử lý cùng xu hướng theo thời gian và danh mục phản hồi từ Copilot. Các chỉ số tương tự cũng có sẵn trong báo cáo kho lưu trữ một ngày qua API số liệu sử dụng Copilot.",
+        "Hệ thống hiển thị bốn tín hiệu tóm tắt cho từng kho lưu trữ, gồm các nhận xét được xử lý và các nhận xét nghiêm trọng cao đã được xử lý. Hai tín hiệu còn lại theo dõi các yêu cầu kéo do Copilot đánh giá không bị con người yêu cầu sửa đổi sau đó và các yêu cầu kéo hợp nhất bỏ qua Copilot.",
+        "GitHub nhận định dữ liệu này giúp tìm kho lưu trữ thiếu độ bao phủ đánh giá và tập trung hỗ trợ nơi có tác động lớn nhất. Theo GitHub, tính năng này yêu cầu chính sách đo lường mức sử dụng Copilot phải được kích hoạt trước đó."
       ],
       "same_event_coverage_ids": [
         "11dfb33c46d9fe2932ee"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "GitHub ra mắt trang Repository insights theo dõi kết quả đánh giá mã của Copilot theo từng kho mã",
+      "editorial_headline_vi": "GitHub ra mắt trang Repository insights theo dõi kết quả đánh giá mã của Copilot theo từng kho lưu trữ",
       "summary_sources": [
         {
           "id": "outlet",
@@ -88333,34 +88301,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.45,
+        "value": 10.0,
         "answers": {
           "what": 10,
-          "why": 9,
-          "notable": 6,
-          "meaning": 9
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "các yêu cầu kéo không bị con người yêu cầu sửa sau đó",
-            "explanation": "This signal is limited to pull requests reviewed by Copilot that received no later change request from a human reviewer (outlet:p007)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "notable",
-            "problem": "The third signal appears to cover all pull requests without a later human change request.",
-            "fix": "Specify that it covers pull requests Copilot reviewed (outlet:p007)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "fc92c1fb3aad0db7ee78df5fad280943f0a8bfa1a64709d957db3c703351f05a",
-        "scored_at": "2026-11-17T21:58:54.764905+00:00"
+        "prose_sha256": "07dc3a5457ca9b840bc961f137af157a0d3fc3c2675e6c36cc128905b172da0f",
+        "scored_at": "2026-11-17T23:58:21.090711+00:00"
       }
     },
     {
@@ -88380,17 +88336,17 @@
       "use_original_title": false,
       "source_url": "https://github.blog/changelog/2026-11-17-github-copilot-evals-is-now-in-public-preview",
       "key_points": [
-        "GitHub phát hành GitHub Copilot Evals dưới dạng bài kiểm thử có thể lặp lại đối với hành vi AI cho các kỹ năng, tác nhân (agent - hệ thống AI tự thực hiện tác vụ) tùy chỉnh và công cụ MCP. Công cụ này sử dụng Vally, một công cụ đánh giá cục bộ có thể mở rộng, làm nền tảng định lượng hành vi.",
-        "Theo GitHub, đầu ra của AI có thể thay đổi giữa các lần chạy, nên một câu trả lời tốt không đủ chứng minh phần tùy chỉnh hoạt động hiệu quả. Việc chạy lại cùng một bài đánh giá sau khi thay đổi thiết lập giúp kiểm tra hành vi cần quan tâm và phát hiện lỗi hồi quy.",
-        "Lập trình viên có thể tạo bài đánh giá bằng lệnh /eval nhưng phải tự phê duyệt từng lượt chạy và xem các tiêu chí đạt hoặc thất bại. Người dùng có thể tìm hiểu lý do kiểm tra thất bại và so sánh các lượt chạy trước và sau khi tùy chỉnh để đánh giá hiệu quả.",
-        "Theo GitHub, tính năng này đang ở giai đoạn xem trước công khai cho các gói Copilot Individual, Copilot Business và Copilot Enterprise."
+        "GitHub ra mắt công cụ tạo và chạy kiểm thử hành vi AI mang tên GitHub Copilot Evals để người dùng tạo các bài kiểm thử lặp lại (eval) nhằm tối ưu hóa trợ lý Copilot. Công cụ này hỗ trợ đánh giá các kỹ năng, tác nhân (agent - hệ thống AI tự thực hiện tác vụ) và công cụ MCP khi cấu hình hệ thống thay đổi.",
+        "Theo GitHub, đầu ra AI thay đổi giữa các lần chạy khiến một câu trả lời tốt chưa đủ để chứng minh phần tùy chỉnh vận hành hiệu quả. Việc chạy lại cùng một bài kiểm thử sau khi tinh chỉnh thiết lập giúp người dùng kiểm tra hành vi mong muốn và phát hiện lỗi hồi quy.",
+        "Lập trình viên có thể dùng lệnh tạo kiểm thử cho kỹ năng và tác nhân tùy chỉnh hoặc công cụ MCP trong dự án thông qua lệnh /eval. Hệ thống yêu cầu người dùng phê duyệt từng lượt chạy trước khi bắt đầu, hỗ trợ tìm lý do kiểm tra thất bại và so sánh kết quả trước sau để quyết định cải tiến.",
+        "Theo GitHub, tính năng này đang mở bản xem trước công khai cho các gói Copilot Individual, Copilot Business và Copilot Enterprise. Hệ thống sử dụng công cụ cục bộ Vally có khả năng mở rộng để làm công cụ đánh giá chính."
       ],
       "same_event_coverage_ids": [
         "4c372261acadcf9a6f81"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "GitHub mở bản xem trước Copilot Evals giúp kiểm thử hành vi AI cho kỹ năng và tác nhân",
+      "editorial_headline_vi": "GitHub mở bản xem trước công cụ Copilot Evals giúp kiểm thử hành vi của kỹ năng và tác nhân",
       "summary_sources": [
         {
           "id": "outlet",
@@ -88403,34 +88359,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.3,
+        "value": 9.7,
         "answers": {
-          "what": 6,
+          "what": 10,
           "why": 10,
           "notable": 9,
           "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "phát hành GitHub Copilot Evals dưới dạng bài kiểm thử có thể lặp lại",
-            "explanation": "GitHub Copilot Evals is the tool for creating and running evaluations; an individual eval is the repeatable test (outlet:p002, outlet:p004, outlet:p007–p009)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "what",
-            "problem": "Readers may confuse the Copilot Evals tool with one individual test.",
-            "fix": "Describe Copilot Evals as a tool that lets users create and run repeatable tests of AI behavior (outlet:p002, outlet:p004, outlet:p007–p009)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "b4c4fc3e0791818ae631d5cf12a5a61ba9967ed9631d4b41926b78593972a233",
-        "scored_at": "2026-11-17T21:58:54.764931+00:00"
+        "prose_sha256": "108fb9fa0717ecc09522538f787b102e8686176228adbade0cd85f0242e03d19",
+        "scored_at": "2026-11-17T23:58:21.090731+00:00"
       }
     },
     {
@@ -88450,17 +88394,17 @@
       "use_original_title": true,
       "source_url": "https://about.fb.com/news/2026/11/muse-is-now-available-in-australia/",
       "key_points": [
-        "Meta chính thức phát hành tác nhân (agent - hệ thống AI tự thực hiện tác vụ) cá nhân Muse tại thị trường Úc trên các nền tảng iOS, Android, web và Mac. Theo Meta, công cụ này không chỉ trả lời câu hỏi mà trực tiếp xử lý công việc và có thể trò chuyện theo thời gian thực bằng giọng nói.",
-        "Meta cho biết các cổng kết nối (connector - cơ chế liên kết ứng dụng) là lý do chính giúp Muse làm được nhiều việc thường ngày. Người dùng tại Úc có thể liên kết Muse với Gmail, Google Calendar, Instagram và OpenTable để quản lý thư từ, sắp xếp lịch trình và đặt bàn nhà hàng.",
-        "Các tính năng kết nối đối tác địa phương sẽ được triển khai dần dần và một số trải nghiệm chỉ xuất hiện sau khi ra mắt. Theo Meta, khi các dịch vụ này khả dụng, người dùng mới có thể yêu cầu Muse thiết kế qua Canva, mua sắm đồ điện tử trên Kogan hoặc đặt vé qua Ticketek.",
-        "Theo Meta, Muse được cung cấp miễn phí cho phần lớn nhu cầu sử dụng thông thường, đi kèm các gói thuê bao cho người muốn làm nhiều hơn. Hệ thống vận hành trên máy ảo bảo mật Muse Secure VM và luôn hỏi ý kiến người dùng trước các hành động nhạy cảm như gửi thư hay mua sắm."
+        "Tác nhân AI cá nhân Muse chính thức khả dụng tại Úc từ ngày 17/11/2026 trên iOS, Android, web và máy tính Mac. Theo Meta, tác nhân (agent - hệ thống AI tự thực hiện tác vụ) này trực tiếp xử lý công việc thay vì chỉ trả lời câu hỏi và hỗ trợ trò chuyện giọng nói theo thời gian thực.",
+        "Theo Meta, các cổng kết nối là lý do lớn giúp Muse làm được nhiều việc khi liên kết với các ứng dụng quen thuộc. Người dùng tại Úc có thể kết nối Muse với Gmail, Google Calendar, Instagram và OpenTable để quản lý thư từ, sắp xếp lịch trình hay đặt bàn.",
+        "Khác với các ứng dụng quen thuộc, các tính năng kết nối đối tác địa phương được triển khai dần và một số trải nghiệm chỉ khả dụng sau khi ra mắt. Khi mở ra, người dùng có thể nhờ Muse thiết kế hình ảnh qua Canva, tìm nhà đất trên Domain hoặc mua sắm qua Kogan.",
+        "Theo Meta, Muse miễn phí cho hầu hết nhu cầu nhưng có các gói thuê bao dành cho người muốn làm nhiều hơn. Công ty cho biết hệ thống vận hành trên máy ảo Muse Secure VM để bảo mật dữ liệu và luôn hỏi ý kiến người dùng trước các thao tác nhạy cảm như gửi thư hay mua hàng."
       ],
       "same_event_coverage_ids": [
         "428e9b9066f9d5797e76"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Meta ra mắt tác nhân AI Muse tại Úc và triển khai dần các cổng kết nối ứng dụng",
+      "editorial_headline_vi": "Meta phát hành tác nhân AI Muse tại Úc, hỗ trợ kết nối ứng dụng và mở dần dịch vụ đối tác",
       "summary_sources": [
         {
           "id": "outlet",
@@ -88473,30 +88417,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.9,
+        "value": 9.7,
         "answers": {
           "what": 10,
-          "why": 6,
+          "why": 10,
           "notable": 10,
           "meaning": 8
         },
-        "hard_errors": [
-          {
-            "kind": "quote",
-            "summary_text": "các cổng kết nối (connector - cơ chế liên kết ứng dụng) là lý do chính giúp Muse làm được nhiều việc thường ngày",
-            "explanation": "Meta calls connectors 'a big reason' Muse can do so much, not the single main reason (outlet:p014)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "why",
-            "problem": "The wording makes connectors sound like Meta's primary explanation.",
-            "fix": "Call connectors a major reason Muse can handle many tasks (outlet:p014)."
-          },
-          {
             "question": "meaning",
-            "problem": "Readers miss two concrete privacy controls.",
-            "fix": "Add that users choose what Muse can access and that Muse Secure VM keeps passwords and payment methods out of the agent's view (outlet:p011, outlet:p021)."
+            "problem": "Readers miss two concrete limits on Muse's access.",
+            "fix": "Add that users choose what Muse can access and that Muse Secure VM keeps passwords and payment methods out of the agent's view (outlet:p021)."
           }
         ],
         "writer_boats": [
@@ -88504,8 +88437,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "13bdb8942e4b5bc396cb6947106c26d692c738ec81d30a78f442537973aead4e",
-        "scored_at": "2026-11-17T21:58:54.764958+00:00"
+        "prose_sha256": "92a4ce1d7c6b2755540bad4da748ee7e8da886a39fb9da0774bba5a9b4dd4d05",
+        "scored_at": "2026-11-18T00:02:26.623993+00:00"
       }
     },
     {
@@ -89267,17 +89200,17 @@
       "use_original_title": false,
       "source_url": "https://thezvi.substack.com/p/jensen-huang-really-liked-selling",
       "key_points": [
-        "Theo tác giả Zvi Mowshowitz, Nvidia sụt giảm hơn 570 tỷ USD giá trị trong một tuần và ông nhận định chính ông Jensen Huang phải chịu trách nhiệm cho sự sụt giảm này. Hội đồng quản trị của công ty sau đó thông báo thành lập một Ủy ban Giám sát mới.",
-        "Theo tác giả, lý do chính của lập trường hòa hoãn với Trung Quốc là để Nvidia bán được nhiều chip hơn và kiếm thêm tiền.",
-        "Theo Chris McGuire do Alec Stapp dẫn lại, Megaspeed đã buôn lậu lượng chip Nvidia theo báo cáo là 7 tỷ USD vào Trung Quốc. Tuy nhiên, các nguồn tin từ CIA cho biết các tin chặn thu không cho thấy bà Alice Huang cố ý chuyển thông tin cho Trung Quốc.",
-        "Tác giả Mowshowitz nhận định giới chức Washington sẽ không để ông Jensen Huang tiếp tục điều hành Nvidia, dù ông Donald Trump nói ông Huang đã rút ra bài học lớn. Dù vậy, tác giả lưu ý phần lớn giá trị hàng nghìn tỷ USD ông Huang tạo ra không đến từ việc làm ăn với Trung Quốc."
+        "Theo tác giả Zvi Mowshowitz, Nvidia đã triển khai một chiến dịch gây ảnh hưởng ngầm nhằm thúc đẩy việc bán các dòng chip trí tuệ nhân tạo (AI) tiên tiến sang Trung Quốc.",
+        "Tác giả Mowshowitz nhận định lý do chính của lập trường hòa hoãn với Trung Quốc là để Nvidia bán được nhiều chip hơn và kiếm thêm tiền. Mục tiêu được phía thúc đẩy chiến dịch đưa ra chỉ là nhằm bảo đảm chip Mỹ tiếp tục thống trị thị trường thay vì chip Trung Quốc.",
+        "Theo ông Chris McGuire do Alec Stapp dẫn lại, công ty Megaspeed đã buôn lậu lượng chip Nvidia theo báo cáo là 7 tỷ USD vào Trung Quốc. Dữ liệu hải quan Đài Loan cho thấy hơn 60 tỷ USD chip AI nhiều khả năng đã được chuyển đến Singapore, Malaysia và Thái Lan.",
+        "Tác giả Mowshowitz khẳng định kết luận của ông về Nvidia hay Jensen Huang không thay đổi, dù nguồn tin CIA cho biết các tin chặn thu không cho thấy bà Alice Huang cố ý chuyển thông tin cho Trung Quốc. Tác giả Mowshowitz nhận định giới chức Washington sẽ không để ông Huang tiếp tục điều hành khi Nvidia sụt giảm hơn 570 tỷ USD giá trị trong một tuần."
       ],
       "same_event_coverage_ids": [
         "724754ad674040fdf1b9"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Nvidia sụt giảm hơn 570 tỷ USD giá trị trong một tuần và lập Ủy ban Giám sát mới",
+      "editorial_headline_vi": "Tác giả Zvi Mowshowitz: Nvidia ngầm thúc đẩy bán chip AI sang Trung Quốc để kiếm thêm tiền",
       "summary_sources": [
         {
           "id": "outlet",
@@ -89287,36 +89220,35 @@
         }
       ],
       "summary_limitations": [
-        "source_conflict",
         "partial_source"
       ],
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 7.75,
+        "value": 8.5,
         "answers": {
-          "what": 6,
+          "what": 9,
           "why": 8,
-          "notable": 10,
-          "meaning": 7
+          "notable": 8,
+          "meaning": 9
         },
         "hard_errors": [
           {
-            "kind": "main_event_missing",
-            "summary_text": "",
-            "explanation": "The Vietnamese omits the source’s opening report of another alleged covert Nvidia influence operation promoting chip sales to China (outlet:p014)."
+            "kind": "quote",
+            "summary_text": "chỉ là nhằm bảo đảm chip Mỹ tiếp tục thống trị thị trường thay vì chip Trung Quốc",
+            "explanation": "The source reports maintaining US-made chips' dominance as the campaign's stated rationale, but does not say its promoters presented that as their only aim (outlet:p014)."
           }
         ],
         "findings": [
           {
-            "question": "what",
-            "problem": "The headline makes the value decline and oversight committee the story’s central development, so readers miss the alleged influence operation.",
-            "fix": "Lead with the author’s claim about Nvidia promoting chip sales to China and include the alleged covert operation, attributed to him (outlet:p001, outlet:p014)."
+            "question": "why",
+            "problem": "The word “chỉ” makes the campaign's stated rationale exclusive without source support.",
+            "fix": "Present US-chip dominance as the stated rationale, while separately attributing the money motive to Mowshowitz's analysis (outlet:p014, outlet:p149)."
           },
           {
-            "question": "meaning",
-            "problem": "The CIA counterpoint appears without the author’s stated conclusion about why it does not change his assessment.",
-            "fix": "Add that Mowshowitz says uncertainty over Alice Huang’s formal spy status does not materially alter his conclusions about Nvidia or Jensen Huang (outlet:p015–p016, outlet:p024)."
+            "question": "notable",
+            "problem": "The $60 billion estimate has no time period in the Vietnamese.",
+            "fix": "Specify that the cited customs-data estimate covers 2025 to 2026 (outlet:p101)."
           }
         ],
         "writer_boats": [
@@ -89324,8 +89256,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "a56f2e24bbbd18bf1513b3a6768ae6e2d64cfdb3f06660d6aa0cad7c7d5c0273",
-        "scored_at": "2026-11-17T21:58:54.765055+00:00"
+        "prose_sha256": "ac9def58e3b88e8cd0d9957c1863e817e4851c1fbe4523f44f03021b8f16e4cc",
+        "scored_at": "2026-11-18T00:02:26.624035+00:00"
       }
     },
     {
@@ -89613,10 +89545,10 @@
       "use_original_title": false,
       "source_url": "https://www.semafor.com/article/11/17/2026/ai-companies-lost-voters-on-narrative-and-execution-alphabets-porat-says",
       "key_points": [
-        "Giám đốc đầu tư Alphabet thừa nhận các công ty AI chưa thuyết phục được cử tri Mỹ rằng khoản tiền hàng nghìn tỷ USD đổ vào các trung tâm dữ liệu là xứng đáng.",
-        "Cử tri phản đối vì lo ngại chi phí sinh hoạt theo ghi nhận trực tiếp từ các chuyến đi của bà Porat. Theo Semafor, làn sóng phản đối lưỡng đảng cũng khiến cử tri chặn các dự án mở rộng và bầu những nhà lập pháp phần lớn ủng hộ làm chậm đà xây dựng AI.",
-        "Google dự kiến chi tới 205 tỷ USD chi phí vốn trong năm nay và dự báo con số này sẽ còn tăng vào năm 2027. Ngược lại, bà Porat lập luận rằng hầu hết người Mỹ vẫn hào hứng trước các cơ hội việc làm từ làn sóng AI.",
-        "Giới đầu tư lo ngại Google và các tập đoàn công nghệ có thể đang chi tiêu quá mức sau khi dòng tiền tự do gần đây của công ty chuyển sang âm."
+        "Giám đốc đầu tư của Alphabet thừa nhận Google và các công ty trí tuệ nhân tạo (AI) nhìn chung chưa thuyết phục được cử tri Mỹ rằng hàng nghìn tỷ USD đổ vào trung tâm dữ liệu là xứng đáng với chi phí.",
+        "Bà Ruth Porat cho biết bà trực tiếp ghi nhận nỗi lo về khả năng chi trả khi đi thực tế. Cùng lúc đó, cử tri chặn các dự án mở rộng tại địa phương và bầu những nhà lập pháp phần lớn ủng hộ làm chậm đà xây dựng AI.",
+        "Google dự kiến chi tới 205 tỷ USD chi phí vốn trong năm nay và dự báo sẽ tăng vào năm 2027. Ngược lại, bà Porat cho rằng hầu hết người Mỹ vẫn hào hứng với cơ hội việc làm từ làn sóng AI mang lại.",
+        "Theo Semafor, dòng tiền tự do của công ty chuyển sang âm trong các quý gần đây, cùng sự lo ngại của giới đầu tư rằng các hãng công nghệ lớn nhìn chung có thể đang tiến quá nhanh."
       ],
       "same_event_coverage_ids": [
         "fdbc4b0364d6d9730fdd"
@@ -89633,7 +89565,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Google dự kiến chi 205 tỷ USD chi phí vốn trong khi Alphabet thừa nhận chưa thuyết phục được cử tri",
+      "editorial_headline_vi": "Google dự kiến chi tới 205 tỷ USD trong khi Alphabet thừa nhận chưa thuyết phục được cử tri Mỹ",
       "summary_sources": [
         {
           "id": "outlet",
@@ -89646,35 +89578,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.7,
+        "value": 9.45,
         "answers": {
           "what": 10,
-          "why": 5,
-          "notable": 9,
-          "meaning": 10
+          "why": 8,
+          "notable": 10,
+          "meaning": 9
         },
-        "hard_errors": [
-          {
-            "kind": "cause",
-            "summary_text": "Cử tri phản đối vì lo ngại chi phí sinh hoạt",
-            "explanation": "The source reports opposition to data-center building and separately quotes Porat hearing affordability concerns. It does not explicitly say living costs caused that opposition (outlet:p002–p003)."
-          },
-          {
-            "kind": "number",
-            "summary_text": "Google dự kiến chi 205 tỷ USD chi phí vốn",
-            "explanation": "The headline drops the limit: the source says Google is expected to spend up to $205 billion, not a definite $205 billion (outlet:p007)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
             "question": "why",
-            "problem": "The reader is told a specific cause for voter opposition that the source does not establish.",
-            "fix": "Report affordability as a concern Porat heard, without assigning it as the cause of the votes (outlet:p002–p003)."
-          },
-          {
-            "question": "notable",
-            "problem": "The headline presents the spending forecast as an exact amount.",
-            "fix": "Say “up to $205 billion” in the headline, as the body and source do (outlet:p007)."
+            "problem": "Readers do not hear Porat’s stated reason for continuing the costly investment.",
+            "fix": "Add that Porat said Alphabet is investing because it sees an extraordinary opportunity (outlet:p006)."
           }
         ],
         "writer_boats": [
@@ -89682,8 +89598,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "9804c517c7913715e592a00d61dc212d35be9138ad840acb5c20cd79bcd012de",
-        "scored_at": "2026-11-17T21:40:10.468077+00:00"
+        "prose_sha256": "42de59dacafd237e541e22599b7f76616dc08e9c425ab38fb73ef28d128f01d7",
+        "scored_at": "2026-11-17T23:58:21.090497+00:00"
       }
     },
     {
@@ -89702,10 +89618,10 @@
       "use_original_title": false,
       "source_url": "https://www.404media.co/a-man-and-his-muse-ai-agent-sue-meta/",
       "key_points": [
-        "Theo trang tin 404 Media, ông Joe Thomas tại South Carolina đã dùng tác tử AI (chương trình trí tuệ nhân tạo tự hành) Muse của Meta để kiện chính tập đoàn này.",
-        "Bộ lọc của Meta vô hiệu hóa tài khoản do nghi ngờ tác tử AI là tin tặc khi công cụ tự đăng video lên trang. Bị gián đoạn nguồn khách hàng, tác tử AI đã tự gửi thư tới các nghị sĩ và tự nộp hồ sơ kiện thay cho ông Thomas.",
-        "Đơn kiện tại Tòa án hạt Oconee cho biết ông Thomas mất ít nhất 25.000 USD việc làm và đòi Meta bồi thường 75.000 USD. Tác tử này còn khiếu nại tới Thượng nghị sĩ Tim Scott và các cơ quan liên bang, sau đó nhân viên Meta đã liên hệ mở lại tài khoản.",
-        "Tác giả trên 404 Media nhận định các tác tử AI có nguy cơ làm quá tải những hệ thống xã hội vốn thiết kế cho con người. Dù vậy, tác giả bài viết cũng nhấn mạnh vụ kiện thực tế này rõ ràng có thể không thành công."
+        "Theo trang tin 404 Media, ông Joe Thomas tại bang South Carolina đã dùng tác tử AI (chương trình trí tuệ nhân tạo tự hành) Muse của Meta để kiện chính tập đoàn này. Vụ kiện diễn ra sau khi hệ thống của Meta khóa trang Facebook kinh doanh của ông.",
+        "Tác giả bài viết cho biết bộ lọc kiểm duyệt của Meta đã vô hiệu hóa các tài khoản vì nghi ngờ tác tử là tin tặc sau khi ông Thomas cấp quyền truy cập trang.",
+        "Tác giả bài viết cho biết vụ kiện đòi bồi thường 75.000 USD sau khi ông Thomas ký giấy tờ do tác tử thúc đẩy. Theo tác giả, bản sao đơn kiện tại tòa án hạt Oconee cũng nêu rõ ông Thomas tuyên bố mất ít nhất 25.000 USD giá trị công việc trong thời gian tài khoản bị khóa.",
+        "Tác giả trên 404 Media nhận định vụ việc cho thấy việc thiếu khâu hỗ trợ khách hàng hiệu quả khiến các hãng công nghệ trút bỏ nghĩa vụ sang nhà báo, cơ quan quản lý và tòa án. Tác giả cũng cảnh báo tác tử AI có thể làm quá tải các hệ thống xã hội vốn dành cho con người, dù vụ kiện thực tế này rõ ràng có thể không thành công."
       ],
       "same_event_coverage_ids": [
         "94ba0e332eed44736e3f"
@@ -89723,7 +89639,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Người đàn ông Mỹ dùng tác tử AI của Meta để kiện chính Meta đòi 75.000 USD sau khi bị khóa trang kinh doanh",
+      "editorial_headline_vi": "Người đàn ông Mỹ dùng tác tử AI của Meta để kiện chính Meta đòi 75.000 USD sau khi bị khóa tài khoản",
       "summary_sources": [
         {
           "id": "outlet",
@@ -89738,40 +89654,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.15,
+        "value": 9.2,
         "answers": {
-          "what": 9,
-          "why": 7,
+          "what": 10,
+          "why": 9,
           "notable": 8,
-          "meaning": 8
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "cause",
-            "summary_text": "khi công cụ tự đăng video lên trang",
-            "explanation": "The source says the pages were disabled after Thomas gave the agent access and Meta’s system suspected it was a hacker. It describes video posting as another agent activity, not the stated trigger for disabling the pages (outlet:p003)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "tự nộp hồ sơ kiện thay cho ông Thomas",
-            "explanation": "Thomas said Baby Mia handled and filed the lawsuit, but the source also specifies that Thomas signed the paperwork. Presented without that qualification, the summary implies the agent completed the filing independently of him (outlet:p004, outlet:p020)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "why",
-            "problem": "The account lock appears tied to video posting.",
-            "fix": "State that Meta’s system suspected the agent was a hacker after Thomas gave it access to the pages (outlet:p003)."
-          },
-          {
             "question": "notable",
-            "problem": "The agent appears to have filed the lawsuit entirely on its own.",
-            "fix": "Add that Thomas signed the paperwork, while he said Baby Mia handled the case (outlet:p004, outlet:p020)."
-          },
-          {
-            "question": "meaning",
-            "problem": "The author’s point about inadequate customer support is missing.",
-            "fix": "Explain that the author sees the case as shifting support burdens to journalists, public offices and courts (outlet:p009)."
+            "problem": "Readers may think Thomas’s accounts were still disabled when the story was reported.",
+            "fix": "State that he regained access after Senator Tim Scott’s office became involved, while the $75,000 claim continued (outlet:p008)."
           }
         ],
         "writer_boats": [
@@ -89779,8 +89674,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "e76ceda85c276fb7acbc7538514ccd77c2497d16fff404dbf041278f105bda0d",
-        "scored_at": "2026-11-17T21:33:39.966441+00:00"
+        "prose_sha256": "72b9c504151eb609675c90921ea7ea4bb6a3c200d1a6fddbb0300b9a98b10edc",
+        "scored_at": "2026-11-17T23:58:21.090558+00:00"
       }
     },
     {
@@ -89803,9 +89698,9 @@
       "source_url": "https://www.semafor.com/article/11/17/2026/universities-public-sector-are-priced-out-of-ai-fei-fei-li-says",
       "key_points": [
         "Bà Fei-Fei Li, Tổng giám đốc World Labs, nhận định khu vực công và các trường đại học đang bỏ lỡ thành quả của cuộc cách mạng AI.",
-        "Theo bà Li, các trường đại học và khu vực công không thể bắt kịp tốc độ phát triển vì bị gạt ra ngoài bởi chi phí quá đắt đỏ. Bà nhấn mạnh nguồn lực về lượng token và tài nguyên tính toán của họ đang ở mức cực kỳ hạn chế.",
-        "Bà Li kiến nghị giới lập pháp phân bổ nguồn lực để khu vực công hưởng lợi từ AI khi chi phí sử dụng rất cao. Đồng thời, bà cho biết các trường đại học có trách nhiệm nghiên cứu và đánh giá đối chuẩn (benchmark - đo lường hiệu năng) AI nhằm duy trì trách nhiệm giải trình trước xã hội.",
-        "Bà Li cảnh báo đây sẽ trở thành một thất bại lớn của thời đại nếu xã hội không cấp nguồn lực nghiêm túc cho khu vực công."
+        "Theo bà Li, các trường đại học và khu vực công không thể bắt kịp vì bị loại trừ do chi phí quá đắt đỏ, trong khi tài nguyên tính toán và token (đơn vị dữ liệu văn bản) rất hạn chế.",
+        "Bà Li nhấn mạnh các trường đại học có trách nhiệm buộc xã hội phải giải trình thông qua nghiên cứu và đo chuẩn (benchmark - đánh giá hiệu năng) AI, đồng thời kiến nghị giới lập pháp phân bổ nguồn lực trước chi phí đắt đỏ.",
+        "Bà Li cảnh báo đây sẽ trở thành một trong những thất bại lớn nhất của thời đại nếu xã hội không cấp nguồn lực một cách nghiêm túc cho khu vực công."
       ],
       "same_event_coverage_ids": [
         "a7a13a80943942c424a1"
@@ -89836,34 +89731,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.4,
+        "value": 10.0,
         "answers": {
           "what": 10,
           "why": 10,
-          "notable": 8,
+          "notable": 10,
           "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "quote",
-            "summary_text": "nhằm duy trì trách nhiệm giải trình trước xã hội",
-            "explanation": "This makes the universities accountable to society. Li instead says universities should research and benchmark AI to hold society accountable (outlet:p004)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "notable",
-            "problem": "The reader gets the direction of accountability wrong.",
-            "fix": "Say universities help hold society accountable through AI research and benchmarking (outlet:p004)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "18c2367bbc6fcdbd590946e202db4a5aa56f437fad3f31918d803ffe7681ae60",
-        "scored_at": "2026-11-17T21:40:10.468144+00:00"
+        "prose_sha256": "db4329305f063ae66bfcaa480602a757c08e8d0701f05388981afc02148247bd",
+        "scored_at": "2026-11-17T23:58:21.090584+00:00"
       }
     },
     {
@@ -89884,10 +89767,10 @@
       "use_original_title": false,
       "source_url": "https://aws.amazon.com/blogs/machine-learning/announcing-ai-data-preparation-capabilities-in-amazon-sagemaker-build-high-quality-datasets-for-model-development-workflows/",
       "key_points": [
-        "Amazon bổ sung các tính năng chuẩn bị dữ liệu AI mới cho Amazon SageMaker AI. Người dùng có thể tạo dữ liệu tổng hợp, đánh giá và hoàn thiện dữ liệu qua Python SDK hoặc kỹ năng tác tử (AI agent - trợ lý tự động).",
-        "Theo Amazon, chuẩn bị dữ liệu là khâu chậm nhất do dữ liệu gán nhãn khan hiếm, đắt đỏ và vướng quy định bảo mật. Tình trạng trùng lặp hay nhiễu nhãn khiến chuyên gia dữ liệu mất nhiều tuần xử lý thay vì xây dựng mô hình.",
-        "Công cụ hỗ trợ tự động gán nhãn theo điểm tin cậy, duyệt thủ công các hàng điểm thấp và biến đổi định dạng dữ liệu. Điển hình như Splunk đã dùng tính năng tạo dữ liệu tổng hợp để xây dựng mô hình đánh giá cho sản phẩm Giám sát Tác tử (Agent Observability).",
-        "Theo Amazon, các đội ngũ có thể dùng riêng lẻ từng tính năng hoặc kết hợp tạo dữ liệu, biến đổi, kiểm định và huấn luyện thành quy trình hoàn chỉnh. Người dùng nắm toàn quyền kiểm soát khi có thể trực tiếp kiểm tra và thay đổi mã nguồn lẫn đặc tả kỹ thuật."
+        "Amazon bổ sung các tính năng chuẩn bị dữ liệu AI mới cho nền tảng Amazon SageMaker AI phục vụ quy trình phát triển mô hình. Người dùng có thể tạo dữ liệu tổng hợp, đánh giá và cải thiện tập dữ liệu qua Python SDK hoặc kỹ năng tác tử (AI agent - trợ lý AI tự động).",
+        "Theo Amazon, chuẩn bị dữ liệu thường là khâu chậm nhất của dự án do dữ liệu gắn nhãn khan hiếm, đắt đỏ và vướng quy định bảo mật. Tình trạng trùng lặp hay nhiễu nhãn dễ bị bỏ sót, khiến chuyên gia dữ liệu mất nhiều tuần xử lý thay vì xây dựng mô hình.",
+        "Điển hình như Splunk đã dùng tính năng tạo dữ liệu tổng hợp để xây dựng mô hình đánh giá cho sản phẩm Giám sát Tác tử (Agent Observability). Giám đốc Kỹ thuật Yash Sheth của Splunk cho biết công cụ giúp tạo nhanh dữ liệu tổng hợp mang tính đại diện thống kê mà vẫn giữ được các quy luật nền tảng.",
+        "Theo Amazon, người dùng không cần tự chắp vá các công cụ riêng lẻ mà có thể dùng từng khối độc lập hoặc kết hợp thành quy trình hoàn chỉnh. Lập trình viên có thể làm việc ngay trong môi trường phát triển với mã nguồn và đặc tả kỹ thuật được phép trực tiếp kiểm tra, thay đổi."
       ],
       "same_event_coverage_ids": [
         "ee612e78ec8665ad114e"
@@ -89916,25 +89799,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.3,
+        "value": 9.2,
         "answers": {
           "what": 10,
-          "why": 8,
-          "notable": 9,
+          "why": 9,
+          "notable": 8,
           "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "chuẩn bị dữ liệu là khâu chậm nhất",
-            "explanation": "The source says data preparation is often the slowest part, not invariably the slowest part (outlet:p003)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "why",
-            "problem": "The reader gets an unconditional claim about project timelines.",
-            "fix": "Restore “often” when describing data preparation as the slowest part (outlet:p003)."
+            "question": "notable",
+            "problem": "Readers see the synthetic-data example but miss several capabilities that define the announcement.",
+            "fix": "Briefly name auto-labeling, human review and data transformation alongside generation and quality checks (outlet:p007–p011)."
           }
         ],
         "writer_boats": [
@@ -89942,8 +89819,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "8069e238035e5668499021b3b052f215a6659fc161faa6f794073450680aad01",
-        "scored_at": "2026-11-17T21:40:10.468178+00:00"
+        "prose_sha256": "88c3a590a6bee9aec726f5957bda24cf9573e11df0a8bbe198073533091a21c4",
+        "scored_at": "2026-11-17T23:58:21.090615+00:00"
       }
     },
     {
@@ -90452,10 +90329,10 @@
       "use_original_title": false,
       "source_url": "https://newsletter.posthog.com/p/decision-models",
       "key_points": [
-        "Theo tác giả Jina Yoon, PostHog đưa mô hình quyết định (công cụ phân loại kèm xác suất) vào môi trường thực tế cho tác vụ đơn giản. Thay vì phản hồi dài dòng như mô hình ngôn ngữ lớn (LLM), mô hình này trả về câu trả lời có cấu trúc thể hiện rõ độ bất định.",
-        "Theo Yoon, mô hình quyết định rẻ hơn tới 444,6 lần và nhanh hơn 193,6 lần so với mô hình hàng đầu. Ưu thế này cho phép kỹ sư dùng chúng làm cổng sàng lọc để kiểm tra xem có cần thực hiện lệnh gọi LLM tốn kém hay không.",
-        "98,7% tóm tắt phiên tại Replay Vision bỏ qua lệnh gọi LLM trong thực tế sau hai câu hỏi kiểm tra thông tin cá nhân. Dù vậy, Yoon lưu ý điểm 0,85 vẫn có khoảng 150 kết quả sai trên 1.000 lượt kiểm tra, nên công ty đặt ngưỡng thấp ở mức 0,4 để tránh lọt dữ liệu cá nhân.",
-        "Yoon nhấn mạnh ngưỡng xác suất không thể dùng chung mà phải được thiết lập riêng cho từng tác vụ và từng mô hình. Đối với trường hợp chưa chắc chắn, nhóm nghiên cứu nội bộ của PostHog sử dụng mô hình lai Jeeves có khả năng suy luận trước khi quyết định."
+        "Theo tác giả Jina Yoon, PostHog đưa mô hình quyết định (công cụ phân loại kèm xác suất) vào môi trường thực tế cho tác vụ đơn giản. Khác với mô hình ngôn ngữ lớn (LLM) phản hồi dài dòng, mô hình này trả về câu trả lời có cấu trúc thể hiện rõ độ bất định.",
+        "Theo Yoon, mô hình quyết định rẻ hơn tới 444,6 lần và nhanh hơn tới 193,6 lần so với mô hình hàng đầu. Ưu thế này giúp công ty dùng chúng làm cổng sàng lọc kiểm tra trước khi gọi LLM tốn kém.",
+        "Trong thực tế, 98,7% tóm tắt phiên tại Replay Vision bỏ qua hoàn toàn lệnh gọi LLM sau hai câu hỏi sàng lọc thông tin cá nhân. Dù vậy, Yoon lưu ý điểm 0,85 vẫn có khoảng 150 kết quả sai trên 1.000 lượt kiểm tra, nên công ty đặt ngưỡng thấp ở mức 0,4 để tránh lọt dữ liệu.",
+        "PostHog hiện đặt mặc định dùng Jeeves - mô hình lai do nhóm nghiên cứu AI nội bộ phát triển, có thể suy luận trước khi quyết định lúc chưa chắc chắn - cho mọi lệnh gọi không nêu tên mô hình. Dù vậy, Yoon nhấn mạnh tác vụ suy luận nhiều bước và công việc mở vẫn phải giao cho LLM vì mô hình quyết định chỉ đánh giá trong một lượt."
       ],
       "same_event_coverage_ids": [
         "9e5d04ce544435862780"
@@ -90471,7 +90348,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "PostHog dùng mô hình quyết định giúp 98,7% tóm tắt tại Replay Vision bỏ qua LLM trong thực tế",
+      "editorial_headline_vi": "PostHog dùng mô hình quyết định giúp 98,7% tóm tắt ở Replay Vision bỏ qua lệnh gọi LLM trong thực tế",
       "summary_sources": [
         {
           "id": "outlet",
@@ -90486,40 +90363,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.9,
+        "value": 9.05,
         "answers": {
-          "what": 10,
-          "why": 9,
+          "what": 9,
+          "why": 10,
           "notable": 9,
-          "meaning": 6
+          "meaning": 8
         },
-        "hard_errors": [
-          {
-            "kind": "number",
-            "summary_text": "nhanh hơn 193,6 lần",
-            "explanation": "The source says decision models are up to 193.6 times faster than frontier models; the Vietnamese presents that maximum as a general comparison (outlet:p017)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "nhóm nghiên cứu nội bộ của PostHog sử dụng mô hình lai Jeeves",
-            "explanation": "The source says the internal research team developed Jeeves. It says PostHog uses Jeeves by default when a decision call does not specify a model, and that Jeeves reasons before deciding when it is unsure (outlet:p066–p067)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
             "question": "meaning",
-            "problem": "The reader is told the research team uses Jeeves in a particular situation, instead of learning who developed it and when PostHog uses it by default.",
-            "fix": "Attribute Jeeves’ development to the research team and describe its default use for decision calls without a named model (outlet:p066–p067)."
-          },
-          {
-            "question": "meaning",
-            "problem": "The reader misses the stated boundary for decision models.",
-            "fix": "Add that multi-step reasoning and open-ended work should go to LLMs (outlet:p052–p053, outlet:p062–p065)."
-          },
-          {
-            "question": "why",
-            "problem": "The speed figure reads as a typical or fixed advantage.",
-            "fix": "Qualify it as “up to 193.6 times faster” (outlet:p017)."
+            "problem": "The reader misses two substantial uses beyond screening.",
+            "fix": "Add that PostHog uses a decision model to route requests to a suitable low-cost model and to rerank search results after embeddings produce candidates (outlet:p030–p039, outlet:p040–p046)."
           }
         ],
         "writer_boats": [
@@ -90527,8 +90383,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "23ee30f9ca2880d78bd6a89a0f1ae4e0365d1825dca023769801ccc64f801672",
-        "scored_at": "2026-11-17T21:40:10.468229+00:00"
+        "prose_sha256": "1469337999de83719fc8a4f43ee18625f8ced68a4a79010a21c1f3959de7dd1d",
+        "scored_at": "2026-11-17T23:58:21.090642+00:00"
       }
     },
     {
@@ -90659,6 +90515,1242 @@
         "availability": "unknown",
         "is_leak": false
       }
+    },
+    {
+      "id": "9b44c6a129423e347931",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Technical tutorial providing optimization strategies for Amazon Bedrock rather than news or analysis.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/reducing-token-costs-and-latency-in-amazon-bedrock-agentcore-json-workloads/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "a0a5a0f34145da1091d7"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "fc38b51a6db9bccf157a",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "top tier needs four to eight verified key points",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "top tier needs four to eight verified key points"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/17/nvidia-says-it-doesnt-plan-to-reappoint-jensen-huang-as-ceo/",
+      "key_points": [
+        "Chủ tịch Harvey C. Jones thông báo Nvidia không xem xét đưa cựu giám đốc điều hành Jensen Huang trở lại lãnh đạo công ty. Quyết định này được đưa ra bất chấp việc người sáng lập gần đây ngỏ ý muốn quay lại doanh nghiệp sản xuất chip do chính ông gầy dựng.",
+        "Theo Chủ tịch Harvey C. Jones, ông Huang tự nguyện từ chức do hành vi cá nhân không phù hợp với quy tắc ứng xử của công ty. TechCrunch cho biết ông từ chức sau khi bị phát giác các mối quan hệ ngoài hôn nhân, gồm một phụ nữ bị giới chức tình báo Mỹ nghi là điệp viên Trung Quốc.",
+        "Hội đồng quản trị Nvidia đã nhất trí chấp thuận đơn từ chức của ông Huang và không có ý định phục chức cho ông. Động thái này bác bỏ đề xuất trước đó của ông Huang trên mạng xã hội X về việc sẵn sàng trở lại làm CEO nếu có lợi cho cổ đông.",
+        "TechCrunch nhận định diễn biến này gây chấn động ngành công nghệ giữa lúc tương lai mảng kinh doanh AI của Nvidia đang bấp bênh. Biến động này đồng thời kích hoạt cuộc điều tra độc lập từ hội đồng quản trị công ty cùng cuộc điều tra từ Ủy ban Chứng khoán và Giao dịch Mỹ."
+      ],
+      "same_event_coverage_ids": [
+        "3d5e188576ecfa9b7b3e"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Nvidia",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Jensen Huang",
+          "Harvey C. Jones"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Hội đồng quản trị Nvidia từ chối đưa cựu CEO Jensen Huang trở lại giữa các cuộc điều tra",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/17/nvidia-says-it-doesnt-plan-to-reappoint-jensen-huang-as-ceo/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.9,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 9,
+          "meaning": 6
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "tương lai mảng kinh doanh AI của Nvidia đang bấp bênh",
+            "explanation": "The source says the future of the AI business broadly hangs in the balance, with Nvidia playing a pivotal role; it does not specifically say Nvidia’s AI business is unstable (outlet:p011)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The reader is told that Nvidia’s own AI business is unstable.",
+            "fix": "Describe the source’s broader uncertainty about the AI business and Nvidia’s pivotal role in it (outlet:p011)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The reader does not learn who is leading Nvidia or what happens next.",
+            "fix": "Add that Colette Kress is interim CEO while the board considers internal and external candidates (outlet:p011)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "59066507b974f7b7cd7b380d978d9447dc2debe4a0345f0067227bd8dfc3de5f",
+        "scored_at": "2026-11-17T23:43:02.133525+00:00"
+      }
+    },
+    {
+      "id": "dc52e334dcb4a8525419",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/17/amazon-and-google-will-together-own-nearly-30-of-anthropic-after-its-ipo/",
+      "key_points": [
+        "Công ty Anthropic đã công bố chi tiết về các thỏa thuận đầu tư lớn nhất với các nhà cung cấp đám mây Amazon và Google trước đợt chào bán cổ phiếu lần đầu ra công chúng (IPO). Cụ thể, Amazon sẽ nắm giữ 14,7% và Google nắm 13,7% dưới dạng cổ phiếu không có quyền biểu quyết.",
+        "Tỷ lệ này đến từ việc chuyển đổi các giấy nhận nợ từ các đợt đầu tư trước đây sang cổ phiếu đặc biệt khi lên sàn. Riêng Google còn mua thêm cổ phần trong thỏa thuận phát hành riêng lẻ trị giá 26 tỷ USD cùng các đối tác công nghệ.",
+        "Amazon chuyển đổi một phần giấy nợ nhưng vẫn giữ lại lượng giấy nợ trị giá hàng tỷ USD. TechCrunch chỉ ra nếu chuyển đổi toàn bộ ngay lúc này, Amazon sẽ nắm giữ 23,8% cổ phần Anthropic.",
+        "TechCrunch nhận định Amazon là một trong những bên thắng lớn nhất từ đợt IPO của Anthropic. Kết quả này chưa tính đến việc dịch vụ đám mây AWS sẽ hưởng lợi từ cam kết chi hơn 100 tỷ USD của Anthropic trong mười năm tới."
+      ],
+      "same_event_coverage_ids": [
+        "a2ae08ed55e1b739d113"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Anthropic",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Amazon và Google sẽ nắm gần 30% cổ phần không biểu quyết của Anthropic sau IPO",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/17/amazon-and-google-will-together-own-nearly-30-of-anthropic-after-its-ipo/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "45c3bc7f2c29da4264da3b8a2613ff5c39c8774f33c88597883fc5c18dd68988",
+        "scored_at": "2026-11-17T23:38:07.675708+00:00"
+      }
+    },
+    {
+      "id": "b37e772a57560bc09c2e",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Article covers general SBA IT modernization and digital services; AI is only mentioned in passing as an agent feature.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://fedscoop.com/sba-digital-services-ai-agent-website/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "185b8dff365a5b18831c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "ea30d00d9b46925c2d1d",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://nvidianews.nvidia.com/news/nvidia-expands-commitments-with-supply-chain-partners-to-support-ai-infrastructure-buildout",
+      "key_points": [
+        "NVIDIA announced new agreements with Kinsus and Samsung Electro-Mechanics for additional substrate capacity and expanded factory production.",
+        "NVIDIA is expanding advanced packaging capacity for current and next-generation platforms through work with Amkor and SPIL.",
+        "NVIDIA Vera Rubin NVL72 and Vera CPUs began volume shipments in the third quarter using TSMC's 5nm, 3nm, and CoWoS technologies.",
+        "Foxconn is deepening its collaboration with NVIDIA across its global production network to support next-generation GPU and networking platforms."
+      ],
+      "same_event_coverage_ids": [
+        "8ad45fb06c7b88882fa2"
+      ],
+      "split_coverage_ids": [],
+      "subject": "NVIDIA",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "007b9604181d42051534",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-17/nvidia-issues-may-be-tip-of-iceberg-great-hill-s-hayes-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b42766759f8320eff032"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "e23e6a0e28d2d2323eee",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://en.yna.co.kr/view/AEN20261118000900315",
+      "key_points": [
+        "Theo tác giả bài xã luận Korea Times, các lời kêu gọi phục chức cho Jensen Huang xuất hiện sau khi ông từ chức CEO Nvidia vào tuần trước. Ông từ chức sau khi quan hệ ngoài luồng bị phát giác, gồm nghi vấn từ quan chức Mỹ về một phụ nữ bị nghi là tình báo Trung Quốc.",
+        "Giới lãnh đạo công nghệ thúc đẩy việc này do coi Jensen Huang là nhân vật không thể thay thế trong ngành trí tuệ nhân tạo toàn cầu. Bên cạnh một số nhân viên Nvidia, các lãnh đạo Thung lũng Silicon như Elon Musk tiếp tục ủng hộ cựu CEO.",
+        "Các lãnh đạo Thung lũng Silicon lập phòng tác chiến vận động đưa Huang trở lại cùng sự ủng hộ từ Tổng thống Donald Trump. Ngược lại, ban giám đốc Nvidia tuyên bố chưa có kế hoạch phục chức, còn Bộ trưởng Tài chính Scott Bessent yêu cầu tìm CEO từ bên ngoài.",
+        "Tác giả bài xã luận Korea Times kết luận các bên cần thận trọng chờ kết quả của các cuộc điều tra trước khi phục chức cho cựu CEO."
+      ],
+      "same_event_coverage_ids": [
+        "f3364789be1192931093"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Jensen Huang",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Jensen Huang",
+          "Elon Musk"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Giới công nghệ đòi phục chức cho Jensen Huang nhưng bị yêu cầu chờ kết quả điều tra",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "yonhap",
+          "url": "https://en.yna.co.kr/view/AEN20261118000900315"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 7.85,
+        "answers": {
+          "what": 9,
+          "why": 7,
+          "notable": 7,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "Các lãnh đạo Thung lũng Silicon lập phòng tác chiến",
+            "explanation": "The source says the Financial Times reported that executives were forming a “war room”; it does not say one had already been established (outlet:p003)."
+          },
+          {
+            "kind": "quote",
+            "summary_text": "bị yêu cầu chờ kết quả điều tra",
+            "explanation": "The source offers an editorial recommendation that it would be prudent to wait, rather than reporting an order directed at supporters (outlet:p014–p015)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "Readers do not learn what the investigations may resolve.",
+            "fix": "Explain that the editorial raises foreign intelligence concerns and questions about compliance with U.S. chip export restrictions (outlet:p007–p008, outlet:p014)."
+          },
+          {
+            "question": "notable",
+            "problem": "The reported lobbying “war room” is presented as already formed.",
+            "fix": "Attribute the report to the Financial Times and say executives were forming it (outlet:p003)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The headline makes the editorial’s advice sound like an order.",
+            "fix": "Describe it as the editorial’s recommendation to wait for investigation results (outlet:p014–p015)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "ae255e4687ecaefae3025c26abf6ce6cb5bd328551e2bd6f21e09d46b8e815bd",
+        "scored_at": "2026-11-17T23:38:07.675754+00:00"
+      }
+    },
+    {
+      "id": "b44629b063a1ee4e84b9",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-third-quarter-fiscal-2027",
+      "key_points": [
+        "Nvidia báo cáo doanh thu quý 3 đạt 115,8 tỷ USD, tăng 103% so với cùng kỳ năm trước và tăng 20% so với quý trước.",
+        "Doanh thu mảng trung tâm dữ liệu đạt 107,6 tỷ USD, tăng 110% so với cùng kỳ năm trước. Doanh thu mảng điện toán biên đạt 8,2 tỷ USD, tăng 42% so với cùng kỳ năm ngoái.",
+        "Nvidia bắt đầu xuất xưởng nền tảng Vera Rubin NVL72 với tiến độ tăng sản lượng nhanh nhất lịch sử doanh nghiệp. Các hệ thống máy chủ này đang vận hành tại nhiều đối tác gồm Google Cloud, Microsoft Azure, Oracle Cloud Infrastructure, CoreWeave và Nebius.",
+        "Hãng tin Bloomberg đánh giá việc Nvidia đưa ra dự báo vượt kỳ vọng cho thấy nhu cầu thị trường vẫn mạnh sau sự ra đi của Jensen Huang."
+      ],
+      "same_event_coverage_ids": [
+        "5e843af68222c9d7cc96"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Nvidia",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Colette Kress",
+          "Jensen Huang",
+          "Mandeep Singh"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nvidia đạt doanh thu 115,8 tỷ USD và dự báo 130 tỷ USD sau khi Jensen Huang rời ghế CEO",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "nvidianews.nvidia.com",
+          "url": "https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-third-quarter-fiscal-2027"
+        },
+        {
+          "id": "coverage1",
+          "role": "coverage",
+          "name": "bloomberg",
+          "url": "https://www.bloomberg.com/news/videos/2026-11-17/nvidia-s-first-results-since-ceo-ouster-the-takeaways-video"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 7.8,
+        "answers": {
+          "what": 8,
+          "why": 7,
+          "notable": 8,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The $130 billion forecast lacks its period and material conditions.",
+            "fix": "Specify that it is Nvidia’s fourth-quarter fiscal 2027 forecast, plus or minus 3%, for a quarter with an additional week and no assumed Data Center compute revenue from China (outlet:p028–p029)."
+          },
+          {
+            "question": "why",
+            "problem": "The account omits Nvidia’s own explanation of its momentum.",
+            "fix": "Attribute to interim CEO Colette Kress her statement that employee innovation powers the momentum and that Vera Rubin has started strongly (outlet:p005)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "2c781614fdcdf84933ff4ce72eca2fece4baa2ca2ad225aa7812c9c352f86544",
+        "scored_at": "2026-11-17T23:38:07.675781+00:00"
+      }
+    },
+    {
+      "id": "fb2eadd748e61892da5f",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-17/nvidia-gives-solid-outlook-in-first-post-huang-earnings-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "8cb5294092d9adbd883e"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "453c1e9a8de4fac86214",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/17/2026/europe-the-natural-location-for-mistral-ipo-ceo-says",
+      "key_points": [
+        "Mistral CEO Arthur Mensch said Europe is the natural location for the company's planned IPO.",
+        "Mensch noted that most of Mistral's investor base and half of its customer base are European.",
+        "Mensch stated he has met with most French presidential candidates to explain AI technology and the industry."
+      ],
+      "same_event_coverage_ids": [
+        "1d97098c1bf166866853"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Mistral",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Arthur Mensch"
+        ],
+        "availability": "global",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "c2d609ebef75a809b15d",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-17/traders-exploiting-pricing-gaps-in-pre-ipo-contracts-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "8ab4fbfbb75ea02f10d3"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "4755fa678b9126721cdb",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-17/nvidia-results-show-resilience-analyst-chkaiban-says-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "81edb84cf730c288637a"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "4d75951a7139889f18e6",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-17/offering-anthropic-access-outside-us-wheeler-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "26b551da9b2f7f3e89c1"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "1903e941fedc82fbc3a7",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-17/nvidia-delivers-solid-outlook-in-first-post-huang-earnings",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "fb2237f95338b98c8d95"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "166d6124867c787b073a",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "top",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-third-quarter-fiscal-2027",
+      "key_points": [
+        "NVIDIA reported revenue of $115.8 billion for the third quarter ended October 25, 2026, up 20% from the prior quarter and up 103% from a year ago.",
+        "Data Center revenue for the quarter reached $107.6 billion, up 110% from the prior year.",
+        "NVIDIA confirmed that its Vera Rubin NVL72 computing platform has shipped.",
+        "GAAP gross margin was 74.8% and GAAP diluted earnings per share was $2.70 for the quarter.",
+        "Colette Kress is serving as interim CEO, executive vice president, and chief financial officer of NVIDIA.",
+        "NVIDIA returned $28.1 billion to shareholders in the form of share repurchases and cash dividends during the third quarter."
+      ],
+      "same_event_coverage_ids": [
+        "d481abaa21e05b904cac"
+      ],
+      "split_coverage_ids": [],
+      "subject": "NVIDIA",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Colette Kress"
+        ],
+        "availability": "global",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "ecd295cd80fbdb5f0bdd",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Technical tutorial guide instructing how to optimize generative AI architectures and reduce costs using deterministic rules and Amazon Bedrock.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/cut-generative-ai-costs-code-for-rules-models-for-judgment/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "2b964a3d1a48ac6e6b05"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "36a6e1135eaf12284b35",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/17/2026/europe-needs-innovation-friendly-regulation-to-catch-up-on-ai-german-official-says",
+      "key_points": [
+        "Châu Âu cần ban hành quy định thân thiện với đổi mới sáng tạo nếu muốn cạnh tranh trong cuộc đua AI, theo ông Marco-Alexander Breit, Tổng vụ trưởng chính sách kỹ thuật số và các vấn đề kinh tế thuộc Bộ Kỹ thuật số và Hiện đại hóa Nhà nước Liên bang Đức.",
+        "Để bắt kịp và cạnh tranh trong cuộc đua AI, ông Breit cho rằng cải cách thủ tục sẽ giúp giữ chân nhân tài công nghệ ở lại châu Âu phát triển.",
+        "Đạo luật AI của EU tạo ngưỡng cản cho doanh nghiệp nội địa dù ông Breit ủng hộ phần lớn đạo luật này, trong khi cựu Thủ tướng Anh Rishi Sunak chỉ trích việc cố lập pháp cho mọi tình huống.",
+        "Về nguy cơ mắc kẹt trong vòng lặp kìm hãm đổi mới, nhà đầu tư Steve Jurvetson cảnh báo châu Âu đang bị cản trở, dù ông Sunak lưu ý vẫn cần quản lý rủi ro mới."
+      ],
+      "same_event_coverage_ids": [
+        "496afcb038a072cff515"
+      ],
+      "split_coverage_ids": [],
+      "subject": "European Union AI Regulation",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Marco-Alexander Breit",
+          "Steve Jurvetson",
+          "Mohammed Sergie"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Quan chức Đức kêu gọi nới lỏng quy định AI tại châu Âu để giữ chân nhân tài và cạnh tranh",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/17/2026/europe-needs-innovation-friendly-regulation-to-catch-up-on-ai-german-official-says"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.5,
+        "answers": {
+          "what": 9,
+          "why": 8,
+          "notable": 8,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The reader misses Germany’s concrete capacity target.",
+            "fix": "Add that Germany hopes to quadruple its data-center capacity by 2030 (outlet:p002)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "c36274ea6baf3dce334ed4826039f90245e0118b9860b0094e71e4e53dbfb496",
+        "scored_at": "2026-11-17T23:38:07.675806+00:00"
+      }
+    },
+    {
+      "id": "ef90af83544e1ea49520",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/amazon-sagemaker-ai-real-time-endpoints-now-support-kv-cache-aware-routing/",
+      "key_points": [
+        "Amazon SageMaker AI bổ sung định tuyến nhận biết bộ nhớ đệm KV (vùng nhớ GPU lưu kết quả tính toán trước đó) cho điểm cuối thời gian thực. Cơ chế này gửi yêu cầu đến máy chủ có sẵn đệm khớp, chỉ hoạt động khi có từ hai máy chủ hoặc hai bản sao thành phần.",
+        "Theo Amazon, tính năng này nhằm khắc phục phân tách hội thoại và xóa đệm của cơ chế định tuyến tiền tố cũ khi bộ nhớ GPU đầy. Hãng lưu ý khi câu lệnh ngắn hơn PrefixLength, mỗi lượt mới đổi chuỗi băm khiến yêu cầu bị chuyển sang máy chủ khác.",
+        "Trong đo chuẩn với mô hình Llama 3.1 70B Instruct khi xử lý câu lệnh dài dưới tải nặng, cơ chế mới giảm tới 97% thời gian tạo token đầu tiên và tăng 234% thông lượng so với định tuyến ngẫu nhiên. Tuy vậy, Amazon nhấn mạnh mức tăng thấp nhất với câu lệnh ngắn và kết quả phụ thuộc khối lượng công việc thực tế.",
+        "Tính năng này sẵn sàng miễn phí trên các vùng AWS hỗ trợ, kích hoạt qua một biến môi trường mô hình và đặt RoutingStrategy thành KV_AWARE. Amazon kết luận kỹ thuật chỉ tăng tốc các yêu cầu tiếp theo, còn yêu cầu đầu tiên với ngữ cảnh mới vẫn chưa có đệm."
+      ],
+      "same_event_coverage_ids": [
+        "6fa80d5a4287f8624d43"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Amazon SageMaker AI",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "SageMaker AI thêm định tuyến theo bộ nhớ đệm KV, giảm tới 97% độ trễ tạo token trong đo chuẩn",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "amazon",
+          "url": "https://aws.amazon.com/blogs/machine-learning/amazon-sagemaker-ai-real-time-endpoints-now-support-kv-cache-aware-routing/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 7.8,
+        "answers": {
+          "what": 9,
+          "why": 6,
+          "notable": 8,
+          "meaning": 7
+        },
+        "hard_errors": [
+          {
+            "kind": "cause",
+            "summary_text": "xóa đệm của cơ chế định tuyến tiền tố cũ khi bộ nhớ GPU đầy",
+            "explanation": "The instance evicts old cache entries when GPU memory fills. The earlier prefix-aware router does not cause that eviction; it fails to detect that the cache is gone (outlet:p005)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "Tính năng này sẵn sàng miễn phí",
+            "explanation": "Amazon says KV-aware routing carries no additional charge, but customers still pay for their endpoint instances (outlet:p102)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The reader may think prefix-aware routing deletes the cache.",
+            "fix": "Explain that GPU memory pressure causes eviction and the old router cannot see it (outlet:p005)."
+          },
+          {
+            "question": "notable",
+            "problem": "The benchmark figures sound broader or more definite than reported.",
+            "fix": "Specify median time to first token and say throughput increased by up to 234% (outlet:p033)."
+          },
+          {
+            "question": "meaning",
+            "problem": "“Free” may imply that running the endpoint costs nothing.",
+            "fix": "Say routing has no additional charge, while endpoint instances remain billable (outlet:p102)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The availability statement omits a deployment requirement.",
+            "fix": "Specify that the endpoint must use a supported container (outlet:p102)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "023a038a883db5df35d27da4d5fc1546b24ce9e653acd11230d1f56dee18bd5f",
+        "scored_at": "2026-11-17T23:43:02.133660+00:00"
+      }
+    },
+    {
+      "id": "782245fbd80625eb45b0",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/news/1035957/meta-alexandr-wang-sam-altman-instagram-ai-deepfake",
+      "key_points": [
+        "Giám đốc AI của Meta, Alexandr Wang, vừa chia sẻ một video AI mô phỏng Sam Altman, Giám đốc điều hành OpenAI, trên Instagram vào đầu tháng 11. The Verge nhận xét việc một lãnh đạo công nghệ cấp cao đăng video AI về đối thủ là điều đáng chú ý trên nền tảng vốn đang chịu nhiều chỉ trích.",
+        "Wang đăng video này nhằm quảng bá cho trợ lý AI tiêu dùng Muse (phần mềm thông minh tự tương tác với người dùng) của Meta. Động thái này nằm trong chiến dịch quảng bá mang phong cách phản truyền thông của Wang nhằm thu hút sự chú ý cho sản phẩm.",
+        "Hình ảnh Sam Altman hóa trang thành linh vật Jolly trong cuộc gọi video xuất hiện với bộ đồ thú có mũ trùm và khuôn mặt được vẽ trang trí.",
+        "The Verge chỉ ra rằng chính sách của Meta chỉ yêu cầu gắn nhãn đối với video AI mô phỏng con người chứ không áp dụng cho hình ảnh tĩnh. Đại diện Meta khẳng định bài đăng của Wang đã được gắn nhãn và Altman từng cho phép dùng hình ảnh cá nhân, trong khi OpenAI không đưa ra phản hồi."
+      ],
+      "same_event_coverage_ids": [
+        "1204cad3eef12a852297"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Meta",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Alexandr Wang",
+          "Mark Zuckerberg",
+          "Sam Altman",
+          "Mia Sato"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Giám đốc AI của Meta đăng video giả mạo Sam Altman trên Instagram để quảng bá trợ lý Muse",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/news/1035957/meta-alexandr-wang-sam-altman-instagram-ai-deepfake"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.2,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 9,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The reader is not directly told the policy outcome at the center of the story.",
+            "fix": "Say explicitly that Wang’s labeled video is allowed under Meta’s policy (outlet:p005, outlet:p020, outlet:p021)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "e99cc19fc7e4896bc7520a0cfc1979ad16174f334e5f53dca6b8de1aa7539561",
+        "scored_at": "2026-11-17T23:38:07.675868+00:00"
+      }
+    },
+    {
+      "id": "35fafd8671dad84c9ded",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.nextgov.com/artificial-intelligence/2026/11/trump-touts-quad-initiative-expand-ai-access-indo-pacific/417286/",
+      "key_points": [
+        "Tổng thống Mỹ Donald Trump công bố nỗ lực cùng Australia, Ấn Độ và Nhật Bản mở rộng tiếp cận trí tuệ nhân tạo tại Ấn Độ Dương - Thái Bình Dương. Sáng kiến có hơn 85 triệu USD hỗ trợ kỹ thuật và tài chính theo kế hoạch.",
+        "Thông cáo chung hội nghị Quad cho biết sáng kiến nhằm điều phối và tài trợ tiếp cận, triển khai cùng hỗ trợ kỹ thuật về siêu trí tuệ đáng tin cậy.",
+        "Bốn nước đã tái khẳng định tầm quan trọng của sáng kiến Quad SI Accelerator tại Manila, sau khi kinh phí được công bố cuối tháng 10. Tại đây, ông Trump tuyên bố Mỹ đang dẫn đầu thế giới về siêu trí tuệ.",
+        "Nextgov ghi nhận chính quyền ông Trump gọi AI là siêu trí tuệ (SI), trong khi Australia, Nhật Bản và Ấn Độ gọi là AI. Tạp chí này nhận định bước đi diễn ra khi Mỹ siết chặt quyền tiếp cận chip AI từ xa của doanh nghiệp Trung Quốc."
+      ],
+      "same_event_coverage_ids": [
+        "dd4b05cf5d2417c93ace"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Quad",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Donald Trump",
+          "Grace Dille"
+        ],
+        "availability": "region_locked:Indo-Pacific",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Mỹ cùng nhóm Quad thúc đẩy kế hoạch hỗ trợ hơn 85 triệu USD mở rộng tiếp cận AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "nextgov",
+          "url": "https://www.nextgov.com/artificial-intelligence/2026/11/trump-touts-quad-initiative-expand-ai-access-indo-pacific/417286/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.4,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The reader misses the other cooperation announced in the leaders’ statement.",
+            "fix": "Mention the plan for enhanced Quad cybersecurity cooperation (outlet:p025)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "0b5ffab51ec4128e93ceb5ba47397db4ebe7306e6dc9e6d8170bd394d0ae03a4",
+        "scored_at": "2026-11-17T23:43:02.133763+00:00"
+      }
+    },
+    {
+      "id": "8f49f09f5bbaf308d6c6",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/17/2026/us-china-ai-race-causing-global-alarm-uns-top-tech-envoy-says",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "51433f2a1f4fcea4658f",
+        "c4d758ffc5a456f8f6f0"
+      ],
+      "split_coverage_ids": [],
+      "subject": "United Nations",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Amandeep Singh Gill",
+          "Mohammed Sergie"
+        ],
+        "availability": "global",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "0552c4db6b7fbb247f24",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.lancedb.com/blog/lancedb-series-b-funding",
+      "key_points": [
+        "LanceDB raised $57.5 million in Series B funding to scale its multimodal lakehouse for AI research and foundation model teams.",
+        "The funding round was led by Bessemer Venture Partners and Innovation Endeavors, bringing total funding to date to $98.5 million.",
+        "Investors participating in the round included Theory Ventures, Dimension, Swift Ventures, CRV, and Y Combinator.",
+        "LanceDB counts Netflix, Microsoft AI, Runway, Luma AI, and Midjourney among its customers."
+      ],
+      "same_event_coverage_ids": [
+        "9048d9183053286ace90"
+      ],
+      "split_coverage_ids": [],
+      "subject": "LanceDB",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Chang She",
+          "Mike Droesch"
+        ],
+        "availability": "global",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "2822c2b9b2df53ee07e8",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-17/ferragu-sees-strong-case-to-buy-nvidia-shares-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "84bef883fbb845795388"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "3047d7657748ea760feb",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://openai.com/index/introducing-chatgpt-for-sales",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "4b9d2a190453a13454aa"
+      ],
+      "split_coverage_ids": [],
+      "subject": "OpenAI",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "77a181f535398918bfdc",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://technode.com/2026/11/17/huawei-reveals-the-design-of-its-first-osta-phone-ahead-of-november-20-launch/",
+      "key_points": [
+        "Thương hiệu điện thoại thông minh mới OSTA của Huawei vừa công bố thiết kế của mẫu máy đầu tiên O1 Pro trước ngày ra mắt 20 tháng 11.",
+        "Theo TechNode, thiết bị sở hữu thân máy rộng bất thường, mặt lưng chuyển sắc tím cùng cụm camera sau hình viên thuốc nằm ngang và giao diện đồng bộ màu sắc.",
+        "OSTA giới thiệu trước trợ lý trí tuệ nhân tạo (AI - công nghệ mô phỏng trí tuệ con người) chuyên dụng có giao diện trò chuyện riêng trên máy. Đồng thời, theo Pandaily, Huawei triển khai gói thành viên AI Xiaoyi với cơ chế điểm tín dụng từ 49 đến 499 nhân dân tệ mỗi tháng cho các tính năng trả phí.",
+        "Thương hiệu này định vị O1 Pro là dòng điện thoại AI vận hành trên nền tảng hệ điều hành HarmonyOS của Huawei."
+      ],
+      "same_event_coverage_ids": [
+        "71ff499be8110faeb1c3"
+      ],
+      "split_coverage_ids": [
+        "b4705bdceda3d962e0bd"
+      ],
+      "subject": "Huawei",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Huawei hé lộ thiết kế điện thoại AI OSTA O1 Pro và triển khai gói thành viên Xiaoyi từ 49 tệ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "technode",
+          "url": "https://technode.com/2026/11/17/huawei-reveals-the-design-of-its-first-osta-phone-ahead-of-november-20-launch/"
+        },
+        {
+          "id": "coverage1",
+          "role": "coverage",
+          "name": "pandaily",
+          "url": "https://pandaily.com/huawei-xiaoyi-ai-membership-credit-plans-xiaoyi-work-harmonyos"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "a199a304022bdf03b87c039d4bf189bd2e14e451980e6c41f74cd0c62efb1e76",
+        "scored_at": "2026-11-17T23:38:07.675914+00:00"
+      }
+    },
+    {
+      "id": "7c8de4df8261d5aecb46",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-16/tusk-jensen-huang-should-not-return-as-nvidia-ceo-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "0d5ca76c5de83267b769"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "021e891274b09fbe8bf3",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://restofworld.org/2026/ghana-ai-lab-minohealth-bioweapons-threat-dna-synthesis-regulation/?utm_source=rss&utm_medium=rss&utm_campaign=feeds",
+      "key_points": [
+        "Theo Rest of World, các nhà nghiên cứu tại Ghana gỡ bỏ rào chắn an toàn trên mô hình AI tìm kiếm thuốc vào năm 2024. Các nhà nghiên cứu tại phòng lab ở Ghana đã yêu cầu hệ thống AI thiết kế các chất độc thay vì tìm kiếm thuốc.",
+        "Theo Darlington Akogo, nhóm nghiên cứu thử nghiệm để kiểm tra liệu mô hình có thể bị ép bỏ qua các biện pháp bảo vệ hay không. Nhóm của Akogo chỉ mất vài ngày để vượt rào chắn của Moremi Bio và công bố kết quả do ít người biết AI sinh học có công dụng kép.",
+        "Mô hình đã tạo ra thiết kế cho 1.020 protein và 5.000 phân tử nhỏ bị đánh giá là có khả năng gây độc theo phần mềm dự đoán, gồm chất tương tự ricin. Dù vậy, các nhà nghiên cứu chưa từng điều chế chúng trong phòng thí nghiệm trước khi tải báo cáo lên arXiv vào tháng 5 năm 2025.",
+        "Theo quan chức Brenda Obuya tại Kenya, nhu cầu quản lý các nhà cung cấp dịch vụ tổng hợp DNA đang lan rộng đến cấp chính phủ cao nhất tại châu Phi. Tuy nhiên, Akogo cảnh báo kẻ xấu vẫn có thể gửi thiết kế cho các xưởng tổng hợp, và khâu sàng lọc trình tự độc hại có nguy cơ bị can thiệp qua AI."
+      ],
+      "same_event_coverage_ids": [
+        "64950e0df9c77e3f99a0"
+      ],
+      "split_coverage_ids": [],
+      "subject": "AI bioweapons threats and DNA synthesis regulation in Africa",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Darlington Akogo",
+          "Brenda Obuya"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Mô hình AI tại Ghana tạo thiết kế bị phần mềm dự đoán có độc tính sau khi gỡ rào chắn an toàn",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "rest-of-world",
+          "url": "https://restofworld.org/2026/ghana-ai-lab-minohealth-bioweapons-threat-dna-synthesis-regulation/?utm_source=rss&utm_medium=rss&utm_campaign=feeds"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.8,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "fb15ae27e35c09570dbb1f222cb7ca1f6c508065b1e77a9d29f0734a83e734f4",
+        "scored_at": "2026-11-17T23:38:07.675935+00:00"
+      }
+    },
+    {
+      "id": "04c4dac80f3d2432755a",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The lead article covers diplomatic meetings between Donald Trump, Vladimir Putin, and Xi Jinping in China; references to Nvidia, Jensen Huang, and AI chip investigations are passing political context rather than primary AI reporting. Unrelated coverage items in the cluster are separated.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.semafor.com/article/11/15/2026/trump-to-meet-xi-and-putin-in-china",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "6222824f595a76dcb085"
+      ],
+      "split_coverage_ids": [
+        "1b8a442e757fb6c3f37d",
+        "469b65120716373b9a1b",
+        "8814d1c0a1a562ecd12a",
+        "9ee50306e59b24f0de77",
+        "c48f12c334d43476e829",
+        "d2c30cf21d9db4795b7f"
+      ]
     }
   ]
 }
