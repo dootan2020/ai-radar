@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-18T05:48:17.581549+00:00",
-  "input_generated_at": "2026-11-18T04:45:43Z",
+  "generated_at": "2026-11-18T07:50:20.160129+00:00",
+  "input_generated_at": "2026-11-18T06:45:45Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -91817,10 +91817,10 @@
       "use_original_title": true,
       "source_url": "https://techcrunch.com/2026/11/17/nvidias-startup-stakes-ballooned-to-65b-but-huangs-exit-puts-future-deals-in-doubt/",
       "key_points": [
-        "Nvidia công bố giá trị cổ phần tại các công ty tư nhân đạt 65,5 tỷ USD, tăng từ mức 22 tỷ USD hồi tháng 1. Tuy nhiên, TechCrunch nhận định chưa rõ đà tăng này có tiếp tục sau khi ông Jensen Huang rời ghế lãnh đạo hay không.",
-        "Theo TechCrunch, mức tăng này gồm cả các khoản đầu tư mới lẫn việc nâng định giá đáng kể danh mục hiện có. Nvidia từng nêu mục tiêu đầu tư nhằm mở rộng hệ sinh thái trí tuệ nhân tạo bằng cách hỗ trợ các công ty tạo đột phá.",
-        "Nvidia cho biết đã chi 58 tỷ USD mua cổ phần trong chín tháng tài chính vừa qua, so với 5 tỷ USD cùng kỳ năm trước. Hãng cũng cam kết bảo lãnh 105 tỷ USD cho dự án trung tâm dữ liệu 500 tỷ USD của OpenAI tại bang Ohio.",
-        "Trước sự chuyển hướng này, TechCrunch ghi nhận giới đầu tư mạo hiểm đang chuẩn bị cho sự sụt giảm nguồn vốn đáng kể. Bà Colette Kress tuyên bố Nvidia sẽ đánh giá nghiêm ngặt các khoản đầu tư và dự định hoàn lại dòng tiền tự do thặng dư cho cổ đông sau các mục đích chiến lược."
+        "Nvidia công bố giá trị cổ phần tư nhân đạt 65,5 tỷ USD, tăng mạnh so với mức 22 tỷ USD hồi tháng 1. Theo TechCrunch, mức tăng này gồm cả các khoản đầu tư mới lẫn việc nâng định giá danh mục hiện có.",
+        "Nvidia từng nêu rõ mục tiêu đầu tư doanh nghiệp là nhằm mở rộng hệ sinh thái trí tuệ nhân tạo (AI) bằng cách hỗ trợ các công ty khởi nghiệp tạo đột phá. Theo dữ liệu PitchBook, hãng đã rót vốn vào gần 350 công ty khởi nghiệp trong gần ba năm qua, bao gồm OpenAI và Anthropic.",
+        "Nvidia cho biết đã chi 58 tỷ USD mua cổ phần trong chín tháng của năm tài chính, so với 5 tỷ USD cùng kỳ năm trước. Hãng cũng cam kết bảo lãnh 105 tỷ USD cho dự án trung tâm dữ liệu 500 tỷ USD của OpenAI tại bang Ohio.",
+        "TechCrunch nhận định giới đầu tư mạo hiểm đang chuẩn bị cho sự sụt giảm nguồn vốn đáng kể, dù vai trò chiến lược của các công ty khởi nghiệp thời kỳ hậu Jensen Huang vẫn chưa ngã ngũ. Các nhà đầu tư chia sẻ với TechCrunch rằng họ dự đoán bà Colette Kress sẽ tiếp cận thận trọng hơn qua việc chọn lọc kỹ hơn và giảm quy mô vốn rót."
       ],
       "same_event_coverage_ids": [
         "51d73c58372b388158e4"
@@ -91836,7 +91836,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Cổ phần tư nhân của Nvidia đạt 65,5 tỷ USD nhưng tương lai đầu tư bị nghi ngờ khi ông Huang rời đi",
+      "editorial_headline_vi": "Cổ phần tư nhân của Nvidia đạt 65,5 tỷ USD nhưng tương lai đầu tư chưa chắc chắn khi ông Huang rời đi",
       "summary_sources": [
         {
           "id": "outlet",
@@ -91849,34 +91849,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.15,
+        "value": 9.55,
         "answers": {
           "what": 10,
-          "why": 8,
-          "notable": 10,
-          "meaning": 7
+          "why": 10,
+          "notable": 9,
+          "meaning": 9
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "Trước sự chuyển hướng này",
-            "explanation": "The source reports uncertainty and investors’ expectations of a pullback, not an established change in Nvidia’s investment strategy (outlet:p009, outlet:p014–p015)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "meaning",
-            "problem": "The wording presents a change in strategy as already underway.",
-            "fix": "Describe the pullback as an investor expectation whose extent remains uncertain (outlet:p014–p015)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "883932bdd15bf87dc369616764ea842fdc4bb5d3b53bb17df0e00ad9e2d5fee0",
-        "scored_at": "2026-11-18T05:48:17.559855+00:00"
+        "prose_sha256": "ab802bfe8f081bdab67144d945c3eb7ee4c3067b7a4f68893dc818225c02f901",
+        "scored_at": "2026-11-18T07:47:00.271568+00:00"
       }
     },
     {
@@ -93492,10 +93480,10 @@
       "use_original_title": true,
       "source_url": "https://technode.com/2026/11/18/huaweis-new-sub-brand-osta-set-to-launch-first-phone-reportedly-featuring-kirin-9030s-chip/",
       "key_points": [
-        "Thông số phần cứng của OSTA O1 Pro đã được chia sẻ rộng rãi, đồng thời thiết bị cũng đã xuất hiện trên cửa hàng trực tuyến của Huawei trước ngày ra mắt. Đây là sản phẩm đầu tiên thuộc thương hiệu phụ OSTA, được Huawei công bố sẽ ra mắt ngày 20 tháng 11 nhằm khám phá tiềm năng về trí tuệ nhân tạo (AI).",
-        "TechNode nhận định việc OSTA cắt giảm các tính năng phụ phản ánh giải pháp kiểm soát chi phí để giữ giá cạnh tranh. Theo các thông số rò rỉ, thiết bị sẽ bỏ camera góc siêu rộng và tính năng nhắn tin vệ tinh Bắc Đẩu, trong khi vẫn giữ camera chính độ phân giải cao, chip hàng đầu và pin 7.000mAh.",
-        "OSTA O1 Pro được ước tính có giá khởi điểm khoảng 4.000 nhân dân tệ (600 USD), thấp hơn mức 5.999 nhân dân tệ của mẫu Pura X View trước đó. TechNode cho rằng mức chênh lệch giá này có thể tạo lợi thế cạnh tranh nếu mức giá kỳ vọng được xác nhận.",
-        "TechNode kết luận rằng giá bán đơn thuần sẽ không thể quyết định sự thành bại của sản phẩm. Hiệu năng thực tế của chip Kirin 9030S và ảnh hưởng khi bỏ camera góc siêu rộng vẫn chưa được đánh giá đầy đủ."
+        "OSTA O1 Pro, mẫu điện thoại đầu tiên của thương hiệu phụ OSTA, áp dụng thiết kế màn hình rộng cạnh phẳng chủ yếu thấy trên dòng máy cao cấp của Huawei. Theo các thông số rò rỉ, thiết bị dùng màn hình phẳng LTPS 1,5K kích thước 6,39 inch với tỷ lệ 16:9,5 cùng viền mỏng 1,05mm ở cả bốn cạnh.",
+        "Huawei cho biết thương hiệu OSTA nhằm mục đích khám phá các tiềm năng mới về AI. TechNode nhận định công ty dường như cắt giảm một số tính năng phụ để kiểm soát chi phí nhằm duy trì mức giá cạnh tranh hơn.",
+        "OSTA O1 Pro có giá khởi điểm ước tính khoảng 4.000 nhân dân tệ (600 USD), so với mức 5.999 nhân dân tệ của mẫu Pura X View. Dù vậy, thiết bị dự kiến vẫn giữ chip Kirin 9030S, pin 7.000mAh hỗ trợ sạc 66W và camera chính 200 megapixel nhưng bỏ hoàn toàn camera góc siêu rộng.",
+        "TechNode nhận định giá bán đơn thuần sẽ không quyết định thành công của mẫu máy mới. Theo TechNode, hiệu năng thực tế của chip Kirin 9030S và tác động khi bỏ camera góc siêu rộng vẫn chưa được đánh giá đầy đủ."
       ],
       "same_event_coverage_ids": [
         "eeea4854ad24602d78bf"
@@ -93509,7 +93497,7 @@
         "is_leak": true
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Huawei chuẩn bị ra mắt OSTA O1 Pro dùng chip Kirin 9030S với giá ước tính 4.000 nhân dân tệ",
+      "editorial_headline_vi": "OSTA O1 Pro lộ thông số màn hình rộng và chip Kirin 9030S với giá ước tính 4.000 nhân dân tệ",
       "summary_sources": [
         {
           "id": "outlet",
@@ -93522,19 +93510,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 7.7,
+        "value": 9.15,
         "answers": {
-          "what": 7,
-          "why": 9,
-          "notable": 7,
+          "what": 8,
+          "why": 10,
+          "notable": 10,
           "meaning": 9
         },
         "hard_errors": [],
         "findings": [
           {
             "question": "what",
-            "problem": "A reader misses the design that defines the product.",
-            "fix": "Say the O1 Pro is expected to bring a wide-screen, straight-edge design to OSTA; the leaked display specification is 6.39 inches with a 16:9.5 aspect ratio (outlet:p005, outlet:p007)."
+            "problem": "Readers miss the scheduled public debut that frames the leaked specifications.",
+            "fix": "Add that Huawei announced OSTA would debut on November 20 and that the O1 Pro was expected to be unveiled then (outlet:p002, outlet:p004, outlet:p025)."
           }
         ],
         "writer_boats": [
@@ -93542,8 +93530,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "b79aeebba23652265f0c4b57d389482efeba316918321ec222d2cd467b2f3ec6",
-        "scored_at": "2026-11-18T05:25:10.679834+00:00"
+        "prose_sha256": "d3c34368863748d5c6586d956301e97396cc1aa88ac29b17e898988188c139da",
+        "scored_at": "2026-11-18T07:50:20.147267+00:00"
       }
     },
     {
@@ -93874,6 +93862,948 @@
         "scorer_provider": "codex",
         "prose_sha256": "cc68df198dd6134405053bb8c91ccab996a6be4a1dec920470583b9a0769a088",
         "scored_at": "2026-11-18T05:25:10.679990+00:00"
+      }
+    },
+    {
+      "id": "9c6df169e3307074c70f",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://technode.com/2026/11/18/sensetime-releases-open-weight-loop-9b-model-that-reuses-layers-for-deeper-computation/",
+      "key_points": [
+        "SenseTime phát hành SenseNova Loop-9B cùng mã nguồn và trọng số vào thứ Ba dưới dạng mô hình đa phương thức tăng độ sâu tính toán. Bản dựng khoảng 9 tỷ tham số này nhận văn bản cùng hình ảnh và mở rộng ngữ cảnh tới 512.000 token.",
+        "Mô hình thực thi lặp lại các lớp giữa dùng chung hai lần, đạt mức tính toán tương đương 56 tầng trong mỗi lượt truyền xuôi từ 32 tầng giải mã. Bản lượng tử hóa 4 bit thu gọn trọng số còn 4,9 GB, còn tài liệu mô hình nêu cấu hình 256.000 token kèm bộ nhớ đệm KV 8 bit cần khoảng 15 GiB bộ nhớ.",
+        "SenseTime cho biết mô hình cạnh tranh được với Qwen3.8-27B trên các bài kiểm chuẩn (benchmark) đã lựa chọn về tác tử AI và phân tích dữ liệu."
+      ],
+      "same_event_coverage_ids": [
+        "955dfeef437a213173e2"
+      ],
+      "split_coverage_ids": [],
+      "subject": "SenseTime",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "SenseTime công bố mô hình SenseNova Loop-9B tái thực thi các lớp giữa với ngữ cảnh 512.000 token",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "technode",
+          "url": "https://technode.com/2026/11/18/sensetime-releases-open-weight-loop-9b-model-that-reuses-layers-for-deeper-computation/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.65,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "Readers miss the model’s text output and its stated uses.",
+            "fix": "Add that it produces text and supports reasoning, coding, data analysis and tool use (outlet:p002)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "f42ec7a14d0c05c4e5467b517dc91943d54f76fc420493b67c8d77c44fa946b7",
+        "scored_at": "2026-11-18T07:32:00.777583+00:00"
+      }
+    },
+    {
+      "id": "e0d0f04802b056a92751",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The short market wire covers Seoul stock index movements with only an incidental passing reference to Nvidia earnings as a macro catalyst.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://en.yna.co.kr/view/AEN20261118007300320",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "72e36f1a48ca5fa4ea6b",
+        "bbdd728da047f5952531"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "491f3cf3a40d2bf6bf36",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://analyticsindiamag.com/ai-news/neysa-deploys-amd-gpu-cluster-in-mumbai-for-ai-training-and-inference",
+      "key_points": [
+        "Neysa triển khai cụm bộ xử lý đồ họa (GPU) AMD Instinct MI350X tại Mumbai thông qua nền tảng máy chủ vật lý chuyên dụng (bare-metal) Tytan. Hệ thống kết hợp GPU MI350X, chip AMD EPYC cùng hệ sinh thái ROCm, hiện đang vận hành hỗ trợ huấn luyện mô hình ngôn ngữ lớn lẫn suy luận AI (trí tuệ nhân tạo).",
+        "Neysa cho biết cụm MI350X này nhằm phục vụ doanh nghiệp Ấn Độ cùng các công ty AI toàn cầu đang thiết lập năng lực điện toán tại nước này. Động thái cũng mở rộng chiến lược hạ tầng trung lập với loại chip của Neysa, giúp khách hàng tự do chọn cấu hình tăng tốc theo khối lượng công việc.",
+        "Neysa cho biết cụm máy được hòa mạng trong một giai đoạn duy nhất và khách hàng quốc tế đã ký hợp đồng thuê năng lực tính toán. Tuy nhiên, Analytics India Magazine nhấn mạnh công ty chưa công bố số lượng GPU, tổng công suất tính toán cũng như giá trị các cam kết.",
+        "Theo Analytics India Magazine, thông báo của Neysa đánh dấu bước tiến lớn tiếp theo của AMD trong nỗ lực mở rộng quy mô hạ tầng GPU tại Ấn Độ."
+      ],
+      "same_event_coverage_ids": [
+        "a7d7cb41b6c431bfd4b0"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Neysa",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Neysa triển khai cụm GPU AMD Instinct MI350X tại Mumbai nhưng chưa công bố số lượng chip",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "analytics-india-magazine",
+          "url": "https://analyticsindiamag.com/ai-news/neysa-deploys-amd-gpu-cluster-in-mumbai-for-ai-training-and-inference"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.3,
+        "answers": {
+          "what": 9,
+          "why": 9,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "Readers do not see what control Tytan gives customers in practice.",
+            "fix": "Mention dedicated accelerator access and the choice of bare metal, bare metal with Slurm, or bare metal with Kubernetes (outlet:p006–p007)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "992a20579cd8463f4779fa9c2b70aae7c64198c7bc4c19794e47b4d4d2eb4740",
+        "scored_at": "2026-11-18T07:32:00.777672+00:00"
+      }
+    },
+    {
+      "id": "31e1ed8bee7ccd30d8cb",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The article's main subject is theoretical astrophysics literature errors and self-correction in physics; AI is merely an incidental tool used to audit the papers.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://science.caseyhandmer.com/physics/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "0414b6755e733cec8fdb",
+        "4b12c5ab6fbea102a18b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "bbcff37f6db04fcc1f3c",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "survey",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.404media.co/gallup-study-friendship-ai-companions/",
+      "key_points": [
+        "Khảo sát từ Gallup cho thấy 33% người trẻ có bạn đồng hành AI (trí tuệ nhân tạo), dù khoảng 93% vẫn duy trì ít nhất một tình bạn trực tiếp bền chặt ngoài đời. Khảo sát trực tuyến do Gallup phối hợp cùng Digital Wellness Lab thực hiện trên hơn 16.000 người từ 15 đến 22 tuổi tại 16 quốc gia.",
+        "Người dùng AI làm bạn ghi nhận mức độ cô đơn cao hơn, song các nhà nghiên cứu nhấn mạnh dữ liệu khảo sát chưa thể xác định quan hệ nhân quả. Đánh giá cũng có sự chênh lệch lớn khi gần một nửa người trẻ tại Úc có bạn AI đánh giá mối quan hệ đạt chất lượng cao, so với 12% ở Ba Lan.",
+        "Nghiên cứu kết luận thông điệp bao quát là chất lượng mối quan hệ và bối cảnh xã hội quan trọng hơn việc coi hình thức kết nối nào tốt hơn hay kém hơn."
+      ],
+      "same_event_coverage_ids": [
+        "5d6af539d8c1290f50b9"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Gallup / Boston Children's Digital Wellness Lab",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Khảo sát Gallup: 33% người trẻ có bạn đồng hành AI dù 93% có tình bạn trực tiếp bền chặt",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "404-media",
+          "url": "https://www.404media.co/gallup-study-friendship-ai-companions/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "d35001442ca91069fa16532b163ca19a84be1c85c259da30dbc25231e3110f82",
+        "scored_at": "2026-11-18T07:41:40.777003+00:00"
+      }
+    },
+    {
+      "id": "0b739fb0e0ef7ad39b41",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "survey",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.wired.com/story/over-a-third-of-gen-z-rely-on-ai-for-friendship/",
+      "key_points": [
+        "Khoảng 33% người thuộc Gen Z dựa vào AI (trí tuệ nhân tạo) để bầu bạn, theo khảo sát của Gallup và phòng nghiên cứu Digital Wellness Lab. Khảo sát thực hiện từ tháng 5 đến tháng 8 trên 15.925 người từ 15 đến 22 tuổi tại 16 quốc gia.",
+        "Giám đốc nghiên cứu David Bickham cho rằng người trẻ tìm kiếm mọi bối cảnh giao lưu khi lớn lên cùng AI. Tuy nhiên, các nhà nghiên cứu nhấn mạnh chưa rõ người trẻ tìm đến AI do cô đơn hay AI làm tăng cảm giác này.",
+        "Tỷ lệ dựa vào AI tăng lên 50% ở người dùng hàng ngày và đạt 42% ở những người có bạn bè chỉ quen qua mạng. Nam giới thường kết bạn qua trò chơi điện tử còn nữ giới qua mạng xã hội, với Instagram và Discord là hai nền tảng hàng đầu tại Mỹ.",
+        "Báo cáo chỉ ra tình bạn trực tiếp được đánh giá cao nhất về sự bền chặt và hỗ trợ, trong khi người dựa vào AI có thể đối mặt nguy cơ cô đơn cao hơn. Các nhà nghiên cứu xem đây là dấu hiệu phụ thuộc gia tăng vào AI, dù thận trọng chưa coi là thay đổi vĩnh viễn."
+      ],
+      "same_event_coverage_ids": [
+        "0a01230455703fadf32a"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Gallup / Boston Children’s Hospital",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Khảo sát của Gallup: 33% thanh thiếu niên Gen Z dùng AI để bầu bạn, tăng lên 50% ở người dùng hàng ngày",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "wired",
+          "url": "https://www.wired.com/story/over-a-third-of-gen-z-rely-on-ai-for-friendship/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.2,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 8,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "Instagram và Discord là hai nền tảng hàng đầu tại Mỹ",
+            "explanation": "The source ranks them as the top US platforms specifically for staying in touch with online-only friends, not as the top platforms in the US generally (outlet:p008)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The platform ranking reads as a general US ranking.",
+            "fix": "Specify that Instagram and Discord were the leading US platforms for staying in touch with online-only friends (outlet:p008)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "33dce0952c4773c7fac6aa38a991ba93651b787c974c9794b5824c5c20a49d62",
+        "scored_at": "2026-11-18T07:41:40.777093+00:00"
+      }
+    },
+    {
+      "id": "10d331c37469d74af591",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Casual social chatter and personal blog venting about Gemini 4 Carbon latency lacking substantive reporting or objective benchmarking.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://kernel.dev/blog/why-is-gemini-4-carbon-taking-so-long/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "e403f33b30be5222e5b6"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "63454286babe236e6d67",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "http://xinmingtu.cn/blog/2026/claude-opus-5-5-protein-sequences/",
+      "key_points": [
+        "Tác giả bài viết phát hiện các mô hình Claude mới nhất được huấn luyện quy mô lớn trên chuỗi protein qua bài kiểm chuẩn (benchmark - bài kiểm tra năng lực) dự đoán axit amin tiếp theo trên protein ít được nghiên cứu.",
+        "Tác giả bài viết giải thích việc nắm được các họ protein ít được nghiên cứu đòi hỏi lượng lớn dữ liệu chuỗi thay vì vài ví dụ đơn lẻ. Bài kiểm tra đo 22 mô hình ngôn ngữ ở nhiệt độ 0 nơi API chấp nhận, đối chiếu độ chính xác giữa chuỗi thật và chuỗi xáo trộn trên 668 protein vi khuẩn và cổ khuẩn thuộc 167 họ chưa rõ chức năng.",
+        "Ở thước đo chênh lệch độ chính xác giữa chuỗi thật và chuỗi xáo trộn, Claude Fable 5.2 đạt tỷ lệ đoán đúng axit amin tiếp theo 54% trên protein thật so với 9% trên chuỗi xáo trộn, còn GPT và Gemini gần như bằng 0. So với mô hình protein chuyên biệt, Claude Fable 5.2 vượt ProtGPT3-10B và ProGen3-3B, còn Claude Opus 5.5 ngang ProtGPT3-10B nhưng dưới ProGen3-3B.",
+        "Theo tác giả bài viết, Claude Opus 5.5 học protein chứ không học bộ gen. Mô hình dự đoán được trình tự mã hóa của người và chuột, nhưng hầu như không đoán được các gen vi khuẩn đằng sau những protein đã biết và không nắm được phần còn lại của bộ gen."
+      ],
+      "same_event_coverage_ids": [
+        "bd182582f4f7d08cec9d"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Anthropic Claude",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Atharv Jayprakash"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Claude Fable 5.2 đoán đúng 54% axit amin protein ít nghiên cứu, cho thấy được huấn luyện chuỗi quy mô lớn",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "http://xinmingtu.cn/blog/2026/claude-opus-5-5-protein-sequences/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "b2062d0da0d10e0e7e29ec95c499951b11f87d29136f6dfa42d481200bfb8875",
+        "scored_at": "2026-11-18T07:41:40.777134+00:00"
+      }
+    },
+    {
+      "id": "8fc7781ef144bfe3db80",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://greyswansignals.com",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "9285e59e5d6be4606423"
+      ],
+      "split_coverage_ids": [],
+      "subject": "AI debt financing",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "352bf06f34349433281c",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://en.yna.co.kr/view/AEN20261118004500315",
+      "key_points": [
+        "Theo Yonhap, Chính phủ Hàn Quốc và Đảng Dân chủ cầm quyền thống nhất đề xuất nâng mức cấm thi đại học CSAT lên tối đa 10 năm với hành vi gian lận bằng AI.",
+        "Việc ngăn chặn gian lận chà đạp lên nỗ lực của học sinh chăm chỉ và làm xói mòn lòng tin xã hội được chính phủ cùng Đảng Dân chủ thực hiện bằng mọi biện pháp có thể, theo ông Kim Min-seok.",
+        "Chính phủ dự kiến điều động thêm 8.400 nhân sự đến các điểm thi và tăng cường kiểm tra kính thông minh hay camera siêu nhỏ có thể dùng để gian lận.",
+        "Hai bên cũng nhất trí đề xuất luật cho phép các trường đại học đuổi học và hạn chế nhận lại sinh viên gian lận thi cử. Ông Kim Min-seok cam kết kiên quyết theo đuổi cách tiếp cận không khoan nhượng với hành vi gian lận bằng AI trong kỳ thi này."
+      ],
+      "same_event_coverage_ids": [
+        "323274d5a4ea8dfcb4df",
+        "d924a37198d82cb2c467",
+        "f8d7a0ced4040398d302"
+      ],
+      "split_coverage_ids": [],
+      "subject": "South Korean government / Democratic Party",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Park Sung-joon",
+          "Kim Min-seok"
+        ],
+        "availability": "region_locked:South Korea",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Hàn Quốc đề xuất cấm thi đại học tối đa 10 năm với hành vi gian lận bằng AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "yonhap",
+          "url": "https://en.yna.co.kr/view/AEN20261118004500315"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 6.8,
+        "answers": {
+          "what": 8,
+          "why": 2,
+          "notable": 8,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "quote",
+            "summary_text": "Việc ngăn chặn gian lận chà đạp lên nỗ lực của học sinh chăm chỉ và làm xói mòn lòng tin xã hội",
+            "explanation": "Kim Min-seok said cheating itself tramples on students’ efforts and undermines fairness and social trust, not that preventing cheating does so (outlet:p008)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The sentence reverses Kim Min-seok’s reason for the crackdown.",
+            "fix": "Say that cheating, rather than preventing cheating, harms students’ efforts, fairness and social trust (outlet:p008)."
+          },
+          {
+            "question": "meaning",
+            "problem": "Readers miss that the parties want the proposed penalty to apply to this year’s CSAT.",
+            "fix": "Add the intended retroactive application while keeping clear that legislation is still being sought (outlet:p001, outlet:p003)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "8eb11686a88d990d34a6c12313c21c6c3b8269381c947b30141b7f2757e7a46f",
+        "scored_at": "2026-11-18T07:32:00.777798+00:00"
+      }
+    },
+    {
+      "id": "7123a60c70983de3d4dc",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/17/2026/nvidia-chairman-harvey-jones-rules-out-ex-ceo-jensen-huangs-return",
+      "key_points": [
+        "Chủ tịch Harvey Jones của Nvidia bác bỏ khả năng cựu CEO Jensen Huang quay lại nắm quyền, giữa lúc công ty vượt kỳ vọng doanh thu và nâng dự báo lợi nhuận.",
+        "Trước đó, ông Huang chia sẻ bản thân thấy vinh dự nếu được hội đồng quản trị đề nghị quay lại, giữa lúc giới lãnh đạo Thung lũng Silicon lập liên minh Save Jensen. Sự bất định về tương lai công ty đi kèm tâm lý bi quan trên thị trường chứng khoán vào phiên giao dịch thứ Ba.",
+        "Theo The Wall Street Journal, hội đồng quản trị Nvidia đang tiến hành một cuộc điều tra độc lập liên quan đến vụ việc này. Ủy ban Chứng khoán và Giao dịch Mỹ đồng thời điều tra nghi vấn liệu ông Huang có vi phạm luật công bố thông tin cho nhà đầu tư hay không."
+      ],
+      "same_event_coverage_ids": [
+        "5f884ccf5d4744c08662",
+        "6c3472085655b06b83b6",
+        "dc6462abe334f493f01c"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Nvidia",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Harvey Jones",
+          "Jensen Huang"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Chủ tịch Nvidia bác bỏ khả năng cựu giám đốc điều hành Jensen Huang quay lại",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/17/2026/nvidia-chairman-harvey-jones-rules-out-ex-ceo-jensen-huangs-return"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.85,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "882ccfbf67c9bb33d468e37129b2e6b39d382af68cbdb3222f7a95ccb216c20b",
+        "scored_at": "2026-11-18T07:32:00.777818+00:00"
+      }
+    },
+    {
+      "id": "d7d94e690de8db065963",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.23219",
+      "key_points": [
+        "Theo nhóm nghiên cứu của Shobhita Sundaram, tác nhân LLM (hệ thống AI tự chủ dựa trên mô hình ngôn ngữ lớn) đủ năng lực tự cải thiện trong môi trường trò chơi khi được cung cấp tài nguyên cơ bản. Mô hình thể hiện các chiến lược tự học phù hợp với khung nhận thức cổ điển và tài liệu máy học về giáo trình tự sinh.",
+        "Trong thiết lập tự chủ này, tác nhân tự xây dựng thuật toán tự học cho việc tối ưu hóa theo ngữ cảnh dựa trên mục tiêu tổng quát. Quá trình vận hành không sử dụng vòng lặp áp đặt từ bên ngoài và không có quyền truy cập dữ liệu thực tế.",
+        "Cụ thể, tác nhân bị đóng băng trọng số được cấp ngân sách tính toán cùng công cụ thu thập kinh nghiệm và cập nhật tài liệu văn bản. Nhóm tác giả cho phép tác nhân tự do thử nghiệm trong môi trường trò chơi mà không áp đặt vòng lặp ngoài hay dữ liệu thực tế.",
+        "Theo nhóm tác giả, các hiện vật văn bản tạo ra giúp cải thiện kết quả trên bài kiểm chuẩn bên ngoài (bộ công cụ đánh giá độc lập), bao gồm điều hướng 3D. Sự cải thiện này duy trì qua nhiều cơ chế và thời lượng trò chơi khác nhau trong nghiên cứu."
+      ],
+      "same_event_coverage_ids": [
+        "b19327631b22e2d22c11"
+      ],
+      "split_coverage_ids": [],
+      "subject": "LLM agent self-improvement",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Shobhita Sundaram",
+          "Cansu Sancaktar",
+          "Phillip Isola"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Tác nhân LLM đủ năng lực có thể tự cải thiện trong môi trường trò chơi mà không cần dữ liệu thực tế",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.23219"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "6f840ea6cd31bf7d14d8419864cf59567bdcf98fe4e895bf9540dd59d3639cd5",
+        "scored_at": "2026-11-18T07:41:40.777160+00:00"
+      }
+    },
+    {
+      "id": "8b5fea4af963290a229f",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.23143",
+      "key_points": [
+        "Nhóm tác giả Haosong Peng giới thiệu mô hình TCP4D, dùng biểu diễn cảnh 4D chung cho việc theo dõi chuyển động điểm trung tâm công cụ (TCP) và tạo quỹ đạo thao tác robot. Từ video một mắt và truy vấn 2D ban đầu, bộ theo dõi khôi phục tư thế SE(3), trạng thái bộ gắp cùng thông số máy quay.",
+        "Theo nhóm nghiên cứu, bộ tạo lấy mẫu đặc trưng cục bộ từ biểu diễn 4D dọc theo quỹ đạo đã khôi phục. Các đặc trưng này được kết hợp với quan sát robot và chỉ dẫn ngôn ngữ khi dự đoán các trạng thái tiếp theo.",
+        "Bộ tạo đạt tỷ lệ thành công trung bình 69,19% trên RoboTwin và vượt trội các mô hình chính sách trên hai tác vụ thực tế. Bộ theo dõi đạt sai số quỹ đạo tuyệt đối 7,60 mm trên DROID, 16,07 mm trên RoboLab và thích ứng robot mới với 10 minh họa.",
+        "Theo nhóm tác giả, việc cùng huấn luyện dữ liệu gốc và tăng cường giúp cải thiện 41,5% tỷ lệ thành công trên robot mục tiêu so với chỉ huấn luyện dữ liệu tăng cường. Quy trình này chuyển đổi video RGB thành minh họa cho dạng robot khác mà không cần ghi nhận trạng thái từ robot gốc."
+      ],
+      "same_event_coverage_ids": [
+        "72c82c0b67bf74f2ea8b"
+      ],
+      "split_coverage_ids": [],
+      "subject": "TCP4D",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Haosong Peng",
+          "Xiangyang Liu",
+          "Zhengshen Zhang",
+          "Yunfeng Fan",
+          "Tianyu Qi",
+          "Xin Xia",
+          "Yufeng Zhan",
+          "Wenchao Xu"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Mô hình TCP4D đạt tỷ lệ thành công 69,19% trên RoboTwin và thích ứng robot mới chỉ với 10 minh họa",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.23143"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.85,
+        "answers": {
+          "what": 9,
+          "why": 6,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The reader is not told what problem motivated TCP4D.",
+            "fix": "Add that recovering robot actions and gripper states from RGB observations remains challenging, and that the tool-center-point action space works across robot embodiments (outlet:p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "d5bf9caeed7f200d43c141c0409dfd7e562749c1c93cb7eab8b33671ea31c505",
+        "scored_at": "2026-11-18T07:41:40.777242+00:00"
+      }
+    },
+    {
+      "id": "61554c6962c6289a354b",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.23226",
+      "key_points": [
+        "Gene Chou cùng các đồng tác giả giới thiệu FastFrames đạt độ trễ tương tác mà không giảm chất lượng ở mô hình khuếch tán video tự hồi quy (sinh khung hình nối tiếp). Theo nhóm tác giả, mô hình khắc phục tình trạng các hệ thống hiện hữu vốn quá chậm để tương tác mượt mà.",
+        "Nhóm nghiên cứu thay thế các thao tác chiếm hơn nửa độ trễ suy luận bằng các giải pháp gọn nhẹ sau khi khảo sát mô hình tiên tiến. Các tác giả phát hiện giải mã VAE và cập nhật bộ nhớ đệm KV (bộ nhớ tạm) chính là nguồn phát sinh độ trễ lớn.",
+        "Bản 1.3B đạt 36 mili giây mỗi khung hình trên một GPU B200 (28 phản hồi mỗi giây), tương đương chất lượng của mô hình tiên tiến chậm hơn gần 8 lần. Bản 14B trên cụm 8 GPU B200 đạt 45 mili giây mỗi khung hình (22 phản hồi mỗi giây) và mang lại chất lượng hình ảnh cùng độ chân thực cao hơn đáng kể.",
+        "Theo nhóm tác giả, FastFrames cho phép tương tác thời gian thực trong các ứng dụng như tạo video theo điều kiện camera và vật lý."
+      ],
+      "same_event_coverage_ids": [
+        "515aa175688a0dc1d3d3"
+      ],
+      "split_coverage_ids": [],
+      "subject": "FastFrames",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "FastFrames đạt 36 mili giây mỗi khung hình trên GPU B200, tương đương chất lượng mô hình chậm hơn gần 8 lần",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.23226"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "866541c7bd023630a691f4c3aea9d40609b98799443c1298f179fb3d2088c52e",
+        "scored_at": "2026-11-18T07:41:40.777287+00:00"
+      }
+    },
+    {
+      "id": "31697b19d82dcb822eaa",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.22275",
+      "key_points": [
+        "Ting-Hsuan Chen và các đồng tác giả giới thiệu khung cộng tác phi tập trung Heave-Ho cho nhiều robot hình người trong các tác vụ di chuyển và thao tác dài hạn. Theo nhóm nghiên cứu, sự cộng tác hứa hẹn mở rộng năng lực vượt xa khả năng của từng robot đơn lẻ.",
+        "Các tác giả cho biết việc hiện thực hóa tiềm năng này đòi hỏi tương tác toàn thân và đồng bộ hóa chính xác giữa các robot. Họ phát triển cơ chế kiểm soát từ quan sát cục bộ kết hợp điều phối bằng giọng nói nhằm đồng bộ hóa việc thực thi mà không cần giao tiếp mạng.",
+        "Hệ thống có thể mở rộng tới 10 robot và áp dụng cho đội hình không đồng nhất mà không cần huấn luyện lại, dù chỉ được huấn luyện ban đầu với hai robot hình người giống hệt nhau. Nhóm tác giả cũng giới thiệu bộ tiêu chuẩn HH-Bench (bộ công cụ đánh giá) gồm 12 tác vụ để thử nghiệm các nhóm từ 2 đến 10 robot hình người.",
+        "Theo nhóm nghiên cứu, các đánh giá có hệ thống cho thấy Heave-Ho liên tục vượt trội các phương pháp cơ sở. Đồng thời, các thử nghiệm trong thế giới thực chứng minh khả năng cộng tác phi tập trung vững chắc qua nhiều tác vụ phức tạp."
+      ],
+      "same_event_coverage_ids": [
+        "ee0d6b930c1512964627"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Heave-Ho",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Khung Heave-Ho giúp đội hình tới 10 robot hình người cộng tác dài hạn không cần mạng viễn thông",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.22275"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.25,
+        "answers": {
+          "what": 9,
+          "why": 8,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The reader misses a component of Heave-Ho’s high-level planning.",
+            "fix": "Mention that the authors train a vision-language planner alongside the speech-based leader-follower mechanism (outlet:p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "81a5ae3afca6142d4f13c6343e6455da3353899eafbc6ad27ee3722130b03834",
+        "scored_at": "2026-11-18T07:41:40.777396+00:00"
+      }
+    },
+    {
+      "id": "21137627d4b88fb692e3",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.22115",
+      "key_points": [
+        "Nhóm Xingchen AGI Lab giới thiệu dòng mô hình ngôn ngữ lớn Xing 4 mở rộng từ dòng TeleChat trên hạ tầng Ascend. Báo cáo nghiên cứu được nộp vào ngày 17 tháng 11 năm 2026, mô tả thiết kế hệ thống từ lựa chọn kiến trúc đến hậu huấn luyện tác tử (chương trình AI tự chủ, agent).",
+        "Hạ tầng tiền huấn luyện xây dựng trên MindSpore HyperParallel, kết hợp phân mảnh lai và quản lý bộ nhớ kích hoạt cùng chuỗi dài. Cơ chế gán độ thân hòa CPU và cô lập lõi xử lý giảm bớt can thiệp điều phối lịch trình từ máy chủ.",
+        "Hệ thống hỗ trợ huấn luyện tiền kỳ mô hình 285 tỷ tham số trên 8.192 chip Ascend 910C, tạo bối cảnh thực nghiệm cho các nghiên cứu kiến trúc. Nền tảng TeleGym ở khâu hậu huấn luyện kết nối thực thi, đánh giá và dựng quỹ đạo với tối ưu hóa chính sách.",
+        "Báo cáo nhận định các tiến bộ này thiết lập nền tảng huấn luyện định hướng Ascend cho mô hình lý luận và tác tử khi tiếp tục phát triển dòng Xing 4."
+      ],
+      "same_event_coverage_ids": [
+        "9e4d4722a23a418f4edc"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Xing 4",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Xingchen AGI Lab huấn luyện mô hình Xing 4 quy mô 285 tỷ tham số trên 8.192 chip Ascend 910C",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.22115"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.25,
+        "answers": {
+          "what": 10,
+          "why": 7,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The reader sees the engineering measures without the trade-off they address.",
+            "fix": "State that the authors study ways to balance model capacity with computation, memory access, and execution overhead (outlet:p011)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "cea45b625991a7059112ba2dadcd4e79b83e3004f070c6fc5fc771ed9d8e3950",
+        "scored_at": "2026-11-18T07:41:40.777438+00:00"
       }
     }
   ]
