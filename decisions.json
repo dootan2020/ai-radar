@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-18T04:08:25.008534+00:00",
-  "input_generated_at": "2026-11-18T02:45:51Z",
+  "generated_at": "2026-11-18T05:48:17.581549+00:00",
+  "input_generated_at": "2026-11-18T04:45:43Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -90754,10 +90754,10 @@
       "use_original_title": false,
       "source_url": "https://en.yna.co.kr/view/AEN20261118000900315",
       "key_points": [
-        "Theo tác giả bài xã luận Korea Times, các lời kêu gọi phục chức cho Jensen Huang xuất hiện sau khi ông từ chức CEO Nvidia vào tuần trước. Ông từ chức sau khi quan hệ ngoài luồng bị phát giác, gồm nghi vấn từ quan chức Mỹ về một phụ nữ bị nghi là tình báo Trung Quốc.",
-        "Giới lãnh đạo công nghệ thúc đẩy việc này do coi Jensen Huang là nhân vật không thể thay thế trong ngành trí tuệ nhân tạo toàn cầu. Bên cạnh một số nhân viên Nvidia, các lãnh đạo Thung lũng Silicon như Elon Musk tiếp tục ủng hộ cựu CEO.",
-        "Các lãnh đạo Thung lũng Silicon lập phòng tác chiến vận động đưa Huang trở lại cùng sự ủng hộ từ Tổng thống Donald Trump. Ngược lại, ban giám đốc Nvidia tuyên bố chưa có kế hoạch phục chức, còn Bộ trưởng Tài chính Scott Bessent yêu cầu tìm CEO từ bên ngoài.",
-        "Tác giả bài xã luận Korea Times kết luận các bên cần thận trọng chờ kết quả của các cuộc điều tra trước khi phục chức cho cựu CEO."
+        "Các lời kêu gọi phục chức cho Jensen Huang nhanh chóng xuất hiện sau khi ông bất ngờ từ chức CEO Nvidia vào tuần trước. Ông từ chức vì quan hệ ngoài luồng với một phụ nữ bị một số quan chức Mỹ nghi ngờ là nhân tố tình báo cho Trung Quốc.",
+        "Bộ trưởng Tài chính Scott Bessent nhấn mạnh cuộc điều tra nội bộ phải làm rõ việc tuân thủ quy định xuất khẩu đối với dòng chip như Nvidia H800.",
+        "Financial Times đưa tin các lãnh đạo công nghệ đang lập phòng tác chiến để vận động đưa Huang trở lại và tìm sự ủng hộ từ Nhà Trắng. Dù Tổng thống Donald Trump không phản đối, ban giám đốc Nvidia tuyên bố chưa có kế hoạch phục chức trong khi điều tra tiếp diễn.",
+        "Tác giả bài xã luận đưa ra khuyến nghị thận trọng chờ kết quả điều tra trước khi xem xét phục chức cho cựu CEO. Khuyến nghị này gắn với việc Nvidia đang xác minh nghi vấn bán dẫn bị bán trái phép sang Trung Quốc và Quốc hội Mỹ triệu tập điều tra."
       ],
       "same_event_coverage_ids": [
         "f3364789be1192931093"
@@ -90774,7 +90774,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Giới công nghệ đòi phục chức cho Jensen Huang nhưng bị yêu cầu chờ kết quả điều tra",
+      "editorial_headline_vi": "Vận động phục chức Jensen Huang tại Nvidia nhưng xã luận Korea Times khuyến nghị chờ kết quả điều tra",
       "summary_sources": [
         {
           "id": "outlet",
@@ -90787,40 +90787,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 7.85,
+        "value": 9.6,
         "answers": {
-          "what": 9,
-          "why": 7,
-          "notable": 7,
-          "meaning": 8
+          "what": 10,
+          "why": 8,
+          "notable": 10,
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "Các lãnh đạo Thung lũng Silicon lập phòng tác chiến",
-            "explanation": "The source says the Financial Times reported that executives were forming a “war room”; it does not say one had already been established (outlet:p003)."
-          },
-          {
-            "kind": "quote",
-            "summary_text": "bị yêu cầu chờ kết quả điều tra",
-            "explanation": "The source offers an editorial recommendation that it would be prudent to wait, rather than reporting an order directed at supporters (outlet:p014–p015)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
             "question": "why",
-            "problem": "Readers do not learn what the investigations may resolve.",
-            "fix": "Explain that the editorial raises foreign intelligence concerns and questions about compliance with U.S. chip export restrictions (outlet:p007–p008, outlet:p014)."
-          },
-          {
-            "question": "notable",
-            "problem": "The reported lobbying “war room” is presented as already formed.",
-            "fix": "Attribute the report to the Financial Times and say executives were forming it (outlet:p003)."
-          },
-          {
-            "question": "meaning",
-            "problem": "The headline makes the editorial’s advice sound like an order.",
-            "fix": "Describe it as the editorial’s recommendation to wait for investigation results (outlet:p014–p015)."
+            "problem": "Saying Huang resigned over an affair with one woman narrows the source’s account of what came to light.",
+            "fix": "State that multiple extramarital affairs came to light, including one with the woman suspected by some U.S. officials of intelligence ties (outlet:p002)."
           }
         ],
         "writer_boats": [
@@ -90828,8 +90807,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "ae255e4687ecaefae3025c26abf6ce6cb5bd328551e2bd6f21e09d46b8e815bd",
-        "scored_at": "2026-11-17T23:38:07.675754+00:00"
+        "prose_sha256": "a8e3f64f658c9655aa9abea04d727d1f89db989ae593412605caf0cfa7229612",
+        "scored_at": "2026-11-18T05:44:11.703532+00:00"
       }
     },
     {
@@ -91838,10 +91817,10 @@
       "use_original_title": true,
       "source_url": "https://techcrunch.com/2026/11/17/nvidias-startup-stakes-ballooned-to-65b-but-huangs-exit-puts-future-deals-in-doubt/",
       "key_points": [
-        "Nvidia công bố các khoản nắm giữ cổ phần tư nhân đạt giá trị 65,5 tỷ USD, tăng từ mức 22 tỷ USD hồi tháng 1. Tuy nhiên, việc Jensen Huang rời vị trí lãnh đạo khiến tương lai các thương vụ bị nghi ngờ dưới thời CEO tạm quyền và người kế nhiệm.",
-        "Theo TechCrunch, mức tăng gồm cả đầu tư mới lẫn việc nâng định giá đáng kể các công ty trong danh mục. Hãng cũng đã chi 16 tỷ USD vào cổ phần trong quý vừa qua và 58 tỷ USD trong chín tháng để mở rộng hệ sinh thái AI.",
-        "Theo PitchBook, Nvidia đã đầu tư vào gần 350 startup như OpenAI, Anthropic và Lambda. Hãng cũng cam kết bảo lãnh 105 tỷ USD cho dự án trung tâm dữ liệu 500 tỷ USD của OpenAI ở bang Ohio.",
-        "Giám đốc tài chính Colette Kress cho biết Nvidia dự định hoàn lại cho cổ đông dòng tiền tự do thặng dư sau các mục đích chiến lược. Trước dự đoán công ty sẽ thận trọng hơn, TechCrunch nhận định giới đầu tư mạo hiểm đang chuẩn bị cho việc nguồn vốn sụt giảm đáng kể."
+        "Nvidia công bố giá trị cổ phần tại các công ty tư nhân đạt 65,5 tỷ USD, tăng từ mức 22 tỷ USD hồi tháng 1. Tuy nhiên, TechCrunch nhận định chưa rõ đà tăng này có tiếp tục sau khi ông Jensen Huang rời ghế lãnh đạo hay không.",
+        "Theo TechCrunch, mức tăng này gồm cả các khoản đầu tư mới lẫn việc nâng định giá đáng kể danh mục hiện có. Nvidia từng nêu mục tiêu đầu tư nhằm mở rộng hệ sinh thái trí tuệ nhân tạo bằng cách hỗ trợ các công ty tạo đột phá.",
+        "Nvidia cho biết đã chi 58 tỷ USD mua cổ phần trong chín tháng tài chính vừa qua, so với 5 tỷ USD cùng kỳ năm trước. Hãng cũng cam kết bảo lãnh 105 tỷ USD cho dự án trung tâm dữ liệu 500 tỷ USD của OpenAI tại bang Ohio.",
+        "Trước sự chuyển hướng này, TechCrunch ghi nhận giới đầu tư mạo hiểm đang chuẩn bị cho sự sụt giảm nguồn vốn đáng kể. Bà Colette Kress tuyên bố Nvidia sẽ đánh giá nghiêm ngặt các khoản đầu tư và dự định hoàn lại dòng tiền tự do thặng dư cho cổ đông sau các mục đích chiến lược."
       ],
       "same_event_coverage_ids": [
         "51d73c58372b388158e4"
@@ -91857,7 +91836,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Cổ phần startup của Nvidia chạm 65,5 tỷ USD nhưng việc Jensen Huang rời đi khiến tương lai đầu tư bị nghi ngờ",
+      "editorial_headline_vi": "Cổ phần tư nhân của Nvidia đạt 65,5 tỷ USD nhưng tương lai đầu tư bị nghi ngờ khi ông Huang rời đi",
       "summary_sources": [
         {
           "id": "outlet",
@@ -91874,31 +91853,21 @@
         "answers": {
           "what": 10,
           "why": 8,
-          "notable": 9,
-          "meaning": 9
+          "notable": 10,
+          "meaning": 7
         },
         "hard_errors": [
           {
-            "kind": "role",
-            "summary_text": "Giám đốc tài chính Colette Kress",
-            "explanation": "The supplied source identifies Kress by name and reports her earnings call remarks, but does not state her job title (outlet:p012, outlet:p014–p015)."
+            "kind": "fact",
+            "summary_text": "Trước sự chuyển hướng này",
+            "explanation": "The source reports uncertainty and investors’ expectations of a pullback, not an established change in Nvidia’s investment strategy (outlet:p009, outlet:p014–p015)."
           }
         ],
         "findings": [
           {
-            "question": "notable",
-            "problem": "Readers cannot see how unusually large this year’s equity spending was.",
-            "fix": "Add the source’s comparison: $58 billion in the first nine months of this fiscal year versus $5 billion in the same period of the previous fiscal year (outlet:p008)."
-          },
-          {
-            "question": "why",
-            "problem": "The reason investors expect a more cautious approach is thin.",
-            "fix": "Attribute the reported concern about Huang’s dealmaking to the source and the forecast of smaller, more selective investments to investors (outlet:p014)."
-          },
-          {
-            "question": "what",
-            "problem": "Kress is given a title absent from the supplied source.",
-            "fix": "Refer to her by name without a title, or supply a source that establishes the title (outlet:p012, outlet:p014–p015)."
+            "question": "meaning",
+            "problem": "The wording presents a change in strategy as already underway.",
+            "fix": "Describe the pullback as an investor expectation whose extent remains uncertain (outlet:p014–p015)."
           }
         ],
         "writer_boats": [
@@ -91906,8 +91875,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "1372354a7734534c1f8adea426fdc55e5c9cce0f5b22d61b0911c55f6dc1e3c4",
-        "scored_at": "2026-11-18T04:00:31.729006+00:00"
+        "prose_sha256": "883932bdd15bf87dc369616764ea842fdc4bb5d3b53bb17df0e00ad9e2d5fee0",
+        "scored_at": "2026-11-18T05:48:17.559855+00:00"
       }
     },
     {
@@ -91945,10 +91914,10 @@
       "use_original_title": false,
       "source_url": "https://www.semafor.com/article/11/17/2026/europes-ai-sector-not-doom-and-gloom-but-still-lags",
       "key_points": [
-        "Tại sự kiện của Semafor, các lãnh đạo doanh nghiệp thừa nhận công nghệ châu Âu vẫn tụt hậu trong cuộc đua AI toàn cầu.",
-        "Bộ trưởng AI Anh Kanishka Narayan nhận định châu Âu tụt hậu về quy mô vốn trước Mỹ và Trung Quốc khi hai đối thủ này ở đẳng cấp hoàn toàn khác biệt. Đồng thời, ông Marco-Alexander Breit thuộc Bộ Kỹ thuật số Đức cho rằng các quy định hiện hành tạo rào cản pháp lý lớn cho doanh nghiệp.",
-        "CEO Arthur Mensch của Mistral chỉ ra giải pháp ngách là phát triển AI nguồn mở tự chủ để doanh nghiệp vận hành nội bộ mà không phụ thuộc vào Mỹ.",
-        "Theo Semafor, châu Âu đang dần xác định được thị trường ngách thay vì cố gắng bao quát toàn bộ lĩnh vực. Ông Breit nhấn mạnh tình cảnh của ngành AI tại châu Âu hiện không hoàn toàn u ám."
+        "Tại sự kiện của Semafor, các lãnh đạo doanh nghiệp châu Âu cho biết giới công nghệ tại đây vẫn đối mặt với những trở ngại cũ kìm hãm họ trong cuộc đua AI toàn cầu.",
+        "Bộ trưởng AI Anh Kanishka Narayan cho biết Anh tụt hậu về quy mô và vốn so với Mỹ, còn ông Marco-Alexander Breit nhận định Đạo luật AI của EU tăng ngưỡng cho doanh nghiệp.",
+        "CEO Arthur Mensch của Mistral chỉ ra nhu cầu về các mô hình AI nguồn mở giá rẻ và tự chủ, giúp doanh nghiệp vận hành nội bộ mà không phụ thuộc vào Mỹ hay để lộ dữ liệu.",
+        "Theo Semafor, châu Âu đang bắt đầu xác định được thị trường ngách của mình. Ông Breit cũng nhấn mạnh tình hình tại châu lục này hiện không hoàn toàn u ám."
       ],
       "same_event_coverage_ids": [
         "be835ec159b923077944"
@@ -91967,7 +91936,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Ngành AI châu Âu vẫn tụt hậu trước Mỹ và Trung Quốc nhưng đang tìm kiếm thị trường ngách",
+      "editorial_headline_vi": "Giới lãnh đạo nhận định ngành AI châu Âu vẫn tụt hậu nhưng đang bắt đầu tìm ra thị trường ngách",
       "summary_sources": [
         {
           "id": "outlet",
@@ -91980,50 +91949,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 6.95,
+        "value": 9.0,
         "answers": {
-          "what": 8,
-          "why": 5,
-          "notable": 7,
-          "meaning": 7
+          "what": 10,
+          "why": 8,
+          "notable": 8,
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "quote",
-            "summary_text": "châu Âu tụt hậu về quy mô vốn trước Mỹ và Trung Quốc khi hai đối thủ này ở đẳng cấp hoàn toàn khác biệt",
-            "explanation": "Narayan compared the UK with the US and, to a lesser extent, China on both scale and capital. He did not make this equally strong claim about Europe versus both countries (outlet:p002)."
-          },
-          {
-            "kind": "quote",
-            "summary_text": "các quy định hiện hành tạo rào cản pháp lý lớn cho doanh nghiệp",
-            "explanation": "Breit specifically said Europe needs more innovation-friendly regulation and that the EU AI Act raises the threshold for European companies, while agreeing with most of the Act. The source does not describe existing rules generally as major legal barriers (outlet:p003)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "thay vì cố gắng bao quát toàn bộ lĩnh vực",
-            "explanation": "The source says Europe is beginning to identify niches; it does not say Europe had been trying to cover the entire field or is abandoning that approach (outlet:p004)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "why",
-            "problem": "The UK minister’s comparison becomes a broader, stronger claim about all of Europe and treats China the same as the US.",
-            "fix": "Keep the comparison anchored to the UK, distinguish China with the source’s hedge, and mention both scale and capital (outlet:p002)."
-          },
-          {
-            "question": "why",
-            "problem": "The regulation point is stronger and less specific than the German official’s position.",
-            "fix": "Name the EU AI Act and say Breit believes it raises the threshold for European firms, while he supports most of it (outlet:p003)."
-          },
-          {
-            "question": "meaning",
-            "problem": "The text invents a shift away from covering the whole AI field.",
-            "fix": "Say only that Europe is beginning to identify niches (outlet:p004)."
-          },
-          {
             "question": "notable",
-            "problem": "The practical appeal of Mistral’s proposed niche is incomplete.",
-            "fix": "Include lower cost and keeping company data from being exposed, alongside open-source and on-premises use (outlet:p004)."
+            "problem": "The reader sees Mistral's proposed niche but misses the specific paths Germany and the UK are pursuing.",
+            "fix": "Mention Germany's industrial data and the UK's interest in inference chips and AI for drug discovery (outlet:p004)."
           }
         ],
         "writer_boats": [
@@ -92031,8 +91969,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "46dda74c14959f48d0fabb67d02f1e5e2c8c8a88b985839f10c756402e0242f4",
-        "scored_at": "2026-11-18T03:46:22.584640+00:00"
+        "prose_sha256": "c40d9988ec45d8f3d5f035d05839eb6c15f00ed9419a63323ca2cbcbd0bf7e4f",
+        "scored_at": "2026-11-18T05:44:11.703356+00:00"
       }
     },
     {
@@ -92138,10 +92076,10 @@
       "use_original_title": false,
       "source_url": "https://www.semafor.com/article/11/17/2026/recent-ai-cyberattacks-are-part-of-a-short-period-of-transition-says-yann-lecun",
       "key_points": [
-        "Tại sự kiện của Semafor, nhà sáng lập AMI Yann LeCun nhận định các vụ tấn công mạng bằng AI chỉ là giai đoạn chuyển tiếp ngắn trước kỷ nguyên an toàn phần mềm.",
-        "Ông LeCun giải thích phần mềm trong tương lai sẽ được củng cố vững chắc hơn nhờ chính AI, dù hiện tại công cụ AI đang tạo lợi thế cho bên tấn công.",
-        "Ông LeCun cho biết robot gia dụng cần đột phá khái niệm vì robot dạng người hiện chỉ làm được tác vụ rất hẹp trong môi trường kiểm soát tốt.",
-        "Ông LeCun nhận định AI vật lý là điểm mù hoàn toàn của các mô hình ngôn ngữ lớn, khiến giới nghiên cứu mô hình thế giới phải chuyển hướng sang lĩnh vực này."
+        "Tại sự kiện của Semafor, nhà sáng lập kiêm chủ tịch AMI Yann LeCun dự báo sẽ có một giai đoạn chuyển tiếp ngắn khi các công cụ AI hỗ trợ tấn công mạng và tạo lợi thế cho bên tấn công hơn bên phòng thủ.",
+        "Ông LeCun nhận định đây chỉ là giai đoạn chuyển tiếp vì các hệ thống phần mềm trong tương lai sẽ được chính AI củng cố để tăng cường an toàn.",
+        "Đề cập đến AI vật lý, ông cho biết robot dạng người hiện chỉ làm được các tác vụ rất hẹp trong môi trường kiểm soát tốt, và cần đột phá khái niệm để tạo ra robot gia dụng hữu ích.",
+        "Dù thừa nhận thách thức công nghệ, ông LeCun chia sẻ bản thân rất ít lo ngại về AI. Ông nhận định thế giới có thể sẽ bước vào một kỷ nguyên an toàn chưa từng có cho các hệ thống phần mềm."
       ],
       "same_event_coverage_ids": [
         "dc94fb7b94f73148cf26"
@@ -92158,7 +92096,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Yann LeCun nhận định tấn công mạng bằng AI chỉ là bước chuyển tiếp ngắn hạn",
+      "editorial_headline_vi": "Yann LeCun dự báo lợi thế của kẻ tấn công mạng bằng AI chỉ là bước chuyển tiếp ngắn",
       "summary_sources": [
         {
           "id": "outlet",
@@ -92171,49 +92109,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 7.65,
+        "value": 10.0,
         "answers": {
-          "what": 7,
-          "why": 8,
-          "notable": 8,
-          "meaning": 8
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "các vụ tấn công mạng bằng AI chỉ là giai đoạn chuyển tiếp ngắn",
-            "explanation": "LeCun predicted a short period when AI tools facilitate cyberattacks and favor attackers; he did not say AI-assisted cyberattacks themselves would end after that period (outlet:p002)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "hiện tại công cụ AI đang tạo lợi thế cho bên tấn công",
-            "explanation": "LeCun predicted a future short period of advantage for attackers; the source does not establish that this advantage exists now (outlet:p002)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "what",
-            "problem": "The reader may think AI-assisted cyberattacks will last only briefly.",
-            "fix": "Specify that LeCun expects a short-lived advantage for attackers over defenders, not an end to such attacks (outlet:p002)."
-          },
-          {
-            "question": "meaning",
-            "problem": "The safety prediction sounds more certain than LeCun's statement.",
-            "fix": "Restore his “probably” qualification and describe the predicted safety as unprecedented (outlet:p001)."
-          },
-          {
-            "question": "why",
-            "problem": "The account presents a predicted attacker advantage as a current fact.",
-            "fix": "Use future or predictive wording for the transition LeCun described (outlet:p002)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "b1b3dafffbf865866bcba33926f151f621693e0f33587f66303c6adcff8fdee8",
-        "scored_at": "2026-11-18T03:46:22.584709+00:00"
+        "prose_sha256": "f117c788125c2b8da4a2c22ff695bac72f58d002d123b129c983c5735b1315dc",
+        "scored_at": "2026-11-18T05:44:11.703380+00:00"
       }
     },
     {
@@ -92386,10 +92297,9 @@
       "use_original_title": false,
       "source_url": "https://revscope.co/blog/search-seo-geo-2026/",
       "key_points": [
-        "Theo nghiên cứu thử nghiệm của Saharsh Agarwal và Ananya Sen, tính năng AI Overviews (tóm tắt do AI tạo) của Google làm giảm 39,8% lượt nhấp vào các website bên ngoài. Theo DataForSEO, tỷ lệ kết quả tìm kiếm hiển thị phần tóm tắt này đã tăng từ 5,93% vào tháng 9 năm 2024 lên 61,43% vào tháng 8 năm 2026.",
-        "Trong cùng giai đoạn, tỷ lệ hiển thị đoạn trích dẫn truyền thống giảm từ 8,96% xuống 0,44%, còn khối thảo luận diễn đàn giảm từ 21,13% xuống 7,42%.",
-        "Tính trên mọi tìm kiếm, hai tác giả ước tính website mất khoảng 18,5% lượt nhấp tự nhiên nhận từ Google. Ở các tìm kiếm có tóm tắt, tỷ lệ phiên kết thúc mà không có lượt nhấp nào ra website ngoài tăng từ 54% lên 73%, trong khi số nhấp quảng cáo không đổi.",
-        "Hiệu ứng giảm nhấp này chỉ có ý nghĩa thống kê với tìm kiếm thông tin, còn cỡ mẫu tìm kiếm điều hướng và giao dịch quá nhỏ để kết luận. Hai tác giả nhấn mạnh đây là nghiên cứu sơ bộ chưa qua bình duyệt và thử nghiệm mới chỉ giới hạn trên người dùng máy tính."
+        "Tính năng AI Overviews (tóm tắt do AI tạo) của Google làm giảm 39,8% lượt nhấp ra website bên ngoài ở các tìm kiếm có hiển thị phần tóm tắt, theo báo cáo của Saharsh Agarwal và Ananya Sen. Thử nghiệm ngẫu nhiên vào đầu năm 2026 trên người dùng Chrome máy tính tại Mỹ so sánh nhóm xem kết quả bình thường với nhóm bị ẩn tính năng này.",
+        "Ở các tìm kiếm có tóm tắt, nhóm thấy AI Overviews đạt trung bình 0,37 lượt nhấp ra website ngoài mỗi lượt tìm kiếm, so với 0,62 ở nhóm bị ẩn. Tỷ lệ tìm kiếm kết thúc mà không có lượt nhấp nào ra bên ngoài tăng từ 54% lên 73%, song số lượt nhấp vào quảng cáo không thay đổi.",
+        "Tính trên toàn bộ tìm kiếm gồm cả có và không có tóm tắt, hai tác giả ước tính website mất khoảng 18,5% lượt nhấp tự nhiên từ Google và dự kiến con số này sẽ tăng khi tóm tắt xuất hiện nhiều hơn. Mức sụt giảm này chỉ có ý nghĩa thống kê đối với các tìm kiếm thông tin, đồng thời đây là bài nghiên cứu sơ bộ chưa qua bình duyệt và mới chỉ đo lường trên máy tính."
       ],
       "same_event_coverage_ids": [
         "9d56fa744d9a0f1e92d2",
@@ -92404,7 +92314,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Thử nghiệm trên máy tính: AI Overviews của Google làm giảm 39,8% lượt nhấp vào các website ngoài",
+      "editorial_headline_vi": "Thử nghiệm trên máy tính: AI Overviews giảm 39,8% lượt nhấp ở các tìm kiếm có hiển thị tóm tắt",
       "summary_sources": [
         {
           "id": "outlet",
@@ -92419,54 +92329,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 7.75,
+        "value": 9.85,
         "answers": {
-          "what": 6,
-          "why": 8,
-          "notable": 9,
+          "what": 10,
+          "why": 10,
+          "notable": 10,
           "meaning": 9
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "AI Overviews của Google làm giảm 39,8% lượt nhấp vào các website ngoài",
-            "explanation": "Without the eligible search condition, the headline presents the 39.8% reduction too broadly. The experiment found it on searches that would show an Overview (outlet:p016)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "tính năng AI Overviews (tóm tắt do AI tạo) của Google làm giảm 39,8% lượt nhấp vào các website bên ngoài",
-            "explanation": "The opening sentence repeats the reduction without its search condition. Across all searches, the authors estimated an approximately 18.5% loss of organic clicks (outlet:p016)."
-          },
-          {
-            "kind": "role",
-            "summary_text": "Hai tác giả nhấn mạnh đây là nghiên cứu sơ bộ chưa qua bình duyệt",
-            "explanation": "The supplied source describes the study as a working paper that has not been peer reviewed; it does not report the two researchers emphasizing that limitation (outlet:p016)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "what",
-            "problem": "The 39.8% figure appears to apply to all Google searches.",
-            "fix": "State in the headline or opening sentence that the reduction was measured on searches that would show an AI Overview, comparing users who saw it with users for whom it was hidden (outlet:p016)."
-          },
-          {
-            "question": "notable",
-            "problem": "The experimental comparison behind the main figure is missing.",
-            "fix": "Add the 0.37 versus 0.62 average outbound clicks per eligible search, with each figure assigned to its study group (outlet:p016)."
-          },
-          {
-            "question": "meaning",
-            "problem": "The peer review limitation is attributed to the researchers without support.",
-            "fix": "State directly that the work is a paper that has not yet been peer reviewed (outlet:p016)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "923f7f5a38b4b97dba1768b4e8cc730914e3ecfd6a51e81a61df506b067872a0",
-        "scored_at": "2026-11-18T04:00:31.729074+00:00"
+        "prose_sha256": "77234447a6d02de0c0778d35548c718bc2b885762a075f4b92c2fd7872c08626",
+        "scored_at": "2026-11-18T05:44:11.703402+00:00"
       }
     },
     {
@@ -92577,10 +92455,10 @@
       "use_original_title": false,
       "source_url": "https://www.theverge.com/tech/1036111/satya-nadella-says-hes-agi-pilled-now",
       "key_points": [
-        "Tổng giám đốc Microsoft Satya Nadella cảnh báo nền kinh tế và thể chế dân chủ có nguy cơ sụp đổ nếu một mô hình trí tuệ nhân tạo (AI) duy nhất độc quyền. Tại hội nghị Microsoft Ignite, ông khẳng định bản thân tin vào AGI (AI tổng quát) trước các biến động lớn đối với cấu trúc kinh tế.",
-        "Theo ông Nadella, mô hình AI không có giới hạn ngành nghề và có thể trở thành công ty tài chính, y tế hay tiếp quản chính phủ. Vì vậy, ông coi việc xem AI như cuộc đua hẹp nhằm đạt giá trị vốn hóa nghìn tỷ USD giữa các hãng công nghệ là cách nghĩ sai lầm.",
-        "Dù vậy, ông Nadella khẳng định không tin các mô hình tiên phong như Claude có ý thức và đồng thuận việc không trao tư cách đạo đức cho chúng. Ông nhấn mạnh thách thức kỹ thuật xã hội cốt lõi là đảm bảo công nghệ được phổ biến rộng rãi cho toàn bộ nền kinh tế.",
-        "Theo ông Nadella, nếu một mô hình khiến vốn con người sụp đổ thành vốn token và nền kinh tế chỉ còn vốn mà không có lao động, thì không ai trong một nền dân chủ có thể thắng cử. The Verge nhận định lập luận đa dạng hóa mô hình này cũng nhằm quảng bá các công cụ Microsoft giúp khách hàng tự chủ dữ liệu để ngăn quyền kiểm soát tập trung."
+        "Tổng giám đốc Microsoft Satya Nadella cho biết ông lo ngại tác động của AGI (trí tuệ nhân tạo tổng quát) đối với cơ cấu kinh tế và chính trị, ít nhất là trước những thay đổi đối với cấu trúc nền kinh tế. Dù không nghĩ các mô hình như Claude có ý thức, ông coi đây là tranh luận xác đáng và khẳng định mình không giáo điều.",
+        "Theo ông Nadella, mô hình AI không có giới hạn phạm vi và có thể trở thành công ty tài chính, y tế hay tiếp quản chính phủ. Ông đánh giá việc coi AI là cuộc cạnh tranh công nghệ thu hẹp xoay quanh mốc vốn hóa nghìn tỷ USD là cách nhìn hạn hẹp.",
+        "Ông Nadella cảnh báo kinh tế và thể chế dân chủ có thể sụp đổ nếu một mô hình AI duy nhất độc quyền. Theo ông, nếu nguồn vốn con người chuyển thành vốn token và kinh tế không còn lao động, không ai trong thể chế dân chủ có thể thắng cử.",
+        "The Verge cho biết ông Nadella đồng thời quảng bá các công cụ Microsoft giúp doanh nghiệp tự chạy mô hình và kiểm soát dữ liệu riêng. Tác giả bài viết nhận định ý tưởng này bắt nguồn từ dự báo thị trường cần nhiều mô hình để tránh tập trung quyền kiểm soát."
       ],
       "same_event_coverage_ids": [
         "4c268dfa6e86a1195d65"
@@ -92598,7 +92476,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Satya Nadella cảnh báo nguy cơ sụp đổ kinh tế nếu một mô hình AI đạt vị thế độc quyền",
+      "editorial_headline_vi": "Satya Nadella cảnh báo nguy cơ sụp đổ kinh tế nếu một mô hình AI độc quyền",
       "summary_sources": [
         {
           "id": "outlet",
@@ -92611,54 +92489,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 7.3,
+        "value": 9.0,
         "answers": {
-          "what": 6,
-          "why": 8,
+          "what": 9,
+          "why": 9,
           "notable": 9,
-          "meaning": 6
+          "meaning": 9
         },
-        "hard_errors": [
-          {
-            "kind": "quote",
-            "summary_text": "ông khẳng định bản thân tin vào AGI (AI tổng quát)",
-            "explanation": "Nadella defined being AGI focused in terms of questions about the economy and political organization around AGI; he did not make the unqualified profession of belief stated here (outlet:p016)."
-          },
-          {
-            "kind": "quote",
-            "summary_text": "ông Nadella khẳng định không tin các mô hình tiên phong như Claude có ý thức",
-            "explanation": "Nadella said he did not think so, but immediately called it a good debate and said he was not dogmatic. The Vietnamese makes his position sound more categorical (outlet:p017–p018)."
-          },
-          {
-            "kind": "cause",
-            "summary_text": "lập luận đa dạng hóa mô hình này cũng nhằm quảng bá các công cụ Microsoft",
-            "explanation": "The source says Nadella was also promoting Microsoft’s AI tools at Ignite and describes how they relate to decentralized control. It does not say his argument was made for the purpose of promoting them (outlet:p026)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "what",
-            "problem": "Readers may take Nadella’s AGI remark as an unqualified statement of belief.",
-            "fix": "Explain that he used the phrase specifically for his concern about AGI’s possible effects on economic and political organization (outlet:p016)."
-          },
-          {
-            "question": "meaning",
-            "problem": "The summary assigns a promotional motive to Nadella’s argument.",
-            "fix": "Say separately that he was promoting Microsoft tools that let customers choose models, run their own, and control data (outlet:p026)."
-          },
-          {
-            "question": "what",
-            "problem": "His view on model consciousness sounds more settled than he presented it.",
-            "fix": "Keep his stated uncertainty: he does not think models such as Claude are conscious, but considers it a legitimate debate and says he is not dogmatic (outlet:p017–p018)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "48d6e3dd874ef4ed9e2561159c7328b41a7e9ae228446c8471dfd5853c79218c",
-        "scored_at": "2026-11-18T04:00:31.729103+00:00"
+        "prose_sha256": "651b1a658aef9f4db93043ae25e3ca8b4c8e91fd1ed950385fd994d85c2d2dd7",
+        "scored_at": "2026-11-18T05:44:11.703427+00:00"
       }
     },
     {
@@ -92677,10 +92523,10 @@
       "use_original_title": false,
       "source_url": "https://techcrunch.com/2026/11/17/nvidia-is-abandoning-china-after-jensen-huangs-ouster/",
       "key_points": [
-        "Quyền Tổng giám đốc Colette Kress tuyên bố Nvidia ngừng bán chip H200 tại Trung Quốc, chấm dứt kẽ hở xuất khẩu gây tranh cãi. Động thái này diễn ra trong kỳ báo cáo tài chính đầu tiên sau khi đồng sáng lập Jensen Huang rời chức vụ.",
-        "Thỏa thuận bán chip H200 từng được ông Huang và Tổng thống Donald Trump dàn xếp với mức thuế quan 25%.",
-        "Quyết định ngừng bán trùng thời điểm Mỹ ban hành quy định cấm cung cấp chip tiên tiến cho các trung tâm dữ liệu nước ngoài phục vụ khách hàng Trung Quốc từ xa. Luật sư Dan Fisher-Owens lưu ý các cơ sở này muốn mua chip Nvidia bắt buộc phải chứng nhận không phục vụ bất kỳ khách hàng Trung Quốc nào.",
-        "Ngân hàng Jefferies dự báo quy định mới có thể làm giảm từ 44 đến 62 tỷ USD doanh thu trung tâm dữ liệu của Nvidia năm tới, nhưng bà Kress khẳng định nhu cầu chip Vera Rubin giúp tổng doanh thu không bị ảnh hưởng. Dù vậy, nếu không thể chứng nhận, các cơ sở này có thể chuyển sang dùng chip khác và làm giảm thị phần của hãng."
+        "Quyền Tổng giám đốc Colette Kress tuyên bố Nvidia sẽ ngừng bán chip H200 tại Trung Quốc, chấm dứt kẽ hở xuất khẩu trong lệnh cấm của Mỹ. Thông tin được đưa ra trong kỳ báo cáo tài chính đầu tiên sau khi cựu Tổng giám đốc Jensen Huang rời nhiệm sở vào tuần trước.",
+        "Theo nhà nghiên cứu Jacob Feldgoise, ngay trước khi Nvidia ngừng giao chip H200, phía Trung Quốc phần lớn đã từ chối tiếp nhận các lô hàng. Chuyên gia này cho biết chính quyền nước này ưu tiên tạo nhu cầu cho ngành chip nội địa, dù các khách hàng lớn vẫn chuộng thiết bị của Nvidia.",
+        "Ngân hàng Jefferies dự báo các quy định mới có thể làm giảm từ 44 đến 62 tỷ USD doanh thu trung tâm dữ liệu của Nvidia vào năm tới. Trái lại, bà Kress khẳng định nhu cầu tồn đọng cho chip tiên tiến Vera Rubin giúp tổng doanh thu không bị ảnh hưởng.",
+        "Quy định mới của Mỹ cấm cung cấp chip tiên tiến của Mỹ cho các trung tâm dữ liệu nước ngoài phục vụ từ xa khách hàng Trung Quốc. Theo luật sư Dan Fisher-Owens, nếu không thể chứng nhận điều này, các cơ sở lớn có thể chuyển sang dùng chip khác và bào mòn thị phần của Nvidia."
       ],
       "same_event_coverage_ids": [
         "97b8d0cb8a05880ae2c3"
@@ -92703,7 +92549,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Nvidia dừng bán chip H200 sang Trung Quốc sau khi cựu Tổng giám đốc Jensen Huang rời chức vụ",
+      "editorial_headline_vi": "Nvidia ngừng bán chip H200 tại Trung Quốc sau khi cựu Tổng giám đốc Jensen Huang rời nhiệm sở",
       "summary_sources": [
         {
           "id": "outlet",
@@ -92716,30 +92562,35 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.2,
+        "value": 8.45,
         "answers": {
-          "what": 9,
-          "why": 10,
-          "notable": 9,
-          "meaning": 9
+          "what": 7,
+          "why": 9,
+          "notable": 10,
+          "meaning": 8
         },
         "hard_errors": [
           {
             "kind": "fact",
-            "summary_text": "chấm dứt kẽ hở xuất khẩu gây tranh cãi",
-            "explanation": "Nvidia ended its participation in the controversial loophole; the source does not say its sales decision ended the loophole itself (outlet:p006)."
+            "summary_text": "chấm dứt kẽ hở xuất khẩu trong lệnh cấm của Mỹ",
+            "explanation": "Nvidia ended its participation in the H200 sales loophole; the source does not say Nvidia closed the loophole itself (outlet:p006)."
+          },
+          {
+            "kind": "role",
+            "summary_text": "Theo luật sư Dan Fisher-Owens, nếu không thể chứng nhận điều này, các cơ sở lớn có thể chuyển sang dùng chip khác và bào mòn thị phần của Nvidia",
+            "explanation": "Fisher-Owens is cited for the certification requirement. The subsequent possibility of switching chips and eroding Nvidia’s market share is stated by the article (outlet:p015–p016)."
           }
         ],
         "findings": [
           {
             "question": "what",
-            "problem": "The reader could believe Nvidia’s decision closed the export loophole.",
-            "fix": "Say it ended Nvidia’s participation in that loophole (outlet:p006)."
+            "problem": "The reader may believe Nvidia closed a regulatory loophole.",
+            "fix": "Say its decision ended Nvidia’s participation in the H200 sales route (outlet:p006)."
           },
           {
-            "question": "notable",
-            "problem": "The 25% tariff lacks the detail that explains how the H200 arrangement worked.",
-            "fix": "Add that the chips were shipped through the US, allowing the government to collect the tariff (outlet:p008)."
+            "question": "meaning",
+            "problem": "The potential switch to other chips is credited to Fisher-Owens.",
+            "fix": "Attribute only the certification requirement to him, then present the possible market-share effect as the article’s conclusion (outlet:p015–p016)."
           }
         ],
         "writer_boats": [
@@ -92747,8 +92598,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "50e161c4a86be2eb8804d7ed1a56243029bdb84a3310ef03e418ca7bdc032988",
-        "scored_at": "2026-11-18T04:00:31.729125+00:00"
+        "prose_sha256": "d0659598b013cf2b8c8f30bb3ad0fb14e29e14360af47df7647e47cfc67a03af",
+        "scored_at": "2026-11-18T05:48:17.559901+00:00"
       }
     },
     {
@@ -92831,10 +92682,10 @@
       "use_original_title": false,
       "source_url": "https://www.semafor.com/article/11/17/2026/lutnick-must-answer-questions-from-congress-on-nvidia-kelly-says",
       "key_points": [
-        "Semafor đưa tin Thượng nghị sĩ Mark Kelly yêu cầu Bộ trưởng Thương mại Howard Lutnick điều trần trước Quốc hội. Động thái này diễn ra trước nghi vấn ông Lutnick hoãn hạn chế xuất khẩu chip AI sang Trung Quốc.",
-        "Thượng nghị sĩ Kelly muốn nghe câu trả lời về lý do Bộ trưởng Lutnick đưa ra các quyết định này. Ông cũng nêu nghi vấn về lợi ích gia đình của Bộ trưởng trong ngành AI và cho rằng ông Lutnick đáng ra phải bị bãi nhiệm từ trước.",
-        "Trước đó, ông Huang từ chức tuần trước sau các tiết lộ về quan hệ ngoài luồng, gồm một phụ nữ bị nghi là gián điệp Trung Quốc.",
-        "Ông cũng kêu gọi lập rào cản cho AI và cho rằng cá nhân có thể bị xử lý ở các vi phạm đặc biệt nghiêm trọng tùy theo hậu quả."
+        "Thượng nghị sĩ Mark Kelly yêu cầu Bộ trưởng Thương mại Howard Lutnick điều trần trước Quốc hội. Động thái này diễn ra trước nghi vấn ông Lutnick hoãn hạn chế xuất khẩu chip AI sang Trung Quốc.",
+        "Thượng nghị sĩ Kelly muốn tìm câu trả lời về lý do đưa ra các quyết định của Bộ trưởng Lutnick. Ông cũng nêu nghi vấn về lợi ích gia đình của Bộ trưởng trong ngành AI và cho rằng ông Lutnick đáng ra phải bị bãi nhiệm từ trước.",
+        "Thượng nghị sĩ Kelly cũng yêu cầu câu trả lời từ cựu CEO của Nvidia, ông Jensen Huang, người đã từ chức sau những tiết lộ về quan hệ với một phụ nữ bị nghi là gián điệp Trung Quốc.",
+        "Thượng nghị sĩ Kelly ủng hộ ba điều khoản thắt chặt kiểm soát xuất khẩu trong dự luật quốc phòng của Thượng viện đối với các nước như Trung Quốc. Ông cũng kêu gọi lập rào cản cho AI và cho rằng cá nhân có thể bị xử lý tùy hậu quả ở vi phạm nghiêm trọng."
       ],
       "same_event_coverage_ids": [
         "d1e01cb82f2c56e29eae"
@@ -92854,7 +92705,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Thượng nghị sĩ Kelly yêu cầu Bộ trưởng Thương mại Lutnick điều trần về việc hoãn hạn chế chip AI sang Trung Quốc",
+      "editorial_headline_vi": "Thượng nghị sĩ Kelly yêu cầu Bộ trưởng Lutnick điều trần về việc hoãn hạn chế chip AI sang Trung Quốc",
       "summary_sources": [
         {
           "id": "outlet",
@@ -92867,24 +92718,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.8,
+        "value": 9.25,
         "answers": {
           "what": 10,
           "why": 10,
-          "notable": 7,
-          "meaning": 8
+          "notable": 8,
+          "meaning": 9
         },
         "hard_errors": [],
         "findings": [
           {
             "question": "notable",
-            "problem": "The paragraph about Huang leaves out why he matters to Kelly’s demand for answers.",
-            "fix": "Add that Kelly wants answers from Huang and that Huang volunteered to testify (outlet:p006-p007)."
-          },
-          {
-            "question": "meaning",
-            "problem": "The reader misses Kelly’s specific legislative position on exports.",
-            "fix": "Mention his support for three bipartisan Senate defense bill provisions strengthening export restrictions on countries of concern, including China (outlet:p012)."
+            "problem": "The reader misses why Kelly questions reliance on a Justice Department investigation.",
+            "fix": "Add that Kelly expressed doubt about the department’s ability to investigate impartially (outlet:p008–p011)."
           }
         ],
         "writer_boats": [
@@ -92892,8 +92738,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "8b8fcac6563783ab5e5ccf2acbcb428c89db6937912597e487613324263e0688",
-        "scored_at": "2026-11-18T04:00:31.729144+00:00"
+        "prose_sha256": "03f77f60bab6e6b9c3e16a899fb04a188771f4f412607ef878b3a518f9bcaeca",
+        "scored_at": "2026-11-18T05:44:11.703476+00:00"
       }
     },
     {
@@ -92913,10 +92759,10 @@
       "use_original_title": false,
       "source_url": "https://www.semafor.com/article/11/17/2026/some-nvidia-directors-push-to-bring-huang-back-despite-board-opposition",
       "key_points": [
-        "Chủ tịch Nvidia, ông Harvey Jones, tuyên bố không có kế hoạch đưa Jensen Huang trở lại vị trí Tổng giám đốc.",
-        "Theo nguồn thạo tin, ông Huang đã trao đổi với một thành viên hội đồng quản trị về khả năng trở lại trước khi công khai sẵn sàng nhận nhiệm vụ nếu điều đó đem lại lợi ích tốt nhất.",
-        "Semafor đưa tin một nhóm thành viên hội đồng quản trị vận động đưa Huang trở lại trong khi những người khác xem xét lãnh đạo ARM và Marvell.",
-        "Theo nguồn thạo tin, quá trình tìm kiếm người kế nhiệm gặp trở ngại về hình ảnh dư luận và các thương vụ sáp nhập. Ông Haas e ngại dư luận xung quanh việc ông Huang rời ghế, còn Marvell của ông Murphy đang sáp nhập với Lumentum."
+        "Chủ tịch hội đồng quản trị Harvey Jones của Nvidia tuyên bố không có kế hoạch đưa cựu CEO Jensen Huang trở lại sau khi hội đồng quản trị nhất trí chấp thuận đơn từ chức.",
+        "Theo các nguồn thạo tin, ông Huang đã trao đổi với một thành viên hội đồng quản trị về khả năng quay lại trước khi công khai sẵn sàng tiếp nhận nhiệm vụ nếu điều đó đem lại lợi ích tốt nhất.",
+        "Hội đồng quản trị xem xét các ứng viên kế nhiệm gồm CEO Rene Haas của ARM và CEO Matt Murphy của Marvell, theo nguồn thạo tin.",
+        "Theo Semafor, hiện chưa rõ liệu ông Murphy có thể tiếp quản vị trí CEO của Nvidia hay không do Marvell đang sáp nhập với Lumentum."
       ],
       "same_event_coverage_ids": [
         "3d44fcdcb2c6b433c63e",
@@ -92950,25 +92796,24 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.9,
+        "value": 8.4,
         "answers": {
-          "what": 9,
+          "what": 8,
           "why": 10,
           "notable": 8,
-          "meaning": 9
+          "meaning": 8
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "Ông Haas e ngại dư luận xung quanh việc ông Huang rời ghế",
-            "explanation": "Haas’s stated concern is the optics of taking the CEO job amid calls to bring Huang back, not public reaction to Huang’s departure in general (outlet:p008)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "notable",
-            "problem": "The reader cannot tell what specifically gives Haas pause.",
-            "fix": "Say Haas is concerned about the optics of accepting the role while people are calling for Huang’s return (outlet:p008)."
+            "question": "what",
+            "problem": "The headline mentions disagreement, but the body never states the reported action behind it.",
+            "fix": "Say explicitly that a minority of directors is pushing for Huang’s return despite Jones’s statement (outlet:p001, outlet:p007)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The reader misses a complication in the successor search.",
+            "fix": "Add that Haas has spoken with some directors but is concerned about taking the role while others call for Huang’s return (outlet:p008)."
           }
         ],
         "writer_boats": [
@@ -92976,8 +92821,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "74470c697dc642e04fdc7082eac3cfe709217e45dc4dc4fc76a09d098dfc64c4",
-        "scored_at": "2026-11-18T03:46:22.584923+00:00"
+        "prose_sha256": "40629d9951b79434cb2d20b05d3d0247723f0245dc386c3fcfdf36d6c12b38fa",
+        "scored_at": "2026-11-18T05:44:11.703496+00:00"
       }
     },
     {
@@ -92996,10 +92841,10 @@
       "use_original_title": false,
       "source_url": "https://www.semafor.com/article/11/17/2026/anthropic-momentum-builds-ahead-of-ipo",
       "key_points": [
-        "Semafor cho biết Anthropic nâng mục tiêu giá cổ phiếu trong đợt IPO cuối tuần này. Động thái diễn ra bất chấp đà sụt giảm của cổ phiếu công nghệ.",
-        "Theo bài báo, quyết định bắt nguồn từ việc nhu cầu của nhà đầu tư tăng mạnh bất chấp thị trường suy giảm.",
-        "Bloomberg Intelligence ghi nhận lượng đặt mua gấp gần bảy lần số cổ phiếu và gánh khoản tài trợ hạ tầng 900 tỷ USD. Áp lực này buộc công ty phải duy trì giá token (đơn vị dữ liệu) cao hơn các đối thủ dịch vụ đám mây.",
-        "Nhà báo Derek Thompson cảnh báo rủi ro điều chỉnh toàn ngành nếu Nvidia cắt giảm đầu tư và nguồn vốn thắt chặt."
+        "Semafor cho biết Anthropic được đưa tin đang nhắm mức giá cổ phiếu cao hơn mục tiêu ban đầu trong đợt IPO vào cuối tuần này.",
+        "Kế hoạch này diễn ra giữa lúc nhu cầu đặt mua tăng mạnh, bất chấp đà suy thoái của nhóm cổ phiếu công nghệ.",
+        "Hãng thu hút lượng đặt mua gấp gần bảy lần lượng cổ phiếu có sẵn, nhưng phải chịu khoảng 900 tỷ USD cam kết tài trợ hạ tầng. Bloomberg Intelligence cảnh báo điều này làm tăng áp lực duy trì giá token (đơn vị dữ liệu) cao so với các đối thủ đám mây và mô hình mở.",
+        "Nhà báo Derek Thompson cảnh báo nguy cơ điều chỉnh toàn ngành nếu nguồn tài trợ và nhu cầu cùng lúc thắt chặt."
       ],
       "same_event_coverage_ids": [
         "bd020f6f55e459b5fdbe"
@@ -93016,7 +92861,7 @@
         "is_leak": true
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Anthropic tăng giá chào bán IPO giữa nhu cầu cao gấp 7 lần nhưng chịu sức ép từ 900 tỷ USD nợ hạ tầng",
+      "editorial_headline_vi": "Anthropic được đưa tin nhắm giá IPO cao hơn giữa nhu cầu lớn nhưng chịu áp lực từ 900 tỷ USD cam kết hạ tầng",
       "summary_sources": [
         {
           "id": "outlet",
@@ -93029,60 +92874,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 4.7,
+        "value": 9.7,
         "answers": {
-          "what": 5,
-          "why": 2,
-          "notable": 5,
-          "meaning": 7
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 8
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "Anthropic tăng giá chào bán IPO",
-            "explanation": "The source says Anthropic is reportedly targeting a higher share price for an upcoming IPO; it does not report that an offering price has been raised (outlet:p001)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "900 tỷ USD nợ hạ tầng",
-            "explanation": "The source describes about $900 billion in infrastructure financing commitments, not debt (outlet:p002)."
-          },
-          {
-            "kind": "cause",
-            "summary_text": "quyết định bắt nguồn từ việc nhu cầu của nhà đầu tư tăng mạnh",
-            "explanation": "The source places the reported higher target amid mounting demand but does not establish that demand caused Anthropic’s decision (outlet:p001)."
-          },
-          {
-            "kind": "role",
-            "summary_text": "Bloomberg Intelligence ghi nhận lượng đặt mua gấp gần bảy lần số cổ phiếu",
-            "explanation": "The source reports the order volume itself; it attributes the warning about financing pressure and premium token pricing to Bloomberg Intelligence (outlet:p002)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "buộc công ty phải duy trì giá token",
-            "explanation": "Bloomberg Intelligence describes increased pressure to sustain premium pricing, not an obligation that forces Anthropic to do so (outlet:p002)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "what",
-            "problem": "The headline makes a reported price target sound like an actual change to the IPO offering price.",
-            "fix": "Say Anthropic is reportedly seeking a higher share price for its upcoming IPO (outlet:p001)."
-          },
-          {
-            "question": "why",
-            "problem": "The body asserts a cause the source does not establish.",
-            "fix": "Present rising investor demand as the context for the reported target, without saying it caused the decision (outlet:p001)."
-          },
-          {
-            "question": "notable",
-            "problem": "Readers may mistake financing commitments for debt and Bloomberg Intelligence for the source of the order figure.",
-            "fix": "Describe about $900 billion in infrastructure financing commitments, and attribute Bloomberg Intelligence only to its warning about pricing pressure (outlet:p002)."
-          },
-          {
             "question": "meaning",
-            "problem": "The industry warning loses its condition that demand tightens along with financing.",
-            "fix": "Include the prospect of more frugal enterprise customers and the joint tightening of finance and demand (outlet:p003)."
+            "problem": "The reader misses the specific development the source says could make Anthropic’s commitments harder to meet.",
+            "fix": "Add that reduced Nvidia investment could make capital scarcer and enterprise customers more cautious (outlet:p003)."
           }
         ],
         "writer_boats": [
@@ -93090,8 +92894,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "7760e35081558daae4a014037405978201ae00e122ffd2e610b4ac8e12ab4847",
-        "scored_at": "2026-11-18T03:46:22.584950+00:00"
+        "prose_sha256": "53f5cbaaf11e09aaf73eddf817741c76d2aa36f28cc316ae4feef092d8623449",
+        "scored_at": "2026-11-18T05:44:11.703513+00:00"
       }
     },
     {
@@ -93465,10 +93269,10 @@
       "use_original_title": false,
       "source_url": "https://www.theverge.com/tech/1035027/tech-leaders-nvidia-jensen-huang-theories",
       "key_points": [
-        "Theo ký giả Emma Roth trên The Verge, nhiều nhân vật nổi tiếng trong giới công nghệ cho rằng việc cựu CEO Jensen Huang của Nvidia từ chức là kết quả của một âm mưu nhắm vào ông. Vụ việc bắt nguồn từ các cáo buộc về mối quan hệ tình cảm của ông với một cựu giám đốc và hai nhân viên Nvidia.",
-        "Tâm điểm giả thuyết là thông tin cựu giám đốc Alice Huang là gián điệp Trung Quốc, làm dấy lên nghi vấn lách lệnh cấm xuất khẩu chip. Nhà đầu tư David Sacks cùng CEO Tim Sweeney đều hoài nghi tính xác thực khi cơ quan chức năng Mỹ chưa xác nhận cáo buộc này.",
-        "Hơn 185.000 người cùng Elon Musk đã ký thư ngỏ Stand with Jensen để kêu gọi phục chức CEO cho ông Huang. Giám đốc Amjad Masad gọi thời điểm này đáng ngờ, còn SemiAnalysis suy đoán vụ việc nhằm dọn đường cho dự luật siết xuất khẩu chip AI.",
-        "Bức thư Stand with Jensen yêu cầu làm rõ sự thật vì nghi ngờ đơn thuần chưa đủ căn cứ phế truất ông Huang. Dẫu vậy, các cơ quan chức năng Mỹ chưa từng xác nhận thông tin gián điệp, và Tổng thống Donald Trump cũng tuyên bố không hề hay biết."
+        "Theo The Verge, nhiều nhân vật công nghệ nghi ngờ việc cựu CEO (giám đốc điều hành) Jensen Huang từ chức là một âm mưu và kêu gọi phục chức cho ông. Việc ông rời Nvidia sau hơn 33 năm đã gây chấn động toàn ngành công nghệ.",
+        "The Verge cho biết mối quan hệ bị cáo buộc với bà Alice Huang đã châm ngòi cho việc từ chức, trước khi xuất hiện các báo cáo sau đó về hai nhân viên Nvidia. Tâm điểm giả thuyết là tin The New York Times rằng bà Alice Huang là gián điệp Trung Quốc, làm dấy lên nghi vấn khách hàng lách lệnh cấm xuất khẩu chip.",
+        "Hơn 185.000 người cùng Elon Musk và các lãnh đạo công nghệ đã ký thư Stand with Jensen để kêu gọi phục chức CEO cho ông Huang. Công ty nghiên cứu SemiAnalysis suy đoán vụ việc nhằm loại bỏ sự phản đối đối với dự luật mở rộng kiểm soát xuất khẩu AI sang các máy chủ đám mây cho thuê quyền truy cập chip Nvidia.",
+        "Bức thư Stand with Jensen nhấn mạnh sự nghi ngờ đơn thuần không đủ căn cứ phế truất ông Huang, và cuộc điều tra phải xác minh sự thật. Dẫu vậy, giới chức Mỹ vẫn chưa xác nhận cáo buộc gián điệp, và Tổng thống Donald Trump cũng khẳng định không hề hay biết."
       ],
       "same_event_coverage_ids": [
         "0c9c2b3f06b0443596e3"
@@ -93503,34 +93307,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.9,
+        "value": 10.0,
         "answers": {
-          "what": 9,
-          "why": 7,
+          "what": 10,
+          "why": 10,
           "notable": 10,
-          "meaning": 9
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "cause",
-            "summary_text": "Vụ việc bắt nguồn từ các cáo buộc về mối quan hệ tình cảm của ông với một cựu giám đốc và hai nhân viên Nvidia",
-            "explanation": "The source says Huang’s alleged relationship with Alice Huang set off the events leading to his resignation; reports of affairs with two Nvidia employees came afterward (outlet:p019)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "why",
-            "problem": "The reader may think the reported affairs with two Nvidia employees helped initiate the resignation.",
-            "fix": "Distinguish the alleged relationship with Alice Huang from the subsequent reporting about two employees (outlet:p019)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "017cdbc06422dac40b979ea04bfd226dd8a37002aa7d99cf919198d2affe2cb3",
-        "scored_at": "2026-11-18T03:46:22.584993+00:00"
+        "prose_sha256": "0063b326a4bd96f153b9e939910d3aa47e05e4f7fbc176aeb57e6d8c5f859b67",
+        "scored_at": "2026-11-18T05:48:17.559927+00:00"
       }
     },
     {
@@ -93609,6 +93401,479 @@
         "scorer_provider": "codex",
         "prose_sha256": "0ac1884b2138188c8784d9c5e3edeec6926303367dcb94218367e03051cf2a2b",
         "scored_at": "2026-11-18T04:00:31.729773+00:00"
+      }
+    },
+    {
+      "id": "97baf1b0f1883bfbe37d",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.scmp.com/tech/tech-trends/article/3374829/how-tsinghua-spin-out-became-chinas-first-commercial-ai-safety-watchdog",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "9eb5cb77c7b71cf29da3"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Chinese commercial AI safety watchdog",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Xi Jinping",
+          "Donald Trump"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "7d0437310c9e26893c3d",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Vendor engineering blog post focusing on software engineering metrics and vitals, with AI serving only as incidental framing in the title.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://octopus.com/blog/engineering-vitals-in-the-age-of-ai",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "308c89e17e97265da2a0"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "fdec2f5c83e4685e13a3",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-18/south-korea-proposes-75-000-bounties-to-catch-ai-exam-cheats",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "4bbce55363bf87715bd2"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "77309621431c10261751",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://technode.com/2026/11/18/huaweis-new-sub-brand-osta-set-to-launch-first-phone-reportedly-featuring-kirin-9030s-chip/",
+      "key_points": [
+        "Thông số phần cứng của OSTA O1 Pro đã được chia sẻ rộng rãi, đồng thời thiết bị cũng đã xuất hiện trên cửa hàng trực tuyến của Huawei trước ngày ra mắt. Đây là sản phẩm đầu tiên thuộc thương hiệu phụ OSTA, được Huawei công bố sẽ ra mắt ngày 20 tháng 11 nhằm khám phá tiềm năng về trí tuệ nhân tạo (AI).",
+        "TechNode nhận định việc OSTA cắt giảm các tính năng phụ phản ánh giải pháp kiểm soát chi phí để giữ giá cạnh tranh. Theo các thông số rò rỉ, thiết bị sẽ bỏ camera góc siêu rộng và tính năng nhắn tin vệ tinh Bắc Đẩu, trong khi vẫn giữ camera chính độ phân giải cao, chip hàng đầu và pin 7.000mAh.",
+        "OSTA O1 Pro được ước tính có giá khởi điểm khoảng 4.000 nhân dân tệ (600 USD), thấp hơn mức 5.999 nhân dân tệ của mẫu Pura X View trước đó. TechNode cho rằng mức chênh lệch giá này có thể tạo lợi thế cạnh tranh nếu mức giá kỳ vọng được xác nhận.",
+        "TechNode kết luận rằng giá bán đơn thuần sẽ không thể quyết định sự thành bại của sản phẩm. Hiệu năng thực tế của chip Kirin 9030S và ảnh hưởng khi bỏ camera góc siêu rộng vẫn chưa được đánh giá đầy đủ."
+      ],
+      "same_event_coverage_ids": [
+        "eeea4854ad24602d78bf"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Huawei OSTA AI smartphone sub-brand",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": true
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Huawei chuẩn bị ra mắt OSTA O1 Pro dùng chip Kirin 9030S với giá ước tính 4.000 nhân dân tệ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "technode",
+          "url": "https://technode.com/2026/11/18/huaweis-new-sub-brand-osta-set-to-launch-first-phone-reportedly-featuring-kirin-9030s-chip/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 7.7,
+        "answers": {
+          "what": 7,
+          "why": 9,
+          "notable": 7,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "A reader misses the design that defines the product.",
+            "fix": "Say the O1 Pro is expected to bring a wide-screen, straight-edge design to OSTA; the leaked display specification is 6.39 inches with a 16:9.5 aspect ratio (outlet:p005, outlet:p007)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "b79aeebba23652265f0c4b57d389482efeba316918321ec222d2cd467b2f3ec6",
+        "scored_at": "2026-11-18T05:25:10.679834+00:00"
+      }
+    },
+    {
+      "id": "da15bb62139acf9e3ce3",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Macroeconomic GDP growth and consumer price forecast for South Korea by KDI; global AI investment is cited merely as an incidental factor supporting semiconductor exports.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://en.yna.co.kr/view/AEN20261118003600320",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "8ca34b3dd131b0c93320"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "ef1dc1363dc90809e946",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.washingtonsun.com/technology/bank-ceos-nsa-tell-congress-ai-driven-patches-behind-outages",
+      "key_points": [
+        "Lãnh đạo Phố Wall và NSA đã chia sẻ trong các trao đổi kín rằng nỗ lực vá lỗ hổng do AI phát hiện đã gây gián đoạn hệ thống diện rộng, theo ba nguồn tin am hiểu sự việc. Dù không có dấu hiệu tấn công mạng, sự cố đã làm gián đoạn chuyến bay, tê liệt truy cập ngân hàng và sập mạng lưới liên lạc tối mật của NSA.",
+        "Các quan chức chính phủ và ngân hàng cho biết các đợt vá lỗ hổng do AI phát hiện đã tạm thời làm hệ thống quá tải.",
+        "Trong khi đó, các ngân hàng lớn ban đầu viện dẫn lỗi phần mềm, còn NSA cho rằng mạng lưới bị chậm do bảo trì định kỳ.",
+        "Nathan Calvin, Giám đốc chiến lược tại Encode, nhận định sự cố cho thấy hạ tầng an toàn trọng yếu phụ thuộc nhiều vào phần mềm chứa lỗ hổng lớn trên các hệ thống cũ."
+      ],
+      "same_event_coverage_ids": [
+        "51f81e9f9ee4f8fbde56"
+      ],
+      "split_coverage_ids": [],
+      "subject": "AI-driven cybersecurity patches cause nationwide tech outages",
+      "video_labels": {
+        "video_hook": "drama_company",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": true
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Giới ngân hàng và NSA tiết lộ kín: Nỗ lực vá lỗ hổng do AI phát hiện gây gián đoạn hệ thống",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://www.washingtonsun.com/technology/bank-ceos-nsa-tell-congress-ai-driven-patches-behind-outages"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.0,
+        "answers": {
+          "what": 8,
+          "why": 8,
+          "notable": 8,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The sequence could lead readers to assume the AI-related patches caused the flight disruption.",
+            "fix": "Add that the source says the cause of the FAA system failure was still unclear (outlet:p013)."
+          },
+          {
+            "question": "why",
+            "problem": "Readers learn that patches overloaded systems but not why they were rushed.",
+            "fix": "Explain the reported pressure to fix AI-identified gaps quickly because malicious actors may have comparable tools (outlet:p010–p011)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "50329f32e6a220aa25c91d192700af887de52ec71da03a3f9d70dee399a7c798",
+        "scored_at": "2026-11-18T05:25:10.679904+00:00"
+      }
+    },
+    {
+      "id": "65af998ee30e9935fcb9",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://en.yna.co.kr/view/AEN20261117003651315",
+      "key_points": [
+        "Lãnh đạo Đảng Dân chủ (DP) cầm quyền tại Hàn Quốc tuyên bố sẽ thúc đẩy luật cấm thi tới 10 năm đối với người dùng trí tuệ nhân tạo (AI) gian lận trong các kỳ thi quốc gia. Động thái lập pháp này dự kiến áp dụng cho cả kỳ thi tuyển sinh đại học (CSAT) diễn ra trên toàn quốc.",
+        "Theo Yonhap, động thái này diễn ra sau khi thủ khoa kỳ thi kế toán thuế quốc gia thừa nhận đã dùng camera siêu nhỏ cùng thiết bị hỗ trợ AI để gian lận. Hãng tin cho biết đây là vụ mới nhất trong chuỗi bê bối gian lận bằng AI, gồm cả việc dùng kính AI trong kỳ thi tuyển sinh đại học.",
+        "Ông Kim cho biết theo quy định hiện hành, người gian lận thi quốc gia bị cấm 5 năm, còn người vi phạm ở kỳ thi CSAT chỉ bị cấm thi năm kế tiếp.",
+        "Theo ông Kim, mức cấm tới 10 năm sẽ răn đe ý định gian lận và trên thực tế tước bỏ vĩnh viễn cơ hội dự thi của người vi phạm. Yonhap đưa tin chính phủ và Đảng Dân chủ cầm quyền sau đó đã thống nhất tìm kiếm mức cấm thi CSAT 10 năm đối với hành vi gian lận bằng AI."
+      ],
+      "same_event_coverage_ids": [
+        "323274d5a4ea8dfcb4df",
+        "d924a37198d82cb2c467",
+        "f8d7a0ced4040398d302"
+      ],
+      "split_coverage_ids": [],
+      "subject": "South Korea 10-year exam ban for AI cheating",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Kim Min-seok"
+        ],
+        "availability": "region_locked:South Korea",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Hàn Quốc: Đảng cầm quyền và chính phủ thống nhất đề xuất cấm thi 10 năm nếu dùng AI gian lận",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "yonhap",
+          "url": "https://en.yna.co.kr/view/AEN20261117003651315"
+        },
+        {
+          "id": "coverage1",
+          "role": "coverage",
+          "name": "yonhap",
+          "url": "https://en.yna.co.kr/view/AEN20261118004500315"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "9c4b7891f6f92d0b81f1fea822303b9388f0cacb38b41642b39363a84249a2b5",
+        "scored_at": "2026-11-18T05:25:10.679936+00:00"
+      }
+    },
+    {
+      "id": "d6e79c9aed17d18dcb35",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.22055",
+      "key_points": [
+        "Hai tác giả Hyunjong Ok và Jaeho Lee phát hiện mô hình do mô hình ngôn ngữ lớn (LLM) tự thiết kế đạt độ chính xác kiểm tra cao hơn Transformer dù dùng ít hơn khoảng 1.800 lần tham số. Thử nghiệm được thực hiện trên ba LLM với hướng dẫn tối thiểu, mười ví dụ mẫu trong hộp cát và chủ yếu trên câu hỏi trắc nghiệm.",
+        "Nhóm nghiên cứu giải thích lý do chọn Transformer để huấn luyện bằng hạ độ dốc (gradient descent) và chạy nhanh trên GPU không còn áp dụng khi LLM tự viết trọng số. Không có độ dốc, mô hình chọn dạng bảng để LLM có thể diễn giải ý nghĩa từng trọng số và viết lại trọng số sai.",
+        "Cả ba LLM tự do thiết kế đều biên dịch sự kiện thành bảng thưa, đạt độ chính xác kiểm tra (test accuracy đo tỷ lệ đúng) tới 54,4%. Mỗi câu trả lời sai chỉ trỏ về một hàng trong bảng, và việc xóa một hàng chỉ làm thay đổi khoảng một câu trả lời khác.",
+        "Nhóm tác giả nhấn mạnh kết luận này chỉ xác định cấu trúc cần dựng khi tự viết trọng số, bởi các LLM huấn luyện trước vẫn chính xác hơn."
+      ],
+      "same_event_coverage_ids": [
+        "1ecbda9bc58891cfbe22"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Weight-space programming architecture research",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Hyunjong Ok",
+          "Jaeho Lee"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nghiên cứu: Mô hình do AI tự thiết kế vượt Transformer dù ít hơn 1.800 lần tham số khi viết trọng số",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.22055"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 7.7,
+        "answers": {
+          "what": 6,
+          "why": 10,
+          "notable": 7,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "vượt Transformer dù ít hơn 1.800 lần tham số",
+            "explanation": "The reported result compares one LLM-designed model with the most accurate released Transformer written by that same LLM, not with Transformers generally (outlet:p009)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "đạt độ chính xác kiểm tra cao hơn Transformer dù dùng ít hơn khoảng 1.800 lần tham số",
+            "explanation": "The source limits this accuracy and parameter comparison to the most accurate released Transformer written by the same LLM (outlet:p009)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The headline and opening paragraph turn a specific comparison into a general claim about Transformers.",
+            "fix": "Specify in both places that the comparator was the most accurate released Transformer written by the same LLM (outlet:p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "5d0f68c4d8f0d71e10b55e0efc7db0824c769a645e0d75e6191d1f73cbb462f8",
+        "scored_at": "2026-11-18T05:25:10.679966+00:00"
+      }
+    },
+    {
+      "id": "b1eceb19b0d8e0d38d11",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.23144",
+      "key_points": [
+        "Nhóm tác giả Yifan Wang công bố mô hình nền tảng pi^4 phục vụ nhận thức cảnh không gian bốn chiều từ các quan sát ảnh màu chưa hiệu chuẩn camera ngoài thực tế. Hệ thống khôi phục hình học dày đặc, tư thế camera và tỷ lệ thực tế từ một ảnh đơn, bộ sưu tập ảnh rời rạc hoặc chuỗi video.",
+        "Mô hình ghép nối một nhánh hình học với một nhánh chuyển động có điều kiện hình học. Nhánh chuyển động dự đoán các điểm tương ứng trong không gian ảnh rồi nâng lên không gian ba chiều bằng hình học góc nhìn đích đã tái dựng.",
+        "Trên các bài kiểm chuẩn đa dạng, pi^4 đạt thứ hạng trung bình tổng thể tốt nhất khi đánh giá hình học, đồng thời đạt hiệu năng cạnh tranh ở tác vụ theo dõi điểm hai chiều, ba chiều và phân đoạn vật thể chuyển động. Toàn bộ hệ thống dùng chung một mạng trích xuất đặc trưng với quy mô khoảng 0,5 tỷ tham số, nhỏ hơn một nửa kích thước của phần lớn mô hình cơ sở.",
+        "Theo nhóm nghiên cứu, mô hình tái tạo cấu trúc và đường theo dõi đồng thời trong một lượt truyền duy nhất trên các cảnh lớn gồm hàng nghìn ảnh đầu vào, dù chỉ được huấn luyện với ngữ cảnh tối đa 64 góc nhìn."
+      ],
+      "same_event_coverage_ids": [
+        "c7bf15cb6a8cd00a0193"
+      ],
+      "split_coverage_ids": [],
+      "subject": "π^4 4D scene foundation model",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Yifan Wang",
+          "Weiguang Zhao",
+          "Ni Yang",
+          "Haoyu Guo",
+          "Junting Dong",
+          "Weinan Zhang",
+          "Chunhua Shen"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Mô hình pi^4 đạt thứ hạng hình học hàng đầu từ ảnh chưa hiệu chuẩn camera với 0,5 tỷ tham số",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.23144"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.85,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The input condition for point tracks and moving-object masks is absent.",
+            "fix": "Specify that the model produces these outputs for multi-image inputs (outlet:p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "cc68df198dd6134405053bb8c91ccab996a6be4a1dec920470583b9a0769a088",
+        "scored_at": "2026-11-18T05:25:10.679990+00:00"
       }
     }
   ]
