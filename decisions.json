@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-18T19:56:35.332329+00:00",
-  "input_generated_at": "2026-11-18T18:46:18Z",
+  "generated_at": "2026-11-18T21:46:14.586990+00:00",
+  "input_generated_at": "2026-11-18T20:46:29Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -98123,10 +98123,10 @@
       "use_original_title": false,
       "source_url": "https://techcrunch.com/2026/11/18/more-banks-says-customers-using-ai-agents-are-on-their-own-even-if-they-get-hacked/",
       "key_points": [
-        "Citibank vừa đổi điều khoản dịch vụ, tuyên bố khách hàng dùng công cụ AI bên thứ ba để quản lý tài chính phải tự chịu mọi rủi ro. Ngân hàng lớn thứ ba nước Mỹ nhấn mạnh quy định áp dụng ngay cả khi tài khoản bị tin tặc tấn công.",
-        "TechCrunch nhận định các ngân hàng lo ngại tác tử AI (công cụ trí tuệ nhân tạo tự động hóa thao tác) thiếu tin cậy và đe dọa vị thế cạnh tranh của họ.",
-        "Theo Citi, nếu công cụ AI làm lộ thông tin đăng nhập hoặc bị hack, khách hàng phải chịu trách nhiệm về mọi hành động của tin tặc. JPMorgan, Bank of America, PNC và Citizens cũng áp dụng chính sách tương tự, trong khi công cụ của Anthropic chỉ cho phép đọc chứ không thể chuyển tiền.",
-        "TechCrunch đánh giá các ngân hàng sẽ đấu tranh giành quyền kiểm soát nếu tác tử AI trở thành kênh tương tác tài chính phổ biến. Dù vậy, điều khoản của Citi nêu rõ khách hàng dùng tác tử AI do chính ngân hàng cung cấp sẽ không phải chịu thêm trách nhiệm này."
+        "Citibank cập nhật điều khoản dịch vụ buộc khách hàng dùng công cụ AI bên thứ ba để quản lý tài chính cá nhân phải tự chịu mọi rủi ro phát sinh.",
+        "Theo TechCrunch, các tổ chức tài chính lo ngại tác tử AI hoạt động thiếu tin cậy trong hệ thống của họ. Các ngân hàng này thông báo sẽ không chịu trách nhiệm đảo ngược những giao dịch do trợ lý tự động thực hiện dù là vô ý hay cố ý.",
+        "Citi quy định khách hàng phải chịu trách nhiệm nếu công cụ AI làm lộ thông tin đăng nhập hoặc bị hack dẫn đến tài khoản bị xâm nhập. Trong khi JPMorgan và Bank of America áp dụng chính sách tương tự còn PNC vừa đổi điều khoản, Citizens cảnh báo người dùng phải tự chịu trách nhiệm về hành động của trợ lý AI.",
+        "TechCrunch nhận định các ngân hàng sẽ đấu tranh kiểm soát kênh tương tác nếu tác tử AI trở thành phương thức quan trọng trong các quyết định tài chính. Dù vậy, điều khoản của Citi nêu rõ người dùng không phải chịu thêm trách nhiệm nếu sử dụng tác tử AI do chính ngân hàng cung cấp."
       ],
       "same_event_coverage_ids": [
         "a3c1f59f22e9e33b113a"
@@ -98142,7 +98142,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Citibank từ chối chịu trách nhiệm nếu công cụ AI bị hack trong khi hàng loạt ngân hàng Mỹ siết điều khoản",
+      "editorial_headline_vi": "Citibank buộc người dùng chịu rủi ro nếu công cụ AI bị hack khi nhiều ngân hàng Mỹ siết điều khoản",
       "summary_sources": [
         {
           "id": "outlet",
@@ -98155,35 +98155,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.45,
+        "value": 9.5,
         "answers": {
-          "what": 8,
-          "why": 8,
-          "notable": 9,
-          "meaning": 9
+          "what": 10,
+          "why": 9,
+          "notable": 10,
+          "meaning": 8
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "ngay cả khi tài khoản bị tin tặc tấn công",
-            "explanation": "The source specifies liability when a third-party AI tool leaks credentials or is hacked, and hackers then act through the customer’s account. It does not say the rule covers any hacking of the account (outlet:p011)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "JPMorgan, Bank of America, PNC và Citizens cũng áp dụng chính sách tương tự",
-            "explanation": "This follows the specific claim about liability for hackers’ actions, but the source establishes that extension only for Citi. It reports similar policies at JPMorgan and Bank of America, a terms change at PNC, and a Citizens warning about AI assistants’ actions (outlet:p010–p011)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "what",
-            "problem": "The opening makes Citi’s rule sound applicable whenever a bank account is hacked.",
-            "fix": "Specify that the source ties hacker liability to a third-party AI tool leaking credentials or being hacked (outlet:p011)."
-          },
-          {
-            "question": "what",
-            "problem": "Grouping four other banks after the hacker-liability sentence implies that all adopted Citi’s exact extension.",
-            "fix": "Separate their reported actions: similar policies at JPMorgan and Bank of America, changed terms at PNC, and a Citizens warning about AI assistant activity (outlet:p010–p011)."
+            "question": "meaning",
+            "problem": "Readers miss the article’s broader conclusion about resistance to AI agents across service industries.",
+            "fix": "Add that the outcome of these relationships may determine which AI investments pay off (outlet:p015)."
           }
         ],
         "writer_boats": [
@@ -98191,8 +98175,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "3aa5301ea2c547d86bd6460ea4af164b869eb6e5faa3f9abd2c5f2c14ab23864",
-        "scored_at": "2026-11-18T19:45:00.219440+00:00"
+        "prose_sha256": "31ea3291d0ed2e4e78a10bb7f71327442dd64cfdbb4361525b2b3bf807aaf4bd",
+        "scored_at": "2026-11-18T21:46:14.579824+00:00"
       }
     },
     {
@@ -98281,10 +98265,10 @@
       "use_original_title": false,
       "source_url": "https://blog.google/innovation-and-ai/products/gemini-app/gemini-lower-memory-devices/",
       "key_points": [
-        "Google thông báo ứng dụng Gemini hiện đã có mặt trên các thiết bị Android (Go edition) đủ điều kiện có bộ nhớ thấp. Bước tiến này đưa trợ lý AI cá nhân tiếp cận thêm hàng trăm triệu người dùng trên toàn cầu.",
-        "Google cho biết công ty đã tái cấu trúc ứng dụng để trải nghiệm cốt lõi chạy mượt mà trên phần cứng ít bộ nhớ hơn.",
-        "Để trải nghiệm, người dùng có thể tải ứng dụng từ Google Play, bấm giữ phím nguồn trên máy hỗ trợ hoặc tìm trên thiết bị cài sẵn từ Transsion. Người dùng cũng có thể đàm thoại bằng hơn 45 ngôn ngữ qua Gemini Live, tạo ảnh với Nano Banana và hướng camera để dịch thuật.",
-        "Google nhấn mạnh cải tiến này giúp người dùng vượt qua giới hạn phần cứng vốn trước đây chỉ hỗ trợ các khẩu lệnh cơ bản trên thiết bị bộ nhớ thấp."
+        "Google thông báo đưa ứng dụng Gemini lên các thiết bị Android (Go edition) bộ nhớ thấp đủ điều kiện. Động thái này giúp đưa trợ lý AI cá nhân của hãng tiếp cận thêm hàng trăm triệu người dùng trên toàn cầu.",
+        "Google cho biết hãng đã tái cấu trúc ứng dụng để trải nghiệm cốt lõi của Gemini chạy mượt mà trên phần cứng ít bộ nhớ hơn.",
+        "Người dùng có thể tải ứng dụng từ Google Play, giữ phím nguồn trên máy hỗ trợ, hoặc chờ thiết bị sắp ra mắt cài sẵn từ Transsion. Công cụ hỗ trợ đàm thoại hơn 45 ngôn ngữ qua Gemini Live, tạo ảnh bằng Nano Banana và quét camera để dịch thuật.",
+        "Google nhấn mạnh cải tiến này giúp người dùng vượt qua rào cản phần cứng vốn trước đây chỉ hỗ trợ các khẩu lệnh cơ bản trên dòng máy bộ nhớ thấp."
       ],
       "same_event_coverage_ids": [
         "0492d4c586f5eb31c6d4"
@@ -98313,34 +98297,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.4,
+        "value": 9.7,
         "answers": {
           "what": 10,
           "why": 10,
-          "notable": 8,
+          "notable": 9,
           "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "tìm trên thiết bị cài sẵn từ Transsion",
-            "explanation": "The source says to look for Gemini preloaded on upcoming devices from partners like Transsion, not that those preloaded devices are already available (outlet:p007)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "notable",
-            "problem": "Readers may think Transsion devices with Gemini preloaded are available now.",
-            "fix": "Say preloading is expected on upcoming partner devices (outlet:p007)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "8da60591c70e346d90ac8ebfb550fe98c080eb77d1cdd248c279ee3a93fc49d5",
-        "scored_at": "2026-11-18T19:45:00.219469+00:00"
+        "prose_sha256": "059cd354d75740c444798b095657d099ec18b87c682385cdaf6b1f3f0d3f1140",
+        "scored_at": "2026-11-18T21:46:14.579868+00:00"
       }
     },
     {
@@ -98720,10 +98692,10 @@
       "use_original_title": false,
       "source_url": "https://huggingface.co/blog/moe-expert-streaming",
       "key_points": [
-        "Tác giả Tarek Ziadé phát triển kỹ thuật truyền chuyên gia MoE từ SSD trên Transformers, giúp chạy mô hình 180 tỷ tham số trên máy Mac 32GB. Phương pháp này biến bộ nhớ đệm thành nhóm vị trí (slot pool) giữa các tầng để tận dụng nhân tính toán sẵn có mà không cần viết lại mã.",
-        "Thử nghiệm bắt nguồn từ việc cơ chế Accelerate quá chậm do sao chép toàn bộ khối chuyên gia của mỗi tầng cho từng token thay vì định tuyến theo nhu cầu. Theo tác giả, hạn chế này khiến tốc độ của Transformers trên card A10G giảm xuống chỉ còn 0,16 token mỗi giây.",
-        "Khi giải mã chuỗi 200 token trên máy Mac M5, kỹ thuật này đạt 13,9 token mỗi giây, bám sát mức 14,8 token mỗi giây của Strata. Thử nghiệm được đo trên cùng câu lệnh gợi ý, đồng thời tắt tính năng suy nghĩ và cơ chế dự đoán suy đoán.",
-        "Theo tác giả Tarek Ziadé, độ trễ còn lại chủ yếu do việc xếp hàng lệnh phía máy tính khiến bộ xử lý đồ họa phải chờ giữa các tầng. Tác giả nhận định giải pháp tối ưu trên luồng MPS của PyTorch chưa được xây dựng do nguy cơ gây treo máy."
+        "Tác giả Tarek Ziadé phát triển kỹ thuật truyền chuyên gia MoE từ ổ SSD trên Transformers, giúp chạy mô hình 180 tỷ tham số trên máy Mac có 32GB bộ nhớ. Thử nghiệm xuất phát từ việc tác giả muốn giảm phụ thuộc vào mô hình trực tuyến và chạy cục bộ trên máy tính cá nhân.",
+        "Cơ chế giảm tải của Accelerate quá chậm do sao chép toàn bộ khối chuyên gia của mỗi tầng cho từng token mà không có bộ nhớ đệm hay định tuyến. Đồng thời trên máy Mac, việc giảm tải sang CPU không giải phóng được bộ nhớ do CPU và GPU dùng chung bộ nhớ hợp nhất.",
+        "Tác giả biến bộ nhớ đệm thành nhóm vị trí để tái sử dụng nhân grouped_mm sẵn có mà không cần tạo phép nhân ma trận riêng, dù vẫn phải viết thêm mã và nhân Metal.",
+        "Tốc độ này vẫn quá chậm cho nhu cầu dùng tác tử lập trình của tác giả và giải pháp tối ưu trên MPS chưa được làm do nguy cơ treo máy."
       ],
       "same_event_coverage_ids": [
         "94e758ee2fa4ef465067"
@@ -98739,7 +98711,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Truyền chuyên gia từ SSD trên Transformers giúp chạy mô hình AI 180B đạt 13,9 token/s trên máy Mac 32GB",
+      "editorial_headline_vi": "Truyền chuyên gia từ SSD trên Transformers đạt 13,9 token/s khi chạy mô hình 180B trên máy Mac 32GB",
       "summary_sources": [
         {
           "id": "outlet",
@@ -98754,30 +98726,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.5,
+        "value": 9.1,
         "answers": {
           "what": 10,
-          "why": 9,
-          "notable": 10,
+          "why": 10,
+          "notable": 8,
           "meaning": 8
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "không cần viết lại mã",
-            "explanation": "The source says no custom expert matrix multiplication was needed, not that no code needed rewriting. The work included a Transformers PR, a model-specific package and Metal kernels (outlet:p040, outlet:p044, outlet:p046, outlet:p059)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
             "question": "notable",
-            "problem": "The wording suggests the approach required no code changes.",
-            "fix": "Say it reused the existing grouped_mm kernel without a custom expert matrix multiplication; the project still involved new code (outlet:p040, outlet:p044)."
-          },
-          {
-            "question": "meaning",
-            "problem": "A reader may take the close benchmark result as sufficient for the author's own workflow.",
-            "fix": "Add that Ziadé still expected the laptop to be too slow for how he uses coding agents (outlet:p019, outlet:p039)."
+            "problem": "The 13.9-token-per-second figure lacks its benchmark setting and comparison, so readers cannot gauge the reported performance.",
+            "fix": "Specify that it is a 200-token decode result and that the article describes SSD streaming as within 6% of Strata on token generation (outlet:p010, outlet:p078)."
           }
         ],
         "writer_boats": [
@@ -98785,8 +98746,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "8264f4305f609c0929978fd97aee965b850fe78db9e761f1e3c73f64b957dd1f",
-        "scored_at": "2026-11-18T19:45:00.219541+00:00"
+        "prose_sha256": "206932708873f7549c4fbe0d59898390c008cf77f01a1fdeb82254b3d24c7705",
+        "scored_at": "2026-11-18T21:46:14.579894+00:00"
       }
     },
     {
@@ -99035,6 +98996,915 @@
         "scorer_provider": "codex",
         "prose_sha256": "ea9777ce1092c93dcae1583cb2425b36e98e391c962c89ef5a92725a8086ebed",
         "scored_at": "2026-11-18T19:45:00.219581+00:00"
+      }
+    },
+    {
+      "id": "f6e3c0be24c09ceb1f1f",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-18/citi-s-raghavan-says-ai-faces-survival-of-the-fittest-on-funding",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "f56e0756f06731189315"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "a272cda257e80f9ade37",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Vendor case study detailing how Salesforce implements cross-Region routing using Amazon SageMaker AI.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/how-salesforce-is-advancing-global-scale-model-serving-with-cross-region-inference-routing-in-amazon-sagemaker-ai/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "89e15bba9f432e0191d3"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "1f70abf928991f6bf521",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-18/ai-forces-firms-to-fix-flaws-faster-worsening-digital-outages",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "12b9b27279f181cfbea9"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "ac57b5b6ee9ed73e27a8",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/18/snapchat-now-lets-developers-build-ar-lenses-with-ai-coding-assistants-like-claude-code-and-cursor/",
+      "key_points": [
+        "Snapchat thông báo cho phép người sáng tạo xây dựng hiệu ứng AR (thực tế tăng cường) thông qua các trợ lý lập trình AI quen thuộc như Claude Code, Cursor và Codex. Công cụ mới Easy Lens CLI (giao diện dòng lệnh) đưa tính năng tạo bộ lọc bằng câu lệnh vào quy trình làm việc trên Mac, Windows và Linux.",
+        "TechCrunch nhận định việc ra mắt này nhằm hạ thấp rào cản sáng tạo nội dung AR và giúp Snapchat tiếp cận các lập trình viên đang dùng trợ lý AI. Quy trình này cho phép AI đảm nhận khâu kỹ thuật để người dùng tập trung vào ý tưởng, thay vì phải học bộ công cụ phát triển riêng của Snapchat.",
+        "Snapchat cho biết tính năng mới có thể hoàn thiện trò chơi từ ý tưởng ban đầu thành bộ lọc trong một ngày mà lập trình viên không cần tự viết mã. Ngoài ra, các nhà phát triển tham gia chương trình Lens+ Payouts có thể kiếm tiền từ bộ lọc, sau đợt Snapchat chi trả 1,8 triệu USD vào tháng trước.",
+        "TechCrunch đánh giá việc tích hợp trực tiếp vào luồng lập trình AI có thể giúp Snapchat mở rộng thêm cộng đồng nhà phát triển."
+      ],
+      "same_event_coverage_ids": [
+        "105cc4f779e4eb5967d2"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Snapchat / Easy Lens CLI",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Aisha Malik"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Snapchat ra mắt Easy Lens CLI cho phép lập trình viên tạo hiệu ứng AR bằng trợ lý AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/18/snapchat-now-lets-developers-build-ar-lenses-with-ai-coding-assistants-like-claude-code-and-cursor/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "0fdb34d8e886e41839ea1ade2fa0305c7dfe080f09d2cac0f960a4427c0ad45c",
+        "scored_at": "2026-11-18T21:29:38.332913+00:00"
+      }
+    },
+    {
+      "id": "f0b81ce3c14612880642",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://huggingface.co/blog/RadixArk/daisyrose-27b-pushing-the-frontier-of-post-trainin",
+      "key_points": [
+        "RadixArk released DaisyRose-27B, its first model built on Qwen3.8-27B and trained using reinforcement learning with Miles.",
+        "DaisyRose-27B was trained on long-horizon agent tasks with sessions up to 1M tokens across 1,200 curated tasks on 144 H200 GPUs."
+      ],
+      "same_event_coverage_ids": [
+        "6efb40db3151a41cd71e"
+      ],
+      "split_coverage_ids": [],
+      "subject": "RadixArk / DaisyRose-27B",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Jason Chen"
+        ],
+        "availability": "global",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "df82501f555a02979afc",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/newsletters/2026-11-18/ai-is-forcing-firms-to-fix-cyber-flaws-faster-worsening-outages",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "28816643b7486e510007"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "d023ba6fde32bc2f03d6",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/policy/1036749/trump-ai-chip-data-center-us-philippines-pax-silica",
+      "key_points": [
+        "Mỹ và Philippines dự kiến ký thỏa thuận khung vào cuối năm 2026 để cùng phát triển đặc khu kinh tế Pax Silica rộng 1.620 héc-ta tại căn cứ Clark cũ. Khu phức hợp này được đề xuất xây dựng các nhà máy chip, cơ sở chế biến khoáng sản thiết yếu và trung tâm dữ liệu AI, theo The Verge.",
+        "Kế hoạch này diễn ra khi người dân Mỹ ngày càng phản đối các nhà máy chip và trung tâm dữ liệu tại cộng đồng của họ, theo The Verge. Đồng thời, Mỹ đặt mục tiêu tự bảo vệ trước sự thống trị của Trung Quốc trong sản xuất chất bán dẫn và chế biến khoáng sản thiết yếu.",
+        "Cơ quan phát triển BCDA của Philippines có thể cấp hợp đồng thuê đất kéo dài tới 99 năm, dự kiến thu gần 1 tỷ USD trong 25 năm đầu và ước tính tạo tới 190.000 việc làm trực tiếp.",
+        "Nhu cầu chip AI tăng vọt làm dấy lên lo ngại từ các nhóm môi trường và lao động rằng thảm họa ô nhiễm độc hại cùng rủi ro sức khỏe cho công nhân sẽ lặp lại. Dù các hãng sản xuất chip khẳng định nhà máy nay đã an toàn hơn nhờ tự động hóa, các nhà hoạt động nhân quyền cảnh báo dự án vẫn đe dọa đẩy người bản địa khỏi đất đai và cắt đứt nguồn nước của họ."
+      ],
+      "same_event_coverage_ids": [
+        "412e68092206a8a042c8"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Donald Trump / Philippines AI hub",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Donald Trump",
+          "Justine Calma"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Mỹ và Philippines dự kiến lập đặc khu chip AI 1.620 ha giữa nỗi lo di dời dân bản địa và ô nhiễm",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/policy/1036749/trump-ai-chip-data-center-us-philippines-pax-silica"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.5,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The reader misses why the proposed site is disputed as ancestral land.",
+            "fix": "Add that the Aeta Hungey tribe has sought official recognition of its ancestral domain since 1994, while the BCDA says the project is outside titled ancestral domains (outlet:p040)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "6f4112b09814ece0af5b6710d822ba0235a65357f14dd2c27ca578e1c967f43b",
+        "scored_at": "2026-11-18T21:35:53.386860+00:00"
+      }
+    },
+    {
+      "id": "64cd69bf0f74d73a7a99",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-18/microsoft-says-copilot-is-beating-anthropic-openai-on-price",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "794bcff7bb44752b1e7d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "ddb45fad21371efcf8bd",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/tech/1035924/nvidia-visualized-revenue-profit-earnings-after-huang",
+      "key_points": [
+        "CEO tạm quyền của Nvidia khẳng định công ty vẫn duy trì hoạt động kinh doanh bình thường sau sự ra đi của nhà sáng lập Jensen Huang. Trong cuộc họp báo cáo tài chính ngày 17 tháng 11, bà Colette Kress cam kết chuyển toàn bộ dòng tiền tự do thặng dư cho các cổ đông.",
+        "The Verge nhận định Nvidia tránh mọi xáo trộn vì công ty đang thành công vượt bậc và có quá nhiều tiền đang bị đặt cược. Làn sóng bùng nổ trung tâm dữ liệu AI đã đưa mức lợi nhuận của tập đoàn lên 65 tỷ USD mỗi quý mà chưa có dấu hiệu dừng lại.",
+        "Lợi nhuận quý gần nhất của Nvidia đạt 65,3 tỷ USD, vượt qua Samsung, SK Hynix và Micron, những công ty lần lượt đạt 55,3 tỷ USD, 29,8 tỷ USD và 37,7 tỷ USD. Dù bê bối khiến vốn hóa bốc hơi một nghìn tỷ USD từ mức đỉnh năm nghìn tỷ USD, công ty vẫn thu về trung bình 700 triệu USD lợi nhuận mỗi ngày.",
+        "Nvidia dự báo doanh thu đạt 130 tỷ USD trong quý tới dù biên lợi nhuận gộp ước tính giảm nhẹ xuống khoảng 71 đến 72 phần trăm. The Verge nhận định cỗ máy siêu lợi nhuận này sẽ tiếp tục vận hành theo đúng kế hoạch nhờ sự hậu thuẫn từ các đối tác lớn như TSMC."
+      ],
+      "same_event_coverage_ids": [
+        "f074632d8302af17339d"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Nvidia / corporate transition",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Jensen Huang",
+          "Sean Hollister"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nvidia đạt lợi nhuận 65,3 tỷ USD một quý và giữ nguyên hoạt động sau khi CEO từ chức",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/tech/1035924/nvidia-visualized-revenue-profit-earnings-after-huang"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.25,
+        "answers": {
+          "what": 9,
+          "why": 6,
+          "notable": 10,
+          "meaning": 6
+        },
+        "hard_errors": [
+          {
+            "kind": "quote",
+            "summary_text": "chuyển toàn bộ dòng tiền tự do thặng dư cho các cổ đông",
+            "explanation": "Kress promised to return excess free cash flow to shareholders after strategic uses; the Vietnamese omits that qualification (outlet:p037)."
+          },
+          {
+            "kind": "cause",
+            "summary_text": "bê bối khiến vốn hóa bốc hơi một nghìn tỷ USD",
+            "explanation": "The source mentions scandals and a decline in market capitalization, but does not establish the scandals as the cause of that decline (outlet:p028, outlet:p033)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "từ mức đỉnh năm nghìn tỷ USD",
+            "explanation": "The source says Nvidia was worth around $5 trillion at the start of November; it does not identify that value as its peak (outlet:p033)."
+          },
+          {
+            "kind": "cause",
+            "summary_text": "nhờ sự hậu thuẫn từ các đối tác lớn như TSMC",
+            "explanation": "Kress says customers and suppliers, including TSMC, back the company. The source does not say that backing is what will keep its exceptional profits going (outlet:p042–p045)."
+          },
+          {
+            "kind": "quote",
+            "summary_text": "sẽ tiếp tục vận hành theo đúng kế hoạch",
+            "explanation": "The article concludes that continued extraordinary profits are Nvidia’s plan, while retaining uncertainty about whether it will hold (outlet:p045)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The continuation of extraordinary profits is presented as assured.",
+            "fix": "Keep it as Nvidia’s projection and the article’s qualified conclusion: continued gains are the plan (outlet:p044–p045)."
+          },
+          {
+            "question": "why",
+            "problem": "The text supplies causes for the valuation decline and future profits that the article does not establish.",
+            "fix": "Report the valuation change and Kress’s statement about partner backing separately, without making either a proven causal explanation (outlet:p028, outlet:p033, outlet:p042)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The shareholder-return pledge sounds unconditional.",
+            "fix": "Specify that Kress referred to excess free cash flow after strategic uses (outlet:p037)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "9f3bc232fd6e1329bfe82a3c2f9e32cce5f122cbca387910cd07c376e44c1ed6",
+        "scored_at": "2026-11-18T21:29:38.333022+00:00"
+      }
+    },
+    {
+      "id": "06f046b534dbdca74d45",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Vendor customer case study co-authored with AWS on how Social Department integrated TwelveLabs models.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/how-social-department-built-culture-aware-video-discovery/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "503df0afbc5c35a1e4c2"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "93440445ac4c8e4f7eb0",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-18/opinion-is-anthropic-overvalued-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "19e2d600e02c9897bfa2"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "772003290ca79bcee950",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-18/carlyle-s-jenkins-warns-on-rush-to-fund-ai-data-centers-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "aff93a20f2fea0a77e1d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "b99d3925f7eef8109c06",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The story centers on general tech liability, forced arbitration hearings, and child grooming allegations against Roblox, with AI deepfakes mentioned only incidentally.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.theverge.com/policy/1036935/congress-forced-arbitration-deepfakes-defiance-act",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "736c94cf262316cc0191"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "913b45050bfc4e952ada",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Technical how-to architectural guide for connecting Amazon Bedrock AgentCore Gateway to private APIs in a hub-and-spoke network.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/connect-amazon-bedrock-agentcore-gateway-to-private-apis-in-a-hub-and-spoke-network-with-centralized-inspection/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "118d7bfb8877edc29d37"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "33686cc601861f18841c",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "AWS blog post detailing how a customer (Stretto) designed and deployed an AI voice agent with Amazon Nova 2 Sonic, which is a customer case study.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/how-stretto-built-an-ai-voice-agent-with-amazon-nova-2-sonic/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "3e1e7b2624b01a336f16"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "f1ec32751030720bfcdb",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Community meetup recap of the inaugural AWS Quick User Group DC event, representing promotional event content rather than reported news.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/from-reporting-to-reasoning-getting-enterprise-data-ready-for-ai-agents/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "916957b5e8f03639734b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "e55c8f2df06c07ffc92b",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://huggingface.co/blog/Dharma-AI/predicting-fine-tuning-time",
+      "key_points": [
+        "Nhóm nghiên cứu Dharma-AI so sánh các phương pháp dự đoán thời gian tinh chỉnh mô hình trên cụm vi xử lý đồ họa (GPU) dùng chung. Thử nghiệm dùng 272 tác vụ tinh chỉnh có giám sát (SFT) thực tế trên dàn NVIDIA H200 với 7.382 giờ GPU.",
+        "Theo nhóm nghiên cứu Dharma-AI, mô hình học máy nắm bắt các tín hiệu đặc thù và tương tác phi tuyến mà công thức giải tích đóng không thể bao quát. Nhóm tác giả cho biết phép tính lý thuyết chỉ xét vòng lặp tối ưu, bỏ qua các phụ phí đánh giá và lưu điểm kiểm tra.",
+        "Mô hình hồi quy CatBoost đạt sai số tuyệt đối trung bình 1,71 giờ (MAE, đo độ lệch thời gian) cùng hệ số R² đạt 0,98 qua kiểm định chéo 5 lượt. Ngược lại, phép ước tính theo FLOP chỉ đạt R² là 0,31 và sai số tuyệt đối trung bình lên tới 12,41 giờ.",
+        "Theo nhóm nghiên cứu Dharma-AI, ước tính chính xác giúp chủ động lập kế hoạch tài nguyên thay vì phỏng đoán, dù kết quả loại trừ thời gian chờ hàng đợi. Nhóm tác giả lưu ý mô hình hiệu chuẩn riêng cho hạ tầng NVIDIA H200 nên không thể chuyển giao số liệu sang GPU khác nếu không huấn luyện lại."
+      ],
+      "same_event_coverage_ids": [
+        "9da4c76c63c85f701de4"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Fine-tuning duration prediction on GPU clusters",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Bruno Duarte",
+          "Gabriel Pimenta de Freitas Cardoso",
+          "Isis F Carvalho",
+          "Breno de Almeida Beleza",
+          "Felipe Lima"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "CatBoost dự đoán thời gian tinh chỉnh mô hình trên cụm GPU NVIDIA H200 đạt sai số tuyệt đối trung bình 1,71 giờ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://huggingface.co/blog/Dharma-AI/predicting-fine-tuning-time"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.65,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "b5b241e7ee69aff2194b28da5ac3cfbcfec927ab0e90addb1db355ce024259ba",
+        "scored_at": "2026-11-18T21:29:38.333047+00:00"
+      }
+    },
+    {
+      "id": "d6278c4cc3ca78f5ed04",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://tin.computer/blog/fake-ai-crawler-secrets-scanners",
+      "key_points": [
+        "Tác giả Ege Demir đã theo dõi ba công cụ quét (phần mềm dò tìm tự động) Octopus, Gecko và Tortoise trên mười trang web từ cuối tháng 9 đến ngày 18 tháng 11 năm 2026. Octopus đổi tên bot AI để dò tệp /.env, Gecko gửi chuỗi nhận dạng cắt ngắn tìm tệp khóa công cụ AI, còn Tortoise hoạt động chậm và nhỏ.",
+        "Octopus mở trang chủ như trình duyệt thông thường trước khi quét và phân loại đường dẫn theo từng nền tảng như Next.js hay Vite. Gecko là phần mềm .NET hoạt động chủ yếu từ vùng Bỉ của Google Cloud và các máy chủ Windows thuê ngoài.",
+        "Octopus đã dùng 97 máy chủ Google Cloud ở 15 khu vực với 95 máy chỉ quét một trang web, đồng thời đổi 32 tên bot trên mỗi yêu cầu. Trong khi đó, danh sách tệp công cụ AI bị Gecko truy vấn đã tăng từ 4 lên 26 đường dẫn trong năm tuần.",
+        "Tác giả Ege Demir khuyên không chặn tên bot AI để tránh chặn nhầm bot thật, mà nên chặn đường dẫn có dấu chấm nhưng giữ ngoại lệ cho /.well-known/. Tác giả nhấn mạnh bot AI thật không đòi tệp bí mật, do đó người quản trị cần đối chiếu địa chỉ máy chủ với danh sách các công ty công bố."
+      ],
+      "same_event_coverage_ids": [
+        "f4c797d9e150e5d63466",
+        "f7a228e7a08ff2cefea2"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Malicious scanners hunting AI developer keys",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Ege Demir"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Ba công cụ quét săn lùng khóa và tệp cấu hình AI bị phát hiện trên mười trang web",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://tin.computer/blog/fake-ai-crawler-secrets-scanners"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.55,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 7
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "chặn đường dẫn có dấu chấm nhưng giữ ngoại lệ cho /.well-known/",
+            "explanation": "The source recommends blocking requests for paths that start with a dot, with an exception for /.well-known/, rather than paths containing a dot anywhere (outlet:p184, outlet:p208)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The blocking advice could lead readers to block ordinary paths containing a dot.",
+            "fix": "Specify paths beginning with '/.' and retain the '/.well-known/' exception (outlet:p184, outlet:p208)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The reader misses the source’s strongest protective step: checking whether secret files are exposed.",
+            "fix": "Say that the listed secret paths should return 404; a real file returned with 200 requires action, including rotating exposed keys (outlet:p174–p175, outlet:p212)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "0993aeb3f72e195fabc47653050514cab49c07fbb4d7317a729fdead6dfa5e86",
+        "scored_at": "2026-11-18T21:35:53.386906+00:00"
+      }
+    },
+    {
+      "id": "97e760f3dcb2b52c61ef",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-18/arm-ceo-rene-haas-approached-by-nvidia-board-s-recruitment-firm",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b1fcdad07312371b7b75"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "7d2ed19b8ff26b541ac2",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.theverge.com/report/1035465/nvidia-says-it-will-not-reinstate-jensen-huang-as-ceo",
+      "key_points": [
+        "Tân Chủ tịch Harvey Jones tuyên bố hội đồng quản trị Nvidia đã chấp thuận đơn từ chức và không có ý định phục chức CEO cho ông Jensen Huang. Thông báo diễn ra trong cuộc gọi báo cáo thu nhập hôm thứ Ba, sau khi cựu lãnh đạo rời công ty ngày 12 tháng 11 năm 2026.",
+        "Trong cuộc gọi đó, ông Jones từ chối trả lời về hoàn cảnh từ chức của ông Huang hay cuộc điều tra nội bộ đang diễn ra. Theo The Verge, ông Huang vướng vào bê bối cá nhân và dự kiến điều trần trước Quốc hội vào ngày 1 tháng 12 năm 2026.",
+        "Trước đó, ông Huang ngỏ ý sẵn sàng quay lại làm CEO, dù có thông tin ban lãnh đạo Nvidia hôm trước đã không xem xét đưa ông trở lại.",
+        "Ông Lior Prosor, đối tác điều hành công ty Deep33, nhận định việc ông Huang rời đi khó làm vỡ bong bóng trí tuệ nhân tạo do đối thủ chưa thể thay thế năng lực của Nvidia."
+      ],
+      "same_event_coverage_ids": [
+        "c48767ab12b4cd2abed2",
+        "fb2237f95338b98c8d95"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Nvidia post-Huang earnings and leadership stance",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Jensen Huang",
+          "Harvey Jones",
+          "Dan Ives",
+          "Collette Kress"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nvidia tuyên bố không phục chức CEO cho Jensen Huang dù cựu lãnh đạo ngỏ ý muốn quay lại",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "www.theverge.com",
+          "url": "https://www.theverge.com/report/1035465/nvidia-says-it-will-not-reinstate-jensen-huang-as-ceo"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.05,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 9,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "cựu lãnh đạo rời công ty ngày 12 tháng 11 năm 2026",
+            "explanation": "The source reports Huang’s November 12 resignation as CEO; it does not establish that he left Nvidia entirely (outlet:p018, outlet:p021)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The reader may believe Huang left Nvidia altogether.",
+            "fix": "Say that he resigned as CEO on November 12, without claiming he left the company (outlet:p018, outlet:p021)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "5ee49d7151a133f583c0c3e85a561fecd80775556059ce5062ca45d978cb55d5",
+        "scored_at": "2026-11-18T21:35:53.386934+00:00"
+      }
+    },
+    {
+      "id": "6e93a4cc09914f56e319",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://github.blog/changelog/2026-11-18-customize-github-copilot-for-your-team",
+      "key_points": [
+        "GitHub chính thức phát hành tính năng tùy chỉnh nhóm cho Copilot, cho phép người bảo trì nhóm và chủ sở hữu tổ chức chọn các tiện ích bổ trợ (Agent Plugins) làm mặc định. Người nắm giữ các vai trò này có thể truy cập thẻ Customize Copilot trên github.com để cài đặt tiện ích cho nhóm từ các chợ ứng dụng.",
+        "Theo GitHub, tính năng này giúp các nhóm chia sẻ tiện ích dùng chung mà không bắt từng thành viên phải tự thiết lập lặp lại. Cơ chế mới tạo điểm khởi đầu chung cho toàn đội ngũ, dung hòa giữa tùy biến cá nhân và chính sách toàn tổ chức.",
+        "Tiện ích được chọn sẽ bật mặc định cho thành viên trực tiếp trên VS Code, ứng dụng GitHub Copilot và Copilot CLI. Thành viên có thể tắt tiện ích nếu chính sách cho phép, trong khi nhóm cấp dưới không tự động kế thừa cài đặt này.",
+        "GitHub lưu ý chính sách của doanh nghiệp và tổ chức luôn được ưu tiên, nên thiết lập của nhóm không thể ghi đè các quy định kiểm soát đó. Khả năng tùy chỉnh này hiện chỉ khả dụng cho các tổ chức sử dụng gói dịch vụ Copilot Business và Copilot Enterprise."
+      ],
+      "same_event_coverage_ids": [
+        "ff795420f1a5586d8105"
+      ],
+      "split_coverage_ids": [],
+      "subject": "GitHub Copilot team customizations release",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "GitHub cho phép người bảo trì nhóm và chủ sở hữu thiết lập mặc định tiện ích Copilot",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "github",
+          "url": "https://github.blog/changelog/2026-11-18-customize-github-copilot-for-your-team"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "962861cfb169710fd17f4f1bae944cc0fdaaa6e35c5f9e7d6c8b69ac1f5d05eb",
+        "scored_at": "2026-11-18T21:35:53.386959+00:00"
+      }
+    },
+    {
+      "id": "99be0c0a7e074380d1a5",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://openai.com/index/managing-frontier-ai-risk",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "42f9f94863cbb5a8102c"
+      ],
+      "split_coverage_ids": [],
+      "subject": "OpenAI frontier AI risk management framework",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "807b44d392b766cbb09b",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.scmp.com/tech/tech-war/article/3374770/china-question-nvidia-crisis-and-new-us-chip-curbs-split-washington-and-silicon-valley",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "a21a876c7429d1e08231"
+      ],
+      "split_coverage_ids": [
+        "6a754d86270b64a86f15",
+        "b7d19b07e3b29f216750",
+        "c806f08258c1cf6e31ea",
+        "d59b02c30daa04c27ae7"
+      ],
+      "subject": "US chip curbs and Nvidia crisis political fractures",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Donald Trump"
+        ],
+        "availability": "global",
+        "is_leak": false
       }
     }
   ]
