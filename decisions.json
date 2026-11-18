@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-18T09:38:56.341250+00:00",
-  "input_generated_at": "2026-11-18T08:45:51Z",
+  "generated_at": "2026-11-18T11:38:30.645136+00:00",
+  "input_generated_at": "2026-11-18T10:46:14Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -94896,10 +94896,10 @@
       "use_original_title": false,
       "source_url": "https://analyticsindiamag.com/ai-features/sarvams-token-factory-sparks-indias-sovereign-ai-debate-again",
       "key_points": [
-        "Ngày 16 tháng 11, Sarvam AI ra mắt Token Factory, nền tảng suy luận (inference, vận hành mô hình AI đã huấn luyện) cung cấp 8 mô hình qua giao diện lập trình tương thích OpenAI. Toàn bộ mô hình được đặt trên hạ tầng chip đồ họa tại Ấn Độ để khách hàng xử lý tác vụ mà không cần gửi dữ liệu qua các nhà cung cấp nước ngoài.",
-        "Tuy vậy, sự hỗ trợ từ nhà nước không nhất thiết ngăn cản công ty tìm kiếm cơ hội thương mại từ mảng kinh doanh hạ tầng.",
-        "Trong số các mô hình được lưu trữ, 6 mô hình đến từ các công ty Trung Quốc, bên cạnh mô hình 105B của Sarvam và các mô hình từ Google. Dịch vụ có giá khởi điểm từ 14 rupee cho mỗi triệu token đầu vào với DeepSeek V4.1 Flash, cùng tùy chọn không lưu dữ liệu dành riêng cho khách hàng doanh nghiệp.",
-        "Theo Analytics India Magazine, việc lưu trữ nội địa có tiềm năng giữ dữ liệu nhạy cảm trong biên giới quốc gia và giảm phụ thuộc vào các nhà cung cấp suy luận nước ngoài. Dù vậy, tham vọng xây dựng mô hình nền tảng của Ấn Độ có nguy cơ trở thành thứ yếu nếu công ty chỉ tập trung thương mại hóa quyền truy cập mô hình ngoại."
+        "Ngày 16 tháng 11, Sarvam AI ra mắt Token Factory, nền tảng suy luận (vận hành mô hình AI) cung cấp 8 mô hình qua giao diện tương thích OpenAI trên hạ tầng máy chủ Ấn Độ. Dịch vụ này cho phép khách hàng xử lý tác vụ trong nước mà không phải gửi dữ liệu qua các nhà cung cấp nước ngoài.",
+        "Theo Analytics India Magazine, việc ra mắt gây tranh cãi do kỳ vọng xây dựng mô hình nền tảng nội địa sau khi nhận trợ cấp 98,68 crore rupee từ Phái bộ IndiaAI. Dù vậy, tạp chí này nhận định nguồn lực nhà nước không nhất thiết ngăn cản công ty tìm kiếm cơ hội thương mại từ hạ tầng.",
+        "Sáu trong tám mô hình là của Trung Quốc, cùng một mô hình của Google và duy nhất mô hình 105B do Sarvam tự phát triển. Giá khởi điểm từ 14 rupee mỗi triệu token đầu vào cho DeepSeek V4.1 Flash, kèm tùy chọn không lưu giữ dữ liệu doanh nghiệp.",
+        "Theo Analytics India Magazine, tham vọng mô hình nội địa có nguy cơ thành thứ yếu nếu nền tảng chủ yếu kiếm tiền từ việc cấp quyền truy cập các mô hình do nước ngoài phát triển, dù dịch vụ có tiềm năng giữ dữ liệu trong nước."
       ],
       "same_event_coverage_ids": [
         "099441e2bd468185b1ed"
@@ -94913,7 +94913,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Sarvam AI ra mắt Token Factory lưu trữ mô hình Trung Quốc, dấy lên tranh luận về tự chủ AI tại Ấn Độ",
+      "editorial_headline_vi": "Sarvam AI ra mắt Token Factory lưu trữ 6 mô hình Trung Quốc, dấy lên tranh cãi tại Ấn Độ",
       "summary_sources": [
         {
           "id": "outlet",
@@ -94926,30 +94926,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.5,
+        "value": 9.7,
         "answers": {
-          "what": 9,
-          "why": 8,
-          "notable": 8,
-          "meaning": 9
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 8
         },
-        "hard_errors": [
-          {
-            "kind": "number",
-            "summary_text": "các mô hình từ Google",
-            "explanation": "The source says six of the eight models are Chinese-developed and one is Sarvam’s, leaving one Google model, not multiple Google models (outlet:p004, outlet:p006)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "notable",
-            "problem": "The wording suggests more than one Google model.",
-            "fix": "Use the singular: the eight-model catalogue includes six Chinese-developed models, Sarvam’s model and one Google model (outlet:p004, outlet:p006)."
-          },
-          {
-            "question": "why",
-            "problem": "The reader gets only a vague reference to state support, weakening the reason for the debate.",
-            "fix": "State that Sarvam was selected under the IndiaAI Mission to build an indigenous foundation model and received a ₹98.68 crore GPU subsidy (outlet:p006, outlet:p007)."
+            "question": "meaning",
+            "problem": "The reader gets the risk to indigenous models but misses the article’s concluding question about what public support should achieve.",
+            "fix": "Add that the article asks whether a publicly supported company should be judged mainly by commercial success or by its contribution to original Indian AI technology (outlet:p031)."
           }
         ],
         "writer_boats": [
@@ -94957,8 +94946,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "32b8b03f90d9cb684c50c5e2255cd46b42744cfd2e42b7253cd8fbf377fa6601",
-        "scored_at": "2026-11-18T09:29:15.423445+00:00"
+        "prose_sha256": "f7fc5cb5676ba9338168c32bf40424b1bd902b92e15a44ac00c03b046eb38a30",
+        "scored_at": "2026-11-18T11:38:30.639109+00:00"
       }
     },
     {
@@ -95018,10 +95007,10 @@
       "use_original_title": false,
       "source_url": "https://nicolasbouliane.com/blog/death-by-ai",
       "key_points": [
-        "Theo tác giả, trang All About Berlin đã mất 70% đến 75% lưu lượng truy cập vì tính năng tổng quan bằng AI của Google (Google AI Overviews). Tác giả cho biết ông đã vận hành trang web thông tin này từ năm 2017 và sống dựa vào nguồn thu từ nó từ năm 2020.",
-        "Tác giả giải thích nguyên nhân là do Google hiện hiển thị câu trả lời AI trước khi hiển thị liên kết trang web. Thay đổi này khiến người dùng không còn nhấp vào trang web, gây sụt giảm nghiêm trọng lượt người đọc.",
-        "Tác giả cho biết khó duy trì kinh phí khi chỉ còn một phần tư độc giả và sắp phải tìm cách khác để chi trả tiền thuê nhà. Ông chia sẻ thêm rằng nhiều chủ website khác cũng phải lập tường thu phí hoặc bỏ mặc trang web vì không còn hiệu quả.",
-        "Tác giả lo ngại tương lai internet chỉ còn hộp trò chuyện đi kèm quảng cáo thay vì các trang web độc lập. Trước viễn cảnh đó, người sáng lập thừa nhận không biết trang web của mình sẽ tồn tại ra sao."
+        "Theo tác giả bài viết, trang web All About Berlin mà ông vận hành từ năm 2017 đã mất 70% đến 75% lượng truy cập do Google AI Overviews. Ông cho biết nguồn thu từ trang web này vốn giúp ông trang trải cuộc sống từ năm 2020 sau 7 năm tăng trưởng liên tục.",
+        "Tác giả giải thích lượng truy cập giảm mạnh vì Google hiển thị quảng cáo rồi đến câu trả lời AI huấn luyện từ nội dung của ông trước liên kết trang web. Dù vậy, ông lưu ý trang web vẫn còn giữ được khoảng một phần tư lượng độc giả thay vì mất hoàn toàn lượt nhấp.",
+        "Tác giả cho biết ông khó duy trì kinh phí khi chỉ còn một phần tư lượng độc giả và sắp tới phải tìm cách khác chi trả tiền thuê nhà.",
+        "Tác giả lo ngại tương lai internet sẽ không còn các trang web độc lập mà chỉ là một hộp trò chuyện đi kèm quảng cáo. Trước viễn cảnh đó, người vận hành trang web chia sẻ ông không biết All About Berlin sẽ phù hợp ở đâu."
       ],
       "same_event_coverage_ids": [
         "1cda688fa2f4669e3f8d",
@@ -95036,7 +95025,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Trang All About Berlin mất hơn 70% lượng truy cập vì tính năng AI của Google",
+      "editorial_headline_vi": "All About Berlin mất tới 75% lượng truy cập vì tính năng tổng quan bằng AI của Google",
       "summary_sources": [
         {
           "id": "outlet",
@@ -95049,40 +95038,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.3,
+        "value": 9.7,
         "answers": {
           "what": 10,
-          "why": 6,
-          "notable": 8,
+          "why": 10,
+          "notable": 10,
           "meaning": 8
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "người dùng không còn nhấp vào trang web",
-            "explanation": "This implies clicks have stopped. The operator reports a severe decline but says he still has about a quarter of his audience (outlet:p001, outlet:p004)."
-          },
-          {
-            "kind": "role",
-            "summary_text": "người sáng lập",
-            "explanation": "The source identifies the speaker as the person who has run All About Berlin since 2017; it does not identify him as its founder (outlet:p001)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "why",
-            "problem": "The wording suggests nobody clicks through to the site anymore.",
-            "fix": "Say clicks and traffic have fallen sharply, while about a quarter of the audience remains (outlet:p001, outlet:p004)."
-          },
-          {
-            "question": "why",
-            "problem": "The explanation omits the ads and the operator’s claim that the AI answer draws on his content.",
-            "fix": "Describe the order he gives: ads, then an AI answer based on his content, then the site link (outlet:p002)."
-          },
-          {
-            "question": "what",
-            "problem": "Calling the operator the founder assigns him a role the source does not establish.",
-            "fix": "Call him the operator or author of All About Berlin (outlet:p001)."
+            "question": "meaning",
+            "problem": "The feared future reads as an unsupported personal worry because its stated basis is absent.",
+            "fix": "Include the operator's account of Google's announcements about AI answers replacing search results and containing ads, with attribution to the operator (outlet:p008)."
           }
         ],
         "writer_boats": [
@@ -95090,8 +95058,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "6717213b7a76856fd36a06369988a16dc42edcbf415c40a65a10ebdb92f512e6",
-        "scored_at": "2026-11-18T09:23:19.527467+00:00"
+        "prose_sha256": "b02d77f00529fda42a4deb9f37a39da67e12566f234b68566fd6d83111a191d5",
+        "scored_at": "2026-11-18T11:33:39.738043+00:00"
       }
     },
     {
@@ -95331,10 +95299,10 @@
       "use_original_title": false,
       "source_url": "https://arxiv.org/abs/2611.23026",
       "key_points": [
-        "Nhóm tác giả đề xuất kiến trúc TPHC tích hợp các phân mảnh song song hóa tensor với các luồng kết nối dư Hyper-Connections để tăng tính độc lập giữa các luồng. Cơ chế này định tuyến một tổ hợp luồng riêng biệt đến từng phân mảnh và giữ riêng các đầu ra của phân mảnh khi ghi ngược lại.",
-        "Theo nhóm tác giả, phương pháp mHC ít hưởng lợi khi vượt quá bốn luồng một phần do mỗi lớp con chỉ ghi một đầu ra duy nhất cho tất cả các luồng, làm hạn chế mức độ cập nhật khác biệt.",
-        "Trên mô hình 8 tỷ tham số dùng bốn luồng, TPHC chỉ tốn thêm 9% thời gian huấn luyện so với mHC, và việc nâng số luồng của TPHC từ bốn lên 16 chỉ làm tăng 19% thời gian.",
-        "Nhóm tác giả đánh giá thiết kế này giúp tăng khả năng biểu đạt của luồng kết nối dư mà không thêm tham số hay FLOPs vào các lớp con chú ý hoặc FFN."
+        "Nhóm tác giả đề xuất kiến trúc TPHC tích hợp các phân mảnh song song hóa tensor với luồng kết nối dư Hyper-Connections để tăng tính độc lập giữa các luồng xử lý. Thiết kế này định tuyến tổ hợp luồng riêng biệt đến từng phân mảnh và giữ riêng đầu ra khi ghi ngược lại mà không thêm tham số hay chi phí tính toán FLOPs vào các lớp con chú ý hoặc FFN.",
+        "Theo nhóm tác giả, phương pháp mHC ít hưởng lợi khi vượt quá bốn luồng một phần do mỗi lớp con chỉ ghi một đầu ra duy nhất cho mọi luồng, làm hạn chế mức độ cập nhật khác biệt.",
+        "TPHC tăng độ chính xác suy luận thường thức thêm 0,3-0,7 điểm phần trăm so với mHC trên mô hình 1,1B được huấn luyện với 100B token, khi đo độ chính xác zero-shot trung bình qua sáu bài kiểm chuẩn ở các số lượng luồng tương ứng.",
+        "Mô hình 1,1 tỷ tham số này cũng giảm 0,7 đến 1,0% độ mất mát kiểm định so với mHC. Ngoài ra, trên mô hình 8 tỷ tham số dùng bốn luồng, TPHC chỉ tốn thêm 9% thời gian huấn luyện so với mHC và chỉ tăng 19% thời gian khi nâng số luồng lên 16."
       ],
       "same_event_coverage_ids": [
         "e82301bf09ce5c90674f"
@@ -95356,7 +95324,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Kiến trúc TPHC giúp mô hình 1,1B tăng độ chính xác suy luận mà không thêm tham số vào lớp chú ý hay FFN",
+      "editorial_headline_vi": "Kiến trúc TPHC giúp mô hình 1,1B tăng độ chính xác suy luận thường thức thêm 0,3-0,7 điểm phần trăm",
       "summary_sources": [
         {
           "id": "outlet",
@@ -95369,33 +95337,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 7.65,
+        "value": 10.0,
         "answers": {
-          "what": 8,
+          "what": 10,
           "why": 10,
-          "notable": 6,
-          "meaning": 7
+          "notable": 10,
+          "meaning": 10
         },
         "hard_errors": [],
-        "findings": [
-          {
-            "question": "notable",
-            "problem": "The headline claims an accuracy gain, but the paragraphs never give its measured size or benchmark setting.",
-            "fix": "Add the 0.3–0.7 percentage-point average zero-shot accuracy gain across six commonsense benchmarks, compared with mHC at matched stream counts (outlet:p009)."
-          },
-          {
-            "question": "meaning",
-            "problem": "The reader misses the other measured benefit and the training setting for the 1.1B result.",
-            "fix": "Add that the 1.1B model was trained on 100B tokens and had 0.7–1.0% lower validation loss than mHC (outlet:p009)."
-          }
-        ],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "2a90082eccfad1476bd6f65c0f84fa4494978a1c606981fe90c66ca2f9692e21",
-        "scored_at": "2026-11-18T09:29:15.423547+00:00"
+        "prose_sha256": "b1c017c443515db0e0e333fbd3716498ee99ccd8029ec00e47de4063c35d5e2b",
+        "scored_at": "2026-11-18T11:33:39.738169+00:00"
       }
     },
     {
@@ -95505,6 +95462,374 @@
         "scorer_provider": "codex",
         "prose_sha256": "e2cf99b9a1f21f3a8a76c88e2f3b237424cb11b47b0a57ad6b99babc0036c4d1",
         "scored_at": "2026-11-18T09:29:15.423573+00:00"
+      }
+    },
+    {
+      "id": "c08d2bf5cfc43826878d",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.technologyreview.com/2026/11/18/1148816/smell-startup-osmo-ai-nose-good-as-humans/",
+      "key_points": [
+        "Nhà sáng lập Alex Wiltschko tuyên bố mô hình của startup Osmo đã đạt trí tuệ khứu giác ngang con người trong vài tháng qua. Theo Osmo, hệ thống có thể nhận biết mùi như người bình thường, tạo mùi tương đương chuyên gia tập sự và đã được ngành hương liệu sử dụng.",
+        "Theo Wiltschko, thách thức chính là sự khan hiếm dữ liệu khi các cơ sở dữ liệu trước đó có chưa đầy 200.000 mô tả mùi hương từ con người. Trước chi phí cảm biến đắt đỏ và ngành hương liệu khép kín, Osmo tự xây dựng hơn 10 triệu nhãn mô tả cùng 800 triệu token mùi hương mô tả chính xác phân tử và nồng độ tạo mùi.",
+        "Công nghệ của Osmo đã được ứng dụng tạo hương thơm bán lẻ cho các tập đoàn như Procter & Gamble và giúp sàn StockX phát hiện giày giả. Ngoài ra, Quỹ Gates đã cấp khoản tài trợ 3,5 triệu USD để Osmo đánh giá các phân tử xua côn trùng truyền bệnh, giúp công ty tìm ra tám chất xua côn trùng tốt hơn DEET.",
+        "Cựu giáo sư Michael Schmuker nhận định cảm biến và mô hình cần cải thiện nhiều hơn để phục vụ các mục tiêu lớn như chẩn đoán y tế. Schmuker cũng cảnh báo mô hình có thể bỏ lỡ đặc trưng khứu giác độc nhất của con người do thiếu ngữ cảnh ngoài phòng thí nghiệm có kiểm soát."
+      ],
+      "same_event_coverage_ids": [
+        "bbd3703b3d810bcda6d9"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Osmo",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Alex Wiltschko"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Startup Osmo tuyên bố mô hình AI đạt trí tuệ khứu giác ngang người khi phân biệt và tạo mùi",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "mit-tech-review",
+          "url": "https://www.technologyreview.com/2026/11/18/1148816/smell-startup-osmo-ai-nose-good-as-humans/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.1,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 8,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "giúp sàn StockX phát hiện giày giả",
+            "explanation": "The source says Osmo worked with StockX on using smell to spot counterfeit sneakers; it does not report that the work successfully detected counterfeit shoes (outlet:p010)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The reader is told Osmo helped StockX detect counterfeit shoes as an accomplished result.",
+            "fix": "Say Osmo worked with StockX on a method to spot counterfeit sneakers through differences in the shoes’ chemical composition (outlet:p010)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The reader does not see that Osmo’s broader claims are contested.",
+            "fix": "Add that smell scientist Avery Gilbert argues some marketing claims are undocumented and patent filings still rely on human sensory panels and perfumers (outlet:p011)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "b3aa07ea4dd76dc46977a216a1a368677f2838a455a2cebcf625d7abeb99e43a",
+        "scored_at": "2026-11-18T11:26:31.902086+00:00"
+      }
+    },
+    {
+      "id": "8e44a97e1824359b2a90",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-18/pony-ai-s-sales-beat-estimates-as-robotaxi-business-expands",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "1d72fd3b3fd098526e49"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "948257091aad02b88a67",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://energy-based-reasoners.github.io/",
+      "key_points": [
+        "Nhóm nghiên cứu giới thiệu Energy-Based Reasoners (EBRs - mô hình lý luận dựa trên năng lượng), đạt hiệu năng tương đương hoặc vượt trội các mô hình lý luận tuần hoàn trước đó trên bốn bộ chuẩn thuật toán. Hệ thống dùng hàm năng lượng để chấm điểm trạng thái ẩn, đồng thời lấy đạo hàm dẫn hướng tinh chỉnh và báo hiệu dừng suy luận.",
+        "Theo nhóm tác giả, các mô hình lặp hiện nay thiếu thước đo rõ ràng về tiến độ để biết thời điểm dừng và tinh chỉnh trạng thái suy luận. EBR giải quyết hạn chế này bằng cách cập nhật lặp theo đạo hàm hàm năng lượng, kết hợp huấn luyện khám phá nhằm tìm kiếm nhiều phương án giải hợp lệ.",
+        "Trên chuẩn Sudoku-Extreme, việc dừng mỗi nhánh khi đạo hàm xuống dưới ngưỡng cho phép giữ độ chính xác 99,9% với lượng FLOPs ít hơn 345 lần so với mô hình EqR. Cơ chế dừng theo ngưỡng này đạt độ chính xác tương đương nhưng tốn ít hơn 10,9 lần phép tính so với phiên bản EBR có độ sâu cố định.",
+        "Nhóm tác giả nhận định kết quả chứng minh mô hình dựa trên năng lượng là hướng tiếp cận triển vọng cho năng lực lý luận mạnh mẽ. Tuy vậy, các kết luận này mới được xác lập trên bốn bộ chuẩn thuật toán với giá trị đo trung bình qua ba lần thử nghiệm ngẫu nhiên."
+      ],
+      "same_event_coverage_ids": [
+        "c8075a630fa5a05346dd"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Energy-Based Reasoners",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Mô hình EBR đạt độ chính xác 99,9% trên Sudoku-Extreme với chi phí tính toán ít hơn 345 lần",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://energy-based-reasoners.github.io/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 7.85,
+        "answers": {
+          "what": 10,
+          "why": 3,
+          "notable": 10,
+          "meaning": 5
+        },
+        "hard_errors": [
+          {
+            "kind": "cause",
+            "summary_text": "huấn luyện khám phá nhằm tìm kiếm nhiều phương án giải hợp lệ",
+            "explanation": "The stated purpose of exploration-based training is to discover additional modes and better shape the energy landscape over a broader set of states. Coverage of distinct valid solutions is reported separately as a result (outlet:p001)."
+          },
+          {
+            "kind": "quote",
+            "summary_text": "kết quả chứng minh mô hình dựa trên năng lượng là hướng tiếp cận triển vọng",
+            "explanation": "The authors say the results suggest a promising approach, a weaker conclusion than “prove” (outlet:p001)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "các kết luận này mới được xác lập trên bốn bộ chuẩn thuật toán với giá trị đo trung bình qua ba lần thử nghiệm ngẫu nhiên",
+            "explanation": "The source reports results across four benchmarks, but the three-seed mean and standard deviation appear in a specific comparison caption; it does not apply that qualification to every conclusion (outlet:p001, outlet:p010)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The purpose assigned to exploration-based training differs from the paper’s stated purpose.",
+            "fix": "Say it discovers additional modes and shapes the energy landscape across a broader set of states; report valid-solution coverage separately as a result (outlet:p001)."
+          },
+          {
+            "question": "meaning",
+            "problem": "“Proves” makes the authors’ conclusion too certain.",
+            "fix": "Use “suggests” or an equivalent qualified formulation (outlet:p001)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The three-seed statistic is presented as applying to all benchmark conclusions.",
+            "fix": "Attach it only to the comparison for which the source specifies mean and standard deviation over three seeds (outlet:p010)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "72970b0e68f602e2831a05ecf30218cd18628006faf5c87f3ab3a125947c600f",
+        "scored_at": "2026-11-18T11:21:38.351537+00:00"
+      }
+    },
+    {
+      "id": "0954f46bc5309d37e092",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Macroeconomic and data center compute commentary by Commonwealth Bank of Australia where AI is only mentioned in passing as an investor descriptor.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-18/anthropic-backer-cba-says-australia-more-attractive-on-compute",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "115b6965ec094e0146fc"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "e9404d437835e1f708c2",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.cnbc.com/2026/11/16/imf-georgieva-warning-ai-circular-financing.html",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "8a3a72759e5c5c32cbd3"
+      ],
+      "split_coverage_ids": [],
+      "subject": "IMF",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "a1de396d3910fa2e0f79",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://openai.com/index/le-groupe-figaro-and-openai-announce-partnership",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "fe01ca4d7d60e2b64d3e"
+      ],
+      "split_coverage_ids": [],
+      "subject": "OpenAI and Le Groupe Figaro",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "54568103aadf9fab4138",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "First-party promotional Launch HN post by startup founders pitching product features without independent reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://news.ycombinator.com/item?id=50536468",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b91761af201dd21f9ea8"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "364859f834c86602e550",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://technode.com/2026/11/16/tencent-launches-hy4-flash-cutting-ai-task-costs-by-95-in-internal-tests/",
+      "key_points": [
+        "Tencent ra mắt mô hình AI chi phí thấp Hy4 flash cho công việc hàng ngày như nghiên cứu, tạo bài thuyết trình và xử lý bảng tính. Sản phẩm hiện có sẵn trên WorkBuddy, Yuanbao và dịch vụ TokenHub của Tencent Cloud.",
+        "Về kỹ thuật, Hy4 flash có 224 tỷ tham số và kích hoạt 12 tỷ tham số trong mỗi lượt truyền xuôi. Hệ thống hỗ trợ dữ liệu đa phương thức cùng cửa sổ ngữ cảnh tối đa một triệu token.",
+        "Trên bài đo nội bộ WorkIndex của Tencent, Hy4 flash có chi phí mỗi tác vụ chỉ bằng một phần hai mươi so với bản Hy4 đầy đủ. Trong thử nghiệm mù với 85 người dùng qua 259 tác vụ, Tencent cho biết mô hình đạt độ hài lòng gần tương đương Claude Haiku 5.5 với chi phí thấp nhất.",
+        "Người dùng WorkBuddy được dùng miễn phí đến hết ngày 30 tháng 11, đồng thời TokenHub cung cấp quyền gọi API với giá giảm một nửa. Tencent cũng dự kiến phát hành trọng số mô hình và đưa sản phẩm lên nền tảng OpenRouter."
+      ],
+      "same_event_coverage_ids": [
+        "5b2f15e22441def7498e"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Tencent Hy4 flash",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Tencent ra mắt mô hình AI Hy4 flash với chi phí mỗi tác vụ chỉ bằng một phần hai mươi bản Hy4 đầy đủ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "technode.com",
+          "url": "https://technode.com/2026/11/16/tencent-launches-hy4-flash-cutting-ai-task-costs-by-95-in-internal-tests/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The reader cannot see the actual API list prices behind the cost claim.",
+            "fix": "Add $0.07 per million input tokens, $0.281 per million output tokens and $0.003 per million cached input tokens (outlet:p002)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "d72aef9d34d90212032e02cac4deaf7f253cdfe786e0debbc208b7a963fe444e",
+        "scored_at": "2026-11-18T11:26:31.902127+00:00"
       }
     }
   ]
