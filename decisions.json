@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-18T07:50:20.160129+00:00",
-  "input_generated_at": "2026-11-18T06:45:45Z",
+  "generated_at": "2026-11-18T09:38:56.341250+00:00",
+  "input_generated_at": "2026-11-18T08:45:51Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -94126,10 +94126,10 @@
       "use_original_title": false,
       "source_url": "https://www.wired.com/story/over-a-third-of-gen-z-rely-on-ai-for-friendship/",
       "key_points": [
-        "Khoảng 33% người thuộc Gen Z dựa vào AI (trí tuệ nhân tạo) để bầu bạn, theo khảo sát của Gallup và phòng nghiên cứu Digital Wellness Lab. Khảo sát thực hiện từ tháng 5 đến tháng 8 trên 15.925 người từ 15 đến 22 tuổi tại 16 quốc gia.",
-        "Giám đốc nghiên cứu David Bickham cho rằng người trẻ tìm kiếm mọi bối cảnh giao lưu khi lớn lên cùng AI. Tuy nhiên, các nhà nghiên cứu nhấn mạnh chưa rõ người trẻ tìm đến AI do cô đơn hay AI làm tăng cảm giác này.",
-        "Tỷ lệ dựa vào AI tăng lên 50% ở người dùng hàng ngày và đạt 42% ở những người có bạn bè chỉ quen qua mạng. Nam giới thường kết bạn qua trò chơi điện tử còn nữ giới qua mạng xã hội, với Instagram và Discord là hai nền tảng hàng đầu tại Mỹ.",
-        "Báo cáo chỉ ra tình bạn trực tiếp được đánh giá cao nhất về sự bền chặt và hỗ trợ, trong khi người dựa vào AI có thể đối mặt nguy cơ cô đơn cao hơn. Các nhà nghiên cứu xem đây là dấu hiệu phụ thuộc gia tăng vào AI, dù thận trọng chưa coi là thay đổi vĩnh viễn."
+        "Khoảng 33% người thuộc Gen Z dựa vào AI (trí tuệ nhân tạo) để bầu bạn, theo khảo sát của viện Gallup và phòng nghiên cứu Digital Wellness Lab. Khảo sát được thực hiện từ tháng 5 đến tháng 8 trên 15.925 người từ 15 đến 22 tuổi tại 16 quốc gia.",
+        "Giám đốc nghiên cứu David Bickham giải thích người trẻ tìm kiếm mọi bối cảnh giao lưu khi lớn lên trong thời kỳ AI. Tuy nhiên, chuyên gia Andrew Dugan từ Gallup lưu ý chưa rõ người trẻ tìm đến AI vì cô đơn hay chính AI làm tăng cảm giác này.",
+        "Tỷ lệ dựa vào AI tăng lên 50% ở nhóm dùng hàng ngày và đạt 42% ở những người có bạn bè chỉ quen qua mạng. Riêng tại Mỹ, Instagram và Discord là hai nền tảng hàng đầu để giữ liên lạc với những người bạn chỉ quen qua mạng.",
+        "Người trẻ dựa vào AI để bầu bạn có thể đối mặt nguy cơ cô đơn cao hơn, dù tình bạn ngoài đời thực được đánh giá cao nhất về sự hỗ trợ. Dù thận trọng chưa coi đây là thay đổi vĩnh viễn, các nhà nghiên cứu nhận định kết quả này báo hiệu sự phụ thuộc ngày càng tăng vào AI."
       ],
       "same_event_coverage_ids": [
         "0a01230455703fadf32a"
@@ -94143,7 +94143,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Khảo sát của Gallup: 33% thanh thiếu niên Gen Z dùng AI để bầu bạn, tăng lên 50% ở người dùng hàng ngày",
+      "editorial_headline_vi": "Khảo sát Gallup: 33% người thuộc Gen Z dựa vào AI để bầu bạn, tăng lên 50% ở nhóm dùng hàng ngày",
       "summary_sources": [
         {
           "id": "outlet",
@@ -94156,34 +94156,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.2,
+        "value": 9.85,
         "answers": {
           "what": 10,
-          "why": 9,
-          "notable": 8,
-          "meaning": 10
+          "why": 10,
+          "notable": 10,
+          "meaning": 9
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "Instagram và Discord là hai nền tảng hàng đầu tại Mỹ",
-            "explanation": "The source ranks them as the top US platforms specifically for staying in touch with online-only friends, not as the top platforms in the US generally (outlet:p008)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "notable",
-            "problem": "The platform ranking reads as a general US ranking.",
-            "fix": "Specify that Instagram and Discord were the leading US platforms for staying in touch with online-only friends (outlet:p008)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "33dce0952c4773c7fac6aa38a991ba93651b787c974c9794b5824c5c20a49d62",
-        "scored_at": "2026-11-18T07:41:40.777093+00:00"
+        "prose_sha256": "3420ffce27d0508aca61421449c6bf991296a09b8f04607e2df1814a2c4d9c64",
+        "scored_at": "2026-11-18T09:34:13.075711+00:00"
       }
     },
     {
@@ -94320,10 +94308,10 @@
       "use_original_title": false,
       "source_url": "https://en.yna.co.kr/view/AEN20261118004500315",
       "key_points": [
-        "Theo Yonhap, Chính phủ Hàn Quốc và Đảng Dân chủ cầm quyền thống nhất đề xuất nâng mức cấm thi đại học CSAT lên tối đa 10 năm với hành vi gian lận bằng AI.",
-        "Việc ngăn chặn gian lận chà đạp lên nỗ lực của học sinh chăm chỉ và làm xói mòn lòng tin xã hội được chính phủ cùng Đảng Dân chủ thực hiện bằng mọi biện pháp có thể, theo ông Kim Min-seok.",
-        "Chính phủ dự kiến điều động thêm 8.400 nhân sự đến các điểm thi và tăng cường kiểm tra kính thông minh hay camera siêu nhỏ có thể dùng để gian lận.",
-        "Hai bên cũng nhất trí đề xuất luật cho phép các trường đại học đuổi học và hạn chế nhận lại sinh viên gian lận thi cử. Ông Kim Min-seok cam kết kiên quyết theo đuổi cách tiếp cận không khoan nhượng với hành vi gian lận bằng AI trong kỳ thi này."
+        "Chính phủ Hàn Quốc và Đảng Dân chủ cầm quyền thống nhất đề xuất cấm thi đại học (CSAT) tối đa 10 năm với hành vi gian lận bằng AI (trí tuệ nhân tạo). Thỏa thuận đạt được trong cuộc họp tham vấn cấp cao một ngày trước kỳ thi.",
+        "Lãnh đạo Đảng Dân chủ Kim Min-seok nhấn mạnh gian lận chà đạp lên nỗ lực của học sinh chăm chỉ và làm xói mòn lòng tin xã hội. Ông khẳng định hai bên cam kết theo đuổi cách tiếp cận không khoan nhượng với gian lận thi cử.",
+        "Chính phủ Hàn Quốc dự kiến điều thêm 8.400 nhân sự đến các điểm thi để hỗ trợ tổ chức. Nhà chức trách cũng siết chặt kiểm tra kính thông minh và camera siêu nhỏ có thể dùng để gian lận.",
+        "Hai bên nhất trí đề xuất sửa đổi luật để áp dụng hình phạt hồi tố ngay từ kỳ thi năm nay. Đề xuất này cũng cho phép các trường đại học đuổi học và hạn chế nhận lại sinh viên gian lận."
       ],
       "same_event_coverage_ids": [
         "323274d5a4ea8dfcb4df",
@@ -94342,7 +94330,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Hàn Quốc đề xuất cấm thi đại học tối đa 10 năm với hành vi gian lận bằng AI",
+      "editorial_headline_vi": "Hàn Quốc thúc đẩy luật cấm thi đại học tới 10 năm với gian lận bằng AI, hướng tới áp dụng hồi tố",
       "summary_sources": [
         {
           "id": "outlet",
@@ -94355,30 +94343,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 6.8,
+        "value": 9.5,
         "answers": {
-          "what": 8,
-          "why": 2,
-          "notable": 8,
+          "what": 10,
+          "why": 9,
+          "notable": 10,
           "meaning": 8
         },
-        "hard_errors": [
-          {
-            "kind": "quote",
-            "summary_text": "Việc ngăn chặn gian lận chà đạp lên nỗ lực của học sinh chăm chỉ và làm xói mòn lòng tin xã hội",
-            "explanation": "Kim Min-seok said cheating itself tramples on students’ efforts and undermines fairness and social trust, not that preventing cheating does so (outlet:p008)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "why",
-            "problem": "The sentence reverses Kim Min-seok’s reason for the crackdown.",
-            "fix": "Say that cheating, rather than preventing cheating, harms students’ efforts, fairness and social trust (outlet:p008)."
-          },
-          {
             "question": "meaning",
-            "problem": "Readers miss that the parties want the proposed penalty to apply to this year’s CSAT.",
-            "fix": "Add the intended retroactive application while keeping clear that legislation is still being sought (outlet:p001, outlet:p003)."
+            "problem": "Readers are not told which cheating would trigger the proposed university expulsion and readmission restriction.",
+            "fix": "Specify students caught cheating on their university tests (outlet:p006)."
           }
         ],
         "writer_boats": [
@@ -94386,8 +94363,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "8eb11686a88d990d34a6c12313c21c6c3b8269381c947b30141b7f2757e7a46f",
-        "scored_at": "2026-11-18T07:32:00.777798+00:00"
+        "prose_sha256": "f4ee35c26a1d0cec6827d5b5f8c839f610b017cb017d7832b11f6c2534abbce4",
+        "scored_at": "2026-11-18T09:34:13.075762+00:00"
       }
     },
     {
@@ -94542,9 +94519,9 @@
       "use_original_title": false,
       "source_url": "https://arxiv.org/abs/2611.23143",
       "key_points": [
-        "Nhóm tác giả Haosong Peng giới thiệu mô hình TCP4D, dùng biểu diễn cảnh 4D chung cho việc theo dõi chuyển động điểm trung tâm công cụ (TCP) và tạo quỹ đạo thao tác robot. Từ video một mắt và truy vấn 2D ban đầu, bộ theo dõi khôi phục tư thế SE(3), trạng thái bộ gắp cùng thông số máy quay.",
-        "Theo nhóm nghiên cứu, bộ tạo lấy mẫu đặc trưng cục bộ từ biểu diễn 4D dọc theo quỹ đạo đã khôi phục. Các đặc trưng này được kết hợp với quan sát robot và chỉ dẫn ngôn ngữ khi dự đoán các trạng thái tiếp theo.",
-        "Bộ tạo đạt tỷ lệ thành công trung bình 69,19% trên RoboTwin và vượt trội các mô hình chính sách trên hai tác vụ thực tế. Bộ theo dõi đạt sai số quỹ đạo tuyệt đối 7,60 mm trên DROID, 16,07 mm trên RoboLab và thích ứng robot mới với 10 minh họa.",
+        "Nhóm tác giả Haosong Peng giới thiệu TCP4D, mô hình thống nhất dùng biểu diễn cảnh 4D để theo dõi điểm trung tâm công cụ (TCP) và tạo quỹ đạo thao tác robot. Từ video một mắt và truy vấn 2D ban đầu, bộ theo dõi khôi phục tư thế SE(3), trạng thái bộ gắp cùng thông số máy quay.",
+        "Theo nhóm nghiên cứu, việc khôi phục hành động robot và trạng thái bộ gắp từ video RGB vẫn còn nhiều thách thức. Do đó, nhóm dùng tư thế TCP độc lập với hình thể robot làm không gian hành động, kết hợp quan sát với chỉ dẫn ngôn ngữ để dự đoán quỹ đạo tương lai.",
+        "Bộ tạo đạt tỷ lệ thành công trung bình 69,19% trên RoboTwin và vượt trội các mô hình chính sách đã được thiết lập vững chắc trên hai tác vụ thực tế. Bộ theo dõi đạt sai số quỹ đạo tuyệt đối 7,60 mm trên DROID, 16,07 mm trên RoboLab và thích ứng robot mới chỉ với mười minh họa.",
         "Theo nhóm tác giả, việc cùng huấn luyện dữ liệu gốc và tăng cường giúp cải thiện 41,5% tỷ lệ thành công trên robot mục tiêu so với chỉ huấn luyện dữ liệu tăng cường. Quy trình này chuyển đổi video RGB thành minh họa cho dạng robot khác mà không cần ghi nhận trạng thái từ robot gốc."
       ],
       "same_event_coverage_ids": [
@@ -94568,7 +94545,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Mô hình TCP4D đạt tỷ lệ thành công 69,19% trên RoboTwin và thích ứng robot mới chỉ với 10 minh họa",
+      "editorial_headline_vi": "TCP4D đạt tỷ lệ thành công 69,19% trên RoboTwin và thích ứng hình thể robot mới chỉ với 10 minh họa",
       "summary_sources": [
         {
           "id": "outlet",
@@ -94581,28 +94558,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.85,
+        "value": 9.65,
         "answers": {
           "what": 9,
-          "why": 6,
+          "why": 10,
           "notable": 10,
           "meaning": 10
         },
         "hard_errors": [],
-        "findings": [
-          {
-            "question": "why",
-            "problem": "The reader is not told what problem motivated TCP4D.",
-            "fix": "Add that recovering robot actions and gripper states from RGB observations remains challenging, and that the tool-center-point action space works across robot embodiments (outlet:p009)."
-          }
-        ],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "d5bf9caeed7f200d43c141c0409dfd7e562749c1c93cb7eab8b33671ea31c505",
-        "scored_at": "2026-11-18T07:41:40.777242+00:00"
+        "prose_sha256": "2442dc3f5ed4e0c3fd3e684c79f26bdcbdf51774c9af23cf2b316e08761d2bbf",
+        "scored_at": "2026-11-18T09:38:56.286298+00:00"
       }
     },
     {
@@ -94752,10 +94723,10 @@
       "use_original_title": false,
       "source_url": "https://arxiv.org/abs/2611.22115",
       "key_points": [
-        "Nhóm Xingchen AGI Lab giới thiệu dòng mô hình ngôn ngữ lớn Xing 4 mở rộng từ dòng TeleChat trên hạ tầng Ascend. Báo cáo nghiên cứu được nộp vào ngày 17 tháng 11 năm 2026, mô tả thiết kế hệ thống từ lựa chọn kiến trúc đến hậu huấn luyện tác tử (chương trình AI tự chủ, agent).",
-        "Hạ tầng tiền huấn luyện xây dựng trên MindSpore HyperParallel, kết hợp phân mảnh lai và quản lý bộ nhớ kích hoạt cùng chuỗi dài. Cơ chế gán độ thân hòa CPU và cô lập lõi xử lý giảm bớt can thiệp điều phối lịch trình từ máy chủ.",
-        "Hệ thống hỗ trợ huấn luyện tiền kỳ mô hình 285 tỷ tham số trên 8.192 chip Ascend 910C, tạo bối cảnh thực nghiệm cho các nghiên cứu kiến trúc. Nền tảng TeleGym ở khâu hậu huấn luyện kết nối thực thi, đánh giá và dựng quỹ đạo với tối ưu hóa chính sách.",
-        "Báo cáo nhận định các tiến bộ này thiết lập nền tảng huấn luyện định hướng Ascend cho mô hình lý luận và tác tử khi tiếp tục phát triển dòng Xing 4."
+        "Xingchen AGI Lab giới thiệu dòng mô hình ngôn ngữ lớn Xing 4 mở rộng từ TeleChat trên hạ tầng Ascend. Báo cáo nộp ngày 17 tháng 11 năm 2026, mô tả thiết kế hệ thống từ kiến trúc đến hậu huấn luyện tác tử (chương trình AI tự chủ, agent).",
+        "Nhóm tác giả nghiên cứu cách cân bằng dung lượng mô hình với chi phí tính toán, truy cập bộ nhớ và thực thi qua kích hoạt thưa cùng giải mã phỏng đoán. Hạ tầng tiền huấn luyện trên MindSpore HyperParallel kết hợp phân mảnh lai và cô lập lõi CPU giúp giảm can thiệp điều phối.",
+        "Cơ chế này hỗ trợ tiền huấn luyện mô hình 285 tỷ tham số trên 8.192 chip Ascend 910C, tạo bối cảnh thực nghiệm cụ thể cho các nghiên cứu hệ thống. Ở khâu hậu huấn luyện, nền tảng TeleGym kết nối quá trình thực thi, đánh giá và dựng quỹ đạo với tối ưu hóa chính sách.",
+        "Nhóm tác giả nhận định các tiến bộ này thiết lập nền tảng huấn luyện định hướng Ascend cho các khối lượng công việc lý luận và tác tử ngày càng phức tạp, làm cơ sở tiếp tục phát triển dòng Xing 4 trên nhiều quy mô mô hình."
       ],
       "same_event_coverage_ids": [
         "9e4d4722a23a418f4edc"
@@ -94782,19 +94753,122 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "75c7b8a299fecee1a8f78ba7e9c14d9894151636b16c1d168e44d0f7e0ec9e28",
+        "scored_at": "2026-11-18T09:34:13.075818+00:00"
+      }
+    },
+    {
+      "id": "a26ca37349857ce1abbb",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-18/apax-sees-growing-split-in-credit-markets-from-ai-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "82fb354070baad40fff7"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "e884e1ec91b6ab77112b",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-18/tencent-s-sales-miss-estimates-in-setback-for-founder-s-ai-push",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "3b01cacd264172f2d747"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "f0858691bf57799338c5",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://pandaily.com/kling-image-4-native-8k-text-coordinated-image-sets",
+      "key_points": [
+        "Kling AI đã ra mắt mô hình tạo ảnh tĩnh Kling Image 4.0 thông qua nền tảng Kling Creative Studio và giao diện lập trình ứng dụng (API, phương thức kết nối giữa các phần mềm) cho doanh nghiệp lẫn lập trình viên. Theo các báo cáo từ Trung Quốc vào ngày 17 và 18 tháng 11, mô hình mang lại những nâng cấp về độ phân giải, hiển thị chữ và tạo các bộ ảnh phối hợp.",
+        "Kling AI giới thiệu kiến trúc hợp nhất như một cách chuyển đổi tóm tắt sáng tạo chi tiết thành nội dung hình ảnh hoàn chỉnh, thay vì tách biệt các bước hiểu và tạo ảnh.",
+        "Mô hình sở hữu tính năng nổi bật là tạo ảnh độ phân giải gốc 8K, bên cạnh khả năng tạo tối đa 2.000 ký tự trong một ảnh với câu lệnh nhận tới 15.000 token. Dù vậy, Pandaily lưu ý đây là tuyên bố năng lực của công ty chứ chưa có đo lường độc lập, và giới hạn câu lệnh không bảo đảm chữ sẽ xuất hiện chính xác.",
+        "Pandaily đánh giá bản phát hành giúp mở rộng quyền tiếp cận quy trình sản xuất ảnh kết hợp độ phân giải và kiểu chữ. Tuy nhiên, tòa soạn này nhấn mạnh các giới hạn quảng bá vẫn là tuyên bố cần kiểm chứng theo từng yêu cầu chứ chưa phải bảo đảm độc lập cho sản phẩm thực tế."
+      ],
+      "same_event_coverage_ids": [
+        "caaccd51a5b6fc2c3b2a"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Kling Image 4.0 launch",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Kling AI ra mắt mô hình Kling Image 4.0 hỗ trợ tạo ảnh gốc 8K và bộ ảnh phối hợp",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "pandaily",
+          "url": "https://pandaily.com/kling-image-4-native-8k-text-coordinated-image-sets"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
         "value": 9.25,
         "answers": {
           "what": 10,
-          "why": 7,
-          "notable": 10,
+          "why": 10,
+          "notable": 8,
           "meaning": 9
         },
         "hard_errors": [],
         "findings": [
           {
-            "question": "why",
-            "problem": "The reader sees the engineering measures without the trade-off they address.",
-            "fix": "State that the authors study ways to balance model capacity with computation, memory access, and execution overhead (outlet:p011)."
+            "question": "notable",
+            "problem": "A reader sees coordinated image sets in the headline but never learns what the feature does.",
+            "fix": "Explain that one prompt can produce up to 10 related images, with company-described planning for their content and consistency (outlet:p006)."
           }
         ],
         "writer_boats": [
@@ -94802,8 +94876,635 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "cea45b625991a7059112ba2dadcd4e79b83e3004f070c6fc5fc771ed9d8e3950",
-        "scored_at": "2026-11-18T07:41:40.777438+00:00"
+        "prose_sha256": "60f763b05a1f287233b60358f28402f57f97bddfbdbbe6a6fd8067522241a020",
+        "scored_at": "2026-11-18T09:23:19.527270+00:00"
+      }
+    },
+    {
+      "id": "907900a3c9712d5b78fc",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://analyticsindiamag.com/ai-features/sarvams-token-factory-sparks-indias-sovereign-ai-debate-again",
+      "key_points": [
+        "Ngày 16 tháng 11, Sarvam AI ra mắt Token Factory, nền tảng suy luận (inference, vận hành mô hình AI đã huấn luyện) cung cấp 8 mô hình qua giao diện lập trình tương thích OpenAI. Toàn bộ mô hình được đặt trên hạ tầng chip đồ họa tại Ấn Độ để khách hàng xử lý tác vụ mà không cần gửi dữ liệu qua các nhà cung cấp nước ngoài.",
+        "Tuy vậy, sự hỗ trợ từ nhà nước không nhất thiết ngăn cản công ty tìm kiếm cơ hội thương mại từ mảng kinh doanh hạ tầng.",
+        "Trong số các mô hình được lưu trữ, 6 mô hình đến từ các công ty Trung Quốc, bên cạnh mô hình 105B của Sarvam và các mô hình từ Google. Dịch vụ có giá khởi điểm từ 14 rupee cho mỗi triệu token đầu vào với DeepSeek V4.1 Flash, cùng tùy chọn không lưu dữ liệu dành riêng cho khách hàng doanh nghiệp.",
+        "Theo Analytics India Magazine, việc lưu trữ nội địa có tiềm năng giữ dữ liệu nhạy cảm trong biên giới quốc gia và giảm phụ thuộc vào các nhà cung cấp suy luận nước ngoài. Dù vậy, tham vọng xây dựng mô hình nền tảng của Ấn Độ có nguy cơ trở thành thứ yếu nếu công ty chỉ tập trung thương mại hóa quyền truy cập mô hình ngoại."
+      ],
+      "same_event_coverage_ids": [
+        "099441e2bd468185b1ed"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Sarvam Token Factory launch",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Sarvam AI ra mắt Token Factory lưu trữ mô hình Trung Quốc, dấy lên tranh luận về tự chủ AI tại Ấn Độ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "analytics-india-magazine",
+          "url": "https://analyticsindiamag.com/ai-features/sarvams-token-factory-sparks-indias-sovereign-ai-debate-again"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.5,
+        "answers": {
+          "what": 9,
+          "why": 8,
+          "notable": 8,
+          "meaning": 9
+        },
+        "hard_errors": [
+          {
+            "kind": "number",
+            "summary_text": "các mô hình từ Google",
+            "explanation": "The source says six of the eight models are Chinese-developed and one is Sarvam’s, leaving one Google model, not multiple Google models (outlet:p004, outlet:p006)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The wording suggests more than one Google model.",
+            "fix": "Use the singular: the eight-model catalogue includes six Chinese-developed models, Sarvam’s model and one Google model (outlet:p004, outlet:p006)."
+          },
+          {
+            "question": "why",
+            "problem": "The reader gets only a vague reference to state support, weakening the reason for the debate.",
+            "fix": "State that Sarvam was selected under the IndiaAI Mission to build an indigenous foundation model and received a ₹98.68 crore GPU subsidy (outlet:p006, outlet:p007)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "32b8b03f90d9cb684c50c5e2255cd46b42744cfd2e42b7253cd8fbf377fa6601",
+        "scored_at": "2026-11-18T09:29:15.423445+00:00"
+      }
+    },
+    {
+      "id": "ba2263dff74eb7c53b76",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The article is an overview of RayNeo AR smart glasses hardware and market adoption; AI is only mentioned incidentally as a secondary feature.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://technode.com/2026/11/18/can-rayneos-smart-glasses-become-a-habit/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "3173d455e9b38d673d6a"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "c91c17790a8776d399d5",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-18/asian-stocks-waver-after-nvidia-results-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "d5460be8d2a33104908a"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "6663bdbb07465939d1ff",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://nicolasbouliane.com/blog/death-by-ai",
+      "key_points": [
+        "Theo tác giả, trang All About Berlin đã mất 70% đến 75% lưu lượng truy cập vì tính năng tổng quan bằng AI của Google (Google AI Overviews). Tác giả cho biết ông đã vận hành trang web thông tin này từ năm 2017 và sống dựa vào nguồn thu từ nó từ năm 2020.",
+        "Tác giả giải thích nguyên nhân là do Google hiện hiển thị câu trả lời AI trước khi hiển thị liên kết trang web. Thay đổi này khiến người dùng không còn nhấp vào trang web, gây sụt giảm nghiêm trọng lượt người đọc.",
+        "Tác giả cho biết khó duy trì kinh phí khi chỉ còn một phần tư độc giả và sắp phải tìm cách khác để chi trả tiền thuê nhà. Ông chia sẻ thêm rằng nhiều chủ website khác cũng phải lập tường thu phí hoặc bỏ mặc trang web vì không còn hiệu quả.",
+        "Tác giả lo ngại tương lai internet chỉ còn hộp trò chuyện đi kèm quảng cáo thay vì các trang web độc lập. Trước viễn cảnh đó, người sáng lập thừa nhận không biết trang web của mình sẽ tồn tại ra sao."
+      ],
+      "same_event_coverage_ids": [
+        "1cda688fa2f4669e3f8d",
+        "566c4c57ef8f48a259c5"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Google AI Overviews impact on web publishing",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Trang All About Berlin mất hơn 70% lượng truy cập vì tính năng AI của Google",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://nicolasbouliane.com/blog/death-by-ai"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.3,
+        "answers": {
+          "what": 10,
+          "why": 6,
+          "notable": 8,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "người dùng không còn nhấp vào trang web",
+            "explanation": "This implies clicks have stopped. The operator reports a severe decline but says he still has about a quarter of his audience (outlet:p001, outlet:p004)."
+          },
+          {
+            "kind": "role",
+            "summary_text": "người sáng lập",
+            "explanation": "The source identifies the speaker as the person who has run All About Berlin since 2017; it does not identify him as its founder (outlet:p001)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The wording suggests nobody clicks through to the site anymore.",
+            "fix": "Say clicks and traffic have fallen sharply, while about a quarter of the audience remains (outlet:p001, outlet:p004)."
+          },
+          {
+            "question": "why",
+            "problem": "The explanation omits the ads and the operator’s claim that the AI answer draws on his content.",
+            "fix": "Describe the order he gives: ads, then an AI answer based on his content, then the site link (outlet:p002)."
+          },
+          {
+            "question": "what",
+            "problem": "Calling the operator the founder assigns him a role the source does not establish.",
+            "fix": "Call him the operator or author of All About Berlin (outlet:p001)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "6717213b7a76856fd36a06369988a16dc42edcbf415c40a65a10ebdb92f512e6",
+        "scored_at": "2026-11-18T09:23:19.527467+00:00"
+      }
+    },
+    {
+      "id": "1a1450d8414407906972",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/17/2026/some-nvidia-directors-push-to-bring-huang-back-despite-board-opposition",
+      "key_points": [
+        "Theo nguồn tin am hiểu vấn đề do Semafor dẫn lại, một nhóm thành viên hội đồng quản trị Nvidia đang vận động đưa cựu CEO Jensen Huang trở lại dù công ty từng tuyên bố không có kế hoạch này. Chủ tịch Harvey Jones khẳng định trên cuộc gọi báo cáo thu nhập rằng Nvidia không xem xét đưa ông trở lại và hội đồng quản trị đã nhất trí chấp thuận đơn từ chức.",
+        "Trước đó, ông Huang đã trao đổi với một giám đốc và tuyên bố sẵn sàng trở lại nếu vì lợi ích tốt nhất của cổ đông, nhân viên, công ty cùng nước Mỹ.",
+        "Dù ba giám đốc phản đối, các thành viên khác trong hội đồng quản trị vẫn bắt đầu thu hẹp phạm vi tìm người thay thế ông Huang. Khả năng tiếp quản của ông Murphy cũng chưa rõ ràng do Marvell đang điều hướng thương vụ sáp nhập lớn với đối thủ Lumentum."
+      ],
+      "same_event_coverage_ids": [
+        "3d44fcdcb2c6b433c63e",
+        "d60d8fb0a715c04b653f"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Nvidia CEO succession and board dispute",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Jensen Huang",
+          "Harvey Jones",
+          "Rene Haas",
+          "Matt Murphy"
+        ],
+        "availability": "unknown",
+        "is_leak": true
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nguồn tin cho biết một nhóm giám đốc Nvidia vận động đưa Jensen Huang trở lại làm CEO",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/17/2026/some-nvidia-directors-push-to-bring-huang-back-despite-board-opposition"
+        },
+        {
+          "id": "coverage1",
+          "role": "coverage",
+          "name": "bloomberg",
+          "url": "https://www.bloomberg.com/news/videos/2026-11-17/nvidia-chair-says-huang-isn-t-coming-back-as-ceo-video"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.25,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 8,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The replacement search is less concrete because the Vietnamese omits one considered candidate.",
+            "fix": "Add that ARM CEO Rene Haas and Marvell CEO Matt Murphy had both been considered, attributing this to the source’s people familiar with the deliberations (outlet:p008)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "41b508b71e7b66d5686e3f19d1121b56c4ed86d191115cadbc330bf37f987603",
+        "scored_at": "2026-11-18T09:29:15.423491+00:00"
+      }
+    },
+    {
+      "id": "8dc56daf9e8284d13db4",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://en.yna.co.kr/view/AEN20261117006352320",
+      "key_points": [
+        "Theo hãng tin Yonhap, chỉ số KOSPI giảm xuống mức thấp nhất chín tháng khi mất 132,02 điểm, tương đương 2,59%, xuống còn 4.968,48 điểm trong phiên ngày 17 tháng 11. Đợt sụt giảm này đánh dấu phiên lao dốc thứ tư liên tiếp của thị trường chứng khoán Hàn Quốc, đưa chỉ số chuẩn rơi xuống dưới mốc 5.000 điểm.",
+        "Hãng tin Yonhap cho biết lo ngại về trí tuệ nhân tạo làm suy yếu tâm lý nhà đầu tư khi thị trường Phố Wall và cổ phiếu Nvidia đồng loạt sụt giảm trong phiên trước đó. Lĩnh vực công nghệ này cũng chịu sự giám sát pháp lý chặt chẽ hơn sau khi chính phủ Mỹ ban hành các quy định mới hạn chế quyền truy cập từ xa vào chip và máy chủ tiên tiến.",
+        "Tại sàn Seoul, các cổ phiếu chip lớn giảm giá mạnh khi mã Samsung Electronics mất 3,3% xuống 190.300 won và SK hynix giảm 1,96% còn 1,1 triệu won. Khối ngoại đã bán ròng 1,44 nghìn tỷ won, trái ngược với động thái mua ròng của các tổ chức và cá nhân trong nước lần lượt ở mức 543,56 tỷ won và 421,79 tỷ won.",
+        "Chuyên viên phân tích Kang Jin-hyuk tại Shinhan Securities nhận định tâm lý chấp nhận rủi ro bị đè nặng trước tác động dây chuyền từ Nvidia, các hạn chế chip của Mỹ và mối lo về tính bền vững của nhu cầu trí tuệ nhân tạo."
+      ],
+      "same_event_coverage_ids": [
+        "1d35ce8142fdfa6559c4",
+        "4efef622394f800b19a5",
+        "8d5fbe73ce94a7c8abdc",
+        "8f67cfb02518cf713434"
+      ],
+      "split_coverage_ids": [],
+      "subject": "South Korean stock drop on AI woes",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Jensen Huang"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Chỉ số KOSPI rơi xuống mức thấp nhất chín tháng sau bốn phiên giảm liên tiếp trước áp lực từ ngành AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "yonhap",
+          "url": "https://en.yna.co.kr/view/AEN20261117006352320"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.3,
+        "answers": {
+          "what": 9,
+          "why": 9,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The reader misses the currency move reported alongside the stock decline.",
+            "fix": "Add that the won weakened to 1,338.2 per U.S. dollar, down 1.7 won from the previous close (outlet:p002, outlet:p015)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "6d6efa4e83d228f6d423ffc6d58c1886e18fba88e9cae36e897538ab137f0ba2",
+        "scored_at": "2026-11-18T09:23:19.527531+00:00"
+      }
+    },
+    {
+      "id": "f7d2b5c018e42411334d",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.23034",
+      "key_points": [
+        "Nguyễn Quang Trung cùng nhóm tác giả giới thiệu M3OPD-Reasoner, quy trình mở hậu huấn luyện mô hình thị giác ngôn ngữ trên ba miền suy luận gồm STEM, tri giác hình ảnh và video. Nhóm nghiên cứu áp dụng học tăng cường MixRL lên học sinh MOPD để tạo ra mô hình chính M3OPD-Reasoner-9B.",
+        "Theo các tác giả, chưng cất đa giáo viên MOPD giúp mô hình học sinh hợp nhất năng lực các miền, tạo điểm khởi đầu tốt hơn cho học tăng cường. Nghiên cứu so sánh huấn luyện trên dữ liệu hỗn hợp với việc đào tạo từng giáo viên bằng GSPO rồi chưng cất sang học sinh từ mốc Qwen3.5-9B.",
+        "Đánh giá trên 21 bộ chuẩn suy luận sau khử nhiễm xác lập quy trình tốt nhất là MOPD từ các giáo viên GSPO đào tạo trực tiếp từ Qwen3.5-9B. Trên cùng câu lệnh, học sinh bám sát từng giáo viên trên miền riêng và đạt điểm trung bình cao hơn các mô hình cơ sở huấn luyện hỗn hợp.",
+        "Nhóm tác giả nhận định MOPD và MixRL có thể kết hợp thành các giai đoạn nối tiếp giúp khai thác tốt hơn cùng dữ liệu mà không gây sụp đổ mô hình. Nhóm phát hành toàn bộ dữ liệu, mã huấn luyện cùng các điểm lưu trọng số mô hình ở mọi giai đoạn."
+      ],
+      "same_event_coverage_ids": [
+        "ff32a774488827c5224a"
+      ],
+      "split_coverage_ids": [],
+      "subject": "M3OPD-Reasoner release",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Nguyen Quang Trung",
+          "Hoang Phan",
+          "Shuo Sun",
+          "Longyin Zhang",
+          "AiTi Aw"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Quy trình M3OPD-Reasoner áp dụng MixRL lên học sinh MOPD để tối ưu suy luận đa phương thức",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.23034"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.85,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "20aa9a967e9159c499b5cc9ab6649f772f985b678225353c0ce0def4cd20fa0b",
+        "scored_at": "2026-11-18T09:29:15.423523+00:00"
+      }
+    },
+    {
+      "id": "c99c0e76957ab2d7ea98",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.23026",
+      "key_points": [
+        "Nhóm tác giả đề xuất kiến trúc TPHC tích hợp các phân mảnh song song hóa tensor với các luồng kết nối dư Hyper-Connections để tăng tính độc lập giữa các luồng. Cơ chế này định tuyến một tổ hợp luồng riêng biệt đến từng phân mảnh và giữ riêng các đầu ra của phân mảnh khi ghi ngược lại.",
+        "Theo nhóm tác giả, phương pháp mHC ít hưởng lợi khi vượt quá bốn luồng một phần do mỗi lớp con chỉ ghi một đầu ra duy nhất cho tất cả các luồng, làm hạn chế mức độ cập nhật khác biệt.",
+        "Trên mô hình 8 tỷ tham số dùng bốn luồng, TPHC chỉ tốn thêm 9% thời gian huấn luyện so với mHC, và việc nâng số luồng của TPHC từ bốn lên 16 chỉ làm tăng 19% thời gian.",
+        "Nhóm tác giả đánh giá thiết kế này giúp tăng khả năng biểu đạt của luồng kết nối dư mà không thêm tham số hay FLOPs vào các lớp con chú ý hoặc FFN."
+      ],
+      "same_event_coverage_ids": [
+        "e82301bf09ce5c90674f"
+      ],
+      "split_coverage_ids": [],
+      "subject": "TPHC Transformer architecture",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Xinying Hu",
+          "You Wu",
+          "Haoyi Wu",
+          "Jianchao Tan",
+          "Kefeng Zhang",
+          "Yuchen Xie",
+          "Kewei Tu"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Kiến trúc TPHC giúp mô hình 1,1B tăng độ chính xác suy luận mà không thêm tham số vào lớp chú ý hay FFN",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.23026"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 7.65,
+        "answers": {
+          "what": 8,
+          "why": 10,
+          "notable": 6,
+          "meaning": 7
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The headline claims an accuracy gain, but the paragraphs never give its measured size or benchmark setting.",
+            "fix": "Add the 0.3–0.7 percentage-point average zero-shot accuracy gain across six commonsense benchmarks, compared with mHC at matched stream counts (outlet:p009)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The reader misses the other measured benefit and the training setting for the 1.1B result.",
+            "fix": "Add that the 1.1B model was trained on 100B tokens and had 0.7–1.0% lower validation loss than mHC (outlet:p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "2a90082eccfad1476bd6f65c0f84fa4494978a1c606981fe90c66ca2f9692e21",
+        "scored_at": "2026-11-18T09:29:15.423547+00:00"
+      }
+    },
+    {
+      "id": "8d6c2d4a4b75ad797139",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.23108",
+      "key_points": [
+        "FMT stores images as a coarse-to-fine tree whose steps contain independent values, avoiding single-value sequential arithmetic decoding.",
+        "The architecture enables GPUs to predict each step concurrently and decode values using parallel rANS."
+      ],
+      "same_event_coverage_ids": [
+        "a58fab97d394fb9e2075"
+      ],
+      "split_coverage_ids": [],
+      "subject": "FMT lossless image compression",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Ammar Ali"
+        ],
+        "availability": "global",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "1f49cb35bcd03401c379",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.21152",
+      "key_points": [
+        "Nhóm tác giả giới thiệu quy trình tự động RepoFactory chuyển đổi kho mã nguồn thành môi trường kiểm chứng cho tác tử (agent - hệ thống AI tự vận hành) lập trình hoàn chỉnh dự án từ đầu. Quy trình này đã tạo ra 10.159 môi trường kiểm chứng thuộc 17 lĩnh vực phần mềm.",
+        "Theo nhóm tác giả, các quy trình hiện tại ít định hướng nâng cao giá trị huấn luyện do chỉ dừng lại ở bước xác thực khả dụng. Đồng thời, phương pháp tự cải tiến đệ quy thường tốn kém chi phí và làm chậm phản hồi trong các tác vụ dài hạn.",
+        "Huấn luyện trên môi trường RepoFactory giúp mô hình RepoHorizen-35B-A3B tăng 22,6 điểm phần trăm trên bài kiểm chuẩn (benchmark - bài kiểm tra tiêu chuẩn hóa) NL2Repo-Bench, trong đó tiến hóa môi trường nâng mức tăng từ 17,5 lên 22,6 điểm. Tính trung bình trên năm bài kiểm chuẩn ở môi trường sản xuất thực tế, mô hình tăng 8,5 điểm so với mức 6,4 điểm khi không tiến hóa môi trường.",
+        "Theo nhóm tác giả, các kết quả này khẳng định giá trị huấn luyện của môi trường RepoFactory và lợi ích bổ sung từ vòng lặp tiến hóa môi trường. Mức tăng thêm này được xác định khi so sánh với điều kiện đối chứng không tiến hóa môi trường."
+      ],
+      "same_event_coverage_ids": [
+        "b6b0607e272b72bda4f0"
+      ],
+      "split_coverage_ids": [],
+      "subject": "RepoFactory environment synthesis",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Yang Tian",
+          "Tianyu Zheng",
+          "Xiyuan Yang",
+          "Yaxin Du",
+          "Chengran Yang",
+          "Bo Zhao",
+          "Jian Yang",
+          "Bryan Dai"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Huấn luyện với RepoFactory giúp RepoHorizen-35B-A3B tăng 22,6 điểm phần trăm trên NL2Repo-Bench",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.21152"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.65,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "e2cf99b9a1f21f3a8a76c88e2f3b237424cb11b47b0a57ad6b99babc0036c4d1",
+        "scored_at": "2026-11-18T09:29:15.423573+00:00"
       }
     }
   ]
