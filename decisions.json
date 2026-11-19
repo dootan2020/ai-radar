@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-19T21:55:58.228803+00:00",
-  "input_generated_at": "2026-11-19T20:46:11Z",
+  "generated_at": "2026-11-19T23:51:15.025329+00:00",
+  "input_generated_at": "2026-11-19T22:46:35Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -107976,7 +107976,7 @@
         "Theo tạp chí Wired, Anthropic đã hoàn tất đợt IPO (chào bán cổ phiếu lần đầu ra công chúng) lớn nhất lịch sử và nắm giữ khoảng 200 tỷ USD trong ngân hàng. Đợt phát hành này huy động khoảng 81 tỷ USD, và vượt 107 tỷ USD khi tính cả lượng cổ phiếu bán riêng lẻ.",
         "Tạp chí này cho biết doanh thu tăng vọt và lỗ vận hành giảm giúp nhà đầu tư vẫn hào hứng mua cổ phiếu. Dù vậy, do phải hạch toán thù lao nhân viên bằng cổ phiếu, công ty vẫn lỗ hơn 104 tỷ USD tính đến tháng 9.",
         "Anthropic cam kết trả nhà cung cấp hơn 900 tỷ USD trong 19 năm tới, phần lớn để phát triển trung tâm dữ liệu cho mô hình Claude. Giới phân tích tài chính nhận định khoảng cách này không đáng ngại khi doanh số quý gần nhất đạt 17 tỷ USD, tăng hơn 1.100% so với năm trước.",
-        "Dù vậy, sự chậm trễ cơ sở hạ tầng do cử tri phản đối trung tâm dữ liệu có thể khiến Anthropic chật vật huấn luyện mô hình mạnh hơn, đồng thời gia tăng chi phí nếu ra nước ngoài. Ngoài ra, Tổng giám đốc Dario Amodei cho biết việc phát triển rào chắn an toàn là yếu tố hạn chế tiến độ triển khai mô hình, có thể kìm hãm đà tăng trưởng."
+        "Dù vậy, làn sóng phản đối từ cử tri có thể làm chậm trễ việc mở mới hoặc mở rộng trung tâm dữ liệu, khiến Anthropic chật vật huấn luyện mô hình mạnh hơn và tăng rủi ro chi phí nếu ra nước ngoài. Ngoài ra, Tổng giám đốc Dario Amodei cho biết việc phát triển rào chắn an toàn là yếu tố hạn chế tiến độ triển khai mô hình, có thể kìm hãm đà tăng trưởng."
       ],
       "same_event_coverage_ids": [
         "dad2740584741793d912"
@@ -108003,7 +108003,7 @@
         {
           "id": "outlet",
           "role": "outlet",
-          "name": "wired",
+          "name": "www.wired.com",
           "url": "https://www.wired.com/story/anthropics-record-breaking-ipo-highlights-the-ai-giants-worst-enemy-itself/"
         }
       ],
@@ -108013,34 +108013,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.5,
+        "value": 9.65,
         "answers": {
           "what": 10,
           "why": 9,
           "notable": 10,
-          "meaning": 8
+          "meaning": 9
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "sự chậm trễ cơ sở hạ tầng do cử tri phản đối trung tâm dữ liệu",
-            "explanation": "The source reports voter rejection of data centers and continuing protests, then says delays in opening or expanding facilities could occur and hinder model training. It does not establish that voter opposition has already caused infrastructure delays (outlet:p003)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "meaning",
-            "problem": "The wording presents opposition-driven infrastructure delays as an existing condition.",
-            "fix": "Say opposition could delay new or expanded data centers, which could then make stronger models harder to train (outlet:p003)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "07005bc201479b336d817505b30211174191a4b0cbdf4e22214d3264ed2010da",
-        "scored_at": "2026-11-19T21:55:58.221535+00:00"
+        "prose_sha256": "b3c0b75f627347cc9b59a9aa75e9cbeeef2c050bea28dd6ea7b145018359a044",
+        "scored_at": "2026-11-19T23:47:08.491111+00:00"
       }
     },
     {
@@ -108742,10 +108730,10 @@
       "use_original_title": false,
       "source_url": "https://blogs.nvidia.com/blog/microsoft-ignite-accelerated-computing-azure-windows-pcs/",
       "key_points": [
-        "Nvidia và Microsoft mở rộng hợp tác toàn diện về điện toán tăng tốc từ hạ tầng Azure đến máy tính cá nhân Windows.",
-        "Nền tảng Foundry Local đưa dòng mô hình Nemotron 3.5 vào Azure Local, đồng thời hỗ trợ bộ xử lý đồ họa RTX PRO 6000 Blackwell tại chỗ.",
-        "Tập đoàn EY tùy biến mô hình Nemotron giúp tăng 55% độ chính xác và giảm 15 lần chi phí so với mô hình độc quyền khi phân loại hồ sơ mua sắm. Dòng Nemotron 3.5 trên Foundry Managed Compute có bản Super cho tác vụ dài và bản Lightning cho phản hồi nhanh.",
-        "Ở cấp hạ tầng, Nvidia dẫn số liệu từ Signal65 cho thấy hệ thống GB300 NVL72 trên Azure dẫn đầu thông lượng tương tác DeepSeek-R1 hơn 10% trong kiểm thử MLPerf Inference v6.1. Với máy tính đám mây, tính năng Direct Stream trên Windows 365 Cloud PC hiện mở đăng ký bản xem trước giới hạn và dự kiến mở bản xem trước công khai vào đầu năm 2027."
+        "NVIDIA và Microsoft mở rộng hợp tác toàn diện từ hạ tầng Azure đến máy tính cá nhân Windows. Theo NVIDIA, Foundry Local đưa mô hình Nemotron 3.5 vào Azure Local, còn Azure Local sẽ hỗ trợ bộ xử lý đồ họa RTX PRO 6000 Blackwell từ đối tác phần cứng.",
+        "Theo NVIDIA, việc mở rộng triển khai ngoài đám mây giúp doanh nghiệp vận hành mô hình và tác tử (chương trình AI tự thực hiện tác vụ) gần dữ liệu hơn trong khi vẫn duy trì quyền kiểm soát hạ tầng cùng hoạt động vận hành.",
+        "Tập đoàn EY đã tùy biến mô hình Nemotron trên Microsoft Foundry để phân loại hồ sơ mua sắm, tăng 55% độ chính xác trên tập dữ liệu đánh giá và giảm 15 lần chi phí so với mô hình tiên tiến độc quyền. Dòng Nemotron 3.5 trên Foundry Managed Compute cung cấp bản Super cho quy trình dài và bản Lightning cho phản hồi nhanh.",
+        "Theo NVIDIA, bản xem trước Vera Rubin trên Azure được xây dựng dựa trên quá trình đồng thiết kế và tối ưu hóa hiệu năng giữa hai bên, điều được nhấn mạnh qua các kết quả kiểm chuẩn (bài đo hiệu năng tiêu chuẩn) MLPerf mới nhất dựa trên kiến trúc Blackwell. Theo Signal65, trong kỳ kiểm chuẩn suy luận MLPerf Inference v6.1, hệ thống GB300 NVL72 của Azure dẫn đầu các bài nộp trên đám mây về thông lượng tương tác DeepSeek-R1 hơn 10%."
       ],
       "same_event_coverage_ids": [
         "2de36c2bb0f8a59c8b08"
@@ -108759,7 +108747,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Nvidia cùng Microsoft đưa hệ thống Vera Rubin lên Azure và mở rộng AI đến Windows PC",
+      "editorial_headline_vi": "Nvidia cùng Microsoft đưa hệ thống Vera Rubin lên Azure và mở rộng AI đến môi trường tại chỗ",
       "summary_sources": [
         {
           "id": "outlet",
@@ -108772,35 +108760,24 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 6.85,
+        "value": 8.6,
         "answers": {
           "what": 8,
-          "why": 3,
-          "notable": 8,
-          "meaning": 7
+          "why": 8,
+          "notable": 10,
+          "meaning": 8
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "Nền tảng Foundry Local đưa dòng mô hình Nemotron 3.5 vào Azure Local, đồng thời hỗ trợ bộ xử lý đồ họa RTX PRO 6000 Blackwell tại chỗ.",
-            "explanation": "The sentence attributes GPU support to Foundry Local. The source says Azure Local will support RTX PRO 6000 Blackwell GPUs from hardware partners (outlet:p020–p021)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
             "question": "what",
-            "problem": "The reader is told that Foundry Local supports the on-premises GPUs.",
-            "fix": "State separately that Nemotron 3.5 support in Foundry Local reaches Azure Local, and that Azure Local will support RTX PRO 6000 Blackwell GPUs (outlet:p020–p021)."
+            "problem": "Readers do not learn that the Ignite announcement expands customer access to NVIDIA open models and customization capabilities through Microsoft Foundry.",
+            "fix": "Add that part of the announcement, distinguishing it from the Foundry Local support already described (outlet:p003, outlet:p012–p014)."
           },
           {
-            "question": "why",
-            "problem": "The reason for the expanded collaboration is missing.",
-            "fix": "Explain that it aims to help organizations build, customize, and deploy AI applications, including nearer to where they generate and use data (outlet:p002–p003, outlet:p019)."
-          },
-          {
-            "question": "notable",
-            "problem": "The EY accuracy gain reads as a general result rather than a result on EY’s evaluation dataset.",
-            "fix": "Attach the 55% gain to EY’s evaluation dataset and keep the 15-fold cost comparison against proprietary frontier models (outlet:p015)."
+            "question": "meaning",
+            "problem": "The account leaves out Microsoft's use of NVIDIA technology in its own AI services.",
+            "fix": "If space permits, mention Dynamo for Microsoft's post-training inference and RTX PRO 6000 Blackwell GPUs for Bing search models (outlet:p004, outlet:p030–p032)."
           }
         ],
         "writer_boats": [
@@ -108808,8 +108785,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "75ee1c1a69f7963a8bd8c4a49c07d912ba08b07ccb0b56c11d324ca5198aa93a",
-        "scored_at": "2026-11-19T21:42:21.756583+00:00"
+        "prose_sha256": "507f8bf4a48371110b1069110661fae23de0b65dd2589a8c8f4541a7a250edef",
+        "scored_at": "2026-11-19T23:51:15.017392+00:00"
       }
     },
     {
@@ -108845,10 +108822,10 @@
       "use_original_title": false,
       "source_url": "https://aws.amazon.com/blogs/machine-learning/amazon-polly-launches-voice-cloning-a-unique-voice-for-your-brand/",
       "key_points": [
-        "Amazon Polly phát hành có kiểm soát tính năng nhân bản giọng nói trên engine tạo sinh, hỗ trợ bảy ngôn ngữ gồm tiếng Anh, Pháp, Đức, Ý, Tây Ban Nha, Bồ Đào Nha và Hindi. Quyền truy cập mở trước cho khách hàng chọn lọc, trong khi bên khác cần liên hệ tài khoản AWS hoặc nộp đơn đăng ký.",
-        "Hệ thống yêu cầu gửi hai đến mười phút ghi âm có sự đồng thuận của người nói, chia tối đa mười đoạn dưới một phút. Amazon khuyến nghị định dạng WAV đơn kênh 16-bit 24 kHz, với thời gian khởi tạo mất vài phút.",
-        "Amazon minh họa bằng việc tạo giọng từ bản thu âm của trưởng nhóm khoa học Trevor, cùng bản ghi thực tế của Hannah trên đường dây hỗ trợ. Doanh nghiệp có thể đưa giọng này vào hệ thống phản hồi tương tác (IVR), trợ lý thoại hoặc thông báo cửa hàng.",
-        "Theo Amazon, doanh nghiệp có thể tạo âm thanh thương hiệu đồng nhất theo nhu cầu thay cho giọng mẫu, nhưng mỗi giọng chỉ nói ngôn ngữ gốc khi thu âm. Các giọng nhân bản được tự động mã hóa và kiểm soát truy cập, còn Polly không giữ lại bản sao ghi âm sau khi tạo giọng và áp dụng hạn mức ban đầu mười giọng mỗi tài khoản theo từng khu vực."
+        "Amazon Polly phát hành có kiểm soát tính năng nhân bản giọng nói trên engine tạo sinh, hỗ trợ bảy ngôn ngữ gồm tiếng Anh, Pháp, Đức, Ý, Tây Ban Nha, Bồ Đào Nha và Hindi. Quyền truy cập mở trước cho khách hàng chọn lọc, trong khi các khách hàng khác cần liên hệ tài khoản AWS hoặc nộp đơn đăng ký.",
+        "Amazon khuyến nghị ghi âm tự nhiên từ hai đến mười phút có sự đồng thuận của người nói, chấp nhận tối đa 15 phút âm thanh chia thành các đoạn tối đa một phút. Amazon khuyến nghị định dạng WAV đơn kênh 16-bit 24 kHz, với thời gian khởi tạo mất vài phút.",
+        "Amazon phát bản ghi thực tế của Hannah rồi minh họa giọng nhân bản của cô trên đường dây hỗ trợ, cùng bản thu của trưởng nhóm khoa học Trevor. Doanh nghiệp có thể đưa giọng này vào hệ thống phản hồi tương tác (IVR), trợ lý thoại hoặc thông báo cửa hàng.",
+        "Theo Amazon, doanh nghiệp có thể tạo âm thanh thương hiệu theo nhu cầu thay cho giọng mẫu, nhưng mỗi giọng chỉ nói ngôn ngữ gốc khi thu âm. Các giọng nhân bản được tự động mã hóa và kiểm soát truy cập, còn Polly không giữ lại bản sao ghi âm sau khi tạo giọng và áp dụng hạn mức ban đầu mười giọng mỗi tài khoản theo từng khu vực."
       ],
       "same_event_coverage_ids": [
         "bfe33a0165eee1fe8c48"
@@ -108877,34 +108854,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.8,
+        "value": 9.8,
         "answers": {
           "what": 10,
-          "why": 10,
-          "notable": 6,
+          "why": 9,
+          "notable": 10,
           "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "Hệ thống yêu cầu gửi hai đến mười phút ghi âm",
-            "explanation": "Two to ten minutes is recording guidance, not a requirement. The source says a voice can have up to 15 minutes of audio in total (outlet:p053, outlet:p087)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "notable",
-            "problem": "Readers are told that the recommended recording duration is mandatory.",
-            "fix": "Say Amazon recommends two to ten minutes of natural speech, with up to 15 minutes accepted in total (outlet:p053, outlet:p087)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "f5d97385f99da4bac5541064d6aaa61eba8d37a70235a0c8e012c5951b22792f",
-        "scored_at": "2026-11-19T21:42:21.756606+00:00"
+        "prose_sha256": "d678d99a5fb0ecc4c0ce7c8b00ddffcb8964fc66c99ff26d2c6f1d62a372d067",
+        "scored_at": "2026-11-19T23:51:15.017432+00:00"
       }
     },
     {
@@ -109295,6 +109260,1086 @@
         "cca5f35bfe48d5083bb2"
       ],
       "split_coverage_ids": []
+    },
+    {
+      "id": "b4243dd0c7babf7d9c33",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-19/gs-chief-credit-strategist-on-2027-ai-financing-outlook-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "a68590e8962f3ad230f0"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "7fd029d157e582d36471",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-19/nothing-is-going-to-stop-ai-trade-lise-buyer-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "48435c0da891d25598b7"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "f8133dc16aac0ad50d90",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/tech/1038227/apple-ai-agent-engineer-job-listing",
+      "key_points": [
+        "Apple đang tuyển dụng kỹ sư để dẫn dắt việc xây dựng trợ lý tác nhân trí tuệ nhân tạo (AI agent, hệ thống tự động thực hiện chuỗi tác vụ) của riêng hãng, theo thông tin từ bài đăng tuyển dụng do Bloomberg phát hiện.",
+        "Thông báo tuyển dụng của Apple nêu rõ con người làm việc hiệu quả nhất khi chuyển đổi linh hoạt giữa các công cụ, và công ty đang xây dựng tác nhân AI tương tự để lập kế hoạch cũng như xử lý các nhiệm vụ nhiều bước.",
+        "Tác nhân AI này có khả năng duyệt web, thao tác liên ứng dụng, viết mã và gọi dịch vụ, trong đó kỹ sư mới sẽ làm việc chặt chẽ cùng các nhóm Siri, UI Frameworks và Apple Foundation Models.",
+        "The Verge nhận định một tác nhân AI như vậy sẽ có thể đưa Apple vào thế cạnh tranh trực tiếp với các đối thủ như Muse của Meta, Dots của OpenAI, Duet của Anthropic và Tasks của Google."
+      ],
+      "same_event_coverage_ids": [
+        "5dcb219760953590c09a"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Apple",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Apple tuyển kỹ sư xây dựng trợ lý tác nhân AI có thể duyệt web và tự động hóa tác vụ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/tech/1038227/apple-ai-agent-engineer-job-listing"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.5,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The reader misses how the agent work connects to Siri.",
+            "fix": "Add that the article links the listing to possible further Siri capabilities and an iOS 27.3 Developer Preview for wider app integration, preserving their prospective status (outlet:p017, outlet:p019)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "ab13646e9ed348af3b4481ff667f3bcf33a7fb67bb9bdd409abcb6e3496b8d31",
+        "scored_at": "2026-11-19T23:28:02.171612+00:00"
+      }
+    },
+    {
+      "id": "90ff94eb38c5e9b91474",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-19/menlo-makes-first-ever-ipo-investment-with-anthropic-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "0e8e3b16dc069ca5ba96",
+        "84fce2b033e8aa2bb81f"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "3c06d0378d642c1bcc36",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-19/robinhood-cio-on-retail-access-to-anthropic-s-ipo-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "e74961bf09888e15623f"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "655235a8f0a364326aa0",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "This is an AWS blog post showcasing customer BMW Group's implementation of agent governance on AWS.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/how-the-bmw-group-governs-hundreds-of-agents-across-thousands-of-developers/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "8bd000b0bb45bfb1bac0"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "fd6f0b2ea203e6b676ae",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "top tier needs four to eight verified key points",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "top tier needs four to eight verified key points"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/19/2026/anthropics-ipo-mints-thousands-of-new-millionaires-and-several-billionaires",
+      "key_points": [
+        "Anthropic's IPO valued the five-year-old AI company at more than $1 trillion.",
+        "The public market debut minted thousands of new millionaires and several new billionaires among Anthropic employees.",
+        "Employees' newfound wealth is expected to support charitable and research organizations focused on animal welfare, global health, and AI safety."
+      ],
+      "same_event_coverage_ids": [
+        "8f5b58eaeca3f19b91d2"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Anthropic",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Dario Amodei"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "2f6854a60f3bdf7510e4",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "This is promotional marketing copy from AWS pitching AWS Quick features and offering a free 12-month subscription.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/run-your-whole-selling-business-in-aws-quick/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "8c74196ef42bbe83d600"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "097680aa02326b4a4ca8",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-19/gic-anthropic-is-building-intelligence-factories-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "2e29760507a77930bec4"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "c0b0f540e5fdb81a2155",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "This is an investor relations calendar advisory announcing a conference presentation, with AI appearing only in the conference title.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://nvidianews.nvidia.com/news/nvidia-announces-upcoming-event-for-financial-community-6929322",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b0842b37e21dc1978e18"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "a16a060150c59a522d90",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/ai-artificial-intelligence/1038063/nvidia-stock-market-price-earnings",
+      "key_points": [
+        "Cổ phiếu của Nvidia đã giảm gần 40% so với mức đỉnh kỷ lục để rơi xuống mức thấp nhất trong 52 tuần là 145,98 USD, theo ghi nhận của The Verge.",
+        "The Verge cho biết đợt sụt giảm này bị thúc đẩy bởi làn sóng bán tháo cổ phiếu chip do lo ngại bong bóng AI, cùng việc cựu Tổng giám đốc Jensen Huang từ chức sau các báo cáo về bê bối tình ái và nghi vấn liên quan đến gián điệp theo nguồn tin tình báo Mỹ do The New York Times dẫn lại.",
+        "Theo The Verge, doanh thu quý 3 của Nvidia đã tăng hơn gấp đôi so với cùng kỳ năm trước lên mức 115,8 tỷ USD, được thúc đẩy bởi mảng trung tâm dữ liệu tăng 110% và vượt kỳ vọng của Phố Wall.",
+        "The Verge kết luận rằng khoảng trống lãnh đạo cùng các phiên điều trần sắp tới trước Quốc hội và sự bất định về pháp lý mới là những yếu tố tiếp tục ảnh hưởng đến cổ phiếu, thay vì chỉ dựa vào các con số tài chính đơn thuần."
+      ],
+      "same_event_coverage_ids": [
+        "dfdec86320e61d8ba1ef"
+      ],
+      "split_coverage_ids": [
+        "660d2d67bdc524a2392f"
+      ],
+      "subject": "Nvidia",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Colette Kress",
+          "Jensen Huang"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Cổ phiếu Nvidia rơi xuống đáy 52 tuần sau bê bối của cựu CEO dù doanh thu quý ba tăng gấp đôi",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1038063/nvidia-stock-market-price-earnings"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.15,
+        "answers": {
+          "what": 9,
+          "why": 9,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The conclusion omits two concerns the source expressly identifies.",
+            "fix": "If space permits, add questions about neocloud customer financing and sales to China to the list of factors that could continue to affect the stock (outlet:p039)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "a20aa23735c144d79b62d1a7ab569b5fc7b4c5401150416e6034c66408006614",
+        "scored_at": "2026-11-19T23:28:02.171685+00:00"
+      }
+    },
+    {
+      "id": "7cdd1365e307bf1b98b2",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "podcast",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.wired.com/story/uncanny-valley-podcast-whats-with-all-these-outages/",
+      "key_points": [
+        "Theo tạp chí WIRED, hàng loạt cơ quan và tập đoàn lớn tại Mỹ đồng loạt gián đoạn dịch vụ trong một tuần. Các đơn vị chịu ảnh hưởng gồm Microsoft, Cục Hàng không Liên bang Mỹ (FAA), ngân hàng Chase, United, Cơ quan An ninh Quốc gia (NSA) và Apple.",
+        "Người dẫn chương trình Brian Barrett của WIRED cho biết không có bằng chứng các sự cố kỹ thuật liên quan nhau ngoại trừ ngành ngân hàng. Theo Barrett, sự cố tại JP Morgan Chase đã lan sang các ngân hàng khác do các bên đều là đối tác giao dịch của nhau.",
+        "Cục Hàng không Liên bang Mỹ áp lệnh dừng bay trên toàn quốc kéo dài hơn bốn giờ, đợt gián đoạn dài nhất kể từ sự kiện 11/9. Ngoài ra, dịch vụ Outlook và Teams của Microsoft tê liệt khoảng 24 giờ, còn hãng United phải hoãn hơn một trăm chuyến bay.",
+        "Tạp chí WIRED nhận xét giới chức khẳng định các sự cố không phải tấn công mạng nhưng dư luận vẫn hoài nghi. Brian Barrett nhấn mạnh không có bằng chứng cho thấy lỗi kỹ thuật do tin tặc hay trí tuệ nhân tạo (AI) gây ra, dù dư luận lan truyền nhiều thuyết âm mưu."
+      ],
+      "same_event_coverage_ids": [
+        "9bb82356f3db4c1fa6ab"
+      ],
+      "split_coverage_ids": [],
+      "subject": "tech outages",
+      "video_labels": {
+        "video_hook": "drama_company",
+        "named_people": [
+          "Sophie Kleeman",
+          "Brian Barrett",
+          "Leah Feiger",
+          "Jensen Huang",
+          "Donald Trump",
+          "Xi Jinping"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Hàng loạt hệ thống lớn tại Mỹ gặp sự cố trong một tuần, giới chức bác bỏ nghi vấn tấn công mạng",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "wired",
+          "url": "https://www.wired.com/story/uncanny-valley-podcast-whats-with-all-these-outages/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.25,
+        "answers": {
+          "what": 9,
+          "why": 8,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "đồng loạt gián đoạn dịch vụ trong một tuần",
+            "explanation": "The incidents occurred on different days within the week, rather than simultaneously (outlet:p032)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "A reader may think the systems failed at the same time.",
+            "fix": "Say the disruptions occurred on different days during one week (outlet:p032)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "65dd8c33e39d3e98760d704c6da1c088e8baf5097af3d8fe23b54e0d1fff0b0e",
+        "scored_at": "2026-11-19T23:36:28.902259+00:00"
+      }
+    },
+    {
+      "id": "87b2502506d7cb89efaf",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/19/these-tech-outages-are-giving-y2k-ai-agent-style/",
+      "key_points": [
+        "Theo TechCrunch, nhiều doanh nghiệp hàng đầu tại Mỹ đối mặt sự cố gián đoạn kỹ thuật trong hai tuần qua. Nhiều công ty và cơ quan an ninh cho biết đây là trục trặc kỹ thuật riêng lẻ chứ không phải do tấn công mạng.",
+        "Nhà đầu tư Dave DeWalt nhận định các doanh nghiệp vội vã vá các lỗ hổng do công cụ trí tuệ nhân tạo (AI) phát hiện gây gián đoạn hệ thống ngắn hạn. Kỹ sư Anusha Iyer giải thích thêm rằng việc vội vã kết nối hệ thống cũ với công nghệ mới mà thiếu kiểm soát rủi ro cũng gây quá tải.",
+        "Cục Hàng không Liên bang Mỹ (FAA) phải dừng bay nhiều giờ còn Microsoft gián đoạn Outlook, Teams và Copilot gần hai ngày.",
+        "DeWalt nhấn mạnh quá trình chuyển đổi này gây nhiều tổn thất ngắn hạn nhưng mở ra cơ hội lớn cho các giải pháp vá lỗi và bảo vệ hệ thống theo tốc độ của AI."
+      ],
+      "same_event_coverage_ids": [
+        "2dc067c2bbdbca3faa35"
+      ],
+      "split_coverage_ids": [],
+      "subject": "tech outages",
+      "video_labels": {
+        "video_hook": "drama_company",
+        "named_people": [
+          "Yung Joc",
+          "Donald Trump"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Làn sóng vội vã vá lỗ hổng do AI phát hiện gây gián đoạn hàng loạt hệ thống lớn tại Mỹ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/19/these-tech-outages-are-giving-y2k-ai-agent-style/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.2,
+        "answers": {
+          "what": 9,
+          "why": 5,
+          "notable": 10,
+          "meaning": 7
+        },
+        "hard_errors": [
+          {
+            "kind": "cause",
+            "summary_text": "Làn sóng vội vã vá lỗ hổng do AI phát hiện gây gián đoạn hàng loạt hệ thống lớn tại Mỹ",
+            "explanation": "The source presents patching disruption as DeWalt’s assessment, not a confirmed cause of the outages; investigations are still underway, and Iyer offers a different explanation (outlet:p012-outlet:p018)."
+          },
+          {
+            "kind": "quote",
+            "summary_text": "Nhiều công ty và cơ quan an ninh cho biết đây là trục trặc kỹ thuật riêng lẻ chứ không phải do tấn công mạng",
+            "explanation": "The source separates these statements: the director of National Intelligence said the outages did not seem related to state-sponsored terrorism, Trump called them individual events, and many companies said they were technical issues rather than cyberattacks or AI attacks (outlet:p008)."
+          },
+          {
+            "kind": "cause",
+            "summary_text": "việc vội vã kết nối hệ thống cũ với công nghệ mới mà thiếu kiểm soát rủi ro cũng gây quá tải",
+            "explanation": "Iyer identifies the rushed mix as a risk, but her specific account of the FAA’s legacy hardware being overwhelmed is tentative and tied to preliminary findings, not established as a cause across the outages (outlet:p017-outlet:p018)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The headline turns one expert’s proposed explanation into a confirmed cause.",
+            "fix": "Attribute the patching explanation to DeWalt and preserve that the causes remain under investigation (outlet:p012-outlet:p015)."
+          },
+          {
+            "question": "why",
+            "problem": "The account of overloaded legacy systems loses its tentative, FAA-specific scope.",
+            "fix": "Say Iyer suggested the FAA transition may have overwhelmed older hardware, consistent with preliminary findings (outlet:p017-outlet:p018)."
+          },
+          {
+            "question": "what",
+            "problem": "The text merges distinct statements by the intelligence director, the president, and affected companies.",
+            "fix": "Attribute each statement separately if included (outlet:p008)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The reader misses what the experts recommend doing in response.",
+            "fix": "Include the calls for better testing, prioritizing fixes, tighter segmentation, and phased introduction of modern systems (outlet:p019-outlet:p020)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "f9612f1ee08b67c9b245d79304d01d3a7db57deca489a0a547d381bb08c1ef61",
+        "scored_at": "2026-11-19T23:28:02.171749+00:00"
+      }
+    },
+    {
+      "id": "afe6ad4ac350324fc1b4",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-19/lightspeed-s-duesterhoeft-on-anthropic-next-ai-race-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "03c782874c3de94c3906"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "931b6f52295f2548dc55",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-19/apple-is-working-on-ai-agent-for-device-control-apps-browsing-and-coding",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b48ea19ee2364d872464"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "735d1f9416d3ebe29eda",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/amazon-sagemaker-ai-now-detects-latency-drift-idle-gpus-and-missed-optimizations-on-your-inference-endpoints/",
+      "key_points": [
+        "Amazon thông báo tính năng mới trên Amazon SageMaker AI tự động theo dõi các điểm cuối suy luận (inference endpoints) để phát hiện độ trễ tăng, GPU nhàn rỗi và cấu hình chưa tối ưu. Cơ chế này bật mặc định cho điểm cuối dùng vùng chứa vLLM và GPU, đồng thời chỉ kiểm tra tín hiệu vận hành chứ không đọc nội dung yêu cầu hay phản hồi.",
+        "Amazon giải thích lưu lượng truy cập biến động và câu lệnh dài hơn theo thời gian khiến điểm cuối dần trôi hiệu năng mà không kích hoạt cảnh báo hỏng hóc. Sự suy giảm tốc độ hoặc lãng phí GPU này thường chỉ được phát hiện khi người dùng cảm nhận độ trễ hoặc hóa đơn chi phí tăng lên.",
+        "Khi nhận cảnh báo từ AWS Health, người dùng có thể mở giao diện SageMaker Studio để chạy thử nghiệm so sánh cấu hình qua khuyến nghị suy luận. Công cụ hỗ trợ đối chiếu cấu hình hiện tại với phương án thay thế về thời gian phản hồi, thông lượng và chi phí trên mỗi một triệu token.",
+        "Quy trình này giúp người quản trị đưa ra quyết định dựa trên dữ liệu đo kiểm thực tế thay vì phán đoán cảm tính. Amazon lưu ý bài đo kiểm chuẩn (benchmark, quy trình đo hiệu năng) chạy trên hạ tầng độc lập và cấu hình thực tế không thay đổi nếu chưa được chấp thuận."
+      ],
+      "same_event_coverage_ids": [
+        "b0d070e8213539f8d463"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Amazon SageMaker AI",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Amazon SageMaker AI tự động phát hiện trôi độ trễ và lãng phí GPU trên các điểm cuối mô hình",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "amazon",
+          "url": "https://aws.amazon.com/blogs/machine-learning/amazon-sagemaker-ai-now-detects-latency-drift-idle-gpus-and-missed-optimizations-on-your-inference-endpoints/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.8,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "59444ec22fa2283328ed8d1f4309ebbebb4399ac10f0621f1ad97c5319095b6a",
+        "scored_at": "2026-11-19T23:28:02.171772+00:00"
+      }
+    },
+    {
+      "id": "fcc41c907b856729e707",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Promotional vendor blog post pitching and explaining the conceptual backing for Amazon Connect Talent without an independent news event or substantive product launch.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/inside-amazon-connect-talent-the-science-of-structured-ai-interviews/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "8d4ce33c569f54b5d6c3"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "78d65ced9ee04a664100",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/19/2026/anthropic-ipo-heightens-washingtons-tech-scrutiny",
+      "key_points": [
+        "Theo trang tin Semafor, đợt phát hành cổ phiếu lần đầu ra công chúng (IPO) của Anthropic làm gia tăng sự giám sát từ Washington đối với công nghệ khi Đảng Dân chủ chuẩn bị tiếp quản Quốc hội Mỹ. Các nghị sĩ Đảng Dân chủ chuẩn bị sẵn danh sách dài các lãnh đạo trí tuệ nhân tạo (AI) để tiến hành điều tra.",
+        "Giới lập pháp lưỡng đảng bày tỏ lo ngại về nguy cơ mô hình AI tiên tiến bị lạm dụng và đợt IPO gây thêm biến động cho hệ thống tài chính.",
+        "Hôm thứ Năm, một nhóm bốn thượng nghị sĩ lưỡng đảng đã giới thiệu dự luật yêu cầu các công ty đại chúng phải công khai thêm thông tin về AI.",
+        "Thượng nghị sĩ Elizabeth Warren thuộc Đảng Dân chủ thúc giục Quốc hội hành động nhanh chóng để áp dụng các biện pháp bảo vệ đối với sự phát triển AI tiên tiến."
+      ],
+      "same_event_coverage_ids": [
+        "7a6d4a37e63591e64d5c"
+      ],
+      "split_coverage_ids": [],
+      "subject": "US AI disclosure legislation",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Pramila Jayapal",
+          "Elizabeth Warren"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Đợt IPO của Anthropic khiến Washington siết chặt giám sát khi Đảng Dân chủ chuẩn bị tiếp quản Quốc hội",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/19/2026/anthropic-ipo-heightens-washingtons-tech-scrutiny"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.85,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "4b6bbe97db132bdd70a77e0336bbd543b54f37361e29df20f579ab0716397e7d",
+        "scored_at": "2026-11-19T23:36:28.902293+00:00"
+      }
+    },
+    {
+      "id": "6d382f4449610c29c546",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-19/claude-users-excited-to-invest-in-anthropic-says-berry-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "2b379c1232ac95ae2ba0"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "1df80ba4eb1bc7794fc5",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Post focuses on the release and features of PostgreSQL 19, containing only an incidental passing mention of AI-reported vulnerabilities.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://simonwillison.net/2026/Nov/19/postgresql-19/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "d9eac36171c4e53562f3"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "001e20945eceeac01202",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/tech/1038087/meta-muse-charm-ai-price",
+      "key_points": [
+        "Theo The Information, Meta dự kiến định giá thiết bị Muse Charm ở mức 300 USD. Giám đốc điều hành Mark Zuckerberg cho biết công ty kỳ vọng giao hàng kịp dịp lễ tháng 12.",
+        "Thiết bị tích hợp công nghệ giọng nói thời gian thực và hình đại diện số của trợ lý AI Muse. Cảm biến vân tay hỗ trợ người dùng chạm trò chuyện trực tiếp cùng trợ lý ảo mà không cần mở điện thoại.",
+        "Theo The Information, Muse Charm dự kiến đi kèm 12 tháng dữ liệu 5G miễn phí từ nhà mạng Verizon. Kế hoạch ra mắt đồng hồ thông minh khác của Meta cũng bị dời sang năm 2027.",
+        "TechCrunch nhận xét Meta không phủ nhận mức giá tiềm năng này mà chỉ cho biết sẽ sớm chia sẻ thêm thông tin. Người phát ngôn Tyler Yee của Meta cũng đưa ra phản hồi tương tự trước sự quan tâm của công chúng."
+      ],
+      "same_event_coverage_ids": [
+        "37c36e32a50438c331db",
+        "389c9c3760a5684d48c4"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Meta Muse Charm",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Mark Zuckerberg"
+        ],
+        "availability": "unknown",
+        "is_leak": true
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Thiết bị AI Muse Charm của Meta có thể mang mức giá 300 USD theo nguồn tin The Information",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/tech/1038087/meta-muse-charm-ai-price"
+        },
+        {
+          "id": "coverage1",
+          "role": "coverage",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/19/metas-new-muse-charm-device-may-cost-300/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "05aecdc1b3094af2c9e6c62ad8c71cd16388589d561702734e169b0a13ff6d05",
+        "scored_at": "2026-11-19T23:36:28.902318+00:00"
+      }
+    },
+    {
+      "id": "8c22c6ba123249574ad5",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-19/anthropic-shares-soar-above-ipo-price-then-fall-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "6d44dc5577a43d3fa3e8"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "7c6a6f6cc82109c860d3",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.robertpeake.com/archives/104254-ai-came-for-the-coders-understanding-why-tells-us-whos-next.html",
+      "key_points": [
+        "Theo tác giả bài viết, kỹ thuật phần mềm đang trải qua khủng hoảng niềm tin khi AI làm đảo lộn việc lập trình mã nguồn. Tác giả nhận định sự rung chuyển này lan truyền nỗi sợ hãi sang giới lao động bàn giấy trí óc.",
+        "Tác giả lý giải khả năng tự động hóa bằng AI tuân theo nguyên tắc chấm điểm tự động và giá trị khách quan. Theo tác giả, phân tích định số cùng đánh giá tính đúng sai là yếu tố then chốt quyết định khả năng chấm điểm.",
+        "Theo tác giả, phần mềm thuộc nhóm công việc được chấm điểm nhiều nhất từng được tạo ra khi có thể kiểm thử tự động trong vài giây. Trái lại, tác giả chỉ ra việc nuôi con hay làm thơ khó tự động hóa do kết quả khó định lượng và mang tính thị hiếu.",
+        "Theo tác giả bài viết, động lực thị trường quyết định khả năng tự động hóa thành hiện thực theo quy luật tư bản. Tác giả nhấn mạnh việc đạt tiêu chí chấm điểm và giá trị chỉ chứng minh tính khả thi, chứ không bảo đảm chắc chắn xảy ra."
+      ],
+      "same_event_coverage_ids": [
+        "a637a8cc305bd47e2764",
+        "b260e568e244a826a00a"
+      ],
+      "split_coverage_ids": [],
+      "subject": "AI impact on software engineering",
+      "video_labels": {
+        "video_hook": "money_jobs",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Lập trình viên đối mặt khủng hoảng niềm tin khi AI đe dọa các công việc trí óc có thể chấm điểm tự động",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://www.robertpeake.com/archives/104254-ai-came-for-the-coders-understanding-why-tells-us-whos-next.html"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.25,
+        "answers": {
+          "what": 9,
+          "why": 9,
+          "notable": 7,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "việc nuôi con hay làm thơ khó tự động hóa do kết quả khó định lượng và mang tính thị hiếu",
+            "explanation": "The source gives different reasons: parenting is valuable but its results take years or generations to assess and are hard to quantify; poetry's value is a matter of divergent taste (outlet:p026–p027)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The reader gets one combined explanation for two different examples.",
+            "fix": "Separate parenting's difficult, long-term assessment from poetry's subjective value (outlet:p026–p027)."
+          },
+          {
+            "question": "meaning",
+            "problem": "Market incentives sound as though they determine whether automation will occur.",
+            "fix": "Say they affect whether possible automation is probable; the author does not say adoption is guaranteed (outlet:p029–p030)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "4b6e98c3fd6063316fe41713fee4817b69c5405415fbf06f9da16bed65321287",
+        "scored_at": "2026-11-19T23:36:28.902361+00:00"
+      }
+    },
+    {
+      "id": "d3a61b8ad0998a3e3c21",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.youtube.com/watch?v=pyRG_5dCrfg",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "1ef2fabc1d78b6438913"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Anthropic IPO and AI safety groups",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "91c8aadccb7d26dc8d67",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.wired.com/story/anthropics-record-breaking-ipo-highlights-the-ai-giants-worst-enemy-itself/",
+      "key_points": [
+        "Sau đợt chào bán cổ phiếu công khai lần đầu (IPO) lớn nhất lịch sử, Anthropic có khoảng 200 tỷ USD trong ngân hàng, vượt mọi tập đoàn công nghệ trừ Alphabet.",
+        "Theo tạp chí Wired, triển vọng dài hạn bị đánh giá bi quan xuất phát từ việc cử tri Mỹ phần lớn bác bỏ trung tâm dữ liệu và các cuộc biểu tình chưa có dấu hiệu hạ nhiệt. Tạp chí này nhận định sự chậm trễ mở rộng cơ sở mới có thể khiến Anthropic chật vật huấn luyện những mô hình AI mạnh mẽ hơn.",
+        "Giám đốc điều hành Dario Amodei cho biết công ty từng hoãn ra mắt một mô hình mới vào đầu năm nay nhằm bảo vệ công chúng trước nguy cơ gây hại, chấp nhận rủi ro doanh số. Dù vậy, số khách hàng chi từ sáu chữ số hàng năm cho hãng vẫn tăng gấp 12 lần so với năm trước.",
+        "Về ý nghĩa dài hạn, ông Amodei nhận định việc phát triển rào chắn an toàn là yếu tố hạn chế trong triển khai mô hình AI, điều Wired cho rằng có thể kìm hãm đà tăng trưởng của công ty. Ngoài ra, do cách tính chi phí trả thưởng bằng cổ phiếu cho nhân viên, Anthropic vẫn chịu khoản lỗ hơn 104 tỷ USD tính đến tháng 9 năm nay dù nhà đầu tư vẫn hào hứng mua cổ phiếu."
+      ],
+      "same_event_coverage_ids": [
+        "3ad99c20ced17fbb58f0",
+        "8d82bfc4c802d6513f55",
+        "963fba24309ad82539aa",
+        "bfa2013ee1fe6fa57d11",
+        "d416eefc79e6c2cb0a2b",
+        "dad2740584741793d912"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Anthropic",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Elaine Matheny"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Anthropic hoàn tất đợt IPO kỷ lục với 200 tỷ USD trong ngân hàng nhưng gánh cam kết chi hơn 900 tỷ USD",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "wired",
+          "url": "https://www.wired.com/story/anthropics-record-breaking-ipo-highlights-the-ai-giants-worst-enemy-itself/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 7.9,
+        "answers": {
+          "what": 8,
+          "why": 9,
+          "notable": 7,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The $900 billion commitment lacks its time span and purpose, making its scale harder to interpret.",
+            "fix": "Say it is payable over 19 years, mostly to develop data centers for Anthropic’s models (outlet:p001)."
+          },
+          {
+            "question": "what",
+            "problem": "The headline pairs the IPO with $200 billion in the bank without telling readers what the offering itself raised.",
+            "fix": "Add that the IPO raised about $81 billion, or more than $107 billion including private share sales (outlet:p011)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "ad3e4490b1e79583814b97beb5d2c9e02d8c8aed6ad779953c3bb77a1b88febb",
+        "scored_at": "2026-11-19T23:36:28.902416+00:00"
+      }
+    },
+    {
+      "id": "23c53c61ddf7289b1a50",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.scmp.com/tech/big-tech/article/3375093/alibabas-ai-bet-paying-cloud-services-drive-10-revenue-jump",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "a9325ee27db6af96c31d"
+      ],
+      "split_coverage_ids": [
+        "7f75e9ab9ebd610b3cb9"
+      ],
+      "subject": "Alibaba",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Eddie Wu Yongming"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      }
     }
   ]
 }
