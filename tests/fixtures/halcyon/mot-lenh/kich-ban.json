@@ -1,0 +1,266 @@
+{
+ "id": "05",
+ "title": "Gemini giữ chat 2 tháng",
+ "outlet": "TechCrunch",
+ "date": "17/11/2026",
+ "tiktok_caption": [
+  "Tắt lịch sử Gemini rồi, Google vẫn",
+  "giữ chat khoảng 2 tháng... #AI #Gemini"
+ ],
+ "paragraphs": [
+  {
+   "say": "Tắt lịch sử trò chuyện Gemini rồi? Google vẫn sẽ giữ đoạn chat của bạn khoảng hai tháng.",
+   "show": "Tắt lịch sử trò chuyện / Gemini rồi? / Google vẫn sẽ giữ / đoạn chat của bạn / khoảng hai tháng.",
+   "beats": [
+    {
+     "kind": "capture",
+     "name": "Hook: trang trợ giúp",
+     "headline": [
+      "Tắt lịch sử rồi?",
+      "Vẫn giữ 2 tháng"
+     ],
+     "kicker": "Theo Google · TechCrunch · 17/11/2026",
+     "capture": {
+      "ref": "g-2b",
+      "quote": "các cuộc trò chuyện tạm thời và cuộc trò chuyện sẽ được lưu giữ trong tài khoản của bạn trong khoảng hai tháng",
+      "bands": [
+       {
+        "text": "khoảng hai"
+       },
+       {
+        "text": "tháng"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "say": "Trước đây con số này là bảy mươi hai giờ. Chat tạm thời cũng bị giữ lâu như vậy.",
+   "show": "Trước đây con số này / là 72 giờ. / Chat tạm thời cũng / bị giữ lâu như vậy.",
+   "beats": [
+    {
+     "kind": "number",
+     "name": "Trước đây: 72 giờ",
+     "kicker": "Trước đây",
+     "line1": "72 giờ",
+     "line2": "Nay: khoảng 2 tháng",
+     "source": "Nguồn: hco.news · TechCrunch",
+     "anchor": "72"
+    },
+    {
+     "kind": "capture",
+     "from_sentence": 1,
+     "name": "Chat tạm thời cũng 2 tháng",
+     "headline": [
+      "Chat tạm thời",
+      "cũng 2 tháng"
+     ],
+     "kicker": "Google gọi lịch sử là “Nhật ký”",
+     "capture": {
+      "ref": "g-2b",
+      "quote": "các cuộc trò chuyện tạm thời và cuộc trò chuyện sẽ được lưu giữ trong tài khoản của bạn trong khoảng hai tháng",
+      "bands": [
+       {
+        "text": "tạm thời"
+       },
+       {
+        "text": "khoảng hai",
+        "anchor": "lâu như vậy"
+       },
+       {
+        "text": "tháng",
+        "anchor": "lâu như vậy"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "say": "Google nói thay đổi áp dụng toàn cầu trong vài tuần tới, vì lý do an toàn và bảo mật.",
+   "show": "Google nói thay đổi / áp dụng toàn cầu / trong vài tuần tới, / vì lý do an toàn / và bảo mật.",
+   "beats": [
+    {
+     "kind": "capture",
+     "name": "Áp dụng toàn cầu",
+     "headline": [
+      "Toàn cầu,",
+      "trong vài tuần tới"
+     ],
+     "kicker": "Google thông báo",
+     "headline_anchor": "trong vài",
+     "capture": {
+      "ref": "blog-google",
+      "quote": "We’ll start rolling out these changes globally in the Gemini app in the coming weeks.",
+      "bands": [
+       {
+        "text": "globally",
+        "anchor": "toàn cầu"
+       },
+       {
+        "text": "coming weeks.",
+        "anchor": "trong vài"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "say": "Để so sánh: ChatGPT giữ chat tạm thời tối đa ba mươi ngày.",
+   "show": "Để so sánh: ChatGPT / giữ chat tạm thời / tối đa 30 ngày.",
+   "beats": [
+    {
+     "kind": "chart",
+     "name": "So sánh thời gian giữ",
+     "kicker": "Chat tạm thời được giữ bao lâu",
+     "rows": [
+      {
+       "name": "Gemini",
+       "value": "khoảng 2 tháng",
+       "bar": 60
+      },
+      {
+       "name": "ChatGPT",
+       "value": "tối đa 30 ngày",
+       "bar": 30,
+       "anchor": "chatgpt",
+       "occurrence": 0
+      },
+      {
+       "name": "Claude",
+       "value": "30 ngày, mặc định",
+       "bar": 30,
+       "anchor": "tối"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "say": "Google nói chat tạm thời không dùng để huấn luyện AI. Bạn cũng sắp tắt được huấn luyện mà vẫn giữ lịch sử.",
+   "show": "Google nói chat tạm thời / không dùng để / huấn luyện AI. / Bạn cũng sắp tắt được / huấn luyện mà / vẫn giữ lịch sử.",
+   "beats": [
+    {
+     "kind": "capture",
+     "name": "Không dùng để huấn luyện",
+     "headline": [
+      "Không dùng để",
+      "huấn luyện AI"
+     ],
+     "kicker": "Theo Google",
+     "capture": {
+      "ref": "g-5a",
+      "quote": "Các cuộc trò chuyện tạm thời không được dùng để huấn luyện các mô hình AI của Google.",
+      "bands": [
+       {
+        "text": "không"
+       },
+       {
+        "text": "được dùng để huấn luyện",
+        "anchor": "huấn luyện"
+       }
+      ]
+     }
+    },
+    {
+     "kind": "capture",
+     "from_sentence": 1,
+     "name": "Sắp tắt huấn luyện, giữ lịch sử",
+     "headline": [
+      "Tắt huấn luyện,",
+      "vẫn giữ lịch sử"
+     ],
+     "kicker": "Sắp có",
+     "chip": "hco.news, 17/11/2026",
+     "capture": {
+      "ref": "hco-5b",
+      "quote": "Cùng lúc đó, Google tách riêng cài đặt lịch sử hội thoại và huấn luyện AI, cho phép người dùng giữ bản ghi chat mà không bị dùng để đào tạo mô hình."
+     }
+    }
+   ]
+  },
+  {
+   "say": "Nên đừng coi chat tạm thời là chỗ kín. Mật khẩu, số thẻ, giấy tờ tuỳ thân: đừng dán vào.",
+   "show": "Nên đừng coi / chat tạm thời / là chỗ kín. / Mật khẩu, số thẻ, / giấy tờ tuỳ thân: / đừng dán vào.",
+   "beats": [
+    {
+     "kind": "list",
+     "name": "Lời khuyên",
+     "kicker": "Lời khuyên của hco.news",
+     "title": "Đừng dán vào chat:",
+     "rows": [
+      {
+       "text": "Mật khẩu",
+       "anchor": "mật"
+      },
+      {
+       "text": "Số thẻ",
+       "anchor": "số"
+      },
+      {
+       "text": "Giấy tờ tuỳ thân",
+       "anchor": "giấy"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "say": "Lưu lại, và gửi cho người hay tâm sự với AI nhé.",
+   "show": "Lưu lại, / và gửi cho người / hay tâm sự với AI nhé.",
+   "beats": [
+    {
+     "kind": "end",
+     "name": "Kết"
+    }
+   ]
+  }
+ ],
+ "sources": {
+  "g-2b": {
+   "urls": [
+    "https://support.google.com/gemini/answer/13594961?hl=vi"
+   ],
+   "locale": "vi-VN",
+   "open": "Khi tôi tắt chế độ Nhật ký",
+   "source": "Quyền riêng tư Gemini"
+  },
+  "blog-google": {
+   "urls": [
+    "https://blog.google/innovation-and-ai/products/gemini-app/updated-controls/"
+   ],
+   "source": "blog Google",
+   "date": "16/11/2026"
+  },
+  "g-5a": {
+   "urls": [
+    "https://support.google.com/gemini/answer/13594961?hl=vi"
+   ],
+   "locale": "vi-VN",
+   "open": "Khi tôi tắt chế độ Nhật ký",
+   "source": "Quyền riêng tư Gemini"
+  },
+  "hco-5b": {
+   "urls": [
+    "https://hco.news/tin/92ead912d06bbf7e268a/"
+   ],
+   "locale": "vi-VN",
+   "source": "hco.news",
+   "date": "17/11/2026"
+  }
+ },
+ "post": {
+  "title": "Tắt lịch sử Gemini rồi, Google vẫn giữ chat của bạn khoảng 2 tháng",
+  "body": "Theo Google và TechCrunch (17/11/2026), Gemini vẫn sẽ giữ đoạn chat của bạn khoảng hai tháng dù đã tắt lịch sử. Trước đây con số này là 72 giờ, và chat tạm thời cũng bị giữ lâu như vậy. Google nói thay đổi áp dụng toàn cầu trong vài tuần tới. Để so sánh, ChatGPT giữ chat tạm thời tối đa 30 ngày. Google nói chat tạm thời không dùng để huấn luyện AI, và bạn cũng sắp tắt được huấn luyện mà vẫn giữ lịch sử. Lời khuyên của hco.news: đừng dán mật khẩu, số thẻ, giấy tờ tuỳ thân vào chat.\nLưu lại, và gửi cho người hay tâm sự với AI nhé.",
+  "hashtags": [
+   "#AI",
+   "#gemini",
+   "#google",
+   "#quyenriengtu",
+   "#tinAI",
+   "#halcyon"
+  ]
+ }
+}

@@ -80,3 +80,15 @@ Reproduced from their scripts, timing and manifests in `tests/fixtures/halcyon/<
 - Video 05 and video 03: `RESULT: EQUAL` against the published plan, and every still identical by hash to the published one (65 files for 05, 40 for 03).
 - The assembled spec equals the published one except: `duration` (28.49 against 28.5, 30.31 against 30.29: the rule tail, same frame count), a band time written as `at` seconds where the published spec named the caption words, a reveal written in seconds where it named a caption word (the frames equal the published plan's, tested), and video 03's card beat has no `level: CARD` (the builder's default for a card).
 - The published 03 `v1/video.json` is newer than its generator `gen-spec.py`: it focuses on `rows` (and other `u_rows`) where the generator wrote `lines` and `band_rows`. The manifest carries the published values.
+
+## 7. What the one command adds to the script (`mot-lenh.py`, [MOT-LENH.md](MOT-LENH.md))
+Two top-level blocks the assembler ignores and the chain reads. Both are checked before anything runs.
+```
+"sources": { "<ref>": { "urls": ["https://...", "https://... (fallback)"], "hco": "https://hco.news/tin/...",   (urls required, the rest optional)
+                        "open": "<heading to expand>", "follow": false, "occurrence": 1 | "last", "source": "chip label", "date": "dd/mm/yyyy",
+                        "locale": "vi-VN", "ua": "iphone", "max_rows": 700 } },
+"post": { "title": "one line", "body": "one block; single line breaks, no blank line", "hashtags": ["#AI", "#halcyon"] }
+```
+- `sources` has one entry per capture `ref` used by a beat. The sentence captured is the beat's `capture.quote`; the phrases highlighted are the texts of the beat's `capture.bands` (a phrase that wraps over two lines comes back as one band per line, so name the bands by their line texts, as in the published 05 script). One ref is one picture of one sentence: a second beat that needs another sentence needs its own ref. The options are `chup.mjs`'s ([CHUP.md](CHUP.md)).
+- `post` is the text posted with the video, in the owner's format of 19/11/2026: the chain writes `Tiêu đề:`, the title, `Nội dung đăng:`, the body, then the hashtag line. No source line, no link, no per-platform variants, no music credit line (all refused).
+- The chain makes `capture` and card beats (`number`, `chart`, `list`, `end`) only. A `recording` beat, or any beat with a `picture`, is refused: a hand-made recording or photo is an input file outside the chain.

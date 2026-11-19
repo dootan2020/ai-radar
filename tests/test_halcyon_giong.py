@@ -169,7 +169,11 @@ class ListenList(unittest.TestCase):
         self.assertEqual([x["t"] for x in rep["listen"]], sorted(x["t"] for x in rep["listen"]))
         self.assertLess(len(rep["listen"]), 12)  # short enough to listen to
         text = g.format_listen(rep["listen"], rep["approved"])
-        self.assertIn("13.4 s", text)
+        self.assertIn("13,4 giây", text)
+        self.assertIn('[tên] kịch bản nói "ChatGPT", máy nghe ra "chat GPT"', text)
+        self.assertIn("[số]", text)
+        self.assertIn("[không nghe thấy]", text)
+        self.assertNotIn("Whisper wrote", text)
 
 
 class TimingFile(unittest.TestCase):

@@ -321,15 +321,18 @@ def listen_list(script, heard, m, residual):
     return sorted(items, key=lambda x: x['t'])
 
 
+LISTEN_KIND = {'not heard': 'không nghe thấy', 'name': 'tên', 'number': 'số'}
+
+
 def format_listen(listen, approved=None):
+    """The listen list the owner reads, in Vietnamese: where in the track, what kind of word, what the script says, what Whisper wrote."""
     lines = []
     for x in listen:
-        ts = ', '.join(f'{t:.1f}' for t in x.get('times', [x['t']]))
-        lines.append(f'- {ts} s  [{x["kind"]}] say "{x["say"]}", Whisper wrote "{x["heard"]}"')
+        ts = ', '.join(f'{t:.1f}'.replace('.', ',') for t in x.get('times', [x['t']]))
+        lines.append(f'- {ts} giây  [{LISTEN_KIND.get(x["kind"], x["kind"])}] kịch bản nói "{x["say"]}", máy nghe ra "{x["heard"]}"')
     if approved:
-        lines.append('- ear-approved names not listed: ' + '; '.join(f'{k} ({", ".join(map(str, v))} s)' for k, v in approved.items()))
+        lines.append('- tên anh đã nghe và duyệt, không liệt kê lại: ' + '; '.join(f'{k} ({", ".join(f"{t:.1f}".replace(".", ",") for t in v)} giây)' for k, v in approved.items()))
     return '\n'.join(lines)
-
 
 def gate(say, words, beats=None, approved=()):
     rep = check_reading(say, words, beats, approved)
