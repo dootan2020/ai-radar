@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-19T03:48:21.123652+00:00",
-  "input_generated_at": "2026-11-19T02:46:06Z",
+  "generated_at": "2026-11-19T05:42:24.340813+00:00",
+  "input_generated_at": "2026-11-19T04:45:51Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -101936,10 +101936,10 @@
       "use_original_title": false,
       "source_url": "https://en.yna.co.kr/view/AEN20261119003400315",
       "key_points": [
-        "Thủ khoa kỳ thi tuyển sinh trường luật (LEET) vắng mặt tại buổi kiểm tra năng lực công khai vào ngày 19 tháng 11 là Lee Jin-woo, sinh viên Đại học Quốc gia Seoul đang đối mặt với các nghi vấn gian lận bằng trí tuệ nhân tạo.",
-        "Buổi kiểm tra do một học viện luyện thi tổ chức phát trực tiếp trên YouTube với 400.000 người theo dõi, trong khi điện thoại của Lee tắt máy từ thứ Tư và đơn vị này chưa liên lạc được. Theo lịch trình, Lee sẽ giải toàn bộ câu hỏi phần thi tiếng Hàn của kỳ thi tuyển sinh đại học (CSAT) tại trường quay ở Seoul vào lúc 8 giờ 40 sáng.",
-        "Lee không xuất hiện tại trường quay vào đúng giờ hẹn 8 giờ 40 sáng, theo Yonhap là làm dấy lên nghi ngờ về tính xác thực của các tuyên bố trước đó. Trước đó, thí sinh 33 tuổi này từng đạt điểm tuyệt đối kỳ thi LEET năm nay và đạt điểm tối đa mọi môn thi CSAT năm ngoái, dù từng nhận điểm thấp từ bậc 6 đến 8 vào năm 2013.",
-        "Cơ quan Cảnh sát thành phố Seoul đã mở cuộc điều tra về cáo buộc cản trở kinh doanh đối với Lee theo đơn khiếu nại của hai luật sư."
+        "Lee Jin-woo vắng mặt tại buổi kiểm tra năng lực công khai, dù trước đó cam kết tham gia giữa cáo buộc gian lận điểm tuyệt đối kỳ thi LEET. Anh không đến trường quay ở Seoul lúc 8 giờ 40 sáng theo lịch hẹn giải trực tiếp phần thi tiếng Hàn CSAT.",
+        "Thành tích của Lee bị giám sát chặt chẽ sau khi thủ khoa kỳ thi kế toán thuế năm nay thừa nhận dùng AI gian lận. Theo Yonhap, vụ việc diễn ra trong bối cảnh công chúng gia tăng lo ngại về tình trạng dùng AI gian lận thi cử.",
+        "Lee từng đạt bậc 1, mức cao nhất, ở mọi môn thi CSAT năm ngoái và trúng tuyển Đại học Quốc gia Seoul, dù năm 2013 chỉ nhận bậc 6 đến 8. Học viện tổ chức cho biết có tới 400.000 người theo dõi qua YouTube khi điện thoại của anh tắt máy từ thứ Tư.",
+        "Cơ quan Cảnh sát thành phố Seoul đã điều tra Lee theo đơn khiếu nại của hai luật sư cáo buộc anh cản trở kinh doanh. Theo Yonhap, việc vắng mặt này làm dấy lên nghi ngờ về tính xác thực trong các tuyên bố trước đây của anh."
       ],
       "same_event_coverage_ids": [
         "6c1df262fef5fe2d2ab4"
@@ -101955,7 +101955,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Thủ khoa kỳ thi LEET Hàn Quốc vắng mặt tại buổi thi công khai giữa nghi vấn gian lận AI",
+      "editorial_headline_vi": "Thủ khoa LEET vắng mặt ở buổi kiểm tra năng lực trực tiếp giữa nghi vấn gian lận bằng AI",
       "summary_sources": [
         {
           "id": "outlet",
@@ -101968,40 +101968,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.4,
+        "value": 9.4,
         "answers": {
           "what": 10,
-          "why": 8,
-          "notable": 6,
+          "why": 10,
+          "notable": 8,
           "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "number",
-            "summary_text": "với 400.000 người theo dõi",
-            "explanation": "The academy said up to 400,000 people tuned in to the livestream, not that exactly 400,000 watched or followed it (outlet:p007)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "đạt điểm tối đa mọi môn thi CSAT năm ngoái",
-            "explanation": "The source reports Grade 1, the highest grade, in every CSAT subject; it does not establish maximum raw marks in every subject (outlet:p004)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
             "question": "notable",
-            "problem": "Readers may believe Lee earned perfect marks in every CSAT subject.",
-            "fix": "Say he earned Grade 1, the highest grade, in every subject (outlet:p004)."
-          },
-          {
-            "question": "notable",
-            "problem": "The livestream audience is presented as an exact count.",
-            "fix": "Say up to 400,000 people tuned in (outlet:p007)."
-          },
-          {
-            "question": "why",
-            "problem": "Readers do not learn what intensified scrutiny of Lee’s results.",
-            "fix": "Mention the separate top scorer who admitted cheating with AI, without implying that this proves Lee cheated (outlet:p005)."
+            "problem": "Readers miss that Lee's perfect LEET score was unprecedented.",
+            "fix": "State that he was the first test taker to achieve a perfect LEET score (outlet:p005)."
           }
         ],
         "writer_boats": [
@@ -102009,8 +101988,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "c7b58ce87f2ce8915bc7343dca56c7c493efe5fad1ff76ac98ead1a2572b94da",
-        "scored_at": "2026-11-19T03:28:51.769668+00:00"
+        "prose_sha256": "2f540371759af9a3c2d22256a7f482fad1cb502386553f6689fbfeebcb579cf3",
+        "scored_at": "2026-11-19T05:42:24.298172+00:00"
       }
     },
     {
@@ -102362,8 +102341,8 @@
       "use_original_title": false,
       "source_url": "https://arxiv.org/abs/2611.24102",
       "key_points": [
-        "Nhóm tác giả đề xuất phương pháp IDEA để phát hiện kích hoạt cửa sau khi suy luận ở từng bước cho tác nhân đồ họa (GUI agent, AI thao tác màn hình). Giải pháp này vận hành mà không cần biết mẫu kích hoạt hay dữ liệu tấn công, ngăn chặn nguy cơ mô hình chỉ hành xử sai khi gặp kích hoạt thị giác.",
-        "Theo nhóm nghiên cứu, các công cụ hiện nay nhắm vào bộ phân loại ảnh và bộ mã hóa, bỏ ngỏ việc phát hiện cửa sau ở cấp bước cho tác nhân GUI. Kỹ thuật mới đo độ lệch trạng thái quyết định khi thay đổi chỉ dẫn hoặc che vùng màn hình nghi vấn rồi so sánh với các bước sạch.",
+        "Nhóm tác giả đề xuất phương pháp IDEA nhằm phát hiện kích hoạt cửa sau khi suy luận ở từng bước cho tác nhân đồ họa (GUI agent, AI điều khiển màn hình). Kỹ thuật này vận hành khi suy luận cho mỗi bước mà không cần biết mẫu kích hoạt hay dữ liệu tấn công.",
+        "Theo nhóm nghiên cứu, các công cụ hiện nay nhắm vào bộ phân loại ảnh và bộ mã hóa, bỏ ngỏ việc phát hiện cửa sau cấp bước cho tác nhân GUI. Kỹ thuật mới đo độ lệch trạng thái quyết định khi thay đổi chỉ dẫn hoặc che vùng màn hình nghi vấn rồi so sánh với các bước sạch.",
         "Thực nghiệm trên Qwen2.5-VL-3B qua năm nhóm tấn công cho thấy IDEA phát hiện kích hoạt cửa sau vượt trội các phương pháp hàng đầu. Hệ thống duy trì tỷ lệ dương tính giả được kiểm soát và định vị vùng kích hoạt cho mọi cảnh báo.",
         "Nhóm tác giả cho biết cơ chế tính điểm mang lại bảo đảm kiểm soát dương tính giả trên mẫu hữu hạn. Dù vậy, phương pháp phát hiện khi suy luận này vẫn làm phát sinh thêm chi phí tính toán khiêm tốn."
       ],
@@ -102388,7 +102367,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Phương pháp IDEA phát hiện kích hoạt cửa sau khi suy luận ở tác nhân giao diện đồ họa",
+      "editorial_headline_vi": "Đề xuất phương pháp IDEA phát hiện kích hoạt cửa sau khi suy luận cho tác nhân đồ họa",
       "summary_sources": [
         {
           "id": "outlet",
@@ -102401,25 +102380,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.8,
+        "value": 9.6,
         "answers": {
-          "what": 8,
-          "why": 9,
+          "what": 10,
+          "why": 8,
           "notable": 10,
-          "meaning": 8
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "ngăn chặn nguy cơ mô hình chỉ hành xử sai khi gặp kích hoạt thị giác",
-            "explanation": "The source says IDEA detects backdoor activation when a visual trigger hijacks an agent’s decision. It does not say the method prevents the agent from misbehaving (outlet:p009)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "what",
-            "problem": "The reader may believe IDEA prevents triggered misbehavior.",
-            "fix": "Say it detects backdoor activation at inference time; the source makes no prevention claim (outlet:p009)."
+            "question": "why",
+            "problem": "Readers get the detection gap but little sense of the risk that motivates it.",
+            "fix": "Add that a downloaded, backdoored GUI agent may pass clean acceptance tests and misbehave only when a visual trigger appears (outlet:p009)."
           }
         ],
         "writer_boats": [
@@ -102427,8 +102400,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "5ddd9e296fd3e00f7f8f52141837fd2c50bf709402256c66eff7ed65dc9f29bc",
-        "scored_at": "2026-11-19T03:32:02.172600+00:00"
+        "prose_sha256": "82a50252c3ae54c7df6129ca91227dd7f9b1a5d7720b459206c81104865bfbdc",
+        "scored_at": "2026-11-19T05:42:24.298278+00:00"
       }
     },
     {
@@ -102471,6 +102444,682 @@
           "Jensen Huang",
           "Jane Fraser",
           "Brendan Ruberry"
+        ],
+        "availability": "global",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "8badf276eeb51bebeb75",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://en.yna.co.kr/view/AEN20261119005100315",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "bbf5e3427e13db130cd1"
+      ],
+      "split_coverage_ids": [],
+      "subject": "LEET top scorer",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "0bc1a267e9d26d23e150",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-19/lenovo-sales-beat-estimate-due-to-solid-ai-hardware-demand",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "8b1d2107099fb6c8d17c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "c867e95ba16ee00cca7c",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-19/india-startup-sells-deepseek-access-while-pursuing-sovereign-ai",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "83aff12c9d40fc8f121b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "c935ce92da5e98d529ea",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.scmp.com/tech/tech-trends/article/3374905/how-little-known-beijing-ai-safety-group-became-adviser-chinas-tech-giants",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "28f59cef2e757bbeec4e"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Beijing AI safety group",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Xi Jinping",
+          "Donald Trump"
+        ],
+        "availability": "global",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "4600e4b1b74fa7cc24c4",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-19/trump-warns-against-regulations-that-would-stifle-ai-industry",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "bf4bf63b61770f08ecb9"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "f6da9255952554ce9daf",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-19/gftn-s-mohanty-on-fintech-anthropic-ipo-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "3c381ed9194bb346233a"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "c3bb630271dff780c0d8",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "top",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://en.yna.co.kr/view/AEN20261119004900315",
+      "key_points": [
+        "Tại phiên họp lãnh đạo APEC ở Thâm Quyến, Tổng thống Mỹ Donald Trump nhấn mạnh cần thận trọng quản lý rủi ro từ trí tuệ nhân tạo (AI) tiên tiến, nhưng phản đối quy định kìm hãm công nghệ.",
+        "Theo ông Trump, siêu trí tuệ (công nghệ AI vượt trội - SI) gần như hoàn toàn tốt nhưng có một số yếu tố xấu cần quản lý rất cẩn thận.",
+        "Nhà lãnh đạo Mỹ tuyên bố phản đối mọi hình thức quy định mang tính toàn cầu hóa nhằm kiểm soát hay bóp nghẹt SI và sẽ không để điều đó xảy ra.",
+        "Ông Trump nhận định SI là bước chuyển đổi công nghệ lớn nhất từ sau cách mạng công nghiệp với tiềm năng thúc đẩy tăng trưởng kinh tế."
+      ],
+      "same_event_coverage_ids": [
+        "6703e3aa4181a4c730fc"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Donald Trump",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Donald Trump"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Tại APEC, ông Trump kêu gọi cẩn trọng với AI nhưng phản đối mọi quy định kìm hãm phát triển",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "yonhap",
+          "url": "https://en.yna.co.kr/view/AEN20261119004900315"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "e527a6c258979244dd631c525809f5e3c6918fc163df656e2958640959c0f33b",
+        "scored_at": "2026-11-19T05:32:37.170469+00:00"
+      }
+    },
+    {
+      "id": "76260469bed3c85d03bd",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-19/mas-warns-ai-agents-could-move-money-faster-raise-finance-risks",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "ebff4248e4c05074f7c5"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "48a6725c2cafa4c3343b",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://en.yna.co.kr/view/AEN20261118003251315",
+      "key_points": [
+        "Chính phủ Hàn Quốc cân nhắc gửi cảnh báo thảm họa bất ngờ trong kỳ thi đại học để ngăn gian lận AI (trí tuệ nhân tạo), theo một quan chức Bộ Nội vụ.",
+        "Biện pháp này được tính đến sau vụ bê bối gian lận trong kỳ thi kế toán thuế gần đây, khi thủ khoa kỳ thi thừa nhận đã vượt qua trót lọt nhờ sự trợ giúp của AI và các thiết bị kỹ thuật số.",
+        "Cùng với tin nhắn cảnh báo dự kiến trước giờ thi để phát chuông lớn ngay cả khi tắt âm, Tổng thống Lee Jae Myung đã chỉ đạo xem xét gửi thêm cảnh báo bất ngờ ngay trong lúc làm bài. Ngoài ra, Bộ Giáo dục Hàn Quốc cũng chỉ cho phép thí sinh mang bút chì vào phòng thi và cung cấp đồ dùng khác tại chỗ để ngừa camera siêu nhỏ giấu trong vật dụng cá nhân.",
+        "Theo Yonhap, sự việc làm sâu sắc thêm nỗi lo gian lận trong kỳ thi CSAT, sự kiện mang tính bước ngoặt tại Hàn Quốc nơi việc đỗ trường đại học nào có thể tác động mạnh mẽ đến triển vọng nghề nghiệp."
+      ],
+      "same_event_coverage_ids": [
+        "a6497411e5d31721a14c",
+        "e4729a839ce3b7e7f8ee"
+      ],
+      "split_coverage_ids": [],
+      "subject": "South Korea CSAT anti-cheating policy",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "region_locked:South Korea",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Hàn Quốc tính phát cảnh báo thảm họa bất ngờ trong kỳ thi đại học để chặn gian lận bằng AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "yonhap",
+          "url": "https://en.yna.co.kr/view/AEN20261118003251315"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.3,
+        "answers": {
+          "what": 10,
+          "why": 3,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "cause",
+            "summary_text": "đã vượt qua trót lọt nhờ sự trợ giúp của AI và các thiết bị kỹ thuật số",
+            "explanation": "The source says the top scorer confessed to cheating with the help of AI and digital devices; it does not establish that the top result was achieved because of that help (outlet:p014)."
+          },
+          {
+            "kind": "cause",
+            "summary_text": "để ngừa camera siêu nhỏ giấu trong vật dụng cá nhân",
+            "explanation": "The source says the stationery change appears to reflect concern about miniature cameras hidden in personal items, presenting this as an apparent reason rather than a confirmed purpose (outlet:p013)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The reader is told the top scorer owed the result to AI-assisted cheating.",
+            "fix": "Say the top scorer admitted cheating with AI and digital devices; the source does not establish what produced the score (outlet:p014)."
+          },
+          {
+            "question": "why",
+            "problem": "The camera concern is stated as the confirmed purpose of the pencil rule.",
+            "fix": "Preserve the source’s qualification that the change appears to reflect concern about hidden miniature cameras (outlet:p013)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "84c40cd6652b7be921d9ec571f285f431fb8c63fc096f301dcf205afd4e50eb4",
+        "scored_at": "2026-11-19T05:32:37.171147+00:00"
+      }
+    },
+    {
+      "id": "b536c63303d686a3c35f",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.24830",
+      "key_points": [
+        "Researchers introduced Chiron, a foundation model designed to measure and predict human behaviour while avoiding statistical distortion in population simulation.",
+        "Chiron was jointly fine-tuned to represent psychological constructs, predict individual behaviour, and align population response distributions with human statistics.",
+        "The training and evaluation data spans 36 behavioural domains and 78 social science experiments comprising 288,307 person records."
+      ],
+      "same_event_coverage_ids": [
+        "22fe2394e03356d31de2"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Chiron",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Haoran Ye",
+          "Tianrui Huo",
+          "Hangzhen Li",
+          "Xin Zhang",
+          "Guojie Song"
+        ],
+        "availability": "global",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "9e7ca7a4acd542046886",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.24154",
+      "key_points": [
+        "Khung Game2Player đồng phát triển môi trường và người chơi để mở rộng kinh nghiệm chơi game cho tác nhân thị giác (chương trình AI tương tác qua hình ảnh), theo nhóm tác giả. Hệ thống đã xây dựng 568 trò chơi web với 3.436 nhiệm vụ, thu thập 15,7 nghìn quỹ đạo (307 giờ chơi) và dành riêng 50 trò chơi làm bộ chuẩn PlayerBench.",
+        "Thu thập dữ liệu chơi game của con người tốn kém và học từ video phải suy đoán hành động bị thiếu, trong khi các bộ dữ liệu hiện có ít game và thiếu kết quả kiểm chứng. Khung này khắc phục hạn chế bằng cách để tác nhân xây dựng sửa đổi game và lập nhiệm vụ, còn tác nhân người chơi thử nghiệm và báo lỗi nhằm hoàn thiện môi trường lẫn dữ liệu.",
+        "Game2Player-9B nâng tiến độ lên 53,1% trên bộ chuẩn GameWorld ngoài (từ mức 30,0%) và tăng từ 14,3% lên 31,2% trên PlayerBench nhờ tinh chỉnh theo trọng số tiến độ nhiệm vụ.",
+        "Công trình gợi mở hướng mở rộng kinh nghiệm chơi game cho các tác nhân thị giác bằng cách tự xây dựng, xác thực và học hỏi từ các thế giới game có sẵn, theo đúc kết rộng hơn của nhóm tác giả."
+      ],
+      "same_event_coverage_ids": [
+        "531985f35a2c18b04ab3"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Game2Player",
+      "video_labels": null,
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Mô hình Game2Player-9B nâng tiến độ tác nhân thị giác lên 53,1% trên bộ chuẩn GameWorld",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.24154"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.35,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "5068ddfe31bac3bfc1b8daf139fabd220b52886fb55486a5dd7672d814ac94bc",
+        "scored_at": "2026-11-19T05:37:47.331743+00:00"
+      }
+    },
+    {
+      "id": "8c5914db57aa649d6938",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.24738",
+      "key_points": [
+        "Nhóm tác giả giới thiệu Jeveration tạo ảnh chất lượng cao trong một lượt truyền tiến (xử lý một chiều qua mạng nơ-ron) theo cơ chế Hệ thống 1 (dự đoán song song tốc độ cao). Mô hình xây dựng trên mạng thị giác - ngôn ngữ đóng băng nhằm tái sử dụng tri thức ngữ nghĩa thị giác.",
+        "Theo nhóm nghiên cứu, thách thức duy trì tính nhất quán toàn cục giữa các dự đoán song song nảy sinh khi một câu lệnh có nhiều hình ảnh hợp lệ. Để điều phối, phương pháp dùng chung một trạng thái ngẫu nhiên và học phân phối qua mã ảnh rời rạc.",
+        "Thực nghiệm cho thấy Jeveration tạo ảnh trong 78 mili giây và nhanh hơn tới 122 lần so với các mô hình hợp nhất hiện có khi tạo ảnh kích thước 512x512 pixel. Tốc độ này đi kèm việc duy trì chất lượng ảnh và hiệu năng dự đoán dày đặc ở mức cạnh tranh.",
+        "Ý nghĩa của phương pháp là hợp nhất ba tác vụ thị giác trong cùng một điểm lưu kiến trúc, hỗ trợ tạo ảnh từ văn bản, biến đổi ảnh và dự đoán dày đặc. Tuy vậy, nhóm tác giả lưu ý kết quả thực nghiệm duy trì chất lượng ảnh và dự đoán dày đặc ở mức cạnh tranh."
+      ],
+      "same_event_coverage_ids": [
+        "d4cbb8b1a5a15bc2ce07"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Jeveration",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Yuhe Liu",
+          "Qi Li",
+          "Shihua Zhang",
+          "Xinchao Wang"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Mô hình Jeveration tạo ảnh 512x512 pixel trong 78 ms, nhanh hơn tới 122 lần",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.24738"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The reader may think the single-pass claim applies only to text-to-image generation.",
+            "fix": "State that the one checkpoint performs all three tasks, each in one forward pass (outlet:p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "e8fdbe2c93a7ed1ff4cf979bbef121b533474ef4fe3aec3ccd1c0bbed12f4834",
+        "scored_at": "2026-11-19T05:32:37.171244+00:00"
+      }
+    },
+    {
+      "id": "8ab14b477ef27d4646f9",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.24733",
+      "key_points": [
+        "Nhóm tác giả đề xuất CriticNPU để tìm kiếm cấu hình vi xử lý nơ-ron (NPU) phục vụ suy luận mô hình ngôn ngữ lớn (LLM). Công cụ ước tính tiềm năng để lọc ứng viên yếu trước mô phỏng, đồng thời tóm tắt điểm nghẽn prefill và decode cùng dự đoán tác động đổi thông số sau mô phỏng.",
+        "Theo các tác giả, trình mô phỏng đắt đỏ chỉ trả về phản hồi vô hướng như độ trễ và công suất nên khó biết vì sao cấu hình bị chậm. Trở ngại này càng lớn vì khâu xử lý câu lệnh đầu vào (prefill) và giải mã (decode) bị giới hạn bởi các tài nguyên phần cứng khác nhau.",
+        "CriticNPU đạt độ trễ tốt nhất hoặc đồng hạng nhất ở 74% trường hợp xử lý câu lệnh đầu vào (prefill) và 87,5% trường hợp giải mã (decode) trên sáu tác vụ LLM. Kết quả trước các đối chuẩn cạnh tranh này chỉ dùng khoảng nửa số lượt gọi mô phỏng trên 16 cấu hình triển khai mỗi mô hình.",
+        "Nhóm nghiên cứu khẳng định đã xác thực hiệu quả phương pháp qua phân tích chi tiết và nghiên cứu bóc tách thành phần (ablation studies). Dù vậy, công cụ vẫn phụ thuộc vào quan sát từ trình mô phỏng để hiệu chỉnh giới hạn hiệu dụng cho từng loại toán tử."
+      ],
+      "same_event_coverage_ids": [
+        "bddbbd063d7d430d171d"
+      ],
+      "split_coverage_ids": [],
+      "subject": "CriticNPU",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Yicheng He",
+          "Yuqi Xue",
+          "Tianyang Wu",
+          "Jian Huang",
+          "Bin Hu"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "CriticNPU tốn khoảng nửa số lượt mô phỏng khi tìm kiến trúc NPU cho mô hình lớn",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.24733"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.45,
+        "answers": {
+          "what": 10,
+          "why": 8,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "trình mô phỏng đắt đỏ chỉ trả về phản hồi vô hướng",
+            "explanation": "The source says the simulator often returns only scalar feedback, not that it always does (outlet:p009)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The reader may believe scalar feedback is the simulator’s only possible output.",
+            "fix": "Restore the source’s “often” qualification (outlet:p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "026593db11607f13831605d4dea3c04a04dec3c6289104e4dc6f2e10a48c7a69",
+        "scored_at": "2026-11-19T05:37:47.331831+00:00"
+      }
+    },
+    {
+      "id": "33001bf6cc794749f63a",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.24075",
+      "key_points": [
+        "Nhóm tác giả Sachith Abeywickrama đề xuất phương pháp PACT (Piecewise Adaptation via Chart Transport) để thích ứng mô hình chuỗi thời gian khi điều kiện vận hành thay đổi. Theo nhóm nghiên cứu, PACT duy trì nhánh đồng nhất (identity path) cùng cổng chọn mềm, đồng thời cố định bộ mã hóa, đầu phân loại và các phép biến đổi đã học.",
+        "Theo nhóm tác giả, việc thích ứng toàn cục có thể làm dịch chuyển không cần thiết các điểm nhúng (embedding) vốn đã phân loại đúng. Nguyên nhân là không gian nhúng dịch chuyển không đồng đều, khiến một số vùng biến động mạnh trong khi các vùng khác gần như giữ nguyên.",
+        "PACT duy trì điểm macro-F1 trung bình trên 0,95 chỉ với 5% dữ liệu hiệu chuẩn có nhãn cho mỗi điều kiện mới trong luồng bốn điều kiện lỗi vòng bi. Nhóm nghiên cứu cho biết mô hình đạt kết quả này mà không cần biết danh tính điều kiện vận hành lúc kiểm tra.",
+        "Nhóm tác giả ghi nhận hành vi duy trì và thích ứng tương tự trên các bộ dữ liệu chuẩn công khai (benchmark) dưới các tác vụ và không gian nhãn đồng nhất. Theo nhóm nghiên cứu, cơ chế này giúp mô hình cải thiện trên từng điều kiện mới mà không phải hy sinh những điều kiện đã học trước đó."
+      ],
+      "same_event_coverage_ids": [
+        "588eb0af2d48484abd29"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Time-Series Foundation Models adaptation",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Sachith Abeywickrama",
+          "Peiliang Gong",
+          "Emadeldeen Eldele",
+          "Min Wu",
+          "Chau Yuen"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "PACT giúp mô hình chuỗi thời gian đạt điểm macro-F1 trên 0,95 với 5% dữ liệu hiệu chuẩn mỗi điều kiện",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.24075"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.35,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The final sentence can read as a general guarantee of improvement without loss.",
+            "fix": "Tie the retention and adaptation claim to the four-condition bearing-fault result and the homogeneous benchmark settings reported by the authors (outlet:p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "66fde1f48f6fe9598a19022852b2dd757756a34c1dd2472b0ab46f5a6cbed655",
+        "scored_at": "2026-11-19T05:37:47.331880+00:00"
+      }
+    },
+    {
+      "id": "042c74e7b67151326ea9",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.23824",
+      "key_points": [
+        "Researchers introduced Evidence-based Credit Assignment (ECA) to enhance reinforcement learning for search-augmented language models.",
+        "Standard terminal outcome rewards assign identical credit across all retrieval actions regardless of whether the retrieved information contributed to the answer.",
+        "ECA provides a training-only auxiliary signal that evaluates how retrieved documents improve the likelihood of a reference answer."
+      ],
+      "same_event_coverage_ids": [
+        "79a417e55ff89a6a7d28"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Evidence-based Credit Assignment",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Wen Wang",
+          "Jindong Wang",
+          "Jiahua Bao",
+          "Tu Yongsiqi",
+          "Yihao Liu",
+          "Junwei He",
+          "Wenkui Fan"
         ],
         "availability": "global",
         "is_leak": false
