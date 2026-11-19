@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-19T05:42:24.340813+00:00",
-  "input_generated_at": "2026-11-19T04:45:51Z",
+  "generated_at": "2026-11-19T07:47:16.401407+00:00",
+  "input_generated_at": "2026-11-19T06:46:06Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -102686,10 +102686,10 @@
       "use_original_title": false,
       "source_url": "https://en.yna.co.kr/view/AEN20261118003251315",
       "key_points": [
-        "Chính phủ Hàn Quốc cân nhắc gửi cảnh báo thảm họa bất ngờ trong kỳ thi đại học để ngăn gian lận AI (trí tuệ nhân tạo), theo một quan chức Bộ Nội vụ.",
-        "Biện pháp này được tính đến sau vụ bê bối gian lận trong kỳ thi kế toán thuế gần đây, khi thủ khoa kỳ thi thừa nhận đã vượt qua trót lọt nhờ sự trợ giúp của AI và các thiết bị kỹ thuật số.",
-        "Cùng với tin nhắn cảnh báo dự kiến trước giờ thi để phát chuông lớn ngay cả khi tắt âm, Tổng thống Lee Jae Myung đã chỉ đạo xem xét gửi thêm cảnh báo bất ngờ ngay trong lúc làm bài. Ngoài ra, Bộ Giáo dục Hàn Quốc cũng chỉ cho phép thí sinh mang bút chì vào phòng thi và cung cấp đồ dùng khác tại chỗ để ngừa camera siêu nhỏ giấu trong vật dụng cá nhân.",
-        "Theo Yonhap, sự việc làm sâu sắc thêm nỗi lo gian lận trong kỳ thi CSAT, sự kiện mang tính bước ngoặt tại Hàn Quốc nơi việc đỗ trường đại học nào có thể tác động mạnh mẽ đến triển vọng nghề nghiệp."
+        "Một quan chức Bộ Nội vụ Hàn Quốc cho biết chính phủ đang cân nhắc gửi cảnh báo thảm họa bất ngờ khi thi đại học tuần này để bắt người dùng điện thoại và ngăn gian lận có sự trợ giúp của AI (trí tuệ nhân tạo). Tổng thống Lee Jae Myung cũng đã chỉ đạo xem xét gửi thêm cảnh báo ngay trong lúc làm bài thi.",
+        "Theo Yonhap, giới chức tính biện pháp này sau vụ bê bối thi kế toán thuế gần đây, nơi thủ khoa thú nhận đã gian lận nhờ AI và thiết bị kỹ thuật số. Bộ Giáo dục cũng đổi quy định sang chỉ cho phép mang bút chì, động thái mà Yonhap nhận định dường như phản ánh lo ngại về camera siêu nhỏ.",
+        "Chính phủ cho biết cảnh báo khẩn cấp trước giờ thi được thiết kế để kêu lớn ngay cả khi tắt tiếng nhằm phát hiện thiết bị chưa nộp. Quan chức này nhấn mạnh nếu biết trước giờ thì các cảnh báo bổ sung sẽ không còn tác dụng.",
+        "Theo Yonhap, sự việc làm sâu sắc thêm nỗi lo gian lận trong kỳ thi đại học, sự kiện đời người có thể ảnh hưởng nặng nề đến triển vọng nghề nghiệp tại Hàn Quốc."
       ],
       "same_event_coverage_ids": [
         "a6497411e5d31721a14c",
@@ -102704,7 +102704,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Hàn Quốc tính phát cảnh báo thảm họa bất ngờ trong kỳ thi đại học để chặn gian lận bằng AI",
+      "editorial_headline_vi": "Hàn Quốc cân nhắc gửi cảnh báo thảm họa bất ngờ khi thi đại học để bắt thí sinh dùng điện thoại, ngừa AI",
       "summary_sources": [
         {
           "id": "outlet",
@@ -102717,35 +102717,24 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.3,
+        "value": 9.4,
         "answers": {
           "what": 10,
-          "why": 3,
-          "notable": 9,
+          "why": 10,
+          "notable": 8,
           "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "cause",
-            "summary_text": "đã vượt qua trót lọt nhờ sự trợ giúp của AI và các thiết bị kỹ thuật số",
-            "explanation": "The source says the top scorer confessed to cheating with the help of AI and digital devices; it does not establish that the top result was achieved because of that help (outlet:p014)."
-          },
-          {
-            "kind": "cause",
-            "summary_text": "để ngừa camera siêu nhỏ giấu trong vật dụng cá nhân",
-            "explanation": "The source says the stationery change appears to reflect concern about miniature cameras hidden in personal items, presenting this as an apparent reason rather than a confirmed purpose (outlet:p013)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "why",
-            "problem": "The reader is told the top scorer owed the result to AI-assisted cheating.",
-            "fix": "Say the top scorer admitted cheating with AI and digital devices; the source does not establish what produced the score (outlet:p014)."
+            "question": "notable",
+            "problem": "Readers do not learn when the already planned alert will be sent, which helps distinguish it from the proposed surprise alerts.",
+            "fix": "Add that the planned alert is scheduled for 8:25–8:30 a.m. and that officials are considering unannounced alerts in addition to it (outlet:p006)."
           },
           {
-            "question": "why",
-            "problem": "The camera concern is stated as the confirmed purpose of the pencil rule.",
-            "fix": "Preserve the source’s qualification that the change appears to reflect concern about hidden miniature cameras (outlet:p013)."
+            "question": "notable",
+            "problem": "The pencils-only sentence leaves readers without the practical detail of how test takers will obtain other permitted stationery.",
+            "fix": "Say that test sites will provide stationery other than pencils (outlet:p012)."
           }
         ],
         "writer_boats": [
@@ -102753,8 +102742,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "84c40cd6652b7be921d9ec571f285f431fb8c63fc096f301dcf205afd4e50eb4",
-        "scored_at": "2026-11-19T05:32:37.171147+00:00"
+        "prose_sha256": "92f0422770e766be56733182c7eee5c8989ac8727f355d6715ef8bb75fd6e14b",
+        "scored_at": "2026-11-19T07:47:16.381889+00:00"
       }
     },
     {
@@ -102943,10 +102932,10 @@
       "use_original_title": false,
       "source_url": "https://arxiv.org/abs/2611.24733",
       "key_points": [
-        "Nhóm tác giả đề xuất CriticNPU để tìm kiếm cấu hình vi xử lý nơ-ron (NPU) phục vụ suy luận mô hình ngôn ngữ lớn (LLM). Công cụ ước tính tiềm năng để lọc ứng viên yếu trước mô phỏng, đồng thời tóm tắt điểm nghẽn prefill và decode cùng dự đoán tác động đổi thông số sau mô phỏng.",
-        "Theo các tác giả, trình mô phỏng đắt đỏ chỉ trả về phản hồi vô hướng như độ trễ và công suất nên khó biết vì sao cấu hình bị chậm. Trở ngại này càng lớn vì khâu xử lý câu lệnh đầu vào (prefill) và giải mã (decode) bị giới hạn bởi các tài nguyên phần cứng khác nhau.",
-        "CriticNPU đạt độ trễ tốt nhất hoặc đồng hạng nhất ở 74% trường hợp xử lý câu lệnh đầu vào (prefill) và 87,5% trường hợp giải mã (decode) trên sáu tác vụ LLM. Kết quả trước các đối chuẩn cạnh tranh này chỉ dùng khoảng nửa số lượt gọi mô phỏng trên 16 cấu hình triển khai mỗi mô hình.",
-        "Nhóm nghiên cứu khẳng định đã xác thực hiệu quả phương pháp qua phân tích chi tiết và nghiên cứu bóc tách thành phần (ablation studies). Dù vậy, công cụ vẫn phụ thuộc vào quan sát từ trình mô phỏng để hiệu chỉnh giới hạn hiệu dụng cho từng loại toán tử."
+        "Nhóm tác giả đề xuất CriticNPU, khung tìm kiếm không gian thiết kế hiệu quả mẫu cho vi xử lý nơ-ron (NPU) phục vụ suy luận mô hình ngôn ngữ lớn (LLM). Công cụ ước tính tiềm năng để lọc ứng viên yếu trước mô phỏng và dự đoán tác động đổi thông số sau mô phỏng.",
+        "Theo nhóm nghiên cứu, thiết kế NPU phụ thuộc vào trình mô phỏng đắt đỏ vốn thường chỉ trả về phản hồi vô hướng như độ trễ và công suất. Trở ngại này gây khó khi tìm nguyên nhân cấu hình bị chậm, do khâu nạp lệnh (prefill) và giải mã (decode) bị nghẽn bởi tài nguyên khác nhau.",
+        "Trên 6 tác vụ LLM với 16 cấu hình triển khai mỗi mô hình, CriticNPU đạt độ trễ tốt nhất hoặc đồng hạng nhất ở 74% trường hợp prefill và 87,5% decode. Kết quả trước các đối chuẩn cạnh tranh này chỉ dùng khoảng một nửa số lượt gọi mô phỏng.",
+        "Nhóm tác giả khẳng định đã xác thực hiệu quả qua các phân tích chi tiết và nghiên cứu bóc tách thành phần (ablation studies). Dù vậy, công cụ vẫn dựa vào quan sát từ trình mô phỏng để hiệu chỉnh giới hạn hiệu dụng cho từng loại toán tử."
       ],
       "same_event_coverage_ids": [
         "bddbbd063d7d430d171d"
@@ -102981,32 +102970,20 @@
         "version": "cham-4-cau-1",
         "value": 9.45,
         "answers": {
-          "what": 10,
-          "why": 8,
+          "what": 9,
+          "why": 9,
           "notable": 10,
-          "meaning": 9
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "trình mô phỏng đắt đỏ chỉ trả về phản hồi vô hướng",
-            "explanation": "The source says the simulator often returns only scalar feedback, not that it always does (outlet:p009)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "why",
-            "problem": "The reader may believe scalar feedback is the simulator’s only possible output.",
-            "fix": "Restore the source’s “often” qualification (outlet:p009)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "026593db11607f13831605d4dea3c04a04dec3c6289104e4dc6f2e10a48c7a69",
-        "scored_at": "2026-11-19T05:37:47.331831+00:00"
+        "prose_sha256": "8b6a567f83989874f9fc41fc730c53abf34062c17936dafdda8eb40e6da41fd8",
+        "scored_at": "2026-11-19T07:44:18.129640+00:00"
       }
     },
     {
@@ -103123,6 +103100,994 @@
         ],
         "availability": "global",
         "is_leak": false
+      }
+    },
+    {
+      "id": "fa42138223b3d93cb7d8",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The announcement covers GitHub Enterprise Cloud introducing data residency options in India for regulatory compliance; AI is only mentioned incidentally as background context.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://analyticsindiamag.com/ai-news/github-now-lets-indian-enterprises-store-code-locally-ahead-of-dpdp-deadline",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "20548486980f2596d914"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "2195f14009942d090dde",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://technode.com/2026/11/19/tencent-releases-hy4-flash-model-weights-for-local-deployment/",
+      "key_points": [
+        "Tencent phát hành trọng số mô hình AI Hy4 flash vào thứ Tư, hai ngày sau khi ra mắt qua ứng dụng và API đám mây. Động thái này hiện thực hóa kế hoạch cung cấp trọng số đã được Tencent công bố trước đó.",
+        "Lập trình viên có thể tải ba phiên bản mô hình gồm bản tiêu chuẩn, bản FP8 và bản cơ sở cho việc huấn luyện thêm. Hệ thống hỗ trợ ngữ cảnh tối đa một triệu token, sở hữu xấp xỉ 224 tỷ tham số với khoảng 12 tỷ tham số được kích hoạt trên mỗi token.",
+        "Tài liệu triển khai được công bố theo giấy phép Tencent Hy License, được phát hành đồng thời cùng với trọng số."
+      ],
+      "same_event_coverage_ids": [
+        "805829107bc6d4edea06"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Tencent",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Tencent cung cấp trọng số mô hình AI Hy4 flash với ba phiên bản cho lập trình viên",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "technode",
+          "url": "https://technode.com/2026/11/19/tencent-releases-hy4-flash-model-weights-for-local-deployment/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "Readers miss what Hy4 flash accepts and what it is intended to help with.",
+            "fix": "Add that it supports text and image inputs and targets research, document preparation and spreadsheet work (outlet:p003)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "00c8ff22d3c6c832c03b89ce3a029b17b1bf5e0faa07741cf568940dfbfc8d73",
+        "scored_at": "2026-11-19T07:29:59.682050+00:00"
+      }
+    },
+    {
+      "id": "c692e6a89831f0700e19",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://technode.com/2026/11/19/tencent-cuts-yuanbao-spending-after-ai-app-falls-short-of-expectations/",
+      "key_points": [
+        "Tencent cắt giảm mạnh chi tiêu cho ứng dụng AI Yuanbao theo phát biểu vào thứ Tư của Chủ tịch Martin Lau tại cuộc gọi báo cáo thu nhập.",
+        "Theo ông Martin Lau, quyết định này diễn ra sau khi ứng dụng không đạt được thành công như kỳ vọng ban đầu của công ty.",
+        "Trọng tâm của Yuanbao chuyển từ mở rộng người dùng sang cải thiện năng lực, đồng thời dịch vụ tìm kiếm AI cũng được mở cho các doanh nghiệp khác. Bên cạnh Yuanbao hỗ trợ tìm kiếm thông tin và lời khuyên, Tencent phát triển WorkBuddy xử lý công việc và trợ lý Xiaowei hoạt động trên nền tảng WeChat.",
+        "Ông Lau cho biết tập đoàn tiếp tục đánh giá liệu các khoản đầu tư AI có tạo ra sản phẩm hữu ích hay không. Tencent kỳ vọng mức độ sử dụng sản phẩm sẽ phát triển thành doanh thu và cuối cùng mang lại lợi nhuận."
+      ],
+      "same_event_coverage_ids": [
+        "4426552748f9eacc5fb5"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Tencent",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Martin Lau"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Tencent cắt giảm chi tiêu cho AI Yuanbao sau khi không đạt kỳ vọng ban đầu",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "technode",
+          "url": "https://technode.com/2026/11/19/tencent-cuts-yuanbao-spending-after-ai-app-falls-short-of-expectations/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "a6a9aea987d9e59869c225102e796d50c9e51da0aa8dba375b5e8760c97a092e",
+        "scored_at": "2026-11-19T07:40:07.573286+00:00"
+      }
+    },
+    {
+      "id": "b2d86c9270ddb0d92462",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Macroeconomic reporting on South Korea's total national export milestone across multiple manufacturing sectors; AI is merely a passing reference.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://en.yna.co.kr/view/AEN20261118005700320",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "87465e70740f81590572"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "2ffa7c56ea96124629c2",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-19/lores-says-ai-commerce-is-an-opportunity-for-paypal-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "4942e5ea3cb0498b2cae"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "d5eb868ec7c10c4a3e4b",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-19/south-korean-watchdog-asks-financial-firms-to-report-ai-exposure",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "256feb5497d08de4ec7c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "59d16acb921f48335965",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-19/alphabet-s-ruth-porat-on-the-ai-investment-frenzy-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "dc52e5b638f823db7849"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "8c4432adfe17d06c6aff",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://simonwillison.net/2026/Nov/18/llm-gemini/",
+      "key_points": [
+        "Theo tác giả Simon Willison, Google ra mắt mô hình Gemini 4 Neon, cùng thời điểm ông phát hành công cụ llm-gemini 0.38. Tác giả nhận định cơ cấu định giá cho dòng Gemini 4 hiện nay ngày càng trở nên phức tạp.",
+        "Neon có mức giá 3 USD trên một triệu token đầu vào và 15 USD đầu ra. Trong bối cảnh bản Carbon đang áp dụng giá ưu đãi một nửa trước khi tăng giá vào ngày 1 tháng 12, Neon tạm thời đắt nhất nhóm.",
+        "Kết quả thử nghiệm của tác giả cho thấy Neon tốt hơn Hydrogen nhưng kém hơn Carbon khi thực hiện vẽ hình bồ nông trên bảng so sánh mô hình."
+      ],
+      "same_event_coverage_ids": [
+        "98fa6784bcb9ae0e12df"
+      ],
+      "split_coverage_ids": [],
+      "subject": "llm-gemini",
+      "video_labels": {
+        "video_hook": "usable_now",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Google ra mắt mô hình Gemini 4 Neon với giá 3 USD cho một triệu token đầu vào",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "simon-willison",
+          "url": "https://simonwillison.net/2026/Nov/18/llm-gemini/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.0,
+        "answers": {
+          "what": 9,
+          "why": 9,
+          "notable": 9,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The unit for Neon’s $15 output price is implicit and may be unclear.",
+            "fix": "State explicitly that $15 is per million output tokens (outlet:p007)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "ce727fde0f79ecadbe491051a62d7fc9ac773e7e1b59853b0bc96eccbdc26129",
+        "scored_at": "2026-11-19T07:29:59.682135+00:00"
+      }
+    },
+    {
+      "id": "774488a22393d430fd35",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/18/anthropic-reportedly-prices-ipo-at-83-a-share-above-projected-range/",
+      "key_points": [
+        "Anthropic priced its IPO at $83 per share, above its initial projected range of $70 to $78.",
+        "The IPO price values Anthropic at roughly $1.5 trillion on a fully diluted basis.",
+        "Anthropic will begin trading as a public company on Nasdaq under the ticker symbol ANT.",
+        "The company expanded the offering from the 825 million shares initially planned."
+      ],
+      "same_event_coverage_ids": [
+        "1af7e0ba0657a94602d4",
+        "537ac0f2e95a1ddaed1b",
+        "668d759e4e686b9d3d68",
+        "9bdc94431d798b549b8e"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Anthropic",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Jensen Huang"
+        ],
+        "availability": "global",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "524405da9bbe1d16b09b",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Macroeconomic forecast by the Korea Development Institute covering national GDP growth, consumption, and tariffs, with AI cited only as a global demand driver.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://en.yna.co.kr/view/AEN20261118003651320",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "8ca34b3dd131b0c93320",
+        "d21529831572434996fe"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "f1de3598137d3c4a5fa6",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.23808",
+      "key_points": [
+        "Nhóm tác giả Yeongtak Oh đề xuất PReMind, khung học tăng cường (huấn luyện qua thử sai) hai giai đoạn kết hợp sử dụng bộ nhớ cá nhân với xử lý nguy cơ thị giác. Nghiên cứu cũng giới thiệu bộ đo chuẩn (công cụ đánh giá) PReMind-Bench nhằm đánh giá sự kết hợp này qua nhiều điều kiện nguy cơ và bộ nhớ cá nhân.",
+        "Theo nhóm tác giả, các mô hình hiện tại thường chỉ đáp ứng một yêu cầu mà thất bại ở yêu cầu còn lại, do việc huấn luyện riêng cho an toàn hoặc cá nhân hóa tạo ra khoảng trống thành công chung.",
+        "Ở quy mô 4B (4 tỷ tham số), PReMind nâng tỷ lệ thành công chung từ 12,9% lên 28,6% so với mô hình cơ sở trên tập phụ thuộc lẫn nhau. Khung này cũng cải thiện độ thích hợp khi xử lý nguy cơ và khả năng kiềm chế chính xác trong bài kiểm tra chính.",
+        "Nhóm nghiên cứu nhận định kết quả này cho thấy cần đánh giá và huấn luyện trợ lý kết nối bằng chứng thị giác với ngữ cảnh người dùng liên quan. Mức tăng thành công chung cũng duy trì dưới đánh giá gọi bắt buộc bộ nhớ và giám khảo thứ hai trên ba hạt giống, đồng thời cải thiện trung bình ở các nhóm nguy cơ chưa từng thấy."
+      ],
+      "same_event_coverage_ids": [
+        "18283856a8d54106ec49"
+      ],
+      "split_coverage_ids": [],
+      "subject": "PReMind-Bench",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Yeongtak Oh",
+          "Donghyeok Lee",
+          "Joonhee Oh",
+          "Jaewon Jeong",
+          "Sungroh Yoon"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Khung PReMind nâng tỷ lệ xử lý nguy cơ theo ngữ cảnh cá nhân từ 12,9% lên 28,6% ở quy mô 4B",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.23808"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.65,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "0ddfa9a5862d55bb54f97d52bb40ffc9a62c339cc576036e5b63ba4cd323bc9b",
+        "scored_at": "2026-11-19T07:40:07.573324+00:00"
+      }
+    },
+    {
+      "id": "d526b6e1aa1638a160a8",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.24098",
+      "key_points": [
+        "Nhóm tác giả Ruisi Zhao giới thiệu bộ đo chuẩn (benchmark - công cụ kiểm thử chuẩn hóa) RoughCut-Bench cho quy trình tự động dựng video thô. Họ đồng thời đề xuất quy trình dạng tác tử (agentic workflow - quy trình tự động điều phối) để dẫn dắt mô hình tạo kế hoạch cắt có cấu trúc từ tư liệu đầu vào.",
+        "Theo nhóm tác giả, khâu dựng thô tự động chưa được nghiên cứu kỹ và thiếu bộ đo chuẩn toàn diện, dù các mô hình thị giác - ngôn ngữ lớn (LVLM) đã có nhiều tiến bộ.",
+        "Bộ dữ liệu chứa 101 trường hợp trực quan với 831 video gốc và 1.476 nhãn điểm nhấn, cùng 84 trường hợp giọng nói từ hệ thống nhận dạng tiếng nói tự động (ASR). Hệ thống kiểm thử so sánh kế hoạch cắt với các nhãn chú thích và sử dụng tác tử đánh giá theo chuẩn con người để chấm điểm video kết xuất.",
+        "Nhóm tác giả kết luận rằng các mô hình thị giác - ngôn ngữ lớn hiện tại còn nhiều hạn chế trong việc tạo ra kế hoạch cắt đạt chuẩn chuyên gia. Hạn chế này được xác định khi đối chiếu kế hoạch cắt với nhãn chú thích chuyên gia và đánh giá chất lượng video dựng thô."
+      ],
+      "same_event_coverage_ids": [
+        "c2001ef65eddf204fc14"
+      ],
+      "split_coverage_ids": [],
+      "subject": "RoughCut-Bench",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Ruisi Zhao",
+          "You Li",
+          "Sihan Chen",
+          "Aosong Cheng",
+          "Chixiang Ma",
+          "Sen Pei",
+          "Zhen Yang",
+          "Hehe Fan",
+          "Dongliang He",
+          "Yi Yang"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "RoughCut-Bench cho thấy mô hình ngôn ngữ thị giác lớn còn hạn chế khi tự động dựng video thô",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.24098"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.55,
+        "answers": {
+          "what": 9,
+          "why": 9,
+          "notable": 8,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "nhãn chú thích chuyên gia",
+            "explanation": "The source calls these annotations and says the resulting cut plans are assessed for expert alignment; it does not identify the annotations as expert-made (outlet:p009)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The reader is told that experts made the comparison annotations.",
+            "fix": "Call them annotations, and separately state that the models struggled to produce expert-aligned cut plans (outlet:p009)."
+          },
+          {
+            "question": "notable",
+            "problem": "The reader cannot tell which setting uses rendered-video evaluation.",
+            "fix": "Specify that the human-aligned evaluator assesses rendered-cut quality in the visual setting (outlet:p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "b58d85462e4d31c21290562eb04429a39423bdb46dc0b6f827bdc349e6ab9872",
+        "scored_at": "2026-11-19T07:29:59.682192+00:00"
+      }
+    },
+    {
+      "id": "d3d0a7939e72e63681c6",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.24941",
+      "key_points": [
+        "Generating physically based rendering (PBR) texture maps for a 3D mesh from a single reference image is ambiguous because observed appearance entangles material identity, surface reflectance, and illumination.",
+        "Current generative methods struggle to infer accurate metallic and roughness attributes for relighting.",
+        "UltraTex is a cascaded multi-view framework that integrates physical knowledge into multi-view diffusion-based PBR generation.",
+        "UltraTex first jointly predicts albedo and world-space shading normals, then predicts metallic-roughness maps."
+      ],
+      "same_event_coverage_ids": [
+        "042de8ad6a09b7f5db93"
+      ],
+      "split_coverage_ids": [],
+      "subject": "UltraTex",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Jingzhi Bao",
+          "Xiaohe Ma",
+          "Hong Li",
+          "Yuanming Hu",
+          "Xiaoguang Han"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "b41abea1d30c4c3d4b16",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.24681",
+      "key_points": [
+        "Nhóm tác giả Haorui Chen đề xuất DrawScore, thước đo đánh giá mô hình thiết kế hỗ trợ bởi máy tính (CAD) tạo tự động dựa trên bản vẽ kỹ thuật. Theo bài báo, công cụ này chiếu mô hình thành ba hình chiếu trực giao với các đường nét thấy và khuất tương tự bản vẽ kỹ thuật.",
+        "Nhóm tác giả chỉ ra các thước đo thông dụng như IoU thể tích hay khoảng cách Chamfer hầu như không phạt lỗi cục bộ do trọng số lỗi suy giảm theo lũy thừa bậc (k+q) của kích thước. Trong khi đó, DrawScore áp dụng hình phạt bão hòa dọc theo các đường cong chiếu giúp trọng số lỗi cục bộ chỉ suy giảm tuyến tính.",
+        "Trên đầu ra của các tác tử (agent - hệ thống AI tự hành) tạo CAD hiện có, DrawScore vạch trần các lỗi mà thước đo IoU đánh giá gần như hoàn hảo. Thí nghiệm có kiểm soát của nhóm cũng xác nhận thứ tự suy giảm lỗi diễn ra đúng như dự đoán lý thuyết.",
+        "Nhóm nghiên cứu nhận định DrawScore giúp cải thiện quá trình tạo mô hình khi làm phần thưởng học tăng cường. Đồng thời, riêng đối với bài toán tạo CAD từ bản vẽ kỹ thuật, công cụ này đóng vai trò bộ xác thực kiểm thử mà không cần dữ liệu đối chứng 3D hay mô hình phần thưởng phụ."
+      ],
+      "same_event_coverage_ids": [
+        "54bc7f47d7e80bf3e40e"
+      ],
+      "split_coverage_ids": [],
+      "subject": "DrawScore",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Haorui Chen",
+          "Shiteng Lu",
+          "Zhanyu Guo",
+          "Zaixi Li",
+          "Yunhe Ni",
+          "Yaosong Du",
+          "Yichen Xiang",
+          "Xiande Huang",
+          "Rui Huang"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Thước đo DrawScore vạch trần các lỗi mô hình CAD mà chỉ số IoU đánh giá gần như hoàn hảo",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.24681"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.6,
+        "answers": {
+          "what": 10,
+          "why": 8,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The reader does not learn why small local errors matter in practice.",
+            "fix": "Add the source’s examples of a misplaced hole or a slot on the wrong face and note that such errors are critical to manufacturing (outlet:p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "537238fc970ddc19555c4760ae9654a195581c6e36ddf55d8274de2d7fc0ce05",
+        "scored_at": "2026-11-19T07:40:07.573353+00:00"
+      }
+    },
+    {
+      "id": "784762b034f6e15baca9",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.24576",
+      "key_points": [
+        "Chiến lược late entry cho phép token mới bỏ qua các lượt lặp ban đầu để xử lý K lượt cuối, theo nhóm tác giả Ziqi Jin về mô hình ngôn ngữ lặp lại (mô hình lặp lại một khối tầng T lần để tăng suy luận). Cơ chế kiểm tra Wake giúp tăng tốc giải mã mà không làm trễ việc tạo bộ đệm sâu.",
+        "Giải mã sớm truyền thống làm giảm độ sâu bộ đệm, theo nhóm tác giả Ziqi Jin vì việc dừng sớm cắt ngắn trạng thái khóa-giá trị của các token trước. Hệ thống mới cho phép token cũ chạy đủ T lượt song song với bước sau mà không tốn thêm lệnh gọi tuần tự.",
+        "Mức tăng tốc 5,2 lần trên mô hình Ouro-2.6B đạt được ở chế độ giải mã tham lam chính xác tau bằng 0 với K bằng 2, vượt 26% giải mã khối trên tập GSM8K. Trên mô hình Huginn-3.5B, tốc độ giải mã tham lam chính xác tăng từ 6,1 lần lên 8,4 lần khi số lượt lặp tăng từ 32 lên 64.",
+        "Late entry vượt trội giải mã sớm sau khi tinh chỉnh nhẹ giải quyết sai lệch chuẩn trạng thái ẩn, theo nhóm tác giả. Toàn bộ quy trình được hợp nhất trong đồ thị CUDA tĩnh, với tau bằng 0 khớp giải mã tham lam T lượt trong giới hạn thứ tự rút gọn bf16."
+      ],
+      "same_event_coverage_ids": [
+        "a7f521c5dd317dadf63e"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Late Entry in Looped Language Models",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Ziqi Jin",
+          "Jiaxi Li",
+          "Weiwen Xu",
+          "Aixin Sun"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Chiến lược late entry giúp mô hình ngôn ngữ lặp lại tăng tốc giải mã chính xác tới 8,4 lần",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.24576"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.65,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "0bf2606cba457fe44a8425830376efce763e92427d1cd2c6aa88bd5b0cd23550",
+        "scored_at": "2026-11-19T07:40:07.573376+00:00"
+      }
+    },
+    {
+      "id": "6ef8d8194ead901e3e96",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.24362",
+      "key_points": [
+        "Nhóm tác giả Lipeng He giới thiệu khung purple-teaming (kết hợp tấn công và phòng thủ) PIPETTE nhằm chuyển phát hiện kiểm thử thành cải thiện phòng vệ cho tác nhân AI (hệ thống tự động thao tác). Giải pháp này giúp bảo vệ mô hình trước các đòn chèn lệnh gián tiếp (dữ liệu độc hại bên ngoài chiếm quyền điều khiển).",
+        "Theo nhóm nghiên cứu, hai phương pháp kiểm thử tấn công học tăng cường RL-Hammer và PISmith mắc lỗi sụp đổ phương thức (chỉ lặp lại các chiến lược tương tự nhau). Sự lặp lại này khiến tỷ lệ tấn công thành công cao khi thử nghiệm không mang lại thêm cải thiện phòng vệ nào lúc huấn luyện đối kháng.",
+        "Trên hai bộ chuẩn (bài kiểm tra chuẩn hóa) AgentDojo và ASB, PIPETTE tạo ra các mô hình đạt tỷ lệ tấn công tĩnh thành công gần bằng 0. Hệ thống còn có thể chống chịu tấn công thích ứng mạnh, đồng thời giữ hiệu năng tác vụ thông thường sát mức mô hình gốc chưa phòng vệ.",
+        "Theo nhóm tác giả, PIPETTE dùng phần thưởng học từ điển để mở rộng độ phủ chiến lược tấn công khi kiểm thử. Quy trình huấn luyện đối kháng giúp tác nhân chống đỡ tấn công mà vẫn hoàn thành tác vụ hợp lệ trong phạm vi đánh giá của bộ chuẩn."
+      ],
+      "same_event_coverage_ids": [
+        "43d84a570a1fe2dbab40"
+      ],
+      "split_coverage_ids": [],
+      "subject": "PIPETTE",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Lipeng He",
+          "Yihan Wang",
+          "Jiawen Zhang",
+          "N. Asokan"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Khung PIPETTE hạ tỷ lệ tấn công tĩnh về gần 0 cho tác nhân AI trên AgentDojo và ASB",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.24362"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "0c0963f138cb1184e690142575a91923afd7989783cd8edd3730a7894c2e9f09",
+        "scored_at": "2026-11-19T07:40:07.573397+00:00"
+      }
+    },
+    {
+      "id": "2ce81d0e61aacc2865b5",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.24869",
+      "key_points": [
+        "Nhóm tác giả giới thiệu WorldRuler, mô hình tạo thế giới trò chơi tương tác theo quy tắc do người dùng đặt ra. Họ báo cáo rằng trong thử nghiệm, hệ thống giữ nhất quán quy tắc và trạng thái khi lưu, tải, đồng thời thể hiện đúng thay đổi trên vật thể và thuộc tính được chỉ định.",
+        "Theo nhóm tác giả, trò chơi tùy chỉnh cần tuân theo quy tắc do người dùng đặt, kể cả khi quy tắc khác hành vi ngoài đời. Bài toán còn gồm giữ quy tắc và trạng thái qua lần lưu, tải, cũng như thể hiện tác động lên vật thể trước đó chưa xuất hiện trên màn hình.",
+        "WorldRuler lưu quy tắc, quan hệ phụ thuộc và trạng thái vật thể trong một sơ đồ 3D có thể thực thi; trạng thái đã lưu chi phối hình ảnh vật thể ngay từ lần đầu nó xuất hiện. Nhóm tác giả xây bộ dữ liệu RuleVerse bằng GTA-V và Habitat, gồm cả trường hợp quy tắc có hiệu lực trước khi vật thể liên quan hiện ra.",
+        "Theo nhóm tác giả, kết quả thử nghiệm cho thấy WorldRuler có thể giữ quy tắc qua thao tác lưu, tải và tạo thay đổi ở đúng vật thể trong thế giới trò chơi. Nhóm tác giả cũng cho rằng cách kiểm soát thuộc tính của hệ thống hạn chế ảnh hưởng đến nội dung không liên quan khi thay đổi hình ảnh và chuyển động."
+      ],
+      "same_event_coverage_ids": [
+        "dbd11b37e6a38a04a51f"
+      ],
+      "split_coverage_ids": [],
+      "subject": "WorldRuler",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Mingliang Zhai",
+          "Chuanhao Li",
+          "Jiaming Tan",
+          "Zhen Li",
+          "Yuwei Wu",
+          "Yunde Jia",
+          "Zian Meng",
+          "Yuanyang Yin",
+          "Kaipeng Zhang"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nhóm tác giả báo cáo WorldRuler giữ quy tắc và tạo đúng thay đổi hình ảnh trong thử nghiệm",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.24869"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "codex"
+        ],
+        "scorer_boat": "agy",
+        "scorer_provider": "agy",
+        "prose_sha256": "aef0b3ec546f88417124f27582178ca3a6a9cdc9da8b73dfc7b172b41b979663",
+        "scored_at": "2026-11-19T07:32:20.504144+00:00"
+      }
+    },
+    {
+      "id": "2b320a48404d50a9d92c",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://analyticsindiamag.com/ai-news/openai-and-amd-achieve-a-year-of-chip-design-progress-in-under-five-months",
+      "key_points": [
+        "OpenAI cho biết các mô hình AI của họ giúp thiết kế GPU đầu bảng của AMD cải thiện chỉ số điện năng, hiệu năng và diện tích mạch (PPA) tối đa 14% so với những bản thiết kế đã được tối ưu kỹ. OpenAI nói quá trình hợp tác trong chưa đầy năm tháng đem lại lượng tiến bộ thiết kế chip tương đương khoảng một năm.",
+        "Các mô hình viết lại mã RTL bằng SystemVerilog, loại mã mô tả cách mạch chip tính toán, điều khiển và chuyển dữ liệu. Theo OpenAI, công cụ thiết kế chip của Synopsys kiểm tra các thay đổi có giữ nguyên chức năng và đánh giá tác động của chúng lên PPA.",
+        "AMD đã đưa một số thay đổi do mô hình tạo ra vào thiết kế vừa gửi đi chế tạo; những thay đổi khác nằm trong hồ sơ thiết kế cho các phiên bản sau. AMD còn xác nhận mức cải thiện PPA một chữ số ở các khối quan trọng của CPU đầu bảng thế hệ tới và cho biết hãng đã tự xác minh kết quả này.",
+        "Kết quả đã đi vào một phần thiết kế gửi đi chế tạo, trong khi mức cải thiện PPA được AMD tự xác minh ở CPU chỉ áp dụng cho các khối quan trọng của chip thế hệ tới."
+      ],
+      "same_event_coverage_ids": [
+        "653ac04f9f4f414b8083",
+        "72726ce690a142e43b53",
+        "f6e4bdea4a0fb7899424"
+      ],
+      "split_coverage_ids": [],
+      "subject": "OpenAI and AMD AI Chip Design",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Greg Brockman"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Thiết kế GPU AMD cải thiện chỉ số PPA tối đa 14% so với bản đã tối ưu, theo OpenAI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "analytics-india-magazine",
+          "url": "https://analyticsindiamag.com/ai-news/openai-and-amd-achieve-a-year-of-chip-design-progress-in-under-five-months"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 7.75,
+        "answers": {
+          "what": 10,
+          "why": 1,
+          "notable": 10,
+          "meaning": 7
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The text omits why OpenAI and AMD collaborated on chip design and the broader partnership context.",
+            "fix": "Explain that the collaboration builds on an expanded multi-year agreement announced last October involving large-scale GPU deployments and co-development, seeking to improve performance while cutting hardware requirements (outlet:p004, outlet:p010-013)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The fourth paragraph redundantly repeats that changes were sent for manufacturing rather than explaining what the companies expect going forward.",
+            "fix": "Replace the redundant fourth paragraph with the companies' expectation of achieving further continuous PPA improvements across both GPU and CPU designs as models optimize baselines (outlet:p009)."
+          }
+        ],
+        "writer_boats": [
+          "codex"
+        ],
+        "scorer_boat": "agy",
+        "scorer_provider": "agy",
+        "prose_sha256": "d98b28216e7028cf77488f4f61329b560db784f34595ef502457d9e54f5e7cb4",
+        "scored_at": "2026-11-19T07:32:20.504196+00:00"
+      }
+    },
+    {
+      "id": "01aa7d7aa09cd93d5eb7",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.24669",
+      "key_points": [
+        "Nhóm tác giả Movie2Game-Bench phát hiện chuỗi cảnh có thể chơi được là loại nội dung phim được giữ lại kém nhất trong cả 14 mô hình họ đánh giá. Kết quả đến từ bộ phép thử chuyển phim thành game gồm 22 phim và 658 mục đối chiếu riêng theo từng phim.",
+        "Theo nhóm tác giả, chuyển phim thành game đòi hỏi chọn nội dung gốc rồi biến nó thành hành động của người chơi, quy tắc và phản hồi. Bộ phép thử kết hợp đánh giá chung, đánh giá theo từng phim và thử chơi bằng ba mô hình điều khiển game qua giao diện.",
+        "Khi đánh giá 14 mô hình trên cùng các phim bằng hệ thống chạy chính mà mỗi mô hình lựa chọn, nhóm tác giả ghi nhận điểm trung bình về mức hiện diện của nội dung phim gốc ở chuỗi cảnh có thể chơi là 37,9/100, so với 54,8/100 ở các yếu tố đặc trưng.",
+        "Từ kết quả trên 14 mô hình được thử, nhóm tác giả cho rằng việc chuyển phim thành game cần giữ những tình huống trong phim có thể đưa vào lối chơi và gắn nội dung được giữ lại với hành động, hệ quả của người chơi."
+      ],
+      "same_event_coverage_ids": [
+        "79db1f31f230cea5df3c"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Movie2Game-Bench",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Jialing Xie",
+          "Yifan Zhou",
+          "Yiwen Zhang",
+          "Junjun He"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Thử nghiệm 14 mô hình chuyển phim thành game: chuỗi cảnh chơi được giữ lại kém nhất",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.24669"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "codex"
+        ],
+        "scorer_boat": "agy",
+        "scorer_provider": "agy",
+        "prose_sha256": "42e15b4a13c2dd1285ff7b9162180ca442e67986b1c0686d387681182389e3d4",
+        "scored_at": "2026-11-19T07:32:20.504230+00:00"
       }
     }
   ]
