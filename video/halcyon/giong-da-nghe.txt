@@ -1,0 +1,9 @@
+# Names the owner's ear has accepted, so the listen list of lam-giong.py does not list them again.
+# One line each:  say words => what Whisper writes for them | another reading it may write
+# "say words" is the respelling in the script's `say` text. The first entries are the respellings the published video 04 voice text used
+# and what Whisper wrote for them in the voice that was published (the files do not record a separate verdict per name, only that it went out).
+# A new name is added by hand after the owner has heard it in a finished track and approved it: copy the words from the listen list.
+# An entry hides the name only while Whisper writes one of the listed readings; any other reading is listed again.
+en vi đi a => nvda | nvidia
+chen sần => jensen
+i lon mớt => elon musk
