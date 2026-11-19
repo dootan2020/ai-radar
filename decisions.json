@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-19T09:43:41.570453+00:00",
-  "input_generated_at": "2026-11-19T09:06:19Z",
+  "generated_at": "2026-11-19T11:36:27.645451+00:00",
+  "input_generated_at": "2026-11-19T10:46:21Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -104597,6 +104597,529 @@
         "f58c2c42f226589e2e9d"
       ],
       "subject": "US tech stocks / Nvidia",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Jensen Huang",
+          "Jane Fraser"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "e694460e2c70741151be",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The report focuses on 98 students caught with unauthorized mobile phones during South Korea's CSAT college entrance exam; AI is only mentioned incidentally as background context regarding previous scandals.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://en.yna.co.kr/view/AEN20261119010251315",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b6e79775aa505322f316"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "bc5118468bec234dc0f2",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-19/alibaba-s-revenue-beats-estimates-during-china-s-ai-boom",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "4071d8de844f6ffdc076"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "8a278599b8d561831013",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://en.yna.co.kr/view/AEN20261119005352315",
+      "key_points": [
+        "Theo cảnh sát, Lee Jin-woo, thủ khoa đạt điểm tuyệt đối kỳ thi tuyển sinh trường luật (LEET), được phát hiện tử vong vào ngày 19 tháng 11 năm 2026 giữa nghi vấn gian lận bằng trí tuệ nhân tạo (AI). Lực lượng chức năng tìm thấy sinh viên 32 tuổi này tại một nhà nghỉ ở Seoul trong tình trạng ngưng tim.",
+        "Cảnh sát đã lần theo camera an ninh ghi lại việc Lee di chuyển qua phía đông Seoul trước khi đến nhà nghỉ. Cơ quan chức năng tìm kiếm sau khi nhận tin báo anh mất tích và anh không đến buổi làm bài thi trên YouTube.",
+        "Tại hiện trường, cảnh sát tìm thấy mẩu giấy của Lee viết rằng anh kiệt sức nhưng không nhắc đến nghi vấn gian lận hay cuộc điều tra. Trước đó, cảnh sát Seoul mở cuộc điều tra Lee sau khi hai luật sư nộp đơn tố cáo anh cản trở kinh doanh.",
+        "Cảnh sát cho biết vụ điều tra nhắm vào Lee dự kiến sẽ khép lại mà không chuyển giao truy tố sau khi anh qua đời. Theo Yonhap, chính phủ Hàn Quốc dự kiến xem xét lập đội xác minh trước lo ngại về gian lận bằng AI trong thi cử."
+      ],
+      "same_event_coverage_ids": [
+        "8811985fae175cae161f"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Lee Jin-woo",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Lee Jin-woo"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Thủ khoa kỳ thi trường luật tại Hàn Quốc nghi dùng AI gian lận được phát hiện tử vong",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "yonhap",
+          "url": "https://en.yna.co.kr/view/AEN20261119005352315"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.95,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 8,
+          "meaning": 7
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "mẩu giấy của Lee viết rằng anh kiệt sức",
+            "explanation": "Police found a note believed to have been left by Lee, and its account of exhaustion was reported rather than confirmed (outlet:p007)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "Readers may think the allegation investigation simply ends with Lee’s death.",
+            "fix": "State that police plan to continue investigating to establish the facts, though closure without referral for prosecution is expected (outlet:p008)."
+          },
+          {
+            "question": "notable",
+            "problem": "The purpose of the missed public test is unclear.",
+            "fix": "Identify it as a Korean-language test from that year’s college entrance exam, intended to demonstrate Lee’s academic abilities (outlet:p006)."
+          },
+          {
+            "question": "what",
+            "problem": "The note is attributed to Lee more firmly than the source allows.",
+            "fix": "Say police believed Lee left the note and that it reportedly described exhaustion (outlet:p007)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "a0226c37d61f3bfc4a489c5598b526c4985df38c7bc7446f4184b8d3cef989d9",
+        "scored_at": "2026-11-19T11:29:28.190845+00:00"
+      }
+    },
+    {
+      "id": "513605ed6a3114154c3f",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-19/imf-chief-little-bit-more-ai-correction-debt-risk-rise-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "67a05d77bf732b6d89a6"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "78efbc61db2cb6d729b8",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The announcement covers an enterprise IT capability center expansion across cloud engineering, app development, and cybersecurity, with AI mentioned only as one of several hiring tracks.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://analyticsindiamag.com/ai-news/zurich-to-expand-hyderabad-centre-with-1000-employees-by-2028",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b93eb926ba07fa1ba1b3"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "820ae82238b43e0efe4e",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://analyticsindiamag.com/ai-startups/can-simulated-users-replace-weeks-of-consumer-research-vectorial-ai-thinks-so",
+      "key_points": [
+        "Theo AIM, Vectorial phát triển mô hình SAPIENS (hệ thống mô phỏng hành vi người dùng) tạo đại diện ảo của khách hàng mục tiêu để thử nghiệm ý tưởng sản phẩm trước khi ra mắt. Doanh nghiệp tại San Francisco này vừa huy động 3 triệu USD vốn hạt giống vào tháng 10 năm 2026.",
+        "Đồng sáng lập Taranveer Singh cho rằng nghiên cứu truyền thống mất từ ba đến 12 tuần và đang trở thành điểm nghẽn phát triển sản phẩm. Theo Singh, một số công ty bỏ qua bước nghiên cứu vì chi phí hoặc thời gian, dẫn đến nguy cơ lãng phí hàng triệu USD.",
+        "Vectorial cho biết đã lập mô hình hơn 2,5 triệu người dùng và chạy hơn 30.000 mô phỏng nhằm cung cấp phản hồi nhanh với chi phí thấp. Công ty báo cáo SAPIENS đạt độ chính xác 87% khi dự đoán hành vi và khớp 85-95% nghiên cứu trước đây trong một số so sánh.",
+        "Vectorial cho rằng mô phỏng có thể thay thế nghiên cứu truyền thống cho nhiều quyết định, dù công ty vẫn khuyến khích hiệu chuẩn với người thật. Dù vậy, giới nghiên cứu vẫn thận trọng khi khảo sát năm 2026 của User Interviews ghi nhận 47% còn hoài nghi và 88% lo ngại về độ chính xác."
+      ],
+      "same_event_coverage_ids": [
+        "f28260a8dc6c95217293"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Vectorial AI",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Taranveer Singh"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Vectorial huy động 3 triệu USD cho mô hình AI mô phỏng người dùng nhằm thay thế nghiên cứu truyền thống",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "analytics-india-magazine",
+          "url": "https://analyticsindiamag.com/ai-startups/can-simulated-users-replace-weeks-of-consumer-research-vectorial-ai-thinks-so"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.0,
+        "answers": {
+          "what": 10,
+          "why": 8,
+          "notable": 8,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "nhằm thay thế nghiên cứu truyền thống",
+            "explanation": "The unqualified headline implies wholesale replacement. Vectorial says simulations can replace conventional research for many decisions and still encourages calibration with live participants (outlet:p016)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The headline states a broader replacement claim than the qualified account in the article.",
+            "fix": "Limit the headline to replacing conventional research for many decisions, with real-participant calibration still encouraged (outlet:p016)."
+          },
+          {
+            "question": "notable",
+            "problem": "Readers miss the specific speed and cost claim.",
+            "fix": "Attribute to Vectorial its aim of feedback within hours at around one-twentieth of a conventional study’s cost (outlet:p015)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "921d18161b3f6c41673eff96017c0dca0aa5230ae9573e5ed2720dd7f870227e",
+        "scored_at": "2026-11-19T11:29:28.190960+00:00"
+      }
+    },
+    {
+      "id": "2e204eecc4c15c14f965",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-19/anthropic-ipo-1-1-billion-of-shares-sold-to-european-retail-investors",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "3d85e5de779ab1b8d333"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "34c096106b1cd9451d3e",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected title; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected title",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.gdmunion.co.uk",
+      "key_points": [
+        "Nhân viên DeepMind yêu cầu Google giữ vững lằn ranh đỏ đối với các ứng dụng trí tuệ nhân tạo. Trước đó, Google đã âm thầm xóa bỏ cam kết năm 2018 về việc không phát triển vũ khí hay công nghệ giám sát.",
+        "Văn bản của nhóm nhân viên giải thích trách nhiệm bảo đảm nhân quyền xuất phát từ Nguyên tắc Hướng dẫn của Liên Hợp Quốc về Kinh doanh và Nhân quyền mà Alphabet từng cam kết. Nhóm nhân viên nhấn mạnh sự tin cậy của công chúng và việc giám sát AI hiệu quả phụ thuộc vào tính minh bạch.",
+        "Theo đề xuất, nguyên tắc AI phải là điều khoản hợp đồng bắt buộc, áp dụng cả khi Google chỉ cung cấp một thành phần AI cho bên khác. Người lao động DeepMind cũng đòi quyền từ chối tham gia các dự án mà họ tin là vi phạm cam kết đạo đức mà không sợ bị trả đũa.",
+        "Văn bản của nhân viên khẳng định lằn ranh đỏ chỉ có ý nghĩa khi có biện pháp bảo vệ có thể thực thi và giám sát liên tục. Tài liệu yêu cầu Google phải áp dụng cơ chế giám sát có thể phát hiện hầu hết vi phạm và duy trì năng lực này khi triển khai."
+      ],
+      "same_event_coverage_ids": [
+        "9911a052a5849b770328"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Google DeepMind",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nhân viên DeepMind yêu cầu Google khôi phục lằn ranh đỏ AI sau khi công ty xóa cam kết năm 2018",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://www.gdmunion.co.uk"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 7.9,
+        "answers": {
+          "what": 8,
+          "why": 9,
+          "notable": 7,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "không phát triển vũ khí hay công nghệ giám sát",
+            "explanation": "The deleted pledge concerned AI weapons and surveillance that violates rights, not a blanket ban on developing all weapons or surveillance technology (outlet:p002)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The 2018 pledge is presented as a blanket ban on weapons and surveillance technology.",
+            "fix": "Specify AI weapons and rights-violating surveillance (outlet:p002)."
+          },
+          {
+            "question": "notable",
+            "problem": "The reader misses the concrete case behind the demands.",
+            "fix": "Add that Google signed the $1.2 billion deal despite internal human-rights warnings and lacked a reliable way to monitor its use (outlet:p005)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The account of enforcement stops at Google's monitoring.",
+            "fix": "Include independent oversight and effective action to stop violations (outlet:p030–p034)."
+          },
+          {
+            "question": "what",
+            "problem": "The reader does not learn that the page also calls for public reporting and an environmental commitment.",
+            "fix": "Briefly include reporting on government and defence business and ending contracts that accelerate fossil-fuel extraction (outlet:p041–p043, outlet:p046–p048)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "7719835671886a1a36163ceaae73e6563b432338f8c71e3d4d0fc90563a36f2e",
+        "scored_at": "2026-11-19T11:36:27.504839+00:00"
+      }
+    },
+    {
+      "id": "6294032871077e4adf3b",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.gadgetreview.com/wife-of-senior-nvidia-executive-caught-up-in-alleged-ai-chip-smuggling-scandal",
+      "key_points": [
+        "Tháng 3 năm 2026, công tố viên Mỹ truy tố ba cá nhân liên quan Super Micro vì cáo buộc âm mưu chuyển hướng máy chủ AI sang Trung Quốc. Hồ sơ tòa án cho thấy giới chức cáo buộc ít nhất 510 triệu USD thiết bị đã bị chuyển hướng, song nhấn mạnh họ mới bị truy tố chứ chưa bị kết án.",
+        "Công tố viên cáo buộc các đối tượng dùng trung gian Đông Nam Á và hồ sơ giả để đưa phần cứng vượt qua hạn chế xuất khẩu.",
+        "Cổ đông từng kiện cáo buộc bà Chen quản lý việc phân bổ GPU Nvidia, nhưng Super Micro đã bác bỏ vai trò này.",
+        "Vụ việc làm gia tăng sức ép lên Nvidia, dù báo cáo hiện có không cho thấy công ty hay lãnh đạo nào tham gia buôn lậu bị cáo buộc. Bản cáo trạng liên bang không nêu tên Nvidia là bị cáo, đồng thời bà Chen và ông Puri cũng không bị cáo buộc hình sự."
+      ],
+      "same_event_coverage_ids": [
+        "c3d2e62ab1a9e61c4da8"
+      ],
+      "split_coverage_ids": [
+        "034e94ff75dc8e69639c"
+      ],
+      "subject": "Super Micro Computer",
+      "video_labels": {
+        "video_hook": "drama_company",
+        "named_people": [
+          "Yih-Shyan Liaw",
+          "Ruei-Tsan Chang",
+          "Ting-Wei Sun"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Mỹ truy tố ba cá nhân liên quan Super Micro với cáo buộc âm mưu chuyển hướng máy chủ AI sang Trung Quốc",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://www.gadgetreview.com/wife-of-senior-nvidia-executive-caught-up-in-alleged-ai-chip-smuggling-scandal"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.9,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 8,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "Chen and Puri are named without explaining why the source discusses them, which leaves their possible connection unclear.",
+            "fix": "Explain that a short seller raised an unverified question about a photographed woman’s identity, and that neither the identification nor the civil allegation is an established finding (outlet:p008, outlet:p014–p019)."
+          },
+          {
+            "question": "notable",
+            "problem": "The $510 million figure lacks the scale and timing of the alleged scheme.",
+            "fix": "Add that roughly $2.5 billion in servers were ordered in 2024–2025, according to court filings (outlet:p001)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "8ed4b0bee766d749218a4a9036dfeed5d6cbe6167a0d734a9d3d0cccddd9f2bd",
+        "scored_at": "2026-11-19T11:36:27.504938+00:00"
+      }
+    },
+    {
+      "id": "ce39b0291ea18825d3cb",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.24161",
+      "key_points": [
+        "Researchers introduced AVTR, a technique providing adaptive multimodal reasoning with visual imagination to overcome limitations in vision-language models.",
+        "The paper identifies that relying solely on textual reasoning restricts perceptual ability on vision-centric questions requiring task-relevant visual evidence interpretation."
+      ],
+      "same_event_coverage_ids": [
+        "14a2a376ac5dacfdb8de"
+      ],
+      "split_coverage_ids": [],
+      "subject": "AVTR",
+      "video_labels": null
+    },
+    {
+      "id": "139cda2c9837e242cd5b",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/16/2026/us-tech-extends-slide-ahead-of-nvidia-earnings",
+      "key_points": [
+        "Nvidia shares fell nearly 5% on Monday as broader U.S. tech stocks declined ahead of the chipmaker's earnings report and Anthropic's IPO.",
+        "Semiconductor shares dropped following the rollout of interim U.S. rules closing the remote access loophole used by Chinese AI firms to access American chips via third-country data centers.",
+        "Citigroup CEO Jane Fraser noted that the market pullback was largely driven by investors becoming more selective with their capital allocations."
+      ],
+      "same_event_coverage_ids": [
+        "36e17cb8f4cea4a48465"
+      ],
+      "split_coverage_ids": [
+        "4fb1be846d54d817814d",
+        "5ec3a0d0d43da12a2249",
+        "60cff7e1dc1cfebe3ce2",
+        "72e36f1a48ca5fa4ea6b",
+        "9c1a79fe8a21da99bc21",
+        "9fdf41dc04c7eb0b700d",
+        "a6aa81f0cb5d73c13bbc",
+        "b6043e3257bd3f490aaa",
+        "b7b7b6b697e1461f8ba0",
+        "bbdd728da047f5952531",
+        "d0fd65dc67295244c7ef",
+        "d95c3e911801a3b661f9",
+        "f58c2c42f226589e2e9d"
+      ],
+      "subject": "U.S. tech stocks",
       "video_labels": {
         "video_hook": "other",
         "named_people": [
