@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-19T01:52:14.030505+00:00",
-  "input_generated_at": "2026-11-19T00:46:08Z",
+  "generated_at": "2026-11-19T03:48:21.123652+00:00",
+  "input_generated_at": "2026-11-19T02:46:06Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -99850,10 +99850,10 @@
       "use_original_title": false,
       "source_url": "https://www.semafor.com/article/11/18/2026/nvidia-shares-fall-despite-bumper-earnings",
       "key_points": [
-        "Cổ phiếu Nvidia giảm sau khi Jensen Huang rời ghế dù công ty đạt lợi nhuận lớn, giữa lúc ban lãnh đạo mới phải nỗ lực thuyết phục nhân viên và giới đầu tư.",
-        "Lo ngại cuộc xáo trộn có thể dẫn đến làn sóng di cư nhân tài đã gây bất an, dù Pierre Ferragu của New Street Research nhận định trên Bloomberg rằng CEO từ chức không ảnh hưởng lợi nhuận ngắn hạn.",
-        "Quyền CEO Colette Kress theo lời thuật lại đã hứa tăng lương và công ty tăng mua lại cổ phiếu trong cuộc họp nhân viên sau khi ông Huang rời ghế, đồng thời khẳng định nhiệt huyết đổi mới không đổi.",
-        "Vụ việc phơi bày chia rẽ giữa Thung lũng Silicon và Washington theo lời một cựu chính khách nói với Semafor, khi giới công nghệ tự hỏi liệu ông Huang có trở lại trước Giáng sinh, còn Washington băn khoăn liệu ông có phải ngồi tù."
+        "Cổ phiếu Nvidia giảm vào thứ Tư do lợi nhuận lớn không xoa dịu được bất an khi Jensen Huang rời ghế.",
+        "Lo ngại cuộc xáo trộn có thể khiến nhân tài rời đi đã dấy lên tại Nvidia, theo Semafor.",
+        "Quyền CEO Colette Kress theo lời thuật lại đã hứa tăng lương và tăng mua lại cổ phiếu tại cuộc họp nhân viên sau khi ông Huang bị bãi nhiệm, đồng thời khẳng định nhiệt huyết đổi mới sẽ không thay đổi.",
+        "Vụ việc phơi bày chia rẽ giữa Thung lũng Silicon và Washington theo lời một cựu chính khách nói với Semafor, khi Thung lũng băn khoăn liệu ông Huang có trở lại trước Giáng sinh hay không, còn Washington đặt câu hỏi liệu ông có phải ngồi tù."
       ],
       "same_event_coverage_ids": [
         "e56bb07466e620369f30"
@@ -99874,49 +99874,38 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Cổ phiếu Nvidia giảm dù đạt lợi nhuận lớn sau khi cựu CEO Jensen Huang bị phế truất",
+      "editorial_headline_vi": "Cổ phiếu Nvidia giảm dù đạt lợi nhuận lớn, ban lãnh đạo mới tìm cách xoa dịu nhân viên và nhà đầu tư",
       "summary_sources": [
         {
           "id": "outlet",
           "role": "outlet",
           "name": "semafor",
           "url": "https://www.semafor.com/article/11/18/2026/nvidia-shares-fall-despite-bumper-earnings"
-        },
-        {
-          "id": "coverage1",
-          "role": "coverage",
-          "name": "bloomberg",
-          "url": "https://www.bloomberg.com/news/videos/2026-11-17/ferragu-sees-strong-case-to-buy-nvidia-shares-video"
         }
       ],
       "summary_limitations": [],
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.5,
+        "value": 9.4,
         "answers": {
           "what": 10,
-          "why": 9,
-          "notable": 9,
+          "why": 10,
+          "notable": 8,
           "meaning": 10
         },
         "hard_errors": [
           {
-            "kind": "fact",
-            "summary_text": "công ty tăng mua lại cổ phiếu trong cuộc họp nhân viên",
-            "explanation": "The source reports increased buybacks as a separate action. It places Kress’s reported pay-raise promise, but not the buyback increase, at the employee town hall (outlet:p002)."
+            "kind": "role",
+            "summary_text": "Quyền CEO Colette Kress theo lời thuật lại đã hứa tăng lương và tăng mua lại cổ phiếu tại cuộc họp nhân viên",
+            "explanation": "The source reports increased stock buybacks separately. It attributes only the reported pay-raise promise at the town hall to Kress (outlet:p002)."
           }
         ],
         "findings": [
           {
             "question": "notable",
-            "problem": "The reader is told the buyback increase happened at the employee meeting.",
-            "fix": "State the buyback increase separately and place only Kress’s reported pay-raise promise at the town hall (outlet:p002)."
-          },
-          {
-            "question": "why",
-            "problem": "Ferragu’s view can read as a response to the reported earnings and share dip.",
-            "fix": "Make clear that his Bloomberg comments were made ahead of earnings (coverage1:p001–p002)."
+            "problem": "The reader is told Kress promised increased buybacks at the employee town hall.",
+            "fix": "State that Nvidia increased buybacks and that Kress reportedly promised pay raises at the town hall (outlet:p002)."
           }
         ],
         "writer_boats": [
@@ -99924,8 +99913,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "66540402b840c9107a6a340c132ae34d0d47a05af3b0aa7c313663887223911e",
-        "scored_at": "2026-11-19T01:52:13.965915+00:00"
+        "prose_sha256": "9fda2353df69152756ea75e5766dc7886e750bb3e3ee2045f6950aa143d81126",
+        "scored_at": "2026-11-19T03:48:21.078340+00:00"
       }
     },
     {
@@ -100745,10 +100734,10 @@
       "use_original_title": true,
       "source_url": "https://www.wired.com/story/the-ai-chip-war-meets-the-jensen-huang-affair/",
       "key_points": [
-        "Theo kế hoạch mới của chính quyền Trump, các trung tâm dữ liệu nước ngoài cung cấp lượng lớn điện toán AI (trí tuệ nhân tạo) cho Trung Quốc phải có giấy phép đặc biệt. Nhà Trắng cũng siết quy định xuất khẩu chip tiên tiến sang năm nước, gồm Singapore và Malaysia, do nghi ngờ có buôn lậu.",
-        "Tác giả Will Knight trên WIRED nhận định bê bối tình ái của Jensen Huang, cựu CEO của Nvidia, có thể đã khiến Nhà Trắng phải chứng tỏ họ nắm quyền kiểm soát.",
-        "Theo Bloomberg, khoảng 50.000 trong 136.000 chip AI mà Megaspeed nhập vào Malaysia và Indonesia từng không thể kiểm kê ban đầu. Viện Institute for Progress ước tính đến cuối năm 2026, Trung Quốc có thể tích lũy năng lực điện toán từ chip buôn lậu tương đương một triệu chip Nvidia H100.",
-        "Quy định này mở rộng kiểm soát sang cách doanh nghiệp Trung Quốc dùng chip dù phần cứng không vào nước này, thay vì chỉ cấm mua như năm 2022. Dù lâu nay doanh nghiệp Trung Quốc thuê hợp pháp điện toán nước ngoài mà không phạm luật, tác giả Will Knight lo ngại Washington đang can thiệp quá đà."
+        "Chính quyền Trump công bố kế hoạch yêu cầu trung tâm dữ liệu nước ngoài xin giấy phép đặc biệt nếu cung cấp lượng lớn năng lực điện toán AI (trí tuệ nhân tạo) cho Trung Quốc. Nhà Trắng cũng siết quy định vận chuyển chip tiên tiến tới năm nước, gồm Singapore và Malaysia, nơi quan chức Mỹ nghi ngờ có buôn lậu.",
+        "Một phát ngôn viên Nhà Trắng từng nói với WIRED rằng quy định mới sẽ ngăn buôn lậu chip tiên tiến của Mỹ và giúp đảm bảo số chip này tới tay các nhà đổi mới trong nước, chứ không phải các công ty bình phong Trung Quốc.",
+        "Theo Bloomberg được WIRED dẫn lại, khoảng 50.000 trong số 136.000 chip AI Megaspeed nhập vào Malaysia và Indonesia giai đoạn 2024–2025 không có trong lần kiểm kê đầu của Nvidia. Chưa rõ số chip đó đã đi đâu; Nvidia sau đó nói đã tìm được ít nhất một phần.",
+        "WIRED nhận định kế hoạch này mở rộng nỗ lực kiểm soát từ việc doanh nghiệp Trung Quốc mua một số chip Mỹ sang cách họ dùng những chip đó, ngay cả khi phần cứng không vào Trung Quốc. Về cái giá của các biện pháp trước đó, một nghiên cứu của Ngân hàng Dự trữ Liên bang New York ước tính các nhà cung ứng Mỹ bị ảnh hưởng đã mất 130 tỷ USD giá trị thị trường cộng gộp."
       ],
       "same_event_coverage_ids": [
         "e24850b0fb9af0ee8d3e"
@@ -100765,7 +100754,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Mỹ siết cấp phép trung tâm dữ liệu nước ngoài cung cấp lượng lớn điện toán AI cho Trung Quốc",
+      "editorial_headline_vi": "Mỹ công bố kế hoạch cấp phép điện toán AI quy mô lớn cho Trung Quốc từ trung tâm dữ liệu nước ngoài",
       "summary_sources": [
         {
           "id": "outlet",
@@ -100776,42 +100765,7 @@
       ],
       "summary_limitations": [],
       "key_points_prompt_version": "summary-vi-7-bullets",
-      "score": {
-        "version": "cham-4-cau-1",
-        "value": 8.9,
-        "answers": {
-          "what": 10,
-          "why": 9,
-          "notable": 8,
-          "meaning": 8
-        },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "chỉ cấm mua như năm 2022",
-            "explanation": "The 2022 effort sought to prevent Chinese companies from acquiring certain American chips, not to prohibit chip purchases generally (outlet:p016)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "meaning",
-            "problem": "The account of the 2022 rules can leave readers thinking all chip purchases were prohibited.",
-            "fix": "Specify that the earlier controls targeted acquisition of certain American chips (outlet:p016)."
-          },
-          {
-            "question": "notable",
-            "problem": "The inventory figure lacks the source’s later qualification.",
-            "fix": "Add that the chips’ destination was unclear and Nvidia later said it found at least some of them (outlet:p012)."
-          }
-        ],
-        "writer_boats": [
-          "agy"
-        ],
-        "scorer_boat": "codex",
-        "scorer_provider": "codex",
-        "prose_sha256": "a57714b5625e0215d4f2fd434571230f205f6c8b9da6be0a778f6bc77ba72459",
-        "scored_at": "2026-11-19T01:46:13.154403+00:00"
-      }
+      "score": null
     },
     {
       "id": "c7bee58ac138a4704b52",
@@ -101487,10 +101441,10 @@
       "use_original_title": false,
       "source_url": "https://techcrunch.com/2026/11/18/satya-nadella-predicts-ai-agents-will-reshuffle-the-economics-of-the-web/",
       "key_points": [
-        "CEO Satya Nadella của Microsoft dự báo tác nhân AI (phần mềm tự hành thực hiện tác vụ) sẽ tái cấu trúc nền kinh tế internet. Xu hướng này sẽ tác động mạnh đến mô hình kinh doanh dựa vào quảng cáo và lưu lượng từ người dùng web truyền thống.",
-        "Ông Nadella giải thích rằng web tác nhân có thể làm thay đổi cách thức các doanh nghiệp trả tiền cho lưu lượng truy cập và giao dịch.",
-        "Lấy ví dụ, ông cho rằng nếu Amazon tiếp tục chặn tác nhân AI mua sắm thay người dùng, nền tảng như Shopify có thể cho phép để giành lợi thế. Theo ông, doanh nghiệp cố giữ mô hình cũ sẽ chịu thiệt trước các đối thủ sẵn sàng đón nhận công nghệ mới.",
-        "Ông Nadella nhận định các cổng tổng hợp web cũ sẽ bị xáo trộn, phải chuyển từ quảng cáo lượt xem sang phí lượt nhấp hoặc giao dịch. Ông nhấn mạnh nếu một bên từ chối tác nhân AI thì bên khác sẽ tiếp nhận, và ai quá bám giữ mô hình cũ sẽ phải chật vật ứng phó."
+        "Satya Nadella, CEO của Microsoft, dự báo các tác nhân AI (phần mềm tự hành thực hiện tác vụ) sẽ định hình lại nền kinh tế internet. Phát biểu hôm thứ Tư, ông cho biết xu hướng này sẽ tác động tới các công ty dựa vào quảng cáo và lưu lượng web người dùng.",
+        "Ông Nadella giải thích web tác nhân có thể làm thay đổi việc doanh nghiệp nào phải trả tiền cho bên khác để có lưu lượng truy cập và giao dịch. Ông nhận định sự dịch chuyển này tương tự như bước chuyển từ các cổng thông tin Yahoo sang công cụ tìm kiếm Google trước đây.",
+        "Theo ông Nadella, doanh nghiệp cố giữ mô hình hiện tại có thể chịu thiệt trước đối thủ sẵn sàng đón nhận tác nhân AI hơn. Chẳng hạn, nếu Amazon tiếp tục chặn tác nhân AI mua sắm thay người dùng, Shopify có thể cho phép để giành lợi thế.",
+        "Ông Nadella cho rằng các bên tổng hợp phục vụ web người dùng hiện nay sẽ bị xáo trộn ở mức độ nhất định, vì nếu một bên từ chối thì bên khác sẽ đón nhận tác nhân AI. Ông dự báo các bên kiếm tiền từ lượt xem quảng cáo có thể phải chuyển sang tính phí lượt nhấp hoặc giao dịch thực tế."
       ],
       "same_event_coverage_ids": [
         "8109a6192d59b802ebd2"
@@ -101508,7 +101462,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Satya Nadella dự báo tác nhân AI sẽ làm đảo lộn kinh tế web và mô hình kinh doanh dựa vào quảng cáo",
+      "editorial_headline_vi": "Satya Nadella dự báo tác nhân AI có thể tái định hình kinh tế web và dòng tiền quảng cáo",
       "summary_sources": [
         {
           "id": "outlet",
@@ -101521,49 +101475,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.15,
+        "value": 9.7,
         "answers": {
           "what": 10,
-          "why": 8,
-          "notable": 10,
-          "meaning": 7
+          "why": 10,
+          "notable": 9,
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "quote",
-            "summary_text": "các cổng tổng hợp web cũ sẽ bị xáo trộn",
-            "explanation": "Nadella referred to current aggregators whose business models serve the human web, not specifically old web portals (outlet:p009)."
-          },
-          {
-            "kind": "quote",
-            "summary_text": "phải chuyển từ quảng cáo lượt xem sang phí lượt nhấp hoặc giao dịch",
-            "explanation": "Nadella suggested cost per click or transactions as possible directions, not a required shift (outlet:p009)."
-          },
-          {
-            "kind": "quote",
-            "summary_text": "doanh nghiệp cố giữ mô hình cũ sẽ chịu thiệt",
-            "explanation": "The source says such companies could lose out to competitors willing to embrace agents; it does not say they certainly will (outlet:p010)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "meaning",
-            "problem": "The reader receives a definite requirement to change revenue models.",
-            "fix": "Preserve Nadella’s tentative language: cost per click or transactions might become more important (outlet:p009)."
-          },
-          {
-            "question": "why",
-            "problem": "The reader receives a certain outcome for companies protecting existing models.",
-            "fix": "Say those companies could lose out, as illustrated by the conditional Amazon–Shopify example (outlet:p010)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "6973e6ad077622cc9b8d2c236af2656bf42a15b645bf17808db3f46976d3ed43",
-        "scored_at": "2026-11-19T01:25:50.565518+00:00"
+        "prose_sha256": "b10c7aba612d526c9343a2dd27b4ff4bb16b0c3250991636f0e4002533f65262",
+        "scored_at": "2026-11-19T03:43:49.845596+00:00"
       }
     },
     {
@@ -101718,10 +101645,10 @@
       "use_original_title": false,
       "source_url": "https://techcrunch.com/2026/11/18/anthropic-reportedly-prices-ipo-at-83-a-share-above-projected-range/",
       "key_points": [
-        "Theo TechCrunch, Anthropic được đưa tin đã định giá đợt phát hành cổ phiếu lần đầu ra công chúng (IPO) ở mức 83 USD một cổ phiếu, vượt khoảng dự kiến từ 70 đến 78 USD. Công ty dự kiến giao dịch trên sàn Nasdaq vào thứ Năm với mã chứng khoán ANT.",
-        "TechCrunch nhận định mức giá này phản ánh sức hút lớn từ nhà đầu tư bất chấp bất ổn thị trường sau khi CEO Jensen Huang của Nvidia rời chức, sự kiện từng làm lung lay niềm tin vào toàn ngành.",
-        "Ở mức giá này, Anthropic được đưa tin đạt định giá 1,5 nghìn tỷ USD trên cơ sở pha loãng hoàn toàn, vượt mốc 965 tỷ USD hồi tháng 5 nhưng dưới mục tiêu 2 nghìn tỷ USD trước đó. Nhóm đối tác gồm Google, Microsoft và Nvidia cũng đồng ý mua 26 tỷ USD cổ phiếu không có quyền biểu quyết qua phát hành riêng lẻ.",
-        "Kết quả của Anthropic được kỳ vọng sẽ thiết lập kỳ vọng cho các công ty AI tư nhân như OpenAI, đơn vị từng được định giá 1,25 tỷ USD nhưng chưa công bố kế hoạch IPO. Theo TechCrunch, ngày giao dịch đầu tiên thuận lợi sẽ cho thấy giới đầu tư vẫn lạc quan về ứng dụng AI, bất chấp biến động gần đây của nhóm cổ phiếu này."
+        "Theo những người am hiểu được Bloomberg dẫn lời, Anthropic đã định giá đợt phát hành cổ phiếu lần đầu ra công chúng (IPO) ở mức 83 USD một cổ phiếu. TechCrunch cho biết mức giá được đưa tin này vượt khoảng dự kiến ban đầu là 70–78 USD.",
+        "Cổ phiếu Anthropic dự kiến bắt đầu giao dịch trên Nasdaq vào thứ Năm với mã ANT.",
+        "Ở giá IPO, Anthropic được đưa tin có định giá 1,5 nghìn tỷ USD trên cơ sở pha loãng hoàn toàn, so với mức 965 tỷ USD trong vòng gọi vốn tháng 5. Theo hồ sơ S-1, bảy nhà đồng sáng lập, gồm CEO Dario Amodei, mỗi người bán gần 3,4 triệu cổ phiếu trong IPO và thu khoảng 282 triệu USD.",
+        "TechCrunch dự báo kết quả chào sàn của Anthropic sẽ định hình kỳ vọng đối với các công ty AI tư nhân như OpenAI, công ty chưa công bố kế hoạch IPO. Theo tờ báo, một ngày giao dịch đầu tiên thuận lợi sẽ là tín hiệu nhà đầu tư vẫn lạc quan về việc ứng dụng AI, bất chấp biến động gần đây của cổ phiếu nhóm này."
       ],
       "same_event_coverage_ids": [
         "9bdc94431d798b549b8e"
@@ -101737,58 +101664,24 @@
         "is_leak": true
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Anthropic được đưa tin định giá IPO ở mức 83 USD một cổ phiếu, vượt khoảng dự kiến ban đầu",
+      "editorial_headline_vi": "Anthropic được đưa tin chốt giá IPO 83 USD một cổ phiếu, vượt khoảng dự kiến 70–78 USD",
       "summary_sources": [
         {
           "id": "outlet",
           "role": "outlet",
           "name": "techcrunch.com",
           "url": "https://techcrunch.com/2026/11/18/anthropic-reportedly-prices-ipo-at-83-a-share-above-projected-range/"
+        },
+        {
+          "id": "coverage1",
+          "role": "coverage",
+          "name": "bloomberg",
+          "url": "https://www.bloomberg.com/news/videos/2026-11-18/anthropic-is-said-to-price-ipo-at-83-per-share-video"
         }
       ],
       "summary_limitations": [],
       "key_points_prompt_version": "summary-vi-7-bullets",
-      "score": {
-        "version": "cham-4-cau-1",
-        "value": 9.85,
-        "answers": {
-          "what": 10,
-          "why": 10,
-          "notable": 10,
-          "meaning": 9
-        },
-        "hard_errors": [
-          {
-            "kind": "role",
-            "summary_text": "Nhóm đối tác gồm Google, Microsoft và Nvidia",
-            "explanation": "The source calls these buyers part of a group of major tech companies. It identifies Amazon and Google as Anthropic’s strategic partners, but does not give Microsoft or Nvidia that role (outlet:p012)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "đơn vị từng được định giá 1,25 tỷ USD",
-            "explanation": "The source says OpenAI was last reportedly valued at $1.25 billion; the Vietnamese states that valuation as established (outlet:p009)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "meaning",
-            "problem": "Readers may take Microsoft and Nvidia to be established Anthropic partners.",
-            "fix": "Call them members of a group of major tech companies that agreed to buy non-voting shares (outlet:p012)."
-          },
-          {
-            "question": "meaning",
-            "problem": "OpenAI’s valuation loses the source’s uncertainty.",
-            "fix": "Say OpenAI was reportedly last valued at $1.25 billion (outlet:p009)."
-          }
-        ],
-        "writer_boats": [
-          "agy"
-        ],
-        "scorer_boat": "codex",
-        "scorer_provider": "codex",
-        "prose_sha256": "3c264e575454fde3d0af4fd02a9a6a42500dab9d12e0d89588bfb172eabd8e21",
-        "scored_at": "2026-11-19T01:34:21.119200+00:00"
-      }
+      "score": null
     },
     {
       "id": "ae1418f223a3bc983f8a",
@@ -101989,6 +101882,595 @@
           "Donald Trump",
           "Bill Ackman",
           "Amjad Masad"
+        ],
+        "availability": "global",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "d364b03266349f7c9082",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://pandaily.com/baai-flagos-qingmao-end-to-end-inference-optimization",
+      "key_points": [
+        "BAAI and Qingmao Intelligence announced an end-to-end inference-optimization solution on November 17, extending FlagOS into a commercial deployment offering.",
+        "The solution targets Zhipu AI's GLM-5.3 and GLM-5.3-Flash, optimizing prompt processing (prefill) and token generation (decode) bottlenecks on Huawei Ascend 910C and 910B clusters.",
+        "On Ascend 910C with an input length of 81,920 tokens and 16 concurrent requests, measured throughput increased by 3.41%.",
+        "With a 256K-token input on Ascend 910C, median time to first token fell by 4.94%.",
+        "For decode, dynamic quantization, scale conversion, and high-bandwidth-memory writeback were fused into one kernel, cutting a 910C microbenchmark from 18.03 to 2.04 microseconds."
+      ],
+      "same_event_coverage_ids": [
+        "59632d951f51bc71731c"
+      ],
+      "split_coverage_ids": [],
+      "subject": "FlagOS commercial inference optimization solution",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "34ca8adbb401b7dc9e48",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://en.yna.co.kr/view/AEN20261119003400315",
+      "key_points": [
+        "Thủ khoa kỳ thi tuyển sinh trường luật (LEET) vắng mặt tại buổi kiểm tra năng lực công khai vào ngày 19 tháng 11 là Lee Jin-woo, sinh viên Đại học Quốc gia Seoul đang đối mặt với các nghi vấn gian lận bằng trí tuệ nhân tạo.",
+        "Buổi kiểm tra do một học viện luyện thi tổ chức phát trực tiếp trên YouTube với 400.000 người theo dõi, trong khi điện thoại của Lee tắt máy từ thứ Tư và đơn vị này chưa liên lạc được. Theo lịch trình, Lee sẽ giải toàn bộ câu hỏi phần thi tiếng Hàn của kỳ thi tuyển sinh đại học (CSAT) tại trường quay ở Seoul vào lúc 8 giờ 40 sáng.",
+        "Lee không xuất hiện tại trường quay vào đúng giờ hẹn 8 giờ 40 sáng, theo Yonhap là làm dấy lên nghi ngờ về tính xác thực của các tuyên bố trước đó. Trước đó, thí sinh 33 tuổi này từng đạt điểm tuyệt đối kỳ thi LEET năm nay và đạt điểm tối đa mọi môn thi CSAT năm ngoái, dù từng nhận điểm thấp từ bậc 6 đến 8 vào năm 2013.",
+        "Cơ quan Cảnh sát thành phố Seoul đã mở cuộc điều tra về cáo buộc cản trở kinh doanh đối với Lee theo đơn khiếu nại của hai luật sư."
+      ],
+      "same_event_coverage_ids": [
+        "6c1df262fef5fe2d2ab4"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Lee Jin-woo LEET exam AI cheating controversy",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Lee Jin-woo"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Thủ khoa kỳ thi LEET Hàn Quốc vắng mặt tại buổi thi công khai giữa nghi vấn gian lận AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "yonhap",
+          "url": "https://en.yna.co.kr/view/AEN20261119003400315"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.4,
+        "answers": {
+          "what": 10,
+          "why": 8,
+          "notable": 6,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "number",
+            "summary_text": "với 400.000 người theo dõi",
+            "explanation": "The academy said up to 400,000 people tuned in to the livestream, not that exactly 400,000 watched or followed it (outlet:p007)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "đạt điểm tối đa mọi môn thi CSAT năm ngoái",
+            "explanation": "The source reports Grade 1, the highest grade, in every CSAT subject; it does not establish maximum raw marks in every subject (outlet:p004)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "Readers may believe Lee earned perfect marks in every CSAT subject.",
+            "fix": "Say he earned Grade 1, the highest grade, in every subject (outlet:p004)."
+          },
+          {
+            "question": "notable",
+            "problem": "The livestream audience is presented as an exact count.",
+            "fix": "Say up to 400,000 people tuned in (outlet:p007)."
+          },
+          {
+            "question": "why",
+            "problem": "Readers do not learn what intensified scrutiny of Lee’s results.",
+            "fix": "Mention the separate top scorer who admitted cheating with AI, without implying that this proves Lee cheated (outlet:p005)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "c7b58ce87f2ce8915bc7343dca56c7c493efe5fad1ff76ac98ead1a2572b94da",
+        "scored_at": "2026-11-19T03:28:51.769668+00:00"
+      }
+    },
+    {
+      "id": "d40c67bedf3c292b5e02",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://pandaily.com/deepseek-model-triggered-search-fetch-fee-change-client-api-pricing",
+      "key_points": [
+        "DeepSeek bỏ thu phí riêng cho tính năng tìm kiếm và truy xuất web khi gọi mô hình từ trưa ngày 18 tháng 11 năm 2026. Tài liệu định giá của hãng nêu rõ người dùng vẫn trả phí cho lượng token sử dụng, và thay đổi này không đồng nghĩa toàn bộ dịch vụ tìm kiếm đều miễn phí.",
+        "Tài liệu của DeepSeek phân biệt giữa công cụ chạy trong tương tác mô hình và các yêu cầu độc lập do máy khách gửi trực tiếp. Các công cụ do mô hình kích hoạt gồm tìm kiếm văn bản, hình ảnh và truy xuất trang không còn chịu phí công cụ riêng.",
+        "Các lệnh gọi trực tiếp đến API độc lập vẫn giữ mức giá 5 nhân dân tệ mỗi 1.000 lượt thành công qua các điểm cuối quy định của Search và Fetch. Theo quy định, yêu cầu độc lập chỉ tính phí khi trả về mã HTTP 200 có dữ liệu, còn các yêu cầu lỗi, không có kết quả hoặc quá thời gian chờ đều miễn phí.",
+        "Theo Pandaily, nhà phát triển cần kiểm tra chính xác điểm cuối hoặc nhà cung cấp đang tích hợp, thay vì chỉ xem quy trình có gắn nhãn tìm kiếm AI hay không. Pandaily cũng lưu ý đây là bản cập nhật chính sách thanh toán cho lộ trình công cụ hiện có chứ không phải đợt ra mắt API mới."
+      ],
+      "same_event_coverage_ids": [
+        "5a736a3eba2d7cb7917c"
+      ],
+      "split_coverage_ids": [],
+      "subject": "DeepSeek API search and fetch fee removal",
+      "video_labels": {
+        "video_hook": "usable_now",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "DeepSeek bỏ phí công cụ tìm kiếm khi gọi mô hình nhưng vẫn tính tiền API độc lập",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "pandaily",
+          "url": "https://pandaily.com/deepseek-model-triggered-search-fetch-fee-change-client-api-pricing"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "059b9c7ec4ada9ae87feff79037e3045d3660c1c8b957d895d51723658e39ed2",
+        "scored_at": "2026-11-19T03:28:51.769727+00:00"
+      }
+    },
+    {
+      "id": "f24ede8b2ec8caec6b60",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "A 2025 opinion piece re-posted to a forum in late 2026 with no new context, developments, or reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://colossus.com/article/ai-will-not-make-you-rich/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "41ffb1578b72ccf724d0",
+        "7e9318a27736e8150be5"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "f114355c315284cf1163",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "A Show HN promotional submission and landing page for an index of agentic coding tools without independent journalism or a substantive product release.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://adeindex.com",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "8aa55214ff980c31802e"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "15b39e0a4758e7ae5ac1",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "An academic paper from July 2026 (arXiv:2607.29378) re-posted to a forum months later without new reporting or an accompanying release.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://arxiv.org/abs/2607.29378",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "2567b2c6a5fe3c6c1ba2"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "5437192de25aab7a2571",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-19/us-malaysia-to-strengthen-sovereign-ai-cloud-development",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "15ae8551164fea0d57ac"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "2fbbfe84340e5324587b",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "A routine financial market open flash on Seoul equities where Anthropic's market debut is mentioned merely as market backdrop rather than the primary subject.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://en.yna.co.kr/view/AEN20261119001700320",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "2814e7692a92dd73a0e1",
+        "5a5bc3c97728f8fdbac2",
+        "9f352f33b031a8012dbc"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "e240b1886554663496b5",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.lawyerscommittee.org/lawyers-committee-files-lawsuit-on-behalf-of-black-students-detained-and-searched-due-to-ai-alert-falsely-identifying-a-bag-of-chips-as-a-firearm/",
+      "key_points": [
+        "Ủy ban Luật sư về Quyền Dân sự theo Pháp luật đệ đơn kiện sau vụ việc bốn học sinh da đen bị cảnh sát khám xét do AI nhận nhầm túi bim bim thành súng. Đơn kiện nhắm vào Omnilert, học khu và cảnh sát hạt Baltimore sau sự cố vào tháng 10 năm 2025 tại trường Kenwood.",
+        "Theo Ủy ban Luật sư, sự cố do lỗi nhận diện của hệ thống AI kết hợp cùng chuỗi tắc trách của con người từ Omnilert, nhà trường và cảnh sát. Cảnh sát vũ trang vẫn bị điều động do giới chức thiếu quy trình ngăn các cảnh báo đã hủy kích hoạt phản ứng vũ trang.",
+        "Hệ thống báo sai xác suất 90% có súng khiến cảnh sát vũ trang ập đến còng tay học sinh và bắt các em quỳ gối trước cổng trường. Bốn thiếu niên bị giữ gồm Taki Allen, Yui-Osa Ogbeide, Devon Thompson Jr. và Keith Winfield III, dù trường biết hệ thống thường báo sai.",
+        "Vụ kiện yêu cầu cải tổ quy trình cảnh sát và trường học để cảnh báo giả không dẫn đến điều động vũ trang, đồng thời buộc phải xác minh báo cáo từ AI. Ủy ban Luật sư cũng yêu cầu đánh giá liệu công nghệ AI này có phù hợp để sử dụng trong trường học hay không."
+      ],
+      "same_event_coverage_ids": [
+        "07ed7b4ae20e22f15704",
+        "96ec69c0bac9a1d7d489"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Allen v. Omnilert AI false weapon detection lawsuit",
+      "video_labels": {
+        "video_hook": "drama_company",
+        "named_people": [
+          "Taki Allen",
+          "Yui-Osa Ogbeide",
+          "Devon Thompson Jr.",
+          "Keith Winfield III"
+        ],
+        "availability": "region_locked:United States",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Kiện Omnilert và cảnh sát sau khi AI nhận nhầm túi bim bim thành súng khiến học sinh bị còng tay",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://www.lawyerscommittee.org/lawyers-committee-files-lawsuit-on-behalf-of-black-students-detained-and-searched-due-to-ai-alert-falsely-identifying-a-bag-of-chips-as-a-firearm/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "69d27f2eb87ee2b1466314f76194e834d5718b495b9607edbe802c9cfb78b6a8",
+        "scored_at": "2026-11-19T03:28:51.769764+00:00"
+      }
+    },
+    {
+      "id": "22333de218a1214a5927",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-19/top-australia-bank-cba-invests-in-own-compute-power-for-ai-push",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "05d0fa6ac9420637d2d3"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "8d685e65acd098254c40",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://micjm.com/blog/gemini-4-neon-looks-like-a-top-model/",
+      "key_points": [
+        "Tác giả bài viết cho biết mô hình Gemini 4 Neon vừa ra mắt với cải thiện tốc độ rất lớn, đạt 127 token mỗi giây so với mức 46 của bản Carbon.",
+        "Tác giả phân tích bảng xếp hạng dựa trên danh tính mô hình, tốc độ và việc người dùng bỏ phiếu sớm.",
+        "Gemini 4 Neon được dự báo đạt tỷ lệ thắng 48,3% trước Opus 5.5 khi tính kết quả hòa là nửa trận thắng. Điểm Elo dự phóng của mô hình trên Agent Duel (đấu trường tác nhân AI) đạt 1.066, ngay sát mức 1.078 của Opus 5.5.",
+        "Tác giả kết luận Gemini 4 Neon có thể tương đương Opus 5.5 nếu đạt hiệu năng như bản Carbon. Dù vậy, khoảng tin cậy 90% chênh lệch Elo từ -94 đến +68 cho thấy mô hình vẫn có thể thua đối thủ."
+      ],
+      "same_event_coverage_ids": [
+        "e36b32a5f46ac85b95ee"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Gemini 4 Neon benchmark and speed evaluation",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Gemini 4 Neon đạt 127 token/giây, được dự báo có thể cạnh tranh tương đương Opus 5.5",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://micjm.com/blog/gemini-4-neon-looks-like-a-top-model/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.35,
+        "answers": {
+          "what": 9,
+          "why": 8,
+          "notable": 8,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "Readers may take 127 tokens per second as a general speed for Neon.",
+            "fix": "Specify that the author observed that rate via OpenRouter earlier that day (outlet:p005)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The uncertainty is described only as a possibility of trailing Opus.",
+            "fix": "Explain that the projected Elo interval spans both a Neon deficit and a Neon lead (outlet:p012)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "55f5592138efe66cbea52b71ac446c3fd68f4377de3b12f4b9654087fd5c14c4",
+        "scored_at": "2026-11-19T03:28:51.769790+00:00"
+      }
+    },
+    {
+      "id": "2936be202c5b6e229fbb",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.24102",
+      "key_points": [
+        "Nhóm tác giả đề xuất phương pháp IDEA để phát hiện kích hoạt cửa sau khi suy luận ở từng bước cho tác nhân đồ họa (GUI agent, AI thao tác màn hình). Giải pháp này vận hành mà không cần biết mẫu kích hoạt hay dữ liệu tấn công, ngăn chặn nguy cơ mô hình chỉ hành xử sai khi gặp kích hoạt thị giác.",
+        "Theo nhóm nghiên cứu, các công cụ hiện nay nhắm vào bộ phân loại ảnh và bộ mã hóa, bỏ ngỏ việc phát hiện cửa sau ở cấp bước cho tác nhân GUI. Kỹ thuật mới đo độ lệch trạng thái quyết định khi thay đổi chỉ dẫn hoặc che vùng màn hình nghi vấn rồi so sánh với các bước sạch.",
+        "Thực nghiệm trên Qwen2.5-VL-3B qua năm nhóm tấn công cho thấy IDEA phát hiện kích hoạt cửa sau vượt trội các phương pháp hàng đầu. Hệ thống duy trì tỷ lệ dương tính giả được kiểm soát và định vị vùng kích hoạt cho mọi cảnh báo.",
+        "Nhóm tác giả cho biết cơ chế tính điểm mang lại bảo đảm kiểm soát dương tính giả trên mẫu hữu hạn. Dù vậy, phương pháp phát hiện khi suy luận này vẫn làm phát sinh thêm chi phí tính toán khiêm tốn."
+      ],
+      "same_event_coverage_ids": [
+        "d59208a2542b7a46fc83"
+      ],
+      "split_coverage_ids": [],
+      "subject": "IDEA backdoor detection framework for GUI agents",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Zhizhuo Kou",
+          "Sizai Hou",
+          "Jian Yang",
+          "Ge Sun",
+          "Junyu Luo",
+          "Wenkai Zhang",
+          "Sirui Han",
+          "Yike Guo"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Phương pháp IDEA phát hiện kích hoạt cửa sau khi suy luận ở tác nhân giao diện đồ họa",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.24102"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.8,
+        "answers": {
+          "what": 8,
+          "why": 9,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "ngăn chặn nguy cơ mô hình chỉ hành xử sai khi gặp kích hoạt thị giác",
+            "explanation": "The source says IDEA detects backdoor activation when a visual trigger hijacks an agent’s decision. It does not say the method prevents the agent from misbehaving (outlet:p009)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The reader may believe IDEA prevents triggered misbehavior.",
+            "fix": "Say it detects backdoor activation at inference time; the source makes no prevention claim (outlet:p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "5ddd9e296fd3e00f7f8f52141837fd2c50bf709402256c66eff7ed65dc9f29bc",
+        "scored_at": "2026-11-19T03:32:02.172600+00:00"
+      }
+    },
+    {
+      "id": "43e18314b8ed8a741b2d",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/16/2026/us-tech-extends-slide-ahead-of-nvidia-earnings",
+      "key_points": [
+        "Nvidia shares fell nearly 5% on Monday as US tech extended its slide ahead of the chipmaker's first earnings report since Jensen Huang's departure.",
+        "Chip equities declined after the US rolled out interim rules closing a remote access loophole allowing Chinese AI firms to use advanced chips via third-country data centers."
+      ],
+      "same_event_coverage_ids": [
+        "36e17cb8f4cea4a48465"
+      ],
+      "split_coverage_ids": [
+        "5ec3a0d0d43da12a2249",
+        "60cff7e1dc1cfebe3ce2",
+        "9c1a79fe8a21da99bc21",
+        "9fdf41dc04c7eb0b700d",
+        "a6aa81f0cb5d73c13bbc",
+        "b7b7b6b697e1461f8ba0",
+        "d0fd65dc67295244c7ef",
+        "d95c3e911801a3b661f9"
+      ],
+      "subject": "US tech stock drop and AI chip export restrictions",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Jensen Huang",
+          "Jane Fraser",
+          "Brendan Ruberry"
         ],
         "availability": "global",
         "is_leak": false
