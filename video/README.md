@@ -37,3 +37,5 @@ npm test
 ```
 
 The package tests story selection and audio-driven scene timing.
+
+The Halcyon short-video builder (spec in, 1080x1920 news short out, GPU only) lives in [halcyon/](halcyon/README.md).
