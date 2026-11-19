@@ -65,7 +65,12 @@ LAYOUTS = {
     'thu-gon-r3': dict(dy=440, veil=.12, fade=.65, hook_off=-20, strict=True, wash=248, pic_w=763, hook_extra=38, pill_y=244, cap_up=120, headline='hook', hook_lift=70),
     'thu-gon-r3-b': dict(dy=440, veil=.12, fade=.65, hook_off=-20, strict=True, wash=248, pic_w=763, hook_extra=38, pill_y=244, cap_up=120, headline='none', hook_lift=70),
 }
-LAYOUTS_A = ('A', 'thu-gon', 'thu-gon-2', 'thu-gon-r', 'thu-gon-r2', 'thu-gon-r3', 'thu-gon-r3-b')      # layouts that carry the colour fields (strict layouts)
+# 'thu-gon-r3-l<n>' (owner 19/11 22:30, chose A and asked for the subtitle 1 to 3 lines higher): thu-gon-r3 with the subtitle n subtitle lines further up. One subtitle line = its
+# slot, 96 px (SLOT is 1140+DY .. 1236+DY, the caption's one-line slot), so cap_up grows 96 px per line and the opening block, the ending card and the picture window move with it.
+for _n in (1, 2, 3):
+    LAYOUTS[f'thu-gon-r3-l{_n}'] = dict(LAYOUTS['thu-gon-r3'], cap_up=120 + 96 * _n, hook_lift=70 + 96 * _n, hook_extra=38 - 96 * _n, mesh_lift=70 + 96 * _n, fit_shown=True)   # fit_shown: a capture is shrunk until its whole shown span fits the shorter opening window
+LAYOUTS['thu-gon-r3-l3']['hook_extra'] = -230      # +3 lines: 38 - 288 = -250 would shrink the fixture's tallest capture under the 700 px picture floor; -230 is the least that keeps it at 700
+LAYOUTS_A = ('A', 'thu-gon', 'thu-gon-2', 'thu-gon-r', 'thu-gon-r2', 'thu-gon-r3', 'thu-gon-r3-b', 'thu-gon-r3-l1', 'thu-gon-r3-l2', 'thu-gon-r3-l3')      # layouts that carry the colour fields (strict layouts)
 # Colour field of layout A (spec key "field"). Owner, 18/11/2026 22:50, from three stills: "1 Chữ mực" is the Halcyon look and the default.
 #   chu-muc (default): a thin wash that starts at mid-frame and thickens to the bottom; the text of a picture beat (kicker, headline, credit line,
 #     caption) is drawn in ink when the measured background is light and in white when it is dark; no source chip (a chip stays only if it is an
@@ -267,7 +272,8 @@ def mesh_keep_out():
     above the block's ink top, 76 px high; the block is one to two lines of at most 124 px, so it lies in BLOCK_B-346 .. BLOCK_B-146) and the
     caption line with its credit line (SLOT top - 32 .. SLOT bottom + 12). A node inside a band moves out through its 'up' edge (the kicker band: above it
     the wash is nil on a picture beat) or its 'down' edge (the caption band: below it is clear of text)."""
-    return [(BLOCK_B - 346, BLOCK_B - 146, 'up'), (SLOT[1] - 32, SLOT[3] + 12, 'down')]
+    ml = LAYOUTS[LAYOUT].get('mesh_lift', 0)                 # thu-gon-r3-l<n>: the opening block (and its kicker row) sits that much higher, so its band does too
+    return [(BLOCK_B - 346 - ml, BLOCK_B - 146 - ml, 'up'), (SLOT[1] - 32, SLOT[3] + 12, 'down')]
 
 
 def _footprint(ring):

@@ -441,6 +441,11 @@ def build_beats(S, units):
                                  f'(a gap above the first line to show, a gap below the last), so nothing is chosen silently')
             if ve.STRICT and not (u_rows[0] <= sa and sb_ <= u_rows[1]):
                 raise SystemExit(f'spec: {where}.picture.u_rows {u_rows} does not contain the focus rows {sa}-{sb_}')
+            if ve.LAYOUTS[ve.LAYOUT].get('fit_shown'):       # layouts thu-gon-r3-l<n> (short opening window): shrink the picture until the whole shown span fits the window, centred
+                lo_, hi_ = ve.WIN[level]; c_ = ve.CENTRE[level]
+                K = min(K, 2 * min(c_ - lo_, ve.FADE_AT[level] - c_) / (u_rows[1] - u_rows[0]))
+                if img.width * K < ve.PIC_W_MIN:
+                    raise SystemExit(f'safe frame: {where}: the shown rows {u_rows} need the picture shrunk to {round(img.width * K)} px wide (floor {ve.PIC_W_MIN}) to fit the {level} window')
             frame, y0, ex = ve.article_pic(img, sa, sb_, 0, img.width, K, ve.CENTRE[level], u_rows=u_rows)
             px = ex['px']
             ve.check_pic(where + ' (capture)', px, px + round(img.width * K), (round((sa - y0) * K), round((sb_ - y0) * K)), level)
