@@ -1,0 +1,336 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-20",
+  "timezone": "Asia/Ho_Chi_Minh",
+  "window_start_at": "2026-11-18T23:00:00Z",
+  "cutoff_at": "2026-11-19T23:00:00Z",
+  "created_at": "2026-11-19T23:07:35Z",
+  "snapshot_generated_at": "2026-11-19T23:06:00Z",
+  "policy": {
+    "method": "daily-evidence-v3",
+    "max_stories": 5,
+    "window_hours": 24,
+    "cutoff_hour": 6,
+    "engagement_percentile_min": 0.8,
+    "publisher_coverage_excludes_forums": true,
+    "attention_requires_nonforum": true,
+    "forum_exception_percentile_min": 0.97,
+    "forum_exception_comments_min": 100,
+    "max_forum_only_stories": 1,
+    "score_measured_at": "2026-11-19T23:06:00Z",
+    "description": "Ưu tiên dấu hiệu công bố, số nhà xuất bản và tương tác đo được; sau đó theo điểm nóng và thời gian công bố"
+  },
+  "stories": [
+    {
+      "id": "056cf0b58a3dbace6833",
+      "title": "Introducing Tool Retrieval in the Gemini API",
+      "headline": "Introducing Tool Retrieval in the Gemini API",
+      "url": "https://blog.google/innovation-and-ai/technology/developers-tools/gemini-api-tool-retrieval/",
+      "published_at": "2026-11-19T18:00:00Z",
+      "kind": "product",
+      "time_basis": "published",
+      "editorial_headline_vi": "Google thử nghiệm Tool Retrieval trên Gemini API giúp nạp lược đồ công cụ theo yêu cầu",
+      "editorial_headline_verified": true,
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "714eb66d26f6f7d29747",
+          "title": "Introducing Tool Retrieval in the Gemini API",
+          "headline": "Introducing Tool Retrieval in the Gemini API",
+          "url": "https://blog.google/innovation-and-ai/technology/developers-tools/gemini-api-tool-retrieval/",
+          "published_at": "2026-11-19T18:00:00Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "google-ai",
+          "publisher": "google",
+          "entity": "google",
+          "group": "lab",
+          "observed_at": "2026-11-19T23:06:00Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [
+          {
+            "code": "primary_release",
+            "text": "Tiêu đề nguồn gốc có dấu hiệu công bố model hoặc sản phẩm",
+            "observation_ids": [
+              "714eb66d26f6f7d29747"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "google"
+          ],
+          "age_hours_at_cutoff": 5.0,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "b91e0d0a1a224c11a62d",
+      "title": "Introducing enhanced infrastructure observability in Amazon SageMaker HyperPod",
+      "title_vi": "Ra mắt cải thiện khả năng quan sát cơ sở hạ tầng trong Amazon SageMaker HyperPod",
+      "headline": "Introducing enhanced infrastructure observability in Amazon SageMaker HyperPod",
+      "headline_vi": "Ra mắt cải thiện khả năng quan sát cơ sở hạ tầng trong Amazon SageMaker HyperPod",
+      "url": "https://aws.amazon.com/blogs/machine-learning/introducing-enhanced-observability-in-amazon-sagemaker-hyperpod-to-diagnose-gpu-training-issues/",
+      "published_at": "2026-11-19T16:41:35Z",
+      "kind": "product",
+      "time_basis": "published",
+      "editorial_headline_vi": "Amazon ra mắt tính năng quan sát trên SageMaker HyperPod giúp chẩn đoán nhanh sự cố GPU",
+      "editorial_headline_verified": true,
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "5d040986a880023d6768",
+          "title": "Introducing enhanced infrastructure observability in Amazon SageMaker HyperPod",
+          "title_vi": "Ra mắt cải thiện khả năng quan sát cơ sở hạ tầng trong Amazon SageMaker HyperPod",
+          "headline": "Introducing enhanced infrastructure observability in Amazon SageMaker HyperPod",
+          "headline_vi": "Ra mắt cải thiện khả năng quan sát cơ sở hạ tầng trong Amazon SageMaker HyperPod",
+          "url": "https://aws.amazon.com/blogs/machine-learning/introducing-enhanced-observability-in-amazon-sagemaker-hyperpod-to-diagnose-gpu-training-issues/",
+          "published_at": "2026-11-19T16:41:35Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "aws-ml-blog",
+          "publisher": "amazon",
+          "entity": "amazon",
+          "group": "lab",
+          "observed_at": "2026-11-19T19:06:05Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [
+          {
+            "code": "primary_release",
+            "text": "Tiêu đề nguồn gốc có dấu hiệu công bố model hoặc sản phẩm",
+            "observation_ids": [
+              "5d040986a880023d6768"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "amazon"
+          ],
+          "age_hours_at_cutoff": 6.3069,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "ee04cc19c2fce4d9f0c1",
+      "title": "Introducing workload recovery and expanded infrastructure checks on Amazon SageMaker HyperPod",
+      "title_vi": "Ra mắt khôi phục tải trọng công việc và kiểm tra cơ sở hạ tầng mở rộng trên Amazon SageMaker HyperPod",
+      "headline": "Introducing workload recovery and expanded infrastructure checks on Amazon SageMaker HyperPod",
+      "headline_vi": "Ra mắt khôi phục tải trọng công việc và kiểm tra cơ sở hạ tầng mở rộng trên Amazon SageMaker HyperPod",
+      "url": "https://aws.amazon.com/blogs/machine-learning/introducing-workload-recovery-and-expanded-infrastructure-checks-on-amazon-sagemaker-hyperpod/",
+      "published_at": "2026-11-18T23:03:29Z",
+      "kind": "product",
+      "time_basis": "published",
+      "editorial_headline_vi": "Amazon ra mắt ba tính năng kiểm tra và phục hồi tác vụ nhằm giảm lãng phí GPU trên SageMaker HyperPod",
+      "editorial_headline_verified": true,
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "d36111bbc2ae0600e85f",
+          "title": "Introducing workload recovery and expanded infrastructure checks on Amazon SageMaker HyperPod",
+          "title_vi": "Ra mắt khôi phục tải trọng công việc và kiểm tra cơ sở hạ tầng mở rộng trên Amazon SageMaker HyperPod",
+          "headline": "Introducing workload recovery and expanded infrastructure checks on Amazon SageMaker HyperPod",
+          "headline_vi": "Ra mắt khôi phục tải trọng công việc và kiểm tra cơ sở hạ tầng mở rộng trên Amazon SageMaker HyperPod",
+          "url": "https://aws.amazon.com/blogs/machine-learning/introducing-workload-recovery-and-expanded-infrastructure-checks-on-amazon-sagemaker-hyperpod/",
+          "published_at": "2026-11-18T23:03:29Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "aws-ml-blog",
+          "publisher": "amazon",
+          "entity": "amazon",
+          "group": "lab",
+          "observed_at": "2026-11-19T23:06:00Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [
+          {
+            "code": "primary_release",
+            "text": "Tiêu đề nguồn gốc có dấu hiệu công bố model hoặc sản phẩm",
+            "observation_ids": [
+              "d36111bbc2ae0600e85f"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "amazon"
+          ],
+          "age_hours_at_cutoff": 23.9419,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "001e20945eceeac01202",
+      "title": "Meta’s Muse Charm might cost $300",
+      "title_vi": "Muse Charm của Meta có thể có giá 300 đô la.",
+      "headline": "Meta’s Muse Charm might cost $300",
+      "headline_vi": "Muse Charm của Meta có thể có giá 300 đô la.",
+      "url": "https://www.theverge.com/tech/1038087/meta-muse-charm-ai-price",
+      "published_at": "2026-11-19T20:22:17Z",
+      "kind": "product",
+      "time_basis": "published",
+      "editorial_headline_vi": "The Information: Thiết bị Muse Charm của Meta có thể có giá 300 USD kèm gói cước 5G",
+      "editorial_headline_verified": true,
+      "source_count": 2,
+      "coverage": [
+        {
+          "id": "389c9c3760a5684d48c4",
+          "title": "Meta’s new Muse Charm device may cost $300",
+          "title_vi": "Thiết bị Muse Charm mới của Meta có thể có giá 300 đô la",
+          "headline": "Meta’s new Muse Charm device may cost $300",
+          "headline_vi": "Thiết bị Muse Charm mới của Meta có thể có giá 300 đô la",
+          "url": "https://techcrunch.com/2026/11/19/metas-new-muse-charm-device-may-cost-300/",
+          "published_at": "2026-11-19T21:58:06Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "techcrunch-ai",
+          "publisher": "techcrunch",
+          "entity": "techcrunch",
+          "group": "press",
+          "observed_at": "2026-11-19T23:06:00Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "37c36e32a50438c331db",
+          "title": "Meta’s Muse Charm might cost $300",
+          "title_vi": "Muse Charm của Meta có thể có giá 300 đô la.",
+          "headline": "Meta’s Muse Charm might cost $300",
+          "headline_vi": "Muse Charm của Meta có thể có giá 300 đô la.",
+          "url": "https://www.theverge.com/tech/1038087/meta-muse-charm-ai-price",
+          "published_at": "2026-11-19T20:22:17Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "verge-ai",
+          "publisher": "the-verge",
+          "entity": "the-verge",
+          "group": "press",
+          "observed_at": "2026-11-19T23:06:00Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "2 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "techcrunch",
+              "the-verge"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "techcrunch",
+            "the-verge"
+          ],
+          "age_hours_at_cutoff": 2.6286,
+          "hot_score": 48.968,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "62649bf472ca2edcd431",
+      "title": "Google gives Gemini the ability to use your Mac for you",
+      "title_vi": "Google cho Gemini khả năng sử dụng Mac của bạn cho bạn",
+      "headline": "Google gives Gemini the ability to use your Mac for you",
+      "headline_vi": "Google cho Gemini khả năng sử dụng Mac của bạn cho bạn",
+      "url": "https://techcrunch.com/2026/11/19/google-gives-gemini-the-ability-to-use-your-mac-for-you/",
+      "published_at": "2026-11-19T18:09:11Z",
+      "kind": "product",
+      "time_basis": "published",
+      "editorial_headline_vi": "Google trang bị tính năng điều khiển máy tính cho ứng dụng Gemini trên hệ điều hành macOS",
+      "editorial_headline_verified": true,
+      "source_count": 2,
+      "coverage": [
+        {
+          "id": "9c44538cb1e6f4a8281c",
+          "title": "Google gives Gemini the ability to use your Mac for you",
+          "title_vi": "Google cho Gemini khả năng sử dụng Mac của bạn cho bạn",
+          "headline": "Google gives Gemini the ability to use your Mac for you",
+          "headline_vi": "Google cho Gemini khả năng sử dụng Mac của bạn cho bạn",
+          "url": "https://techcrunch.com/2026/11/19/google-gives-gemini-the-ability-to-use-your-mac-for-you/",
+          "published_at": "2026-11-19T18:09:11Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "techcrunch-ai",
+          "publisher": "techcrunch",
+          "entity": "techcrunch",
+          "group": "press",
+          "observed_at": "2026-11-19T23:06:00Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "ce2e53a8bc4cc1509a54",
+          "title": "Gemini on Mac can now use your computer",
+          "title_vi": "Gemini trên Mac bây giờ có thể sử dụng máy tính của bạn",
+          "headline": "Gemini on Mac can now use your computer",
+          "headline_vi": "Gemini trên Mac bây giờ có thể sử dụng máy tính của bạn",
+          "url": "https://www.theverge.com/tech/1037902/google-gemini-macos-ai-computer-use",
+          "published_at": "2026-11-19T18:21:13Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "verge-ai",
+          "publisher": "the-verge",
+          "entity": "the-verge",
+          "group": "press",
+          "observed_at": "2026-11-19T23:06:00Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "2 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "techcrunch",
+              "the-verge"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "techcrunch",
+            "the-verge"
+          ],
+          "age_hours_at_cutoff": 4.8469,
+          "hot_score": 47.294,
+          "engagement_percentile": null
+        }
+      }
+    }
+  ],
+  "source_health": {
+    "active_remote_sources": 77,
+    "successful_remote_sources": 77,
+    "failed_remote_sources": []
+  }
+}
