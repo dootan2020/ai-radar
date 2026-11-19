@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-19T07:47:16.401407+00:00",
-  "input_generated_at": "2026-11-19T06:46:06Z",
+  "generated_at": "2026-11-19T09:43:41.570453+00:00",
+  "input_generated_at": "2026-11-19T09:06:19Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -103543,10 +103543,10 @@
       "use_original_title": false,
       "source_url": "https://arxiv.org/abs/2611.24098",
       "key_points": [
-        "Nhóm tác giả Ruisi Zhao giới thiệu bộ đo chuẩn (benchmark - công cụ kiểm thử chuẩn hóa) RoughCut-Bench cho quy trình tự động dựng video thô. Họ đồng thời đề xuất quy trình dạng tác tử (agentic workflow - quy trình tự động điều phối) để dẫn dắt mô hình tạo kế hoạch cắt có cấu trúc từ tư liệu đầu vào.",
-        "Theo nhóm tác giả, khâu dựng thô tự động chưa được nghiên cứu kỹ và thiếu bộ đo chuẩn toàn diện, dù các mô hình thị giác - ngôn ngữ lớn (LVLM) đã có nhiều tiến bộ.",
-        "Bộ dữ liệu chứa 101 trường hợp trực quan với 831 video gốc và 1.476 nhãn điểm nhấn, cùng 84 trường hợp giọng nói từ hệ thống nhận dạng tiếng nói tự động (ASR). Hệ thống kiểm thử so sánh kế hoạch cắt với các nhãn chú thích và sử dụng tác tử đánh giá theo chuẩn con người để chấm điểm video kết xuất.",
-        "Nhóm tác giả kết luận rằng các mô hình thị giác - ngôn ngữ lớn hiện tại còn nhiều hạn chế trong việc tạo ra kế hoạch cắt đạt chuẩn chuyên gia. Hạn chế này được xác định khi đối chiếu kế hoạch cắt với nhãn chú thích chuyên gia và đánh giá chất lượng video dựng thô."
+        "Nhóm tác giả công bố bộ đo chuẩn RoughCut-Bench cho việc tự động dựng video thô bằng mô hình thị giác - ngôn ngữ lớn (LVLM). Họ cũng đề xuất quy trình tác tử (agentic workflow - quy trình tự điều phối) giúp mô hình tạo kế hoạch cắt từ tư liệu gốc.",
+        "Theo nhóm tác giả, khâu dựng thô tự động đang thiếu bộ đo chuẩn toàn diện và quy trình hoàn thiện để tạo kế hoạch cắt khả thi, dù mô hình LVLM đã có nhiều bước tiến. Bộ đo gồm thiết lập trực quan trên video và thiết lập giọng nói trên văn bản nhận dạng tiếng nói tự động (ASR).",
+        "Bộ đo đánh giá chất lượng video kết xuất trong thiết lập trực quan bằng một tác tử đánh giá theo chuẩn con người, bên cạnh việc so sánh kế hoạch cắt với các nhãn chú thích. Dữ liệu gồm 101 trường hợp trực quan với 831 video gốc cùng 1.476 nhãn điểm nhấn, kết hợp 84 trường hợp văn bản ASR kèm nhãn dọn dẹp.",
+        "Nhóm tác giả kết luận rằng các mô hình LVLM hiện nay còn hạn chế trong việc tạo ra kế hoạch cắt đạt chuẩn chuyên gia. Hạn chế này bộc lộ khi đối chiếu kế hoạch cắt với các nhãn chú thích và đánh giá video đã dựng trong thử nghiệm."
       ],
       "same_event_coverage_ids": [
         "c2001ef65eddf204fc14"
@@ -103571,7 +103571,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "RoughCut-Bench cho thấy mô hình ngôn ngữ thị giác lớn còn hạn chế khi tự động dựng video thô",
+      "editorial_headline_vi": "RoughCut-Bench cho thấy mô hình thị giác - ngôn ngữ lớn còn hạn chế khi tự động dựng video thô",
       "summary_sources": [
         {
           "id": "outlet",
@@ -103584,39 +103584,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.55,
+        "value": 10.0,
         "answers": {
-          "what": 9,
-          "why": 9,
-          "notable": 8,
-          "meaning": 8
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "nhãn chú thích chuyên gia",
-            "explanation": "The source calls these annotations and says the resulting cut plans are assessed for expert alignment; it does not identify the annotations as expert-made (outlet:p009)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "meaning",
-            "problem": "The reader is told that experts made the comparison annotations.",
-            "fix": "Call them annotations, and separately state that the models struggled to produce expert-aligned cut plans (outlet:p009)."
-          },
-          {
-            "question": "notable",
-            "problem": "The reader cannot tell which setting uses rendered-video evaluation.",
-            "fix": "Specify that the human-aligned evaluator assesses rendered-cut quality in the visual setting (outlet:p009)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "b58d85462e4d31c21290562eb04429a39423bdb46dc0b6f827bdc349e6ab9872",
-        "scored_at": "2026-11-19T07:29:59.682192+00:00"
+        "prose_sha256": "bca64707e6e6fb869f780ef5b73ebed9ad1940ba46fc0bf45bde19728bcd3613",
+        "scored_at": "2026-11-19T09:43:41.563114+00:00"
       }
     },
     {
@@ -103957,10 +103940,10 @@
       "use_original_title": false,
       "source_url": "https://analyticsindiamag.com/ai-news/openai-and-amd-achieve-a-year-of-chip-design-progress-in-under-five-months",
       "key_points": [
-        "OpenAI cho biết các mô hình AI của họ giúp thiết kế GPU đầu bảng của AMD cải thiện chỉ số điện năng, hiệu năng và diện tích mạch (PPA) tối đa 14% so với những bản thiết kế đã được tối ưu kỹ. OpenAI nói quá trình hợp tác trong chưa đầy năm tháng đem lại lượng tiến bộ thiết kế chip tương đương khoảng một năm.",
-        "Các mô hình viết lại mã RTL bằng SystemVerilog, loại mã mô tả cách mạch chip tính toán, điều khiển và chuyển dữ liệu. Theo OpenAI, công cụ thiết kế chip của Synopsys kiểm tra các thay đổi có giữ nguyên chức năng và đánh giá tác động của chúng lên PPA.",
-        "AMD đã đưa một số thay đổi do mô hình tạo ra vào thiết kế vừa gửi đi chế tạo; những thay đổi khác nằm trong hồ sơ thiết kế cho các phiên bản sau. AMD còn xác nhận mức cải thiện PPA một chữ số ở các khối quan trọng của CPU đầu bảng thế hệ tới và cho biết hãng đã tự xác minh kết quả này.",
-        "Kết quả đã đi vào một phần thiết kế gửi đi chế tạo, trong khi mức cải thiện PPA được AMD tự xác minh ở CPU chỉ áp dụng cho các khối quan trọng của chip thế hệ tới."
+        "OpenAI cho biết mô hình AI giúp kiến trúc GPU đầu bảng của AMD cải thiện chỉ số PPA (điện năng, hiệu năng và diện tích) tới 14% so với thiết kế gốc đã tối ưu kỹ. Theo OpenAI, hợp tác trong chưa đầy năm tháng đem lại bước tiến thiết kế chip tương đương khoảng một năm.",
+        "Theo Analytics India Magazine, hợp tác này bắt nguồn từ thỏa thuận nhiều năm hồi tháng 10 năm ngoái, gồm cam kết của OpenAI triển khai tới 6 gigawatt GPU Instinct. Hai bên mở rộng sang đồng phát triển nhằm nâng cao hiệu năng trong khi giảm bớt yêu cầu phần cứng.",
+        "AMD đã đưa thay đổi vào thiết kế gửi đi chế tạo gần đây và lưu các tinh chỉnh khác vào hồ sơ thiết kế cho phiên bản sau. AMD cũng tự xác minh mức cải thiện PPA một chữ số ở các khối quan trọng của CPU đầu bảng thế hệ mới bằng các thiết kế do mô hình tạo ra.",
+        "Các công ty kỳ vọng tiếp tục cải thiện thiết kế GPU và CPU khi các mô hình tiếp tục tối ưu hóa so với các bản thiết kế gốc."
       ],
       "same_event_coverage_ids": [
         "653ac04f9f4f414b8083",
@@ -103989,36 +103972,7 @@
       ],
       "summary_limitations": [],
       "key_points_prompt_version": "summary-vi-7-bullets",
-      "score": {
-        "version": "cham-4-cau-1",
-        "value": 7.75,
-        "answers": {
-          "what": 10,
-          "why": 1,
-          "notable": 10,
-          "meaning": 7
-        },
-        "hard_errors": [],
-        "findings": [
-          {
-            "question": "why",
-            "problem": "The text omits why OpenAI and AMD collaborated on chip design and the broader partnership context.",
-            "fix": "Explain that the collaboration builds on an expanded multi-year agreement announced last October involving large-scale GPU deployments and co-development, seeking to improve performance while cutting hardware requirements (outlet:p004, outlet:p010-013)."
-          },
-          {
-            "question": "meaning",
-            "problem": "The fourth paragraph redundantly repeats that changes were sent for manufacturing rather than explaining what the companies expect going forward.",
-            "fix": "Replace the redundant fourth paragraph with the companies' expectation of achieving further continuous PPA improvements across both GPU and CPU designs as models optimize baselines (outlet:p009)."
-          }
-        ],
-        "writer_boats": [
-          "codex"
-        ],
-        "scorer_boat": "agy",
-        "scorer_provider": "agy",
-        "prose_sha256": "d98b28216e7028cf77488f4f61329b560db784f34595ef502457d9e54f5e7cb4",
-        "scored_at": "2026-11-19T07:32:20.504196+00:00"
-      }
+      "score": null
     },
     {
       "id": "01aa7d7aa09cd93d5eb7",
@@ -104088,6 +104042,569 @@
         "scorer_provider": "agy",
         "prose_sha256": "42e15b4a13c2dd1285ff7b9162180ca442e67986b1c0686d387681182389e3d4",
         "scored_at": "2026-11-19T07:32:20.504230+00:00"
+      }
+    },
+    {
+      "id": "c0749e1fc1724ec3329c",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-19/european-stocks-rebound-as-anthropic-ipo-revives-the-ai-trade",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "76ebe8223b73b229748b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "c32a7c283b7574a0e0da",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-19/horizons-middle-east-africa-11-19-2026-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "7fe7902140f9aebd80de"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "7a6f99f3de9160fe0aa5",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://en.yna.co.kr/view/AEN20261119006400320",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "3b88ac3cb694ddc2f218",
+        "60e68a2acef4f719b49b",
+        "6435658ccdf9e95beaeb",
+        "f643664e51abff49794e"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Seoul stock market / Anthropic IPO",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "42858bbd11e69e119db0",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://technode.com/2026/11/19/tencent-says-hunyuan-hy4-flash-surpasses-50-trillion-tokens-in-first-day-usage/",
+      "key_points": [
+        "Tencent cho biết mô hình Hy4 flash xử lý hơn 50 nghìn tỷ token trong ngày đầu ra mắt vào ngày 16 tháng 11, cao nhất trong toàn bộ dòng Hunyuan. Mô hình này cũng đứng đầu bảng xếp hạng mô hình ngôn ngữ lớn hằng ngày của OpenRouter vào ngày 17 tháng 11.",
+        "Theo Tencent, Hy4 flash sử dụng kiến trúc kích hoạt lai với tổng cộng 224 tỷ tham số, trong đó kích hoạt 12 tỷ tham số khi suy luận. Mô hình hỗ trợ xử lý đa phương thức, ngữ cảnh tối đa 1 triệu token và tốc độ tạo khoảng 200 token mỗi giây.",
+        "Theo điểm chuẩn (bài kiểm tra hiệu năng chuẩn hóa) WorkIndex nội bộ của Tencent dùng để đánh giá các tác vụ văn phòng, Hy4 flash có chi phí hoàn thành tác vụ chỉ bằng một phần hai mươi so với Hy4. Tencent áp dụng mức giá 0,5 nhân dân tệ cho mỗi triệu token đầu vào và 2 nhân dân tệ cho mỗi triệu token đầu ra.",
+        "TechNode nhận định vẫn còn khoảng cách giữa lượng sử dụng cao ngày đầu và giá trị thương mại lâu dài của sản phẩm. Trang tin này đánh giá việc đáp ứng ổn định nhu cầu kinh doanh với chi phí thấp và duy trì giá trị lâu dài cho người dùng sẽ là bài kiểm tra cốt lõi."
+      ],
+      "same_event_coverage_ids": [
+        "c5ffc43617f3b6322cbc"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Tencent Hunyuan Hy4 flash",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Tencent cho biết mô hình Hy4 flash xử lý hơn 50 nghìn tỷ token trong ngày đầu ra mắt",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "technode",
+          "url": "https://technode.com/2026/11/19/tencent-says-hunyuan-hy4-flash-surpasses-50-trillion-tokens-in-first-day-usage/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The reader misses the WorkBuddy evidence behind the reported debut.",
+            "fix": "Add Tencent’s comparison of 10 times Hy4 preview’s first-day usage and more than 50 million completed user tasks (outlet:p004)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "144f4d0666a664b32fd9a0c831d76c91ad8aa109c9f35702db27cab7d8d44c18",
+        "scored_at": "2026-11-19T09:32:59.621780+00:00"
+      }
+    },
+    {
+      "id": "666776b01fc02db95962",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-19/trump-argues-against-global-regulation-of-ai-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "2051ef178d8788f372bc"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "f14c3174bae2a47cfb73",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-19/wallenberg-investments-takes-minority-stake-in-ai-firm-algoryx",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "7862b52b279b02c5dcbd"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "6fec4daeabadf3710fe5",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/18/2026/anthropic-prices-ipo-above-target-range",
+      "key_points": [
+        "Anthropic đã định giá đợt phát hành cổ phiếu lần đầu ra công chúng (IPO) ở mức 83 USD một cổ phiếu, cao hơn khung giá mục tiêu ban đầu của công ty.",
+        "Theo Semafor, mức giá vượt kỳ vọng chứng tỏ sự hào hứng của giới đầu tư đối với công ty AI tiên phong đã vượt qua biến động của nhóm cổ phiếu công nghệ.",
+        "Đồng thời, hồ sơ pháp lý cho thấy công ty đã huy động khoảng 3 tỷ USD từ các nhà đầu tư Nhật Bản, ở cận dưới mức dự kiến.",
+        "Semafor nhận định thị trường xem Anthropic là công ty AI thuần túy, giữa lúc tâm lý đầu tư đang hạ nhiệt dần đối với mảng hạ tầng và phần cứng AI."
+      ],
+      "same_event_coverage_ids": [
+        "bc8cc87226e6c8d985fb",
+        "f4cd7ee710899c9c9834"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Anthropic",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Jensen Huang"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Anthropic định giá IPO ở mức 83 USD một cổ phiếu, vượt khung giá mục tiêu ban đầu",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/18/2026/anthropic-prices-ipo-above-target-range"
+        },
+        {
+          "id": "coverage1",
+          "role": "coverage",
+          "name": "bloomberg",
+          "url": "https://www.bloomberg.com/news/articles/2026-11-19/anthropic-raises-3-billion-in-japan-tranche-of-us-mega-ipo"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.5,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "71d29c25f15075d1cb8c516981bc8fd8ad5193663fbb6f80c5bd353f740cca6a",
+        "scored_at": "2026-11-19T09:32:59.621844+00:00"
+      }
+    },
+    {
+      "id": "5e82953700b25232b8c8",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "A Show HN pitch linking to a product landing page with interactive demos rather than independent reporting or a substantive release.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.kradle.ai?1",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "e5e18235266508eabc08"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "9374f0f56752c820c8e5",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.24789",
+      "key_points": [
+        "Researchers introduced HINT-WAM, a hindsight-informed training framework for world action models in robot manipulation.",
+        "World action models couple action generation with predictions of future visual dynamics to achieve generalization and data efficiency in robot manipulation.",
+        "Offline supervised fine-tuning trains action experts only on noised demonstrations and never on intermediate states produced by their own sampler.",
+        "On-policy reinforcement learning faces challenges in robot manipulation due to sparse task rewards and difficulties with scalar reward shaping."
+      ],
+      "same_event_coverage_ids": [
+        "879e48ce04cb869df6c6"
+      ],
+      "split_coverage_ids": [],
+      "subject": "HINT-WAM",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Phuong Tuan Dat",
+          "Qi Li",
+          "Xinchao Wang"
+        ],
+        "availability": "global",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "78a114c2df6059590165",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.24654",
+      "key_points": [
+        "Nhóm tác giả Zeguan Xiao giới thiệu khung CurvDelta tích hợp ràng buộc bảo toàn vào tham số cập nhật mô hình ngôn ngữ lớn. Bằng việc phân tích hình học cục bộ, CurvDelta thiết lập một không gian độ cong thấp nơi các cập nhật tham số giữ mức tổn hao bảo toàn gần như không thay đổi.",
+        "Theo nhóm nghiên cứu, thách thức suy giảm năng lực tổng quát khi tinh chỉnh mô hình xảy ra khi việc đạt mục tiêu làm suy giảm các khả năng chung. Nhóm tác giả sử dụng xấp xỉ độ cong K-FAC cùng phép chiếu nhân tử hóa, đồng thời phát triển thêm biến thể CurvLoRA để thích ứng hiệu quả hơn.",
+        "Hiệu năng lưu giữ tri thức gần mức huấn luyện lại từ đầu trên TOFU và MUSE trong đánh giá xóa tri thức, đồng thời cân bằng tốt hơn mức cơ sở giữa quên mục tiêu và duy trì tri thức. Ở tác vụ suy luận toán và sinh mã nguồn, phương pháp duy trì năng lực tổng quát tốt hơn các mốc so sánh trong khi vẫn đạt hiệu năng cạnh tranh.",
+        "Nhóm tác giả cho biết cả hai phương pháp áp dụng cho các tác vụ chịu ràng buộc bảo toàn như học năng lực và xóa tri thức chọn lọc."
+      ],
+      "same_event_coverage_ids": [
+        "387de2c0063bc1615190"
+      ],
+      "split_coverage_ids": [],
+      "subject": "CurvDelta",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Zeguan Xiao",
+          "Zhuocheng Liang",
+          "Yun Chen",
+          "Yong Wang",
+          "Guanhua Chen",
+          "Pinyan Lu"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "CurvDelta đạt hiệu năng lưu giữ tri thức gần mức huấn luyện lại từ đầu trong thử nghiệm xóa tri thức",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.24654"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "eb7e724f9725a01d0a71c77d422f8ea78dcd08eeb167f2691fbbdd4c71dda7ca",
+        "scored_at": "2026-11-19T09:36:37.903443+00:00"
+      }
+    },
+    {
+      "id": "222994fca2a8cc54c8c2",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.24651",
+      "key_points": [
+        "Nhóm tác giả giới thiệu dòng mô hình Piccolo gồm các mô hình ra quyết định đa phương thức từ 0.8B đến 27B. Các mô hình này dự đoán xác suất giữa các phương án trả lời cho các tác vụ phán đoán văn bản và thị giác, quy trình dữ liệu và trò chơi tương tác.",
+        "Trong quy trình vận hành, các tác tử nghiên cứu phân tích hành vi mô hình, tạo lập dữ liệu huấn luyện, thực hiện thử nghiệm và đưa kết quả vào việc hiệu chỉnh những đề xuất tiếp theo. Các phân mảnh ngữ nghĩa cùng bộ nhớ nghiên cứu dùng chung kết nối toàn bộ chuỗi hoạt động này xuyên suốt quá trình phát triển.",
+        "Trên bảng xếp hạng Decision Index Vision Full đánh giá phán đoán thị giác, Piccolo-27B dẫn đầu với 75,59 điểm, trong khi Piccolo-9B và Piccolo-4B đạt lần lượt 68,35 và 67,46 điểm. Cả ba mô hình đều xếp thứ nhất trên bài kiểm tra chuẩn Private benchmark trong phân khúc kích thước tương ứng.",
+        "Nhóm nghiên cứu phát hiện rằng việc giảm hàm mất mát liên tục có thể tách rời và thậm chí làm suy giảm độ chính xác của các quyết định rời rạc. Bên cạnh đó, việc chọn lọc dữ liệu có mục tiêu cho phép các mô hình 4B đến 9B cạnh tranh với mốc cơ sở 27B trên các luồng công việc chuyên biệt."
+      ],
+      "same_event_coverage_ids": [
+        "aee12b64c79621630a85"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Piccolo",
+      "video_labels": null,
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Mô hình Piccolo-27B dẫn đầu bảng xếp hạng Decision Index Vision Full với điểm số 75,59",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.24651"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.8,
+        "answers": {
+          "what": 8,
+          "why": 9,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The reader may miss the paper’s central idea that the models and their training data evolve together.",
+            "fix": "State that Piccolo co-evolves model capabilities and training data through Agentic Data Engineering and recursive self-improvement (outlet:p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "36290e090cac275181794caafccf1c9f2424334bdc2698d1b0331b60c68e57ac",
+        "scored_at": "2026-11-19T09:32:59.621917+00:00"
+      }
+    },
+    {
+      "id": "017489cfad28fbfe61b1",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.23751",
+      "key_points": [
+        "Giới thiệu khung AnyS1 là nghiên cứu từ tác giả Rui Li cùng các cộng sự, biến các kỹ năng quy trình thành nguồn điểm quyết định dùng chung cho tác nhân tự hành (agent, chương trình tự động).",
+        "Tác nhân tự hành chịu chi phí và độ trễ lớn do phải gọi mô hình lớn ở mọi bước theo nhóm tác giả, dù nhiều hành động chỉ chọn giữa số ít phương án. Nhóm tác giả nhận thấy các hệ thống tác nhân kép hiện nay vẫn phụ thuộc vào những kết nối riêng cho từng môi trường.",
+        "Cắt giảm 75-91% chi phí mỗi lượt chạy là kết quả AnyS1 đạt được cùng mức giảm 63-92% thời gian gọi mô hình so với tác nhân System-2 chưa biên dịch theo nhóm tác giả. Số liệu đo chi phí mỗi lượt chạy và thời gian gọi mô hình trên ba bài kiểm chuẩn (benchmark, bài đánh giá tiêu chuẩn) chưa từng gặp cùng nhiều họ mô hình.",
+        "Bảo toàn độ tin cậy của nhiệm vụ là kết luận của nhóm tác giả trên các bài kiểm chuẩn, đồng thời hệ thống duy trì hiệu năng khi chuyển giao ngưỡng zero-shot (zero-shot threshold transfer). Dù vậy, quy trình làm việc vẫn phải chuyển tiếp về mô hình lớn System-2 khi độ tự tin giảm xuống dưới ngưỡng đã hiệu chỉnh."
+      ],
+      "same_event_coverage_ids": [
+        "d69fdb4a30ba8481840a"
+      ],
+      "split_coverage_ids": [],
+      "subject": "AnyS1",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Rui Li",
+          "Liyang He",
+          "Zheng Zhang",
+          "Zhenya Huang",
+          "Qi Liu"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "AnyS1 giảm 75-91% chi phí mỗi lượt chạy so với tác nhân System-2 chưa biên dịch trên ba bài kiểm chuẩn",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.23751"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.3,
+        "answers": {
+          "what": 8,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The reader learns where AnyS1 gets decision points but not how it uses them to make routine decisions.",
+            "fix": "State that the authors train a single calibrated 4B pointer System-1 model and that compiled workflows use it for routine choices in one forward pass (outlet:p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "3588989ebe73ec886f9981626fbf8afb686cc2e450ec692f55484199c9a771f0",
+        "scored_at": "2026-11-19T09:36:37.903876+00:00"
+      }
+    },
+    {
+      "id": "79441859ac329e767851",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/16/2026/us-tech-extends-slide-ahead-of-nvidia-earnings",
+      "key_points": [
+        "US tech extended its slide as Nvidia shares fell nearly 5% ahead of the chipmaker's earnings report and Anthropic's IPO.",
+        "Chip stocks declined following interim US rules closing the remote access loophole used by Chinese AI firms to access advanced US chips via third-country data centers.",
+        "Citigroup CEO Jane Fraser noted the market pullback was driven by investors becoming more selective about their capital allocations."
+      ],
+      "same_event_coverage_ids": [
+        "36e17cb8f4cea4a48465",
+        "9c1a79fe8a21da99bc21"
+      ],
+      "split_coverage_ids": [
+        "4fb1be846d54d817814d",
+        "5ec3a0d0d43da12a2249",
+        "60cff7e1dc1cfebe3ce2",
+        "72e36f1a48ca5fa4ea6b",
+        "9fdf41dc04c7eb0b700d",
+        "a6aa81f0cb5d73c13bbc",
+        "b6043e3257bd3f490aaa",
+        "b7b7b6b697e1461f8ba0",
+        "bbdd728da047f5952531",
+        "d0fd65dc67295244c7ef",
+        "d95c3e911801a3b661f9",
+        "f58c2c42f226589e2e9d"
+      ],
+      "subject": "US tech stocks / Nvidia",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Jensen Huang",
+          "Jane Fraser"
+        ],
+        "availability": "unknown",
+        "is_leak": false
       }
     }
   ]
