@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-18T23:55:53.036049+00:00",
-  "input_generated_at": "2026-11-18T22:46:14Z",
+  "generated_at": "2026-11-19T01:52:14.030505+00:00",
+  "input_generated_at": "2026-11-19T00:46:08Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -89200,23 +89200,35 @@
       "use_original_title": false,
       "source_url": "https://thezvi.substack.com/p/jensen-huang-really-liked-selling",
       "key_points": [
-        "Theo tác giả Zvi Mowshowitz, Nvidia đã triển khai một chiến dịch gây ảnh hưởng ngầm nhằm thúc đẩy việc bán các dòng chip trí tuệ nhân tạo (AI) tiên tiến sang Trung Quốc.",
-        "Tác giả Mowshowitz nhận định lý do chính của lập trường hòa hoãn với Trung Quốc là để Nvidia bán được nhiều chip hơn và kiếm thêm tiền. Mục tiêu được phía thúc đẩy chiến dịch đưa ra chỉ là nhằm bảo đảm chip Mỹ tiếp tục thống trị thị trường thay vì chip Trung Quốc.",
-        "Theo ông Chris McGuire do Alec Stapp dẫn lại, công ty Megaspeed đã buôn lậu lượng chip Nvidia theo báo cáo là 7 tỷ USD vào Trung Quốc. Dữ liệu hải quan Đài Loan cho thấy hơn 60 tỷ USD chip AI nhiều khả năng đã được chuyển đến Singapore, Malaysia và Thái Lan.",
-        "Tác giả Mowshowitz khẳng định kết luận của ông về Nvidia hay Jensen Huang không thay đổi, dù nguồn tin CIA cho biết các tin chặn thu không cho thấy bà Alice Huang cố ý chuyển thông tin cho Trung Quốc. Tác giả Mowshowitz nhận định giới chức Washington sẽ không để ông Huang tiếp tục điều hành khi Nvidia sụt giảm hơn 570 tỷ USD giá trị trong một tuần."
+        "Theo tác giả Zvi Mowshowitz, Nvidia đã triển khai chiến dịch gây ảnh hưởng ngầm nhằm thúc đẩy bán chip trí tuệ nhân tạo (AI) sang Trung Quốc. Thông tin này được tiết lộ sau khi cựu Tổng giám đốc (CEO) Jensen Huang bị phế truất khỏi Nvidia.",
+        "Tác giả Mowshowitz nhận định lý do chính của lập trường ôn hòa với Trung Quốc là để Nvidia bán thêm chip và kiếm nhiều tiền hơn. Trong khi đó, mục tiêu được phía chiến dịch đưa ra là bảo đảm chip do Mỹ sản xuất tiếp tục thống trị thị trường AI.",
+        "Theo chuyên gia Chris McGuire do ông Alec Stapp dẫn lại, công ty Megaspeed đã buôn lậu lượng chip Nvidia theo báo cáo là 7 tỷ USD vào Trung Quốc. Dữ liệu hải quan Đài Loan cũng cho thấy từ năm 2025 đến năm 2026, hơn 60 tỷ USD chip AI nhiều khả năng đã chuyển tới Singapore, Malaysia và Thái Lan.",
+        "Tác giả Mowshowitz cho rằng cựu CEO phải chịu trách nhiệm khi giá trị Nvidia sụt giảm hơn 570 tỷ USD trong một tuần, đồng thời nhận định giới chức Washington dứt khoát sẽ không để ông Huang quay lại điều hành công ty. Về hoạt động kinh doanh, CEO tạm quyền của Nvidia tuyên bố công ty đã dừng bán chip sang Trung Quốc."
       ],
       "same_event_coverage_ids": [
         "724754ad674040fdf1b9"
       ],
       "split_coverage_ids": [],
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Tác giả Zvi Mowshowitz: Nvidia ngầm thúc đẩy bán chip AI sang Trung Quốc để kiếm thêm tiền",
+      "editorial_headline_vi": "CEO tạm quyền tuyên bố Nvidia dừng bán chip sang Trung Quốc sau khi ông Jensen Huang bị phế truất",
       "summary_sources": [
         {
           "id": "outlet",
           "role": "outlet",
           "name": "hacker-news",
           "url": "https://thezvi.substack.com/p/jensen-huang-really-liked-selling"
+        },
+        {
+          "id": "coverage1",
+          "role": "coverage",
+          "name": "bloomberg",
+          "url": "https://www.bloomberg.com/news/newsletters/2026-11-16/jensen-huang-s-china-views-preceded-the-nvidia-scandal"
+        },
+        {
+          "id": "coverage2",
+          "role": "coverage",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/17/nvidia-is-abandoning-china-after-jensen-huangs-ouster/"
         }
       ],
       "summary_limitations": [
@@ -89225,30 +89237,30 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.5,
+        "value": 9.05,
         "answers": {
           "what": 9,
-          "why": 8,
-          "notable": 8,
-          "meaning": 9
+          "why": 10,
+          "notable": 9,
+          "meaning": 8
         },
         "hard_errors": [
           {
-            "kind": "quote",
-            "summary_text": "chỉ là nhằm bảo đảm chip Mỹ tiếp tục thống trị thị trường thay vì chip Trung Quốc",
-            "explanation": "The source reports maintaining US-made chips' dominance as the campaign's stated rationale, but does not say its promoters presented that as their only aim (outlet:p014)."
+            "kind": "role",
+            "summary_text": "chuyên gia Chris McGuire",
+            "explanation": "The supplied source presents Alec Stapp’s account of points from @ChrisRMcGuire but does not identify McGuire as an expert (outlet:p101)."
           }
         ],
         "findings": [
           {
-            "question": "why",
-            "problem": "The word “chỉ” makes the campaign's stated rationale exclusive without source support.",
-            "fix": "Present US-chip dominance as the stated rationale, while separately attributing the money motive to Mowshowitz's analysis (outlet:p014, outlet:p149)."
+            "question": "meaning",
+            "problem": "The reader misses the author’s explicit uncertainty about whether Alice Huang was formally a Chinese spy.",
+            "fix": "Add that the cited officials disputed or qualified the allegation, while Mowshowitz says that uncertainty does not materially change his conclusions (outlet:p015–p024)."
           },
           {
             "question": "notable",
-            "problem": "The $60 billion estimate has no time period in the Vietnamese.",
-            "fix": "Specify that the cited customs-data estimate covers 2025 to 2026 (outlet:p101)."
+            "problem": "Calling McGuire an expert gives the cited figures a credential the supplied source does not establish.",
+            "fix": "Identify the figures as points Alec Stapp relayed from Chris McGuire, without adding a professional title (outlet:p101)."
           }
         ],
         "writer_boats": [
@@ -89256,8 +89268,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "ac9def58e3b88e8cd0d9957c1863e817e4851c1fbe4523f44f03021b8f16e4cc",
-        "scored_at": "2026-11-18T00:02:26.624035+00:00"
+        "prose_sha256": "6956f398a7124900f08e59725b0bc8c4f5fa0a1aea68cc4c98e0fa3bc583ea6b",
+        "scored_at": "2026-11-19T01:52:13.966049+00:00"
       }
     },
     {
@@ -99274,7 +99286,7 @@
       "source_url": "https://www.theverge.com/tech/1035924/nvidia-visualized-revenue-profit-earnings-after-huang",
       "key_points": [
         "The Verge trực quan hóa đà tăng trưởng doanh thu và lợi nhuận của Nvidia qua biểu đồ thanh ngang. Theo tác giả Sean Hollister, Nvidia bứt phá nhanh đến mức các đối thủ AMD, Intel và Qualcomm hiện gần như không còn đủ sức cạnh tranh.",
-        "The Verge nhận định Nvidia nỗ lực không gây xáo trộn vì quá thành công và có quá nhiều tiền bị đặt cược sau khi Jensen Huang từ chức. CEO tạm quyền Colette Kress tuyên bố hoạt động kinh doanh vẫn bình thường nhờ tiếp tục nhận được sự ủng hộ từ TSMC.",
+        "The Verge nhận định Nvidia nỗ lực không gây xáo trộn do có quá nhiều tiền bị đặt cược sau khi Jensen Huang từ chức. CEO tạm quyền Colette Kress tuyên bố hoạt động kinh doanh vẫn diễn ra bình thường, đồng thời cho biết công ty đã nhận được sự ủng hộ từ các khách hàng và nhà cung ứng bao gồm TSMC.",
         "Lợi nhuận bùng nổ trong làn sóng AI vượt xa thời sốt tiền mã hóa và khan hiếm GPU, khi các mức đỉnh cũ 1,24 tỷ USD và 3 tỷ USD đã vọt lên 65 tỷ USD một quý nhờ trung tâm dữ liệu. Lợi nhuận quý gần nhất của Nvidia đạt 65,3 tỷ USD, vượt qua Samsung với khoảng 55,3 tỷ USD và Micron với 37,7 tỷ USD.",
         "The Verge kết luận cỗ máy siêu lợi nhuận này sẽ tiếp tục duy trì, ít nhất là theo kế hoạch hiện tại của công ty. Nvidia dự báo doanh thu quý tới đạt 130 tỷ USD, dù biên lợi nhuận gộp ước tính giảm xuống 71–72 phần trăm so với gần 75 phần trăm trước đây."
       ],
@@ -99306,34 +99318,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.6,
+        "value": 10.0,
         "answers": {
           "what": 10,
-          "why": 3,
+          "why": 10,
           "notable": 10,
           "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "cause",
-            "summary_text": "vẫn bình thường nhờ tiếp tục nhận được sự ủng hộ từ TSMC",
-            "explanation": "Kress said business was as usual and separately said customers and suppliers, including TSMC, backed Nvidia. The source does not say TSMC’s backing caused business to remain normal (outlet:p042)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "why",
-            "problem": "The reader is given an unsupported reason for business remaining normal.",
-            "fix": "Present Kress’s business-as-usual statement and her report of TSMC’s backing as separate points (outlet:p042)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "5b7d22d4dcb4c37d45cb5a56edd2fc606283cee1eb05f619950cb10aaaaae2a6",
-        "scored_at": "2026-11-18T23:55:53.015794+00:00"
+        "prose_sha256": "36b133bade5fac67a14fe2b3453c01f7c2ef088680454bbd6a1a50fcb3102f84",
+        "scored_at": "2026-11-19T01:46:13.154476+00:00"
       }
     },
     {
@@ -99561,10 +99561,10 @@
       "use_original_title": false,
       "source_url": "https://tin.computer/blog/fake-ai-crawler-secrets-scanners",
       "key_points": [
-        "Theo tác giả Ege Demir, ba công cụ quét (phần mềm dò tìm tự động) bị phát hiện săn lùng khóa AI trên mười trang web từ cuối tháng 9 đến ngày 18 tháng 11 năm 2026. Chỉ Octopus giả dạng 32 bot AI, còn Gecko dùng định danh bị cắt ngắn và Tortoise chạy chậm trên Windows.",
-        "Về phương thức hoạt động, máy chủ Octopus truy cập trang chủ như trình duyệt thường khoảng 1,5 giây trước khi quét. Sau đó, công cụ này gửi danh sách đường dẫn riêng theo từng nền tảng như trang tĩnh, Next.js hoặc Vite.",
-        "Cụ thể, Octopus đổi tên bot AI mới ở mỗi truy vấn và thuê 97 máy chủ Google Cloud tại 15 vùng, với 95 máy chỉ dùng cho một trang web. Trong khi đó, Gecko chạy trên .NET đã tăng số đường dẫn công cụ AI cần dò tìm từ 4 lên 26 trong năm tuần.",
-        "Tác giả Ege Demir khuyến nghị không chặn theo tên bot AI vì sẽ chặn nhầm bot thật, mà cần đối chiếu địa chỉ máy chủ với danh sách của các hãng. Hệ thống nên chặn theo hành vi với các đường dẫn bắt đầu bằng dấu chấm nhưng giữ lại /.well-known/ và chặn chuỗi nhận dạng của Gecko."
+        "Theo tác giả Ege Demir, ba công cụ quét săn lùng khóa AI trên mười trang web từ cuối tháng 9 đến ngày 18 tháng 11 năm 2026. Trong đó, Octopus giả dạng 32 bot AI, còn Gecko dùng định danh bị cắt ngắn và Tortoise chạy chậm.",
+        "Về phương thức hoạt động, máy chủ Octopus mở trang chủ như trình duyệt thường khoảng 1,5 giây trước khi quét. Sau đó, công cụ này gửi danh sách đường dẫn riêng theo từng nền tảng như trang tĩnh, Next.js hoặc Vite.",
+        "Cụ thể, Octopus dùng 32 tên bot AI và đổi tên ở mỗi truy vấn, đồng thời thuê 97 máy chủ Google Cloud tại 15 vùng riêng biệt. Trong khi đó, Gecko chạy trên .NET đã tăng số đường dẫn công cụ AI cần dò tìm từ 4 lên 26 trong năm tuần.",
+        "Theo tác giả Ege Demir, tên bot không chứng minh danh tính thật, và quản trị viên phải đối chiếu địa chỉ IP với danh sách nhà phát hành công bố. Ngoài ra, việc tự kiểm tra đường dẫn bí mật xác định tệp có bị lộ hay không: kết quả cần là mã 404, và nếu nhận mã 200 chứa khóa thật thì phải đổi ngay."
       ],
       "same_event_coverage_ids": [
         "f4c797d9e150e5d63466",
@@ -99581,7 +99581,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Phát hiện ba công cụ quét khóa AI trên mười trang web, trong đó Octopus giả danh 32 bot AI",
+      "editorial_headline_vi": "Phát hiện ba công cụ quét săn lùng khóa AI trên mười trang web, trong đó Octopus mạo danh 32 bot AI",
       "summary_sources": [
         {
           "id": "outlet",
@@ -99596,28 +99596,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.55,
+        "value": 10.0,
         "answers": {
           "what": 10,
           "why": 10,
           "notable": 10,
-          "meaning": 7
+          "meaning": 10
         },
         "hard_errors": [],
-        "findings": [
-          {
-            "question": "meaning",
-            "problem": "The reader sees blocking advice but misses the source’s primary defense against exposed keys.",
-            "fix": "Add that site owners should check whether secret paths expose real files, keep agent credentials out of Git, and rotate keys if a real exposed file contains them (outlet:p174-p177, outlet:p212)."
-          }
-        ],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "f78c46616e395126d091459f06cfc939749e9a5bc6e3bf844867a5bb1aae185c",
-        "scored_at": "2026-11-18T23:55:53.015856+00:00"
+        "prose_sha256": "8b698fd678e27d7d08e9009a1fd8f483dc274cdca4fac0863b0ddf967167a934",
+        "scored_at": "2026-11-19T01:52:13.965997+00:00"
       }
     },
     {
@@ -99856,10 +99850,10 @@
       "use_original_title": false,
       "source_url": "https://www.semafor.com/article/11/18/2026/nvidia-shares-fall-despite-bumper-earnings",
       "key_points": [
-        "Cổ phiếu Nvidia sụt giảm vào thứ Tư dù đạt doanh thu kỷ lục, khi ban lãnh đạo mới phải nỗ lực trấn an nhân viên và nhà đầu tư.",
-        "Semafor cho biết kết quả kinh doanh không xoa dịu được nỗi bất an sau khi Jensen Huang rời ghế. Tuy nhiên, chuyên gia Pierre Ferragu trên Bloomberg cho rằng đợt bán tháo là cơ hội mua vì vụ việc không ảnh hưởng lợi nhuận ngắn hạn.",
-        "Theo Semafor, Colette Kress hứa tăng lương và tăng mua lại cổ phiếu trong buổi gặp nhân viên sau khi ông Huang bị phế truất, giữa lo ngại biến động này có thể gây chảy máu nhân tài.",
-        "Vụ việc đã bộc lộ sự chia rẽ giữa Thung lũng Silicon và Washington. Một cựu chính khách nói với Semafor rằng Thung lũng Silicon chờ ông Huang trở lại, còn Washington tự hỏi liệu ông có phải ngồi tù."
+        "Cổ phiếu Nvidia giảm sau khi Jensen Huang rời ghế dù công ty đạt lợi nhuận lớn, giữa lúc ban lãnh đạo mới phải nỗ lực thuyết phục nhân viên và giới đầu tư.",
+        "Lo ngại cuộc xáo trộn có thể dẫn đến làn sóng di cư nhân tài đã gây bất an, dù Pierre Ferragu của New Street Research nhận định trên Bloomberg rằng CEO từ chức không ảnh hưởng lợi nhuận ngắn hạn.",
+        "Quyền CEO Colette Kress theo lời thuật lại đã hứa tăng lương và công ty tăng mua lại cổ phiếu trong cuộc họp nhân viên sau khi ông Huang rời ghế, đồng thời khẳng định nhiệt huyết đổi mới không đổi.",
+        "Vụ việc phơi bày chia rẽ giữa Thung lũng Silicon và Washington theo lời một cựu chính khách nói với Semafor, khi giới công nghệ tự hỏi liệu ông Huang có trở lại trước Giáng sinh, còn Washington băn khoăn liệu ông có phải ngồi tù."
       ],
       "same_event_coverage_ids": [
         "e56bb07466e620369f30"
@@ -99880,7 +99874,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Cổ phiếu Nvidia sụt giảm dù đạt doanh thu kỷ lục sau khi Jensen Huang rời ghế lãnh đạo",
+      "editorial_headline_vi": "Cổ phiếu Nvidia giảm dù đạt lợi nhuận lớn sau khi cựu CEO Jensen Huang bị phế truất",
       "summary_sources": [
         {
           "id": "outlet",
@@ -99899,55 +99893,30 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 7.4,
+        "value": 9.5,
         "answers": {
-          "what": 6,
-          "why": 10,
-          "notable": 7,
-          "meaning": 8
+          "what": 10,
+          "why": 9,
+          "notable": 9,
+          "meaning": 10
         },
         "hard_errors": [
           {
             "kind": "fact",
-            "summary_text": "đạt doanh thu kỷ lục",
-            "explanation": "The headline claims record revenue. The source says Nvidia had strong earnings but does not report a revenue record (outlet:p001)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "đạt doanh thu kỷ lục",
-            "explanation": "The first paragraph repeats a revenue record that the source does not report (outlet:p001)."
-          },
-          {
-            "kind": "role",
-            "summary_text": "Colette Kress hứa tăng lương và tăng mua lại cổ phiếu",
-            "explanation": "Kress reportedly promised pay raises; the source separately says Nvidia increased stock buybacks. It does not say she promised the buyback increase (outlet:p002)."
-          },
-          {
-            "kind": "role",
-            "summary_text": "Một cựu chính khách",
-            "explanation": "The speaker is described as a former politico turned tech executive, not specifically as a former statesman or politician (outlet:p003)."
-          },
-          {
-            "kind": "quote",
-            "summary_text": "Thung lũng Silicon chờ ông Huang trở lại",
-            "explanation": "The speaker said the question in Silicon Valley was whether Huang would be back at Nvidia by Christmas, not that people were awaiting his return as an expected outcome (outlet:p003)."
+            "summary_text": "công ty tăng mua lại cổ phiếu trong cuộc họp nhân viên",
+            "explanation": "The source reports increased buybacks as a separate action. It places Kress’s reported pay-raise promise, but not the buyback increase, at the employee town hall (outlet:p002)."
           }
         ],
         "findings": [
           {
-            "question": "what",
-            "problem": "Readers are told Nvidia achieved record revenue.",
-            "fix": "Say its shares dipped despite strong earnings; the source gives no revenue record (outlet:p001)."
-          },
-          {
             "question": "notable",
-            "problem": "Readers are told Kress promised both raises and increased buybacks.",
-            "fix": "Attribute the reported raise promise to Kress and the buyback increase to Nvidia (outlet:p002)."
+            "problem": "The reader is told the buyback increase happened at the employee meeting.",
+            "fix": "State the buyback increase separately and place only Kress’s reported pay-raise promise at the town hall (outlet:p002)."
           },
           {
-            "question": "meaning",
-            "problem": "The Silicon Valley remark sounds like an expectation that Huang will return.",
-            "fix": "Keep it as a question about whether he would be back by Christmas, and describe the speaker as a former politico turned tech executive (outlet:p003)."
+            "question": "why",
+            "problem": "Ferragu’s view can read as a response to the reported earnings and share dip.",
+            "fix": "Make clear that his Bloomberg comments were made ahead of earnings (coverage1:p001–p002)."
           }
         ],
         "writer_boats": [
@@ -99955,8 +99924,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "69018ab2a5e457852266b44fdaebd420f786c137005de05fa841714b002f1400",
-        "scored_at": "2026-11-18T23:34:25.636455+00:00"
+        "prose_sha256": "66540402b840c9107a6a340c132ae34d0d47a05af3b0aa7c313663887223911e",
+        "scored_at": "2026-11-19T01:52:13.965915+00:00"
       }
     },
     {
@@ -100776,10 +100745,10 @@
       "use_original_title": true,
       "source_url": "https://www.wired.com/story/the-ai-chip-war-meets-the-jensen-huang-affair/",
       "key_points": [
-        "Chính quyền Tổng thống Trump vừa yêu cầu các trung tâm dữ liệu nước ngoài phải có giấy phép đặc biệt khi cung cấp dịch vụ điện toán AI (trí tuệ nhân tạo) cho công ty Trung Quốc. Quy định mới cũng siết chặt xuất khẩu chip tiên tiến sang năm quốc gia, gồm Singapore và Malaysia, nhằm ngăn chặn nguy cơ buôn lậu.",
-        "Người phát ngôn Nhà Trắng cho biết quy định mới sẽ trấn áp nạn buôn lậu và bảo đảm chip tiên tiến trước hết đến tay các nhà đổi mới của Mỹ. Tác giả bài viết trên WIRED nhận định vụ bê bối của Jensen Huang, người vừa từ chức CEO của Nvidia, là động lực cho các quan chức Nhà Trắng chứng tỏ họ nắm quyền kiểm soát tình hình.",
-        "Theo Bloomberg, khoảng 50.000 trong số 136.000 chip AI mà công ty Megaspeed nhập khẩu vào Malaysia và Indonesia giai đoạn 2024-2025 đã không thể kiểm kê ban đầu. Viện Institute for Progress ước tính đến cuối năm 2026, Trung Quốc có thể đã gom lượng chip nhập lậu tương đương một triệu chip H100 của Nvidia.",
-        "Nghiên cứu của Ngân hàng Dự trữ Liên bang New York ước tính các lệnh hạn chế trước đó đã làm bốc hơi 130 tỷ USD vốn hóa của các nhà cung cấp Mỹ. Tác giả Will Knight lo ngại Washington đang can thiệp quá đà khi tìm cách kiểm soát cách công nghệ Mỹ được sử dụng ở mọi nơi trên thế giới."
+        "Theo kế hoạch mới của chính quyền Trump, các trung tâm dữ liệu nước ngoài cung cấp lượng lớn điện toán AI (trí tuệ nhân tạo) cho Trung Quốc phải có giấy phép đặc biệt. Nhà Trắng cũng siết quy định xuất khẩu chip tiên tiến sang năm nước, gồm Singapore và Malaysia, do nghi ngờ có buôn lậu.",
+        "Tác giả Will Knight trên WIRED nhận định bê bối tình ái của Jensen Huang, cựu CEO của Nvidia, có thể đã khiến Nhà Trắng phải chứng tỏ họ nắm quyền kiểm soát.",
+        "Theo Bloomberg, khoảng 50.000 trong 136.000 chip AI mà Megaspeed nhập vào Malaysia và Indonesia từng không thể kiểm kê ban đầu. Viện Institute for Progress ước tính đến cuối năm 2026, Trung Quốc có thể tích lũy năng lực điện toán từ chip buôn lậu tương đương một triệu chip Nvidia H100.",
+        "Quy định này mở rộng kiểm soát sang cách doanh nghiệp Trung Quốc dùng chip dù phần cứng không vào nước này, thay vì chỉ cấm mua như năm 2022. Dù lâu nay doanh nghiệp Trung Quốc thuê hợp pháp điện toán nước ngoài mà không phạm luật, tác giả Will Knight lo ngại Washington đang can thiệp quá đà."
       ],
       "same_event_coverage_ids": [
         "e24850b0fb9af0ee8d3e"
@@ -100796,7 +100765,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Mỹ siết quy định cho thuê chip AI ở nước ngoài đối với Trung Quốc sau bê bối lãnh đạo Nvidia",
+      "editorial_headline_vi": "Mỹ siết cấp phép trung tâm dữ liệu nước ngoài cung cấp lượng lớn điện toán AI cho Trung Quốc",
       "summary_sources": [
         {
           "id": "outlet",
@@ -100809,50 +100778,30 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 7.3,
+        "value": 8.9,
         "answers": {
-          "what": 8,
-          "why": 6,
-          "notable": 7,
+          "what": 10,
+          "why": 9,
+          "notable": 8,
           "meaning": 8
         },
         "hard_errors": [
           {
             "kind": "fact",
-            "summary_text": "các trung tâm dữ liệu nước ngoài phải có giấy phép đặc biệt khi cung cấp dịch vụ điện toán AI (trí tuệ nhân tạo) cho công ty Trung Quốc",
-            "explanation": "The announced licensing requirement applies to overseas data centers seeking to provide *large amounts* of computing power to China, not every such service (outlet:p002)."
-          },
-          {
-            "kind": "cause",
-            "summary_text": "vụ bê bối của Jensen Huang, người vừa từ chức CEO của Nvidia, là động lực cho các quan chức Nhà Trắng chứng tỏ họ nắm quyền kiểm soát tình hình",
-            "explanation": "The writer says the scandal *may have* embarrassed the White House enough to prompt that response; the motive is speculative, not established (outlet:p005)."
-          },
-          {
-            "kind": "number",
-            "summary_text": "lượng chip nhập lậu tương đương một triệu chip H100 của Nvidia",
-            "explanation": "The estimate concerns smuggled *computing power* equivalent to roughly one million H100 chips, not a quantified stock of smuggled physical chips (outlet:p013)."
+            "summary_text": "chỉ cấm mua như năm 2022",
+            "explanation": "The 2022 effort sought to prevent Chinese companies from acquiring certain American chips, not to prohibit chip purchases generally (outlet:p016)."
           }
         ],
         "findings": [
           {
-            "question": "what",
-            "problem": "The licensing rule appears to cover any AI computing service supplied to Chinese companies.",
-            "fix": "Specify that it targets overseas data centers providing large amounts of computing power (outlet:p002)."
-          },
-          {
-            "question": "why",
-            "problem": "A possible political motive is presented as certain.",
-            "fix": "Preserve the writer’s uncertainty: the scandal may have prompted officials to demonstrate control (outlet:p005)."
+            "question": "meaning",
+            "problem": "The account of the 2022 rules can leave readers thinking all chip purchases were prohibited.",
+            "fix": "Specify that the earlier controls targeted acquisition of certain American chips (outlet:p016)."
           },
           {
             "question": "notable",
-            "problem": "The estimate reads as a count of smuggled chips.",
-            "fix": "Describe it as estimated smuggled computing power equivalent to roughly one million H100 chips (outlet:p013)."
-          },
-          {
-            "question": "meaning",
-            "problem": "The policy’s change from controlling chip purchases to controlling use abroad is underexplained.",
-            "fix": "Explain that Chinese companies had been able to rent overseas computing power legally, and the new plan reaches use even when hardware stays outside China (outlet:p014–p016)."
+            "problem": "The inventory figure lacks the source’s later qualification.",
+            "fix": "Add that the chips’ destination was unclear and Nvidia later said it found at least some of them (outlet:p012)."
           }
         ],
         "writer_boats": [
@@ -100860,8 +100809,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "4e003de34909379dc059c4c34f218272cc94a3595a2479686589b26a1645241a",
-        "scored_at": "2026-11-18T23:34:25.636708+00:00"
+        "prose_sha256": "a57714b5625e0215d4f2fd434571230f205f6c8b9da6be0a778f6bc77ba72459",
+        "scored_at": "2026-11-19T01:46:13.154403+00:00"
       }
     },
     {
@@ -101008,6 +100957,1042 @@
         "ab5a716e66d0368b45ed"
       ],
       "split_coverage_ids": []
+    },
+    {
+      "id": "76052896ed5fc980fe27",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/18/microsoft-ceo-satya-nadella-explains-why-he-asked-60k-employees-to-quit/",
+      "key_points": [
+        "CEO Satya Nadella của Microsoft giải thích việc đề nghị gói thôi việc tự nguyện cho 60.000 nhân viên vào tháng 10 thay vì sa thải hàng loạt. TechCrunch cho biết ông Nadella khẳng định công ty đang tái cơ cấu để nhân sự quản lý AI thay vì bị AI thay thế.",
+        "Tại hội nghị DealBook Summit, ông Nadella cho biết gói thôi việc này nhằm bảo đảm nhân sự cảm thấy có quyền tự quyết trước thay đổi lớn.",
+        "Ông Nadella dẫn chứng nhóm phát triển Cowork, tác tử AI (phần mềm AI tự chủ) trong các ứng dụng Microsoft 365, chỉ gồm 11 kỹ sư đã thành thạo dùng AI. Nhóm này không trực tiếp làm ra sản phẩm mà xây dựng một xưởng phần mềm để xưởng đó tạo ra sản phẩm.",
+        "Ông Nadella tin rằng mọi nhân viên trong tương lai đều sẽ trở thành người quản lý tác tử AI thay vì trực tiếp thao tác công việc. Tuy vậy, lãnh đạo Microsoft nhận định một công ty 51 năm tuổi sẽ cần nhiều thời gian chuyển đổi hơn dự kiến và tất yếu có những người lựa chọn rời đi."
+      ],
+      "same_event_coverage_ids": [
+        "2d6482db517b7923165d"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Microsoft",
+      "video_labels": {
+        "video_hook": "money_jobs",
+        "named_people": [
+          "Satya Nadella",
+          "Andrew Ross Sorkin"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "CEO Microsoft lý giải việc đề nghị 60.000 nhân sự thôi việc để chuyển sang mô hình quản lý AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/18/microsoft-ceo-satya-nadella-explains-why-he-asked-60k-employees-to-quit/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.8,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "d88b4b3f2c50fcdc9fb6a854b3420729180bd751dad27c2dda738a1c1f9b339c",
+        "scored_at": "2026-11-19T01:34:21.118342+00:00"
+      }
+    },
+    {
+      "id": "9f0352604ec44095c38d",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-19/china-ai-biotech-firm-raises-200-million-in-oman-backed-round",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "86b1a232f08f821c7ae9"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "085c9f35ad85dfa182fd",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Personal art gallery page hosting an AI-generated music video with no independent reporting or product release announcement.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://claudia.gallery/fable/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "dca180571ab12d31d3c6"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "1471104375f835f45826",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/full-fine-tuning-fft-on-sagemaker-ai-serverless-model-customization/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "6eb1da256c5de2562d74"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Amazon SageMaker AI",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "81eb2d733824ba631693",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-19/anthropic-raises-3-billion-in-japan-tranche-of-us-mega-ipo",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "bc8cc87226e6c8d985fb"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "c88d6cf4044196633ce4",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-19/alibaba-s-ai-ambitions-face-steep-challenge-in-us-chip-controls",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "3169a2ae52d7ca502daa"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "e0342a634eb3ce38156b",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Vendor blog case study spotlighting customer Exa optimizing its vector search embedding throughput using AWS Neuron chips.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/exa-boosts-embedding-throughput-by-50-to-index-billions-of-documents-on-aws-ai-chips/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "0d25d67b8dfc78ce465c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "88efd77f49c8e0b3cc76",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-18/nvidia-turmoil-spurs-valuation-rethink-of-japan-s-ai-shares",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "4fa6c33f4d2c29f81a3c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "28a1e7a21c66bddf9bd1",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/18/amidst-fears-of-ai-cyberattacks-satya-nadella-says-lots-of-critical-infrastructure-is-unpatchable/",
+      "key_points": [
+        "CEO Satya Nadella của Microsoft cảnh báo nhiều hệ thống phần mềm và hạ tầng trọng yếu tại Mỹ chứa lỗ hổng không thể vá trước nguy cơ tấn công mạng có AI hỗ trợ. TechCrunch cho biết cảnh báo này diễn ra giữa làn sóng gián đoạn dịch vụ quy mô lớn gần đây, dù giới chức bác bỏ nghi vấn các sự cố đó do tấn công mạng.",
+        "Theo ông Nadella, công nghệ AI vừa hỗ trợ dò tìm lỗ hổng vừa giúp tin tặc dễ dàng thực hiện tấn công mạng tinh vi hơn. TechCrunch nhận xét việc kết nối hàng loạt thiết bị lên Internet đang gây đau đầu lớn khi các hệ thống này chứa lỗ hổng chỉ chờ bị khai thác.",
+        "Lãnh đạo Microsoft nêu cụ thể thiết bị làm mát trung tâm dữ liệu, hệ thống điều hòa thông gió và mạng lưới giao thông đều chứa vi mã (phần mềm điều khiển phần cứng) không thể vá lỗi.",
+        "Ông Nadella cảnh báo việc phải lập tức đẩy bản vá vào hệ thống vận hành khi lỗ hổng bị khai thác ngoài thực tế sẽ tạo ra bất ổn."
+      ],
+      "same_event_coverage_ids": [
+        "1bfba727d6ed6170f1c6"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Satya Nadella",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Satya Nadella"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "CEO Microsoft cảnh báo nhiều hạ tầng trọng yếu không thể vá lỗi trước nguy cơ tấn công mạng có AI hỗ trợ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/18/amidst-fears-of-ai-cyberattacks-satya-nadella-says-lots-of-critical-infrastructure-is-unpatchable/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.4,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The reader gets the patching risk but misses Nadella’s proposed response.",
+            "fix": "Add that he called for modernizing vulnerable systems and assessing real-time detection and defense (outlet:p012)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "4fa5024304bfee4857d0c723e31a30d3768d85dc1efc2db7996d5b9604063893",
+        "scored_at": "2026-11-19T01:34:21.119036+00:00"
+      }
+    },
+    {
+      "id": "d8ba4398191c3d4681c9",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/ai-artificial-intelligence/1037151/school-districts-ditching-google",
+      "key_points": [
+        "Các học khu New York, Los Angeles và Chicago đang cân nhắc tìm giải pháp thay thế công cụ Google Tìm kiếm, theo The New York Times. Kế hoạch này diễn ra sau khi Google thông báo sẽ khóa Tìm kiếm từ năm tới với những trường học tắt các tính năng trí tuệ nhân tạo (AI).",
+        "Ông khẳng định những trường học tắt tính năng AI của hãng sẽ không thể tiếp tục truy cập công cụ Tìm kiếm.",
+        "Học khu thành phố New York sẽ xem xét lựa chọn tìm kiếm khác nếu Google không đổi lập trường, theo giám đốc các trường học Kamar H. Samuels nói với The New York Times. Các trường công lập Chicago cũng được đưa tin đã báo với Google rằng họ sẽ tìm giải pháp khác nếu thiếu bản Tìm kiếm không có AI.",
+        "Tuy vậy, The Verge nhận định việc từ bỏ hoàn toàn Google có thể rất khó khăn do các trường vẫn phụ thuộc sâu vào Google Classroom và Chromebook."
+      ],
+      "same_event_coverage_ids": [
+        "25d03056748270546e1e"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Google",
+      "video_labels": {
+        "video_hook": "drama_company",
+        "named_people": [
+          "Chris Phillips",
+          "Zohran Mamdani",
+          "Bernie Sanders"
+        ],
+        "availability": "region_locked:United States",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Các học khu lớn tại Mỹ cân nhắc bỏ Google Tìm kiếm khi công ty nói sẽ vô hiệu hóa nếu tắt AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1037151/school-districts-ditching-google"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.7,
+        "answers": {
+          "what": 10,
+          "why": 8,
+          "notable": 8,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The reader misses Google’s response to the schools’ concerns.",
+            "fix": "Include Google’s statement that it is updating school controls and that Gemini app, Gemini Notebook, and Search will be off by default until schools choose which services to enable (outlet:p017)."
+          },
+          {
+            "question": "why",
+            "problem": "The policy is reported without Google’s stated rationale, and “Ông” has no named antecedent in the Vietnamese text.",
+            "fix": "Identify Chris Phillips as Google’s vice president of education and attribute to him the statement that Search and AI are deeply integrated (outlet:p015)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "3d97a1dd2a214bf296ba3712d9db5d3830696a8893914e3112e27e813fda1120",
+        "scored_at": "2026-11-19T01:34:21.119078+00:00"
+      }
+    },
+    {
+      "id": "fd0f1695410f8d6eef32",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/18/microsoft-ceo-satya-nadella-remains-confident-in-nvidia-after-huangs-exit/",
+      "key_points": [
+        "Microsoft CEO Satya Nadella expressed ongoing confidence in Nvidia and interim CEO Colette Kress following Jensen Huang's unexpected exit.",
+        "Speaking onstage at the DealBook Summit, Nadella called Huang's departure tragic and expressed admiration for Huang's achievements."
+      ],
+      "same_event_coverage_ids": [
+        "772bec82c0680053c381"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Nvidia",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Satya Nadella",
+          "Jensen Huang",
+          "Colette Kress",
+          "Alice Huang"
+        ],
+        "availability": "global",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "264fccb65ab64a3edd23",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "General news reporting on South Korea's annual college entrance exam with only passing, incidental mentions of AI cheating crackdowns.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://en.yna.co.kr/view/AEN20261119001100315",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "0752676e6fbebeb7859c",
+        "dcb4a7e810657ff1317b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "ee04cc19c2fce4d9f0c1",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/introducing-workload-recovery-and-expanded-infrastructure-checks-on-amazon-sagemaker-hyperpod/",
+      "key_points": [
+        "Amazon ra mắt tính năng phục hồi khối lượng công việc và mở rộng kiểm tra hạ tầng trên SageMaker HyperPod. Trong đó, tác nhân giám sát tài nguyên Kubernetes theo dõi cụm máy và báo cáo các pod cùng nút liên quan khi xảy ra lỗi.",
+        "Amazon giải thích rằng các công cụ hiện có chỉ kiểm tra phần cứng từng nút đơn lẻ nên không thể biết GPU tính toán đúng hay tác vụ còn tiến triển. Do đó, lỗi số học hay sự cố treo tiến trình vẫn lọt qua kiểm tra và gây lãng phí năng lực tính toán.",
+        "Cụ thể, tính năng phát hiện tác vụ treo có thể hủy các phiên chạy Slurm ngừng tiến triển để hệ thống tự động xếp hàng lại. Amazon dẫn chứng Meta từng quy kết 6 trong số 419 lần gián đoạn bất ngờ suốt 54 ngày huấn luyện Llama 3 405B cho lỗi sai hỏng dữ liệu âm thầm.",
+        "Amazon đánh giá các tính năng mới giúp nâng cao goodput (tỷ lệ thời gian huấn luyện hữu ích) bằng cách giảm thời gian GPU xử lý tác vụ đình trệ. Hãng lưu ý kiểm tra nút chưa phản ánh trọn vẹn khối lượng công việc, đồng thời khuyên chạy phát hiện tác vụ treo ở chế độ thông báo trước khi bật tự động hủy."
+      ],
+      "same_event_coverage_ids": [
+        "d36111bbc2ae0600e85f"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Amazon SageMaker HyperPod",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Amazon ra mắt ba tính năng kiểm tra và phục hồi tác vụ nhằm giảm lãng phí GPU trên SageMaker HyperPod",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "amazon",
+          "url": "https://aws.amazon.com/blogs/machine-learning/introducing-workload-recovery-and-expanded-infrastructure-checks-on-amazon-sagemaker-hyperpod/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.05,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 8,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The headline promises three capabilities, but the reader learns how only two work.",
+            "fix": "Explain that MultiNodeTrainingValidation runs a small training test to detect invalid loss or a timeout even when hardware checks pass (outlet:p005, outlet:p199)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "cb4ed93f52d56505eec2138d06f7b5049a7465a4205f58085f84a95ba9d0cd05",
+        "scored_at": "2026-11-19T01:34:21.119137+00:00"
+      }
+    },
+    {
+      "id": "d63ba8afc215cb55fd4e",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-18/opinion-how-anthropic-can-capture-30-trillion-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "103ad9057dfc1f6fbc17"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "591236888382df2bc009",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/18/satya-nadella-predicts-ai-agents-will-reshuffle-the-economics-of-the-web/",
+      "key_points": [
+        "CEO Satya Nadella của Microsoft dự báo tác nhân AI (phần mềm tự hành thực hiện tác vụ) sẽ tái cấu trúc nền kinh tế internet. Xu hướng này sẽ tác động mạnh đến mô hình kinh doanh dựa vào quảng cáo và lưu lượng từ người dùng web truyền thống.",
+        "Ông Nadella giải thích rằng web tác nhân có thể làm thay đổi cách thức các doanh nghiệp trả tiền cho lưu lượng truy cập và giao dịch.",
+        "Lấy ví dụ, ông cho rằng nếu Amazon tiếp tục chặn tác nhân AI mua sắm thay người dùng, nền tảng như Shopify có thể cho phép để giành lợi thế. Theo ông, doanh nghiệp cố giữ mô hình cũ sẽ chịu thiệt trước các đối thủ sẵn sàng đón nhận công nghệ mới.",
+        "Ông Nadella nhận định các cổng tổng hợp web cũ sẽ bị xáo trộn, phải chuyển từ quảng cáo lượt xem sang phí lượt nhấp hoặc giao dịch. Ông nhấn mạnh nếu một bên từ chối tác nhân AI thì bên khác sẽ tiếp nhận, và ai quá bám giữ mô hình cũ sẽ phải chật vật ứng phó."
+      ],
+      "same_event_coverage_ids": [
+        "8109a6192d59b802ebd2"
+      ],
+      "split_coverage_ids": [
+        "4c268dfa6e86a1195d65"
+      ],
+      "subject": "Microsoft",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Satya Nadella"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Satya Nadella dự báo tác nhân AI sẽ làm đảo lộn kinh tế web và mô hình kinh doanh dựa vào quảng cáo",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/18/satya-nadella-predicts-ai-agents-will-reshuffle-the-economics-of-the-web/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.15,
+        "answers": {
+          "what": 10,
+          "why": 8,
+          "notable": 10,
+          "meaning": 7
+        },
+        "hard_errors": [
+          {
+            "kind": "quote",
+            "summary_text": "các cổng tổng hợp web cũ sẽ bị xáo trộn",
+            "explanation": "Nadella referred to current aggregators whose business models serve the human web, not specifically old web portals (outlet:p009)."
+          },
+          {
+            "kind": "quote",
+            "summary_text": "phải chuyển từ quảng cáo lượt xem sang phí lượt nhấp hoặc giao dịch",
+            "explanation": "Nadella suggested cost per click or transactions as possible directions, not a required shift (outlet:p009)."
+          },
+          {
+            "kind": "quote",
+            "summary_text": "doanh nghiệp cố giữ mô hình cũ sẽ chịu thiệt",
+            "explanation": "The source says such companies could lose out to competitors willing to embrace agents; it does not say they certainly will (outlet:p010)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The reader receives a definite requirement to change revenue models.",
+            "fix": "Preserve Nadella’s tentative language: cost per click or transactions might become more important (outlet:p009)."
+          },
+          {
+            "question": "why",
+            "problem": "The reader receives a certain outcome for companies protecting existing models.",
+            "fix": "Say those companies could lose out, as illustrated by the conditional Amazon–Shopify example (outlet:p010)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "6973e6ad077622cc9b8d2c236af2656bf42a15b645bf17808db3f46976d3ed43",
+        "scored_at": "2026-11-19T01:25:50.565518+00:00"
+      }
+    },
+    {
+      "id": "800b418bdd7fd5aadac2",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-18/how-young-workers-are-building-careers-in-an-ai-world-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b899fd7effabebdb8fd7"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "f255b78c66f1c4647739",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Personal blog post tutorial walking through a practitioner's setup and process for LLM-assisted reverse engineering.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.slowchronicle.com/posts/llm-assisted-reverse-engineering",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b8f54e58567962a42015"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "8e2ce054ff040c2dce23",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://github.blog/changelog/2026-11-18-connect-supabase-box-calendly-and-more-to-copilot",
+      "key_points": [
+        "GitHub thông báo người dùng hiện có thể kết nối thêm tám dịch vụ vào Copilot thông qua các máy chủ MCP (giao thức bối cảnh mô hình giúp kết nối công cụ ngoài) đã được xác minh ở bản xem trước công khai.",
+        "Người dùng thiết lập kết nối các dịch vụ này một lần và có thể sử dụng trên toàn bộ Copilot. Thao tác kết nối thực hiện tương tự các đầu nối khác qua ứng dụng Copilot, giao diện dòng lệnh Copilot CLI, tiện ích VS Code hoặc trang github.com.",
+        "Theo GitHub, người dùng có thể hỏi Copilot lý do bản dựng Buildkite thất bại và yêu cầu sửa mã trong cùng phiên làm việc, hoặc kiểm tra lược đồ Supabase trước khi tạo mã di chuyển cơ sở dữ liệu. Tám dịch vụ mới được kết nối gồm Box, Buildkite, Calendly, ClickUp, Mixpanel, Supabase, Webflow và Wix.",
+        "Các đầu nối mới mở bản xem trước công khai cho mọi gói Copilot, nhưng khách hàng dùng gói Business hoặc Enterprise cần quản trị viên bật chính sách tính năng xem trước của trình chỉnh sửa. Nếu doanh nghiệp áp dụng danh sách cho phép MCP theo từng mục riêng lẻ, quản trị viên phải bổ sung từng đầu nối mới, đồng thời một số dịch vụ như Box yêu cầu quản trị viên phía dịch vụ đó phê duyệt quyền truy cập."
+      ],
+      "same_event_coverage_ids": [
+        "0438233638702fcd31dc",
+        "3efce48bce61b6848045"
+      ],
+      "split_coverage_ids": [],
+      "subject": "GitHub Copilot",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "GitHub mở bản xem trước cho phép kết nối thêm tám dịch vụ ngoài vào Copilot qua máy chủ MCP",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "github",
+          "url": "https://github.blog/changelog/2026-11-18-connect-supabase-box-calendly-and-more-to-copilot"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "023a00ecd6cf1a28c3b60c4da7f37c4793ee3f574222ffbe5f1e5af25bfff3fa",
+        "scored_at": "2026-11-19T01:34:21.119170+00:00"
+      }
+    },
+    {
+      "id": "d866193457004aff78b0",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.nytimes.com/2026/11/18/business/economy/google-spirit-employee-data-ai.html",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "7499e498bc6747e8f3bf"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Google",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "94909db7cc5834fa3d02",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/18/anthropic-reportedly-prices-ipo-at-83-a-share-above-projected-range/",
+      "key_points": [
+        "Theo TechCrunch, Anthropic được đưa tin đã định giá đợt phát hành cổ phiếu lần đầu ra công chúng (IPO) ở mức 83 USD một cổ phiếu, vượt khoảng dự kiến từ 70 đến 78 USD. Công ty dự kiến giao dịch trên sàn Nasdaq vào thứ Năm với mã chứng khoán ANT.",
+        "TechCrunch nhận định mức giá này phản ánh sức hút lớn từ nhà đầu tư bất chấp bất ổn thị trường sau khi CEO Jensen Huang của Nvidia rời chức, sự kiện từng làm lung lay niềm tin vào toàn ngành.",
+        "Ở mức giá này, Anthropic được đưa tin đạt định giá 1,5 nghìn tỷ USD trên cơ sở pha loãng hoàn toàn, vượt mốc 965 tỷ USD hồi tháng 5 nhưng dưới mục tiêu 2 nghìn tỷ USD trước đó. Nhóm đối tác gồm Google, Microsoft và Nvidia cũng đồng ý mua 26 tỷ USD cổ phiếu không có quyền biểu quyết qua phát hành riêng lẻ.",
+        "Kết quả của Anthropic được kỳ vọng sẽ thiết lập kỳ vọng cho các công ty AI tư nhân như OpenAI, đơn vị từng được định giá 1,25 tỷ USD nhưng chưa công bố kế hoạch IPO. Theo TechCrunch, ngày giao dịch đầu tiên thuận lợi sẽ cho thấy giới đầu tư vẫn lạc quan về ứng dụng AI, bất chấp biến động gần đây của nhóm cổ phiếu này."
+      ],
+      "same_event_coverage_ids": [
+        "9bdc94431d798b549b8e"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Anthropic",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Jensen Huang"
+        ],
+        "availability": "global",
+        "is_leak": true
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Anthropic được đưa tin định giá IPO ở mức 83 USD một cổ phiếu, vượt khoảng dự kiến ban đầu",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch.com",
+          "url": "https://techcrunch.com/2026/11/18/anthropic-reportedly-prices-ipo-at-83-a-share-above-projected-range/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.85,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [
+          {
+            "kind": "role",
+            "summary_text": "Nhóm đối tác gồm Google, Microsoft và Nvidia",
+            "explanation": "The source calls these buyers part of a group of major tech companies. It identifies Amazon and Google as Anthropic’s strategic partners, but does not give Microsoft or Nvidia that role (outlet:p012)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "đơn vị từng được định giá 1,25 tỷ USD",
+            "explanation": "The source says OpenAI was last reportedly valued at $1.25 billion; the Vietnamese states that valuation as established (outlet:p009)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "Readers may take Microsoft and Nvidia to be established Anthropic partners.",
+            "fix": "Call them members of a group of major tech companies that agreed to buy non-voting shares (outlet:p012)."
+          },
+          {
+            "question": "meaning",
+            "problem": "OpenAI’s valuation loses the source’s uncertainty.",
+            "fix": "Say OpenAI was reportedly last valued at $1.25 billion (outlet:p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "3c264e575454fde3d0af4fd02a9a6a42500dab9d12e0d89588bfb172eabd8e21",
+        "scored_at": "2026-11-19T01:34:21.119200+00:00"
+      }
+    },
+    {
+      "id": "ae1418f223a3bc983f8a",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-18/anthropic-is-said-to-price-ipo-at-83-per-share",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "e9b99742cd94b9fa206e"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "57007e88b535b36cde42",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-18/nvidia-tells-employees-that-company-is-moving-on-from-huang-era",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "890876f578eb8d0a305d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "58da586369f33999eb92",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://openai.com/index/research-acceleration-jagged-frontier",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "20c265d3afebec75b84d"
+      ],
+      "split_coverage_ids": [],
+      "subject": "OpenAI",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "53d809d7420a3923e8ba",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Vendor marketing customer story profiling how Sumitomo Life adopted ChatGPT Enterprise across its business units.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://openai.com/business/customer-stories/sumitomo-life",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "428b637734d8f302338d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "e308a84a77ae00d83193",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "top",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.anthropic.com/news/anthropic-prices-initial-public-offering",
+      "key_points": [
+        "Anthropic priced its initial public offering of Class A common stock at $83.00 per share.",
+        "The offering comprises 980,000,000 Class A shares, with 956,351,354 sold by Anthropic and 23,648,646 sold by existing stockholders.",
+        "Anthropic shares are expected to begin trading on the Nasdaq Global Select Market under ticker symbol ANT on November 19, 2026.",
+        "Underwriters received a 30-day option to acquire up to 147,000,000 additional Class A shares.",
+        "Anthropic's registration statement was declared effective by the SEC on November 18, 2026, with closing expected on November 20, 2026."
+      ],
+      "same_event_coverage_ids": [
+        "86e759df738a7a688051",
+        "eb1c016fc050ade8512e"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Anthropic",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "54b486979846dcf9428e",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/17/2026/amazon-ceo-says-us-ai-lead-over-china-depends-on-building-more-data-centers",
+      "key_points": [
+        "Amazon CEO Andy Jassy stated it would be a historic mistake for the United States to reduce AI data center buildouts.",
+        "Jassy warned that halting data center expansion would allow China to set international standards for artificial intelligence.",
+        "Jassy affirmed that Jensen Huang's departure would not hinder Amazon's ongoing technical partnership with Nvidia.",
+        "Jassy noted that Nvidia GPUs power AWS data centers and that Amazon partners with Nvidia across infrastructure and robotics."
+      ],
+      "same_event_coverage_ids": [
+        "9dc4bbc43f8ab76855dd"
+      ],
+      "split_coverage_ids": [
+        "032a295a64d824f48fc3"
+      ],
+      "subject": "Amazon",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Andy Jassy",
+          "Jensen Huang"
+        ],
+        "availability": "global",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "e6de34d7c9a098b0d7ce",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/17/2026/silicon-valley-leaders-forge-a-save-jensen-faction",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "1b8a442e757fb6c3f37d"
+      ],
+      "split_coverage_ids": [
+        "469b65120716373b9a1b",
+        "7d868b8696d6aca6f57d",
+        "aa1936a1e0d1a9456dca",
+        "adac2ce4456a08029196",
+        "c48f12c334d43476e829",
+        "d5460be8d2a33104908a",
+        "f3cadc2bcc0054d6e4b7"
+      ],
+      "subject": "Nvidia",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Jensen Huang",
+          "David Sacks",
+          "Donald Trump",
+          "Bill Ackman",
+          "Amjad Masad"
+        ],
+        "availability": "global",
+        "is_leak": false
+      }
     }
   ]
 }
