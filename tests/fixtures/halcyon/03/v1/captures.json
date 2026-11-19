@@ -1,0 +1,10 @@
+{"captures": {
+ "y-1": {"file": "../chup/v1-Y-full.png", "focus": {"rows": [1312, 1850]}, "u_rows": [1290, 1870], "source": "Yonhap", "date": "18/11/2026", "captured": "2026-11-18T15:00:00+07:00",
+         "bands": [{"rect": [259, 1390, 497, 52], "text": "another disaster alert"}]},
+ "y-23": {"file": "../chup/v1-Y-full.png", "focus": {"rows": [3469, 4529]}, "u_rows": [3450, 4550], "source": "Yonhap", "date": "18/11/2026", "captured": "2026-11-18T15:00:00+07:00",
+         "bands": [{"rect": [277, 3463, 781, 58], "text": "first alert will be sent at 8:30 a.m.,"}, {"rect": [366, 3625, 520, 61], "text": "another message at an"}, {"rect": [49, 3706, 390, 61], "text": "undisclosed time"}]},
+ "y-5": {"file": "../chup/v1-Y-full.png", "focus": {"rows": [7387, 8224]}, "u_rows": [7330, 8265], "source": "Yonhap", "date": "18/11/2026", "captured": "2026-11-18T15:00:00+07:00",
+         "bands": [{"rect": [624, 7462, 236, 60], "text": "top scorer"}, {"rect": [145, 7624, 608, 61], "text": "cheated with the help of AI"}]},
+ "y-6": {"file": "../chup/v1-Y-full.png", "focus": {"rows": [5851, 6829]}, "u_rows": [5800, 6850], "source": "Yonhap", "date": "18/11/2026", "captured": "2026-11-18T15:00:00+07:00",
+         "bands": [{"rect": [500, 6007, 452, 61], "text": "only bring in pencils"}]}
+}}

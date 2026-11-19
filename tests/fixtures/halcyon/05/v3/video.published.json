@@ -1,0 +1,395 @@
+{
+ "name": "halcyon-05",
+ "duration": 28.5,
+ "voice": "../giong/v3/giong-day-du.wav",
+ "timing": "../giong/v3/giong-day-du-timing.json",
+ "word_aliases": {
+  "trò": "cho",
+  "hai": "2",
+  "tuỳ": "tùy",
+  "chatgpt": "chat"
+ },
+ "tiktok_caption": [
+  "Tắt lịch sử Gemini rồi, Google vẫn",
+  "giữ chat khoảng 2 tháng... #AI #Gemini"
+ ],
+ "out": {
+  "clean": "halcyon-05-gemini-giu-chat-2-thang.mp4",
+  "tiktok": "halcyon-05-gemini-giu-chat-2-thang-tiktok.mp4"
+ },
+ "captions": [
+  "Tắt lịch sử trò chuyện",
+  "Gemini rồi?",
+  "Google vẫn sẽ giữ",
+  "đoạn chat của bạn",
+  "khoảng hai tháng.",
+  "Trước đây con số này",
+  "là 72 giờ.",
+  "Chat tạm thời cũng",
+  "bị giữ lâu như vậy.",
+  "Google nói thay đổi",
+  "áp dụng toàn cầu",
+  "trong vài tuần tới,",
+  "vì lý do an toàn",
+  "và bảo mật.",
+  "Để so sánh: ChatGPT",
+  "giữ chat tạm thời",
+  "tối đa 30 ngày.",
+  "Google nói chat tạm thời",
+  "không dùng để",
+  "huấn luyện AI.",
+  "Bạn cũng sắp tắt được",
+  "huấn luyện mà",
+  "vẫn giữ lịch sử.",
+  "Nên đừng coi",
+  "chat tạm thời",
+  "là chỗ kín.",
+  "Mật khẩu, số thẻ,",
+  "giấy tờ tuỳ thân:",
+  "đừng dán vào.",
+  "Lưu lại,",
+  "và gửi cho người",
+  "hay tâm sự với AI nhé."
+ ],
+ "beats": [
+  {
+   "id": "1",
+   "name": "Hook: gõ câu hỏi",
+   "a": 0.0,
+   "b": 4.43,
+   "level": "HOOK",
+   "mark": "wm",
+   "chip": {
+    "line": "Gemini, quay ngày 18/11/2026 · câu hỏi do hco.news gõ"
+   },
+   "text": {
+    "kind": "block",
+    "lines": [
+     "TẮT LỊCH SỬ RỒI?",
+     "VẪN GIỮ 2 THÁNG"
+    ],
+    "kicker": "Theo Google · TechCrunch · 17/11/2026",
+    "kicker_size": 26,
+    "lift": 24
+   },
+   "picture": {
+    "kind": "recording",
+    "file": "v3-b1-khong-gach.webm",
+    "start": 12.1,
+    "dur": 4.0,
+    "detect": "typed"
+   }
+  },
+  {
+   "id": "2a",
+   "name": "Trước đây: 72 giờ",
+   "a": 4.43,
+   "b": 6.57,
+   "text": {
+    "kind": "number",
+    "kicker": "TRƯỚC ĐÂY",
+    "line1": "72 GIỜ",
+    "line2": "NAY: KHOẢNG 2 THÁNG",
+    "source": "Nguồn: hco.news · TechCrunch",
+    "cuts": [
+     5.72
+    ]
+   }
+  },
+  {
+   "id": "2b",
+   "name": "Chat tạm thời cũng 2 tháng",
+   "a": 6.57,
+   "b": 8.44,
+   "level": "HOOK",
+   "chip": {
+    "text": "Ảnh chụp: Quyền riêng tư Gemini, 18/11/2026"
+   },
+   "text": {
+    "kind": "block",
+    "lines": [
+     "CHAT TẠM THỜI",
+     "CŨNG 2 THÁNG"
+    ],
+    "kicker": "Google gọi lịch sử là “Nhật ký”",
+    "kicker_size": 26
+   },
+   "picture": {
+    "kind": "capture",
+    "file": "g-2b.png",
+    "rows": [
+     445,
+     1124
+    ],
+    "u_rows": [
+     410,
+     1132
+    ]
+   },
+   "bands": [
+    {
+     "rect": [
+      630,
+      512,
+      190,
+      68
+     ],
+     "word": [
+      "TẠM",
+      "THỜI"
+     ]
+    },
+    {
+     "rect": [
+      636,
+      656,
+      249,
+      68
+     ],
+     "at": 7.45
+    },
+    {
+     "rect": [
+      170,
+      728,
+      136,
+      68
+     ],
+     "at": 7.45
+    }
+   ]
+  },
+  {
+   "id": "3",
+   "name": "Áp dụng toàn cầu",
+   "a": 8.44,
+   "b": 12.69,
+   "level": "HOOK",
+   "chip": {
+    "text": "Ảnh chụp: blog Google, 16/11/2026"
+   },
+   "text": {
+    "kind": "block",
+    "lines": [
+     "TOÀN CẦU,",
+     "TRONG VÀI TUẦN TỚI"
+    ],
+    "kicker": "Google thông báo",
+    "kicker_size": 26,
+    "cuts": [
+     {
+      "word": [
+       "TRONG",
+       "VÀI"
+      ],
+      "after": 8.44
+     }
+    ]
+   },
+   "picture": {
+    "kind": "capture",
+    "file": "../chup/v3-B-full.png",
+    "rows": [
+     2155,
+     2335
+    ],
+    "u_rows": [
+     2135,
+     2350
+    ]
+   },
+   "bands": [
+    {
+     "rect": [
+      822,
+      2141,
+      166,
+      68
+     ],
+     "word": [
+      "TOÀN",
+      "CẦU"
+     ]
+    },
+    {
+     "rect": [
+      518,
+      2213,
+      319,
+      68
+     ],
+     "word": [
+      "TRONG",
+      "VÀI"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "4",
+   "name": "So sánh thời gian giữ",
+   "a": 12.69,
+   "b": 15.79,
+   "text": {
+    "kind": "chart",
+    "kicker": "CHAT TẠM THỜI ĐƯỢC GIỮ BAO LÂU",
+    "rows": [
+     {
+      "name": "GEMINI",
+      "value": "KHOẢNG 2 THÁNG",
+      "bar": 60
+     },
+     {
+      "name": "CHATGPT",
+      "value": "TỐI ĐA 30 NGÀY",
+      "bar": 30
+     },
+     {
+      "name": "CLAUDE",
+      "value": "30 NGÀY, MẶC ĐỊNH",
+      "bar": 30
+     }
+    ],
+    "bar_full": 60,
+    "source": "Nguồn: TechCrunch, 17/11/2026",
+    "cuts": [
+     12.69,
+     13.34,
+     14.64
+    ]
+   }
+  },
+  {
+   "id": "5a",
+   "name": "Không dùng để huấn luyện",
+   "a": 15.79,
+   "b": 18.53,
+   "level": "HOOK",
+   "chip": {
+    "text": "Ảnh chụp: Quyền riêng tư Gemini, 18/11/2026"
+   },
+   "text": {
+    "kind": "block",
+    "lines": [
+     "KHÔNG DÙNG ĐỂ",
+     "HUẤN LUYỆN AI"
+    ],
+    "kicker": "Theo Google",
+    "kicker_size": 26
+   },
+   "picture": {
+    "kind": "capture",
+    "file": "g-5a.png",
+    "rows": [
+     668,
+     1291
+    ],
+    "u_rows": [
+     630,
+     1305
+    ]
+   },
+   "bands": [
+    {
+     "rect": [
+      831,
+      656,
+      144,
+      68
+     ],
+     "word": [
+      "KHÔNG"
+     ]
+    },
+    {
+     "rect": [
+      170,
+      728,
+      564,
+      68
+     ],
+     "word": [
+      "HUẤN",
+      "LUYỆN"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "5b",
+   "name": "Sắp tắt huấn luyện, giữ lịch sử",
+   "a": 18.53,
+   "b": 20.98,
+   "level": "HOOK",
+   "chip": {
+    "text": "hco.news, 17/11/2026"
+   },
+   "text": {
+    "kind": "block",
+    "lines": [
+     "TẮT HUẤN LUYỆN,",
+     "VẪN GIỮ LỊCH SỬ"
+    ],
+    "kicker": "Sắp có",
+    "kicker_size": 26
+   },
+   "picture": {
+    "kind": "capture",
+    "file": "c-5b.png",
+    "rows": [
+     3307,
+     3875
+    ],
+    "u_rows": [
+     3280,
+     3890
+    ]
+   }
+  },
+  {
+   "id": "6",
+   "name": "Lời khuyên",
+   "a": 20.98,
+   "b": 25.32,
+   "text": {
+    "kind": "list",
+    "kicker": "LỜI KHUYÊN CỦA HCO.NEWS",
+    "title": "ĐỪNG DÁN VÀO CHAT:",
+    "rows": [
+     "MẬT KHẨU",
+     "SỐ THẺ",
+     "GIẤY TỜ TUỲ THÂN"
+    ],
+    "cuts": [
+     22.96,
+     23.34,
+     23.72
+    ]
+   }
+  },
+  {
+   "id": "7",
+   "name": "Kết",
+   "a": 25.32,
+   "b": 28.5,
+   "level": "HOOK",
+   "mark": "wm",
+   "chip": {
+    "line": "Gemini, quay ngày 18/11/2026 · câu hỏi do hco.news gõ"
+   },
+   "text": {
+    "kind": "end",
+    "kicker": "những mẩu tin AI ngắn gọn",
+    "line1": "ĐỌC ĐẦY ĐỦ:",
+    "line2": "HCO.NEWS",
+    "lift": 24
+   },
+   "picture": {
+    "kind": "same_as",
+    "beat": "1"
+   }
+  }
+ ],
+ "layout": "thu-gon-r2",
+ "drop_kickers": true
+}

@@ -1,0 +1,9 @@
+{"captures": {
+ "g-2b": {"file": "g-2b.png", "focus": {"rows": [445, 1124]}, "u_rows": [410, 1132], "source": "Quyền riêng tư Gemini", "date": "18/11/2026", "captured": "2026-11-18T09:00:00+07:00",
+          "bands": [{"rect": [630, 512, 190, 68], "text": "tạm thời"}, {"rect": [636, 656, 249, 68], "text": "khoảng hai"}, {"rect": [170, 728, 136, 68], "text": "tháng"}]},
+ "blog-google": {"file": "../chup/v3-B-full.png", "focus": {"rows": [2155, 2335]}, "u_rows": [2135, 2350], "source": "blog Google", "date": "16/11/2026", "captured": "2026-11-18T09:05:00+07:00",
+          "bands": [{"rect": [822, 2141, 166, 68], "text": "globally"}, {"rect": [518, 2213, 319, 68], "text": "coming weeks."}]},
+ "g-5a": {"file": "g-5a.png", "focus": {"rows": [668, 1291]}, "u_rows": [630, 1305], "source": "Quyền riêng tư Gemini", "date": "18/11/2026", "captured": "2026-11-18T09:00:00+07:00",
+          "bands": [{"rect": [831, 656, 144, 68], "text": "không"}, {"rect": [170, 728, 564, 68], "text": "được dùng để huấn luyện"}]},
+ "hco-5b": {"file": "c-5b.png", "focus": {"rows": [3307, 3875]}, "u_rows": [3280, 3890], "source": "hco.news", "date": "17/11/2026", "captured": "2026-11-18T09:10:00+07:00"}
+}}
