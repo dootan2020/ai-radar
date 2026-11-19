@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-19T17:44:49.257931+00:00",
-  "input_generated_at": "2026-11-19T16:46:31Z",
+  "generated_at": "2026-11-19T19:56:54.490042+00:00",
+  "input_generated_at": "2026-11-19T18:46:00Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -106005,10 +106005,10 @@
       "use_original_title": false,
       "source_url": "https://analyticsindiamag.com/ai-news/wadhwani-ai-and-linkedin-partner-to-train-2000-northeast-entrepreneurs",
       "key_points": [
-        "Wadhwani AI cùng LinkedIn hợp tác đào tạo AI (trí tuệ nhân tạo) cho 2.000 chủ doanh nghiệp nhỏ và siêu nhỏ ở Đông Bắc Ấn Độ.",
-        "Người đứng đầu Wadhwani AI Shekar Sivasubramanian cho biết chương trình nhằm thu hẹp khoảng cách số bằng năng lực AI thực tiễn cho doanh nghiệp. Ông nhận định AI chỉ có tiềm năng thúc đẩy tăng trưởng ý nghĩa khi mang tính thực tế, dễ tiếp cận và bắt nguồn từ nhu cầu kinh tế thực.",
-        "Khóa học hướng dẫn dùng AI tạo sinh lập danh mục sản phẩm và nghiên cứu đối thủ cho các ngành dệt thủ công, thủ công mỹ nghệ, tre và chế biến thực phẩm.",
-        "Giám đốc LinkedIn tại Ấn Độ Kumaresh Pattabiraman đánh giá hợp tác sẽ giúp các doanh nhân tiếp cận khách hàng mới, vận hành hiệu quả hơn và phát triển vượt khỏi thị trường địa phương."
+        "Tổ chức Wadhwani AI cùng LinkedIn hợp tác đào tạo AI (trí tuệ nhân tạo) cho 2.000 chủ doanh nghiệp nhỏ và siêu nhỏ ở Đông Bắc Ấn Độ. Chương trình giúp người tham gia nâng cao kỹ năng số và ứng dụng công cụ AI vào các hoạt động hàng ngày như tiếp thị hay quản lý hàng tồn kho.",
+        "Người đứng đầu Wadhwani AI Shekar Sivasubramanian cho biết sự hợp tác này nhằm thu hẹp khoảng cách số bằng cách trang bị năng lực AI thực tế cho doanh nghiệp. Ông nhận định AI có tiềm năng thúc đẩy tăng trưởng ý nghĩa cho doanh nghiệp nhỏ khi mang tính thực tiễn, dễ tiếp cận và bắt nguồn từ nhu cầu kinh tế thực.",
+        "Sáng kiến 12 tháng tại năm bang Đông Bắc Ấn Độ mang tên AI for Future SMEs bao gồm Assam, Arunachal Pradesh, Nagaland, Meghalaya và Manipur. Để tiếp cận các doanh nhân ở khu vực hạn chế kết nối, sáng kiến áp dụng mô hình học trên di động, công cụ AI nguồn mở và tài liệu ngoại tuyến.",
+        "Giám đốc LinkedIn tại Ấn Độ Kumaresh Pattabiraman đánh giá hợp tác này sẽ giúp các doanh nhân tiếp cận khách hàng mới, vận hành hiệu quả hơn và phát triển vượt khỏi thị trường địa phương."
       ],
       "same_event_coverage_ids": [
         "2d5951bd3ff99ae5212b"
@@ -106024,7 +106024,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Wadhwani AI và LinkedIn hợp tác đào tạo AI cho 2.000 doanh nghiệp nhỏ và siêu nhỏ ở Đông Bắc Ấn Độ",
+      "editorial_headline_vi": "Wadhwani AI và LinkedIn hợp tác đào tạo AI cho 2.000 chủ doanh nghiệp nhỏ và siêu nhỏ ở Đông Bắc Ấn Độ",
       "summary_sources": [
         {
           "id": "outlet",
@@ -106037,39 +106037,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.7,
+        "value": 10.0,
         "answers": {
-          "what": 8,
+          "what": 10,
           "why": 10,
-          "notable": 8,
+          "notable": 10,
           "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "number",
-            "summary_text": "2.000 doanh nghiệp nhỏ và siêu nhỏ",
-            "explanation": "The headline counts businesses as the trainees. The source says the partners will train 2,000 small and micro entrepreneurs (outlet:p001); the Vietnamese body states this correctly."
-          }
-        ],
-        "findings": [
-          {
-            "question": "what",
-            "problem": "The headline changes the unit being trained from entrepreneurs to businesses.",
-            "fix": "Change the headline to say 2,000 small and micro entrepreneurs or business owners (outlet:p001)."
-          },
-          {
-            "question": "notable",
-            "problem": "Readers miss the programme’s duration, five-state scope, and method for reaching areas with limited connectivity.",
-            "fix": "Add that the 12-month initiative covers Assam, Arunachal Pradesh, Nagaland, Meghalaya, and Manipur, using mobile-first learning and offline-friendly materials (outlet:p002, outlet:p009)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "6608df526477cf5bf8335f279f91dc84a9ef44fac7468a31bab1467b2943c8e6",
-        "scored_at": "2026-11-19T17:44:49.252203+00:00"
+        "prose_sha256": "d254497440d69a290532da0c4b38354b46607045f3047895063f681780675f04",
+        "scored_at": "2026-11-19T19:53:06.987537+00:00"
       }
     },
     {
@@ -106660,10 +106643,10 @@
       "use_original_title": true,
       "source_url": "https://thedataexchange.media/pete-warden-moonshine/",
       "key_points": [
-        "Trí tuệ nhân tạo ngày càng có xu hướng chạy cục bộ trên thiết bị thay vì trên đám mây theo kỹ sư Pete Warden trong cuộc trao đổi với Ben Lorica. Pete Warden, đồng sáng lập Moonshine Voice, thảo luận về tiềm năng vận hành mô hình nguồn mở trực tiếp trên máy tính xách tay và trình duyệt.",
-        "Chi phí chạy mô hình qua đám mây tăng cao trong khi tự chạy cục bộ có thể tốn ít hơn nhiều. Người dùng đang phải trả mức giá tiệm cận chi phí vận hành thực tế cho các mô hình từ Anthropic hay OpenAI.",
-        "Nhiều máy tính xách tay tầm trung hiện nay có thể chạy được mô hình 9 tỷ tham số nhờ lượng tử hóa (phương pháp nén trọng số giảm dung lượng bộ nhớ). Pete Warden đánh giá cao dòng mô hình Qwen, trong đó bản 1,7 tỷ tham số phiên âm tiếng Quan Thoại tốt hơn đáng kể so với Whisper.",
-        "Việc tự vận hành mô hình trên hạ tầng riêng hoặc máy tính người dùng là cần thiết để duy trì tính ổn định. Dù vậy, người dùng vẫn có thể ưu tiên các mô hình trực tuyến thương mại ở một số khía cạnh vì chất lượng mô hình dù khoảng cách này không hoàn toàn rõ ràng."
+        "Trí tuệ nhân tạo ngày càng có xu hướng chạy cục bộ thay vì trên đám mây, theo cuộc trao đổi giữa người dẫn chương trình Ben Lorica và kỹ sư Pete Warden. Pete Warden, đồng sáng tạo Moonshine Voice, nhấn mạnh sự tiến bộ của các mô hình trọng số mở (open-weight models) khi chạy trên máy tính xách tay và trình duyệt.",
+        "Tự vận hành để duy trì tính ổn định là điều cần thiết theo Pete Warden, ít nhất trên hạ tầng đám mây riêng nếu không phải cục bộ trên máy tính xách tay của người dùng.",
+        "Nhiều máy tính xách tay tầm trung hiện nay có thể chạy được mô hình 9 tỷ tham số nhờ lượng tử hóa trọng số (weight quantization) xuống khoảng 9 gigabyte.",
+        "Người dùng vẫn có thể ưu tiên các mô hình thương mại trực tuyến ở một số khía cạnh vì chất lượng, dù Pete Warden nhận định khoảng cách này không hoàn toàn rõ ràng."
       ],
       "same_event_coverage_ids": [
         "3457502ea003ac8c4ad9",
@@ -106680,7 +106663,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Pete Warden nhận định AI chạy cục bộ trên máy tính xách tay giúp tiết kiệm chi phí và tăng tính ổn định",
+      "editorial_headline_vi": "Pete Warden nhận định máy tính xách tay tầm trung có thể chạy mô hình AI 9 tỷ tham số nhờ lượng tử hóa",
       "summary_sources": [
         {
           "id": "outlet",
@@ -106695,45 +106678,24 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 7.85,
+        "value": 8.55,
         "answers": {
-          "what": 8,
-          "why": 5,
-          "notable": 9,
+          "what": 10,
+          "why": 8,
+          "notable": 7,
           "meaning": 9
         },
-        "hard_errors": [
-          {
-            "kind": "role",
-            "summary_text": "đồng sáng lập Moonshine Voice",
-            "explanation": "The source calls Pete Warden a co-creator of Moonshine Voice, not a co-founder (outlet:p004)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "mô hình nguồn mở",
-            "explanation": "The source describes open-weight models; it does not say they are open-source models (outlet:p004)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "Chi phí chạy mô hình qua đám mây tăng cao",
-            "explanation": "The source says users are paying closer to the real cost of hosted models and that local or on-premises hosting can cost less. It does not establish that cloud costs are rising (outlet:p075)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
+            "question": "notable",
+            "problem": "Readers do not learn the condition behind the 9 GB laptop example.",
+            "fix": "Specify that roughly 9 GB refers to eight-bit weights and that the model must fit in the graphics card’s memory (outlet:p051)."
+          },
+          {
             "question": "why",
-            "problem": "The reader is told cloud model costs are rising, a trend the source does not establish.",
-            "fix": "Say users are paying closer to the real cost of hosted models, while local or on-premises hosting can cost much less (outlet:p075)."
-          },
-          {
-            "question": "what",
-            "problem": "The reader is told Warden co-founded Moonshine Voice.",
-            "fix": "Identify him as its co-creator (outlet:p004)."
-          },
-          {
-            "question": "what",
-            "problem": "Open-weight models are described as open-source models.",
-            "fix": "Use the narrower term “open-weight models” (outlet:p004)."
+            "problem": "Readers get Warden’s stability rationale but miss his explanation for why major companies favor cloud services.",
+            "fix": "If explaining the cloud-versus-local market, add his point about subscription revenue and attribute it to him (outlet:p038)."
           }
         ],
         "writer_boats": [
@@ -106741,8 +106703,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "cd0c1ebe87f347d831b240ff591a6357fe138a5700955e200b9b6da4943025fa",
-        "scored_at": "2026-11-19T17:24:29.762026+00:00"
+        "prose_sha256": "8788e1eaa83dd841b288533aac90303fa82f765618038031bb8656cb6aa80172",
+        "scored_at": "2026-11-19T19:53:06.987488+00:00"
       }
     },
     {
@@ -107118,6 +107080,1276 @@
         "scorer_provider": "codex",
         "prose_sha256": "0987cf98eb0ae18056548e9ca0a0ae82a4769b03cc5b528d8a7f049f52c4b951",
         "scored_at": "2026-11-19T17:24:29.762101+00:00"
+      }
+    },
+    {
+      "id": "5e0b61c055fc4741f180",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Promotional customer case study detailing how Cisco engineers competed in the AWS AI League tournament to learn agentic AI.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/from-learning-to-leaderboard-how-cisco-upskilled-1200-engineers-in-agentic-ai-with-aws-ai-league/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "eede4fbaf2e0b102c3d2"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "89678770a6408dc3968f",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/keep-inference-running-through-regional-capacity-shortfalls-with-cross-region-inference-routing-in-amazon-sagemaker-ai/",
+      "key_points": [
+        "Amazon ra mắt tính năng định tuyến suy luận liên vùng cho SageMaker AI, cung cấp một đường dẫn gọi duy nhất qua các điểm cuối trên nhiều vùng AWS. Ứng dụng chỉ cần gửi yêu cầu tới bộ định tuyến thay vì gọi trực tiếp từng điểm cuối riêng biệt.",
+        "Bộ định tuyến ưu tiên xử lý tại vùng cục bộ và chuyển yêu cầu mới sang vùng khác khi hệ thống địa phương quá tải hoặc suy giảm. Lưu lượng bắt đầu chuyển dịch sau khoảng một phút phát sinh lỗi kéo dài và dần hoàn trả sau khi điểm đến phục hồi.",
+        "Trong ví dụ kỹ thuật, Amazon thử nghiệm triển khai mô hình Qwen3-4B với bộ chứa vLLM tại hai vùng US East và US West. Ứng dụng chỉ gửi các yêu cầu không truyền phát trực tiếp và mỗi lượt gọi phải hoàn thành trong khoảng một phút.",
+        "Theo Amazon, giải pháp này thay thế việc người dùng tự viết mã điều phối, dù dịch vụ không tự tạo thêm tài nguyên hay sao chép mô hình. Người dùng cũng không thể tự đặt trọng số điều phối và hệ thống chưa hỗ trợ truyền phản hồi liên tục."
+      ],
+      "same_event_coverage_ids": [
+        "edb4515d4f65cf1e6da5"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Amazon SageMaker AI",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Amazon ra mắt tính năng định tuyến suy luận liên vùng trên SageMaker AI khi xảy ra thiếu hụt dung lượng GPU",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "amazon",
+          "url": "https://aws.amazon.com/blogs/machine-learning/keep-inference-running-through-regional-capacity-shortfalls-with-cross-region-inference-routing-in-amazon-sagemaker-ai/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.5,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "2cc88194d4679c1b62766c1488cdf8eff6b993f75fb95425ad6df6f7a0c70c8f",
+        "scored_at": "2026-11-19T19:36:21.838061+00:00"
+      }
+    },
+    {
+      "id": "f53bfc4b5fc37739ae17",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://fedscoop.com/claude-chatgpt-gemini-grok-produced-viable-terror-plans-test-gao/",
+      "key_points": [
+        "Bốn mô hình AI gồm Claude, ChatGPT, Grok và Gemini đã cung cấp thông tin phần lớn khả thi để chế tạo chất nổ và phá hoại lưới điện trong thử nghiệm bí mật của Văn phòng Trách nhiệm Chính phủ Mỹ (GAO) vào mùa xuân 2026. Báo cáo cho biết thông tin này hoàn chỉnh kèm hình ảnh và lời khuyên.",
+        "Theo Kevin Walsh của GAO, cơ quan này tập trung thử nghiệm hai kịch bản gồm chế tạo bom và gây thiệt hại kinh tế.",
+        "Hai mô hình đã gợi ý đặt thiết bị nổ tự chế trong xe và hai mô hình gợi ý dùng drone tấn công lưới điện thành phố trong chưa đầy 12 giờ. Các chuyên gia xác nhận với GAO rằng chất nổ được gợi ý sẽ kích nổ và vụ tấn công lưới điện sẽ gây tác động.",
+        "Kevin Walsh thuộc GAO nhận định kết quả cung cấp bằng chứng cho thấy các sản phẩm AI không hoàn toàn nằm dưới sự kiểm soát của công ty vận hành. Cả bốn công ty đều tuyên bố sản phẩm đã được cải thiện kể từ thời điểm GAO thử nghiệm."
+      ],
+      "same_event_coverage_ids": [
+        "05e8afef84731fd39566"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Government Accountability Office",
+      "video_labels": {
+        "video_hook": "drama_company",
+        "named_people": [
+          "Kevin Walsh"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Bốn mô hình AI đưa ra thông tin phần lớn khả thi để tấn công khủng bố trong thử nghiệm của GAO",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "fedscoop",
+          "url": "https://fedscoop.com/claude-chatgpt-gemini-grok-produced-viable-terror-plans-test-gao/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.1,
+        "answers": {
+          "what": 10,
+          "why": 5,
+          "notable": 8,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "Readers do not learn why GAO undertook the study.",
+            "fix": "Add that Senator Hassan requested an examination of malicious uses that could worsen national security threats and economic harm (outlet:p012)."
+          },
+          {
+            "question": "notable",
+            "problem": "Readers miss that GAO bypassed safeguards on every tested model.",
+            "fix": "State that all four platforms showed some resistance, but GAO got past each model’s guardrails (outlet:p024)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The summary understates GAO’s conclusion about the possible consequences.",
+            "fix": "Include GAO’s conditional conclusion that carrying out the generated plans could have caused grave harm (outlet:p008)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "bc9a7113102e2307ff831f9175df7ba5da8e41a85621113c376045c89e1f6329",
+        "scored_at": "2026-11-19T19:44:36.295359+00:00"
+      }
+    },
+    {
+      "id": "f770aea7096a9d1664bb",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Technical how-to tutorial demonstrating how to integrate Skyflow as an interceptor with Amazon Bedrock AgentCore Gateway.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/protect-agent-tool-calls-with-skyflow-and-amazon-bedrock-agentcore-gateway/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "ff48de4e1b3ab2cc718a"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "62649bf472ca2edcd431",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/19/google-gives-gemini-the-ability-to-use-your-mac-for-you/",
+      "key_points": [
+        "Google vừa công bố đưa tính năng điều khiển máy tính (computer use) lên ứng dụng Gemini trên hệ điều hành macOS, cho phép trí tuệ nhân tạo (AI) thay người dùng điều hướng các ứng dụng Mac và duyệt web trong nền. Tính năng này hỗ trợ hoàn thành các tác vụ nhiều bước trên tệp cục bộ, ứng dụng và web.",
+        "Sau khi nhận lệnh, tác nhân AI hiển thị quá trình thao tác trực tiếp trong khung trò chuyện, trong khi màn hình và con trỏ của người dùng vẫn tự do. Người dùng có thể tạm dừng, dừng hẳn hoặc phê duyệt các hành động của Gemini trước khi diễn ra.",
+        "Google gợi ý tính năng phù hợp cho các việc tẻ nhạt như điền biểu mẫu, xử lý hàng loạt tệp, sắp xếp thư mục hay tạo bản trình chiếu. Trong tuần, công ty cũng mở rộng tính năng Tasks giúp AI hỗ trợ đăng nhập web, mua sắm hoặc đặt lịch hẹn.",
+        "TechCrunch nhận định Google bước vào cuộc đua này khá muộn khi các đối thủ như OpenAI, Anthropic và Meta đã cung cấp tính năng tương tự từ trước. Tính năng hiện chỉ hỗ trợ tiếng Anh tại Mỹ cho thuê bao Google AI Plus, Pro, Ultra và chưa có lịch mở rộng."
+      ],
+      "same_event_coverage_ids": [
+        "9c44538cb1e6f4a8281c",
+        "ce2e53a8bc4cc1509a54"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Google",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Google trang bị tính năng điều khiển máy tính cho ứng dụng Gemini trên hệ điều hành macOS",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/19/google-gives-gemini-the-ability-to-use-your-mac-for-you/"
+        },
+        {
+          "id": "coverage1",
+          "role": "coverage",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/tech/1037902/google-gemini-macos-ai-computer-use"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "f48ba7d834f939774e16fefab7e3b03f37893384f78d01eea13c8d3ca7e1087b",
+        "scored_at": "2026-11-19T19:36:21.838150+00:00"
+      }
+    },
+    {
+      "id": "be757a4a5d51a305acfc",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-19/anthropic-begins-trading-on-nasdaq-at-111-50-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b7c9f28ffcae57875927"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "056cf0b58a3dbace6833",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://blog.google/innovation-and-ai/technology/developers-tools/gemini-api-tool-retrieval/",
+      "key_points": [
+        "Google thử nghiệm tính năng Tool Retrieval trong Gemini Interactions API để nạp lược đồ tham số công cụ theo yêu cầu thay vì gửi toàn bộ thư viện. Tính năng này hỗ trợ các mô hình từ Gemini 3.6 trở lên, gồm cả dòng Gemini 4.",
+        "Theo Google, việc này giúp các tác tử (chương trình AI tự hành) quản lý thư viện lớn hiệu quả hơn. Hãng cho biết việc gửi mọi lược đồ sẽ làm tăng lượng token, tăng độ trễ và giảm độ chính xác khi chọn công cụ.",
+        "Lập trình viên kích hoạt bằng cách thêm công cụ tool_search và gán defer_loading là true cho các công cụ cần hoãn nạp. Mô hình vẫn nhận diện được tên cùng mô tả, rồi API sẽ nạp toàn bộ lược đồ khi cần gọi hàm ngay trong cùng yêu cầu.",
+        "Google cho biết người dùng tiết kiệm token khi lượng token từ các lược đồ không nạp vượt trội lượng phải nạp, dù tool_search phát sinh một lượng token đầu vào cố định nhỏ. Hãng khuyến nghị lập trình viên tự đo lường hiệu quả dựa trên lưu lượng thực tế."
+      ],
+      "same_event_coverage_ids": [
+        "714eb66d26f6f7d29747"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Google",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Lucia Loher",
+          "Nora Kassner"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Google thử nghiệm Tool Retrieval trên Gemini API giúp nạp lược đồ công cụ theo yêu cầu",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "google",
+          "url": "https://blog.google/innovation-and-ai/technology/developers-tools/gemini-api-tool-retrieval/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "dcb689f292d3b89866289378f6d391850c9f2c399c041fde7a3593e3316dc80b",
+        "scored_at": "2026-11-19T19:44:36.295403+00:00"
+      }
+    },
+    {
+      "id": "f40331316497e3e55fd5",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "podcast",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-19/apple-has-a-software-problem-nvidia-s-ceo-crisis-with-joanna-stern",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "65a2c01a70f409cc1133"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "8da6e4276e93cc11adac",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-19/anthropic-investor-sees-opportunity-beyond-ipo-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b8562aa773ec3d45ce7e"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "47396adf5e31273b1343",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/19/metas-ai-agent-muse-is-mixing-up-conversations-and-exposing-private-data-report-says/",
+      "key_points": [
+        "Theo báo cáo của Reuters từ bài đăng nội bộ, nhân viên Meta lo ngại tác tử AI Muse làm lẫn lộn cuộc trò chuyện và làm lộ dữ liệu người dùng. Trong một số trường hợp, Muse tự hiển thị yêu cầu chăm sóc trẻ, đơn hàng hay số dư ngân hàng không thuộc về người nhận.",
+        "Muse tự gửi tin nhắn chứa số dư ngân hàng của người khác vào đoạn chat thời tiết, khi một nhân viên Meta cho biết ứng dụng thông báo số dư $2722.58 tại Capital One và $5899.57 tại Charles Schwab. Ở một trường hợp khác, một nhân viên dùng ứng dụng trên điện thoại cá nhân nhận được lời nhắc từ Muse về tin nhắn của chị gái trên Signal.",
+        "Theo TechCrunch, sự cố xảy ra khi Muse đã vượt 10 triệu lượt tải kể từ khi phát hành vào tháng 9. Meta hiện chưa đưa ra bình luận trước câu hỏi từ TechCrunch về các phản ánh này."
+      ],
+      "same_event_coverage_ids": [
+        "6113ef2b12c0e09db12e"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Meta",
+      "video_labels": {
+        "video_hook": "drama_company",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": true
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Reuters: Trợ lý AI Muse của Meta bị tố làm lộ số dư tài khoản ngân hàng và dữ liệu cá nhân",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/19/metas-ai-agent-muse-is-mixing-up-conversations-and-exposing-private-data-report-says/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "chị gái",
+            "explanation": "The source says only that the message was from the employee’s sister; it does not establish that she was older (outlet:p010)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "Meta hiện chưa đưa ra bình luận",
+            "explanation": "The source says Meta did not immediately respond to TechCrunch’s request, not that it had still made no comment at a later point (outlet:p013)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The reader may take Meta’s silence as an ongoing confirmed status.",
+            "fix": "Say Meta did not immediately respond to TechCrunch’s request for comment (outlet:p013)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "f31fbb83b4fd7e00951b6373c90d234a62bfbc89de324e591887452598e623aa",
+        "scored_at": "2026-11-19T19:36:21.838203+00:00"
+      }
+    },
+    {
+      "id": "b96038b33ff374c3911e",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/polyai-dialog-rsn-1-is-now-on-amazon-sagemaker-jumpstart/",
+      "key_points": [
+        "Mô hình suy luận đàm thoại Dialog-RSN-1 của PolyAI chính thức có mặt trên AWS Marketplace và Amazon SageMaker JumpStart. Khách hàng có thể triển khai mô hình thành điểm cuối suy luận thời gian thực (real-time inference endpoint) ngay trong tài khoản AWS của mình.",
+        "Mô hình tiếp nhận trực tiếp âm thanh của người gọi, tự suy luận nội dung và đưa ra phản hồi theo thời gian thực qua một lượt xử lý duy nhất. Hệ thống không tách rời bước chuyển giọng nói thành văn bản và không sử dụng mô hình xác định thời điểm nói độc lập.",
+        "Người dùng có thể khởi chạy điểm cuối suy luận chỉ với một cú nhấp chuột trên bảng điều khiển SageMaker JumpStart mà không cần thiết lập hạ tầng thủ công. Hệ thống hiện giới hạn mỗi phiên kết nối tối đa 30 phút, chỉ hỗ trợ tiếng Anh và yêu cầu âm thanh đầu vào PCM mono 16-bit ở tần số 16 hoặc 24 kHz.",
+        "Theo Amazon, điểm cuối chạy hoàn toàn trong ranh giới tài khoản AWS và đám mây riêng ảo (VPC) do khách hàng tự kiểm soát. Môi trường bảo mật này giúp hỗ trợ các yêu cầu về nơi lưu giữ dữ liệu (data residency) và khả năng kiểm toán đối với những cuộc gọi trực tiếp."
+      ],
+      "same_event_coverage_ids": [
+        "78080c3567912003e42a"
+      ],
+      "split_coverage_ids": [],
+      "subject": "PolyAI",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "PolyAI đưa mô hình đàm thoại Dialog-RSN-1 lên SageMaker JumpStart, hỗ trợ triển khai bằng một cú nhấp chuột",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "amazon",
+          "url": "https://aws.amazon.com/blogs/machine-learning/polyai-dialog-rsn-1-is-now-on-amazon-sagemaker-jumpstart/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.65,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "73f80f5a9cc6617596d5e2e3c336f24efa30c4dab15a98b5354417fcf2a7d0a7",
+        "scored_at": "2026-11-19T19:44:36.295432+00:00"
+      }
+    },
+    {
+      "id": "fa5917e879d29a8bbf4f",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.reuters.com/business/finance/anthropics-historic-debut-put-ais-promise-peril-wall-st-test-2026-11-19/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "42128d05b4588442a4f5"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Anthropic",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "3d7d4dd1293fddfaa250",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-19/anthropic-ipo-provides-cash-to-continue-r-d-spending-cfo-says",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "aa1864b7af5c618d5074"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "5b0174d9f68ad4f0159f",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-19/google-workers-urge-bosses-to-let-schools-have-search-without-ai",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c052e6b88eb429bcb356"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "a9933de7f7b7b312069a",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.wired.com/story/google-built-a-giant-mirror-dimension-internet-to-test-its-chrome-ai-agents/",
+      "key_points": [
+        "Theo Wired, Google Chrome đã tạo ra Mirror Dimension, một mạng internet mô phỏng rộng lớn và cô lập để thử nghiệm tác tử (agent - hệ thống AI tự hành) duyệt web. Hệ sinh thái này giúp kỹ sư kiểm soát toàn bộ hoạt động của mô hình Gemini nhằm ngăn chặn sự cố.",
+        "Theo Wired, thử nghiệm trong môi trường hạn chế kém hiệu quả và dễ khiến mô hình phát sinh nhận thức đánh giá (eval awareness - đổi hành vi khi biết bị thử nghiệm). Ngược lại, việc thả tác tử chưa hoàn thiện lên mạng mở rất rủi ro, buộc Google phải tạo ra môi trường mô phỏng thay thế.",
+        "Mirror Dimension giả lập từ mạng xã hội đến bảng điều khiển ngân hàng, đồng thời thử thách tác tử bằng các đòn chèn lệnh ẩn (prompt injection). Nhóm nghiên cứu đã tạo chứng chỉ web giả mạo để tác tử dùng Chrome thật, nhưng khẳng định can thiệp này không ảnh hưởng đến người dùng thông thường.",
+        "Theo nhóm nghiên cứu, các tác tử đang thử nghiệm đều lành tính, không có năng lực tấn công mạng và mục tiêu của họ là mở rộng môi trường này cho nội bộ Google. Giám đốc kỹ thuật Doug Turner nhận định đây là bước đi đầu tiên, đồng thời Google chia sẻ phương pháp này cho các bên ngoài tham khảo."
+      ],
+      "same_event_coverage_ids": [
+        "c4ec37351e0979382ece"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Google",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Google tạo internet mô phỏng Mirror Dimension để thử nghiệm an toàn cho các tác tử Chrome AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "wired",
+          "url": "https://www.wired.com/story/google-built-a-giant-mirror-dimension-internet-to-test-its-chrome-ai-agents/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.3,
+        "answers": {
+          "what": 8,
+          "why": 8,
+          "notable": 8,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "kiểm soát toàn bộ hoạt động của mô hình Gemini",
+            "explanation": "The Chrome team controls the isolated web environment; the source does not say it controls all activity of the Gemini models (outlet:p001, outlet:p003)."
+          },
+          {
+            "kind": "quote",
+            "summary_text": "khẳng định can thiệp này không ảnh hưởng đến người dùng thông thường",
+            "explanation": "The team specifically says the browser and certificate attacks used in its controlled environment would not be possible against regular Chrome users on the open internet. It does not make the broader claim that the intervention has no effect on ordinary users (outlet:p006)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "Readers may believe Google has complete control over Gemini-model activity.",
+            "fix": "Say the Chrome team controls the isolated web ecosystem in which the agents are tested (outlet:p003)."
+          },
+          {
+            "question": "notable",
+            "problem": "The assurance about ordinary users is broader than the source’s claim.",
+            "fix": "Specify that the team says those browser and certificate attacks would not be possible against regular Chrome users on the open internet (outlet:p006)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "bced61a57d23353a77a5e8a26825c2393ae71df8232dd9d77df5422b48f1ad84",
+        "scored_at": "2026-11-19T19:44:36.295460+00:00"
+      }
+    },
+    {
+      "id": "a165ab416a9d4037a704",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "NVIDIA developer blog presenting a customer case study of Lawrence Berkeley National Laboratory using DAQIRI and ConnectX-7 NICs rather than general news reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://developer.nvidia.com/blog/enabling-real-time-ai-for-scientific-instruments-with-gpu-native-data-acquisition/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "aa7086d585c60e8f2fd8"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "63610b904de29506452a",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://blog.google/innovation-and-ai/technology/ai/dialogues-walter-isaacson/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "81ae67f96a97b1e4219c"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Google",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Walter Isaacson",
+          "Kent Walker"
+        ],
+        "availability": "global",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "3e35d01c88b452b0a7bb",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Personal tech blog walkthrough providing step-by-step instructions on how to disable Chrome AI settings to reduce bandwidth usage.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://perishablepress.com/chrome-ai-wasting-much-bandwidth/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "3642ecc26379eb0d302d",
+        "371bae95ebe6336ab049"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "294f494c3d9f12c91107",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/ai-artificial-intelligence/1035384/anthropic-ipo-trading-nasdaq",
+      "key_points": [
+        "Anthropic officially went public and began trading on the Nasdaq under ticker symbol ANT at $111.50 per share.",
+        "Anthropic reported an $80.7 billion first-half net loss largely driven by an accounting charge, alongside $16.3 billion in revenue."
+      ],
+      "same_event_coverage_ids": [
+        "b611bee17f25a5512110",
+        "f28e386bf1c6d1760452"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Anthropic",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Dario Amodei"
+        ],
+        "availability": "global",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "eeab092161f803619ed4",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://news.ycombinator.com/item?id=50562528",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "6c61f5eef9310f6c7adb",
+        "7526345a2d10854c62e5"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Anthropic",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "829888e1e6863e5218fe",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Show HN pitch and landing page promoting AgentMall's checkout automation service without independent news reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://getagentmall.com",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "785240439cbad46c54c6"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "7cf1ad04899839943b08",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-19/zino-anthropic-is-most-important-ipo-that-i-ve-seen-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "08d0005831e8e03e4126"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "3bbbc997d7cf7f1475c0",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.scmp.com/tech/big-tech/article/3375076/too-high-id-still-buy-anthropic-ipo-entices-chinese-investors-despite-barriers",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "dbbaee8d16bc50acc4ff"
+      ],
+      "split_coverage_ids": [
+        "52f584aabc6e6829893a"
+      ],
+      "subject": "Anthropic",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Cecilia Yang"
+        ],
+        "availability": "global",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "6303c3b32fdc875166bf",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected title; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected title",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.wired.com/story/anthropics-record-breaking-ipo-highlights-the-ai-giants-worst-enemy-itself/",
+      "key_points": [
+        "Theo tạp chí Wired, Anthropic đã khép lại đợt chào bán cổ phiếu lần đầu ra công chúng (IPO) lớn nhất lịch sử và hiện nắm giữ khoảng 200 tỷ USD trong ngân hàng. Đợt phát hành này huy động khoảng 81 tỷ USD và đạt hơn 107 tỷ USD khi tính cả các đợt bán cổ phiếu riêng lẻ.",
+        "Do quy định hạch toán thù lao nhân viên bằng cổ phiếu, công ty ghi nhận khoản lỗ hơn 104 tỷ USD tính đến tháng 9 dù doanh số quý gần nhất đạt 17 tỷ USD.",
+        "Về an toàn, Tổng giám đốc Dario Amodei thừa nhận việc xây dựng rào chắn an toàn chính là yếu tố hạn chế tiến độ triển khai các mô hình AI của công ty. Ông Amodei cũng cho biết công ty từng hoãn ra mắt một mô hình mới hồi đầu năm nay để bảo vệ cộng đồng, dù điều đó làm ảnh hưởng đến doanh số.",
+        "Tạp chí Wired nhận định một màn ra mắt thành công sẽ cho thấy nhà đầu tư đặt niềm tin vào ban lãnh đạo để xây dựng công ty lớn nhất thế giới, nếu ông Amodei tìm đủ nhân viên và trung tâm dữ liệu. Tuy vậy, sự phản đối của cử tri cùng những khó khăn khi xin cấp phép xây dựng trung tâm dữ liệu tại Mỹ có nguy cơ làm chậm tiến độ huấn luyện các mô hình AI mạnh hơn."
+      ],
+      "same_event_coverage_ids": [
+        "dad2740584741793d912"
+      ],
+      "split_coverage_ids": [
+        "3ad99c20ced17fbb58f0",
+        "3d2b88b67ce040a7d343",
+        "456d122eb107b0e1e014",
+        "8d82bfc4c802d6513f55",
+        "963fba24309ad82539aa"
+      ],
+      "subject": "Anthropic",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Elaine Matheny"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Anthropic huy động khoảng 81 tỷ USD qua IPO, vượt 107 tỷ USD khi gồm bán riêng lẻ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "wired",
+          "url": "https://www.wired.com/story/anthropics-record-breaking-ipo-highlights-the-ai-giants-worst-enemy-itself/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.65,
+        "answers": {
+          "what": 9,
+          "why": 8,
+          "notable": 8,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "dù điều đó làm ảnh hưởng đến doanh số",
+            "explanation": "The source says holding back the model jeopardized sales; it does not say sales were actually affected (outlet:p006)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The reader misses the scale of Anthropic’s future spending obligations.",
+            "fix": "Add that it has committed to paying vendors more than $900 billion over 19 years, mostly for data centers (outlet:p001)."
+          },
+          {
+            "question": "why",
+            "problem": "The reader gets little explanation for investor interest despite the losses.",
+            "fix": "Connect that interest to soaring revenue and declining operating losses, as the source does (outlet:p009–p010)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The wording presents a risk to sales as an actual effect.",
+            "fix": "Say holding back the model put sales at risk, rather than saying it affected sales (outlet:p006)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "12510c131b79c50776534bd5ad5be5322cab13eb1392b4e873e7cb7be91efc02",
+        "scored_at": "2026-11-19T19:44:36.295485+00:00"
+      }
+    },
+    {
+      "id": "9342dbf934e428aa00c1",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://openai.com/index/how-openai-performance-factory-keeps-chatgpt-fast",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "a0b43b951e36e05e98cd"
+      ],
+      "split_coverage_ids": [],
+      "subject": "OpenAI",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "56f5de5b11aedbd46f31",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/18/2026/anthropic-prices-ipo-above-target-range",
+      "key_points": [
+        "Theo chuyên trang Semafor, Anthropic đã định giá đợt phát hành cổ phiếu lần đầu ra công chúng (IPO) ở mức 83 USD một cổ phiếu, vượt khung giá ban đầu mà công ty khởi nghiệp này đưa ra. Màn ra mắt rất được mong đợi này đóng vai trò là phép thử đối với nhu cầu đầu tư vào lĩnh vực AI.",
+        "Semafor nhận định mức giá này chứng minh sự hào hứng của giới đầu tư dành cho phòng nghiên cứu AI tiên phong (frontier lab) đầu tiên IPO vẫn đứng vững trước những biến động của nhóm cổ phiếu công nghệ.",
+        "Đợt chào bán có thể thu hút khoảng 250 triệu USD mua ròng từ các nhà đầu tư cá nhân.",
+        "Theo Semafor, kết quả này cho thấy các nhà đầu tư nhìn nhận Anthropic là một công ty chuyên về AI thuần túy, giữa lúc sự quan tâm dành cho hạ tầng và phần cứng AI đang hạ nhiệt."
+      ],
+      "same_event_coverage_ids": [
+        "f4cd7ee710899c9c9834"
+      ],
+      "split_coverage_ids": [
+        "07d9fc8b230669dc5c4c",
+        "bc8cc87226e6c8d985fb",
+        "f39660ea4a57bee8424a"
+      ],
+      "subject": "Anthropic",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Jensen Huang"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Anthropic định giá đợt phát hành cổ phiếu ở mức 83 USD, vượt khoảng giá mục tiêu ban đầu",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/18/2026/anthropic-prices-ipo-above-target-range"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.0,
+        "answers": {
+          "what": 10,
+          "why": 8,
+          "notable": 8,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The reader is not told which events the source links to the tech-stock turmoil.",
+            "fix": "Name the Democratic midterm sweep and Jensen Huang’s ouster as Nvidia CEO (outlet:p002)."
+          },
+          {
+            "question": "notable",
+            "problem": "The $250 million retail-buying estimate lacks the comparison that shows its scale.",
+            "fix": "Add that it could be roughly twice SpaceX’s $118 million retail-buying record (outlet:p003)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "1f75794070a23959a9a2db05f8a8458bf9e90d5023cb92af73f48012cc7d3f32",
+        "scored_at": "2026-11-19T19:44:36.295506+00:00"
+      }
+    },
+    {
+      "id": "fd9bebbff7e692862dad",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "top",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://deepmind.google/blog/introducing-gemini-4-neon/",
+      "key_points": [
+        "Google giới thiệu mô hình trí tuệ nhân tạo Gemini 4 Neon xử lý các tác vụ kỹ thuật phần mềm và nghiên cứu khoa học. Mô hình được cung cấp qua Gemini API trong Google AI Studio và các gói trả phí Pro cùng Ultra.",
+        "Mô hình duy trì hiệu năng trong các tác vụ dài của tác nhân agent (chương trình tự hành), vận hành độc lập hoặc điều phối tác nhân phụ. Hệ thống xử lý ngữ cảnh 1 triệu token (đơn vị từ tố văn bản), giảm đọc tệp trùng lặp và nén ngữ cảnh dài.",
+        "Google định giá 3 USD cho mỗi triệu token đầu vào và 15 USD cho mỗi triệu token đầu ra, giảm 95% với token lưu đệm. Trên bảng benchmark (bộ kiểm tra tiêu chuẩn) Coding Agent Index, mô hình đạt 58,6 điểm và đạt 46,2% ở thiết lập mức cao mặc định trên FrontierCode 2.0.",
+        "Simon Willison nhận xét mô hình làm biểu phí dòng Gemini 4 thêm khó hiểu so với các bản cùng dòng trước đó. Google công bố Neon đạt 61 điểm trên chỉ số Artificial Analysis Intelligence Index ở mức tư duy cực cao, xếp sau các mô hình lớn hơn nhưng chậm hơn."
+      ],
+      "same_event_coverage_ids": [
+        "2568315b96b7dbfc0b8a",
+        "59b3f61710dee0b922ea"
+      ],
+      "split_coverage_ids": [
+        "98fa6784bcb9ae0e12df"
+      ],
+      "subject": "Google DeepMind",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Koray Kavukcuoglu"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Google ra mắt Gemini 4 Neon với giá 3 USD mỗi triệu token nhưng bị Simon Willison nhận xét gây bối rối",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "google",
+          "url": "https://deepmind.google/blog/introducing-gemini-4-neon/"
+        },
+        {
+          "id": "coverage1",
+          "role": "coverage",
+          "name": "simon-willison",
+          "url": "https://simonwillison.net/2026/Nov/18/llm-gemini/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.3,
+        "answers": {
+          "what": 8,
+          "why": 8,
+          "notable": 9,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The range of intended work is narrower in the Vietnamese, which omits knowledge work.",
+            "fix": "Include knowledge work alongside software engineering and science (outlet:p009)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The Vietnamese gives benchmark figures but little of Google’s stated conclusion about fast completion of demanding production tasks.",
+            "fix": "Connect the results to Google’s claim that Neon sustains performance through long, tool-heavy workflows (outlet:p018–p019)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "797eb78cd2b8dbf5b09e9c4cf2fbcf23b52c0c4b058cafeff5c4c6c8dcb94d6e",
+        "scored_at": "2026-11-19T19:36:21.838343+00:00"
+      }
+    },
+    {
+      "id": "97936a76f320a80e4ff6",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/17/2026/silicon-valley-leaders-forge-a-save-jensen-faction",
+      "key_points": [
+        "David Sacks, former AI and crypto czar for President Donald Trump, stated at Semafor's conference that the Chinese spy narrative surrounding Jensen Huang's scandal is falling apart.",
+        "Bill Ackman argued that there is a strong case for reinstating Jensen Huang as Nvidia CEO if the scandal involves a personal foible.",
+        "Replit CEO Amjad Masad signed an online petition to bring Huang back, calling his ouster an attack on open models.",
+        "Masad warned that Huang's absence from Nvidia could lead to an industry dominated exclusively by frontier model labs."
+      ],
+      "same_event_coverage_ids": [
+        "1b8a442e757fb6c3f37d"
+      ],
+      "split_coverage_ids": [
+        "469b65120716373b9a1b",
+        "7d868b8696d6aca6f57d",
+        "aa1936a1e0d1a9456dca",
+        "adac2ce4456a08029196",
+        "c48f12c334d43476e829",
+        "d5460be8d2a33104908a",
+        "f3cadc2bcc0054d6e4b7"
+      ],
+      "subject": "Jensen Huang",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Jensen Huang",
+          "David Sacks",
+          "Donald Trump",
+          "Bill Ackman",
+          "Amjad Masad"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "5fe21d2b4ecab0b0d155",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.anthropic.com/research/claude-black-hole-physics",
+      "key_points": [
+        "Claude solved two open problems in theoretical physics concerning black holes and the search for quantum gravity.",
+        "Claude completed a calculation first formulated by physicists more than 20 years ago that had never been solved.",
+        "Claude's findings showed that a sudden transition associated with black hole formation persists even when spacetime lacks a definite shape.",
+        "Claude found the exact limit of the simplest version of a technique used to test candidate theories of quantum gravity."
+      ],
+      "same_event_coverage_ids": [
+        "b0886fe293adfc670f9c",
+        "bf63b8f99f4127c6e6c6"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Claude",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
       }
     }
   ]
