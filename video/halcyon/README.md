@@ -8,6 +8,9 @@ One JSON spec in, a 1080x1920, 30 fps news short out (GPU only). This folder hol
 | `ve_halcyon.py` | Drawing code (Pillow) the builder loads: skin, kicker row, caption geometry, neural-mesh field, safe-frame gates. |
 | `halcyon_spec.py` | Spec loading and validation. Standard library only; covered by `tests/test_halcyon_video_tool.py`. |
 | `halcyon_kich_ban.py` | Script to spec: `kich-ban.json` + voice timing + capture manifest -> `video.json`, with refusals. Standard library only; contract in [KICH-BAN.md](KICH-BAN.md), tested by `tests/test_halcyon_kich_ban.py`. |
+| `lam-giong.py`, `halcyon_giong.py` | Voice step: the `say` text of a script to the channel voice track, the timing file the assembler reads and the listen list, refusing a voice that did not say the script. Contract in [GIONG.md](GIONG.md); `halcyon_giong.py` is standard library only, tested by `tests/test_halcyon_giong.py`. |
+| `chup.mjs` | Capture step: a public page address and a verbatim sentence to a phone-width screenshot and the capture-manifest entry, refusing when the page does not show the sentence. Node + `playwright-core` (`npm install` inside `video/`). Contract in [CHUP.md](CHUP.md), tests `tests/test_halcyon_chup.py`. |
+| `mot-lenh.py`, `halcyon_mot_lenh.py` | **The one command**: a script file (`kich-ban.json` with `sources` and `post`) to a finished short and an approval pack, running the steps above in order, stopping at the first failure and reusing unchanged finished steps. Runbook in [MOT-LENH.md](MOT-LENH.md); `halcyon_mot_lenh.py` is standard library only, tested by `tests/test_halcyon_mot_lenh.py`. |
 | `do-doan-giong.py` | Measures the voice paragraphs of a final wav (silences over 0.5 s) and writes them into the timing file's `beats`. Needs ffmpeg. |
 | `kiem-hoi-quy.py` | Regression compare of two `-plan.json` files (`RESULT: EQUAL` or the differences). |
 | `tron-nhac.py` | Puts the channel's music bed under a finished mp4 (not part of the builder). |
