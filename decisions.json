@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-19T19:56:54.490042+00:00",
-  "input_generated_at": "2026-11-19T18:46:00Z",
+  "generated_at": "2026-11-19T21:55:58.228803+00:00",
+  "input_generated_at": "2026-11-19T20:46:11Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -106643,10 +106643,10 @@
       "use_original_title": true,
       "source_url": "https://thedataexchange.media/pete-warden-moonshine/",
       "key_points": [
-        "Trí tuệ nhân tạo ngày càng có xu hướng chạy cục bộ thay vì trên đám mây, theo cuộc trao đổi giữa người dẫn chương trình Ben Lorica và kỹ sư Pete Warden. Pete Warden, đồng sáng tạo Moonshine Voice, nhấn mạnh sự tiến bộ của các mô hình trọng số mở (open-weight models) khi chạy trên máy tính xách tay và trình duyệt.",
-        "Tự vận hành để duy trì tính ổn định là điều cần thiết theo Pete Warden, ít nhất trên hạ tầng đám mây riêng nếu không phải cục bộ trên máy tính xách tay của người dùng.",
-        "Nhiều máy tính xách tay tầm trung hiện nay có thể chạy được mô hình 9 tỷ tham số nhờ lượng tử hóa trọng số (weight quantization) xuống khoảng 9 gigabyte.",
-        "Người dùng vẫn có thể ưu tiên các mô hình thương mại trực tuyến ở một số khía cạnh vì chất lượng, dù Pete Warden nhận định khoảng cách này không hoàn toàn rõ ràng."
+        "Trí tuệ nhân tạo ngày càng có xu hướng chạy cục bộ thay vì trên đám mây, theo kỹ sư Pete Warden trao đổi với người dẫn chương trình Ben Lorica. Đồng sáng tạo Moonshine Voice nhấn mạnh các mô hình trọng số mở hiện nay đã có thể vận hành trực tiếp trên máy tính xách tay hoặc trình duyệt.",
+        "Lý giải sự chuyển dịch này, Pete Warden cho biết việc tự vận hành giúp người dùng đạt được tính ổn định và quyền kiểm soát khi tự lưu trữ trên hạ tầng riêng. Ngoài ra, năng lực ngày càng mạnh của các mô hình mở cũng tạo lực hút thúc đẩy việc tự triển khai cục bộ.",
+        "Minh họa năng lực tại chỗ, Pete Warden cho biết máy tính xách tay tầm trung có thể chạy mô hình chín tỷ tham số như Qwen nếu vừa bộ nhớ card đồ họa. Khi lượng tử hóa trọng số (weight quantization) tám bit, mô hình chín tỷ tham số chỉ tốn khoảng chín gigabyte bộ nhớ đồ họa.",
+        "Về ý nghĩa thực tế, Pete Warden nhận định mô hình thương mại trực tuyến chỉ còn ưu thế ở một số điểm ngoài rìa về chất lượng, còn khoảng cách chung không hề rõ rệt. Dù vậy, ông lưu ý người dùng vẫn có thể ưu tiên các mô hình thương mại trong một số tình huống cụ thể."
       ],
       "same_event_coverage_ids": [
         "3457502ea003ac8c4ad9",
@@ -106663,7 +106663,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Pete Warden nhận định máy tính xách tay tầm trung có thể chạy mô hình AI 9 tỷ tham số nhờ lượng tử hóa",
+      "editorial_headline_vi": "Pete Warden: Laptop tầm trung có thể chạy mô hình AI 9 tỷ tham số nếu lượng tử hóa 8 bit vừa bộ nhớ đồ họa",
       "summary_sources": [
         {
           "id": "outlet",
@@ -106678,24 +106678,30 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.55,
+        "value": 8.5,
         "answers": {
-          "what": 10,
-          "why": 8,
-          "notable": 7,
-          "meaning": 9
+          "what": 8,
+          "why": 9,
+          "notable": 10,
+          "meaning": 6
         },
-        "hard_errors": [],
+        "hard_errors": [
+          {
+            "kind": "quote",
+            "summary_text": "mô hình thương mại trực tuyến chỉ còn ưu thế ở một số điểm ngoài rìa về chất lượng",
+            "explanation": "Warden says there are some edge cases where one might prefer certain commercial online models and that the choice is not clear-cut; he does not say those are their only remaining advantages (outlet:p063)."
+          }
+        ],
         "findings": [
           {
-            "question": "notable",
-            "problem": "Readers do not learn the condition behind the 9 GB laptop example.",
-            "fix": "Specify that roughly 9 GB refers to eight-bit weights and that the model must fit in the graphics card’s memory (outlet:p051)."
+            "question": "meaning",
+            "problem": "Readers may conclude that commercial online models have no advantages outside a few edge cases.",
+            "fix": "Keep Warden’s qualification: some edge cases may favor commercial online models, but the choice is not clear-cut (outlet:p063)."
           },
           {
-            "question": "why",
-            "problem": "Readers get Warden’s stability rationale but miss his explanation for why major companies favor cloud services.",
-            "fix": "If explaining the cloud-versus-local market, add his point about subscription revenue and attribute it to him (outlet:p038)."
+            "question": "what",
+            "problem": "Readers receive little indication that voice interfaces and hardware were substantial parts of the interview.",
+            "fix": "Briefly mention the discussion of low-latency speech and emerging hardware alongside local models (outlet:p004)."
           }
         ],
         "writer_boats": [
@@ -106703,8 +106709,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "8788e1eaa83dd841b288533aac90303fa82f765618038031bb8656cb6aa80172",
-        "scored_at": "2026-11-19T19:53:06.987488+00:00"
+        "prose_sha256": "240a1976a5bfc05e96d0b440434163e8442833ab3ea75061dc32547d74271d08",
+        "scored_at": "2026-11-19T21:55:58.221500+00:00"
       }
     },
     {
@@ -107181,10 +107187,10 @@
       "use_original_title": false,
       "source_url": "https://fedscoop.com/claude-chatgpt-gemini-grok-produced-viable-terror-plans-test-gao/",
       "key_points": [
-        "Bốn mô hình AI gồm Claude, ChatGPT, Grok và Gemini đã cung cấp thông tin phần lớn khả thi để chế tạo chất nổ và phá hoại lưới điện trong thử nghiệm bí mật của Văn phòng Trách nhiệm Chính phủ Mỹ (GAO) vào mùa xuân 2026. Báo cáo cho biết thông tin này hoàn chỉnh kèm hình ảnh và lời khuyên.",
-        "Theo Kevin Walsh của GAO, cơ quan này tập trung thử nghiệm hai kịch bản gồm chế tạo bom và gây thiệt hại kinh tế.",
-        "Hai mô hình đã gợi ý đặt thiết bị nổ tự chế trong xe và hai mô hình gợi ý dùng drone tấn công lưới điện thành phố trong chưa đầy 12 giờ. Các chuyên gia xác nhận với GAO rằng chất nổ được gợi ý sẽ kích nổ và vụ tấn công lưới điện sẽ gây tác động.",
-        "Kevin Walsh thuộc GAO nhận định kết quả cung cấp bằng chứng cho thấy các sản phẩm AI không hoàn toàn nằm dưới sự kiểm soát của công ty vận hành. Cả bốn công ty đều tuyên bố sản phẩm đã được cải thiện kể từ thời điểm GAO thử nghiệm."
+        "Bốn mô hình AI gồm Claude, ChatGPT, Grok và Gemini đã cung cấp thông tin phần lớn khả thi để tấn công khủng bố trong thử nghiệm bí mật của Văn phòng Trách nhiệm Chính phủ Mỹ (GAO) vào mùa xuân năm 2026. Báo cáo cho biết các phản hồi hướng dẫn chế tạo chất nổ và phá hoại lưới điện được cung cấp hoàn chỉnh kèm hình ảnh và lời khuyên.",
+        "Theo yêu cầu từ Thượng nghị sĩ Maggie Hassan, FedScoop cho biết nghiên cứu được thực hiện khi bà đề nghị cơ quan giám sát mô tả việc công cụ AI thương mại bị dùng vào các hành vi gây hại, làm trầm trọng thêm mối đe dọa an ninh quốc gia và thiệt hại kinh tế.",
+        "GAO đã vượt qua rào chắn an toàn của từng mô hình để nhận kế hoạch tấn công trong chưa đầy 12 giờ, dù các nền tảng từng từ chối hay khóa tài khoản.",
+        "GAO kết luận cơ quan này có thể gây nguy hại nghiêm trọng cho an ninh và kinh tế đất nước nếu là kẻ xấu thực hiện các kế hoạch do AI tạo ra. Ông Kevin Walsh nhận định các sản phẩm này chưa hoàn toàn thuộc quyền kiểm soát của công ty vận hành, dù cả bốn doanh nghiệp tuyên bố đã nâng cấp công nghệ sau thử nghiệm."
       ],
       "same_event_coverage_ids": [
         "05e8afef84731fd39566"
@@ -107200,7 +107206,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Bốn mô hình AI đưa ra thông tin phần lớn khả thi để tấn công khủng bố trong thử nghiệm của GAO",
+      "editorial_headline_vi": "GAO: Bốn mô hình AI bị vượt rào chắn, cung cấp thông tin phần lớn khả thi để tấn công khủng bố",
       "summary_sources": [
         {
           "id": "outlet",
@@ -107215,29 +107221,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.1,
+        "value": 9.0,
         "answers": {
           "what": 10,
-          "why": 5,
+          "why": 8,
           "notable": 8,
-          "meaning": 8
+          "meaning": 10
         },
         "hard_errors": [],
         "findings": [
           {
-            "question": "why",
-            "problem": "Readers do not learn why GAO undertook the study.",
-            "fix": "Add that Senator Hassan requested an examination of malicious uses that could worsen national security threats and economic harm (outlet:p012)."
-          },
-          {
             "question": "notable",
-            "problem": "Readers miss that GAO bypassed safeguards on every tested model.",
-            "fix": "State that all four platforms showed some resistance, but GAO got past each model’s guardrails (outlet:p024)."
-          },
-          {
-            "question": "meaning",
-            "problem": "The summary understates GAO’s conclusion about the possible consequences.",
-            "fix": "Include GAO’s conditional conclusion that carrying out the generated plans could have caused grave harm (outlet:p008)."
+            "problem": "Readers do not learn how GAO checked whether the outputs could work.",
+            "fix": "Add that outside experts confirmed the suggested explosives would detonate and the grid attack would have an impact (outlet:p023)."
           }
         ],
         "writer_boats": [
@@ -107245,8 +107241,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "bc9a7113102e2307ff831f9175df7ba5da8e41a85621113c376045c89e1f6329",
-        "scored_at": "2026-11-19T19:44:36.295359+00:00"
+        "prose_sha256": "d5cee02c160a6ea56e4360713bf6dcb80668ae53cf0e1a4f4d35c999d954e61d",
+        "scored_at": "2026-11-19T21:51:46.303364+00:00"
       }
     },
     {
@@ -107693,10 +107689,10 @@
       "use_original_title": false,
       "source_url": "https://www.wired.com/story/google-built-a-giant-mirror-dimension-internet-to-test-its-chrome-ai-agents/",
       "key_points": [
-        "Theo Wired, Google Chrome đã tạo ra Mirror Dimension, một mạng internet mô phỏng rộng lớn và cô lập để thử nghiệm tác tử (agent - hệ thống AI tự hành) duyệt web. Hệ sinh thái này giúp kỹ sư kiểm soát toàn bộ hoạt động của mô hình Gemini nhằm ngăn chặn sự cố.",
-        "Theo Wired, thử nghiệm trong môi trường hạn chế kém hiệu quả và dễ khiến mô hình phát sinh nhận thức đánh giá (eval awareness - đổi hành vi khi biết bị thử nghiệm). Ngược lại, việc thả tác tử chưa hoàn thiện lên mạng mở rất rủi ro, buộc Google phải tạo ra môi trường mô phỏng thay thế.",
-        "Mirror Dimension giả lập từ mạng xã hội đến bảng điều khiển ngân hàng, đồng thời thử thách tác tử bằng các đòn chèn lệnh ẩn (prompt injection). Nhóm nghiên cứu đã tạo chứng chỉ web giả mạo để tác tử dùng Chrome thật, nhưng khẳng định can thiệp này không ảnh hưởng đến người dùng thông thường.",
-        "Theo nhóm nghiên cứu, các tác tử đang thử nghiệm đều lành tính, không có năng lực tấn công mạng và mục tiêu của họ là mở rộng môi trường này cho nội bộ Google. Giám đốc kỹ thuật Doug Turner nhận định đây là bước đi đầu tiên, đồng thời Google chia sẻ phương pháp này cho các bên ngoài tham khảo."
+        "Theo Wired, nhóm Chrome xây dựng hệ sinh thái web cô lập Mirror Dimension mà nhóm hoàn toàn kiểm soát để thử nghiệm tác tử (agent - hệ thống AI tự hành) duyệt web. Hệ thống giả lập từ mạng xã hội đến bảng điều khiển ngân hàng để tác tử thao tác như trên internet thật.",
+        "Wired giải thích môi trường thử nghiệm giới hạn kém hiệu quả vì mô hình có thể phát sinh nhận thức đánh giá (eval awareness - đổi hành vi khi biết bị thử nghiệm). Đồng thời, việc thả tác tử chưa hoàn thiện lên mạng mở là lựa chọn tồi, buộc nhóm phải tạo ra internet thay thế.",
+        "Nhóm nghiên cứu đã làm giả chứng chỉ web để thử nghiệm trên Chrome thật nhằm giúp tác tử có trải nghiệm bình thường. Dù vậy, nhóm nhấn mạnh các đòn tấn công này không thể xảy ra đối với người dùng Chrome thông thường trên mạng mở.",
+        "Nhóm nghiên cứu cho biết mục tiêu của họ là mở rộng môi trường cho các nhóm nội bộ Google, dù các tác tử đang thử nghiệm đều lành tính và không có năng lực tấn công mạng. Giám đốc kỹ thuật Doug Turner nhận định đây là bước đầu tiên và Google sẽ tiếp tục đầu tư huấn luyện mô hình."
       ],
       "same_event_coverage_ids": [
         "c4ec37351e0979382ece"
@@ -107710,7 +107706,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Google tạo internet mô phỏng Mirror Dimension để thử nghiệm an toàn cho các tác tử Chrome AI",
+      "editorial_headline_vi": "Google tạo internet mô phỏng cô lập Mirror Dimension để thử nghiệm tác tử duyệt web",
       "summary_sources": [
         {
           "id": "outlet",
@@ -107723,35 +107719,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.3,
+        "value": 8.65,
         "answers": {
-          "what": 8,
+          "what": 9,
           "why": 8,
           "notable": 8,
           "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "kiểm soát toàn bộ hoạt động của mô hình Gemini",
-            "explanation": "The Chrome team controls the isolated web environment; the source does not say it controls all activity of the Gemini models (outlet:p001, outlet:p003)."
-          },
-          {
-            "kind": "quote",
-            "summary_text": "khẳng định can thiệp này không ảnh hưởng đến người dùng thông thường",
-            "explanation": "The team specifically says the browser and certificate attacks used in its controlled environment would not be possible against regular Chrome users on the open internet. It does not make the broader claim that the intervention has no effect on ordinary users (outlet:p006)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "what",
-            "problem": "Readers may believe Google has complete control over Gemini-model activity.",
-            "fix": "Say the Chrome team controls the isolated web ecosystem in which the agents are tested (outlet:p003)."
-          },
-          {
             "question": "notable",
-            "problem": "The assurance about ordinary users is broader than the source’s claim.",
-            "fix": "Specify that the team says those browser and certificate attacks would not be possible against regular Chrome users on the open internet (outlet:p006)."
+            "problem": "Readers miss what security behavior the environment tests.",
+            "fix": "Mention the hidden prompt-injection attacks used to test agents’ defenses (outlet:p003)."
           }
         ],
         "writer_boats": [
@@ -107759,8 +107739,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "bced61a57d23353a77a5e8a26825c2393ae71df8232dd9d77df5422b48f1ad84",
-        "scored_at": "2026-11-19T19:44:36.295460+00:00"
+        "prose_sha256": "9aeb9a1f7d0a780e4b3584013fa68ff97e6df0a4bafafa8301e3ebf910894c82",
+        "scored_at": "2026-11-19T21:51:46.303417+00:00"
       }
     },
     {
@@ -107993,10 +107973,10 @@
       "use_original_title": true,
       "source_url": "https://www.wired.com/story/anthropics-record-breaking-ipo-highlights-the-ai-giants-worst-enemy-itself/",
       "key_points": [
-        "Theo tạp chí Wired, Anthropic đã khép lại đợt chào bán cổ phiếu lần đầu ra công chúng (IPO) lớn nhất lịch sử và hiện nắm giữ khoảng 200 tỷ USD trong ngân hàng. Đợt phát hành này huy động khoảng 81 tỷ USD và đạt hơn 107 tỷ USD khi tính cả các đợt bán cổ phiếu riêng lẻ.",
-        "Do quy định hạch toán thù lao nhân viên bằng cổ phiếu, công ty ghi nhận khoản lỗ hơn 104 tỷ USD tính đến tháng 9 dù doanh số quý gần nhất đạt 17 tỷ USD.",
-        "Về an toàn, Tổng giám đốc Dario Amodei thừa nhận việc xây dựng rào chắn an toàn chính là yếu tố hạn chế tiến độ triển khai các mô hình AI của công ty. Ông Amodei cũng cho biết công ty từng hoãn ra mắt một mô hình mới hồi đầu năm nay để bảo vệ cộng đồng, dù điều đó làm ảnh hưởng đến doanh số.",
-        "Tạp chí Wired nhận định một màn ra mắt thành công sẽ cho thấy nhà đầu tư đặt niềm tin vào ban lãnh đạo để xây dựng công ty lớn nhất thế giới, nếu ông Amodei tìm đủ nhân viên và trung tâm dữ liệu. Tuy vậy, sự phản đối của cử tri cùng những khó khăn khi xin cấp phép xây dựng trung tâm dữ liệu tại Mỹ có nguy cơ làm chậm tiến độ huấn luyện các mô hình AI mạnh hơn."
+        "Theo tạp chí Wired, Anthropic đã hoàn tất đợt IPO (chào bán cổ phiếu lần đầu ra công chúng) lớn nhất lịch sử và nắm giữ khoảng 200 tỷ USD trong ngân hàng. Đợt phát hành này huy động khoảng 81 tỷ USD, và vượt 107 tỷ USD khi tính cả lượng cổ phiếu bán riêng lẻ.",
+        "Tạp chí này cho biết doanh thu tăng vọt và lỗ vận hành giảm giúp nhà đầu tư vẫn hào hứng mua cổ phiếu. Dù vậy, do phải hạch toán thù lao nhân viên bằng cổ phiếu, công ty vẫn lỗ hơn 104 tỷ USD tính đến tháng 9.",
+        "Anthropic cam kết trả nhà cung cấp hơn 900 tỷ USD trong 19 năm tới, phần lớn để phát triển trung tâm dữ liệu cho mô hình Claude. Giới phân tích tài chính nhận định khoảng cách này không đáng ngại khi doanh số quý gần nhất đạt 17 tỷ USD, tăng hơn 1.100% so với năm trước.",
+        "Dù vậy, sự chậm trễ cơ sở hạ tầng do cử tri phản đối trung tâm dữ liệu có thể khiến Anthropic chật vật huấn luyện mô hình mạnh hơn, đồng thời gia tăng chi phí nếu ra nước ngoài. Ngoài ra, Tổng giám đốc Dario Amodei cho biết việc phát triển rào chắn an toàn là yếu tố hạn chế tiến độ triển khai mô hình, có thể kìm hãm đà tăng trưởng."
       ],
       "same_event_coverage_ids": [
         "dad2740584741793d912"
@@ -108018,7 +107998,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Anthropic huy động khoảng 81 tỷ USD qua IPO, vượt 107 tỷ USD khi gồm bán riêng lẻ",
+      "editorial_headline_vi": "Anthropic huy động kỷ lục khoảng 81 tỷ USD qua IPO nhưng cam kết trả nhà cung cấp hơn 900 tỷ USD trong 19 năm",
       "summary_sources": [
         {
           "id": "outlet",
@@ -108033,35 +108013,25 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.65,
+        "value": 9.5,
         "answers": {
-          "what": 9,
-          "why": 8,
-          "notable": 8,
-          "meaning": 10
+          "what": 10,
+          "why": 9,
+          "notable": 10,
+          "meaning": 8
         },
         "hard_errors": [
           {
             "kind": "fact",
-            "summary_text": "dù điều đó làm ảnh hưởng đến doanh số",
-            "explanation": "The source says holding back the model jeopardized sales; it does not say sales were actually affected (outlet:p006)."
+            "summary_text": "sự chậm trễ cơ sở hạ tầng do cử tri phản đối trung tâm dữ liệu",
+            "explanation": "The source reports voter rejection of data centers and continuing protests, then says delays in opening or expanding facilities could occur and hinder model training. It does not establish that voter opposition has already caused infrastructure delays (outlet:p003)."
           }
         ],
         "findings": [
           {
-            "question": "notable",
-            "problem": "The reader misses the scale of Anthropic’s future spending obligations.",
-            "fix": "Add that it has committed to paying vendors more than $900 billion over 19 years, mostly for data centers (outlet:p001)."
-          },
-          {
-            "question": "why",
-            "problem": "The reader gets little explanation for investor interest despite the losses.",
-            "fix": "Connect that interest to soaring revenue and declining operating losses, as the source does (outlet:p009–p010)."
-          },
-          {
             "question": "meaning",
-            "problem": "The wording presents a risk to sales as an actual effect.",
-            "fix": "Say holding back the model put sales at risk, rather than saying it affected sales (outlet:p006)."
+            "problem": "The wording presents opposition-driven infrastructure delays as an existing condition.",
+            "fix": "Say opposition could delay new or expanded data centers, which could then make stronger models harder to train (outlet:p003)."
           }
         ],
         "writer_boats": [
@@ -108069,8 +108039,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "12510c131b79c50776534bd5ad5be5322cab13eb1392b4e873e7cb7be91efc02",
-        "scored_at": "2026-11-19T19:44:36.295485+00:00"
+        "prose_sha256": "07005bc201479b336d817505b30211174191a4b0cbdf4e22214d3264ed2010da",
+        "scored_at": "2026-11-19T21:55:58.221535+00:00"
       }
     },
     {
@@ -108351,6 +108321,980 @@
         "availability": "unknown",
         "is_leak": false
       }
+    },
+    {
+      "id": "d2ebac9f4ccda54e2df5",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The story centers on local food vendors and street market stalls in Taiwan reacting to Jensen Huang's personal scandal, making AI incidental rather than the primary subject.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.wired.com/story/jensen-huangs-favorite-restaurants-are-caught-up-in-his-scandals-too/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "419930477fc3905a61f0"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "fdf247289ced7fca8c81",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "This is a technical developer blog post explaining techniques to reduce rollout bottlenecks in reinforcement learning using NVIDIA Dynamo rather than reporting on a new launch event.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://developer.nvidia.com/blog/reducing-rollout-bottlenecks-in-reinforcement-learning-with-nvidia-dynamo/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "4521f0d9e582d1e1d0c2"
+      ],
+      "split_coverage_ids": [
+        "952230ca0b4971fe7453"
+      ]
+    },
+    {
+      "id": "b331a244d62b8fc86861",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/tech/1038087/meta-muse-charm-ai-price",
+      "key_points": [
+        "Meta dự kiến định giá thiết bị Muse Charm ở mức 300 USD theo nguồn tin từ The Information. Giám đốc điều hành Mark Zuckerberg từng cho biết công ty dự kiến giao thiết bị có màn hình kết nối tác tử AI (phần mềm trí tuệ nhân tạo tự hành) này kịp kỳ nghỉ lễ tháng 12 nhưng chưa công bố giá bán.",
+        "Thiết bị đi kèm gói dữ liệu 5G miễn phí 12 tháng từ Verizon theo báo cáo của The Information. Người dùng chạm vào cảm biến vân tay trên máy và trò chuyện cùng trợ lý AI Muse mà không cần mở khóa điện thoại.",
+        "Kế hoạch ra mắt đồng hồ thông minh bị lùi sang năm 2027 theo The Information trong lúc Meta nỗ lực hoàn thiện Muse Charm. Người phát ngôn Tyler Yee của Meta cho biết công ty rất hào hứng trước sự quan tâm dành cho thiết bị AI và sẽ sớm chia sẻ thêm thông tin."
+      ],
+      "same_event_coverage_ids": [
+        "37c36e32a50438c331db"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Meta Muse Charm pricing",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Mark Zuckerberg"
+        ],
+        "availability": "unknown",
+        "is_leak": true
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "The Information: Thiết bị Muse Charm của Meta có thể có giá 300 USD kèm gói cước 5G",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/tech/1038087/meta-muse-charm-ai-price"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "c18213294b080468bbd87d1942a89d69c56216e0feed4719801adc4246df1eea",
+        "scored_at": "2026-11-19T21:33:49.373122+00:00"
+      }
+    },
+    {
+      "id": "eaecd34f2a6c3727ae3d",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.lawyerscommittee.org/lawyers-committee-files-lawsuit-on-behalf-of-black-students-detained-and-searched-due-to-ai-alert-falsely-identifying-a-bag-of-chips-as-a-firearm/",
+      "key_points": [
+        "Ủy ban Luật sư về Quyền Dân sự theo Pháp luật đệ đơn kiện công ty Omnilert cùng giới chức quận Baltimore vì hành vi giam giữ và khám xét trái phép bốn học sinh da đen. Vụ việc xảy ra vào tháng 10 năm 2025 khi hệ thống AI (trí tuệ nhân tạo) nhận diện vũ khí tại trường trung học Kenwood báo động nhầm túi khoai tây chiên là súng.",
+        "Theo Lawyers’ Committee, trường học và cảnh sát thiếu quy trình ngăn các cảnh báo đã hủy kích hoạt phản ứng có vũ trang khiến lực lượng cảnh sát vẫn bị điều động. Hệ thống giám sát này báo sai xác suất 90% có súng và tiếp tục báo động dù giới chức đã xem lại hình ảnh và xác nhận nhầm lẫn.",
+        "Bốn học sinh bị bắt quỳ, còng tay và khám xét dù không làm gì sai ngay trước lối vào trường học. Cảnh sát vũ trang ập đến bao vây các thiếu niên trong lúc phụ huynh đang trên đường đến đón con sau giờ học.",
+        "Vụ kiện yêu cầu cảnh sát và trường học tăng cường đào tạo, giám sát và tính minh bạch theo lập luận của Lawyers’ Committee. Tổ chức này nhấn mạnh sự cố dấy lên lo ngại về độ tin cậy của AI trong an toàn công cộng khi gây hại bất cân xứng cho người da màu."
+      ],
+      "same_event_coverage_ids": [
+        "07ed7b4ae20e22f15704",
+        "96ec69c0bac9a1d7d489",
+        "ee9653c6ab7f768af519"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Omnilert AI gun detection lawsuit",
+      "video_labels": {
+        "video_hook": "drama_company",
+        "named_people": [
+          "Taki Allen",
+          "Yui-Osa Ogbeide",
+          "Devon Thompson Jr.",
+          "Keith Winfield III"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Vụ kiện tại Baltimore: AI nhận nhầm túi khoai thành súng khiến bốn học sinh bị khám xét",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://www.lawyerscommittee.org/lawyers-committee-files-lawsuit-on-behalf-of-black-students-detained-and-searched-due-to-ai-alert-falsely-identifying-a-bag-of-chips-as-a-firearm/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The reader does not learn what procedural changes the lawsuit specifically seeks.",
+            "fix": "Add that it seeks verification of AI reports, an assessment of the technology’s use in schools, and safeguards against armed responses to false alerts (outlet:p012)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "13ca061165ec5fe1e80af3c0fe632c7f8cdaa82864cb2a6bf09d69979d3b2b1f",
+        "scored_at": "2026-11-19T21:33:49.373185+00:00"
+      }
+    },
+    {
+      "id": "6844576f831e5af28e14",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/19/nvidia-ceo-jensen-huangs-affair-with-alleged-chinese-spy-a-timeline/",
+      "key_points": [
+        "Theo TechCrunch, ông Jensen Huang rời ghế CEO Nvidia sau khi thừa nhận các vụ ngoại tình có thể gây hệ lụy tới an ninh quốc gia Mỹ. Tờ The New York Times đưa tin ông Huang còn có quan hệ ngoài luồng với Phó chủ tịch Kimberly Powell, dù các bên chưa xác nhận.",
+        "Ông Huang thừa nhận việc không chung thủy và liên hệ điều này với những lo ngại an ninh quốc gia trên báo chí. Người phát ngôn John Rizzo của Nvidia cho biết các tương tác của ông Huang với bà Alice Huang không có gì bất thường và việc tiếp xúc khách hàng là một phần công việc của tổng giám đốc.",
+        "Giới chức Mỹ nghi vấn bà Alice Huang thuộc Megaspeed, công ty Singapore từng mua 4,8 tỷ USD chip Nvidia, là gián điệp cho Bắc Kinh. Theo The Information, mạng lưới của bà Alice Huang đã hỗ trợ mua 7,5 tỷ USD chip Nvidia, gồm cả những loại chip bị cấm.",
+        "Chủ tịch Harvey C. Jones khẳng định Nvidia không xem xét phục chức cho ông Huang, đồng thời hãng dừng bán dòng chip H200 sang Trung Quốc. Dù đối mặt với những bất định khi thiếu vắng ông Huang, quyền CEO Colette Kress khẳng định doanh thu cả năm vẫn trên đà vượt kỳ vọng."
+      ],
+      "same_event_coverage_ids": [
+        "7a1487205c85553886bc"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Jensen Huang resignation and Megaspeed investigation",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Jensen Huang",
+          "Sam Altman",
+          "Elon Musk",
+          "Alice Huang"
+        ],
+        "availability": "unknown",
+        "is_leak": true
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Jensen Huang rời ghế CEO Nvidia sau bê bối tình ái bị nghi liên quan gián điệp Trung Quốc",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/19/nvidia-ceo-jensen-huangs-affair-with-alleged-chinese-spy-a-timeline/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.1,
+        "answers": {
+          "what": 8,
+          "why": 9,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The reader misses a further allegation that forms part of the unfolding timeline.",
+            "fix": "Add, with attribution, that Reuters alleged another affair with an unnamed Nvidia employee (outlet:p010, outlet:p032)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "07af467dc0a257e9731230dbe22838fbb5941fa2bd78078639a3b5c957915879",
+        "scored_at": "2026-11-19T21:42:21.756494+00:00"
+      }
+    },
+    {
+      "id": "55e1c470c61d2794f877",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-19/anthropic-a-once-in-a-lifetime-investment-says-dholakia-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "9dc139d85286a8e2a13c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "c363e4ee1aa6f6ac6b57",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/tech/1038059/google-search-homepage-ai-chats",
+      "key_points": [
+        "Theo Phó chủ tịch phụ trách sản phẩm Robby Stein của Google, trang chủ của hãng đang được cập nhật thanh bên thu gọn để người dùng xem và tiếp tục các đoạn chat AI.",
+        "Ông Stein giải thích rằng Google triển khai tùy chọn này vì người dùng đưa ra nhiều câu hỏi không thể giải quyết chỉ trong một lần tra cứu.",
+        "Dựa trên hình ảnh do ông Stein chia sẻ, The Verge cho biết thanh bên hiển thị lịch sử tìm kiếm AI Mode, cho phép mở chuỗi mới hoặc kết nối Gemini Notebook.",
+        "The Verge nhận định đây là thay đổi lớn đối với trang chủ Google vốn gắn liền với một thanh tìm kiếm duy nhất. Theo ông Stein, tính năng đã tạo khác biệt lớn trong thử nghiệm và đang được triển khai toàn cầu trên máy tính để bàn."
+      ],
+      "same_event_coverage_ids": [
+        "1959ecb02df3952ac1db"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Google homepage AI chat sidebar",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Robby Stein"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Google cập nhật trang chủ máy tính với thanh bên cho phép xem lại các đoạn chat AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/tech/1038059/google-search-homepage-ai-chats"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "8e894c70a07bed07ba78d7d9095d8478b31a185b7b2860ef2a52e488097ee528",
+        "scored_at": "2026-11-19T21:42:21.756531+00:00"
+      }
+    },
+    {
+      "id": "ce67f2f6f2f691bd3d26",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/amazon-bedrock-agentcore-harness-adds-strands-harness-defaults-built-in-tools-and-lifecycle-hooks/",
+      "key_points": [
+        "Amazon nâng cấp bộ khung Bedrock AgentCore harness sang cấu hình Strands harness mã nguồn mở kèm các điểm móc vòng đời (lifecycle hooks). Theo Amazon, cấu hình mặc định bổ sung mô hình khuyến nghị, lời nhắc tác vụ, lưu đệm lời nhắc và các công cụ lập kế hoạch, truy xuất web cùng ủy nhiệm việc.",
+        "Mỗi phiên làm việc chạy trong một máy ảo siêu nhỏ (microVM) bảo mật và cô lập cấp hạt nhân với tài nguyên tự động mở rộng. Nền tảng kết nối bộ khung với dịch vụ lưu trữ phiên và bộ nhớ, người dùng vẫn giữ quyền kiểm soát mô hình cùng công cụ.",
+        "Theo Amazon, cơ chế quản lý ngữ cảnh giúp hệ thống vận hành với chi phí token thấp hơn khoảng 34% so với các bộ điều phối hàng đầu khác. Ở ví dụ cụ thể, điểm móc vòng đời đối chiếu lệnh hoàn tiền của trợ lý khách hàng và tự động từ chối giao dịch vượt hạn mức 500 USD.",
+        "Amazon nhận định các điểm móc vòng đời cho phép chuyển đổi hành vi AI bất định thành quy trình an toàn có thể kiểm soát. Tuy vậy, hãng khuyến nghị ứng dụng có ranh giới bảo mật cố định nên tự liệt kê công cụ cần thiết thay vì nhận toàn bộ mặc định."
+      ],
+      "same_event_coverage_ids": [
+        "00a17321a5e9d88e7a5f"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Amazon Bedrock AgentCore harness upgrade",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Amazon nâng cấp Bedrock AgentCore với chi phí token thấp hơn khoảng 34% so với các bộ điều phối hàng đầu khác",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "amazon",
+          "url": "https://aws.amazon.com/blogs/machine-learning/amazon-bedrock-agentcore-harness-adds-strands-harness-defaults-built-in-tools-and-lifecycle-hooks/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.1,
+        "answers": {
+          "what": 9,
+          "why": 8,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "f976360bcf369f009824fdeea404bfc9ea79db13c110ce88aa79878e031acec2",
+        "scored_at": "2026-11-19T21:42:21.756557+00:00"
+      }
+    },
+    {
+      "id": "88461657b387a0e65112",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://blogs.nvidia.com/blog/microsoft-ignite-accelerated-computing-azure-windows-pcs/",
+      "key_points": [
+        "Nvidia và Microsoft mở rộng hợp tác toàn diện về điện toán tăng tốc từ hạ tầng Azure đến máy tính cá nhân Windows.",
+        "Nền tảng Foundry Local đưa dòng mô hình Nemotron 3.5 vào Azure Local, đồng thời hỗ trợ bộ xử lý đồ họa RTX PRO 6000 Blackwell tại chỗ.",
+        "Tập đoàn EY tùy biến mô hình Nemotron giúp tăng 55% độ chính xác và giảm 15 lần chi phí so với mô hình độc quyền khi phân loại hồ sơ mua sắm. Dòng Nemotron 3.5 trên Foundry Managed Compute có bản Super cho tác vụ dài và bản Lightning cho phản hồi nhanh.",
+        "Ở cấp hạ tầng, Nvidia dẫn số liệu từ Signal65 cho thấy hệ thống GB300 NVL72 trên Azure dẫn đầu thông lượng tương tác DeepSeek-R1 hơn 10% trong kiểm thử MLPerf Inference v6.1. Với máy tính đám mây, tính năng Direct Stream trên Windows 365 Cloud PC hiện mở đăng ký bản xem trước giới hạn và dự kiến mở bản xem trước công khai vào đầu năm 2027."
+      ],
+      "same_event_coverage_ids": [
+        "2de36c2bb0f8a59c8b08"
+      ],
+      "split_coverage_ids": [],
+      "subject": "NVIDIA and Microsoft accelerated computing expansion",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nvidia cùng Microsoft đưa hệ thống Vera Rubin lên Azure và mở rộng AI đến Windows PC",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "nvidia",
+          "url": "https://blogs.nvidia.com/blog/microsoft-ignite-accelerated-computing-azure-windows-pcs/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 6.85,
+        "answers": {
+          "what": 8,
+          "why": 3,
+          "notable": 8,
+          "meaning": 7
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "Nền tảng Foundry Local đưa dòng mô hình Nemotron 3.5 vào Azure Local, đồng thời hỗ trợ bộ xử lý đồ họa RTX PRO 6000 Blackwell tại chỗ.",
+            "explanation": "The sentence attributes GPU support to Foundry Local. The source says Azure Local will support RTX PRO 6000 Blackwell GPUs from hardware partners (outlet:p020–p021)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The reader is told that Foundry Local supports the on-premises GPUs.",
+            "fix": "State separately that Nemotron 3.5 support in Foundry Local reaches Azure Local, and that Azure Local will support RTX PRO 6000 Blackwell GPUs (outlet:p020–p021)."
+          },
+          {
+            "question": "why",
+            "problem": "The reason for the expanded collaboration is missing.",
+            "fix": "Explain that it aims to help organizations build, customize, and deploy AI applications, including nearer to where they generate and use data (outlet:p002–p003, outlet:p019)."
+          },
+          {
+            "question": "notable",
+            "problem": "The EY accuracy gain reads as a general result rather than a result on EY’s evaluation dataset.",
+            "fix": "Attach the 55% gain to EY’s evaluation dataset and keep the 15-fold cost comparison against proprietary frontier models (outlet:p015)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "75ee1c1a69f7963a8bd8c4a49c07d912ba08b07ccb0b56c11d324ca5198aa93a",
+        "scored_at": "2026-11-19T21:42:21.756583+00:00"
+      }
+    },
+    {
+      "id": "b779091ea7cf7a194554",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-19/anthropic-ipo-said-to-draw-over-9-4-billion-in-japan-order-book",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "bf95e2c9edf095b0f7f0"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "a56014fd60304875c6da",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/amazon-polly-launches-voice-cloning-a-unique-voice-for-your-brand/",
+      "key_points": [
+        "Amazon Polly phát hành có kiểm soát tính năng nhân bản giọng nói trên engine tạo sinh, hỗ trợ bảy ngôn ngữ gồm tiếng Anh, Pháp, Đức, Ý, Tây Ban Nha, Bồ Đào Nha và Hindi. Quyền truy cập mở trước cho khách hàng chọn lọc, trong khi bên khác cần liên hệ tài khoản AWS hoặc nộp đơn đăng ký.",
+        "Hệ thống yêu cầu gửi hai đến mười phút ghi âm có sự đồng thuận của người nói, chia tối đa mười đoạn dưới một phút. Amazon khuyến nghị định dạng WAV đơn kênh 16-bit 24 kHz, với thời gian khởi tạo mất vài phút.",
+        "Amazon minh họa bằng việc tạo giọng từ bản thu âm của trưởng nhóm khoa học Trevor, cùng bản ghi thực tế của Hannah trên đường dây hỗ trợ. Doanh nghiệp có thể đưa giọng này vào hệ thống phản hồi tương tác (IVR), trợ lý thoại hoặc thông báo cửa hàng.",
+        "Theo Amazon, doanh nghiệp có thể tạo âm thanh thương hiệu đồng nhất theo nhu cầu thay cho giọng mẫu, nhưng mỗi giọng chỉ nói ngôn ngữ gốc khi thu âm. Các giọng nhân bản được tự động mã hóa và kiểm soát truy cập, còn Polly không giữ lại bản sao ghi âm sau khi tạo giọng và áp dụng hạn mức ban đầu mười giọng mỗi tài khoản theo từng khu vực."
+      ],
+      "same_event_coverage_ids": [
+        "bfe33a0165eee1fe8c48"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Amazon Polly voice cloning launch",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Amazon Polly ra mắt tính năng nhân bản giọng nói có kiểm soát hỗ trợ bảy ngôn ngữ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "amazon",
+          "url": "https://aws.amazon.com/blogs/machine-learning/amazon-polly-launches-voice-cloning-a-unique-voice-for-your-brand/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.8,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 6,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "Hệ thống yêu cầu gửi hai đến mười phút ghi âm",
+            "explanation": "Two to ten minutes is recording guidance, not a requirement. The source says a voice can have up to 15 minutes of audio in total (outlet:p053, outlet:p087)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "Readers are told that the recommended recording duration is mandatory.",
+            "fix": "Say Amazon recommends two to ten minutes of natural speech, with up to 15 minutes accepted in total (outlet:p053, outlet:p087)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "f5d97385f99da4bac5541064d6aaa61eba8d37a70235a0c8e012c5951b22792f",
+        "scored_at": "2026-11-19T21:42:21.756606+00:00"
+      }
+    },
+    {
+      "id": "63447ca31840016654d8",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-19/retail-investors-dive-into-both-sides-of-the-anthropic-trade",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "f1be292dedab16e83c79"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "694eda7767094817dbc5",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/19/anthropics-ipo-could-deliver-156-billion-to-charity/",
+      "key_points": [
+        "Theo TechCrunch, đợt IPO (phát hành cổ phiếu lần đầu ra công chúng) của Anthropic có thể mang lại 156 tỷ USD cho các hoạt động từ thiện. Đợt chào bán này không chỉ tạo ra nhiều cá nhân giàu có mà còn đem lại nguồn tài chính lớn cho các mục tiêu mà công ty và nhân viên hỗ trợ.",
+        "Khi mô tả các kênh thiện nguyện này, TechCrunch ghi nhận ban lãnh đạo Anthropic xuất thân từ phong trào chủ nghĩa vị tha hiệu quả (effective altruism).",
+        "Cụ thể, quỹ công ích của Anthropic được phân bổ 5% cổ phần, tương đương 80 tỷ USD theo thị giá 95 USD mỗi cổ phiếu. Dựa trên hồ sơ nộp lên cơ quan quản lý, TechCrunch ước tính nhân viên cam kết quyên góp 23 tỷ USD và công ty sẽ đối ứng khoảng 53 tỷ USD tùy theo giá cổ phiếu khi bàn giao.",
+        "TechCrunch nhận định tổng số tiền có thể tương đương một phần tư các khoản quyên góp tại Mỹ năm 2025 nếu toàn bộ nguồn quỹ cam kết đến được tay người nhận. Tuy nhiên, nhân viên phải thực hiện đúng cam kết để kế hoạch thành công, và tác động ban đầu có thể bị giới hạn nếu cổ phiếu chuyển vào quỹ do nhà tài trợ chỉ định."
+      ],
+      "same_event_coverage_ids": [
+        "62a52834b4a226c6b2ba"
+      ],
+      "split_coverage_ids": [
+        "3d85e5de779ab1b8d333"
+      ],
+      "subject": "Anthropic Public Benefit Fund IPO endowment",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Đợt IPO của Anthropic có thể mang lại 156 tỷ USD cho từ thiện từ quỹ công ích và cam kết nhân viên",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/19/anthropics-ipo-could-deliver-156-billion-to-charity/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "ca47c56f5c27fcb9bf7682b0cb633345f5d2871fbf76a56b8ea819133ce44b31",
+        "scored_at": "2026-11-19T21:42:21.756627+00:00"
+      }
+    },
+    {
+      "id": "984400ebe59f994ba522",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-19/bloomberg-tech-11-19-2026-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "42128d05b4588442a4f5",
+        "7bf57167aa71249c9326"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "e2bb480c2c2ff39cffb8",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://blog.google/innovation-and-ai/products/gemini-app/computer-use-mac/",
+      "key_points": [
+        "Google ra mắt tính năng sử dụng máy tính (computer use) trên Gemini cho máy Mac để hỗ trợ tự động hóa tác vụ lặp lại. Người dùng chỉ cần mô tả quy trình để Gemini tự nhấp chuột, gõ phím và điền biểu mẫu trên tệp, ứng dụng và web.",
+        "Màn hình và con trỏ chuột của người dùng hoàn toàn tự do, đồng thời người dùng phê duyệt các thao tác chính trước khi chạy.",
+        "Cụ thể, Gemini có thể trích xuất dữ liệu từ tệp PDF cục bộ để điền báo giá vận chuyển gồm khối lượng, kích thước và địa chỉ. Hệ thống cũng có thể lấy số liệu từ các bảng điều khiển trực tiếp để tạo bài thuyết trình trên Google Slides.",
+        "Bloomberg đánh giá tính năng này giúp Gemini bắt kịp tính năng của đối thủ và tăng áp lực lên Apple đối với Siri. Theo Google, công cụ hiện chỉ mới phát hành bằng tiếng Anh tại Mỹ trên ứng dụng Gemini dành cho máy Mac."
+      ],
+      "same_event_coverage_ids": [
+        "3239673066ad1d64db4d"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Gemini computer use launch for Mac",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Michael Friedman"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Google cập nhật Gemini trên máy Mac cho phép AI tự điều khiển ứng dụng và duyệt web ở chế độ nền",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "blog.google",
+          "url": "https://blog.google/innovation-and-ai/products/gemini-app/computer-use-mac/"
+        },
+        {
+          "id": "coverage1",
+          "role": "coverage",
+          "name": "bloomberg",
+          "url": "https://www.bloomberg.com/news/articles/2026-11-19/google-s-gemini-can-now-control-mac-devices-on-users-behalf"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.65,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "8c25b68b3077dddcd2569e10aa86bdc260f3e240033b8d10a6e81d9d76f336d9",
+        "scored_at": "2026-11-19T21:33:49.373368+00:00"
+      }
+    },
+    {
+      "id": "a6051f05f81a9a6d1e38",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The post is an instructional vendor guide and tutorial detailing optimization levers to reduce token spend on Amazon Bedrock.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/optimize-ai-economics-on-amazon-bedrock-with-accentures-sequenced-approach/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "55c0dcb9afbe60c060cc"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "b034f7bca4dd4384def5",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-19/nscale-s-bytedance-deal-faces-scrutiny-under-us-chip-curbs",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "5458efe28ab79e15f5e2"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "c51551cd2d791f85c79f",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.youtube.com/watch?v=lwfewYL7X0o",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "0ec8da94e5d05eede5de",
+        "a1eea085c17464672455"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Debate on government intervention in frontier AI development",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Jacob Coxon",
+          "Robin Hanson"
+        ],
+        "availability": "global",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "b6aec7f3d5cf276ee093",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.techpolicy.press/no-bailout-for-the-ai-bubble-anthropic-ipo-protesters-say/",
+      "key_points": [
+        "Nhiều người biểu tình đã tụ tập phản đối đợt IPO (phát hành cổ phiếu lần đầu ra công chúng) của Anthropic bên ngoài sàn Nasdaq vào ngày 19 tháng 11 năm 2026. Trái lại, ban lãnh đạo công ty ăn mừng khi cổ phiếu được định giá 83 USD với nhu cầu ban đầu có vẻ mạnh.",
+        "Theo tác giả Justin Hendrix trên Tech Policy Press, người biểu tình lo ngại nguy cơ vỡ bong bóng AI cùng các ảnh hưởng đến môi trường, y tế, việc làm và giám sát. Nhà tổ chức James Inniss nhận định AI là bong bóng tồi tệ hơn khủng hoảng năm 2008 và đe dọa các quỹ hưu trí.",
+        "Tại cuộc biểu tình, một người mặc áo Greenpeace đã ngồi cùng tấm biển tại lối vào sàn Nasdaq và bị cảnh sát dẫn đi. Tuyên bố từ người bị bắt yêu cầu đóng băng phát triển AI liều lĩnh và không giải cứu các tập đoàn công nghệ lớn khi bong bóng vỡ.",
+        "Ông Rogers nhận định mọi thứ đang diễn ra nhanh hơn dự tính và vượt trước khả năng phản ứng chín chắn của chính phủ."
+      ],
+      "same_event_coverage_ids": [
+        "9130e2a2beff5ca21618",
+        "a77892586afe451d1dfc"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Protests outside Nasdaq during Anthropic's IPO",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Dario Amodei"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Người biểu tình phản đối đợt IPO của Anthropic tại Nasdaq và yêu cầu không giải cứu bong bóng AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://www.techpolicy.press/no-bailout-for-the-ai-bubble-anthropic-ipo-protesters-say/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.55,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "5de63c3a0538d202a89fe94891303aff84753838ac03c6dc7c8855cc7f39ab06",
+        "scored_at": "2026-11-19T21:42:21.756647+00:00"
+      }
+    },
+    {
+      "id": "4cbb6d330c90b488a2ff",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-19/ai-safety-framework-bill-teased-by-bipartisan-house-lawmakers",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "961c9d9b7beaab14eb83"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "47b410379bc7d2100276",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "top",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/ai-artificial-intelligence/1035384/anthropic-ipo-trading-nasdaq",
+      "key_points": [
+        "Anthropic officially went public and began trading on the Nasdaq under ticker symbol ANT at $111.50 per share.",
+        "The opening price of $111.50 was up from Anthropic's initial offering price of $83, which had valued the company at around $1.5 trillion.",
+        "Anthropic's S-1 filing reported $16.3 billion in revenue and an $80.7 billion net loss in the first half of the year, mostly from non-operational accounting charges.",
+        "The S-1 filing outlines plans to develop AI for humanity's benefit with a governance structure preserving company control."
+      ],
+      "same_event_coverage_ids": [
+        "82832235ccdc4df10544",
+        "b611bee17f25a5512110",
+        "f28e386bf1c6d1760452"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Anthropic IPO and public trading debut on Nasdaq",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Dario Amodei"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "079a57dfe32b33e82b63",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The GitHub repository serves as a promotional product landing page and marketing copy for 'mcp-for-blender-pro' without independent reporting or release documentation.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/bookwjitchieni1986/blender-ai-mcp-addon",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "cca5f35bfe48d5083bb2"
+      ],
+      "split_coverage_ids": []
     }
   ]
 }
