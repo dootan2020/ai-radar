@@ -1,0 +1,365 @@
+{
+ "name": "halcyon-03",
+ "duration": 30.29,
+ "voice": "../giong/v1/giong-day-du.wav",
+ "timing": "../giong/v1/giong-day-du-timing.json",
+ "word_aliases": {
+  "réo": "déo",
+  "hoạ": "họa",
+  "8:30": "8",
+  "hai": "2",
+  "10,5": "10"
+ },
+ "tiktok_caption": [
+  "Chuông báo thảm hoạ réo giữa giờ thi đại học",
+  "Hàn Quốc để bắt gian lận bằng AI... #AI #tinnong"
+ ],
+ "out": {
+  "clean": "halcyon-03-chuong-bao-giua-gio-thi.mp4",
+  "tiktok": "halcyon-03-chuong-bao-giua-gio-thi-tiktok.mp4"
+ },
+ "captions": [
+  "Thi đại học ở Hàn Quốc",
+  "năm nay: giữa giờ thi,",
+  "điện thoại bất ngờ réo",
+  "chuông báo thảm hoạ,",
+  "để bắt gian lận bằng AI.",
+  "Theo kế hoạch",
+  "của Bộ Nội vụ,",
+  "tin báo đầu tiên",
+  "gửi lúc 8:30 sáng,",
+  "ngay trước giờ làm bài.",
+  "Tin thứ hai đến",
+  "vào một lúc",
+  "không báo trước,",
+  "khi thí sinh đang làm bài.",
+  "Chuông réo 10,5 giây,",
+  "to hết cỡ,",
+  "kể cả khi máy",
+  "đang tắt tiếng.",
+  "Ai còn giấu điện thoại",
+  "là lộ.",
+  "Vì sao căng vậy?",
+  "Thủ khoa kỳ thi",
+  "kế toán thuế năm nay",
+  "vừa thú nhận",
+  "đã gian lận bằng AI",
+  "và thiết bị số.",
+  "Thí sinh giờ chỉ được",
+  "mang bút chì",
+  "vào phòng thi.",
+  "Mọi thứ khác",
+  "do điểm thi phát.",
+  "Theo bạn, Việt Nam",
+  "có nên làm vậy không?"
+ ],
+ "beats": [
+  {
+   "id": "1",
+   "name": "Mở đầu",
+   "a": 0.0,
+   "b": 5.48,
+   "level": "HOOK",
+   "mark": "wm",
+   "chip": {
+    "text": "Ảnh chụp bài gốc: Yonhap, 18/11/2026"
+   },
+   "text": {
+    "kind": "block",
+    "lines": [
+     "ĐANG THI ĐẠI HỌC,",
+     "ĐIỆN THOẠI RÉO"
+    ],
+    "kicker": "Theo Yonhap · kỳ thi ngày 19/11/2026",
+    "kicker_size": 26,
+    "lift": 24
+   },
+   "picture": {
+    "kind": "capture",
+    "file": "../chup/v1-Y-full.png",
+    "u_rows": [
+     1290,
+     1870
+    ],
+    "rows": [
+     1312,
+     1850
+    ]
+   },
+   "bands": [
+    {
+     "rect": [
+      259,
+      1390,
+      497,
+      52
+     ],
+     "word": [
+      "CHUÔNG",
+      "BÁO"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "2",
+   "name": "Tin báo thứ nhất",
+   "a": 5.48,
+   "b": 10.13,
+   "level": "HOOK",
+   "chip": {
+    "text": "Ảnh chụp bài gốc: Yonhap, 18/11/2026"
+   },
+   "text": {
+    "kind": "block",
+    "lines": [
+     "8:30 SÁNG",
+     "TIN BÁO SỐ 1"
+    ],
+    "kicker": "Giờ Hàn Quốc · ngay trước giờ làm bài",
+    "kicker_size": 26
+   },
+   "picture": {
+    "kind": "capture",
+    "file": "../chup/v1-Y-full.png",
+    "u_rows": [
+     3450,
+     4550
+    ],
+    "rows": [
+     3469,
+     4529
+    ]
+   },
+   "bands": [
+    {
+     "rect": [
+      277,
+      3463,
+      781,
+      58
+     ],
+     "word": [
+      "TIN",
+      "BÁO"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "3",
+   "name": "Tin báo thứ hai",
+   "a": 10.13,
+   "b": 13.82,
+   "level": "HOOK",
+   "chip": {
+    "text": "Ảnh chụp bài gốc: Yonhap, 18/11/2026"
+   },
+   "text": {
+    "kind": "block",
+    "lines": [
+     "TIN BÁO SỐ 2:",
+     "KHÔNG BÁO TRƯỚC"
+    ],
+    "kicker": "Trong lúc thí sinh làm bài",
+    "kicker_size": 26
+   },
+   "picture": {
+    "kind": "capture",
+    "file": "../chup/v1-Y-full.png",
+    "u_rows": [
+     3450,
+     4550
+    ],
+    "rows": [
+     3469,
+     4529
+    ]
+   },
+   "bands": [
+    {
+     "rect": [
+      366,
+      3625,
+      520,
+      61
+     ],
+     "word": [
+      "MỘT",
+      "LÚC"
+     ]
+    },
+    {
+     "rect": [
+      49,
+      3706,
+      390,
+      61
+     ],
+     "word": [
+      "MỘT",
+      "LÚC"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "4",
+   "name": "Chuông réo",
+   "a": 13.82,
+   "b": 18.57,
+   "level": "CARD",
+   "text": {
+    "kind": "number",
+    "kicker": "KỂ CẢ KHI MÁY TẮT TIẾNG",
+    "line1": "10,5 GIÂY",
+    "line2": "ÂM LƯỢNG TỐI ĐA",
+    "source": "Nguồn: hco.news · Yonhap",
+    "cuts": [
+     {
+      "word": [
+       "TO",
+       "HẾT"
+      ],
+      "after": 13.82
+     }
+    ]
+   }
+  },
+  {
+   "id": "5",
+   "name": "Vì sao căng",
+   "a": 18.57,
+   "b": 23.57,
+   "level": "HOOK",
+   "chip": {
+    "text": "Ảnh chụp bài gốc: Yonhap, 18/11/2026"
+   },
+   "text": {
+    "kind": "block",
+    "lines": [
+     "THỦ KHOA THÚ NHẬN",
+     "GIAN LẬN BẰNG AI"
+    ],
+    "kicker": "Kỳ thi kế toán thuế năm nay",
+    "kicker_size": 26,
+    "cuts": [
+     {
+      "word": [
+       "ĐÃ",
+       "GIAN"
+      ],
+      "after": 18.57
+     }
+    ]
+   },
+   "picture": {
+    "kind": "capture",
+    "file": "../chup/v1-Y-full.png",
+    "u_rows": [
+     7330,
+     8265
+    ],
+    "rows": [
+     7387,
+     8224
+    ]
+   },
+   "bands": [
+    {
+     "rect": [
+      624,
+      7462,
+      236,
+      60
+     ],
+     "word": [
+      "THỦ",
+      "KHOA"
+     ]
+    },
+    {
+     "rect": [
+      145,
+      7624,
+      608,
+      61
+     ],
+     "word": [
+      "ĐÃ",
+      "GIAN"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "6",
+   "name": "Bút chì",
+   "a": 23.57,
+   "b": 27.53,
+   "level": "HOOK",
+   "chip": {
+    "text": "Ảnh chụp bài gốc: Yonhap, 18/11/2026"
+   },
+   "text": {
+    "kind": "block",
+    "lines": [
+     "CHỈ ĐƯỢC MANG",
+     "BÚT CHÌ"
+    ],
+    "kicker": "Theo nguồn tin của Yonhap",
+    "kicker_size": 26
+   },
+   "picture": {
+    "kind": "capture",
+    "file": "../chup/v1-Y-full.png",
+    "u_rows": [
+     5800,
+     6850
+    ],
+    "rows": [
+     5851,
+     6829
+    ]
+   },
+   "bands": [
+    {
+     "rect": [
+      500,
+      6007,
+      452,
+      61
+     ],
+     "word": [
+      "BÚT",
+      "CHÌ"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "7",
+   "name": "Kết",
+   "a": 27.53,
+   "b": 30.29,
+   "level": "HOOK",
+   "mark": "wm",
+   "chip": {
+    "text": "Ảnh chụp bài gốc: Yonhap, 18/11/2026"
+   },
+   "text": {
+    "kind": "end",
+    "kicker": "những mẩu tin AI ngắn gọn",
+    "line1": "ĐỌC ĐẦY ĐỦ:",
+    "line2": "HCO.NEWS",
+    "lift": 24
+   },
+   "picture": {
+    "kind": "same_as",
+    "beat": "1"
+   }
+  }
+ ],
+ "layout": "thu-gon-r2",
+ "drop_kickers": true
+}

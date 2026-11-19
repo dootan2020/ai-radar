@@ -1,0 +1,1399 @@
+{
+ "frames": 909,
+ "fps": 30,
+ "lead": 0.08,
+ "fade_frames": 8,
+ "chip_size": 29,
+ "field": "chu-muc",
+ "pattern": "mang-no-ron",
+ "mesh_white": 0.4,
+ "mesh_motion": true,
+ "contrast": [
+  {
+   "beat": "1",
+   "where": "state 0 f82",
+   "block": "kicker",
+   "colour": "ink",
+   "ratio": 15.07,
+   "background_L": 0.841,
+   "floor": 4.5
+  },
+  {
+   "beat": "1",
+   "where": "state 0 f82",
+   "block": "headline",
+   "colour": "ink",
+   "ratio": 11.9,
+   "background_L": 0.654,
+   "floor": 3.0
+  },
+  {
+   "beat": "2",
+   "where": "state 0 f234",
+   "block": "headline",
+   "colour": "ink",
+   "ratio": 12.38,
+   "background_L": 0.682,
+   "floor": 3.0
+  },
+  {
+   "beat": "3",
+   "where": "state 0 f359",
+   "block": "headline",
+   "colour": "ink",
+   "ratio": 12.52,
+   "background_L": 0.691,
+   "floor": 3.0
+  },
+  {
+   "beat": "4",
+   "where": "state 0 f435",
+   "block": "kicker",
+   "colour": "white",
+   "ratio": 4.1,
+   "background_L": 0.206,
+   "floor": 4.5
+  },
+  {
+   "beat": "4",
+   "where": "state 0 f435",
+   "block": "source",
+   "colour": "white",
+   "ratio": 4.81,
+   "background_L": 0.168,
+   "floor": 4.5
+  },
+  {
+   "beat": "4",
+   "where": "state 0 f435",
+   "block": "content",
+   "colour": "white",
+   "ratio": 4.32,
+   "background_L": 0.193,
+   "floor": 3.0
+  },
+  {
+   "beat": "4",
+   "where": "state 1 f506",
+   "block": "kicker",
+   "colour": "white",
+   "ratio": 4.1,
+   "background_L": 0.206,
+   "floor": 4.5
+  },
+  {
+   "beat": "4",
+   "where": "state 1 f506",
+   "block": "source",
+   "colour": "white",
+   "ratio": 4.81,
+   "background_L": 0.168,
+   "floor": 4.5
+  },
+  {
+   "beat": "4",
+   "where": "state 1 f506",
+   "block": "content",
+   "colour": "white",
+   "ratio": 4.36,
+   "background_L": 0.191,
+   "floor": 3.0
+  },
+  {
+   "beat": "5",
+   "where": "state 0 f601",
+   "block": "headline",
+   "colour": "ink",
+   "ratio": 12.47,
+   "background_L": 0.688,
+   "floor": 3.0
+  },
+  {
+   "beat": "5",
+   "where": "state 1 f676",
+   "block": "headline",
+   "colour": "ink",
+   "ratio": 11.79,
+   "background_L": 0.647,
+   "floor": 3.0
+  },
+  {
+   "beat": "6",
+   "where": "state 0 f766",
+   "block": "headline",
+   "colour": "ink",
+   "ratio": 12.11,
+   "background_L": 0.667,
+   "floor": 3.0
+  },
+  {
+   "beat": "7",
+   "where": "state 0 f867",
+   "block": "kicker",
+   "colour": "ink",
+   "ratio": 15.24,
+   "background_L": 0.852,
+   "floor": 4.5
+  },
+  {
+   "beat": "7",
+   "where": "state 0 f867",
+   "block": "headline",
+   "colour": "ink",
+   "ratio": 12.64,
+   "background_L": 0.698,
+   "floor": 3.0
+  },
+  {
+   "beat": "1",
+   "where": "caption \"THI ĐẠI HỌC Ở HÀN QUỐC\" f16",
+   "block": "caption",
+   "colour": "ink",
+   "ratio": 9.32,
+   "background_L": 0.501,
+   "floor": 4.5
+  },
+  {
+   "beat": "1",
+   "where": "caption \"THI ĐẠI HỌC Ở HÀN QUỐC\" f16",
+   "block": "unspoken",
+   "colour": "ink 0.60",
+   "ratio": 3.69,
+   "background_L": 0.501,
+   "floor": 3.0
+  },
+  {
+   "beat": "1",
+   "where": "caption \"NĂM NAY: GIỮA GIỜ THI,\" f50",
+   "block": "caption",
+   "colour": "ink",
+   "ratio": 9.44,
+   "background_L": 0.508,
+   "floor": 4.5
+  },
+  {
+   "beat": "1",
+   "where": "caption \"NĂM NAY: GIỮA GIỜ THI,\" f50",
+   "block": "unspoken",
+   "colour": "ink 0.60",
+   "ratio": 3.71,
+   "background_L": 0.508,
+   "floor": 3.0
+  },
+  {
+   "beat": "1",
+   "where": "caption \"ĐIỆN THOẠI BẤT NGỜ RÉO\" f79",
+   "block": "caption",
+   "colour": "ink",
+   "ratio": 9.3,
+   "background_L": 0.5,
+   "floor": 4.5
+  },
+  {
+   "beat": "1",
+   "where": "caption \"ĐIỆN THOẠI BẤT NGỜ RÉO\" f79",
+   "block": "unspoken",
+   "colour": "ink 0.60",
+   "ratio": 3.69,
+   "background_L": 0.5,
+   "floor": 3.0
+  },
+  {
+   "beat": "1",
+   "where": "caption \"CHUÔNG BÁO THẢM HOẠ,\" f104",
+   "block": "caption",
+   "colour": "ink",
+   "ratio": 9.3,
+   "background_L": 0.5,
+   "floor": 4.5
+  },
+  {
+   "beat": "1",
+   "where": "caption \"CHUÔNG BÁO THẢM HOẠ,\" f104",
+   "block": "unspoken",
+   "colour": "ink 0.60",
+   "ratio": 3.69,
+   "background_L": 0.5,
+   "floor": 3.0
+  },
+  {
+   "beat": "1",
+   "where": "caption \"ĐỂ BẮT GIAN LẬN BẰNG AI.\" f140",
+   "block": "caption",
+   "colour": "ink",
+   "ratio": 9.49,
+   "background_L": 0.512,
+   "floor": 4.5
+  },
+  {
+   "beat": "1",
+   "where": "caption \"ĐỂ BẮT GIAN LẬN BẰNG AI.\" f140",
+   "block": "unspoken",
+   "colour": "ink 0.60",
+   "ratio": 3.72,
+   "background_L": 0.512,
+   "floor": 3.0
+  },
+  {
+   "beat": "2",
+   "where": "caption \"ĐỂ BẮT GIAN LẬN BẰNG AI.\" f169",
+   "block": "caption",
+   "colour": "ink",
+   "ratio": 9.49,
+   "background_L": 0.512,
+   "floor": 4.5
+  },
+  {
+   "beat": "2",
+   "where": "caption \"ĐỂ BẮT GIAN LẬN BẰNG AI.\" f169",
+   "block": "unspoken",
+   "colour": "ink 0.60",
+   "ratio": 3.72,
+   "background_L": 0.512,
+   "floor": 3.0
+  },
+  {
+   "beat": "2",
+   "where": "caption \"THEO KẾ HOẠCH CỦA BỘ NỘI VỤ,\" f193",
+   "block": "caption",
+   "colour": "ink",
+   "ratio": 9.33,
+   "background_L": 0.502,
+   "floor": 4.5
+  },
+  {
+   "beat": "2",
+   "where": "caption \"THEO KẾ HOẠCH CỦA BỘ NỘI VỤ,\" f193",
+   "block": "unspoken",
+   "colour": "ink 0.60",
+   "ratio": 3.7,
+   "background_L": 0.502,
+   "floor": 3.0
+  },
+  {
+   "beat": "2",
+   "where": "caption \"TIN BÁO ĐẦU TIÊN\" f220",
+   "block": "caption",
+   "colour": "ink",
+   "ratio": 9.69,
+   "background_L": 0.523,
+   "floor": 4.5
+  },
+  {
+   "beat": "2",
+   "where": "caption \"TIN BÁO ĐẦU TIÊN\" f220",
+   "block": "unspoken",
+   "colour": "ink 0.60",
+   "ratio": 3.75,
+   "background_L": 0.523,
+   "floor": 3.0
+  },
+  {
+   "beat": "2",
+   "where": "caption \"GỬI LÚC 8:30 SÁNG,\" f249",
+   "block": "caption",
+   "colour": "ink",
+   "ratio": 9.56,
+   "background_L": 0.516,
+   "floor": 4.5
+  },
+  {
+   "beat": "2",
+   "where": "caption \"GỬI LÚC 8:30 SÁNG,\" f249",
+   "block": "unspoken",
+   "colour": "ink 0.60",
+   "ratio": 3.73,
+   "background_L": 0.516,
+   "floor": 3.0
+  },
+  {
+   "beat": "2",
+   "where": "caption \"NGAY TRƯỚC GIỜ LÀM BÀI.\" f286",
+   "block": "caption",
+   "colour": "ink",
+   "ratio": 9.58,
+   "background_L": 0.517,
+   "floor": 4.5
+  },
+  {
+   "beat": "2",
+   "where": "caption \"NGAY TRƯỚC GIỜ LÀM BÀI.\" f286",
+   "block": "unspoken",
+   "colour": "ink 0.60",
+   "ratio": 3.74,
+   "background_L": 0.517,
+   "floor": 3.0
+  },
+  {
+   "beat": "3",
+   "where": "caption \"NGAY TRƯỚC GIỜ LÀM BÀI.\" f311",
+   "block": "caption",
+   "colour": "ink",
+   "ratio": 9.58,
+   "background_L": 0.517,
+   "floor": 4.5
+  },
+  {
+   "beat": "3",
+   "where": "caption \"NGAY TRƯỚC GIỜ LÀM BÀI.\" f311",
+   "block": "unspoken",
+   "colour": "ink 0.60",
+   "ratio": 3.74,
+   "background_L": 0.517,
+   "floor": 3.0
+  },
+  {
+   "beat": "3",
+   "where": "caption \"TIN THỨ HAI ĐẾN VÀO MỘT LÚC\" f334",
+   "block": "caption",
+   "colour": "ink",
+   "ratio": 9.27,
+   "background_L": 0.499,
+   "floor": 4.5
+  },
+  {
+   "beat": "3",
+   "where": "caption \"TIN THỨ HAI ĐẾN VÀO MỘT LÚC\" f334",
+   "block": "unspoken",
+   "colour": "ink 0.60",
+   "ratio": 3.69,
+   "background_L": 0.499,
+   "floor": 3.0
+  },
+  {
+   "beat": "3",
+   "where": "caption \"KHÔNG BÁO TRƯỚC,\" f360",
+   "block": "caption",
+   "colour": "ink",
+   "ratio": 9.41,
+   "background_L": 0.507,
+   "floor": 4.5
+  },
+  {
+   "beat": "3",
+   "where": "caption \"KHÔNG BÁO TRƯỚC,\" f360",
+   "block": "unspoken",
+   "colour": "ink 0.60",
+   "ratio": 3.71,
+   "background_L": 0.507,
+   "floor": 3.0
+  },
+  {
+   "beat": "3",
+   "where": "caption \"KHI THÍ SINH ĐANG LÀM BÀI.\" f392",
+   "block": "caption",
+   "colour": "ink",
+   "ratio": 9.6,
+   "background_L": 0.518,
+   "floor": 4.5
+  },
+  {
+   "beat": "3",
+   "where": "caption \"KHI THÍ SINH ĐANG LÀM BÀI.\" f392",
+   "block": "unspoken",
+   "colour": "ink 0.60",
+   "ratio": 3.74,
+   "background_L": 0.518,
+   "floor": 3.0
+  },
+  {
+   "beat": "4",
+   "where": "caption \"KHI THÍ SINH ĐANG LÀM BÀI.\" f419",
+   "block": "caption",
+   "colour": "white",
+   "ratio": 9.96,
+   "background_L": 0.055,
+   "floor": 4.5
+  },
+  {
+   "beat": "4",
+   "where": "caption \"CHUÔNG RÉO 10,5 GIÂY,\" f440",
+   "block": "caption",
+   "colour": "white",
+   "ratio": 10.09,
+   "background_L": 0.054,
+   "floor": 4.5
+  },
+  {
+   "beat": "4",
+   "where": "caption \"TO HẾT CỠ,\" f465",
+   "block": "caption",
+   "colour": "white",
+   "ratio": 10.03,
+   "background_L": 0.055,
+   "floor": 4.5
+  },
+  {
+   "beat": "4",
+   "where": "caption \"KỂ CẢ KHI MÁY ĐANG TẮT TIẾNG.\" f493",
+   "block": "caption",
+   "colour": "white",
+   "ratio": 9.66,
+   "background_L": 0.059,
+   "floor": 4.5
+  },
+  {
+   "beat": "4",
+   "where": "caption \"AI CÒN GIẤU ĐIỆN THOẠI\" f523",
+   "block": "caption",
+   "colour": "white",
+   "ratio": 10.1,
+   "background_L": 0.054,
+   "floor": 4.5
+  },
+  {
+   "beat": "4",
+   "where": "caption \"LÀ LỘ.\" f546",
+   "block": "caption",
+   "colour": "white",
+   "ratio": 10.12,
+   "background_L": 0.054,
+   "floor": 4.5
+  },
+  {
+   "beat": "5",
+   "where": "caption \"LÀ LỘ.\" f561",
+   "block": "caption",
+   "colour": "ink",
+   "ratio": 9.29,
+   "background_L": 0.5,
+   "floor": 4.5
+  },
+  {
+   "beat": "5",
+   "where": "caption \"LÀ LỘ.\" f561",
+   "block": "unspoken",
+   "colour": "ink 0.60",
+   "ratio": 3.69,
+   "background_L": 0.5,
+   "floor": 3.0
+  },
+  {
+   "beat": "5",
+   "where": "caption \"VÌ SAO CĂNG VẬY?\" f577",
+   "block": "caption",
+   "colour": "ink",
+   "ratio": 9.12,
+   "background_L": 0.49,
+   "floor": 4.5
+  },
+  {
+   "beat": "5",
+   "where": "caption \"VÌ SAO CĂNG VẬY?\" f577",
+   "block": "unspoken",
+   "colour": "ink 0.60",
+   "ratio": 3.66,
+   "background_L": 0.49,
+   "floor": 3.0
+  },
+  {
+   "beat": "5",
+   "where": "caption \"THỦ KHOA KỲ THI\" f598",
+   "block": "caption",
+   "colour": "ink",
+   "ratio": 9.66,
+   "background_L": 0.521,
+   "floor": 4.5
+  },
+  {
+   "beat": "5",
+   "where": "caption \"THỦ KHOA KỲ THI\" f598",
+   "block": "unspoken",
+   "colour": "ink 0.60",
+   "ratio": 3.75,
+   "background_L": 0.521,
+   "floor": 3.0
+  },
+  {
+   "beat": "5",
+   "where": "caption \"KẾ TOÁN THUẾ NĂM NAY\" f619",
+   "block": "caption",
+   "colour": "ink",
+   "ratio": 9.67,
+   "background_L": 0.522,
+   "floor": 4.5
+  },
+  {
+   "beat": "5",
+   "where": "caption \"KẾ TOÁN THUẾ NĂM NAY\" f619",
+   "block": "unspoken",
+   "colour": "ink 0.60",
+   "ratio": 3.75,
+   "background_L": 0.522,
+   "floor": 3.0
+  },
+  {
+   "beat": "5",
+   "where": "caption \"VỪA THÚ NHẬN\" f638",
+   "block": "caption",
+   "colour": "ink",
+   "ratio": 9.11,
+   "background_L": 0.489,
+   "floor": 4.5
+  },
+  {
+   "beat": "5",
+   "where": "caption \"VỪA THÚ NHẬN\" f638",
+   "block": "unspoken",
+   "colour": "ink 0.60",
+   "ratio": 3.66,
+   "background_L": 0.489,
+   "floor": 3.0
+  },
+  {
+   "beat": "5",
+   "where": "caption \"ĐÃ GIAN LẬN BẰNG AI\" f660",
+   "block": "caption",
+   "colour": "ink",
+   "ratio": 9.52,
+   "background_L": 0.514,
+   "floor": 4.5
+  },
+  {
+   "beat": "5",
+   "where": "caption \"ĐÃ GIAN LẬN BẰNG AI\" f660",
+   "block": "unspoken",
+   "colour": "ink 0.60",
+   "ratio": 3.73,
+   "background_L": 0.514,
+   "floor": 3.0
+  },
+  {
+   "beat": "5",
+   "where": "caption \"VÀ THIẾT BỊ SỐ.\" f690",
+   "block": "caption",
+   "colour": "ink",
+   "ratio": 9.26,
+   "background_L": 0.498,
+   "floor": 4.5
+  },
+  {
+   "beat": "5",
+   "where": "caption \"VÀ THIẾT BỊ SỐ.\" f690",
+   "block": "unspoken",
+   "colour": "ink 0.60",
+   "ratio": 3.69,
+   "background_L": 0.498,
+   "floor": 3.0
+  },
+  {
+   "beat": "6",
+   "where": "caption \"VÀ THIẾT BỊ SỐ.\" f708",
+   "block": "caption",
+   "colour": "ink",
+   "ratio": 9.26,
+   "background_L": 0.498,
+   "floor": 4.5
+  },
+  {
+   "beat": "6",
+   "where": "caption \"VÀ THIẾT BỊ SỐ.\" f708",
+   "block": "unspoken",
+   "colour": "ink 0.60",
+   "ratio": 3.69,
+   "background_L": 0.498,
+   "floor": 3.0
+  },
+  {
+   "beat": "6",
+   "where": "caption \"THÍ SINH GIỜ CHỈ ĐƯỢC\" f724",
+   "block": "caption",
+   "colour": "ink",
+   "ratio": 9.25,
+   "background_L": 0.497,
+   "floor": 4.5
+  },
+  {
+   "beat": "6",
+   "where": "caption \"THÍ SINH GIỜ CHỈ ĐƯỢC\" f724",
+   "block": "unspoken",
+   "colour": "ink 0.60",
+   "ratio": 3.68,
+   "background_L": 0.497,
+   "floor": 3.0
+  },
+  {
+   "beat": "6",
+   "where": "caption \"MANG BÚT CHÌ VÀO PHÒNG THI.\" f757",
+   "block": "caption",
+   "colour": "ink",
+   "ratio": 9.6,
+   "background_L": 0.518,
+   "floor": 4.5
+  },
+  {
+   "beat": "6",
+   "where": "caption \"MANG BÚT CHÌ VÀO PHÒNG THI.\" f757",
+   "block": "unspoken",
+   "colour": "ink 0.60",
+   "ratio": 3.74,
+   "background_L": 0.518,
+   "floor": 3.0
+  },
+  {
+   "beat": "6",
+   "where": "caption \"MỌI THỨ KHÁC DO ĐIỂM THI PHÁT.\" f801",
+   "block": "caption",
+   "colour": "ink",
+   "ratio": 9.47,
+   "background_L": 0.51,
+   "floor": 4.5
+  },
+  {
+   "beat": "6",
+   "where": "caption \"MỌI THỨ KHÁC DO ĐIỂM THI PHÁT.\" f801",
+   "block": "unspoken",
+   "colour": "ink 0.60",
+   "ratio": 3.72,
+   "background_L": 0.51,
+   "floor": 3.0
+  },
+  {
+   "beat": "7",
+   "where": "caption \"MỌI THỨ KHÁC DO ĐIỂM THI PHÁT.\" f830",
+   "block": "caption",
+   "colour": "ink",
+   "ratio": 9.47,
+   "background_L": 0.51,
+   "floor": 4.5
+  },
+  {
+   "beat": "7",
+   "where": "caption \"MỌI THỨ KHÁC DO ĐIỂM THI PHÁT.\" f830",
+   "block": "unspoken",
+   "colour": "ink 0.60",
+   "ratio": 3.72,
+   "background_L": 0.51,
+   "floor": 3.0
+  },
+  {
+   "beat": "7",
+   "where": "caption \"THEO BẠN, VIỆT NAM\" f845",
+   "block": "caption",
+   "colour": "ink",
+   "ratio": 9.19,
+   "background_L": 0.494,
+   "floor": 4.5
+  },
+  {
+   "beat": "7",
+   "where": "caption \"THEO BẠN, VIỆT NAM\" f845",
+   "block": "unspoken",
+   "colour": "ink 0.60",
+   "ratio": 3.67,
+   "background_L": 0.494,
+   "floor": 3.0
+  },
+  {
+   "beat": "7",
+   "where": "caption \"CÓ NÊN LÀM VẬY KHÔNG?\" f882",
+   "block": "caption",
+   "colour": "ink",
+   "ratio": 9.12,
+   "background_L": 0.49,
+   "floor": 4.5
+  },
+  {
+   "beat": "7",
+   "where": "caption \"CÓ NÊN LÀM VẬY KHÔNG?\" f882",
+   "block": "unspoken",
+   "colour": "ink 0.60",
+   "ratio": 3.66,
+   "background_L": 0.49,
+   "floor": 3.0
+  }
+ ],
+ "card_small_text_under_4_5": [
+  {
+   "beat": "4",
+   "where": "state 0 f435",
+   "block": "kicker",
+   "ratio": 4.1,
+   "floor": 4.5
+  },
+  {
+   "beat": "4",
+   "where": "state 1 f506",
+   "block": "kicker",
+   "ratio": 4.1,
+   "floor": 4.5
+  }
+ ],
+ "bands": {
+  "1": [
+   {
+    "rect": [
+     266,
+     631,
+     590,
+     665
+    ],
+    "frame": 91,
+    "why": "CHUÔNG (caption word, karaoke time 3.020)"
+   }
+  ],
+  "2": [
+   {
+    "rect": [
+     278,
+     406,
+     787,
+     444
+    ],
+    "frame": 211,
+    "why": "TIN (caption word, karaoke time 7.040)"
+   }
+  ],
+  "3": [
+   {
+    "rect": [
+     336,
+     512,
+     675,
+     552
+    ],
+    "frame": 343,
+    "why": "MỘT (caption word, karaoke time 11.420)"
+   },
+   {
+    "rect": [
+     129,
+     565,
+     383,
+     605
+    ],
+    "frame": 343,
+    "why": "MỘT (caption word, karaoke time 11.420)"
+   }
+  ],
+  "5": [
+   {
+    "rect": [
+     504,
+     532,
+     658,
+     571
+    ],
+    "frame": 590,
+    "why": "THỦ (caption word, karaoke time 19.680)"
+   },
+   {
+    "rect": [
+     192,
+     638,
+     588,
+     677
+    ],
+    "frame": 646,
+    "why": "ĐÃ (caption word, karaoke time 21.540)"
+   }
+  ],
+  "6": [
+   {
+    "rect": [
+     423,
+     539,
+     718,
+     579
+    ],
+    "frame": 743,
+    "why": "BÚT (caption word, karaoke time 24.760)"
+   }
+  ]
+ },
+ "unit_notes": [
+  "unit \"VỪA THÚ NHẬN\" stays under 18 frames: no neighbour pair fits x 120-860"
+ ],
+ "units": [
+  {
+   "s": 0.0,
+   "e": 1.1,
+   "T": "THI ĐẠI HỌC Ở HÀN QUỐC",
+   "wstart": [
+    0.0,
+    0.38,
+    0.54,
+    0.66,
+    0.78,
+    1.0
+   ]
+  },
+  {
+   "s": 1.1,
+   "e": 2.28,
+   "T": "NĂM NAY: GIỮA GIỜ THI,",
+   "wstart": [
+    1.1,
+    1.28,
+    1.62,
+    1.76,
+    1.96
+   ]
+  },
+  {
+   "s": 2.28,
+   "e": 3.02,
+   "T": "ĐIỆN THOẠI BẤT NGỜ RÉO",
+   "wstart": [
+    2.28,
+    2.42,
+    2.52,
+    2.72,
+    2.86
+   ]
+  },
+  {
+   "s": 3.02,
+   "e": 3.92,
+   "T": "CHUÔNG BÁO THẢM HOẠ,",
+   "wstart": [
+    3.02,
+    3.24,
+    3.4,
+    3.68
+   ]
+  },
+  {
+   "s": 3.92,
+   "e": 5.86,
+   "T": "ĐỂ BẮT GIAN LẬN BẰNG AI.",
+   "wstart": [
+    3.92,
+    4.02,
+    4.18,
+    4.4,
+    4.5,
+    4.66
+   ]
+  },
+  {
+   "s": 5.86,
+   "e": 7.04,
+   "T": "THEO KẾ HOẠCH CỦA BỘ NỘI VỤ,",
+   "wstart": [
+    5.86,
+    6.0,
+    6.2,
+    6.34,
+    6.48,
+    6.62,
+    6.78
+   ]
+  },
+  {
+   "s": 7.04,
+   "e": 7.68,
+   "T": "TIN BÁO ĐẦU TIÊN",
+   "wstart": [
+    7.04,
+    7.16,
+    7.3,
+    7.56
+   ]
+  },
+  {
+   "s": 7.68,
+   "e": 9.0,
+   "T": "GỬI LÚC 8:30 SÁNG,",
+   "wstart": [
+    7.68,
+    7.84,
+    8.0,
+    8.6
+   ]
+  },
+  {
+   "s": 9.0,
+   "e": 10.64,
+   "T": "NGAY TRƯỚC GIỜ LÀM BÀI.",
+   "wstart": [
+    9.0,
+    9.12,
+    9.28,
+    9.42,
+    9.6
+   ]
+  },
+  {
+   "s": 10.64,
+   "e": 11.7,
+   "T": "TIN THỨ HAI ĐẾN VÀO MỘT LÚC",
+   "wstart": [
+    10.64,
+    10.72,
+    10.88,
+    11.06,
+    11.24,
+    11.42,
+    11.62
+   ]
+  },
+  {
+   "s": 11.7,
+   "e": 12.36,
+   "T": "KHÔNG BÁO TRƯỚC,",
+   "wstart": [
+    11.7,
+    11.88,
+    12.06
+   ]
+  },
+  {
+   "s": 12.36,
+   "e": 14.18,
+   "T": "KHI THÍ SINH ĐANG LÀM BÀI.",
+   "wstart": [
+    12.36,
+    12.52,
+    12.72,
+    12.82,
+    13.0,
+    13.18
+   ]
+  },
+  {
+   "s": 14.18,
+   "e": 15.2,
+   "T": "CHUÔNG RÉO 10,5 GIÂY,",
+   "wstart": [
+    14.18,
+    14.34,
+    14.52,
+    14.78
+   ]
+  },
+  {
+   "s": 15.2,
+   "e": 15.88,
+   "T": "TO HẾT CỠ,",
+   "wstart": [
+    15.2,
+    15.34,
+    15.56
+   ]
+  },
+  {
+   "s": 15.88,
+   "e": 17.08,
+   "T": "KỂ CẢ KHI MÁY ĐANG TẮT TIẾNG.",
+   "wstart": [
+    15.88,
+    16.0,
+    16.16,
+    16.3,
+    16.44,
+    16.6,
+    16.72
+   ]
+  },
+  {
+   "s": 17.08,
+   "e": 17.86,
+   "T": "AI CÒN GIẤU ĐIỆN THOẠI",
+   "wstart": [
+    17.08,
+    17.2,
+    17.38,
+    17.52,
+    17.74
+   ]
+  },
+  {
+   "s": 17.86,
+   "e": 18.86,
+   "T": "LÀ LỘ.",
+   "wstart": [
+    17.86,
+    18.02
+   ]
+  },
+  {
+   "s": 18.86,
+   "e": 19.68,
+   "T": "VÌ SAO CĂNG VẬY?",
+   "wstart": [
+    18.86,
+    19.02,
+    19.16,
+    19.34
+   ]
+  },
+  {
+   "s": 19.68,
+   "e": 20.26,
+   "T": "THỦ KHOA KỲ THI",
+   "wstart": [
+    19.68,
+    19.84,
+    19.98,
+    20.1
+   ]
+  },
+  {
+   "s": 20.26,
+   "e": 21.06,
+   "T": "KẾ TOÁN THUẾ NĂM NAY",
+   "wstart": [
+    20.26,
+    20.42,
+    20.58,
+    20.72,
+    20.92
+   ]
+  },
+  {
+   "s": 21.06,
+   "e": 21.54,
+   "T": "VỪA THÚ NHẬN",
+   "wstart": [
+    21.06,
+    21.22,
+    21.38
+   ]
+  },
+  {
+   "s": 21.54,
+   "e": 22.5,
+   "T": "ĐÃ GIAN LẬN BẰNG AI",
+   "wstart": [
+    21.54,
+    21.7,
+    21.9,
+    22.0,
+    22.16
+   ]
+  },
+  {
+   "s": 22.5,
+   "e": 23.66,
+   "T": "VÀ THIẾT BỊ SỐ.",
+   "wstart": [
+    22.5,
+    22.64,
+    22.82,
+    22.9
+   ]
+  },
+  {
+   "s": 23.66,
+   "e": 24.62,
+   "T": "THÍ SINH GIỜ CHỈ ĐƯỢC",
+   "wstart": [
+    23.66,
+    23.98,
+    24.2,
+    24.32,
+    24.46
+   ]
+  },
+  {
+   "s": 24.62,
+   "e": 25.9,
+   "T": "MANG BÚT CHÌ VÀO PHÒNG THI.",
+   "wstart": [
+    24.62,
+    24.76,
+    24.94,
+    25.12,
+    25.24,
+    25.4
+   ]
+  },
+  {
+   "s": 25.9,
+   "e": 27.84,
+   "T": "MỌI THỨ KHÁC DO ĐIỂM THI PHÁT.",
+   "wstart": [
+    25.9,
+    25.98,
+    26.14,
+    26.4,
+    26.56,
+    26.78,
+    26.96
+   ]
+  },
+  {
+   "s": 27.84,
+   "e": 28.56,
+   "T": "THEO BẠN, VIỆT NAM",
+   "wstart": [
+    27.84,
+    27.94,
+    28.3,
+    28.4
+   ]
+  },
+  {
+   "s": 28.56,
+   "e": 30.3,
+   "T": "CÓ NÊN LÀM VẬY KHÔNG?",
+   "wstart": [
+    28.56,
+    28.7,
+    28.82,
+    29.0,
+    29.14
+   ]
+  }
+ ],
+ "beats": [
+  {
+   "id": "1",
+   "name": "Mở đầu",
+   "f0": 0,
+   "f1": 164,
+   "level": "HOOK",
+   "kind": "still",
+   "switch": [
+    0
+   ],
+   "notes": {
+    "paper": [
+     255,
+     255,
+     255
+    ],
+    "edge_std": 0.0,
+    "px": 97,
+    "x_range": [
+     97,
+     860
+    ],
+    "S_rows": [
+     1312,
+     1850
+    ],
+    "y0": 421.7,
+    "k": 0.6521,
+    "S_frame_h": 351,
+    "S_frame_y": [
+     581,
+     931
+    ],
+    "text_colour": {
+     "colour": "ink",
+     "background_L": 0.656,
+     "rows": [
+      1203,
+      1665
+     ],
+     "by": "measured, switch at L 0.199"
+    }
+   }
+  },
+  {
+   "id": "2",
+   "name": "Tin báo thứ nhất",
+   "f0": 164,
+   "f1": 304,
+   "level": "HOOK",
+   "kind": "still",
+   "switch": [
+    164
+   ],
+   "notes": {
+    "paper": [
+     255,
+     255,
+     255
+    ],
+    "edge_std": 0.0,
+    "px": 97,
+    "x_range": [
+     97,
+     860
+    ],
+    "S_rows": [
+     3469,
+     4529
+    ],
+    "y0": 2839.7,
+    "k": 0.6521,
+    "S_frame_h": 691,
+    "S_frame_y": [
+     410,
+     1102
+    ],
+    "text_colour": {
+     "colour": "ink",
+     "background_L": 0.625,
+     "rows": [
+      1285,
+      1665
+     ],
+     "by": "measured, switch at L 0.199"
+    }
+   }
+  },
+  {
+   "id": "3",
+   "name": "Tin báo thứ hai",
+   "f0": 304,
+   "f1": 415,
+   "level": "HOOK",
+   "kind": "still",
+   "switch": [
+    304
+   ],
+   "notes": {
+    "paper": [
+     255,
+     255,
+     255
+    ],
+    "edge_std": 0.0,
+    "px": 97,
+    "x_range": [
+     97,
+     860
+    ],
+    "S_rows": [
+     3469,
+     4529
+    ],
+    "y0": 2839.7,
+    "k": 0.6521,
+    "S_frame_h": 691,
+    "S_frame_y": [
+     410,
+     1102
+    ],
+    "text_colour": {
+     "colour": "ink",
+     "background_L": 0.619,
+     "rows": [
+      1304,
+      1665
+     ],
+     "by": "measured, switch at L 0.199"
+    }
+   }
+  },
+  {
+   "id": "4",
+   "name": "Chuông réo",
+   "f0": 415,
+   "f1": 557,
+   "level": "CARD",
+   "kind": "card",
+   "switch": [
+    415,
+    456
+   ],
+   "notes": {}
+  },
+  {
+   "id": "5",
+   "name": "Vì sao căng",
+   "f0": 557,
+   "f1": 707,
+   "level": "HOOK",
+   "kind": "still",
+   "switch": [
+    557,
+    646
+   ],
+   "notes": {
+    "paper": [
+     255,
+     255,
+     255
+    ],
+    "edge_std": 0.0,
+    "px": 97,
+    "x_range": [
+     97,
+     860
+    ],
+    "S_rows": [
+     7387,
+     8224
+    ],
+    "y0": 6646.2,
+    "k": 0.6521,
+    "S_frame_h": 546,
+    "S_frame_y": [
+     483,
+     1029
+    ],
+    "text_colour": {
+     "colour": "ink",
+     "background_L": 0.61,
+     "rows": [
+      1328,
+      1665
+     ],
+     "by": "measured, switch at L 0.199"
+    }
+   }
+  },
+  {
+   "id": "6",
+   "name": "Bút chì",
+   "f0": 707,
+   "f1": 826,
+   "level": "HOOK",
+   "kind": "still",
+   "switch": [
+    707
+   ],
+   "notes": {
+    "paper": [
+     255,
+     255,
+     255
+    ],
+    "edge_std": 0.0,
+    "px": 97,
+    "x_range": [
+     97,
+     860
+    ],
+    "S_rows": [
+     5851,
+     6829
+    ],
+    "y0": 5180.7,
+    "k": 0.6521,
+    "S_frame_h": 638,
+    "S_frame_y": [
+     437,
+     1075
+    ],
+    "text_colour": {
+     "colour": "ink",
+     "background_L": 0.629,
+     "rows": [
+      1277,
+      1665
+     ],
+     "by": "measured, switch at L 0.199"
+    }
+   }
+  },
+  {
+   "id": "7",
+   "name": "Kết",
+   "f0": 826,
+   "f1": 909,
+   "level": "HOOK",
+   "kind": "still",
+   "switch": [
+    826
+   ],
+   "notes": {
+    "source": "beat 1 picture",
+    "text_colour": {
+     "colour": "ink",
+     "background_L": 0.653,
+     "rows": [
+      1211,
+      1665
+     ],
+     "by": "measured, switch at L 0.199"
+    }
+   }
+  }
+ ]
+}

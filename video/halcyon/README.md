@@ -7,6 +7,8 @@ One JSON spec in, a 1080x1920, 30 fps news short out (GPU only). This folder hol
 | `dung-video-gpu.py` | The builder: `<spec.json> --stills` (a still per beat/state, contact sheet, phone previews, `<stem>-plan.json`) or `--render` (clean mp4 and a TikTok-overlay preview mp4, `<stem>-render.json`). |
 | `ve_halcyon.py` | Drawing code (Pillow) the builder loads: skin, kicker row, caption geometry, neural-mesh field, safe-frame gates. |
 | `halcyon_spec.py` | Spec loading and validation. Standard library only; covered by `tests/test_halcyon_video_tool.py`. |
+| `halcyon_kich_ban.py` | Script to spec: `kich-ban.json` + voice timing + capture manifest -> `video.json`, with refusals. Standard library only; contract in [KICH-BAN.md](KICH-BAN.md), tested by `tests/test_halcyon_kich_ban.py`. |
+| `do-doan-giong.py` | Measures the voice paragraphs of a final wav (silences over 0.5 s) and writes them into the timing file's `beats`. Needs ffmpeg. |
 | `kiem-hoi-quy.py` | Regression compare of two `-plan.json` files (`RESULT: EQUAL` or the differences). |
 | `tron-nhac.py` | Puts the channel's music bed under a finished mp4 (not part of the builder). |
 | `run.ps1` | `run.ps1 -Spec <spec.json> -Mode --stills|--render` with the GPU interpreter. |

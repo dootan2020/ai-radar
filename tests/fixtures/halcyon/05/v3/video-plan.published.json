@@ -1,0 +1,1581 @@
+{
+ "frames": 855,
+ "fps": 30,
+ "lead": 0.08,
+ "fade_frames": 8,
+ "chip_size": 24,
+ "field": "chu-muc",
+ "pattern": "mang-no-ron",
+ "mesh_white": 0.4,
+ "mesh_motion": true,
+ "contrast": [
+  {
+   "beat": "1",
+   "where": "state 0 f66",
+   "block": "kicker",
+   "colour": "ink",
+   "ratio": 12.46,
+   "background_L": 0.687,
+   "floor": 4.5
+  },
+  {
+   "beat": "1",
+   "where": "state 0 f66",
+   "block": "headline",
+   "colour": "ink",
+   "ratio": 10.17,
+   "background_L": 0.552,
+   "floor": 3.0
+  },
+  {
+   "beat": "1",
+   "where": "state 0 f66",
+   "block": "credit",
+   "colour": "ink",
+   "ratio": 8.47,
+   "background_L": 0.451,
+   "floor": 4.5
+  },
+  {
+   "beat": "2a",
+   "where": "state 0 f152",
+   "block": "kicker",
+   "colour": "white",
+   "ratio": 4.09,
+   "background_L": 0.207,
+   "floor": 4.5
+  },
+  {
+   "beat": "2a",
+   "where": "state 0 f152",
+   "block": "source",
+   "colour": "white",
+   "ratio": 4.92,
+   "background_L": 0.163,
+   "floor": 4.5
+  },
+  {
+   "beat": "2a",
+   "where": "state 0 f152",
+   "block": "content",
+   "colour": "white",
+   "ratio": 4.28,
+   "background_L": 0.196,
+   "floor": 3.0
+  },
+  {
+   "beat": "2a",
+   "where": "state 1 f184",
+   "block": "kicker",
+   "colour": "white",
+   "ratio": 4.09,
+   "background_L": 0.207,
+   "floor": 4.5
+  },
+  {
+   "beat": "2a",
+   "where": "state 1 f184",
+   "block": "source",
+   "colour": "white",
+   "ratio": 4.92,
+   "background_L": 0.163,
+   "floor": 4.5
+  },
+  {
+   "beat": "2a",
+   "where": "state 1 f184",
+   "block": "content",
+   "colour": "white",
+   "ratio": 4.34,
+   "background_L": 0.192,
+   "floor": 3.0
+  },
+  {
+   "beat": "2b",
+   "where": "state 0 f225",
+   "block": "headline",
+   "colour": "ink",
+   "ratio": 12.33,
+   "background_L": 0.68,
+   "floor": 3.0
+  },
+  {
+   "beat": "3",
+   "where": "state 0 f280",
+   "block": "headline",
+   "colour": "ink",
+   "ratio": 12.91,
+   "background_L": 0.714,
+   "floor": 3.0
+  },
+  {
+   "beat": "3",
+   "where": "state 1 f344",
+   "block": "headline",
+   "colour": "ink",
+   "ratio": 12.3,
+   "background_L": 0.678,
+   "floor": 3.0
+  },
+  {
+   "beat": "4",
+   "where": "state 1 f390",
+   "block": "kicker",
+   "colour": "white",
+   "ratio": 4.08,
+   "background_L": 0.208,
+   "floor": 4.5
+  },
+  {
+   "beat": "4",
+   "where": "state 1 f390",
+   "block": "source",
+   "colour": "white",
+   "ratio": 5.32,
+   "background_L": 0.147,
+   "floor": 4.5
+  },
+  {
+   "beat": "4",
+   "where": "state 1 f390",
+   "block": "content",
+   "colour": "white",
+   "ratio": 4.23,
+   "background_L": 0.198,
+   "floor": 3.0
+  },
+  {
+   "beat": "4",
+   "where": "state 2 f419",
+   "block": "kicker",
+   "colour": "white",
+   "ratio": 4.08,
+   "background_L": 0.208,
+   "floor": 4.5
+  },
+  {
+   "beat": "4",
+   "where": "state 2 f419",
+   "block": "source",
+   "colour": "white",
+   "ratio": 5.32,
+   "background_L": 0.147,
+   "floor": 4.5
+  },
+  {
+   "beat": "4",
+   "where": "state 2 f419",
+   "block": "content",
+   "colour": "white",
+   "ratio": 4.26,
+   "background_L": 0.197,
+   "floor": 3.0
+  },
+  {
+   "beat": "4",
+   "where": "state 3 f456",
+   "block": "kicker",
+   "colour": "white",
+   "ratio": 4.08,
+   "background_L": 0.207,
+   "floor": 4.5
+  },
+  {
+   "beat": "4",
+   "where": "state 3 f456",
+   "block": "source",
+   "colour": "white",
+   "ratio": 5.32,
+   "background_L": 0.147,
+   "floor": 4.5
+  },
+  {
+   "beat": "4",
+   "where": "state 3 f456",
+   "block": "content",
+   "colour": "white",
+   "ratio": 4.36,
+   "background_L": 0.191,
+   "floor": 3.0
+  },
+  {
+   "beat": "5a",
+   "where": "state 0 f515",
+   "block": "headline",
+   "colour": "ink",
+   "ratio": 12.18,
+   "background_L": 0.671,
+   "floor": 3.0
+  },
+  {
+   "beat": "5b",
+   "where": "state 0 f592",
+   "block": "headline",
+   "colour": "ink",
+   "ratio": 12.1,
+   "background_L": 0.666,
+   "floor": 3.0
+  },
+  {
+   "beat": "6",
+   "where": "state 0 f659",
+   "block": "kicker",
+   "colour": "white",
+   "ratio": 4.1,
+   "background_L": 0.206,
+   "floor": 4.5
+  },
+  {
+   "beat": "6",
+   "where": "state 0 f659",
+   "block": "content",
+   "colour": "white",
+   "ratio": 4.33,
+   "background_L": 0.192,
+   "floor": 3.0
+  },
+  {
+   "beat": "6",
+   "where": "state 1 f694",
+   "block": "kicker",
+   "colour": "white",
+   "ratio": 4.1,
+   "background_L": 0.206,
+   "floor": 4.5
+  },
+  {
+   "beat": "6",
+   "where": "state 1 f694",
+   "block": "content",
+   "colour": "white",
+   "ratio": 4.31,
+   "background_L": 0.194,
+   "floor": 3.0
+  },
+  {
+   "beat": "6",
+   "where": "state 2 f706",
+   "block": "kicker",
+   "colour": "white",
+   "ratio": 4.1,
+   "background_L": 0.206,
+   "floor": 4.5
+  },
+  {
+   "beat": "6",
+   "where": "state 2 f706",
+   "block": "content",
+   "colour": "white",
+   "ratio": 4.36,
+   "background_L": 0.191,
+   "floor": 3.0
+  },
+  {
+   "beat": "6",
+   "where": "state 3 f736",
+   "block": "kicker",
+   "colour": "white",
+   "ratio": 4.1,
+   "background_L": 0.206,
+   "floor": 4.5
+  },
+  {
+   "beat": "6",
+   "where": "state 3 f736",
+   "block": "content",
+   "colour": "white",
+   "ratio": 4.38,
+   "background_L": 0.19,
+   "floor": 3.0
+  },
+  {
+   "beat": "7",
+   "where": "state 0 f807",
+   "block": "kicker",
+   "colour": "ink",
+   "ratio": 11.69,
+   "background_L": 0.642,
+   "floor": 4.5
+  },
+  {
+   "beat": "7",
+   "where": "state 0 f807",
+   "block": "headline",
+   "colour": "ink",
+   "ratio": 10.0,
+   "background_L": 0.542,
+   "floor": 3.0
+  },
+  {
+   "beat": "7",
+   "where": "state 0 f807",
+   "block": "credit",
+   "colour": "ink",
+   "ratio": 8.46,
+   "background_L": 0.45,
+   "floor": 4.5
+  },
+  {
+   "beat": "1",
+   "where": "caption \"TẮT LỊCH SỬ TRÒ CHUYỆN\" f15",
+   "block": "caption",
+   "colour": "ink",
+   "ratio": 7.78,
+   "background_L": 0.41,
+   "floor": 4.5
+  },
+  {
+   "beat": "1",
+   "where": "caption \"TẮT LỊCH SỬ TRÒ CHUYỆN\" f15",
+   "block": "unspoken",
+   "colour": "ink 0.60",
+   "ratio": 3.41,
+   "background_L": 0.41,
+   "floor": 3.0
+  },
+  {
+   "beat": "1",
+   "where": "caption \"GEMINI RỒI?\" f44",
+   "block": "caption",
+   "colour": "ink",
+   "ratio": 8.06,
+   "background_L": 0.427,
+   "floor": 4.5
+  },
+  {
+   "beat": "1",
+   "where": "caption \"GEMINI RỒI?\" f44",
+   "block": "unspoken",
+   "colour": "ink 0.60",
+   "ratio": 3.46,
+   "background_L": 0.427,
+   "floor": 3.0
+  },
+  {
+   "beat": "1",
+   "where": "caption \"GOOGLE VẪN SẼ GIỮ\" f69",
+   "block": "caption",
+   "colour": "ink",
+   "ratio": 7.96,
+   "background_L": 0.421,
+   "floor": 4.5
+  },
+  {
+   "beat": "1",
+   "where": "caption \"GOOGLE VẪN SẼ GIỮ\" f69",
+   "block": "unspoken",
+   "colour": "ink 0.60",
+   "ratio": 3.43,
+   "background_L": 0.421,
+   "floor": 3.0
+  },
+  {
+   "beat": "1",
+   "where": "caption \"ĐOẠN CHAT CỦA BẠN\" f91",
+   "block": "caption",
+   "colour": "ink",
+   "ratio": 7.67,
+   "background_L": 0.404,
+   "floor": 4.5
+  },
+  {
+   "beat": "1",
+   "where": "caption \"ĐOẠN CHAT CỦA BẠN\" f91",
+   "block": "unspoken",
+   "colour": "ink 0.60",
+   "ratio": 3.38,
+   "background_L": 0.404,
+   "floor": 3.0
+  },
+  {
+   "beat": "1",
+   "where": "caption \"KHOẢNG HAI THÁNG.\" f117",
+   "block": "caption",
+   "colour": "ink",
+   "ratio": 7.88,
+   "background_L": 0.416,
+   "floor": 4.5
+  },
+  {
+   "beat": "1",
+   "where": "caption \"KHOẢNG HAI THÁNG.\" f117",
+   "block": "unspoken",
+   "colour": "ink 0.60",
+   "ratio": 3.42,
+   "background_L": 0.416,
+   "floor": 3.0
+  },
+  {
+   "beat": "2a",
+   "where": "caption \"KHOẢNG HAI THÁNG.\" f138",
+   "block": "caption",
+   "colour": "white",
+   "ratio": 9.74,
+   "background_L": 0.058,
+   "floor": 4.5
+  },
+  {
+   "beat": "2a",
+   "where": "caption \"TRƯỚC ĐÂY CON SỐ NÀY\" f156",
+   "block": "caption",
+   "colour": "white",
+   "ratio": 9.81,
+   "background_L": 0.057,
+   "floor": 4.5
+  },
+  {
+   "beat": "2a",
+   "where": "caption \"LÀ 72 GIỜ.\" f182",
+   "block": "caption",
+   "colour": "white",
+   "ratio": 9.98,
+   "background_L": 0.055,
+   "floor": 4.5
+  },
+  {
+   "beat": "2b",
+   "where": "caption \"CHAT TẠM THỜI CŨNG\" f206",
+   "block": "caption",
+   "colour": "ink",
+   "ratio": 9.16,
+   "background_L": 0.492,
+   "floor": 4.5
+  },
+  {
+   "beat": "2b",
+   "where": "caption \"CHAT TẠM THỜI CŨNG\" f206",
+   "block": "unspoken",
+   "colour": "ink 0.60",
+   "ratio": 3.67,
+   "background_L": 0.492,
+   "floor": 3.0
+  },
+  {
+   "beat": "2b",
+   "where": "caption \"BỊ GIỮ LÂU NHƯ VẬY.\" f234",
+   "block": "caption",
+   "colour": "ink",
+   "ratio": 9.19,
+   "background_L": 0.494,
+   "floor": 4.5
+  },
+  {
+   "beat": "2b",
+   "where": "caption \"BỊ GIỮ LÂU NHƯ VẬY.\" f234",
+   "block": "unspoken",
+   "colour": "ink 0.60",
+   "ratio": 3.67,
+   "background_L": 0.494,
+   "floor": 3.0
+  },
+  {
+   "beat": "3",
+   "where": "caption \"BỊ GIỮ LÂU NHƯ VẬY.\" f258",
+   "block": "caption",
+   "colour": "ink",
+   "ratio": 9.12,
+   "background_L": 0.49,
+   "floor": 4.5
+  },
+  {
+   "beat": "3",
+   "where": "caption \"BỊ GIỮ LÂU NHƯ VẬY.\" f258",
+   "block": "unspoken",
+   "colour": "ink 0.60",
+   "ratio": 3.66,
+   "background_L": 0.49,
+   "floor": 3.0
+  },
+  {
+   "beat": "3",
+   "where": "caption \"GOOGLE NÓI THAY ĐỔI\" f275",
+   "block": "caption",
+   "colour": "ink",
+   "ratio": 9.66,
+   "background_L": 0.521,
+   "floor": 4.5
+  },
+  {
+   "beat": "3",
+   "where": "caption \"GOOGLE NÓI THAY ĐỔI\" f275",
+   "block": "unspoken",
+   "colour": "ink 0.60",
+   "ratio": 3.75,
+   "background_L": 0.521,
+   "floor": 3.0
+  },
+  {
+   "beat": "3",
+   "where": "caption \"ÁP DỤNG TOÀN CẦU\" f297",
+   "block": "caption",
+   "colour": "ink",
+   "ratio": 9.29,
+   "background_L": 0.5,
+   "floor": 4.5
+  },
+  {
+   "beat": "3",
+   "where": "caption \"ÁP DỤNG TOÀN CẦU\" f297",
+   "block": "unspoken",
+   "colour": "ink 0.60",
+   "ratio": 3.69,
+   "background_L": 0.5,
+   "floor": 3.0
+  },
+  {
+   "beat": "3",
+   "where": "caption \"TRONG VÀI TUẦN TỚI,\" f318",
+   "block": "caption",
+   "colour": "ink",
+   "ratio": 9.53,
+   "background_L": 0.514,
+   "floor": 4.5
+  },
+  {
+   "beat": "3",
+   "where": "caption \"TRONG VÀI TUẦN TỚI,\" f318",
+   "block": "unspoken",
+   "colour": "ink 0.60",
+   "ratio": 3.73,
+   "background_L": 0.514,
+   "floor": 3.0
+  },
+  {
+   "beat": "3",
+   "where": "caption \"VÌ LÝ DO AN TOÀN\" f342",
+   "block": "caption",
+   "colour": "ink",
+   "ratio": 9.47,
+   "background_L": 0.51,
+   "floor": 4.5
+  },
+  {
+   "beat": "3",
+   "where": "caption \"VÌ LÝ DO AN TOÀN\" f342",
+   "block": "unspoken",
+   "colour": "ink 0.60",
+   "ratio": 3.72,
+   "background_L": 0.51,
+   "floor": 3.0
+  },
+  {
+   "beat": "3",
+   "where": "caption \"VÀ BẢO MẬT.\" f368",
+   "block": "caption",
+   "colour": "ink",
+   "ratio": 9.21,
+   "background_L": 0.495,
+   "floor": 4.5
+  },
+  {
+   "beat": "3",
+   "where": "caption \"VÀ BẢO MẬT.\" f368",
+   "block": "unspoken",
+   "colour": "ink 0.60",
+   "ratio": 3.68,
+   "background_L": 0.495,
+   "floor": 3.0
+  },
+  {
+   "beat": "4",
+   "where": "caption \"VÀ BẢO MẬT.\" f384",
+   "block": "caption",
+   "colour": "white",
+   "ratio": 10.1,
+   "background_L": 0.054,
+   "floor": 4.5
+  },
+  {
+   "beat": "4",
+   "where": "caption \"ĐỂ SO SÁNH: CHATGPT\" f402",
+   "block": "caption",
+   "colour": "white",
+   "ratio": 9.56,
+   "background_L": 0.06,
+   "floor": 4.5
+  },
+  {
+   "beat": "4",
+   "where": "caption \"GIỮ CHAT TẠM THỜI\" f428",
+   "block": "caption",
+   "colour": "white",
+   "ratio": 10.12,
+   "background_L": 0.054,
+   "floor": 4.5
+  },
+  {
+   "beat": "4",
+   "where": "caption \"TỐI ĐA 30 NGÀY.\" f456",
+   "block": "caption",
+   "colour": "white",
+   "ratio": 9.78,
+   "background_L": 0.057,
+   "floor": 4.5
+  },
+  {
+   "beat": "5a",
+   "where": "caption \"TỐI ĐA 30 NGÀY.\" f478",
+   "block": "caption",
+   "colour": "ink",
+   "ratio": 9.66,
+   "background_L": 0.521,
+   "floor": 4.5
+  },
+  {
+   "beat": "5a",
+   "where": "caption \"TỐI ĐA 30 NGÀY.\" f478",
+   "block": "unspoken",
+   "colour": "ink 0.60",
+   "ratio": 3.75,
+   "background_L": 0.521,
+   "floor": 3.0
+  },
+  {
+   "beat": "5a",
+   "where": "caption \"GOOGLE NÓI CHAT TẠM THỜI\" f498",
+   "block": "caption",
+   "colour": "ink",
+   "ratio": 9.16,
+   "background_L": 0.492,
+   "floor": 4.5
+  },
+  {
+   "beat": "5a",
+   "where": "caption \"GOOGLE NÓI CHAT TẠM THỜI\" f498",
+   "block": "unspoken",
+   "colour": "ink 0.60",
+   "ratio": 3.67,
+   "background_L": 0.492,
+   "floor": 3.0
+  },
+  {
+   "beat": "5a",
+   "where": "caption \"KHÔNG DÙNG ĐỂ HUẤN LUYỆN AI.\" f535",
+   "block": "caption",
+   "colour": "ink",
+   "ratio": 9.52,
+   "background_L": 0.514,
+   "floor": 4.5
+  },
+  {
+   "beat": "5a",
+   "where": "caption \"KHÔNG DÙNG ĐỂ HUẤN LUYỆN AI.\" f535",
+   "block": "unspoken",
+   "colour": "ink 0.60",
+   "ratio": 3.73,
+   "background_L": 0.514,
+   "floor": 3.0
+  },
+  {
+   "beat": "5b",
+   "where": "caption \"KHÔNG DÙNG ĐỂ HUẤN LUYỆN AI.\" f556",
+   "block": "caption",
+   "colour": "ink",
+   "ratio": 9.52,
+   "background_L": 0.514,
+   "floor": 4.5
+  },
+  {
+   "beat": "5b",
+   "where": "caption \"KHÔNG DÙNG ĐỂ HUẤN LUYỆN AI.\" f556",
+   "block": "unspoken",
+   "colour": "ink 0.60",
+   "ratio": 3.73,
+   "background_L": 0.514,
+   "floor": 3.0
+  },
+  {
+   "beat": "5b",
+   "where": "caption \"BẠN CŨNG SẮP TẮT ĐƯỢC\" f570",
+   "block": "caption",
+   "colour": "ink",
+   "ratio": 9.45,
+   "background_L": 0.509,
+   "floor": 4.5
+  },
+  {
+   "beat": "5b",
+   "where": "caption \"BẠN CŨNG SẮP TẮT ĐƯỢC\" f570",
+   "block": "unspoken",
+   "colour": "ink 0.60",
+   "ratio": 3.72,
+   "background_L": 0.509,
+   "floor": 3.0
+  },
+  {
+   "beat": "5b",
+   "where": "caption \"HUẤN LUYỆN MÀ VẪN GIỮ LỊCH SỬ.\" f605",
+   "block": "caption",
+   "colour": "ink",
+   "ratio": 9.45,
+   "background_L": 0.509,
+   "floor": 4.5
+  },
+  {
+   "beat": "5b",
+   "where": "caption \"HUẤN LUYỆN MÀ VẪN GIỮ LỊCH SỬ.\" f605",
+   "block": "unspoken",
+   "colour": "ink 0.60",
+   "ratio": 3.72,
+   "background_L": 0.509,
+   "floor": 3.0
+  },
+  {
+   "beat": "6",
+   "where": "caption \"HUẤN LUYỆN MÀ VẪN GIỮ LỊCH SỬ.\" f633",
+   "block": "caption",
+   "colour": "white",
+   "ratio": 10.09,
+   "background_L": 0.054,
+   "floor": 4.5
+  },
+  {
+   "beat": "6",
+   "where": "caption \"NÊN ĐỪNG COI CHAT TẠM THỜI\" f653",
+   "block": "caption",
+   "colour": "white",
+   "ratio": 10.12,
+   "background_L": 0.054,
+   "floor": 4.5
+  },
+  {
+   "beat": "6",
+   "where": "caption \"LÀ CHỖ KÍN.\" f678",
+   "block": "caption",
+   "colour": "white",
+   "ratio": 9.67,
+   "background_L": 0.059,
+   "floor": 4.5
+  },
+  {
+   "beat": "6",
+   "where": "caption \"MẬT KHẨU, SỐ THẺ,\" f700",
+   "block": "caption",
+   "colour": "white",
+   "ratio": 10.07,
+   "background_L": 0.054,
+   "floor": 4.5
+  },
+  {
+   "beat": "6",
+   "where": "caption \"GIẤY TỜ TUỲ THÂN:\" f722",
+   "block": "caption",
+   "colour": "white",
+   "ratio": 9.91,
+   "background_L": 0.056,
+   "floor": 4.5
+  },
+  {
+   "beat": "6",
+   "where": "caption \"ĐỪNG DÁN VÀO.\" f746",
+   "block": "caption",
+   "colour": "white",
+   "ratio": 9.92,
+   "background_L": 0.056,
+   "floor": 4.5
+  },
+  {
+   "beat": "7",
+   "where": "caption \"ĐỪNG DÁN VÀO.\" f763",
+   "block": "caption",
+   "colour": "ink",
+   "ratio": 7.86,
+   "background_L": 0.415,
+   "floor": 4.5
+  },
+  {
+   "beat": "7",
+   "where": "caption \"ĐỪNG DÁN VÀO.\" f763",
+   "block": "unspoken",
+   "colour": "ink 0.60",
+   "ratio": 3.42,
+   "background_L": 0.415,
+   "floor": 3.0
+  },
+  {
+   "beat": "7",
+   "where": "caption \"LƯU LẠI, VÀ GỬI CHO NGƯỜI\" f781",
+   "block": "caption",
+   "colour": "ink",
+   "ratio": 7.67,
+   "background_L": 0.404,
+   "floor": 4.5
+  },
+  {
+   "beat": "7",
+   "where": "caption \"LƯU LẠI, VÀ GỬI CHO NGƯỜI\" f781",
+   "block": "unspoken",
+   "colour": "ink 0.60",
+   "ratio": 3.39,
+   "background_L": 0.404,
+   "floor": 3.0
+  },
+  {
+   "beat": "7",
+   "where": "caption \"HAY TÂM SỰ VỚI AI NHÉ.\" f825",
+   "block": "caption",
+   "colour": "ink",
+   "ratio": 7.57,
+   "background_L": 0.398,
+   "floor": 4.5
+  },
+  {
+   "beat": "7",
+   "where": "caption \"HAY TÂM SỰ VỚI AI NHÉ.\" f825",
+   "block": "unspoken",
+   "colour": "ink 0.60",
+   "ratio": 3.37,
+   "background_L": 0.398,
+   "floor": 3.0
+  }
+ ],
+ "card_small_text_under_4_5": [
+  {
+   "beat": "2a",
+   "where": "state 0 f152",
+   "block": "kicker",
+   "ratio": 4.09,
+   "floor": 4.5
+  },
+  {
+   "beat": "2a",
+   "where": "state 1 f184",
+   "block": "kicker",
+   "ratio": 4.09,
+   "floor": 4.5
+  },
+  {
+   "beat": "4",
+   "where": "state 1 f390",
+   "block": "kicker",
+   "ratio": 4.08,
+   "floor": 4.5
+  },
+  {
+   "beat": "4",
+   "where": "state 2 f419",
+   "block": "kicker",
+   "ratio": 4.08,
+   "floor": 4.5
+  },
+  {
+   "beat": "4",
+   "where": "state 3 f456",
+   "block": "kicker",
+   "ratio": 4.08,
+   "floor": 4.5
+  },
+  {
+   "beat": "6",
+   "where": "state 0 f659",
+   "block": "kicker",
+   "ratio": 4.1,
+   "floor": 4.5
+  },
+  {
+   "beat": "6",
+   "where": "state 1 f694",
+   "block": "kicker",
+   "ratio": 4.1,
+   "floor": 4.5
+  },
+  {
+   "beat": "6",
+   "where": "state 2 f706",
+   "block": "kicker",
+   "ratio": 4.1,
+   "floor": 4.5
+  },
+  {
+   "beat": "6",
+   "where": "state 3 f736",
+   "block": "kicker",
+   "ratio": 4.1,
+   "floor": 4.5
+  }
+ ],
+ "bands": {
+  "2b": [
+   {
+    "rect": [
+     508,
+     578,
+     632,
+     623
+    ],
+    "frame": 200,
+    "why": "TẠM (caption word, karaoke time 6.680)"
+   },
+   {
+    "rect": [
+     512,
+     672,
+     674,
+     717
+    ],
+    "frame": 224,
+    "why": "fixed time from the spec"
+   },
+   {
+    "rect": [
+     208,
+     719,
+     297,
+     763
+    ],
+    "frame": 224,
+    "why": "fixed time from the spec"
+   }
+  ],
+  "3": [
+   {
+    "rect": [
+     633,
+     688,
+     741,
+     733
+    ],
+    "frame": 298,
+    "why": "TOÀN (caption word, karaoke time 9.920)"
+   },
+   {
+    "rect": [
+     435,
+     735,
+     643,
+     779
+    ],
+    "frame": 308,
+    "why": "TRONG (caption word, karaoke time 10.260)"
+   }
+  ],
+  "5a": [
+   {
+    "rect": [
+     639,
+     545,
+     733,
+     589
+    ],
+    "frame": 515,
+    "why": "KHÔNG (caption word, karaoke time 17.160)"
+   },
+   {
+    "rect": [
+     208,
+     592,
+     576,
+     636
+    ],
+    "frame": 530,
+    "why": "HUẤN (caption word, karaoke time 17.680)"
+   }
+  ]
+ },
+ "unit_notes": [],
+ "units": [
+  {
+   "s": 0.0,
+   "e": 1.06,
+   "T": "TẮT LỊCH SỬ TRÒ CHUYỆN",
+   "wstart": [
+    0.0,
+    0.24,
+    0.44,
+    0.66,
+    0.84
+   ]
+  },
+  {
+   "s": 1.06,
+   "e": 1.94,
+   "T": "GEMINI RỒI?",
+   "wstart": [
+    1.06,
+    1.42
+   ]
+  },
+  {
+   "s": 1.94,
+   "e": 2.74,
+   "T": "GOOGLE VẪN SẼ GIỮ",
+   "wstart": [
+    1.94,
+    2.22,
+    2.42,
+    2.62
+   ]
+  },
+  {
+   "s": 2.74,
+   "e": 3.4,
+   "T": "ĐOẠN CHAT CỦA BẠN",
+   "wstart": [
+    2.74,
+    3.02,
+    3.1,
+    3.26
+   ]
+  },
+  {
+   "s": 3.4,
+   "e": 4.82,
+   "T": "KHOẢNG HAI THÁNG.",
+   "wstart": [
+    3.4,
+    3.6,
+    3.82
+   ]
+  },
+  {
+   "s": 4.82,
+   "e": 5.6,
+   "T": "TRƯỚC ĐÂY CON SỐ NÀY",
+   "wstart": [
+    4.82,
+    4.92,
+    5.08,
+    5.28,
+    5.38
+   ]
+  },
+  {
+   "s": 5.6,
+   "e": 6.58,
+   "T": "LÀ 72 GIỜ.",
+   "wstart": [
+    5.6,
+    5.72,
+    6.06
+   ]
+  },
+  {
+   "s": 6.58,
+   "e": 7.24,
+   "T": "CHAT TẠM THỜI CŨNG",
+   "wstart": [
+    6.58,
+    6.68,
+    6.9,
+    7.02
+   ]
+  },
+  {
+   "s": 7.24,
+   "e": 8.8,
+   "T": "BỊ GIỮ LÂU NHƯ VẬY.",
+   "wstart": [
+    7.24,
+    7.42,
+    7.58,
+    7.72,
+    7.92
+   ]
+  },
+  {
+   "s": 8.8,
+   "e": 9.56,
+   "T": "GOOGLE NÓI THAY ĐỔI",
+   "wstart": [
+    8.8,
+    9.06,
+    9.24,
+    9.42
+   ]
+  },
+  {
+   "s": 9.56,
+   "e": 10.26,
+   "T": "ÁP DỤNG TOÀN CẦU",
+   "wstart": [
+    9.56,
+    9.74,
+    9.92,
+    10.08
+   ]
+  },
+  {
+   "s": 10.26,
+   "e": 10.98,
+   "T": "TRONG VÀI TUẦN TỚI,",
+   "wstart": [
+    10.26,
+    10.44,
+    10.58,
+    10.72
+   ]
+  },
+  {
+   "s": 10.98,
+   "e": 11.9,
+   "T": "VÌ LÝ DO AN TOÀN",
+   "wstart": [
+    10.98,
+    11.24,
+    11.4,
+    11.56,
+    11.78
+   ]
+  },
+  {
+   "s": 11.9,
+   "e": 12.94,
+   "T": "VÀ BẢO MẬT.",
+   "wstart": [
+    11.9,
+    12.02,
+    12.18
+   ]
+  },
+  {
+   "s": 12.94,
+   "e": 13.94,
+   "T": "ĐỂ SO SÁNH: CHATGPT",
+   "wstart": [
+    12.94,
+    13.06,
+    13.24,
+    13.34
+   ]
+  },
+  {
+   "s": 13.94,
+   "e": 14.64,
+   "T": "GIỮ CHAT TẠM THỜI",
+   "wstart": [
+    13.94,
+    14.1,
+    14.28,
+    14.5
+   ]
+  },
+  {
+   "s": 14.64,
+   "e": 16.1,
+   "T": "TỐI ĐA 30 NGÀY.",
+   "wstart": [
+    14.64,
+    14.78,
+    14.94,
+    15.18
+   ]
+  },
+  {
+   "s": 16.1,
+   "e": 17.16,
+   "T": "GOOGLE NÓI CHAT TẠM THỜI",
+   "wstart": [
+    16.1,
+    16.36,
+    16.52,
+    16.76,
+    17.02
+   ]
+  },
+  {
+   "s": 17.16,
+   "e": 18.6,
+   "T": "KHÔNG DÙNG ĐỂ HUẤN LUYỆN AI.",
+   "wstart": [
+    17.16,
+    17.34,
+    17.5,
+    17.68,
+    17.86,
+    17.96
+   ]
+  },
+  {
+   "s": 18.6,
+   "e": 19.42,
+   "T": "BẠN CŨNG SẮP TẮT ĐƯỢC",
+   "wstart": [
+    18.6,
+    18.76,
+    19.0,
+    19.18,
+    19.26
+   ]
+  },
+  {
+   "s": 19.42,
+   "e": 21.3,
+   "T": "HUẤN LUYỆN MÀ VẪN GIỮ LỊCH SỬ.",
+   "wstart": [
+    19.42,
+    19.62,
+    19.78,
+    19.88,
+    20.06,
+    20.2,
+    20.4
+   ]
+  },
+  {
+   "s": 21.3,
+   "e": 22.26,
+   "T": "NÊN ĐỪNG COI CHAT TẠM THỜI",
+   "wstart": [
+    21.3,
+    21.42,
+    21.58,
+    21.78,
+    21.94,
+    22.16
+   ]
+  },
+  {
+   "s": 22.26,
+   "e": 22.96,
+   "T": "LÀ CHỖ KÍN.",
+   "wstart": [
+    22.26,
+    22.38,
+    22.54
+   ]
+  },
+  {
+   "s": 22.96,
+   "e": 23.72,
+   "T": "MẬT KHẨU, SỐ THẺ,",
+   "wstart": [
+    22.96,
+    23.1,
+    23.34,
+    23.46
+   ]
+  },
+  {
+   "s": 23.72,
+   "e": 24.42,
+   "T": "GIẤY TỜ TUỲ THÂN:",
+   "wstart": [
+    23.72,
+    23.8,
+    24.04,
+    24.1
+   ]
+  },
+  {
+   "s": 24.42,
+   "e": 25.56,
+   "T": "ĐỪNG DÁN VÀO.",
+   "wstart": [
+    24.42,
+    24.54,
+    24.7
+   ]
+  },
+  {
+   "s": 25.56,
+   "e": 26.58,
+   "T": "LƯU LẠI, VÀ GỬI CHO NGƯỜI",
+   "wstart": [
+    25.56,
+    25.84,
+    25.96,
+    26.08,
+    26.28,
+    26.46
+   ]
+  },
+  {
+   "s": 26.58,
+   "e": 28.5,
+   "T": "HAY TÂM SỰ VỚI AI NHÉ.",
+   "wstart": [
+    26.58,
+    26.74,
+    26.9,
+    27.0,
+    27.16,
+    27.38
+   ]
+  }
+ ],
+ "beats": [
+  {
+   "id": "1",
+   "name": "Hook: gõ câu hỏi",
+   "f0": 0,
+   "f1": 133,
+   "level": "HOOK",
+   "kind": "video",
+   "switch": [
+    0
+   ],
+   "notes": {
+    "S_src": [
+     43,
+     671,
+     299,
+     760
+    ],
+    "y0": 383,
+    "k": 2.2718,
+    "S_frame_h": 202,
+    "x_range": [
+     97,
+     983
+    ],
+    "S_frame_y": [
+     654,
+     856
+    ],
+    "text_colour": {
+     "colour": "ink",
+     "background_L": 0.529,
+     "rows": [
+      1151,
+      1665
+     ],
+     "by": "measured, switch at L 0.199"
+    }
+   }
+  },
+  {
+   "id": "2a",
+   "name": "Trước đây: 72 giờ",
+   "f0": 133,
+   "f1": 197,
+   "level": "CARD",
+   "kind": "card",
+   "switch": [
+    133,
+    172
+   ],
+   "notes": {}
+  },
+  {
+   "id": "2b",
+   "name": "Chat tạm thời cũng 2 tháng",
+   "f0": 197,
+   "f1": 253,
+   "level": "HOOK",
+   "kind": "still",
+   "switch": [
+    197
+   ],
+   "notes": {
+    "paper": [
+     255,
+     255,
+     255
+    ],
+    "edge_std": 1.73,
+    "px": 97,
+    "x_range": [
+     97,
+     860
+    ],
+    "S_rows": [
+     445,
+     1124
+    ],
+    "y0": -374.8,
+    "k": 0.6521,
+    "S_frame_h": 443,
+    "S_frame_y": [
+     535,
+     977
+    ],
+    "text_colour": {
+     "colour": "ink",
+     "background_L": 0.626,
+     "rows": [
+      1285,
+      1665
+     ],
+     "by": "measured, switch at L 0.199"
+    }
+   }
+  },
+  {
+   "id": "3",
+   "name": "Áp dụng toàn cầu",
+   "f0": 253,
+   "f1": 381,
+   "level": "HOOK",
+   "kind": "still",
+   "switch": [
+    253,
+    308
+   ],
+   "notes": {
+    "paper": [
+     253,
+     254,
+     255
+    ],
+    "edge_std": 0.43,
+    "px": 97,
+    "x_range": [
+     97,
+     860
+    ],
+    "S_rows": [
+     2155,
+     2335
+    ],
+    "y0": 1085.7,
+    "k": 0.6521,
+    "S_frame_h": 117,
+    "S_frame_y": [
+     697,
+     815
+    ],
+    "text_colour": {
+     "colour": "ink",
+     "background_L": 0.607,
+     "rows": [
+      1323,
+      1665
+     ],
+     "by": "measured, switch at L 0.199"
+    }
+   }
+  },
+  {
+   "id": "4",
+   "name": "So sánh thời gian giữ",
+   "f0": 381,
+   "f1": 474,
+   "level": "CARD",
+   "kind": "card",
+   "switch": [
+    381,
+    381,
+    400,
+    439
+   ],
+   "notes": {}
+  },
+  {
+   "id": "5a",
+   "name": "Không dùng để huấn luyện",
+   "f0": 474,
+   "f1": 556,
+   "level": "HOOK",
+   "kind": "still",
+   "switch": [
+    474
+   ],
+   "notes": {
+    "paper": [
+     255,
+     255,
+     255
+    ],
+    "edge_std": 1.73,
+    "px": 97,
+    "x_range": [
+     97,
+     860
+    ],
+    "S_rows": [
+     668,
+     1291
+    ],
+    "y0": -179.8,
+    "k": 0.6521,
+    "S_frame_h": 406,
+    "S_frame_y": [
+     553,
+     959
+    ],
+    "text_colour": {
+     "colour": "ink",
+     "background_L": 0.633,
+     "rows": [
+      1264,
+      1665
+     ],
+     "by": "measured, switch at L 0.199"
+    }
+   }
+  },
+  {
+   "id": "5b",
+   "name": "Sắp tắt huấn luyện, giữ lịch sử",
+   "f0": 556,
+   "f1": 629,
+   "level": "HOOK",
+   "kind": "still",
+   "switch": [
+    556
+   ],
+   "notes": {
+    "paper": [
+     255,
+     255,
+     255
+    ],
+    "edge_std": 0.0,
+    "px": 97,
+    "x_range": [
+     97,
+     860
+    ],
+    "S_rows": [
+     3307,
+     3875
+    ],
+    "y0": 2505.1,
+    "k": 0.6962,
+    "S_frame_h": 395,
+    "S_frame_y": [
+     558,
+     954
+    ],
+    "text_colour": {
+     "colour": "ink",
+     "background_L": 0.625,
+     "rows": [
+      1286,
+      1665
+     ],
+     "by": "measured, switch at L 0.199"
+    }
+   }
+  },
+  {
+   "id": "6",
+   "name": "Lời khuyên",
+   "f0": 629,
+   "f1": 760,
+   "level": "CARD",
+   "kind": "card",
+   "switch": [
+    629,
+    689,
+    700,
+    712
+   ],
+   "notes": {}
+  },
+  {
+   "id": "7",
+   "name": "Kết",
+   "f0": 760,
+   "f1": 855,
+   "level": "HOOK",
+   "kind": "still",
+   "switch": [
+    760
+   ],
+   "notes": {
+    "source": "last frame of beat 1",
+    "src_index": 402,
+    "text_colour": {
+     "colour": "ink",
+     "background_L": 0.511,
+     "rows": [
+      1211,
+      1665
+     ],
+     "by": "measured, switch at L 0.199"
+    }
+   }
+  }
+ ]
+}
