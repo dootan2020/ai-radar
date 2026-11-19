@@ -1,0 +1,120 @@
+# Halcyon video spec (`video.json`)
+
+One JSON file describes one 1080x1920, 30 fps Halcyon video. `dung-video-gpu.py` turns it into storyboard stills or the finished mp4. The look (skin, marks, chips, kicker row, big block, caption, cards) is fixed in the tool; the spec only says what goes where and when.
+
+```
+PY=$HALCYON_PYTHON
+%PY% -I -X utf8 dung-video-gpu.py <spec.json> --stills    # one still per beat (per state), contact sheet, 1:1 crops, phone-size frame
+%PY% -I -X utf8 dung-video-gpu.py <spec.json> --render    # bare mp4 + TikTok-overlay preview mp4
+```
+Both write next to the spec: `<stem>-stills/`, `<stem>-plan.json` (what was decided: caption units, band frames, switch frames per beat), `<stem>-render.json` (timings), and the two mp4 files named in `out`. All paths in the spec are relative to the spec file. A missing field, file or caption word stops the run with a message naming the field (`spec: beats[4].text.rows is missing`). No CUDA, no NVDEC or no NVENC stops the run; there is no CPU fallback.
+
+## Top level
+
+| field | meaning |
+|---|---|
+| `name` | short id; temp/cache folder name |
+| `duration` | seconds; frames = round(duration x 30). Beats must tile 0..duration exactly |
+| `voice` | the voice wav (`giong-day-du.wav`); gain only, padded with silence to `duration` |
+| `timing` | `giong-day-du-timing.json`; the Whisper word list is read from `timing_words` (default `words_whisper_medium`) |
+| `word_aliases` | optional; spoken spelling of display words, for matching captions to Whisper words (`"podqi": "podkey"`) |
+| `captions` | one string per caption line, in speech order, as split at "/" in the script. A line starts at its first word in the Whisper list (minus 0.08 s). Lines wider than the text column (x 120-860) are split, lines under 0.6 s are joined to a neighbour that still fits; the result is listed in `<stem>-plan.json` |
+| `tiktok_caption` | two lines of sample caption for the TikTok preview |
+| `out.clean`, `out.tiktok` | mp4 paths |
+| `beats` | list, in time order |
+| `layout` | optional; `"A"` (default, the Halcyon layout) or `"hien-tai"` (the earlier layout, kept for comparison). See "Layout A" below |
+| `field` | optional; layout A only. `"chu-muc"` (default, the Halcyon look) or `"dac"` (the dense field of the earlier layout A, kept for comparison and as the way back). See "Colour field" below |
+| `pattern` | optional; `"mang-no-ron"` (the white neural mesh, default on field `chu-muc`) or `"cham"` (the dot grid, byte for byte the earlier look). See "Field pattern" below |
+| `mesh_motion` | optional; `true` or `"nhe"` (default: amplitude 14-20 px, period 9-13 s), `"rat-nhe"` (amplitude 5-7.5 px, period 12-18 s), `{"amplitude": [lo, hi], "period": [lo, hi]}`, or `false` (the mesh stands at its home positions, a still, white 40%). Ignored by `cham` |
+
+## Beat
+
+| field | meaning |
+|---|---|
+| `id` | unique string (`"1"`, `"2a"`) |
+| `name` | free text |
+| `a`, `b` | start and end in seconds (cuts are straight cuts) |
+| `level` | `HOOK` (picture window y 364-792 in layout A, fade from y 772), `FOOT` (window to y 1092), `CARD` (solid field). Optional for cards: chart, number and list default to `CARD` |
+| `mark` | `"tr"` (default): "hco.news" pill top right. `"wm"`: wordmark pill inside the kicker row of the text element (first and last beat) |
+| `chip` | optional. `{"text": "..."}` is a one-line chip at x 120, y 288 (the chip row; the "hco.news" pill sits at its right end, right limit x 960). `{"title": "...", "line": "..."}` is a chip plus the credit line at y 1124 (x 120, shrunk to fit the column). One chip size is chosen for the whole video from the longest chip text: the largest size that fits between x 120 and the pill minus 20 px; below 21 px the build stops |
+| `text` | optional text element, see below |
+| `picture` | `capture`, `recording` or `same_as`; omitted on cards |
+| `bands` | optional highlighter bands on a `capture` |
+
+### picture
+- `{"kind": "capture", "file": "x.png", ...}`: a phone capture, 390 px wide at scale 3 (1170 px). It is scaled so its page is at most 886 px wide at x 97-983 (never above the old frame-width scale, and shrunk further when S would not fit the 740 px window; below 700 px wide it is refused) and S (the focus) is centred in the clear window (HOOK centre y 430, FOOT y 580). Focus is **one of**: `"lines": [a, b]` (text lines a..b counted from 0 among the ink bands of the capture, inclusive; `"all"` for every line), with optional `"band_rows": [y0, y1]` to count only inside those source rows; or `"rows": [ya, yb]` (pixel rows of the capture, for a photo or a block that is not text). `"u_rows": [ua, ub]` is the part of the capture that is shown; in layout A (the default) it is **required** and must start and end in a gap between two text lines (see "Layout A" below). With the earlier layout it is optional and widens the visible part beyond S (default: S plus 10 px). Everything outside is the page colour of the edge row.
+- `{"kind": "recording", "file": "x.webm", "start": s, "dur": d, "detect": "typed"|"bubble"}`: a 390x844 screen recording shown 886 px wide at x 97 (edge-repeat strips fill the margins), played from `start` for `d` seconds and held on its last frame. `detect` finds the subject: the typed line or the sent bubble. Use `"rect": [x0, y0, x1, y1]` (source px) instead of `detect` to give the subject yourself. `"u_top"` (default 0) is the first source row that is real picture; rows above it are flat colour (62 for the Gemini app bar).
+- `{"kind": "same_as", "beat": "1"}`: the last frame of an earlier beat (the end beat reuses the hook's frame).
+
+### bands
+`[{"rect": [x, y, w, h], "word": ["TRANG", "RỦI"], "after": 0}]`: the rect is in capture pixels. The band fades in over 8 frames when the first run of those caption words (upper-case, with punctuation) is lit; `"after"` skips earlier occurrences. `"at": seconds` fixes the time instead of `word`.
+
+### text kinds
+Every kind may have `"cuts"`: one entry per reveal, each a time in seconds or `{"word": [...], "after": s}` (caption word as above). The element is redrawn at each cut without moving anything already on screen; a cut at or before the beat start shows at once.
+
+| kind | fields | reveals |
+|---|---|---|
+| `block` | `lines` (2), `kicker`, `kicker_size` (30), `cap` (124 px max), `lift` (px upward; 24 for hook beats) | `cuts[0]` shows line 2 |
+| `end` | `kicker`, `line1` ("ĐỌC ĐẦY ĐỦ:"), `line2` ("HCO.NEWS"), `lift` | none |
+| `chart` | `kicker`, `rows` [{`name`, `value`, `bar`}], `bar_full` (the `bar` that fills 740 px), `source`, `note` | row 1, 2, 3, then the note if `note` is given |
+| `number` | `kicker`, `line1` (big number), `line2`, `source` | `cuts[0]` shows line 2 |
+| `list` | `kicker`, `title`, `rows` (strings), `source` | one row per cut |
+
+## Complete example (video #2, beats 4 and 8 shown; the full file is `video-02.json`)
+```json
+{
+  "name": "halcyon-02", "duration": 45.2,
+  "voice": "../../video-halcyon-02/giong-day-du.wav", "timing": "../../video-halcyon-02/giong-day-du-timing.json",
+  "word_aliases": {"podqi": "podkey"},
+  "tiktok_caption": ["Podqi hỏi ChatGPT, Gemini và Perplexity", "về nơi mua hàng của 151... #AI #muahang"],
+  "out": {"clean": "kiem/halcyon-02.mp4", "tiktok": "kiem/halcyon-02-tiktok.mp4"},
+  "captions": ["Hỏi AI mua hàng", "chính hãng ở đâu,", "...", "Lưu video này lại", "trước mùa sale cuối năm nhé."],
+  "beats": [
+    {"id": "4", "a": 17.27, "b": 24.67, "level": "CARD",
+     "text": {"kind": "chart", "kicker": "TỶ LỆ CÂU TRẢ LỜI CÓ TRANG RỦI RO",
+              "rows": [{"name": "PERPLEXITY", "value": "15%", "bar": 15}, {"name": "CHATGPT", "value": "8%", "bar": 8}, {"name": "GEMINI", "value": "4%", "bar": 4}],
+              "bar_full": 15, "note": "* Số liệu tính cả lần có cảnh báo", "source": "Nguồn: hco.news · The Verge", "cuts": [17.55, 19.8, 20.84, 21.84]}},
+    {"id": "5", "a": 24.67, "b": 30.6, "level": "FOOT", "chip": {"text": "Ảnh chụp bài gốc: The Verge, 13/11/2026"},
+     "picture": {"kind": "capture", "file": "../../video-halcyon-02/anh/verge-dt-5-stussy.png", "lines": [7, 11]},
+     "bands": [{"rect": [377, 912, 667, 69], "word": ["NƠI", "TỐT"]}]},
+    {"id": "8", "a": 42.07, "b": 45.2, "level": "HOOK", "mark": "wm",
+     "chip": {"title": "MINH HOẠ KIỂU CÂU HỎI", "line": "Gemini, quay ngày 18/11/2026 · không phải dữ liệu của nghiên cứu"},
+     "text": {"kind": "end", "lift": 24}, "picture": {"kind": "same_as", "beat": "1"}}
+  ]
+}
+```
+`phan-tu-moi.json` shows the four elements the 19/11 scripts add: a text-capture hook (`rows` focus), a number card whose second line cuts in at a caption word, a three-row chart whose rows cut in, and a list card.
+
+## Not in the spec (fixed by the look)
+Caption size 60 px, slot x 120-860 and colours; karaoke (a word lights at its Whisper start minus 0.08 s); hook block lifted by `lift`; highlighter tint; recordings must be 390x844 at 25 fps. Values the tool had to invent are listed in `tien-do-cong-cu.md`.
+
+## Safe frame, gate and previews (18/11/2026)
+Facebook crops 56 px per side and draws its own buttons over y 166-254 and x 930-989 on a tall phone, so all readable pixels live inside x 120-960 and y 288-1248 in the earlier layout, y 288-1440 in layout A (x <= 860 from y 840, the right-hand button column). The builder refuses, and writes nothing, when readable pixels fall outside it: text layers, captions (60 px slot at x 120) and both picture paths (a capture or recording that cannot keep its focus inside the 740 px window, or would drop under 700 px wide). The message names beat, state, pixel count and bounding box. Do not widen the frame or change a spec to pass the gate; report the refusal.
+Every still also gets `<label>-fb.jpg` (Facebook phone preview with grey buttons and cropped edges) and `<label>-xau-nhat.jpg` (worst case: grey over everything outside the frame). Look at both before `--render`. `kiem-hoi-quy.py <old-plan.json> <new-plan.json> <out.txt>` must read EQUAL (same units, beats, bands) before a render.- A capture whose scaled width is under 886 px (shrunk so its focus fits the window) sits on the left edge of the picture area (x 97), not centred, so its text lines up with the text column; bands follow the same x. Recordings stay centred. A capture at 886 px is at x 97 either way.
+
+
+## Layout A (18/11/2026, owner: "Dựng theo A")
+The default layout. Against the earlier layout (`"layout": "hien-tai"`, still selectable) the text column, the caption and the bottom edge of the safe frame sit 192 px lower: kicker row, headline block, credit line and card rows move down by 192, the caption baseline is y 1401, the safe frame ends at y 1440 (x <= 860 from y 840), and the picture window of an opening beat (HOOK) is y 364-792 (428 px, was 236) with the coral fade starting at y 772. The haze over the picture is lighter (top veil 12%, fade 65% as long). Text sizes, colours, fonts and the side limits are as before. Three rules go with it:
+1. **A picture beat names its rows.** A `capture` picture must carry `u_rows`: a gap above the first line to show and a gap below the last, in capture pixels, chosen so that the lines shown are the passage the beat is about (the highlighted phrase's own paragraph, plus following body lines where there is room) and never page chrome, tag rows, bylines, dates, editor's notes, ads or footers. The builder refuses a capture beat without `u_rows`, a `u_rows` that does not contain the focus `lines`/`rows`, one that cuts through a text line (a line straddling a boundary, or ink in the two rows next to it), and one whose shown rows do not fall inside the window and above the fade start (y 364 to 772 for HOOK). The usual shape: `"lines": [0, n], "band_rows": [..], "u_rows": [gap above, gap below]`. Nothing is chosen silently.
+2. **Nothing readable under the fade.** A capture ends at its `u_rows` and the page colour carries on. A recording ends on the lowest row at or above the fade start that is background only (no pixel differing from its neighbour by more than 12 levels, in every frame sampled every 0.3 s) with four more such rows above it, never above the bottom of its focus; from that row down its last row repeats, gradient included. If no such row exists the builder refuses and names the numbers. The top is the mirror: a recording's picture starts on the first row at or below the top of its window that is background only with four more such rows below it (`rec_top`), never below the top of its focus; above it flat background continues to the top of the frame, so a line cut by the window edge never shows. Captures need nothing extra: `check_shown` already refuses a first row with ink beside it.
+3. **Cards are centred.** A beat without a picture (number, chart, list, end card) has its content block (kicker row to source line, measured on the fully revealed state) centred between the chip row (bottom y 348) and the top of the caption capitals (y 1359); the same shift serves every state of the beat. The caption stays at y 1401 on every beat.
+The gate reads this layout's limits. TikTok's own text starts about y 1659 in the normal feed and 1535 on the owner's profile; the `-tt.jpg` preview draws the 1535 case.
+What counts as text (in the u_rows checks and in lines): a pixel whose luminance differs from the capture's most common luminance by more than 85 levels, so light and dark pages are treated alike.
+
+## Colour field (18/11/2026, owner chose "1 Chữ mực" at 22:50)
+The default look of layout A. Spec key `"field": "chu-muc"` (absent = the same); `"field": "dac"` builds the dense coral fade of the earlier layout A, byte for byte, with every chip drawn and white text.
+- **The wash.** On a picture beat the colour field starts at the first fade row (y 772 HOOK, 1092 FOOT) at nothing, is 20% at y 960, 52% at y 1401 and 97% at the bottom, and stays coral down to y 1276 (plum only at the bottom). A beat without a picture is unchanged: solid coral.
+- **Ink or white.** On a picture beat the kicker, headline, credit line and caption are drawn in ink (#101828) when the measured background is light and in white when it is dark. The builder measures the median luminance of the finished picture-plus-wash in the text column, from the first text row below the chip row to the caption, at the middle frame of the beat; above 0.199 (where ink and white have equal contrast) it chooses ink. The choice is printed per beat, written to the plan (`notes.text_colour`), and a beat may force it with `"text_ink": true|false`. Ink text has no shadow; the caption's unspoken words are ink at 60%. The small text of a card (kicker, source line, note) is drawn at full strength (alpha 255) under this field; field `dac` keeps the old 85-90%. Cards without a picture stay white on coral.
+- **Chip.** A chip is drawn only if its title or text starts with "MINH HOẠ" (the marker of an illustration Halcyon made). A chip that only says where and when a capture was taken is not drawn (one printed line per dropped chip, and its credit line goes with it). The chip size is still chosen from every chip of the spec.
+- **Contrast gate.** On every still the builder can write (the middle of every state of every beat, and every caption unit inside the beat that holds it) it measures the text colour against the pixels actually around each text block in the finished frame: the median luminance of a ring 12 px around the block's glyphs, glyph pixels excluded, as a WCAG ratio. Floors: kicker, credit line, caption and a card's source line 4.5, headline and card content 3.0, and the caption's unspoken words (ink at 60% over the same pixels, 60 px bold = large text) 3.0. A card (a beat with no picture, flat brand coral) is refused only under 3:1 for every block; its small text (kicker, source line, note, caption) between 3:1 and 4.5:1 is printed one line per block ("card small text under 4.5:1: ...") and written to the plan under card_small_text_under_4_5, because white on the brand coral is a brand decision: the shortfall is reported, not hidden. On picture beats: below a floor the builder refuses before it writes anything and names the beat, the block, the ratio and the background luminance. A block with no glyph pixels in its region raises. The numbers are written to the plan (`contrast`). A card block the builder drew nothing into in a state (a chart before its first row cuts in) is not measured: the gate prints "beat N state S <block>: nothing drawn in this state, not measured" and counts it in its closing line; a block the builder did draw into that has no glyph pixels still raises. Field `dac` and layout `hien-tai` print what is under the floor but are not refused (the dense field's kicker measures 4.05-4.18 on light pictures).
+
+## Field pattern (19/11/2026, owner chose "mạng nơ-ron màu trắng nhé em" at 23:52)
+Spec key `"pattern"`: `mang-no-ron` (default) or `cham`. The default draws the neural mesh where the dots were drawn: the designer's geometry (`vung-an-toan/hoa-tiet/ve-hoa-tiet.py`, mesh: seed 7, pitch 156 px, links under 1.3 pitch kept at 52%, 16% of nodes ringed, links 2.2 px, dots 5.5 px) drawn flat in white at 40% (19/11, 00:2x: at the dots' 16% the owner could not see it on his phone; the contrast gate is unchanged, its ring median hardly moves for thin lines) under the dots' own vertical envelope (nothing above y 1092 on a picture beat, 90% of the 40% at y 1442, 50% at the bottom; cards .25 / .9 / .6 over the frame). **It moves** (owner, 19/11: "Làm mạng nơ-ron chuyển động nhẹ nhàng"): every node wanders around its home on a slow closed path, offset = c + a sin(2 pi f / (30 T) + phase) per axis, a and T from the preset (`nhe` a 14-20 px, T 9-13 s; `rat-nhe` a 5-7.5 px, T 12-18 s), phases from seed 11; a node whose draw would exceed 12.5 px/s or 25.5 px from home is slowed (period up to 1.35x the top of the range) and then shrunk until it fits; the links follow. The offset is a function of the frame number alone (`ve_halcyon.mesh_pos(f)`), so a still of frame f is exactly what the render shows at f, and nothing restarts or jumps at a cut. Measured on video 03 at `nhe`: no node further than 25.4 px from its home (limit 26), none faster than 12.5 px/s (limit 13), mean 8 px/s; at `rat-nhe` 10.3 px and 5.0 px/s, none within reach of a keep-out band at any frame (a node within one amplitude of a band swings one-sidedly, away from it). Nothing blinks or breathes; no travelling pulses. The mesh is drawn per frame on the GPU (`dung-video-gpu.mesh_cover`): each pixel's coverage is the analytic distance to the shape at the pixel centre, from float node positions, so a 0.1 px move changes edge values by a tenth of a step (no whole-pixel drawing; measured on the encoded file, a node track follows the code path to 0.01-0.03 px). `"mesh_motion": false` keeps the nodes at home. It sits on every field that carries the dots (picture-beat wash, coral cards, the dark-page wash). Field `dac` and layout `hien-tai` exist only to reproduce earlier approved files, so with no `"pattern"` in the spec they build with the dots; a spec can name `"pattern": "mang-no-ron"` there. Field `chu-muc` (layout A default) keeps the mesh as default. `cham` is today's dot grid, byte for byte. Where it meets text: links pass behind text as dots did, but no node sits in the kicker row (BLOCK_B-346 .. BLOCK_B-146, y 930-1130 in layout A) or the caption line with its credit line (y 1300-1440), from 24 px left of the text column to 24 px right of it. A node in the first band is moved up out of it, a node in the second down out of it (the geometry is fixed per layout, no mask changes during a beat); a moved node closer than 60 px to another node is dropped, and a link longer than 1.25 x the longest designed one (254 px) is dropped. `ve_halcyon.mesh_geometry` returns the counts; the builder prints them on one line (`pattern mang-no-ron: {...}`) and writes `pattern` to the plan.
+
+## Collapsed caption: layouts thu-gon, thu-gon-2, thu-gon-r (19/11/2026, owner: the safe area is counted with the caption collapsed to three rows)
+Measured on the owner's screenshot of another account's public TikTok video (`vung-an-toan\thu-gon-1119\do.md`): TikTok's collapsed caption block starts at frame y 1748 in the feed (1693 in the composer preview), the rail is x 907-1008, y 888-1873, the top tabs end at y 228. Spec key `"layout"`:
+- `thu-gon`: layout A 248 px lower (dy 440): safe frame ends y 1688, caption baseline 1649, HOOK picture window y 364-1040 (676 px), FOOT 364-1340. The colour field's absolute stops move down by the same 248.
+- `thu-gon-2`: as `thu-gon` with the window starting at y 244, under the top tabs; the "hco.news" pill must lie on flat picture (`check_pill` refuses a capture with ink under it; spec key `"pill_gate": "print"` only prints).
+- `thu-gon-r`: as `thu-gon` with pictures 763 px wide (x 97-860), because a picture 886 px wide puts its text under the button column below y 888.
+- A `chip` with only a `"line"` draws just the factual credit line (the "MINH HOẠ" chips are gone, owner 19/11); a chip with a `"title"` builds as before.
+Phone preview `tt2` (`ve_halcyon.phone_preview`) draws the measured boxes in grey. Layout A, field `dac`, layout `hien-tai` and pattern `cham` build the same bytes as before (`vung-an-toan\thu-gon-1119\regresion\`).
