@@ -17,7 +17,7 @@ from pathlib import Path
 LEAD = 0.08                      # the builder lights a word 0.08 s before its Whisper start (dung-video-gpu.LEAD)
 TAIL = 0.70                      # silence after the voice; published tails were 0.68-0.72
 CHIP_MAX = 43                    # a chip longer than this does not fit at 21 px (measured 18/11)
-LAYOUT, FIELDS = 'thu-gon-r2', ('layout', 'drop_kickers')
+LAYOUT, FIELDS = 'thu-gon-r3-l2', ('layout', 'drop_kickers')
 ROOT = Path(__file__).resolve().parents[2]
 FONTS = {'caps': [Path(__file__).parent / 'fonts' / 'BarlowCondensed-Bold.ttf', Path(__file__).parent / 'fonts' / 'BarlowCondensed-ExtraBold.ttf'],
          'small': [ROOT / 'brand' / 'fonts' / 'BeVietnamPro-Medium.ttf', ROOT / 'brand' / 'fonts' / 'BeVietnamPro-SemiBold.ttf']}

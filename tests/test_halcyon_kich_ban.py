@@ -49,12 +49,13 @@ def diffs(a, b, p=""):
 
 # Every place the assembled spec differs from the published one. "at" for "word": the assembler writes a band time in seconds, the published
 # spec named the caption word; "cuts[0]" seconds for a word; duration/b: the rule tail of 0.70 s against the published 0.71 / 0.68.
+# ".layout": the posted videos were built with thu-gon-r2; a script now defaults to thu-gon-r3-l2 (owner 19/11/2026 22:54, "Chọn +2 dòng"), and the posted specs keep naming r2 so they still rebuild as before.
 DIFFS = {
-    "05": {".duration", ".beats[8].b",
+    "05": {".layout", ".duration", ".beats[8].b",
            ".beats[2].bands[0].at", ".beats[2].bands[0].word", ".beats[3].text.cuts[0]",
            ".beats[3].bands[0].at", ".beats[3].bands[0].word", ".beats[3].bands[1].at", ".beats[3].bands[1].word",
            ".beats[5].bands[0].at", ".beats[5].bands[0].word", ".beats[5].bands[1].at", ".beats[5].bands[1].word"},
-    "03": {".duration", ".beats[6].b", ".beats[3].level", ".beats[3].text.cuts[0]", ".beats[4].text.cuts[0]",
+    "03": {".layout", ".duration", ".beats[6].b", ".beats[3].level", ".beats[3].text.cuts[0]", ".beats[4].text.cuts[0]",
            ".beats[0].bands[0].at", ".beats[0].bands[0].word", ".beats[1].bands[0].at", ".beats[1].bands[0].word",
            ".beats[2].bands[0].at", ".beats[2].bands[0].word", ".beats[2].bands[1].at", ".beats[2].bands[1].word",
            ".beats[4].bands[0].at", ".beats[4].bands[0].word", ".beats[4].bands[1].at", ".beats[4].bands[1].word",
@@ -66,6 +67,7 @@ class Reproduces(unittest.TestCase):
     def check(self, vid):
         d = VIDEOS[vid][0]
         got = assemble(vid); pub = load(FIX / vid / d / "video.published.json"); plan = load(FIX / vid / d / "video-plan.published.json")
+        self.assertEqual(got["layout"], "thu-gon-r3-l2"); self.assertEqual(pub["layout"], "thu-gon-r2")
         self.assertEqual(set(diffs(got, pub)), DIFFS[vid])
         self.assertEqual(got["captions"], pub["captions"])
         self.assertEqual(got["word_aliases"], pub["word_aliases"])

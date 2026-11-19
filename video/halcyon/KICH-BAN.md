@@ -13,7 +13,7 @@ Paths inside the output are relative to `--out`. The voice file is the timing fi
 ```
 { "id": "05", "title": "...", "outlet": "TechCrunch", "date": "17/11/2026",
   "tiktok_caption": ["line 1", "line 2 #tags"],
-  "slug": "...", "chip_prefix": "Ảnh chụp", "tail": 0.70, "word_aliases": {}, "layout": "thu-gon-r2", "drop_kickers": true,   (all optional)
+  "slug": "...", "chip_prefix": "Ảnh chụp", "tail": 0.70, "word_aliases": {}, "layout": "thu-gon-r3-l2", "drop_kickers": true,   (all optional)
   "paragraphs": [ { "say": "text for the voice, numbers as words",
                     "show": "caption text, numerals allowed, \"/\" marks a line break",
                     "numbers": {"8:30": "tám giờ rưỡi"},                      (optional, see 3)
@@ -53,7 +53,7 @@ An **anchor** is the spoken words (one or more, in the `show` text) that trigger
 | `level`, `mark`, `lift`, `kicker_size` | constants: capture/recording beats HOOK; `wm` on the first and last beat; lift 24 on the first and the end beat; kicker size 26; cards have no `level` |
 | `chip` | explicit, else `<chip_prefix>: <source>, <date>` of the manifest entry; at most 43 characters |
 | card `kicker`, `source` | `kicker` upper-cased; `source` explicit, else `Nguồn: <outlet>, <date>` (a list card has none unless given) |
-| `layout`, `drop_kickers` | `thu-gon-r2`, `true` |
+| `layout`, `drop_kickers` | `thu-gon-r3-l2` (owner 19/11/2026 22:54, "Chọn +2 dòng"), `true`. r3-l2 = thu-gon-r2 with the subtitle 312 px higher (its lowest ink then ends at y 1350, 343 px above y 1693), the headline block drawn on the opening beat only (lifted 262 px more) and none on the other picture beats; the ending card moves up with it. Posted videos keep naming `thu-gon-r2` in their own spec and rebuild as before |
 
 ## 4. The capture manifest (`captures.json`, slice 3 writes it)
 ```
