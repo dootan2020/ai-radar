@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-19T11:36:27.645451+00:00",
-  "input_generated_at": "2026-11-19T10:46:21Z",
+  "generated_at": "2026-11-19T16:03:07.630236+00:00",
+  "input_generated_at": "2026-11-19T14:45:54Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -104663,10 +104663,10 @@
       "use_original_title": true,
       "source_url": "https://en.yna.co.kr/view/AEN20261119005352315",
       "key_points": [
-        "Theo cảnh sát, Lee Jin-woo, thủ khoa đạt điểm tuyệt đối kỳ thi tuyển sinh trường luật (LEET), được phát hiện tử vong vào ngày 19 tháng 11 năm 2026 giữa nghi vấn gian lận bằng trí tuệ nhân tạo (AI). Lực lượng chức năng tìm thấy sinh viên 32 tuổi này tại một nhà nghỉ ở Seoul trong tình trạng ngưng tim.",
-        "Cảnh sát đã lần theo camera an ninh ghi lại việc Lee di chuyển qua phía đông Seoul trước khi đến nhà nghỉ. Cơ quan chức năng tìm kiếm sau khi nhận tin báo anh mất tích và anh không đến buổi làm bài thi trên YouTube.",
-        "Tại hiện trường, cảnh sát tìm thấy mẩu giấy của Lee viết rằng anh kiệt sức nhưng không nhắc đến nghi vấn gian lận hay cuộc điều tra. Trước đó, cảnh sát Seoul mở cuộc điều tra Lee sau khi hai luật sư nộp đơn tố cáo anh cản trở kinh doanh.",
-        "Cảnh sát cho biết vụ điều tra nhắm vào Lee dự kiến sẽ khép lại mà không chuyển giao truy tố sau khi anh qua đời. Theo Yonhap, chính phủ Hàn Quốc dự kiến xem xét lập đội xác minh trước lo ngại về gian lận bằng AI trong thi cử."
+        "Theo cảnh sát, người đàn ông đạt điểm tuyệt đối trong kỳ thi trường luật nghi dùng AI gian lận được phát hiện đã tử vong vào ngày 19 tháng 11 năm 2026. Lực lượng chức năng tìm thấy sinh viên nha khoa 32 tuổi này tại nhà nghỉ ở phía đông Seoul trong tình trạng ngưng tim và không thể hồi sinh.",
+        "Cảnh sát nỗ lực tìm kiếm sau khi nhận tin báo Lee mất tích vào sáng sớm cùng ngày. Cơ quan điều tra đã theo dõi camera an ninh ghi lại lộ trình Lee di chuyển qua phía đông Seoul trước khi đến nhà nghỉ.",
+        "Lee vắng mặt trong buổi thi tiếng Hàn từ kỳ thi đại học trên một kênh YouTube vào sáng thứ Năm, dù anh có lịch làm bài kiểm tra để chứng minh năng lực học tập. Theo Yonhap, cảnh sát tìm thấy tại hiện trường mẩu giấy được cho là của Lee nói rằng anh kiệt sức về thể chất lẫn tinh thần, nhưng không đề cập cáo buộc gian lận hay cuộc điều tra.",
+        "Cảnh sát cho biết họ dự định tiếp tục điều tra làm rõ sự thật, dù cuộc điều tra nhắm vào Lee dự kiến khép lại mà không chuyển giao truy tố sau khi anh qua đời."
       ],
       "same_event_coverage_ids": [
         "8811985fae175cae161f"
@@ -104682,7 +104682,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Thủ khoa kỳ thi trường luật tại Hàn Quốc nghi dùng AI gian lận được phát hiện tử vong",
+      "editorial_headline_vi": "Thủ khoa kỳ thi trường luật là sinh viên nha khoa nghi gian lận AI tử vong, cảnh sát tiếp tục điều tra",
       "summary_sources": [
         {
           "id": "outlet",
@@ -104695,44 +104695,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.95,
+        "value": 10.0,
         "answers": {
           "what": 10,
           "why": 10,
-          "notable": 8,
-          "meaning": 7
+          "notable": 10,
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "mẩu giấy của Lee viết rằng anh kiệt sức",
-            "explanation": "Police found a note believed to have been left by Lee, and its account of exhaustion was reported rather than confirmed (outlet:p007)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "meaning",
-            "problem": "Readers may think the allegation investigation simply ends with Lee’s death.",
-            "fix": "State that police plan to continue investigating to establish the facts, though closure without referral for prosecution is expected (outlet:p008)."
-          },
-          {
-            "question": "notable",
-            "problem": "The purpose of the missed public test is unclear.",
-            "fix": "Identify it as a Korean-language test from that year’s college entrance exam, intended to demonstrate Lee’s academic abilities (outlet:p006)."
-          },
-          {
-            "question": "what",
-            "problem": "The note is attributed to Lee more firmly than the source allows.",
-            "fix": "Say police believed Lee left the note and that it reportedly described exhaustion (outlet:p007)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "a0226c37d61f3bfc4a489c5598b526c4985df38c7bc7446f4184b8d3cef989d9",
-        "scored_at": "2026-11-19T11:29:28.190845+00:00"
+        "prose_sha256": "0d164ceb62b85d1db2209429f25883be81496dce3e36a191c932db6bb24c8bdb",
+        "scored_at": "2026-11-19T16:03:07.571599+00:00"
       }
     },
     {
@@ -104792,9 +104770,9 @@
       "use_original_title": true,
       "source_url": "https://analyticsindiamag.com/ai-startups/can-simulated-users-replace-weeks-of-consumer-research-vectorial-ai-thinks-so",
       "key_points": [
-        "Theo AIM, Vectorial phát triển mô hình SAPIENS (hệ thống mô phỏng hành vi người dùng) tạo đại diện ảo của khách hàng mục tiêu để thử nghiệm ý tưởng sản phẩm trước khi ra mắt. Doanh nghiệp tại San Francisco này vừa huy động 3 triệu USD vốn hạt giống vào tháng 10 năm 2026.",
-        "Đồng sáng lập Taranveer Singh cho rằng nghiên cứu truyền thống mất từ ba đến 12 tuần và đang trở thành điểm nghẽn phát triển sản phẩm. Theo Singh, một số công ty bỏ qua bước nghiên cứu vì chi phí hoặc thời gian, dẫn đến nguy cơ lãng phí hàng triệu USD.",
-        "Vectorial cho biết đã lập mô hình hơn 2,5 triệu người dùng và chạy hơn 30.000 mô phỏng nhằm cung cấp phản hồi nhanh với chi phí thấp. Công ty báo cáo SAPIENS đạt độ chính xác 87% khi dự đoán hành vi và khớp 85-95% nghiên cứu trước đây trong một số so sánh.",
+        "Theo AIM, Vectorial phát triển mô hình SAPIENS (hệ thống mô phỏng hành vi) tạo đại diện ảo của khách hàng mục tiêu để thử nghiệm ý tưởng trước khi ra mắt. Doanh nghiệp tại San Francisco này đã huy động 3 triệu USD vốn hạt giống vào tháng 10 năm 2026.",
+        "Đồng sáng lập Taranveer Singh cho rằng nghiên cứu truyền thống mất từ ba đến 12 tuần và đang trở thành điểm nghẽn. Theo Singh, một số công ty bỏ qua khâu nghiên cứu do tốn thời gian hoặc chi phí, dẫn đến nguy cơ lãng phí hàng triệu USD.",
+        "Vectorial đặt mục tiêu cung cấp phản hồi trong vài giờ với chi phí bằng khoảng một phần hai mươi nghiên cứu thông thường. Công ty báo cáo SAPIENS đạt độ chính xác 87% khi dự đoán hành vi và khớp 85 đến 95% nghiên cứu trước đây trong một số so sánh.",
         "Vectorial cho rằng mô phỏng có thể thay thế nghiên cứu truyền thống cho nhiều quyết định, dù công ty vẫn khuyến khích hiệu chuẩn với người thật. Dù vậy, giới nghiên cứu vẫn thận trọng khi khảo sát năm 2026 của User Interviews ghi nhận 47% còn hoài nghi và 88% lo ngại về độ chính xác."
       ],
       "same_event_coverage_ids": [
@@ -104811,7 +104789,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Vectorial huy động 3 triệu USD cho mô hình AI mô phỏng người dùng nhằm thay thế nghiên cứu truyền thống",
+      "editorial_headline_vi": "Vectorial cho rằng mô phỏng thay thế được nhiều quyết định nghiên cứu nhưng vẫn khuyến khích hiệu chuẩn",
       "summary_sources": [
         {
           "id": "outlet",
@@ -104824,39 +104802,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.0,
+        "value": 10.0,
         "answers": {
           "what": 10,
-          "why": 8,
-          "notable": 8,
+          "why": 10,
+          "notable": 10,
           "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "nhằm thay thế nghiên cứu truyền thống",
-            "explanation": "The unqualified headline implies wholesale replacement. Vectorial says simulations can replace conventional research for many decisions and still encourages calibration with live participants (outlet:p016)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "meaning",
-            "problem": "The headline states a broader replacement claim than the qualified account in the article.",
-            "fix": "Limit the headline to replacing conventional research for many decisions, with real-participant calibration still encouraged (outlet:p016)."
-          },
-          {
-            "question": "notable",
-            "problem": "Readers miss the specific speed and cost claim.",
-            "fix": "Attribute to Vectorial its aim of feedback within hours at around one-twentieth of a conventional study’s cost (outlet:p015)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "921d18161b3f6c41673eff96017c0dca0aa5230ae9573e5ed2720dd7f870227e",
-        "scored_at": "2026-11-19T11:29:28.190960+00:00"
+        "prose_sha256": "166e397ca872ff7ee5a184dbc7a8e9edd1b5a8e36253c185e6d461e4a592fcf3",
+        "scored_at": "2026-11-19T15:58:19.592223+00:00"
       }
     },
     {
@@ -104896,10 +104857,10 @@
       "use_original_title": true,
       "source_url": "https://www.gdmunion.co.uk",
       "key_points": [
-        "Nhân viên DeepMind yêu cầu Google giữ vững lằn ranh đỏ đối với các ứng dụng trí tuệ nhân tạo. Trước đó, Google đã âm thầm xóa bỏ cam kết năm 2018 về việc không phát triển vũ khí hay công nghệ giám sát.",
-        "Văn bản của nhóm nhân viên giải thích trách nhiệm bảo đảm nhân quyền xuất phát từ Nguyên tắc Hướng dẫn của Liên Hợp Quốc về Kinh doanh và Nhân quyền mà Alphabet từng cam kết. Nhóm nhân viên nhấn mạnh sự tin cậy của công chúng và việc giám sát AI hiệu quả phụ thuộc vào tính minh bạch.",
-        "Theo đề xuất, nguyên tắc AI phải là điều khoản hợp đồng bắt buộc, áp dụng cả khi Google chỉ cung cấp một thành phần AI cho bên khác. Người lao động DeepMind cũng đòi quyền từ chối tham gia các dự án mà họ tin là vi phạm cam kết đạo đức mà không sợ bị trả đũa.",
-        "Văn bản của nhân viên khẳng định lằn ranh đỏ chỉ có ý nghĩa khi có biện pháp bảo vệ có thể thực thi và giám sát liên tục. Tài liệu yêu cầu Google phải áp dụng cơ chế giám sát có thể phát hiện hầu hết vi phạm và duy trì năng lực này khi triển khai."
+        "Bản kiến nghị trên trang web gdmunion.co.uk yêu cầu Google phải công khai xác định và giữ vững các lằn ranh đỏ đối với những ứng dụng không được phép của hệ thống AI. Văn bản kêu gọi công ty duy trì cam kết về nhân quyền và luật pháp quốc tế trong mọi thỏa thuận công nghệ.",
+        "Theo tạp chí WIRED được trang web dẫn lại, yêu cầu này xuất hiện sau khi Google âm thầm xóa cam kết năm 2018 về việc không phát triển vũ khí AI hay công nghệ giám sát.",
+        "Tờ The Guardian cũng cho biết Google chấp thuận điều khoản của Lầu Năm Góc để xây dựng lực lượng tác chiến ưu tiên AI, điều mà đối thủ Anthropic đã từ chối.",
+        "Tác giả trang web khẳng định lằn ranh đỏ chỉ có ý nghĩa nếu có biện pháp bảo vệ thực thi và giám sát liên tục, đồng thời đề xuất giám sát độc lập bổ sung cho kiểm tra nội bộ. Văn bản cũng đòi quyền từ chối dự án vi phạm đạo đức cho người lao động tại GDM mà không sợ bị trả đũa, và yêu cầu chấm dứt hợp đồng đẩy nhanh khai thác nhiên liệu hóa thạch."
       ],
       "same_event_coverage_ids": [
         "9911a052a5849b770328"
@@ -104913,7 +104874,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Nhân viên DeepMind yêu cầu Google khôi phục lằn ranh đỏ AI sau khi công ty xóa cam kết năm 2018",
+      "editorial_headline_vi": "Trang web gdmunion yêu cầu Google khôi phục lằn ranh đỏ sau khi công ty xóa cam kết về vũ khí AI",
       "summary_sources": [
         {
           "id": "outlet",
@@ -104926,40 +104887,40 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 7.9,
+        "value": 8.55,
         "answers": {
-          "what": 8,
+          "what": 9,
           "why": 9,
-          "notable": 7,
+          "notable": 8,
           "meaning": 8
         },
         "hard_errors": [
           {
             "kind": "fact",
-            "summary_text": "không phát triển vũ khí hay công nghệ giám sát",
-            "explanation": "The deleted pledge concerned AI weapons and surveillance that violates rights, not a blanket ban on developing all weapons or surveillance technology (outlet:p002)."
+            "summary_text": "gdmunion.co.uk",
+            "explanation": "The supplied source does not identify the page by this domain (outlet:p001–p052)."
+          },
+          {
+            "kind": "quote",
+            "summary_text": "không phát triển vũ khí AI hay công nghệ giám sát",
+            "explanation": "The deleted pledge concerned AI weapons and surveillance that violates rights; the Vietnamese removes the qualification on surveillance (outlet:p002)."
           }
         ],
         "findings": [
           {
             "question": "what",
-            "problem": "The 2018 pledge is presented as a blanket ban on weapons and surveillance technology.",
-            "fix": "Specify AI weapons and rights-violating surveillance (outlet:p002)."
+            "problem": "The reader is given a website identity that the supplied source does not establish.",
+            "fix": "Refer to the page or its demands without naming gdmunion.co.uk (outlet:p019–p020)."
+          },
+          {
+            "question": "why",
+            "problem": "The deleted pledge is described as covering surveillance without qualification.",
+            "fix": "Specify surveillance that violates rights, as the source does (outlet:p002)."
           },
           {
             "question": "notable",
-            "problem": "The reader misses the concrete case behind the demands.",
-            "fix": "Add that Google signed the $1.2 billion deal despite internal human-rights warnings and lacked a reliable way to monitor its use (outlet:p005)."
-          },
-          {
-            "question": "meaning",
-            "problem": "The account of enforcement stops at Google's monitoring.",
-            "fix": "Include independent oversight and effective action to stop violations (outlet:p030–p034)."
-          },
-          {
-            "question": "what",
-            "problem": "The reader does not learn that the page also calls for public reporting and an environmental commitment.",
-            "fix": "Briefly include reporting on government and defence business and ending contracts that accelerate fossil-fuel extraction (outlet:p041–p043, outlet:p046–p048)."
+            "problem": "The Pentagon example loses what Google accepted and why Anthropic refused.",
+            "fix": "Add the ‘any lawful use’ clause and Anthropic’s concerns about mass surveillance and autonomous weapons (outlet:p017)."
           }
         ],
         "writer_boats": [
@@ -104967,8 +104928,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "7719835671886a1a36163ceaae73e6563b432338f8c71e3d4d0fc90563a36f2e",
-        "scored_at": "2026-11-19T11:36:27.504839+00:00"
+        "prose_sha256": "b0198d8f44d188ddb60e17c3cbaadf7af012eaa8ac26e2f9eff68192dafe5d4d",
+        "scored_at": "2026-11-19T16:03:07.571672+00:00"
       }
     },
     {
@@ -105128,6 +105089,1303 @@
         ],
         "availability": "unknown",
         "is_leak": false
+      }
+    },
+    {
+      "id": "60ff07a70f51c3692ee0",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "top",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/ai-artificial-intelligence/1037459/anthropic-ipo-safe-ai-reputation-power-structure",
+      "key_points": [
+        "Anthropic huy động 81,3 tỷ USD trong đợt phát hành cổ phiếu lần đầu ra công chúng (IPO), vượt SpaceX để trở thành đợt IPO lớn nhất lịch sử. Dù mở đường cho các hãng trí tuệ nhân tạo (AI), cấu trúc nội bộ lại giúp ban lãnh đạo tự quyết mà thiếu kiểm soát quyền lực thông thường.",
+        "Các lãnh đạo Anthropic cho rằng công ty chỉ có thể giữ sứ mệnh an toàn khi dẫn đầu cuộc đua AI, vốn đòi hỏi lượng vốn và năng lực tính toán khổng lồ. Giám đốc chính sách Sarah Heck từng nhấn mạnh quan điểm không thể bảo đảm an toàn nếu đứng ở vị trí thứ hai.",
+        "Hồ sơ Form S-1 cho thấy quỹ tín thác LTBT không có quyền can thiệp hoạt động thường nhật hay dừng ra mắt mô hình như ban quản trị OpenAI. Tổ chức Center for AI Safety cũng cáo buộc Anthropic suy yếu cam kết an toàn khi chạy đua phát triển AI tự cải tiến.",
+        "The Verge nhận định công ty đại chúng sẽ khó duy trì các sáng kiến an toàn tốn kém và chịu áp lực đẩy nhanh thương mại hóa."
+      ],
+      "same_event_coverage_ids": [
+        "7088c4edcb0843b8cc9d",
+        "76565bf3cce4755b7238"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Anthropic",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Anthropic huy động 81,3 tỷ USD trong đợt IPO kỷ lục nhưng bị hoài nghi về cam kết an toàn",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1037459/anthropic-ipo-safe-ai-reputation-power-structure"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.5,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The summary presents difficulty maintaining safety work more firmly than the source’s forecast.",
+            "fix": "Keep the source’s uncertainty: public-company pressure will likely make costly safety initiatives harder to justify, while its effect on Anthropic’s mission remains an open question (outlet:p039, outlet:p046)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "236f02f6a72315e14cb0001f7517fd6f186811d87c254ea62b6028d3af87a40c",
+        "scored_at": "2026-11-19T15:37:01.251063+00:00"
+      }
+    },
+    {
+      "id": "e4d5bef17e33464fa809",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/19/2026/europe-tries-to-find-its-ai-niche",
+      "key_points": [
+        "Tại sự kiện của Semafor, các lãnh đạo công nghệ thừa nhận châu Âu vẫn tụt hậu trong cuộc đua trí tuệ nhân tạo (AI). Bộ trưởng AI Anh Kanishka Narayan nhận định Mỹ và Trung Quốc hoàn toàn vượt trội về cả quy mô lẫn vốn đầu tư.",
+        "Marco-Alexander Breit, Vụ trưởng tại Bộ Số hóa Đức, cho biết Đạo luật AI của EU tạo thêm rào cản lớn khiến các công ty nội địa khó nâng cao sức cạnh tranh.",
+        "Arthur Mensch, Giám đốc điều hành của Mistral, nêu rõ nhu cầu về AI nguồn mở có chủ quyền để các doanh nghiệp tự chạy mô hình mà không cần phụ thuộc vào Mỹ.",
+        "Ông Breit đánh giá tình hình không hoàn toàn u ám khi Đức có thể tận dụng dữ liệu từ Siemens và Bosch, còn Anh tập trung vào chip suy luận và nghiên cứu thuốc."
+      ],
+      "same_event_coverage_ids": [
+        "00de232d42f406d414e0"
+      ],
+      "split_coverage_ids": [],
+      "subject": "European AI ecosystem",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Kanishka Narayan",
+          "Marco-Alexander Breit",
+          "Rishi Sunak",
+          "Arthur Mensch"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Châu Âu tìm kiếm thị trường ngách cho trí tuệ nhân tạo trước sức ép từ Mỹ và Trung Quốc",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/19/2026/europe-tries-to-find-its-ai-niche"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.5,
+        "answers": {
+          "what": 9,
+          "why": 8,
+          "notable": 8,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "“Drug research” obscures the UK minister’s specific proposed niche.",
+            "fix": "Say the UK is looking to make inroads in AI for drug discovery (outlet:p007)."
+          },
+          {
+            "question": "why",
+            "problem": "The account of the EU AI Act omits Breit’s qualification that he agrees with most of it.",
+            "fix": "Attribute the concern to Breit and retain his view that the Act raises the threshold for European firms despite his broad agreement with it (outlet:p003)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "65cd79dd9c412bc26714ec6afff3d4967f98e10fd997d3edce21c8d073d20495",
+        "scored_at": "2026-11-19T15:37:01.251815+00:00"
+      }
+    },
+    {
+      "id": "4cf71aa36fdee2bec811",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Business reporting covers broad deeptech investments spanning aerospace, robotics, semiconductors, and healthcare, with AI appearing only as an incidental mention.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://analyticsindiamag.com/ai-news/karnataka-sees-1050-cr-deep-tech-investment-from-24-vcs",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c03135df4988cc45da32"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "db895de00b77372a93f6",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/19/superhuman-pushes-its-go-assistant-everywhere/",
+      "key_points": [
+        "The updated Go assistant integrates context across third-party apps to provide personalized prompt suggestions.",
+        "Superhuman revamped onboarding to let users connect tools and load workplace context upfront.",
+        "Go operates inline with the cursor, manages other agents, and proactively monitors email and schedules to draft replies.",
+        "The updated Go agent learns individual users' writing styles."
+      ],
+      "same_event_coverage_ids": [
+        "134fb41d85486c82b3bb"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Superhuman",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "892768480064c589d35a",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://analyticsindiamag.com/ai-news/infosys-joins-ntt-docomo-metaverse-venture-as-ai-partner",
+      "key_points": [
+        "Tập đoàn Infosys đầu tư 1,59 tỷ JPY vào liên doanh NTT DOCOMO Playspace do công ty viễn thông Nhật Bản NTT DOCOMO dẫn dắt.",
+        "Theo Analytics India Magazine, liên doanh NTT DOCOMO Playspace phát triển trải nghiệm vũ trụ ảo và thương mại số, cùng với bản sao số.",
+        "Infosys thông báo công ty con tại Singapore sẽ nắm 10,1% cổ phần và cử một giám đốc vào hội đồng quản trị, đồng thời đảm nhận vai trò đối tác AI. Doanh nghiệp dự kiến đóng góp năng lực kỹ thuật trí tuệ nhân tạo cùng các nền tảng Topaz và Metaverse Foundry vào dự án.",
+        "Tuy nhiên, Analytics India Magazine ghi nhận Infosys chưa công bố doanh thu dự kiến hay lộ trình thương mại, đồng thời chưa xác định nhóm khách hàng mục tiêu ban đầu."
+      ],
+      "same_event_coverage_ids": [
+        "1e5571d25236465781a5"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Infosys",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "region_locked:Japan",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Infosys chi 1,59 tỷ JPY nắm 10,1% cổ phần liên doanh vũ trụ ảo và AI với NTT DOCOMO",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "analytics-india-magazine",
+          "url": "https://analyticsindiamag.com/ai-news/infosys-joins-ntt-docomo-metaverse-venture-as-ai-partner"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.55,
+        "answers": {
+          "what": 10,
+          "why": 8,
+          "notable": 7,
+          "meaning": 9
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "cử một giám đốc vào hội đồng quản trị",
+            "explanation": "The investment gives Infosys the right to nominate one director; the source does not say it will appoint one (outlet:p002)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The Vietnamese turns a right to nominate a director into an appointment.",
+            "fix": "Say Infosys will have the right to nominate one director to the joint venture’s board (outlet:p002)."
+          },
+          {
+            "question": "why",
+            "problem": "The venture’s intended market and connection to real-world business are thinly described.",
+            "fix": "Add that it aims to build a virtual economic ecosystem in Japan linking immersive experiences with businesses and real-world commerce (outlet:p003)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "605ddd3e3c74fe0fb250f69108330fa479b395abfd2a1be8c55ca98f78e61907",
+        "scored_at": "2026-11-19T15:37:01.251876+00:00"
+      }
+    },
+    {
+      "id": "68e7b7e2a999c79c7f00",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-19/tech-leaders-experts-question-anthropic-safety-pledges-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "586456acf057dc947141"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "abc7720ac4cc624f0772",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-19/ai-financing-shifts-from-hyperscalers-to-chips-berro-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "65cc6acb6c0afc15e754"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "07cb0d96856be46855cd",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/live-blog/2026-11-19/anthropic-trading-debut-live-updates",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "6c61f5eef9310f6c7adb"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "b5b2890766e5da552ea9",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/tech/1037100/apple-siri-recap-audio-intelligence-hands-on",
+      "key_points": [
+        "Cây bút Victoria Song của The Verge đã thử nghiệm bản beta tính năng Siri Recap trên Apple Watch Ultra 4. Công nghệ này liên tục lắng nghe môi trường xung quanh và dùng trí tuệ nhân tạo để tóm lược các cuộc hội thoại.",
+        "Theo tác giả, tính năng nhằm giúp ghi nhớ thông tin và duy trì hiện diện thay vì mải mê ghi chép.",
+        "Do không phân biệt được giọng nói, thiết bị từng tóm tắt nhầm video TikTok thành việc tác giả phải đi cấp cứu. Ngược lại, công cụ hữu ích khi tổng hợp dữ kiện và số liệu trong cuộc họp về kính thông minh của Google và Samsung.",
+        "The Verge nhận xét sự đánh đổi quyền riêng tư khiến AI kém hữu ích khi lợi ích đem lại chưa vượt trội hơn chi phí. The Verge đánh giá tính năng này hầu như không hữu ích ngoài một vài tình huống công việc, với 90% trong hơn 50 bản tóm tắt được tạo ra là vô nghĩa đối với người khác."
+      ],
+      "same_event_coverage_ids": [
+        "18ab91fd2d31a5b5fc20"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Apple Siri Recap",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "The Verge đánh giá Siri Recap trên Apple Watch kém hữu ích do ưu tiên bảo mật quyền riêng tư",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/tech/1037100/apple-siri-recap-audio-intelligence-hands-on"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 7.45,
+        "answers": {
+          "what": 9,
+          "why": 5,
+          "notable": 7,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "cause",
+            "summary_text": "Do không phân biệt được giọng nói",
+            "explanation": "The source says Siri Recap does not train on the user’s voice for privacy, making it harder to discern when the user is actually having a conversation; it does not identify an inability to distinguish voices as the cause (outlet:p036)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "thành việc tác giả phải đi cấp cứu",
+            "explanation": "The recap read as though Song or possibly someone she knew had gone to the emergency room; the source does not establish that it identified Song specifically (outlet:p037)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "trong cuộc họp về kính thông minh của Google và Samsung",
+            "explanation": "Song used Siri Recap during a briefing and demos for smart glasses from Google, Samsung, Gentle Monster, and Warby Parker, rather than the stated meeting (outlet:p040)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The explanation for inaccurate recaps gives the reader the wrong cause.",
+            "fix": "Explain that Siri Recap does not train on Song’s voice for privacy, making it harder to recognize when she is actually in a conversation (outlet:p036)."
+          },
+          {
+            "question": "notable",
+            "problem": "The TikTok example asserts that Siri identified Song as the patient.",
+            "fix": "Say the recap made it seem that Song or someone she knew had gone to the emergency room (outlet:p037)."
+          },
+          {
+            "question": "notable",
+            "problem": "The useful smart-glasses example is recast as a meeting.",
+            "fix": "Describe the briefing and demos, and say the recap helped Song recall their main topics (outlet:p040)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The conclusion omits Song’s doubt that ambient recaps help people remember or stay present.",
+            "fix": "Add that she prefers Apple’s privacy approach but doubts the technology solves either problem (outlet:p051)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "ab2024fb8fd9cfedb1ae248a57fee312c929155faf2570e888805c6348860ee8",
+        "scored_at": "2026-11-19T15:37:01.251928+00:00"
+      }
+    },
+    {
+      "id": "b5de9d6ab3d01723e341",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-19/anthropic-investor-says-ipo-sets-new-benchmark-for-ai-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c813988d1fbfddd3a180"
+      ],
+      "split_coverage_ids": [
+        "dbbaee8d16bc50acc4ff"
+      ]
+    },
+    {
+      "id": "c77aee83bb57db01866b",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-19/anthropic-s-record-breaking-ipo-what-comes-next-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "3d2b88b67ce040a7d343"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "6b1143fbdefaf5b3ee3d",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://analyticsindiamag.com/ai-news/karnataka-hosts-nearly-half-of-indias-ai-centres-of-excellence-zinnov-kdem-report-says",
+      "key_points": [
+        "Báo cáo của Zinnov-KDEM cho biết bang Karnataka chiếm gần một nửa trung tâm xuất sắc AI của Ấn Độ với hơn 120 cơ sở nghiên cứu và ứng dụng. Bang này cũng là nơi đặt 1.088 trung tâm năng lực toàn cầu (GCC), tương đương 51% quy mô toàn quốc.",
+        "Báo cáo xác định bốn động lực thúc đẩy vị thế AI gồm quyền làm chủ kiến trúc, nhân tài chuyên môn, các trung tâm chuyên biệt và hệ sinh thái hỗ trợ.",
+        "Mạng lưới này có quy mô gấp bốn lần trung tâm kế tiếp, trong đó cứ ba trung tâm thì có một cơ sở làm việc về AI tạo sinh hoặc AI tác tử (chương trình tự hành).",
+        "Đại diện Zinnov nhận định giá trị AI hiện được đo lường bằng việc tạo ra giá trị doanh nghiệp quy mô lớn triển khai thực tế thay vì dừng lại ở thử nghiệm. Theo khảo sát, các GCC tại Karnataka đạt độ trưởng thành AI gấp 1,12 lần mức bình quân toàn quốc."
+      ],
+      "same_event_coverage_ids": [
+        "873d0ebb08c4611dfbc2"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Karnataka AI ecosystem",
+      "video_labels": {
+        "video_hook": "money_jobs",
+        "named_people": [
+          "Nitika Goel"
+        ],
+        "availability": "region_locked:India",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Karnataka chiếm gần một nửa trung tâm xuất sắc về AI và hơn một nửa số GCC tại Ấn Độ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "analytics-india-magazine",
+          "url": "https://analyticsindiamag.com/ai-news/karnataka-hosts-nearly-half-of-indias-ai-centres-of-excellence-zinnov-kdem-report-says"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 7.55,
+        "answers": {
+          "what": 8,
+          "why": 8,
+          "notable": 6,
+          "meaning": 9
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "hơn 120 cơ sở nghiên cứu và ứng dụng",
+            "explanation": "The source calls them AI/ML Centres of Excellence that help GCCs develop products and platforms; it does not identify all of them as research and application facilities (outlet:p001, outlet:p002)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "gấp bốn lần trung tâm kế tiếp",
+            "explanation": "The comparison is with the next-largest hub, not an individual centre, and is approximate (outlet:p002)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The comparison changes from a hub to an individual centre.",
+            "fix": "Say the network is around four times the size of the next-largest hub (outlet:p002)."
+          },
+          {
+            "question": "what",
+            "problem": "The description makes the Centres of Excellence sound like research facilities and omits their spread across GCCs.",
+            "fix": "Call them AI/ML Centres of Excellence across more than 100 GCCs; they help develop AI products and platforms (outlet:p001, outlet:p002)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "26c536975d105dbf77f7f770fbb26b4caefc0be315c3d1b73865019b5723f829",
+        "scored_at": "2026-11-19T15:37:01.251967+00:00"
+      }
+    },
+    {
+      "id": "c263b280fabbf4887d0f",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/ai-artificial-intelligence/1037126/canva-ai-features-off-button",
+      "key_points": [
+        "Canva hiện cho phép người dùng tắt các tính năng AI tạo sinh như công cụ mở rộng ảnh Magic Expand hay chatbot tạo ảnh. Dù vậy, nút gạt không tắt toàn bộ AI; các công cụ như xóa phông và Magic Grab vẫn giữ lại do chỉ hỗ trợ tăng tốc tác vụ mà không tạo nội dung mới.",
+        "The Verge cho biết động thái này diễn ra sau khi một số người dùng bức xúc trước làn sóng tính năng AI từ năm 2023 và yêu cầu có cách tắt bỏ.",
+        "Cả tài khoản miễn phí và trả phí đều có thể sử dụng các nút chuyển đổi này.",
+        "Tùy chọn này giúp ưu tiên hiển thị nội dung do con người tạo khi người dùng tìm kiếm mẫu thiết kế trong thư viện. Canva cho biết các thiết kế sử dụng phần tử AI từ thư viện nội dung của hãng sẽ có nhãn AI trong siêu dữ liệu (metadata)."
+      ],
+      "same_event_coverage_ids": [
+        "cf67bf5804499603286a"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Canva",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Canva bổ sung nút tắt tính năng AI tạo sinh và gắn nhãn thiết kế dùng tài nguyên AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1037126/canva-ai-features-off-button"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.05,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 8,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "Readers cannot tell where to find the two switches, and the library preference is not clearly introduced as a separate option.",
+            "fix": "Name the separate option to show less AI content and give its path, Profile > Your account > AI personalization; give the generative AI switch’s path, Profile > Settings > Permission (outlet:p021–p022)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "a38a1f7b2900995d2c9fd7d09ae7edda4354751844fb49dc19e73088728452cd",
+        "scored_at": "2026-11-19T15:45:28.955689+00:00"
+      }
+    },
+    {
+      "id": "68905d8de4636ed49e50",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://spectrum.ieee.org/ai-superintelligence-debate",
+      "key_points": [
+        "The debate was catalyzed in part by Anthropic researcher Jacob Coxon resigning over concerns about racing toward superintelligence.",
+        "Evan Hubinger, Anthropic's head of alignment science, acknowledged internal views that AI could present human extinction risks.",
+        "Anthropic CEO Dario Amodei publicly indicated substantial agreement with concerns raised about superintelligence risks.",
+        "Superintelligence arguments depend on recursive self-improvement triggering accelerating cycles of autonomous capability upgrades."
+      ],
+      "same_event_coverage_ids": [
+        "7648d3cccf69060e6594",
+        "9e15950a9c760953c77e"
+      ],
+      "split_coverage_ids": [],
+      "subject": "AI superintelligence debate",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Cal Newport",
+          "Jacob Coxon",
+          "Evan Hubinger",
+          "Dario Amodei"
+        ],
+        "availability": "global",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "a11796bc0e55079073ed",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "top",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://analyticsindiamag.com/ai-news/googles-new-gemini-4-neon-outperforms-claude-opus-55-on-several-benchmarks",
+      "key_points": [
+        "Google ra mắt Gemini 4 Neon với tuyên bố vượt Claude Opus 5.5 ở một số bài đánh giá tiêu chuẩn (benchmark kiểm tra hiệu năng) về lập trình. Mô hình có giá đầu vào 3 USD và đầu ra 15 USD cho mỗi triệu token.",
+        "Bảng xếp hạng Artificial Analysis Coding Agent Index tổng hợp nhiều bài kiểm tra và đo mức độ tin cậy của tác nhân (chương trình tự hành) khi xử lý mã.",
+        "Mô hình này đứng đầu chỉ số Artificial Analysis Coding Agent Index, đồng thời Google cho biết Neon vượt Claude Opus 5.5 ở các bài đánh giá được lựa chọn bao gồm CursorBench 4.1.",
+        "Theo Analytics India Magazine, Gemini 4 Neon có lợi thế chi phí khi lập luận phức tạp so với đối thủ. Tuy nhiên, tạp chí này ghi nhận Claude Opus 5.5 vẫn duy trì cách biệt dẫn trước sít sao ở Terminal-Bench 4.1 và FrontierCode 2.0."
+      ],
+      "same_event_coverage_ids": [
+        "382e9ac5f08f9e04efec"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Google Gemini 4 Neon",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Google ra mắt Gemini 4 Neon với tuyên bố vượt Claude Opus 5.5 ở một số bài đánh giá",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "analytics-india-magazine",
+          "url": "https://analyticsindiamag.com/ai-news/googles-new-gemini-4-neon-outperforms-claude-opus-55-on-several-benchmarks"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.05,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 9,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "Readers cannot tell where they can access the released model.",
+            "fix": "Add the rollout routes and subscriber conditions given in the source (outlet:p008)."
+          },
+          {
+            "question": "what",
+            "problem": "The performance claim is narrowed to coding, leaving out agentic tasks.",
+            "fix": "Mention that Google's claim also covers agentic tasks (outlet:p001)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "b07717a7bc8b876fc4c5d39b4d284622f2ca311e6cbbf3461e695a1ab480dfc0",
+        "scored_at": "2026-11-19T15:37:01.252039+00:00"
+      }
+    },
+    {
+      "id": "2ae4e80817ed412505fe",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://analyticsindiamag.com/ai-startups/america-is-flooding-ai-with-billions-indian-startups-are-fighting-for-survival",
+      "key_points": [
+        "Theo Analytics India Magazine, vốn đầu tư mạo hiểm toàn cầu tập trung vào các công ty AI của Mỹ, đặt hệ sinh thái khởi nghiệp của Ấn Độ vào thế khó. Dữ liệu từ Tracxn cho thấy các doanh nghiệp AI thuần túy của Mỹ đã huy động được 329,2 tỷ USD qua 981 vòng gọi vốn từ ngày 1/1 đến 3/11/2026.",
+        "Siddharth Pai từ quỹ 3one4 Capital nhận định hiệu quả kinh doanh của AI tụt hậu so với tốc độ tăng trưởng là lý do khiến giới đầu tư thận trọng. Đồng thời, Bhaskar Majumdar từ Unicorn India Ventures cho biết làn sóng dồn vốn vào các công ty AI tăng trưởng nhanh tại Mỹ đang gây ảnh hưởng tiêu cực đến các vòng gọi vốn tiếp theo ở Ấn Độ.",
+        "Các công ty AI thuần túy của Ấn Độ chỉ huy động được 1,6 tỷ USD qua 90 vòng tài trợ trong cùng khoảng thời gian năm 2026. Dù tổng vốn khởi nghiệp tại quốc gia này tăng nhẹ lên 11,7 tỷ USD, nguồn vốn hạt giống lại giảm mạnh từ 1,3 tỷ USD xuống 873 triệu USD.",
+        "Analytics India Magazine nhận định cuộc cạnh tranh chuyển sang việc biến công nghệ thành mô hình kinh doanh bền vững để nhà đầu tư tiếp tục rót vốn. Khoảng cách nguồn vốn với Mỹ vẫn rất lớn dù tài trợ cho AI tại Ấn Độ đạt mức cao mới, buộc các startup phải chứng minh khả năng duy trì khách hàng định kỳ."
+      ],
+      "same_event_coverage_ids": [
+        "a9bafab41045be7665d1"
+      ],
+      "split_coverage_ids": [],
+      "subject": "AI startup venture funding",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Siddharth Pai"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Startup AI Mỹ hút 329,2 tỷ USD năm 2026, bỏ xa mức 1,6 tỷ USD của các công ty Ấn Độ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "analytics-india-magazine",
+          "url": "https://analyticsindiamag.com/ai-startups/america-is-flooding-ai-with-billions-indian-startups-are-fighting-for-survival"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.8,
+        "answers": {
+          "what": 8,
+          "why": 9,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "vốn đầu tư mạo hiểm toàn cầu tập trung vào các công ty AI của Mỹ",
+            "explanation": "The source says some of the largest pools of global venture capital are increasingly concentrating around American AI companies, not global venture capital as a whole (outlet:p001)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The opening overstates how much global venture capital is concentrated in US AI.",
+            "fix": "Limit the claim to some of the largest pools of global venture capital, as the source does (outlet:p001)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The conclusion leaves out two tests investors will apply to Indian AI businesses.",
+            "fix": "Add defensible technology and sustainable economics alongside recurring customers (outlet:p041)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "a0bf1496d376cc0e10a1660795121a84714dd619fbaa6e85113b83ea754fe934",
+        "scored_at": "2026-11-19T15:37:01.252084+00:00"
+      }
+    },
+    {
+      "id": "48917f459923c38c6398",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/newsletters/2026-11-19/us-economy-struggles-to-measure-ai-s-true-gdp-impact-in-real-time",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "7c0b10790660a917d9db"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "84025ed8e849978b6e5c",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.scmp.com/tech/big-tech/article/3375093/alibabas-ai-bet-paying-cloud-services-drive-10-revenue-jump",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "a9325ee27db6af96c31d"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Alibaba in-house AI chips",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Eddie Wu Yongming"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "bd2c18ba46849ba1a978",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://restofworld.org/2026/ai-jobs-skills-gig-work/?utm_source=rss&utm_medium=rss&utm_campaign=feeds",
+      "key_points": [
+        "Theo tác giả bài viết trên Rest of World, các nền tảng AI tuyển dụng chuyên gia trình độ cao làm việc dán nhãn dữ liệu thời vụ thay vì chỉ thuê lao động giá rẻ. Dù bằng cấp có thể nâng giá quảng cáo, nền tảng vẫn kiểm soát thanh toán và điều kiện làm việc của các bác sĩ hay luật sư tham gia.",
+        "Tác giả trên Rest of World giải thích hiện tượng này bắt nguồn từ mô hình khai thác giá trị theo điều khoản do bên mua ấn định thay vì người lao động. Để cải thiện mô hình AI, các nền tảng trả thù lao cao nhằm xây dựng lực lượng lao động rồi nhanh chóng giảm giá hoặc chuyển việc đi nơi khác.",
+        "Nền tảng Outlier chào thù lao chuyên gia tới 180 USD mỗi giờ cho bác sĩ tại Mỹ, nhưng chỉ trả tối đa 7.50 USD ở Philippines và 12.50 USD ở Tanzania cho cùng công việc.",
+        "Tác giả trên Rest of World kết luận rằng người lao động hoàn toàn không có tiếng nói khi mức thù lao và nhiệm vụ thay đổi bất ngờ hoặc biến mất mà không có cảnh báo."
+      ],
+      "same_event_coverage_ids": [
+        "ceb714a8912df17a22f2"
+      ],
+      "split_coverage_ids": [],
+      "subject": "AI data annotation labor",
+      "video_labels": {
+        "video_hook": "money_jobs",
+        "named_people": [
+          "Rogelio"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nền tảng AI tuyển bác sĩ với giá tới 180 USD mỗi giờ nhưng biến việc thành lao động thời vụ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "rest-of-world",
+          "url": "https://restofworld.org/2026/ai-jobs-skills-gig-work/?utm_source=rss&utm_medium=rss&utm_campaign=feeds"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.0,
+        "answers": {
+          "what": 9,
+          "why": 9,
+          "notable": 9,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "6dc6886413923244e86ff3c24dabd3de087a0cdf957a8b906d79a50378b82961",
+        "scored_at": "2026-11-19T15:37:01.252115+00:00"
+      }
+    },
+    {
+      "id": "0873a5ab388e23381f7c",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Social media post containing brief casual commentary with no substantive reporting or news event.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://twitter.com/catalinmpit/status/2123061832781090948",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "34005acec62cddeadabb"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "4803631478250397a60f",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-19/imf-s-chief-is-warning-ai-correction-has-little-bit-more-to-go",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "946026daf52d13d72965"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "0491cb453a2563f6eac2",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://analyticsindiamag.com/ai-news/wadhwani-ai-and-linkedin-partner-to-train-2000-northeast-entrepreneurs",
+      "key_points": [
+        "Tổ chức Wadhwani AI cùng LinkedIn hợp tác đào tạo AI (trí tuệ nhân tạo) cho 2.000 doanh nghiệp nhỏ tại vùng Đông Bắc Ấn Độ.",
+        "Chương trình nhằm thu hẹp khoảng cách số bằng kỹ năng AI thực tế cho doanh nghiệp, theo người đứng đầu Wadhwani AI Shekar Sivasubramanian. Ông Sivasubramanian nhận định AI chỉ tạo ra tăng trưởng ý nghĩa khi công nghệ này thực tế, dễ tiếp cận và gắn với nhu cầu kinh tế thực.",
+        "Khóa đào tạo tập trung vào các ngành thủ công, nông nghiệp và du lịch bản địa, hỗ trợ dùng AI tạo sinh để làm danh mục sản phẩm hay nghiên cứu đối thủ. Để thích ứng với nơi kết nối mạng hạn chế, dự án dùng mô hình học qua di động, công cụ mã nguồn mở và tài liệu ngoại tuyến.",
+        "Sáng kiến giúp doanh nghiệp tiếp cận khách hàng mới và phát triển vượt khỏi thị trường bản địa, theo Giám đốc LinkedIn tại Ấn Độ Kumaresh Pattabiraman."
+      ],
+      "same_event_coverage_ids": [
+        "2d5951bd3ff99ae5212b"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Wadhwani AI and LinkedIn partnership",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Shekar Sivasubramanian"
+        ],
+        "availability": "region_locked:India",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Wadhwani AI và LinkedIn đào tạo AI cho 2.000 doanh nghiệp nhỏ tại Đông Bắc Ấn Độ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "analytics-india-magazine",
+          "url": "https://analyticsindiamag.com/ai-news/wadhwani-ai-and-linkedin-partner-to-train-2000-northeast-entrepreneurs"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 7.9,
+        "answers": {
+          "what": 6,
+          "why": 8,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "number",
+            "summary_text": "2.000 doanh nghiệp nhỏ",
+            "explanation": "The headline and opening paragraph count businesses, while the source says the target is 2,000 small and micro entrepreneurs—people, not businesses (outlet:p001)."
+          },
+          {
+            "kind": "quote",
+            "summary_text": "AI chỉ tạo ra tăng trưởng ý nghĩa khi công nghệ này thực tế, dễ tiếp cận và gắn với nhu cầu kinh tế thực",
+            "explanation": "Shekar Sivasubramanian says AI has the potential to become a meaningful growth enabler when it is practical, accessible and rooted in real economic needs; he does not say it produces growth only under those conditions (outlet:p003)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "Readers are told the target is 2,000 businesses.",
+            "fix": "Say the initiative aims to train 2,000 small and micro entrepreneurs (outlet:p001)."
+          },
+          {
+            "question": "why",
+            "problem": "The attributed statement makes AI-driven growth more certain and its conditions more absolute than the source does.",
+            "fix": "Preserve Sivasubramanian’s wording that practical, accessible AI has the potential to enable meaningful growth (outlet:p003)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "235ca4ca1718b897d23a2f39542a3e814760b0c60b41e87aeef4e86a55d2ae66",
+        "scored_at": "2026-11-19T15:37:01.252151+00:00"
+      }
+    },
+    {
+      "id": "a55f5031af8b405603af",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Corporate financial earnings report centered on Ant Group's profit and fair value gains, with only a passing incidental reference to AI investments.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-19/jack-ma-backed-ant-s-profit-rose-27-after-fair-value-gains",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "d97c694bd1445ce8ac65"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "48899a2643382f58e2a8",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-19/anthropic-shares-indicated-more-than-20-higher-on-gray-markets",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "3ad99c20ced17fbb58f0",
+        "8d82bfc4c802d6513f55",
+        "dad2740584741793d912"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "deb42a044301cb47a806",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "top",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.wired.com/story/inside-nvidias-first-all-hands-without-jensen-huang-as-ceo/",
+      "key_points": [
+        "Nhân viên Nvidia sẽ được tăng lương và cấp thêm cổ phiếu vào tháng 12 sớm hơn kế hoạch, theo Quyền CEO Colette Kress.",
+        "Mục tiêu ổn định hàng ngũ nhân sự là ưu tiên hàng đầu của ban lãnh đạo nhằm giúp nhân viên an tâm về thu nhập, theo bà Kress.",
+        "Theo bà Kress, đãi ngộ là câu hỏi phổ biến nhất trong 700 thắc mắc gửi về trước cuộc họp, bên cạnh yêu cầu tiếp theo về tính minh bạch từ hội đồng quản trị. Theo tạp chí WIRED, Nvidia vẫn báo cáo kết quả tài chính vượt kỳ vọng vào thứ Ba, dự báo doanh số tăng trưởng trong những năm tới và giá cổ phiếu đã tăng khoảng 5% vào thứ Tư.",
+        "Giới đầu tư lo ngại nguy cơ chảy máu chất xám do nhiều nhân sự gắn bó vì ông Huang giữa lúc thị trường chip AI cạnh tranh khốc liệt, theo tạp chí WIRED."
+      ],
+      "same_event_coverage_ids": [
+        "2f82cd38be341f80cb2b",
+        "d4f108f929127be7fc65"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Nvidia leadership transition",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Colette Kress",
+          "Jensen Huang"
+        ],
+        "availability": "unknown",
+        "is_leak": true
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Quyền CEO Nvidia hứa tăng lương sớm cho nhân viên sau khi Jensen Huang từ chức",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "wired",
+          "url": "https://www.wired.com/story/inside-nvidias-first-all-hands-without-jensen-huang-as-ceo/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.65,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "618f284984fa65cfdb5d31430f386a00dc039e9d82f0f9e0eb6b19ca6d680401",
+        "scored_at": "2026-11-19T15:37:01.252184+00:00"
+      }
+    },
+    {
+      "id": "dde7e9ec14c00abb0cce",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/17/2026/anthropic-momentum-builds-ahead-of-ipo",
+      "key_points": [
+        "Công ty Anthropic được cho là đang nâng giá cổ phiếu trong đợt phát hành lần đầu ra công chúng (IPO) vào cuối tuần này. Kế hoạch diễn ra khi nhu cầu thị trường tăng cao bất chấp cổ phiếu công nghệ suy thoái.",
+        "Lượng đặt mua cao gấp gần bảy lần số cổ phần chào bán là lý do hãng nâng định giá, theo trang Semafor.",
+        "Áp lực từ cam kết tài trợ hạ tầng khoảng 900 tỷ USD buộc hãng phải giữ giá token (đơn vị dữ liệu AI) cao hơn đối thủ, theo Bloomberg Intelligence.",
+        "Toàn bộ ngành AI có nguy cơ điều chỉnh nếu nguồn vốn và nhu cầu cùng thắt chặt khi Nvidia giảm đầu tư, theo nhà báo Derek Thompson."
+      ],
+      "same_event_coverage_ids": [
+        "bd020f6f55e459b5fdbe"
+      ],
+      "split_coverage_ids": [
+        "5086c370512b2831f5dc"
+      ],
+      "subject": "Anthropic IPO pricing",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Derek Thompson"
+        ],
+        "availability": "unknown",
+        "is_leak": true
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Anthropic được cho là nâng giá IPO khi lượng đặt mua vượt gần 7 lần lượng chào bán",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/17/2026/anthropic-momentum-builds-ahead-of-ipo"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 5.6,
+        "answers": {
+          "what": 7,
+          "why": 3,
+          "notable": 6,
+          "meaning": 5
+        },
+        "hard_errors": [
+          {
+            "kind": "number",
+            "summary_text": "vào cuối tuần này",
+            "explanation": "The source says the IPO is expected later this week; it does not specify the weekend (outlet:p001)."
+          },
+          {
+            "kind": "cause",
+            "summary_text": "Lượng đặt mua cao gấp gần bảy lần số cổ phần chào bán là lý do hãng nâng định giá",
+            "explanation": "The source reports a higher *target share price* amid mounting demand and separately gives the nearly sevenfold order count. It does not identify that count as the stated reason for a completed valuation increase (outlet:p001–p002)."
+          },
+          {
+            "kind": "quote",
+            "summary_text": "buộc hãng phải giữ giá token (đơn vị dữ liệu AI) cao hơn đối thủ",
+            "explanation": "Bloomberg Intelligence cautions that the financing commitment increases pressure to sustain premium token pricing relative to hyperscalers and open-weight models; it does not say Anthropic is forced to do so (outlet:p002)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "khi Nvidia giảm đầu tư",
+            "explanation": "A reduction in Nvidia’s investment is presented as a possibility—*if* Nvidia pares down its investments—not an event the source says has occurred (outlet:p003)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "Readers are given a definite cause for a valuation increase that the source does not establish.",
+            "fix": "Say Anthropic is reportedly targeting a higher IPO share price amid strong demand, with orders nearly seven times available shares (outlet:p001–p002)."
+          },
+          {
+            "question": "notable",
+            "problem": "The financing warning becomes a requirement to maintain higher token prices.",
+            "fix": "Describe the roughly $900 billion commitment as increasing pressure to sustain premium token pricing, according to Bloomberg Intelligence (outlet:p002)."
+          },
+          {
+            "question": "meaning",
+            "problem": "Nvidia’s possible investment reduction reads as an actual reduction.",
+            "fix": "Keep the condition explicit: financing could become scarcer *if* Nvidia reduces its investments (outlet:p003)."
+          },
+          {
+            "question": "what",
+            "problem": "The Vietnamese specifies a weekend IPO date that the source does not give.",
+            "fix": "Use “later this week” without narrowing it to the weekend (outlet:p001)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "44c4f1df3f616809010a3a6da71780671e0a7867cec8147c5415586b12653544",
+        "scored_at": "2026-11-19T15:37:01.252221+00:00"
       }
     }
   ]
