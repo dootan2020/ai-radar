@@ -323,6 +323,8 @@ def merged_layer(beat, state, S):
         except KeyError as e:
             raise SystemExit(f'spec: beats[{beat["id"]}].text.{e.args[0]} is missing (text.kind "{t.get("kind")}")')
         shift = int(t.get('lift', 0))                     # px upward
+        if (t['kind'] == 'block' and beat['mark'] == 'wm' and not t.get('lines_off')) or t['kind'] == 'end':
+            shift += ve.HOOK_LIFT                          # layout r3: the opening block and the ending card end above the raised subtitle (other layouts: 0)
         if ve.STRICT and beat['cardlike']:               # a beat without a picture: the block sits centred between the chip row and the caption
             shift -= beat.setdefault('card_dy', ve.card_shift(t, beat['mark'] == 'wm'))
         if shift:
@@ -332,7 +334,9 @@ def merged_layer(beat, state, S):
         kb = k['text'] if k and k.get('text') and k['text'][2] > k['text'][0] else None
         if kb:
             regions.append(('kicker', 4.5, (kb[0] - 2, kb[1] - 8 - shift, kb[2] + 2, kb[3] + 8 - shift)))
-        if r.get('block'):
+        if r.get('kicker_only'):                          # layout r3, headline 'none': the kicker row is all this beat draws; its region is measured above
+            pass
+        elif r.get('block'):
             x0, y0, x1, y1 = r['block']
             regions.append(('headline', 3.0, (x0 - 2, y0 - 6 - shift, x1 + 2, y1 + 30 - shift)))
         else:                                             # chart, number or list card: everything the card draws below its kicker
@@ -377,6 +381,15 @@ def build_beats(S, units):
             tx = sp.get('text')
             if tx and tx.get('kind') == 'block' and sp.get('mark', 'tr') != 'wm' and tx.get('kicker') is not None and not tx.get('keep_kicker'):
                 tx['kicker'] = ''
+    if ve.HEADLINE != 'all':                           # layout r3: the voice and the subtitle already say the headline of a picture beat, so it is not drawn
+        for sp in S['beats']:
+            tx = sp.get('text')
+            if not tx or tx.get('kind') != 'block':
+                continue
+            if sp.get('mark', 'tr') != 'wm':
+                sp['text'] = None                      # a picture beat after the opening one: no headline (and no kicker: it is a block's kicker)
+            elif ve.HEADLINE == 'none':
+                tx['lines_off'] = True                 # the opening beat keeps its pill + kicker row only
     for bi, sp in enumerate(S['beats']):
         where = f'beats[{bi}]'
         i = str(need(sp, 'id', where)); where = f'beats[{i}]'

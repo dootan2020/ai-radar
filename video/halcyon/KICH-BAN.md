@@ -53,7 +53,7 @@ An **anchor** is the spoken words (one or more, in the `show` text) that trigger
 | `level`, `mark`, `lift`, `kicker_size` | constants: capture/recording beats HOOK; `wm` on the first and last beat; lift 24 on the first and the end beat; kicker size 26; cards have no `level` |
 | `chip` | explicit, else `<chip_prefix>: <source>, <date>` of the manifest entry; at most 43 characters |
 | card `kicker`, `source` | `kicker` upper-cased; `source` explicit, else `Nguồn: <outlet>, <date>` (a list card has none unless given) |
-| `layout`, `drop_kickers` | `thu-gon-r2`, `true` |
+| `layout`, `drop_kickers` | `thu-gon-r2`, `true`. Candidate layouts `thu-gon-r3` and `thu-gon-r3-b` (not the default until the owner approves by eye): subtitle 120 px higher, no headline block on picture beats after the opening one; r3 keeps the opening headline (lifted 70 px), r3-b drops it too and leaves only the pill + kicker row. Set with spec key `layout` |
 
 ## 4. The capture manifest (`captures.json`, slice 3 writes it)
 ```

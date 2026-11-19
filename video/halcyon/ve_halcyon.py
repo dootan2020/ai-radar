@@ -56,8 +56,16 @@ LAYOUTS = {
     # 'thu-gon-r2' (owner 19/11 08:38, to approve): thu-gon-r with the opening-picture window 108 px taller (the rows a dropped kicker line frees, spec key drop_kickers),
     # the colour field's opening-beat stops 108 px lower with it, and the hco.news pill at y 244 (TikTok's top tabs end at y 228) instead of 288
     'thu-gon-r2': dict(dy=440, veil=.12, fade=.65, hook_off=-20, strict=True, wash=248, pic_w=763, hook_extra=108, pill_y=244),
+    # 'thu-gon-r3' / 'thu-gon-r3-b' (owner 19/11 22:05, to approve by eye): thu-gon-r2 with (1) the karaoke subtitle `cap_up` px higher, so its lowest ink ends well above the
+    # collapsed three-line TikTok caption (starts y 1693 in the composer preview, 1748 in the feed), and (2) the big two-line headline taken off the picture beats, because the
+    # voice and the subtitle already say it. `headline` says where a headline stays: 'hook' = on the opening beat only (the beat with the wordmark pill, readable with sound off),
+    # 'none' = nowhere (the opening beat keeps only its pill + kicker row, seated right above the subtitle). `hook_lift`: how far the opening beat's block moves up so it ends above the
+    # raised subtitle (headline 'hook'), and how far the ending card moves up (both variants: the end card would otherwise run into the raised subtitle); `hook_extra` shrinks
+    # accordingly (r2: 108) since those blocks and their kicker rows now sit higher than in r2. Both variants share every number except `headline`.
+    'thu-gon-r3': dict(dy=440, veil=.12, fade=.65, hook_off=-20, strict=True, wash=248, pic_w=763, hook_extra=38, pill_y=244, cap_up=120, headline='hook', hook_lift=70),
+    'thu-gon-r3-b': dict(dy=440, veil=.12, fade=.65, hook_off=-20, strict=True, wash=248, pic_w=763, hook_extra=38, pill_y=244, cap_up=120, headline='none', hook_lift=70),
 }
-LAYOUTS_A = ('A', 'thu-gon', 'thu-gon-2', 'thu-gon-r', 'thu-gon-r2')      # layouts that carry the colour fields (strict layouts)
+LAYOUTS_A = ('A', 'thu-gon', 'thu-gon-2', 'thu-gon-r', 'thu-gon-r2', 'thu-gon-r3', 'thu-gon-r3-b')      # layouts that carry the colour fields (strict layouts)
 # Colour field of layout A (spec key "field"). Owner, 18/11/2026 22:50, from three stills: "1 Chữ mực" is the Halcyon look and the default.
 #   chu-muc (default): a thin wash that starts at mid-frame and thickens to the bottom; the text of a picture beat (kicker, headline, credit line,
 #     caption) is drawn in ink when the measured background is light and in white when it is dark; no source chip (a chip stays only if it is an
@@ -86,6 +94,7 @@ LAYOUT = None
 DY = 0
 SLOT = SAFE_BOT = WIN = CENTRE = None
 PILL_Y = 288; HOOK_EXTRA = 0
+HEADLINE, HOOK_LIFT = 'all', 0      # where the big headline block stays on a picture beat ('all', 'hook', 'none'), and the opening block's extra lift (set_layout)
 BLOCK_B = CREDIT_Y = NOTE_Y = CH_BASE0 = NUM_Y1 = NUM_Y2 = LIST_T = LIST_R0 = CAPY = None
 C_STOPS = C_ROWS = ALPHA_STOPS = MELT = DM_STOPS = None
 VEIL = .40
@@ -108,7 +117,10 @@ def set_layout(name):
     if name not in LAYOUTS:
         raise SystemExit(f'layout "{name}" is not one of {sorted(LAYOUTS)}')
     p = LAYOUTS[name]; LAYOUT, DY, VEIL, STRICT = name, p['dy'], p['veil'], p['strict']
-    SLOT = (X_L, 1140 + DY, X_R, 1236 + DY); SAFE_BOT = 1248 + DY; CAPY = 1080 + DY
+    cu = p.get('cap_up', 0)                                                  # r3: the subtitle sits this many px higher (every other layout: 0)
+    SLOT = (X_L, 1140 + DY - cu, X_R, 1236 + DY - cu); SAFE_BOT = 1248 + DY; CAPY = 1080 + DY - cu
+    global HEADLINE, HOOK_LIFT
+    HEADLINE, HOOK_LIFT = p.get('headline', 'all'), p.get('hook_lift', 0)
     wt = p.get('win_top', 364)
     global PIC_W
     PIC_W = p.get('pic_w', 886)
@@ -172,6 +184,9 @@ def configure(fonts, marks, cache, layout=DEFAULT_LAYOUT, field=None, pattern=No
     cap_h = -font(BARLOW, CAP_SIZE).getbbox('H', anchor='ls')[1]
     CAP_BASE = SLOT[1] + (96 + cap_h) // 2                                                           # 1211 (+ DY)
     CAP_TOP = CAP_BASE - cap_h                                                                        # top of the caption's capital letters
+    if LAYOUTS[LAYOUT].get('cap_up'):                                                                 # r3: the credit line of a kept chip goes below the raised subtitle, not into it
+        global CREDIT_Y
+        CREDIT_Y = CAP_BASE + 64
     WM_PILL, TR_PILL = wordmark_pill(), topright_pill()
 
 
@@ -586,8 +601,12 @@ def put_chip(im, chip):
 
 
 # ---------------- text stacks ----------------
-def two_line(im, lines, kick_text=None, mark_wm=False, cap=124, show=(True, True), kfont=None):
-    """Big block of two lines ending at y 1084 (Barlow ExtraBold, largest size <= cap that fits x X_L-X_R); optional kicker row."""
+def two_line(im, lines, kick_text=None, mark_wm=False, cap=124, show=(True, True), kfont=None, lines_off=False):
+    """Big block of two lines ending at y 1084 (Barlow ExtraBold, largest size <= cap that fits x X_L-X_R); optional kicker row.
+    lines_off (layout r3, headline 'none'): no block at all; the kicker row alone, its bottom 36 px above the subtitle's capitals."""
+    if lines_off:
+        k = kicker(im, CAP_TOP - 4, mark_wm, kick_text or '', kfont or font(BVP_M, 30), FP.get('small_alpha', 217))
+        return dict(size=None, block=None, kicker=k, kicker_only=True)
     size = fit_size(lines, BARLOW_XB, TW, cap, 'text.lines'); f = font(BARLOW_XB, size); lh = round(size * 1.04)
     d = ImageDraw.Draw(im)
     bb = [d.textbbox((X_L, BLOCK_B - lh * (1 - i)), l, font=f, anchor='ls') for i, l in enumerate(lines)]
@@ -682,7 +701,7 @@ def draw_text(im, t, state, mark_wm):
     kind = t['kind']
     if kind == 'block':
         show = (True, state >= 1) if t.get('cuts') else (True, True)
-        return two_line(im, t['lines'], t.get('kicker'), mark_wm, t.get('cap', 124), show, font(BVP_M, t.get('kicker_size', 30)))
+        return two_line(im, t['lines'], t.get('kicker'), mark_wm, t.get('cap', 124), show, font(BVP_M, t.get('kicker_size', 30)), bool(t.get('lines_off')))
     if kind == 'end':
         return stack_end(im, t, mark_wm)
     if kind == 'chart':
