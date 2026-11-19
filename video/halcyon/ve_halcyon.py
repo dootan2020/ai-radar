@@ -24,7 +24,7 @@ SAFE_TOP, COL_Y, COL_X = 288, 840, 863
 SAFE_L, SAFE_R, SAFE_R_COL = 120, 960, 860     # safe frame: x 120-960 (x <= 860 from row COL_Y down), y SAFE_TOP-SAFE_BOT
 CROP_FB, CROP_MAX = 56, 97                      # side crop of a tall phone: measured Facebook Reels, upper bound
 CROP_TT = 54                                    # measured TikTok side crop (iPhone 15 Pro Max)
-# TikTok feed with the caption collapsed, measured 19/11/2026 on a 1290 x 2796 screenshot of a TikTok video of the channel's own (vung-an-toan/thu-gon-1119/do.md): the video fills the
+# TikTok feed with the caption collapsed, measured 19/11/2026 on a 1290 x 2796 screenshot of another account's public TikTok video (vung-an-toan/thu-gon-1119/do.md): the video fills the
 # screen down to the tab bar (native y 2548 = frame y 1920), so one frame px = TT2_K native px, frame x = 54 + native x / TT2_K, frame y = native y / TT2_K.
 TT2_K = 2548 / 1920
 TT2_RAIL = [(1132, 1178, 1266, 1345), (1145, 1418, 1262, 1545), (1145, 1620, 1262, 1742), (1145, 1815, 1262, 1945), (1145, 1985, 1262, 2140),
@@ -911,7 +911,7 @@ def phone_preview(im, case):
         d.rectangle((26, 1535, 760, 1780), fill=g)                                       # location, name, caption (starts y 1535)
         d.rectangle((0, 1790, W, H), fill=g)                                             # promotion bar and bottom bar
         c = CROP_TT
-    elif case == 'tt2':                                                                  # TikTok feed, collapsed caption, measured 19/11/2026 on the channel (do.md)
+    elif case == 'tt2':                                                                  # TikTok feed, collapsed caption, measured 19/11/2026 on another account's public video (do.md)
         k = TT2_K
         fx = lambda n: round(CROP_TT + n / k); fy = lambda n: round(n / k)             # screenshot native px (1290 x 2796) -> frame px
         d.rectangle((0, 0, W, fy(130)), fill=g)                                          # status bar
