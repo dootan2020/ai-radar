@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>giao-thuc</title>
+<style>
+  @font-face { font-family: 'BVP'; src: url('/fonts/BeVietnamPro-SemiBold.ttf'); font-weight: 600; }
+  @font-face { font-family: 'BVPM'; src: url('/fonts/BeVietnamPro-Medium.ttf'); font-weight: 500; }
+  @font-face { font-family: 'BarlowXB'; src: url('/fonts/BarlowCondensed-ExtraBold.ttf'); font-weight: 800; }
+  @font-face { font-family: 'Mono'; src: url('/fonts/JetBrainsMono-Medium.ttf'); font-weight: 500; }
+  html, body { margin: 0; padding: 0; background: #101828; overflow: hidden; }
+  #stage { position: relative; width: 886px; height: 976px; overflow: hidden; background: #101828; }
+  #gl { position: absolute; left: 0; top: 0; width: 886px; height: 976px; display: block; }
+  #ui { position: absolute; left: 0; top: 0; width: 886px; height: 976px; }
+  .lb { position: absolute; left: 0; top: 0; white-space: nowrap; will-change: transform, opacity; opacity: 0;
+        -webkit-font-smoothing: antialiased; text-rendering: geometricPrecision; font-kerning: normal; }
+  .head { font-family: 'BarlowXB'; font-size: 46px; line-height: 52px; letter-spacing: 0.5px; color: #fff; text-transform: uppercase; }
+  .head b { color: #F0446E; font-weight: 800; }
+  .name { font-family: 'BVP'; font-size: 32px; line-height: 40px; color: #fff; }
+  .sub { font-family: 'BVPM'; font-size: 28px; line-height: 36px; color: #FFE4EA; opacity: 0; }
+  .mono { font-family: 'Mono'; font-size: 29px; line-height: 38px; color: #fff; }
+  .mono.big { font-size: 31px; }
+  .dot { display: inline-block; width: 14px; height: 14px; border-radius: 7px; margin-right: 14px; vertical-align: 3px; }
+  .bubble { font-family: 'BVP'; font-size: 32px; line-height: 40px; padding: 10px 20px; border-radius: 22px; }
+  .user { background: #F0446E; color: #fff; }
+  .bot { background: #FFFFFF; color: #101828; min-width: 24px; }
+  .caret { display: inline-block; width: 3px; height: 30px; background: #F0446E; vertical-align: -4px; margin-left: 2px; }
+  .tag { font-family: 'BVP'; font-size: 28px; line-height: 34px; color: #101828; background: #FFE4EA; padding: 4px 14px; border-radius: 10px; }
+  .num { font-family: 'Mono'; font-size: 31px; line-height: 38px; color: #fff; text-align: right; display: inline-block; width: 72px; }
+</style>
+</head>
+<body>
+<div id="stage"><canvas id="gl" width="886" height="976"></canvas><div id="ui"></div></div>
+<script type="module" src="/giao-thuc.js"></script>
+</body>
+</html>
