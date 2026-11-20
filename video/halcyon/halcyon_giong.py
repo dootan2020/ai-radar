@@ -24,23 +24,131 @@ SHOW_WORDS = 14
 # Vietnamese "ai" (who) is not touched. A script author's own respelling in `say` wins, because the written word is then no longer in it.
 # Owner, 20/11/2026 08:12: "A thấy có từ "AI" thì đọc là "Ây-ai" trong tiếng việt." and 07:52: "Git đọc là "Git hắp"". To add a word: one more pair.
 # 14:33 the same day: "chứ apps đọc là áp". Words in IGNORE_CASE match in any case ("Apps" at a sentence start, "APPS"); the others stay case-sensitive.
-# A Vietnamese ear says "áp" for the singular "app" too, and "ap" is no Vietnamese word, so nothing is lost. WHISPER_WRITES lists the spellings
-# Whisper may give the spoken "áp" (gate side only).
+# A Vietnamese ear says "áp" for the singular "app" too, and "ap" is no Vietnamese word, so nothing is lost.
+# ~15:00 the owner reviewed the rest of the table and corrected three rows: "Windows đọc là guyn đâu", "CLI - cờ lờ i", "Prompt - prom"; every other row as proposed.
+# WHISPER_WRITES lists the spellings Whisper may give a spoken reading (gate side only), keyed by the spoken text.
 PRONUNCIATIONS = (
     ('AI', 'Ây-ai'),
     ('GitHub', 'Git hắp'),
     ('apps', 'áp'),
     ('app', 'áp'),
+    # Brands and people: case-sensitive, usual capitalisation
+    ('Google Maps', 'Gu-gồ Mép'),
+    ('Google', 'Gu-gồ'),
+    ('Gemini', 'Gem-mi-nai'),
+    ('ChatGPT', 'Chát Gi-pi-ti'),
+    ('OpenAI', 'Âu-pần Ây-ai'),
+    ('Claude', 'Clâu'),
+    ('Anthropic', 'An-thờ-rô-pích'),
+    ('Codex', 'Cô-đếch'),
+    ('Nvidia', 'En-vi-đi-a'),
+    ('NVIDIA', 'En-vi-đi-a'),
+    ('Microsoft', 'Mai-crô-xốp'),
+    ('Meta', 'Mê-ta'),
+    ('Apple', 'Áp-pồ'),
+    ('Perplexity', 'Pơ-plếch-xi-ti'),
+    ('Chrome', 'Crôm'),
+    ('Windows', 'Guyn đâu'),
+    ('TikTok', 'Tích-tóc'),
+    ('YouTube', 'Diu-túp'),
+    ('Facebook', 'Phây-búc'),
+    ('Instagram', 'In-xta-gram'),
+    ('Elon Musk', 'I-lon Mắc'),
+    ('Jensen Huang', 'Gien-xần Hoàng'),
+    ('TechCrunch', 'Téc-crân'),
+    ('The Verge', 'Đờ Vơ-giơ'),
+    ('the Verge', 'Đờ Vơ-giơ'),
+    ('Yonhap', 'Yôn-háp'),
+    ('Semafor', 'Xe-ma-pho'),
+    # Acronyms: case-sensitive, so the Vietnamese words are never touched
+    ('CEO', 'xi-i-ô'),
+    ('README', 'rít-mi'),
+    ('CLI', 'cờ lờ i'),
+    ('USD', 'đô la Mỹ'),
+    # Plain terms: any case; the plural is read like the singular (Vietnamese has none)
+    ('code', 'cốt'),
+    ('chat', 'chát'),
+    ('web', 'wép'),
+    ('websites', 'wép-xai'),
+    ('website', 'wép-xai'),
+    ('hooks', 'húc'),
+    ('hook', 'húc'),
+    ('plugins', 'plắc-in'),
+    ('plugin', 'plắc-in'),
+    ('prompts', 'prom'),
+    ('prompt', 'prom'),
+    ('agents', 'ây-giần'),
+    ('agent', 'ây-giần'),
+    ('blogs', 'blóc'),
+    ('blog', 'blóc'),
+    ('videos', 'vi-đê-ô'),
+    ('video', 'vi-đê-ô'),
 )
-IGNORE_CASE = frozenset({'apps', 'app'})
-WHISPER_WRITES = {'áp': ('app', 'apps', 'áp', 'ấp', 'ắp')}
+IGNORE_CASE = frozenset({'apps', 'app', 'code', 'chat', 'web', 'websites', 'website', 'hooks', 'hook', 'plugins', 'plugin', 'prompts', 'prompt',
+                         'agents', 'agent', 'blogs', 'blog', 'videos', 'video'})
+WHISPER_WRITES = {
+    'áp': ('app', 'apps', 'áp', 'ấp', 'ắp'),
+    'Gu-gồ Mép': ('Google Map', 'Gu gồ Map', 'Gu gồ Maps', 'Google mép', 'Gugồ mép'),
+    'Gu-gồ': ('Gugồ', 'Gu gờ'),
+    'Gem-mi-nai': ('Gemi nai',),
+    'Chát Gi-pi-ti': ('Chat GPT', 'Chát GPT', 'Chatgpt', 'Chat gi pi ti'),
+    'Âu-pần Ây-ai': ('Open AI', 'Âu pần AI', 'Âu-pần AI'),
+    'Clâu': ('Clau', 'Clao'),
+    'An-thờ-rô-pích': ('An thropic', 'An thờ rô pích'),
+    'Cô-đếch': ('Cô đéc', 'Cô đếch'),
+    'En-vi-đi-a': ('Envidia', 'NVIDIA'),
+    'Mai-crô-xốp': ('Mai crô sốp',),
+    'Mê-ta': ('Mê ta',),
+    'Áp-pồ': ('Áp bồ',),
+    'Pơ-plếch-xi-ti': ('Pơ lếch xi ti', 'Pơ plếch xi ti'),
+    'Crôm': ('Crom', 'Cờ rôm'),
+    'Guyn đâu': ('Win đâu', 'Gin đâu', 'Guyn đau'),
+    'Tích-tóc': ('Tik Tok', 'Tích tốc'),
+    'Diu-túp': ('You Tube', 'Diu tup', 'Du túp'),
+    'Phây-búc': ('Face book', 'Phê búc'),
+    'In-xta-gram': ('In sta gram', 'In sờ ta gram'),
+    'I-lon Mắc': ('Elon Mask', 'I lon Mask', 'Ê lon Mắc'),
+    'Gien-xần Hoàng': ('Jensen Hoàng', 'Gen xần Hoàng'),
+    'Téc-crân': ('Tech Crunch', 'Téc cran', 'Tech crân'),
+    'Đờ Vơ-giơ': ('Đờ Verge', 'Đơ vơ giơ'),
+    'Yôn-háp': ('Yon háp', 'Yon hap'),
+    'Xe-ma-pho': ('Semaphore', 'Xê ma pho', 'Se ma pho'),
+    'xi-i-ô': ('si i ô',),
+    'rít-mi': ('Readme', 'Read me', 'rịt mi'),
+    'cờ lờ i': ('Cli', 'Cờ lờ ai'),
+    'đô la Mỹ': ('đô la',),
+    'cốt': ('code', 'cót', 'cột'),
+    'chát': ('chat',),
+    'wép': ('web', 'wep', 'uép'),
+    'wép-xai': ('website', 'websites', 'web site', 'wép sai', 'uép xai'),
+    'húc': ('hook', 'hooks', 'hục'),
+    'plắc-in': ('plugin', 'plugins', 'plăc in', 'plắt in'),
+    'prom': ('prompt', 'prompts', 'prôm', 'prọm'),
+    'ây-giần': ('agent', 'agents', 'ây gần', 'ây dần', 'ây giơn'),
+    'blóc': ('blog', 'blogs', 'blốc', 'bờ lóc'),
+    'vi-đê-ô': ('video', 'videos', 'vi đi ô'),
+}
+
+
+def reading_pattern():
+    """One regex over every written word, longest first: a phrase wins over its parts ('Google Maps' before 'Google', 'OpenAI' before 'AI') and a
+    spoken replacement is never read again by another entry. Whole words only."""
+    order = sorted(range(len(PRONUNCIATIONS)), key=lambda i: -len(PRONUNCIATIONS[i][0]))
+    alts = []
+    for i in order:
+        written = PRONUNCIATIONS[i][0]
+        body = r'\s+'.join(re.escape(w) for w in written.split())
+        alts.append(f'(?P<p{i}>' + (f'(?i:{body})' if written in IGNORE_CASE else body) + ')')
+    return re.compile(r'(?<![^\W_])(?:' + '|'.join(alts) + r')(?![^\W_])')
+
+
+READING = reading_pattern()
 
 
 def voice_text(say):
     """The text the voice reads for one `say` paragraph: PRONUNCIATIONS applied to whole words."""
-    for written, spoken in PRONUNCIATIONS:
-        say = re.sub(r'(?<![^\W_])' + re.escape(written) + r'(?![^\W_])', spoken, say, flags=re.I if written in IGNORE_CASE else 0)
-    return say
+    return READING.sub(lambda m: PRONUNCIATIONS[int(m.lastgroup[1:])][1], say)
+
 
 WORD = re.compile(r'\d+(?:[.,]\d+)*|[^\W\d_]+')
 TONES = {'̀': '1', '́': '2', '̃': '3', '̉': '4', '̣': '5'}
@@ -221,29 +329,44 @@ def looks_foreign(word, sentence_start):
     return len(base) > 1 and not SYLLABLE.fullmatch(base)
 
 
-def written_as(raw, written, spoken):
-    """True when one word is the written word as written (any case for IGNORE_CASE words) or one of the spellings Whisper may give the spoken word."""
-    if raw == written or (written in IGNORE_CASE and raw.lower() == written):
+def reading_variants(written, spoken):
+    """[(key tuple, exact words or None)] for one table row: the spoken words, the written word(s) as written (case-sensitive unless the row is in
+    IGNORE_CASE, so the heard Vietnamese 'ai' is never 'AI'), and every spelling Whisper may give the spoken words (WHISPER_WRITES; keys only)."""
+    exact = tuple(WORD.findall(written))
+    out = [(tuple(key(w) for w in WORD.findall(spoken)), None),
+           (tuple(key(w) for w in exact), exact)]
+    out += [(tuple(key(w) for w in WORD.findall(s)), None) for s in WHISPER_WRITES.get(spoken, ())]
+    return [v for v in out if v[0]]
+
+
+def variant_matches(parts, ks, exact, written):
+    if tuple(x['key'] for x in parts) != ks:
+        return False
+    if exact is None:
         return True
-    return key(raw) in {key(w) for w in WHISPER_WRITES.get(spoken, ())}
+    raws = tuple(x['raw'] for x in parts)
+    return raws == exact or (written in IGNORE_CASE and tuple(r.lower() for r in raws) == exact)
 
 
 def collapse_readings(items, side):
     """Fold each default reading (PRONUNCIATIONS) into one token, so the gate expects what the voice says and accepts how Whisper writes it:
-    the spoken words ('Ây ai', 'Ây-ai') or the written word exactly as written ('AI', 'GitHub'; case-sensitive, so 'ai' stays 'who'; a script that has not been respelled, or a Whisper that writes the word).
-    The token is a name: it goes on the listen list with what Whisper wrote."""
+    the spoken words ('Ây ai', 'Ây-ai'), the written word(s) exactly as written ('AI', 'GitHub', 'Google Maps'; case-sensitive unless the row is in
+    IGNORE_CASE, so 'ai' stays 'who'; a script that has not been respelled, or a Whisper that writes the word) or a spelling in WHISPER_WRITES.
+    The longest match at a position wins ('Gu-gồ Mép' over 'Gu-gồ'). The token is a name: it goes on the listen list with what Whisper wrote."""
+    rows = [(written, spoken, reading_variants(written, spoken)) for written, spoken in PRONUNCIATIONS]
     out, i, n = [], 0, len(items)
     while i < n:
-        for written, spoken in PRONUNCIATIONS:
-            sk = tuple(key(w) for w in WORD.findall(spoken))
-            parts = items[i:i + len(sk)]
-            if tuple(x['key'] for x in parts) != sk:
-                parts = items[i:i + 1] if written_as(items[i]['raw'], written, spoken) else None
-            if parts:
-                raw = spoken if side == 'script' and len(parts) > 1 else ' '.join(x['raw'] for x in parts)
-                out.append(dict(number_item(parts, 0), key='P:' + spoken, val=None, kind='word', name=True, raw=raw))
-                i += len(parts)
-                break
+        best = None
+        for written, spoken, variants in rows:
+            for ks, exact in variants:
+                parts = items[i:i + len(ks)]
+                if (best is None or len(parts) > len(best[0])) and variant_matches(parts, ks, exact, written):
+                    best = (parts, spoken)
+        if best:
+            parts, spoken = best
+            raw = spoken if side == 'script' and len(parts) > 1 else ' '.join(x['raw'] for x in parts)
+            out.append(dict(number_item(parts, 0), key='P:' + spoken, val=None, kind='word', name=True, raw=raw))
+            i += len(parts)
         else:
             out.append(items[i])
             i += 1

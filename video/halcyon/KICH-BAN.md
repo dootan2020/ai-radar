@@ -19,7 +19,7 @@ Paths inside the output are relative to `--out`. The voice file is the timing fi
                     "numbers": {"8:30": "tám giờ rưỡi"},                      (optional, see 3)
                     "beats": [ {beat}, ... ] } ] }
 ```
-One paragraph = one voice paragraph (the voice step writes one blank-line paragraph per entry). Write `say` and `show` as the words are written (`AI`, `GitHub`, `apps`): the voice step respells them for the voice only ([GIONG.md](GIONG.md) § Default readings: `AI` is read "Ây-ai", `GitHub` "Git hắp", `apps` and `app` "áp"); your own respelling in `say` wins. A paragraph has one beat, or several: the later ones carry `"from_sentence": k` (sentence k, counted from 0, a sentence ends at a word ending in `. ? !`). The first paragraph's first beat is the hook, the last beat must be `{"kind": "end"}`.
+One paragraph = one voice paragraph (the voice step writes one blank-line paragraph per entry). Write `say` and `show` as the words are written (`AI`, `GitHub`, `apps`, `Claude Code`, `video`, `30 USD`): the voice step respells the words of the default table for the voice only ([GIONG.md](GIONG.md) § Default readings: `AI` is read "Ây-ai", `GitHub` "Git hắp", `apps` "áp", `code` "cốt", `hook` "húc", `USD` "đô la Mỹ", and the other brands and terms listed there), so write the English spelling and respell only a word that table lacks; your own respelling in `say` wins. A paragraph has one beat, or several: the later ones carry `"from_sentence": k` (sentence k, counted from 0, a sentence ends at a word ending in `. ? !`). The first paragraph's first beat is the hook, the last beat must be `{"kind": "end"}`.
 
 Beat kinds (every beat may carry `name`, `id`; otherwise ids are `1`, `2a`, `2b`, ...):
 | kind | fields |
