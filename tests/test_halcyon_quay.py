@@ -171,6 +171,27 @@ class CompareTest(unittest.TestCase):
         self.assertEqual(e.kind, "row")
         self.assertIn(".agents/skills", e.why)
 
+    def chain_pair(self):
+        m, c = fixture_pair()
+        c["pages"].append({"path": ".agents/skills", "kind": "tree", "chain": True, "chain_parent": ""})
+        c["listings"][".agents/skills"] = []
+        page = copy.deepcopy(page_of(m, "apps"))
+        base = "https://github.com/backnotprop/plannotator/tree/main/.agents/skills"
+        page.update(path=".agents/skills", requested=base, final=base, rows=[], entries=[])
+        m["pages"].append(page)
+        return m, c
+
+    def test_chain_page_is_found_by_its_full_path_row(self):
+        m, c = self.chain_pair()
+        self.assertIsNone(refusal_of(m, c))
+
+    def test_chain_page_without_its_full_path_row(self):
+        m, c = self.chain_pair()
+        page_of(m, "")["rows"] = [r for r in page_of(m, "")["rows"] if r["path"] != ".agents/skills"]
+        c["listings"][""] = [x for x in c["listings"][""] if x["path"] != ".agents"]
+        e = refusal_of(m, c)
+        self.assertEqual(e.kind, "row")
+        self.assertIn("full path", e.why)
     def test_file_first_line_differs(self):
         m, c = fixture_pair()
         page_of(m, "package.json")["file"]["code_lines"][0] = "<!DOCTYPE html>"
@@ -305,6 +326,17 @@ class CayTest(unittest.TestCase):
         self.assertIn("holds:", e.why)
         self.assertIn("packages", e.why)
 
+    def test_chain_open_confirms_each_skipped_folder_holds_one_child(self):
+        doc = hq.cay("o/r", [{"path": "a/b", "chain": True}], fetch=fake_api())
+        self.assertEqual(doc["pages"][1], {"path": "a/b", "kind": "tree", "chain": True, "chain_parent": ""})
+        self.assertEqual(doc["open"], ["a/b"])
+        e = cay_refusal("o/r", [{"path": "packages/ai", "chain": True}], fetch=fake_api())     # `packages` holds two folders: not a chain
+        self.assertEqual(e.kind, "chain")
+        self.assertIn("ai, server", e.why)
+
+    def test_chain_stops_at_an_opened_page(self):
+        doc = hq.cay("o/r", ["a", {"path": "a/b", "chain": True}], fetch=fake_api())
+        self.assertEqual(doc["pages"][2]["chain_parent"], "a")
     def test_a_file_used_as_a_parent(self):
         e = cay_refusal("o/r", ["README.md/x"], fetch=fake_api())
         self.assertEqual(e.kind, "parent")

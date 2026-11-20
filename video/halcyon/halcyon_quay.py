@@ -129,12 +129,16 @@ def children(tree, folder):
 def cay(repo, open_paths=(), branch=None, fetch=http_get, now=None):
     if not REPO_RE.match(repo or ""):
         raise Refusal("cay", "repo", f"`{repo}` is not owner/name", "write the repo like backnotprop/plannotator")
-    paths = []
+    paths, chain_flag = [], {}
     for p in open_paths:
+        chain = False
+        if isinstance(p, dict):                    # {"path": "a/b/c", "chain": true}: GitHub shows the single-child folder chain as one row
+            chain, p = bool(p.get("chain")), p.get("path")
         p = clean_open_path(p)
         if p in paths:
             raise Refusal("cay", "path", f"`{p}` is listed twice", "list each page once")
         paths.append(p)
+        chain_flag[p] = chain
     if len(paths) + 1 > MAX_PAGES:
         raise Refusal("cay", "rate-limit", f"{len(paths) + 1} pages are needed (the home page and {len(paths)} more) and a repo may be loaded {MAX_PAGES} times at most",
                       f"open at most {MAX_PAGES - 1} paths")
@@ -173,12 +177,25 @@ def cay(repo, open_paths=(), branch=None, fetch=http_get, now=None):
             held = [c["name"] for c in children(entries, near)]
             raise Refusal("cay", "path", f"`{p}` is not in {repo} at `{sha[:7]}`; `{near or '/'}` holds: {', '.join(held[:40])}{' ...' if len(held) > 40 else ''}",
                           f"pick one of those (`{(near + '/') if near else ''}<name>`)")
+        opened = [x["path"] for x in pages]
         par = parent_of(p)
-        if par and par not in [x["path"] for x in pages]:
-            raise Refusal("cay", "parent", f"the parent of `{p}` (`{par}`) is not opened before it", f"list `{par}` earlier in the same open list")
         if kinds[p] == "commit":
             raise Refusal("cay", "path", f"`{p}` is a submodule, which links to another repo", "open a folder or file of this repo")
-        pages.append({"path": p, "kind": "tree" if kinds[p] == "tree" else "blob"})
+        entry = {"path": p, "kind": "tree" if kinds[p] == "tree" else "blob"}
+        if chain_flag[p]:
+            # every folder skipped between the row and `p` must hold exactly one thing: the next folder of the chain
+            below = p
+            while par and par not in opened:
+                held = [c["name"] for c in children(entries, par)]
+                if kinds.get(par) != "tree" or len(held) != 1 or kinds.get(below) != "tree":
+                    raise Refusal("cay", "chain", f"`{p}` is not a single-folder chain: `{par}` holds {len(held)} entries ({', '.join(held[:12])})",
+                                  f"open `{par}` as its own page, or drop \"chain\"")
+                below, par = par, parent_of(par)
+            entry["chain"] = True
+            entry["chain_parent"] = par
+        elif par and par not in opened:
+            raise Refusal("cay", "parent", f"the parent of `{p}` (`{par}`) is not opened before it", f"list `{par}` earlier in the same open list, or write {{'path': '{p}', 'chain': true}} if GitHub shows it collapsed")
+        pages.append(entry)
 
     needed = len([x for x in pages if x["kind"] == "blob"])
     if api.remaining is not None and api.remaining < needed:
@@ -286,12 +303,14 @@ def check_listing(cay_doc, mp, cp, addr):
                "a push may have landed, or the page was cut; run it again")
     if mp.get("truncated") and not mp.get("expanded") and missing:
         refuse("listing", "the page cuts the list behind \"View all files\" and it was not expanded", "run it again")
-    nxt = [p for p in cay_doc["pages"] if p["path"] and parent_of(p["path"]) == cp["path"]]
+    nxt = [p for p in cay_doc["pages"] if p["path"] and p.get("chain_parent", parent_of(p["path"])) == cp["path"]]
     rows = {r["path"]: r for r in mp.get("rows", [])}
     for p in nxt:
         row = rows.get(p["path"])
         if row is None:
             deeper = [k for k in rows if k.startswith(p["path"] + "/")]
+            if p.get("chain"):
+                refuse("row", f"the page has no row whose address is the full path `{p['path']}`, which the video opens next as a collapsed chain", "")
             if deeper:
                 refuse("row", f"GitHub shows `{p['path']}` collapsed into the row `{deeper[0]}` (a folder with one folder in it)", f"open `{deeper[0]}` instead")
             refuse("row", f"the page has no row for `{p['path']}`, which the video opens next", "")
@@ -375,7 +394,7 @@ def main(argv=None):
         p = sub.add_parser(name)
         p.add_argument("--repo", required=True)
         p.add_argument("--branch")
-        p.add_argument("--open", action="append", default=[], help="a path from the repo root, in the order shown; repeat")
+        p.add_argument("--open", action="append", default=[], help="a path from the repo root, in the order shown; repeat; write a/b/c#chain when GitHub shows a single-folder chain as one row")
         if name == "cay":
             p.add_argument("--out", required=True)
         else:
@@ -386,6 +405,8 @@ def main(argv=None):
     c.add_argument("--manifest", required=True)
     c.add_argument("--cay", required=True)
     a = ap.parse_args(argv)
+    if getattr(a, "open", None):
+        a.open = [{"path": o[:-6], "chain": True} if o.endswith("#chain") else o for o in a.open]
     try:
         if a.cmd == "cay":
             doc = cay(a.repo, a.open, a.branch)
