@@ -37,4 +37,4 @@ Cookie banners are declined (a "Reject"/"Decline"/"Only necessary" button; "Acce
 Addresses are tried in the order given, then `--hco`, each for the same sentence only. A transient failure (timeout, 5xx, sentence not found, page moving) is tried once more; a 4xx, a wall, an ambiguity or an overlay moves on at once. One attempt is limited to `--timeout` seconds (60). If no address shows the sentence the command stops with `chup: the sentence could not be shown from any of N address(es)`. Each attempt uses a fresh Chrome profile in the system temp folder and deletes it.
 
 ## Not covered
-Photo-only beats (`rows` of a picture), screen recordings, counters (published Yonhap lead photo, the petition page, the Gemini typing recording) stay hand-made; this step is for text passages.
+Photo-only beats (`rows` of a picture), screen recordings, counters (published Yonhap lead photo, the petition page, the Gemini typing recording) stay hand-made; this step is for text passages. The pages of a GitHub repository (home, a folder, a file) are not captures of a sentence: they are recorded by `quay-repo.mjs` and checked against GitHub's own listing, see [QUAY.md](QUAY.md).

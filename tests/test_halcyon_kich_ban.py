@@ -189,12 +189,29 @@ class Refuses(unittest.TestCase):
 
 
 HOOK = ["Tắt lịch sử rồi?", "Vẫn giữ 2 tháng"]
+F = kb_mod.FLOOR["FOOT"]
+FOOT_GLIMPSE_HOME = F["home"] + F["glimpse"]          # the home page of the first repo beat of a video
 
 
-def repo_script(open_, i=None, extra_beats=None):
-    """Video 05 with its recording hook replaced by a repo beat that opens `open_`."""
+def stretch(timing, k):
+    """The voice of paragraph 1 spoken k times slower: a repo beat needs seconds the real 4.28 s hook does not have. Later paragraphs move later by the same amount."""
+    t = copy.deepcopy(timing); end0 = t["beats"][0]["end"]; shift = end0 * (k - 1)
+    for w in t["words_whisper_medium"]:
+        inside = w["s"] < end0 - 1e-6
+        w["s"] = round(w["s"] * k if inside else w["s"] + shift, 2); w["e"] = round(w["e"] * k if inside else w["e"] + shift, 2)
+    t["beats"][0]["end"] = round(end0 * k, 2)
+    for b in t["beats"][1:]:
+        b["start"] = round(b["start"] + shift, 2); b["end"] = round(b["end"] + shift, 2)
+    t["duration_s"] = round(t["duration_s"] + shift, 2)
+    return t
+
+
+def repo_script(open_, i=None, k=3, level="FOOT"):
+    """Video 05 with its recording hook replaced by a repo beat that opens `open_`; the voice of that paragraph is k times slower (12.84 s) so the pages fit."""
     i = i or inputs("05")
-    i["kb"]["paragraphs"][0]["beats"][0] = {"kind": "repo", "headline": HOOK, "kicker": "Theo Google", "repo": {"ref": "pl", "open": open_}}
+    i["kb"]["paragraphs"][0]["beats"][0] = {"kind": "repo", "headline": HOOK, "kicker": "Theo Google", "repo": {"ref": "pl", "open": open_}, "level": level}
+    if k != 1:
+        i["timing"] = stretch(i["timing"], k)
     return i
 
 
@@ -202,9 +219,9 @@ def assemble_repo(i, quay=True):
     return kb_mod.assemble(i["kb"], i["timing"], i["manifest"], i["out_dir"], i["timing_path"], i["out_dir"] / "quay.json" if quay else None)
 
 
-def walk_of(open_, b=None, edit=None):
-    """The walk of the hook beat; with `b` the beat is made that long (the real one lasts 4.43 s), so longer walks can be tested."""
-    i = repo_script(open_)
+def walk_of(open_, b=None, edit=None, k=3):
+    """The walk of the first beat; with `b` the beat is made that long, so other lengths can be tested."""
+    i = repo_script(open_, k=k)
     if edit:
         edit(i)
     r = kb_mod.Run(i["kb"], i["timing"], i["manifest"], i["out_dir"], i["timing_path"], i["out_dir"] / "quay.json")
@@ -218,12 +235,12 @@ class RepoBeat(unittest.TestCase):
         got = assemble_repo(repo_script(["packages"]))
         b = got["beats"][0]
         self.assertEqual(b["picture"]["kind"], "repo"); self.assertEqual(b["picture"]["manifest"], "quay.json")
-        self.assertEqual(b["level"], "HOOK"); self.assertEqual(b["mark"], "wm"); self.assertEqual(b["chip"], {"text": "Ảnh chụp: GitHub"})
+        self.assertEqual(b["level"], "FOOT"); self.assertEqual(b["mark"], "wm"); self.assertEqual(b["chip"], {"text": "Ảnh chụp: GitHub"})
         w = b["picture"]["walk"]
         self.assertEqual([(x["page"], x.get("via")) for x in w], [("", None), ("packages", "tap")])
         self.assertEqual(w[0]["a"], 0.0)
-        # 4.43 s, the first repo beat: floors 1.6 + 1.2 (the opening glimpse) and 1.4, the 0.23 s above them shared by the two pages
-        self.assertAlmostEqual(w[1]["a"], 2.8 + 0.115, delta=0.006)
+        # the first repo beat: the home page needs 2.15 + 2.25 (the opening glimpse), the last page 0.7; the seconds above them are shared by the two pages
+        self.assertAlmostEqual(w[1]["a"], FOOT_GLIMPSE_HOME + (b["b"] - FOOT_GLIMPSE_HOME - F["last"]) / 2, delta=0.006)
         self.assertEqual(got["beats"][-1]["picture"], {"kind": "same_as", "beat": "1"})
 
     def test_an_empty_open_list_is_the_home_page_alone(self):
@@ -232,48 +249,56 @@ class RepoBeat(unittest.TestCase):
 
     def test_a_later_repo_beat_has_no_glimpse(self):
         i = repo_script(["packages"])
-        i["kb"]["paragraphs"][2]["beats"][0] = {"kind": "repo", "headline": ["Toàn cầu,", "vài tuần tới"], "kicker": "Theo Google", "repo": {"ref": "pl", "open": ["docs"]}}
+        i["kb"]["paragraphs"][2]["beats"][0] = {"kind": "repo", "headline": ["Toàn cầu,", "vài tuần tới"], "kicker": "Theo Google", "repo": {"ref": "pl", "open": ["docs"]}, "level": "FOOT"}
         got = assemble_repo(i); b = got["beats"][3]
-        self.assertEqual((b["a"], b["b"]), (8.44, 12.69))
-        # 4.25 s for floors 1.6 + 1.4: the 1.25 s above them shared by the two pages
-        self.assertAlmostEqual(b["picture"]["walk"][1]["a"], 8.44 + 1.6 + 0.625, delta=0.006)
+        self.assertEqual((b["a"], b["b"]), (17.0, 21.25))
+        # 4.25 s for the home page (2.15) and the last page (0.7): the 1.4 s above them shared by the two pages
+        self.assertAlmostEqual(b["picture"]["walk"][1]["a"], 17.0 + F["home"] + (4.25 - F["home"] - F["last"]) / 2, delta=0.006)
 
     def test_a_slide_back_is_an_entry_of_its_own(self):
-        w = walk_of(["packages", "packages/server", "docs"], b=9.0)
+        w = walk_of(["packages", "packages/server", "docs"], b=11.0)
         self.assertEqual([x[0] for x in w], ["", "packages", "packages/server", "", "docs"])
         self.assertEqual([x[2] for x in w], [None, "tap", "tap", "back", "tap"])
-        # floors 2.8 + 1.4 + 1.4 + 0.4 + 1.4 = 7.4; the 1.6 s above them shared by the five entries
-        for got, want in zip([x[1] for x in w], [0.0, 3.12, 4.84, 6.56, 7.28]):
+        # floors 4.4 + 2.2 + 0.7 (a page followed by a slide back needs only its last-page time) + 1.15 + 0.7 = 9.15; the 1.85 s above them shared by the five entries
+        for got, want in zip([x[1] for x in w], [0.0, 4.77, 7.34, 8.41, 9.93]):
             self.assertAlmostEqual(got, want, delta=0.006)
 
     def test_a_chain_entry_skips_the_folders_github_shows_as_one_row(self):
-        w = walk_of([{"path": "x/y/z", "chain": True}, "x/y/z/f.md"], b=9.0)
+        w = walk_of([{"path": "x/y/z", "chain": True}, "x/y/z/f.md"], b=11.0)
         self.assertEqual([(x[0], x[2]) for x in w], [("", None), ("x/y/z", "tap"), ("x/y/z/f.md", "tap")])
 
     def test_an_anchor_opens_the_page_when_the_voice_says_it(self):
-        w = walk_of([{"path": "a", "anchor": "khoảng"}, "a/b"], b=9.0)
-        self.assertEqual([x[1] for x in w], [0.0, 3.40, 6.20])      # "khoảng" is heard at 3.48 s, minus the 0.08 s lead; then a and a/b share the rest
+        w = walk_of([{"path": "a", "anchor": "Google"}, "a/b"], b=12.0)
+        self.assertEqual([x[1] for x in w], [0.0, 5.98, 9.74])      # "Google" is heard at 6.06 s, minus the 0.08 s lead; then a and a/b share the 6.02 s left: 5.98 + 2.2 + (6.02 - 2.9) / 2
 
     def test_anchors_follow_the_order_of_the_list(self):
         with self.assertRaises(SystemExit) as cm:
-            walk_of([{"path": "a", "anchor": "tháng"}, {"path": "b", "anchor": "khoảng"}], b=9.0)
+            walk_of([{"path": "a", "anchor": "tháng"}, {"path": "b", "anchor": "khoảng"}], b=12.0)
         self.assertIn("anchors must follow the order", str(cm.exception))
 
     def test_an_anchor_that_leaves_a_page_under_its_floor(self):
         with self.assertRaises(SystemExit) as cm:
-            walk_of([{"path": "a", "anchor": "Google"}], b=9.0)       # heard at 2.02 s: the home page would have 1.94 s, its floor is 2.8 s
-        self.assertIn("the home page would be on screen 1.94 s, under its floor of 2.8 s", str(cm.exception))
+            walk_of([{"path": "a", "anchor": "Gemini"}], b=12.0)       # heard at 3.42 s: the home page would have 3.34 s, its floor is 4.4 s
+        self.assertIn("the home page would be on screen 3.34 s, under its floor of 4.4 s", str(cm.exception))
 
     def test_an_anchor_not_spoken_in_the_beat(self):
         with self.assertRaises(SystemExit) as cm:
-            walk_of([{"path": "a", "anchor": "huấn luyện"}], b=9.0)
+            walk_of([{"path": "a", "anchor": "huấn luyện"}], b=12.0)
         self.assertIn('the anchor "huấn luyện" is not among the words spoken', str(cm.exception))
 
     def test_a_beat_too_short_for_its_pages_names_the_seconds_needed(self):
-        with self.assertRaises(SystemExit) as cm:      # 4.43 s for the home page (2.8 s with the glimpse), two pages (1.4 s each) and the slide back between them (0.4 s)
-            assemble_repo(repo_script(["packages", "docs"]))
+        with self.assertRaises(SystemExit) as cm:      # 4.43 s for the home page (4.4 s with the glimpse), two pages and the slide back between them
+            assemble_repo(repo_script(["packages", "docs"], k=1))
         e = str(cm.exception)
-        self.assertTrue(e.startswith("kich-ban: ")); self.assertIn("gives this beat 4.43 s but its 4 pages need at least 6.0 s", e)
+        self.assertTrue(e.startswith("kich-ban: ")); self.assertIn("gives this beat 4.43 s but its 4 pages need at least 7.0 s", e)
+
+    def test_the_floors_are_the_seconds_the_builder_needs(self):
+        # the builder's camera (PR #277) needs, FOOT / HOOK: home 2.05 / 3.05, a page whose next row needs a pan 2.1 / 3.15, a slide back 1.05, the last page 0.6
+        for level, home, tap in (("FOOT", 2.05, 2.1), ("HOOK", 3.05, 3.15)):
+            f = kb_mod.FLOOR[level]
+            self.assertGreaterEqual(f["home"], home); self.assertGreaterEqual(f["tap"], tap)
+            self.assertGreaterEqual(f["back"], 1.05); self.assertGreaterEqual(f["last"], 0.6)
+        self.assertGreaterEqual(kb_mod.FLOOR["FOOT"]["home"] + kb_mod.FLOOR["FOOT"]["glimpse"], 4.3); self.assertGreaterEqual(kb_mod.FLOOR["HOOK"]["home"] + kb_mod.FLOOR["HOOK"]["glimpse"], 5.95)
 
     def test_a_repo_beat_needs_the_recorder_manifest(self):
         with self.assertRaises(SystemExit) as cm:
