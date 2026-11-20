@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-20T19:47:37.374934+00:00",
-  "input_generated_at": "2026-11-20T18:46:39Z",
+  "generated_at": "2026-11-20T21:53:28.769923+00:00",
+  "input_generated_at": "2026-11-20T20:47:07Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -115275,9 +115275,9 @@
       "use_original_title": false,
       "source_url": "https://www.semafor.com/article/11/20/2026/silicon-valley-needs-to-listen-to-the-ai-backlash",
       "key_points": [
-        "Hơn 40 biện pháp hạn chế trung tâm dữ liệu đã được thông qua tại Mỹ trong kỳ bầu cử giữa nhiệm kỳ, khi các ứng viên ủng hộ siết AI thắng cử ở các khu vực cạnh tranh. Theo góc nhìn của tác giả Ashley trên Semafor, giới xây dựng AI nhận thức rõ phản ứng này nhưng các lãnh đạo công nghệ vẫn tìm cách tiếp tục phát triển.",
-        "Đối với nhiều người tại Thung lũng Silicon, lo ngại về AI được giải thích là vấn đề tiếp thị, giáo dục hoặc vị trí chứ không phải dấu hiệu dừng lại. Tác giả Ashley ví thái độ này với cách các hãng công nghệ lớn trước đây xem các cuộc điều tra và vụ kiện chống độc quyền như chi phí kinh doanh.",
-        "Dự án trung tâm dữ liệu tại New Mexico rộng bằng 1.000 sân bóng đá được Thượng nghị sĩ Mark Kelly nêu như ví dụ cần rào chắn từ cộng đồng. Cơ quan điều tra Searchlight New Mexico đã xác nhận khu đất dự án này thực sự có diện tích tương đương 1.000 sân bóng đá.",
+        "Hơn 40 biện pháp hạn chế trung tâm dữ liệu đã được thông qua tại Mỹ trong kỳ bầu cử giữa nhiệm kỳ khi các ứng viên ủng hộ siết AI thắng cử. Theo tác giả Ashley trên Semafor, giới xây dựng AI hiểu rõ phản ứng này nhưng giới lãnh đạo công nghệ vẫn tiếp tục mở rộng.",
+        "Đối với nhiều người tại Thung lũng Silicon, lo ngại về AI được giải thích là vấn đề tiếp thị, giáo dục hoặc vị trí chứ không phải dấu hiệu dừng lại. Tác giả Ashley ví thái độ này với cách các hãng công nghệ lớn xem các vụ kiện chống độc quyền như chi phí kinh doanh.",
+        "Dự án trung tâm dữ liệu tại New Mexico rộng bằng 1.000 sân bóng đá được Thượng nghị sĩ Mark Kelly nêu như ví dụ cần rào chắn và ý kiến từ cộng đồng địa phương. Theo cơ quan tin tức điều tra Searchlight New Mexico, diện tích dự án này thực sự tương đương khoảng 1.000 sân bóng đá.",
         "Tác giả Ashley trên Semafor nhận định giới lãnh đạo công nghệ có lẽ nên xem xét nghiêm túc hơn các khiếu nại về quy mô AI khi quan chức tiểu bang sẵn sàng siết quản lý. Tuy nhiên, Tổng thống Donald Trump cảnh báo quy định ngặt nghèo có thể bóp nghẹt phát triển và tuyên bố sẽ không để điều đó xảy ra."
       ],
       "same_event_coverage_ids": [
@@ -115309,44 +115309,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.15,
+        "value": 10.0,
         "answers": {
-          "what": 9,
-          "why": 9,
-          "notable": 9,
+          "what": 10,
+          "why": 10,
+          "notable": 10,
           "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "cần rào chắn từ cộng đồng",
-            "explanation": "Kelly called for guardrails and input from the local community as separate requirements; the source does not say the guardrails must come from the community (outlet:p004)."
-          },
-          {
-            "kind": "role",
-            "summary_text": "Cơ quan điều tra Searchlight New Mexico",
-            "explanation": "Searchlight New Mexico is an investigative news outlet, not an investigative agency (outlet:p004)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "notable",
-            "problem": "The Vietnamese misidentifies the organization behind the acreage report.",
-            "fix": "Call Searchlight New Mexico an investigative news outlet (outlet:p004)."
-          },
-          {
-            "question": "notable",
-            "problem": "The wording makes community input sound like the source of the guardrails.",
-            "fix": "State that Kelly called for guardrails and local community input (outlet:p004)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "064fd1ca1ded559cc5d68db5f5876673706214be2535b18c021d2b8c1c4bf651",
-        "scored_at": "2026-11-20T19:47:37.367677+00:00"
+        "prose_sha256": "64175cec8e461e6a33ec264445fe98dab41197b14a728c0972d3694aee5a7ac9",
+        "scored_at": "2026-11-20T21:48:39.173308+00:00"
       }
     },
     {
@@ -115943,10 +115921,10 @@
       "use_original_title": true,
       "source_url": "https://www.technologyreview.com/2026/11/20/1149399/the-most-misunderstood-graph-in-ai-just-got-a-major-update/",
       "key_points": [
-        "Báo cáo mới từ tổ chức METR cho thấy năng lực AI tiếp tục tăng theo cấp số nhân, nhưng mô hình vẫn kém ở các tác vụ đòi hỏi phán đoán so với lập trình. Theo biểu đồ của METR, thời lượng tác vụ mà các mô hình hàng đầu xử lý thành công từng tăng gấp đôi mỗi 4 tháng khi đo cùng con người.",
-        "MIT Technology Review cho biết học tăng cường rất khó áp dụng cho tác vụ có kết quả khó đo lường như chọn hướng nghiên cứu, dù giúp AI giỏi lập trình và toán.",
-        "Ở bài thi thiết kế hệ thống đánh giá AI, không bài làm nào của mô hình đủ tốt để METR sử dụng, dù các mô hình tiên tiến nhất đã vượt hầu hết con người về kỹ nghệ phần mềm. Dù vậy, METR ghi nhận mô hình Opus 5.5 đã đạt mức tiệm cận trên chuẩn, tiến bộ hơn mức dưới chuẩn của năm trước.",
-        "MIT Technology Review nhận định số lượng bài thi phán đoán còn ít khiến việc dự đoán tiến độ tự động hóa nghiên cứu AI gặp khó khăn. Đánh giá này còn bị hạn chế khi thời gian hoàn thành phần lớn là ước tính, và riêng bài thi lập luận triết học chỉ do một người chấm phần lớn bài làm."
+        "Báo cáo từ tổ chức METR phát hiện một số năng lực AI tiếp tục tăng theo cấp số nhân, nhưng mô hình vẫn kém ở tác vụ phán đoán so với lập trình. Theo biểu đồ của METR, thời lượng tác vụ con người mà mô hình hàng đầu hoàn thành từng tăng gấp đôi mỗi bốn tháng.",
+        "MIT Technology Review cho biết học tăng cường rất khó áp dụng cho tác vụ có kết quả khó xác định như chọn hướng nghiên cứu mới. Kỹ thuật này từng giúp hệ thống AI giỏi lập trình và toán nhờ khả năng tự động kiểm tra kết quả.",
+        "Ở bài thi thiết kế đánh giá AI, không bài làm nào của mô hình đủ tốt để nhân viên METR sử dụng, dù các mô hình tiên tiến nhất đã giỏi hơn gần như mọi người ở kỹ nghệ phần mềm. Dù vậy, METR cho biết mô hình mới nhất như Opus 5.5 có xu hướng đạt mức tiệm cận trên chuẩn, tiến bộ hơn mức dưới chuẩn của năm ngoái.",
+        "MIT Technology Review nhận định việc METR đưa vào quá ít bài thi phán đoán khiến việc dự đoán tiến độ tiếp theo của mô hình rất khó khăn. Báo cáo còn bị hạn chế khi thời gian hoàn thành phần lớn là ước tính, và bài thi lập luận triết học chỉ do một người chấm phần lớn bài làm."
       ],
       "same_event_coverage_ids": [
         "721817428758e352eb9d"
@@ -115960,7 +115938,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "METR: AI tiếp tục tăng trưởng theo cấp số nhân nhưng vẫn tụt hậu ở các tác vụ phán đoán",
+      "editorial_headline_vi": "METR: Một số năng lực AI tăng trưởng theo cấp số nhân nhưng mô hình vẫn kém ở tác vụ phán đoán",
       "summary_sources": [
         {
           "id": "outlet",
@@ -115975,44 +115953,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 7.85,
+        "value": 10.0,
         "answers": {
-          "what": 6,
+          "what": 10,
           "why": 10,
-          "notable": 9,
-          "meaning": 7
+          "notable": 10,
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "quote",
-            "summary_text": "AI tiếp tục tăng trưởng theo cấp số nhân",
-            "explanation": "The source says some AI capabilities continue to improve exponentially, not AI as a whole (outlet:p002)."
-          },
-          {
-            "kind": "quote",
-            "summary_text": "năng lực AI tiếp tục tăng theo cấp số nhân",
-            "explanation": "The source limits this finding to some AI capabilities (outlet:p002)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "what",
-            "problem": "The headline and opening paragraph lose the qualifier on exponential improvement.",
-            "fix": "Say that some AI capabilities continue to improve exponentially (outlet:p002)."
-          },
-          {
-            "question": "meaning",
-            "problem": "The Vietnamese broadens the uncertain forecast to the pace of automating AI research.",
-            "fix": "Specify that METR's few judgment-heavy tasks make it hard to predict whether and how models will improve on those tasks (outlet:p013-p014)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "d00280453d86816eb81bfdc5e1b07ac183ff8a9291cb6c59614a6586e14e02b3",
-        "scored_at": "2026-11-20T19:29:48.800727+00:00"
+        "prose_sha256": "bcae75a662788bb36bd8ff15b85f0cbd6d19c0526d289654116db7dbc671c643",
+        "scored_at": "2026-11-20T21:53:28.746858+00:00"
       }
     },
     {
@@ -116033,10 +115989,10 @@
       "use_original_title": false,
       "source_url": "https://www.semafor.com/article/11/20/2026/the-case-for-an-ai-downturn",
       "key_points": [
-        "Theo góc nhìn của tác giả Reed trên Semafor, cổ phiếu Anthropic giảm 11% hôm nay giữa lúc thị trường gia tăng hoài nghi về giao dịch AI.",
-        "Tác giả nhận định đổi mới sáng tạo và ứng dụng AI sẽ chậm lại nếu tài nguyên bị tập trung vào số ít công ty. Mối lo ngại an ninh mạng ngày càng tăng tại các doanh nghiệp cũng có thể làm chậm tiến trình phát triển này.",
-        "Minh chứng là Anthropic từng được định giá khoảng 1,3 nghìn tỷ USD và tăng 17% so với giá ban đầu ở màn chào sàn lịch sử trước khi sụt giá. Bên cạnh đó, việc Jensen Huang rời Nvidia gây bất lợi cho đổi mới sáng tạo, dù AP đưa tin Anthropic vẫn đẩy mạnh phát triển AI.",
-        "Theo tác giả, dù các tập đoàn công nghệ lớn có thể tăng trưởng vượt bậc, tác động thực tế của AI ngày càng cho thấy sẽ cần nhiều thời gian hơn dự kiến để hiện hữu."
+        "Theo tác giả Reed trên Semafor, cổ phiếu Anthropic giảm 11% hôm nay khi thị trường gia tăng hoài nghi về giao dịch AI.",
+        "Tác giả cho biết việc ứng dụng AI rộng rãi có khả năng chậm lại nếu giới công nghệ Trung Quốc thiếu chip Nvidia. Ngoài ra, việc tài nguyên dồn vào số ít công ty và nỗi lo an ninh mạng cũng là những yếu tố có thể làm chậm phát triển AI.",
+        "Trước đó, Anthropic từng đạt định giá khoảng 1,3 nghìn tỷ USD và tăng 17% ở đợt chào sàn lớn nhất lịch sử. Cùng lúc, AP đưa tin công ty vẫn đẩy mạnh phát triển AI bất chấp CEO Dario Amodei kêu gọi làm chậm lại.",
+        "Tác giả nhận định dù các hãng công nghệ lớn có thể tăng trưởng mạnh, tác động thực tế của AI sẽ cần nhiều thời gian hơn dự kiến để hiện hữu."
       ],
       "same_event_coverage_ids": [
         "e72173fcb3a2fa82b8c9"
@@ -116065,30 +116021,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.6,
+        "value": 9.35,
         "answers": {
-          "what": 10,
-          "why": 8,
+          "what": 9,
+          "why": 10,
           "notable": 10,
-          "meaning": 10
+          "meaning": 8
         },
-        "hard_errors": [
-          {
-            "kind": "quote",
-            "summary_text": "Minh chứng là",
-            "explanation": "This presents Anthropic's IPO figures as evidence for the preceding claims about resource concentration and cybersecurity. The source gives the IPO as market context, then discusses those separate concerns (outlet:p002-p005, outlet:p009)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "why",
-            "problem": "Readers miss why Reed connects Jensen Huang's departure to slower AI adoption.",
-            "fix": "Explain his support for open-weight models and the concern that Chinese developers may lack enough Nvidia chips (outlet:p006-p008)."
-          },
-          {
-            "question": "notable",
-            "problem": "“Minh chứng là” incorrectly makes the IPO figures proof of the slowdown concerns.",
-            "fix": "Present the IPO figures as market context, without that evidentiary link (outlet:p002-p005)."
+            "question": "meaning",
+            "problem": "The closing sentence makes the delay in AI’s real-world effects sound certain.",
+            "fix": "Preserve the author’s forecast as a growing possibility rather than a settled outcome (outlet:p010)."
           }
         ],
         "writer_boats": [
@@ -116096,8 +116041,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "6f8a0fb78a4c570a2d3a95a1d5ba2ab0f8a186d00869d0a9a8a8b5eaa6e21572",
-        "scored_at": "2026-11-20T19:29:48.800754+00:00"
+        "prose_sha256": "9599cdee6cd5cc20e0739e7c106c327c02770d7ac05cdff53d93d0cc417fdb58",
+        "scored_at": "2026-11-20T21:53:28.746899+00:00"
       }
     },
     {
@@ -116525,6 +116470,932 @@
         "prose_sha256": "1af8ca52740ad57fcdff73df6e584e8696132631b92078fd38956a93a203a615",
         "scored_at": "2026-11-20T19:29:48.800819+00:00"
       }
+    },
+    {
+      "id": "fb0117cbcf0e24c7c776",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Promotional customer case study describing how Standard Bank Group used AWS services to automate generative AI governance.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/how-standard-bank-group-automates-ai-risk-assessment-for-generative-ai/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "0711b534d5e7c7922a9c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "658afeb85fc89c828bdc",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://finance.yahoo.com/markets/article/nvidia-stock-extends-25-trillion-rout-as-sec-probe-reportedly-investigates-its-accounting-194945274.html",
+      "key_points": [
+        "Theo Yahoo Finance, cổ phiếu Nvidia giảm khoảng 10% trong phiên thứ Sáu, ghi nhận ngày tồi tệ nhất kể từ tháng 1 năm 2025.",
+        "Reuters đưa tin nguyên nhân đợt giảm giá này bắt nguồn từ việc SEC đang điều tra các vấn đề kế toán tiềm ẩn của Nvidia. The Wall Street Journal cho biết thêm cuộc điều tra làm rõ liệu Nvidia có công bố thông tin gây hiểu lầm cho nhà đầu tư hay không, dù công ty và SEC đều từ chối bình luận.",
+        "Theo Yahoo Finance, Nvidia bốc hơi khoảng 400 tỷ USD vốn hóa trong một ngày thứ Sáu và đang trên đà mất hơn 750 tỷ USD trong tuần này. Theo Dow Jones Market Data, con số này sẽ vượt mức 573 tỷ USD của tuần trước, trở thành mức giảm trong một tuần lớn nhất lịch sử đối với một công ty.",
+        "Chuyên gia Ted Mortonson của hãng Baird nhận định mọi thỏa thuận tài chính xoay vòng của Nvidia sẽ bị soi xét kỹ lưỡng. Dù vậy, theo Yahoo Finance, hiện vẫn chưa rõ SEC đang tập trung cụ thể vào nội dung nào trong các nghi vấn kế toán này."
+      ],
+      "same_event_coverage_ids": [
+        "0a8f3bacf02cb4cfeb91"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Nvidia",
+      "video_labels": {
+        "video_hook": "drama_company",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": true
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Cổ phiếu Nvidia lao dốc 10% khi cơ quan quản lý Mỹ điều tra các vấn đề kế toán tiềm ẩn",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://finance.yahoo.com/markets/article/nvidia-stock-extends-25-trillion-rout-as-sec-probe-reportedly-investigates-its-accounting-194945274.html"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 5.95,
+        "answers": {
+          "what": 6,
+          "why": 2,
+          "notable": 8,
+          "meaning": 7
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "ghi nhận ngày tồi tệ nhất kể từ tháng 1 năm 2025",
+            "explanation": "The source says the stock was on track for its worst day since January 2025, not that the day's result had been recorded (outlet:p006)."
+          },
+          {
+            "kind": "cause",
+            "summary_text": "nguyên nhân đợt giảm giá này bắt nguồn từ việc SEC đang điều tra các vấn đề kế toán tiềm ẩn của Nvidia",
+            "explanation": "The source reports that the drop came as Reuters described the SEC probe; it does not establish the probe as the cause (outlet:p006)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "công ty và SEC đều từ chối bình luận",
+            "explanation": "The SEC declined to comment, but Nvidia did not respond to Bloomberg's request for comment; the source does not say Nvidia declined (outlet:p007)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "Readers are told the investigation caused the share decline.",
+            "fix": "Describe the decline as occurring alongside Reuters' report of the SEC probe, without asserting a proven cause (outlet:p006)."
+          },
+          {
+            "question": "what",
+            "problem": "Readers miss the cumulative scale central to the source's headline.",
+            "fix": "Add that Nvidia had lost more than $2.5 trillion in market value since its October 6 record (outlet:p009)."
+          },
+          {
+            "question": "what",
+            "problem": "The account treats a projected worst day as a completed result and says Nvidia declined to comment.",
+            "fix": "Retain “on track for” and distinguish Nvidia's lack of response from the SEC's refusal to comment (outlet:p006, outlet:p007)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "3b2a0a558cf8f8d30bf19a3ddce8effb1ab2eed406623bb236bfe1759f24a015",
+        "scored_at": "2026-11-20T21:33:00.976696+00:00"
+      }
+    },
+    {
+      "id": "6728ab5448c93c9a0f67",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/announcing-amazon-textract-insights-verifiable-generative-ai-for-documents/",
+      "key_points": [
+        "Amazon công bố cung cấp rộng rãi Amazon Textract Insights, tính năng AI tạo sinh giúp trích xuất dữ liệu có cấu trúc từ tài liệu mà không cần huấn luyện mô hình. Theo Amazon, tính năng này cho phép mô tả trường thông tin bằng ngôn ngữ tự nhiên, trả kết quả kèm điểm tin cậy và căn cứ đối chiếu cấp trang.",
+        "Theo Amazon, các tổ chức cần câu trả lời đáng tin cậy và có thể kiểm toán từ tài liệu phức tạp thay vì chỉ trích xuất văn bản đơn thuần. Amazon cho biết các mô hình ngôn ngữ lớn thông thường trả lời trôi chảy nhưng không trích dẫn trang nguồn một cách đáng tin cậy hay đưa ra điểm số tin cậy.",
+        "Đối với tập tài liệu hỗn hợp, người dùng cung cấp blueprint cho từng loại văn bản và bật tính năng phân tách trước khi gửi tệp từ Amazon S3. Hệ thống hỗ trợ tệp tối đa 3.000 trang, tự động chia tách tài liệu con, khớp bản thiết kế và trả về điểm tin cậy kèm tọa độ trích xuất.",
+        "Amazon nhận định tính năng này thu hẹp sự đánh đổi giữa mức tự động hóa và khả năng kiểm toán, giúp doanh nghiệp quyết định dựa trên bằng chứng. Quy trình này cho phép mở rộng tự động hóa sang nhiều loại tài liệu nhưng vẫn giữ con người tham gia ở các khâu đòi hỏi sự đánh giá chuyên môn."
+      ],
+      "same_event_coverage_ids": [
+        "4fb82c725ff773300efe"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Amazon Textract",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Amazon ra mắt Textract Insights trích xuất dữ liệu tài liệu bằng AI không cần huấn luyện mô hình",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "amazon",
+          "url": "https://aws.amazon.com/blogs/machine-learning/announcing-amazon-textract-insights-verifiable-generative-ai-for-documents/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.8,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "a6f114b83e45e803a817fd09531a1a1b5ba1b4b255ee554d5f3da92ca524dbb2",
+        "scored_at": "2026-11-20T21:38:42.239093+00:00"
+      }
+    },
+    {
+      "id": "7602825417ffbb2d16f8",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "podcast",
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.404media.co/podcast-i-spoke-to-an-ai-fraud-kingpin/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "d91c8a599ba9095cdb02"
+      ],
+      "split_coverage_ids": [],
+      "subject": "404 Media",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Joseph",
+          "Jason"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "98001fcd04fee0535cde",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The report focuses on venture funding for a fusion power plant startup, with AI mentioned only in passing as the founder's former career background.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://techcrunch.com/2026/11/20/daniel-ek-backs-ai-researchers-fusion-power-startup-heres-what-theyre-building/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b84fc29e396f2ac44d38"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "f6e966e3ca18b7ec8ff6",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.wired.com/story/jensen-huangs-lying-alarmed-nvidia-board-ahead-of-his-resignation/",
+      "key_points": [
+        "Theo tạp chí WIRED, Jensen Huang đã bị phế truất khỏi vị trí lãnh đạo Nvidia giữa các cáo buộc quan hệ ngoài luồng với một nghi phạm tình báo Trung Quốc. Dù vậy, người đại diện của ông khẳng định với báo giới rằng cựu lãnh đạo đã tự nguyện từ chức.",
+        "Một nguồn tin am hiểu nội bộ chia sẻ với WIRED rằng hành vi nói dối là động lực chính dẫn đến quyết định phế truất ông Huang của ban giám đốc. Người này nhấn mạnh đây là vấn đề liên quan trực tiếp đến sự liêm chính và niềm tin nội bộ.",
+        "Cụ thể, các nguồn tin cho biết ông Huang từng phủ nhận mối quan hệ với Alice Huang trước ban giám đốc vào tháng 10 năm 2025. Dù sau đó ông thừa nhận quan hệ, ban giám đốc lúc bấy giờ vẫn chưa thể xác định liệu đối tượng có phải tình báo viên hay không.",
+        "Theo nhận định từ WIRED, vụ bê bối có thể trở thành cuộc khủng hoảng an ninh và quản trị tiềm tàng nếu nhân sự này thực sự làm việc cho tình báo. Vụ việc cũng khiến nhiều cơ quan chính phủ Mỹ yêu cầu điều tra nghi vấn Nvidia vi phạm kiểm soát xuất khẩu chip."
+      ],
+      "same_event_coverage_ids": [
+        "06039cd7a4b62a073ed6"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Jensen Huang",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Jensen Huang",
+          "Alice Huang"
+        ],
+        "availability": "unknown",
+        "is_leak": true
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "WIRED: Hành vi nói dối là nguyên nhân chính khiến Jensen Huang bị phế truất khỏi Nvidia",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "wired",
+          "url": "https://www.wired.com/story/jensen-huangs-lying-alarmed-nvidia-board-ahead-of-his-resignation/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.2,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 9,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "30570d78662606e3ba6dbcb27fb8929adc4cf5cc5e728f84dd444553f7be21b1",
+        "scored_at": "2026-11-20T21:33:00.976773+00:00"
+      }
+    },
+    {
+      "id": "861ca51b04b5cf4869c5",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/20/ai-claimed-a-solution-to-the-167-year-old-riemann-hypothesis-and-a-human-did-too/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "2f791d421e35fd6f25d9"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Riemann Hypothesis",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Levent Alpöge",
+          "Dario Amodei",
+          "Chris Birkbeck"
+        ],
+        "availability": "global",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "0d8e213cc0d8372dce87",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Announcement regarding a human-derived mathematical proof of the Generalized Riemann Hypothesis; the mention of AI is merely an explicit denial of its use.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://simonwillison.net/2026/Nov/20/ravi-vakil/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "d6fe5498424286388e29"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "da326077b2d26e2d615e",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "podcast",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-20/minerva-co-founder-on-the-risks-of-abliterated-models-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "acacf1eea31cdc5537a6"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "3afdf5a7b1a6fd8a2421",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/policy/1038892/trump-foreign-data-centers-tax",
+      "key_points": [
+        "Tổng thống Mỹ Donald Trump tuyên bố sẽ áp mức thuế rất cao lên các doanh nghiệp xây dựng trung tâm dữ liệu bên ngoài lãnh thổ Mỹ. Phát biểu này được đưa ra trong cuộc họp báo sau hội nghị thượng đỉnh cùng các nhà lãnh đạo Trung Quốc và Nga.",
+        "Tổng thống Donald Trump cho biết đề xuất bắt nguồn từ lo ngại lặp lại sai lầm ngành chip và bị Trung Quốc chiếm lĩnh. Ông Trump cảnh báo nếu Mỹ để các cơ sở này được xây dựng ở nước ngoài thì Trung Quốc sẽ chiếm lấy toàn bộ.",
+        "Đáng chú ý, ông Trump thừa nhận chưa từng trao đổi kế hoạch đánh thuế này với các cộng sự trước khi công bố. Xuất hiện cùng Phó Tổng thống JD Vance và Ngoại trưởng Marco Rubio, ông cho biết bản thân vừa thông báo cho họ tại buổi họp.",
+        "Tạp chí The Verge nhận định cam kết của ông Trump khó thành hiện thực khi Quốc hội sắp có đa số mới từ đảng Dân chủ. Ngoài ra, việc nhiều địa phương tại Mỹ siết chặt cấp phép có thể buộc các công ty phải tìm kiếm lựa chọn ở nước ngoài."
+      ],
+      "same_event_coverage_ids": [
+        "d991bab4f821e462c73a"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Donald Trump",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Donald Trump",
+          "Xi Jinping",
+          "Vladimir Putin"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Ông Trump dọa áp thuế rất nặng lên các công ty xây dựng trung tâm dữ liệu ngoài nước Mỹ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/policy/1038892/trump-foreign-data-centers-tax"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.85,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "0512e1c2fbcfd343752801dd64912986f83d50a498ccf9716b82fa795f241836",
+        "scored_at": "2026-11-20T21:33:00.976799+00:00"
+      }
+    },
+    {
+      "id": "d2624b93bf5594ba4367",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Wealth management executive interview centered on Altruist's business and Vanguard partnership, containing only incidental references to AI.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-20/altruist-s-wenk-on-ai-next-era-of-financial-advice-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "954a6dd3df4962cddc0b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "55194dc8bc00a2ac9b39",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-20/bloomberg-tech-11-20-2026-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b12a0d3955ea5cf42f62"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "cf539f1ee700cd0e46d9",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.echr.coe.int/w/romanian-lawyer-barred-for-two-years-from-representing-applicants-before-the-court-over-unverified-ai-generated-citations",
+      "key_points": [
+        "Chủ tịch Tòa án Nhân quyền Châu Âu cấm một nữ luật sư Romania đại diện cho các đương sự trong thời hạn hai năm. Quyết định được đưa ra ngày 13 tháng 11 năm 2026 sau đề xuất của Phòng xét xử thụ lý vụ việc.",
+        "Theo Phòng xét xử, nguyên nhân kỷ luật là do các bản đệ trình của luật sư chứa nhiều lỗi về án lệ. Hồ sơ này trích dẫn vụ án không có thật do AI tạo ảo giác, bịa đặt đoạn văn phán quyết và viện dẫn án lệ mâu thuẫn.",
+        "Nữ luật sư thừa nhận đã dùng công cụ trí tuệ nhân tạo để soạn thảo văn bản và cho rằng sai sót chỉ là lỗi trích dẫn đơn lẻ.",
+        "Phòng xét xử kết luận hành vi vi phạm nghĩa vụ nghề nghiệp và đạo đức vì chứa chuỗi lỗi sai lặp lại mang tính bản chất. Tòa án nhấn mạnh các nghĩa vụ này vừa do Tòa án quy định vừa có trong luật quốc nội."
+      ],
+      "same_event_coverage_ids": [
+        "8a42c4fc062cd2d58aa0"
+      ],
+      "split_coverage_ids": [],
+      "subject": "European Court of Human Rights",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Tòa án Nhân quyền Châu Âu cấm một luật sư Romania hành nghề 2 năm vì dùng AI bịa đặt án lệ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://www.echr.coe.int/w/romanian-lawyer-barred-for-two-years-from-representing-applicants-before-the-court-over-unverified-ai-generated-citations"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.6,
+        "answers": {
+          "what": 8,
+          "why": 8,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "cấm một luật sư Romania hành nghề 2 năm",
+            "explanation": "The restriction concerns representing or otherwise assisting litigants before the Court; the source does not report a general ban on practicing law (outlet:p004)."
+          },
+          {
+            "kind": "quote",
+            "summary_text": "cho rằng sai sót chỉ là lỗi trích dẫn đơn lẻ",
+            "explanation": "The lawyer called the mistakes “inaccuracies” and “citation errors.” It was the Chamber that contrasted the repeated substantive errors with isolated citation mistakes (outlet:p006)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The headline makes the two-year restriction sound like a general prohibition on practicing law.",
+            "fix": "Specify that she was barred from representing or otherwise assisting litigants before the Court (outlet:p004)."
+          },
+          {
+            "question": "why",
+            "problem": "The text attributes an “isolated errors” defense to the lawyer.",
+            "fix": "Use her reported descriptions, “inaccuracies” and “citation errors,” and attribute the finding of repeated substantive errors to the Chamber (outlet:p006)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "0036dd54afed920526e4a2889f8ae92ec1d5e35b9be7a10b90779ac283e23d79",
+        "scored_at": "2026-11-20T21:33:00.976825+00:00"
+      }
+    },
+    {
+      "id": "eecdc918ec2546301844",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://a90.com/experiments/same-advice/",
+      "key_points": [
+        "Tác giả bài viết nhận thấy lời khuyên đưa ra có xu hướng hội tụ khi thử nghiệm 65 mô hình trí tuệ nhân tạo (AI - hệ thống mô phỏng trí tuệ con người) mười lần mỗi câu hỏi và không dùng câu lệnh hệ thống. Sự hội tụ này xuất hiện ở các lời khuyên về đọc sách, điểm đến, đầu tư và học tập, trong khi gợi ý về phim ảnh hay bữa tối vẫn phân tán.",
+        "Trong cùng một cuộc trò chuyện, mô hình liên tục đưa ra gợi ý mới, nhưng khi sang phiên mới thì lặp lại từ đầu. Khi người dùng thêm một câu mô tả bản thân, mô hình xếp họ vào một nhóm cố định và mọi người trong nhóm đều nhận chung kết quả.",
+        "Khi được hỏi gợi ý sách đổi đời, mỗi mô hình lặp lại cuốn sách ban đầu của chính mình ở các phiên mới. Cả sáu mô hình lớn như Claude Opus 5.5 hay GPT-6.2 Sol đều lặp lại lựa chọn riêng đó qua tám cuộc trò chuyện độc lập.",
+        "Tác giả bài viết nhấn mạnh câu trả lời đa dạng hơn không đồng nghĩa với tốt hơn. Với những câu hỏi như nơi gửi 10.000 USD, tác giả nhận định lời khuyên trùng lặp hoàn toàn có thể là đáp án chính xác."
+      ],
+      "same_event_coverage_ids": [
+        "327dfd220cfe1c73d714"
+      ],
+      "split_coverage_ids": [],
+      "subject": "AI advice convergence",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Thử nghiệm 65 AI: Lời khuyên tài chính và đời sống bị hội tụ dù gợi ý phim ảnh vẫn đa dạng",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://a90.com/experiments/same-advice/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "nơi gửi 10.000 USD",
+            "explanation": "The source describes a question about where to put $10,000, without specifying a deposit destination (outlet:p026)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "“Nơi gửi 10.000 USD” narrows the example to depositing money.",
+            "fix": "Describe it as a question about where to put $10,000, as the source does (outlet:p026)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "dba6894b69458cd389bab51769c4b7b5dab66875f9e41a6c229316bd93ef9e0d",
+        "scored_at": "2026-11-20T21:38:42.239138+00:00"
+      }
+    },
+    {
+      "id": "7ad44f990f0c53ef2e2a",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://openai.com/index/combatting-adversarial-distillation",
+      "key_points": [
+        "OpenAI outlined its layered approach to detecting and disrupting adversarial distillation of frontier AI models.",
+        "OpenAI stated that it has strengthened protections specifically for its models' protected reasoning.",
+        "OpenAI's defense against capability extraction combines adversarial testing, model training, classifiers, API-level protections, and investigations."
+      ],
+      "same_event_coverage_ids": [
+        "64930b3e6667de864b40"
+      ],
+      "split_coverage_ids": [],
+      "subject": "OpenAI",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "7673c7bd721351c16976",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://metr.org/blog/2026-11-20-q4-2026-capability-update/",
+      "key_points": [
+        "Tổ chức METR cho biết họ không thấy sự tăng tốc hay giảm tốc mạnh về năng lực mô hình trên biên giới công khai đối với các mô hình thử nghiệm, khi theo dõi qua một chỉ số tổng hợp theo thời gian.",
+        "Nhóm nghiên cứu ghi nhận một số thay đổi độ dốc ở từng nhà phát triển với bằng chứng chưa chắc chắn trong một số điều kiện, dù xu hướng chung không đổi. Chỉ số Năng lực METR (MCI) dựa trên kỹ thuật mô hình hóa thống kê IRT tương tự Epoch Capabilities Index được dùng theo dõi các mô hình tiên phong.",
+        "Tổ chức METR thừa nhận họ chưa chắc chắn về tính hợp lệ của các phát hiện này do kết quả nhạy cảm với những lựa chọn phương pháp luận."
+      ],
+      "same_event_coverage_ids": [
+        "7a1c78a7b99db17d6159"
+      ],
+      "split_coverage_ids": [],
+      "subject": "AI R&D model capabilities",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "METR ghi nhận năng lực AI công khai không tăng tốc mạnh nhưng có thay đổi ở từng nhà phát triển",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "metr",
+          "url": "https://metr.org/blog/2026-11-20-q4-2026-capability-update/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "0ae4c0f25c89b51407477a09ae3afc6d0e0d0d1bb38e0794aedcee075d7ea81a",
+        "scored_at": "2026-11-20T21:33:00.976869+00:00"
+      }
+    },
+    {
+      "id": "c1a2af93db54bfcf7c21",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://openai.com/index/introducing-medchembench",
+      "key_points": [
+        "OpenAI giới thiệu MedChemBench, một benchmark (bộ kiểm tra năng lực) đo lường khả năng suy luận hóa dược của trí tuệ nhân tạo (AI). Bộ dữ liệu gồm 99 bài toán trích từ 117 bài báo khoa học và bằng sáng chế với 761 cấu trúc phân tử.",
+        "Ở phần lớn bài toán, mô hình nhận dữ liệu về đích sinh học, các hợp chất đã nghiên cứu và kết quả thực nghiệm. Hệ thống chấm điểm bốn phần gồm cấu trúc phân tử, suy luận khoa học, xếp hạng hợp chất và dự đoán đặc tính.",
+        "Dù đạt 95,4% điểm cấu trúc ở mức xhigh, Astra chỉ giành khoảng một nửa số điểm khi chọn hợp chất và dự đoán đặc tính số học.",
+        "OpenAI nhấn mạnh kết quả không chứng minh mô hình có thể phát hiện thuốc mới hay cải thiện quyết định trong phòng thí nghiệm. Thử nghiệm chỉ đánh giá suy luận từ dữ liệu lịch sử thay vì phát hiện thuốc thực tế, và mỗi câu trả lời là lần thử duy nhất không có công cụ."
+      ],
+      "same_event_coverage_ids": [
+        "458d13c0f8b0c45aa88a"
+      ],
+      "split_coverage_ids": [],
+      "subject": "MedChemBench",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "GPT-6.2 Astra đạt 84,5% điểm ở bài kiểm tra MedChemBench của OpenAI nhưng việc chọn hợp chất vẫn khó",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "openai",
+          "url": "https://openai.com/index/introducing-medchembench"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 6.8,
+        "answers": {
+          "what": 9,
+          "why": 4,
+          "notable": 5,
+          "meaning": 9
+        },
+        "hard_errors": [
+          {
+            "kind": "name",
+            "summary_text": "Dù đạt 95,4% điểm cấu trúc ở mức xhigh, Astra chỉ giành khoảng một nửa số điểm khi chọn hợp chất và dự đoán đặc tính số học",
+            "explanation": "In context, “Astra” follows a headline naming GPT-6.2 Astra. The 95.4% structure result and approximately half-credit selection and prediction results refer to GPT-6 Astra, a different model (outlet:p026, outlet:p031–p038); GPT-6.2 Astra’s 84.5% is an overall score (outlet:p010)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "Readers can attribute GPT-6 Astra’s component results to GPT-6.2 Astra.",
+            "fix": "Name GPT-6 Astra explicitly in the sentence about 95.4% structure credit and roughly half-credit selection and prediction results; keep GPT-6.2 Astra’s 84.5% overall result separate (outlet:p010, outlet:p031–p038)."
+          },
+          {
+            "question": "why",
+            "problem": "The text does not explain why selecting compounds remains difficult.",
+            "fix": "Add the source’s example that stronger activity against a target may come with poorer absorption or faster breakdown (outlet:p009, outlet:p020)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "d38f7457b02aca7671913a9ab7fc4825a6025729a71f794a3397386a13d588f7",
+        "scored_at": "2026-11-20T21:33:00.976891+00:00"
+      }
+    },
+    {
+      "id": "824c03b970f1dc58cad6",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://huggingface.co/blog/inkling2mini",
+      "key_points": [
+        "Thinking Machines Lab phát hành Inkling 2 Mini, mô hình transformer lặp đa phương thức dạng hỗn hợp chuyên gia (Mixture-of-Experts) với khoảng 26 tỷ tham số vật lý và 3 tỷ tham số kích hoạt mỗi thẻ mã hóa (token). Mô hình hỗ trợ ngữ cảnh 1 triệu thẻ mã hóa cho văn bản lẫn hình ảnh và được thiết kế phục vụ các hệ thống trí tuệ nhân tạo cục bộ.",
+        "Thông tin giữa các lượt lặp truyền qua thông điệp chéo kết hợp bộ điều khiển cổng chọn lọc dữ liệu để tinh chỉnh liên tục các phép tính.",
+        "Inkling 2 Mini dẫn đầu 32 trên 48 bài kiểm chuẩn khi so sánh với Gemma 4 31B, Muse Glimmer, Qwen3.8-27B và Nemotron 3.5 Super VL trong cùng phân khúc. Các bài kiểm chuẩn này bao gồm lập trình, nghiên cứu tự động, công cụ tìm kiếm tác tử, suy luận, thị giác và độ an toàn.",
+        "Nhóm tác giả trên Hugging Face nhận định mô hình đạt mức ít nhất tương đương Qwen 3.8 27B trong các thử nghiệm cảm tính (vibe tests) của họ. Dù vậy, nhóm tác giả nhấn mạnh mô hình vẫn cần được kiểm chứng thêm."
+      ],
+      "same_event_coverage_ids": [
+        "584978ed440d3d6d09eb"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Inkling 2 Mini",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Pedro Cuenca",
+          "Aritra Roy Gosthipaty",
+          "Guarin Flück"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Mô hình Inkling 2 Mini dẫn đầu 32 trên 48 bài kiểm chuẩn với kiến trúc lặp tầng",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://huggingface.co/blog/inkling2mini"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.6,
+        "answers": {
+          "what": 10,
+          "why": 8,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The reader does not get the key explanation of how looping increases effective capacity.",
+            "fix": "Add that 12 middle layers run three times with shared weights, yielding 48 logical layer visits from 24 physical layers (outlet:p025–p026)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "2e88cc16e649fc22032b403a2f546b37109dff9fb5e39d97e4c9c8ecdb6de739",
+        "scored_at": "2026-11-20T21:38:42.239165+00:00"
+      }
+    },
+    {
+      "id": "8145fefb47ff1ca9fa55",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Promotional vendor case study showcasing customer Hebbia's adoption and benchmark results using OpenAI's GPT-6 Astra for financial research.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://openai.com/business/customer-stories/hebbia",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "d77eb98c1fd7f5e53975"
+      ],
+      "split_coverage_ids": []
     }
   ]
 }
