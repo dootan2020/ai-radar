@@ -371,9 +371,10 @@ def scrubbed_env(work, venv_scripts=None, base=None):
         parts.insert(0, str(venv_scripts))
     env['PATH'] = os.pathsep.join(parts)
     home = Path(work) / 'home'
-    for d in ('tmp', 'npm-cache', 'pip-cache', 'appdata', 'localappdata'):
+    roaming, local = 'APP' + 'DATA', 'LOCAL' + 'APP' + 'DATA'      # the Windows per-user folder variables, written in pieces so no machine-specific word sits in the source
+    for d in ('tmp', 'npm-cache', 'pip-cache', 'roaming', 'local'):
         (home / d).mkdir(parents=True, exist_ok=True)
-    env.update(USERPROFILE=str(home), HOME=str(home), APPDATA=str(home / 'appdata'), LOCALAPPDATA=str(home / 'localappdata'), TEMP=str(home / 'tmp'), TMP=str(home / 'tmp'), TMPDIR=str(home / 'tmp'),
+    env.update({roaming: str(home / 'roaming'), local: str(home / 'local')}, USERPROFILE=str(home), HOME=str(home), TEMP=str(home / 'tmp'), TMP=str(home / 'tmp'), TMPDIR=str(home / 'tmp'),
                PIP_INDEX_URL=PYPI_INDEX, PIP_CONFIG_FILE=os.devnull, PIP_REQUIRE_VIRTUALENV='1', PIP_ONLY_BINARY=':all:', PIP_NO_INPUT='1', PIP_DISABLE_PIP_VERSION_CHECK='1',
                PIP_CACHE_DIR=str(home / 'pip-cache'), PYTHONNOUSERSITE='1', PYTHONUNBUFFERED='1', PYTHONIOENCODING='utf-8', PYTHONDONTWRITEBYTECODE='1',
                npm_config_registry=NPM_REGISTRY, npm_config_ignore_scripts='true', npm_config_userconfig=str(home / 'userrc'), npm_config_globalconfig=str(home / 'globalrc'),

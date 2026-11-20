@@ -381,6 +381,7 @@ def free_port():
         return s.getsockname()[1]
 
 
+@unittest.skipUnless(importlib.util.find_spec("PIL"), "draws the pictures: needs Pillow (the GPU interpreter has it; the CI Python does not)")
 class RunsForReal(unittest.TestCase):
     """`run` with the network replaced (the README and the registries are fakes) and real local processes: python in a venv inside the throwaway folder. Each gate that fires while
     the run is going is shown refusing here; the packages' own installs are the live proof run."""

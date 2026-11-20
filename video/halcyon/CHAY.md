@@ -11,7 +11,7 @@ script (terminal beat)  ->  chay:<ref>  ->  giong  ->  lap-rap  ->  anh  ->  kie
 | the run block, the safety gates, the run, the pictures | `halcyon_chay.py` (standard library; Pillow for drawing, from the GPU interpreter) |
 | script contract, the `run` source, the step, the pack | `halcyon_mot_lenh.py`, [KICH-BAN.md](KICH-BAN.md) 1b and 7, [MOT-LENH.md](MOT-LENH.md) |
 | the beat becomes a capture picture | `halcyon_kich_ban.py` (`terminal_cap`, `terminal_key`) |
-| the font | `fonts/JetBrainsMono-Medium.ttf` (SIL OFL, `fonts/OFL-JetBrainsMono.txt`) |
+| the font | `fonts/JetBrainsMono-Medium.ttf`, a 30 KB subset of JetBrains Mono Medium (printable ASCII, Latin-1, typographic dashes and quotes, bullet, ellipsis, right arrow; hinting kept so the advance stays 29 px at 48 px; no layout features). SIL OFL (`fonts/OFL-JetBrainsMono.txt`; the licence declares no Reserved Font Name, so the family name is kept). Made with `pyftsubset` from the upstream file; sha256 of the subset `430DD4B0C13E66DE78F28167B82216E87DC1457B7A9467A1261E54F2992999A1`. A character outside the subset is refused (`glyph`), never drawn as a box |
 
 ## The script
 ```
