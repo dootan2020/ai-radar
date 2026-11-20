@@ -19,6 +19,22 @@ GATE_RUN = 4
 GATE_RATE = 0.10
 SHOW_WORDS = 14
 
+# How the channel's voice says a written word. Applied to the voice text only (what is synthesised, what the gate expects, `text_spoken` in the
+# timing file); the subtitle (`show`), cards and post text keep the written word. Whole word, case-sensitive: "AI" is the abbreviation, the
+# Vietnamese "ai" (who) is not touched. A script author's own respelling in `say` wins, because the written word is then no longer in it.
+# Owner, 20/11/2026 08:12: "A thấy có từ "AI" thì đọc là "Ây-ai" trong tiếng việt." and 07:52: "Git đọc là "Git hắp"". To add a word: one more pair.
+PRONUNCIATIONS = (
+    ('AI', 'Ây-ai'),
+    ('GitHub', 'Git hắp'),
+)
+
+
+def voice_text(say):
+    """The text the voice reads for one `say` paragraph: PRONUNCIATIONS applied to whole words."""
+    for written, spoken in PRONUNCIATIONS:
+        say = re.sub(r'(?<![^\W_])' + re.escape(written) + r'(?![^\W_])', spoken, say)
+    return say
+
 WORD = re.compile(r'\d+(?:[.,]\d+)*|[^\W\d_]+')
 TONES = {'̀': '1', '́': '2', '̃': '3', '̉': '4', '̣': '5'}
 
@@ -198,6 +214,28 @@ def looks_foreign(word, sentence_start):
     return len(base) > 1 and not SYLLABLE.fullmatch(base)
 
 
+def collapse_readings(items, side):
+    """Fold each default reading (PRONUNCIATIONS) into one token, so the gate expects what the voice says and accepts how Whisper writes it:
+    the spoken words ('Ây ai', 'Ây-ai') or the written word exactly as written ('AI', 'GitHub'; case-sensitive, so 'ai' stays 'who'; a script that has not been respelled, or a Whisper that writes the word).
+    The token is a name: it goes on the listen list with what Whisper wrote."""
+    out, i, n = [], 0, len(items)
+    while i < n:
+        for written, spoken in PRONUNCIATIONS:
+            sk = tuple(key(w) for w in WORD.findall(spoken))
+            parts = items[i:i + len(sk)]
+            if tuple(x['key'] for x in parts) != sk:
+                parts = items[i:i + 1] if items[i]['raw'] == written else None
+            if parts:
+                raw = spoken if side == 'script' and len(parts) > 1 else ' '.join(x['raw'] for x in parts)
+                out.append(dict(number_item(parts, 0), key='P:' + written, val=None, kind='word', name=True, raw=raw))
+                i += len(parts)
+                break
+        else:
+            out.append(items[i])
+            i += 1
+    return out
+
+
 def script_items(say, phrases):
     out = []
     for p, text in enumerate(say):
@@ -207,7 +245,7 @@ def script_items(say, phrases):
             if it['kind'] == 'word':
                 it['name'] = looks_foreign(m.group(0), not before or before[-1] in '.?!')
             out.append(it)
-    return collapse_phrases(collapse_numbers(out), phrases, 'script')
+    return collapse_readings(collapse_phrases(collapse_numbers(out), phrases, 'script'), 'script')
 
 
 def heard_items(words, phrases):
@@ -216,7 +254,7 @@ def heard_items(words, phrases):
         for t in WORD.findall(w['w']):
             raw = w['w'].strip() if re.fullmatch(r'[.,]\d+', w['w'].strip()) else t
             out.append(item(raw, s=w['s'], e=w['e']))
-    return collapse_phrases(collapse_numbers(out), phrases, 'heard')
+    return collapse_readings(collapse_phrases(collapse_numbers(out), phrases, 'heard'), 'heard')
 
 
 def align(script, heard):
