@@ -23,6 +23,8 @@ BG = [16, 24, 40]                        # Halcyon ink #101828, the terminal pan
 MIN_TEXT = 28                            # SPEC.md: a clip's smallest text, frame px
 SAFE_BOTTOM = 890                        # clip rows below this sit under the subtitle (frame y 1274-1350 on thu-gon-r3-l2): no label there
 COLUMN = dict(from_y=476, max_x=800)     # frame y 840 down (clip y 476), TikTok's button column starts at frame x 907 (clip x 810): labels end left of it
+DEFAULT_DURATION = 22.0                  # the narration over the diagram, 21/11/2026: 109 units, about 22 s
+DURATION_RANGE = (18.0, 34.0)            # 0.69x-1.31x of the 26 s base the acts are authored on
 THREE_VERSION = '0.187.0'
 THREE_PIN = {'three.module.js': '104f56145899722094556490d787aae0617cc2fc3382f31df02d724ea1aee341',
              'three.core.js': '613e370f76638fdef83926642bf256dc9615684922de1ce1f63a8583e5d78578'}
@@ -34,9 +36,9 @@ FONT_DIRS = (HAL / 'fonts', HAL.parent.parent / 'brand' / 'fonts')
 TZ = timezone(timedelta(hours=7))
 ACTS = [('intro', 0.0, 4.0, 'CÁCH <b>AG-UI</b> HOẠT ĐỘNG'), ('request', 4.0, 8.0, '<b>1</b> YÊU CẦU'),
         ('stream', 8.0, 15.0, '<b>1</b> LUỒNG SỰ KIỆN (SSE)'), ('tools', 15.0, 21.0, 'CÔNG CỤ, STATE: <b>CÙNG LUỒNG</b>'),
-        ('swap', 21.0, 26.0, 'ĐỔI FRAMEWORK, <b>APP GIỮ NGUYÊN</b>')]
+        ('swap', 21.0, 26.0, 'ĐỔI FRAMEWORK, <b>CÙNG KẾT NỐI</b>')]
 STILLS = [(2.8, 'hai đầu và làn AG-UI'), (5.8, 'yêu cầu POST RunAgentInput'), (11.6, 'luồng sự kiện SSE'), (14.8, 'Hello from AG-UI! đã lắp xong'),
-          (18.6, 'công cụ và state trên cùng luồng'), (23.9, 'đổi framework, app giữ nguyên')]
+          (18.6, 'công cụ và state trên cùng luồng'), (23.9, 'đổi framework, cùng kết nối')]
 
 
 class Refusal(Exception):
@@ -154,7 +156,7 @@ def demo_kind_order(groups, counts):
     return sorted(kinds, key=lambda k: first[k]), 'first appearance in the demo stream'
 
 
-def timeline(src, counts=None):
+def timeline(src, counts=None, duration=None):
     """Everything the page draws, as times in seconds. Pure: the same sources give the same dict."""
     acts = {n: (a, b) for n, a, b, _ in ACTS}
     kind = lambda e: 'life' if e.startswith('RUN_') else ('tool' if e.startswith('TOOL_CALL') else ('state' if e.startswith('STATE') else 'text'))
@@ -199,12 +201,21 @@ def timeline(src, counts=None):
             pulses.append(dict(kind=k, t0=_r(t0), t1=_r(t0 + 0.55), small=True))
     runs = [dict(a=_r(run1[0]['t0'] - 0.3), b=run1[-1]['t1']), dict(a=_r(beads[0]['t0'] - 0.2), b=beads[-1]['t1'])] + \
            [dict(a=_r(p['t0'] - 0.1), b=p['t1']) for p in pulses[::3]]
-    duration = ACTS[-1][2]
-    return dict(w=W, h=H, fps=FPS, duration=duration, frames=int(round(duration * FPS)),
+    duration = check_duration(DEFAULT_DURATION if duration is None else duration)
+    base = ACTS[-1][2]
+    return dict(w=W, h=H, fps=FPS, duration=duration, base=base, scale=duration / base, frames=int(round(duration * FPS)),
                 acts=[dict(name=n, a=a, b=b, head=h) for n, a, b, h in ACTS], request=req, run1=run1,
                 run2=dict(beads=beads, tallies=tallies, source_line=line, kind_order=kinds, kind_order_from=kind_order), pulses=pulses, runs=runs, swap=swap,
                 agent_subs=[dict(text=src['server_label'], a=0.6, b=acts['tools'][0]), dict(text=src['demo_label'], a=acts['tools'][0], b=acts['swap'][0])],
                 log_y0=296, log_dy=40)
+
+
+def check_duration(d):
+    """The clip's length in s: the job's (scene.duration or duration), default DEFAULT_DURATION. The acts are authored on a 26 s base and played
+    proportionally faster or slower; outside DURATION_RANGE an act would read too fast on a phone, or drag."""
+    if isinstance(d, bool) or not isinstance(d, (int, float)) or not DURATION_RANGE[0] <= d <= DURATION_RANGE[1]:
+        raise Refusal(f'scene duration {d!r} s is outside {DURATION_RANGE[0]:g}-{DURATION_RANGE[1]:g} s', 'give scene.duration in seconds within that range')
+    return float(d)
 
 
 def check_timeline(data, src, counts=None):
@@ -221,8 +232,8 @@ def check_timeline(data, src, counts=None):
         if counts and tl['total'] != sum(counts['counts'].get(x, 0) for x in src['demo_kinds'][tl['kind']]):
             raise Refusal(f'act 4 tally {tl["label"]} is not the demo count', 'timeline() is broken')
     last = max([e['t1'] for e in data['run1']] + [b['t1'] for b in data['run2']['beads']] + [p['t1'] for p in data['pulses']])
-    if last > data['duration'] - 0.3:
-        raise Refusal(f'a bead lands at {last:.2f} s, too close to the end ({data["duration"]} s)', 'shorten the stream')
+    if last > data['base'] - 0.3:
+        raise Refusal(f'a bead lands at {last:.2f} base s, too close to the end ({data["base"]} base s)', 'shorten the stream')
     return True
 
 
@@ -322,13 +333,17 @@ def decoded_frame(mp4, t):
     return r.stdout
 
 
+def stills(data):
+    return [(round(t * data['scale'], 2), l) for t, l in STILLS]
+
+
 def check_encoded(mp4, data):
     """The file is what clip.json will say, its flat ground decodes to the bg the builder fills around it, and no still is a flat frame."""
     p = probe(mp4)
     if (p['w'], p['h'], p['frames'], p['codec']) != (W, H, data['frames'], 'h264') or p['rate'] != f'{FPS}/1':
         raise Refusal(f'the encoded clip is {p}, expected {W}x{H}, {data["frames"]} frames at {FPS}/1, h264', 'check the encoder')
     worst, ink = 0, {}
-    for t, _ in STILLS:
+    for t, _ in stills(data):
         b = decoded_frame(mp4, t)
         corners = [(4, 4), (W - 5, 4), (4, H - 5), (W - 5, H - 5)]
         for x, y in corners:
@@ -371,7 +386,7 @@ def run(job, out, say=print, now=None):
     check_scene_source((HERE / 'giao-thuc.js').read_text(encoding='utf-8'))
     run_proof = check_run(src, job['events_run']) if job.get('events_run') else None
     counts = counts_from_demo(job.get('counts_demo'))
-    data = timeline(src, counts)
+    data = timeline(src, counts, scene.get('duration', job.get('duration')))
     check_timeline(data, src, counts)
     nd = node_dir()
     build = three_build(nd)
@@ -384,8 +399,8 @@ def run(job, out, say=print, now=None):
                min_text_px=rj['labels']['min_size'], captured=now.isoformat(timespec='seconds'),
                source=f'three.js scene giao-thuc drawn from {src["readme"]["url"]}' + (f' and the demo counts of {counts["source"]}' if counts else ''),
                date=now.strftime('%d/%m/%Y'), tool_sha=tool_sha(),
-               stills=[dict(t=t, label=l) for t, l in STILLS],
-               segments=[dict(name=a['name'], a=a['a'], b=a['b'], speed=1, real_s=round(a['b'] - a['a'], 3)) for a in data['acts']],
+               stills=[dict(t=t, label=l) for t, l in stills(data)],
+               segments=[dict(name=a['name'], a=round(a['a'] * data['scale'], 3), b=round(a['b'] * data['scale'], 3), speed=1, real_s=round((a['b'] - a['a']) * data['scale'], 3)) for a in data['acts']],
                proof=dict(gpu=dict(renderer=rj['renderer'], vendor=rj.get('vendor')), three=dict(version=THREE_VERSION, sha256=THREE_PIN),
                           offline=dict(served=rj.get('served'), aborted=rj.get('aborted')), determinism=rj['determinism'],
                           labels=dict(min_size=rj['labels']['min_size'], checked_frames=rj['labels']['frames'], safe_bottom=SAFE_BOTTOM, column=COLUMN),

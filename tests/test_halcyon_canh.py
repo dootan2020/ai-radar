@@ -57,7 +57,7 @@ def chay(source=None, sha=None, printed="Hello from AG-UI!"):
 
 def good_render(**over):
     rj = {"renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 2060 Direct3D11 vs_5_0 ps_5_0, D3D11)", "aborted": 0, "fonts": [["600 32px BVP", True]],
-          "frames": 780, "determinism": {"pixels": [{"f": 132, "max_diff": 2, "over_tol": 0}]}, "labels": {"min_size": 28, "violations": [], "frames": 780}}
+          "frames": 660, "determinism": {"pixels": [{"f": 132, "max_diff": 2, "over_tol": 0}]}, "labels": {"min_size": 28, "violations": [], "frames": 660}}
     rj.update(over)
     return rj
 
@@ -167,7 +167,14 @@ class Timeline(unittest.TestCase):
     def test_the_timeline_is_pure_and_fits_the_clip(self):
         a, b = canh.timeline(SRC, self.counts()), canh.timeline(SRC, self.counts())
         self.assertEqual(json.dumps(a, sort_keys=True), json.dumps(b, sort_keys=True))
-        self.assertEqual((a["w"], a["h"], a["fps"], a["frames"]), (886, 976, 30, 780))
+        self.assertEqual((a["w"], a["h"], a["fps"], a["frames"], a["duration"]), (886, 976, 30, 660, 22.0))     # default: the 22 s narration
+        self.assertAlmostEqual(a["scale"] * a["base"], a["duration"])
+        b = canh.timeline(SRC, self.counts(), 26)
+        self.assertEqual((b["frames"], b["scale"]), (780, 1.0))
+        self.assertEqual(b["run1"], a["run1"])                                    # the base timeline is the same; only the playback scale changes
+        for bad in (10, 41, "22", True, None.__class__):
+            with self.assertRaises(canh.Refusal):
+                canh.timeline(SRC, self.counts(), bad)
         self.assertLessEqual(a["duration"], 40)
         self.assertEqual([x["name"] for x in a["swap"]], SRC["frameworks"])
 
@@ -192,12 +199,12 @@ class Gates(unittest.TestCase):
 
     def test_render_gates(self):
         d = canh.timeline(SRC, None)
-        self.assertTrue(canh.check_render(good_render(), d))
+        self.assertTrue(canh.check_render(good_render(), d))   # 22 s default: 660 frames
         for over, said in ((dict(renderer="ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero)), SwiftShader driver)"), "software"),
                            (dict(renderer=""), "software"),
                            (dict(aborted=2, aborted_urls=["https://cdn.example/three.js"]), "off the local origin"),
                            (dict(fonts=[["800 46px BarlowXB", False]]), "fonts did not load"),
-                           (dict(frames=779), "rendered 779 frames"),
+                           (dict(frames=659), "rendered 659 frames"),
                            (dict(determinism={"pixels": [{"f": 1, "max_diff": 40, "over_tol": 900}]}), "differ by more than"),
                            (dict(determinism={}), "differ by more than"),
                            (dict(labels={"min_size": 28, "violations": ['f3 "A" overlaps "B"'], "frames": 780}), "labels outside"),

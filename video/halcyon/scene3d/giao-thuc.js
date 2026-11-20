@@ -151,7 +151,8 @@ const tallyNums = D.run2.tallies.map(() => mk('num', ''));
 const tallySrc = mk('sub', D.run2.source_line);
 const toolTag = mk('tag', 'công cụ');
 const stateTag = mk('tag', 'STATE');
-const keepTag = mk('tag', 'không đổi ✓');
+const keepTag = mk('tag', 'cùng giao thức ✓');
+const stateNote = mk('mono', '<span style="color:#5B1738">← STATE_SNAPSHOT</span>');
 const fwNames = D.swap.map((s) => mk('sub', s.name));
 // bars inside the app window (act 4): two notes of the shared state, and the reply growing
 const bars = [0, 1, 2].map(() => { const e = document.createElement('div'); e.style.cssText = 'position:absolute;left:0;top:0;height:20px;border-radius:10px;opacity:0;will-change:transform,opacity,width;'; ui.appendChild(e); return e; });
@@ -168,9 +169,10 @@ function botText(t) {             // what the assistant bubble holds at t: the d
 }
 
 // ---------- one frame ----------
-function renderAt(t) {
+function renderAt(tReal) {
+  const t = tReal / D.scale;            // the timeline is authored on a base length (D.base); the clip plays it in D.duration
   const A = Object.fromEntries(D.acts.map((a) => [a.name, a]));
-  const T = D.duration;
+  const T = D.base;
   // camera: one slow drift across the whole clip, nothing else moves the frame
   const az = THREE.MathUtils.degToRad(lerp(-5, 5, ioS(t / T))), el = THREE.MathUtils.degToRad(lerp(20, 16, ioS(t / T))), R = 20.5;
   camera.position.set(TARGET.x + R * Math.cos(el) * Math.sin(az), TARGET.y + R * Math.sin(el), TARGET.z + R * Math.cos(el) * Math.cos(az));
@@ -292,7 +294,14 @@ function renderAt(t) {
   // shared state inside the app window: a STATE card whose two notes fill as snapshots land; the reply grows as text lands
   const sop = fade(t, A.tools.a + .3, A.tools.a + .7, A.swap.a + .2, A.swap.a + .6);
   const [sx, sy] = px(app, -3.25, .62, .12);
+  // the app redraws its notes because a STATE_SNAPSHOT landed: the tag lights while snapshots arrive, and says which event it was
+  const stB = D.run2.beads.filter((b) => b.kind === 'state');
+  const hot = stB.length ? Math.max(...stB.map((b) => Math.exp(-Math.pow((t - b.t1 - .06) / .14, 2)))) : 0;
+  const mix = (a, b) => a.map((x, i) => Math.round(x + (b[i] - x) * hot));
+  stateTag.e.style.background = `rgb(${mix([255, 228, 234], [240, 68, 110]).join(',')})`; stateTag.e.style.color = hot > .5 ? '#FFFFFF' : '#101828';
   place(stateTag, sx, sy, sop);
+  const [nx2, ny2] = px(app, -1.8, .62, .12);
+  place(stateNote, nx2, ny2 + 2, stB.length ? sop * fade(t, stB[0].t1 - .1, stB[0].t1 + .15, stB[stB.length - 1].t1 + .5, stB[stB.length - 1].t1 + .8) : 0);
   const st = D.run2.beads.filter((b) => b.kind === 'state'), tx2 = D.run2.beads.filter((b) => b.kind === 'text');
   const fs = st.length ? st.filter((b) => b.t1 <= t).length / st.length : 0, ft = tx2.length ? tx2.filter((b) => b.t1 <= t).length / tx2.length : 0;
   const [b0x, b0y] = px(app, -3.25, .02, .12), [b2x, b2y] = px(app, -3.25, -.62, .12);
