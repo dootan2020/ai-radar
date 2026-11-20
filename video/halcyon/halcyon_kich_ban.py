@@ -23,6 +23,14 @@ FONTS = {'caps': [Path(__file__).parent / 'fonts' / 'BarlowCondensed-Bold.ttf', 
          'small': [ROOT / 'brand' / 'fonts' / 'BeVietnamPro-Medium.ttf', ROOT / 'brand' / 'fonts' / 'BeVietnamPro-SemiBold.ttf']}
 SENT_END = re.compile(r'[.?!…]["”’)]*$')
 DIGITS = re.compile(r'\d+(?:[.,:]\d+)*')
+# the repo beat: a walk through the pages of a GitHub repository (the recorder takes a still of each page, the builder plays them)
+REPO_NAME = re.compile(r'[A-Za-z0-9][A-Za-z0-9-]{0,38}/[A-Za-z0-9._-]{1,100}')
+BRANCH_NAME = re.compile(r'[A-Za-z0-9_][A-Za-z0-9._/-]{0,199}')
+MAX_OPEN = 5                     # entries in one repo beat, and distinct paths over all beats of one repo (the recorder loads at most six pages per repo)
+# Least seconds a page stays on screen: the home page, a page opened by a tap, a slide back to an earlier page; `glimpse` is added to the home page
+# of the first repo beat of the video (the opening full-width look before the camera pushes in). Provisional: the builder slice may ask to tune them.
+FLOOR = dict(home=1.6, tap=1.4, back=0.4, glimpse=1.2)
+OPEN_KEYS = ('path', 'anchor', 'occurrence', 'chain')
 
 
 def fail(msg):
@@ -189,6 +197,71 @@ def paragraph_pieces(show):
     return [p.strip() for p in show.split('/') if p.strip()] if '/' in show else rule_pieces(show)
 
 
+# ---------------- the repo beat: contract (offline, shared with the chain's script check) ----------------
+def repo_problem(repo, branch=None):
+    """The `repo` (and optional `branch`) of a source: None when fine, else (reason, what to change)."""
+    if not isinstance(repo, str) or not REPO_NAME.fullmatch(repo) or repo.split('/')[1] in ('.', '..'):
+        return (f'"repo" is {json.dumps(repo, ensure_ascii=False)}, not owner/name',
+                'write the repository as owner/name, for example "backnotprop/plannotator" (not an address, no .git)')
+    if branch is not None and (not isinstance(branch, str) or not BRANCH_NAME.fullmatch(branch) or '..' in branch or branch.endswith(('/', '.lock'))):
+        return (f'"branch" is {json.dumps(branch, ensure_ascii=False)}, not a branch name', 'write the branch as it appears in the repository address, for example "main"; leave it out for the default branch')
+    return None
+
+
+def parse_open(open_):
+    """The `open` list of a repo beat, in the order the pages are shown -> ([{path, parent, anchor, occurrence, chain}], None), or (None, (reason, fix)).
+
+    A path is from the repo root. Every beat starts on the repo home, and a path is reached from its parent folder: the parent is the root or an
+    earlier entry. GitHub shows a folder that holds only one folder as ONE row, linking to the deepest folder ("a/b" on the page of "a"'s
+    parent, no page for "a"); such an entry is written {"path": "a/b", "chain": true} and is reached from the nearest earlier entry that is
+    its ancestor, or from the root. The skipped folders are not checked here (no network); the `cay` step checks them against GitHub."""
+    if not isinstance(open_, list):
+        return None, ('"open" is not a list', 'write "open": [] (the home page only) or a list of folder and file paths from the repo root')
+    if len(open_) > MAX_OPEN:
+        return None, (f'"open" has {len(open_)} entries; the most one beat may open is {MAX_OPEN}', 'open fewer pages in one beat, or split the walk over two beats')
+    out, seen = [], []
+    for n, e in enumerate(open_):
+        w = f'open[{n}]'
+        e = dict(path=e) if isinstance(e, str) else e
+        if not isinstance(e, dict):
+            return None, (f'{w} is neither a path nor an object', 'write each entry as "folder/file" or {"path": "folder/file", "anchor": "spoken words"}')
+        extra = [k for k in e if k not in OPEN_KEYS]
+        if extra:
+            return None, (f'{w} has unknown key(s) {", ".join(extra)}', f'allowed keys: {", ".join(OPEN_KEYS)}')
+        path = e.get('path')
+        if not isinstance(path, str) or not path.strip():
+            return None, (f'{w}.path is missing or empty', 'write the path from the repo root, for example "packages/server"')
+        if path.startswith('/'):
+            return None, (f'{w}.path "{path}" is absolute', 'write the path from the repo root, with no leading slash')
+        if '\\' in path:
+            return None, (f'{w}.path "{path}" holds a backslash', 'separate the folders with "/"')
+        segs = path.split('/')
+        if '' in segs:
+            return None, (f'{w}.path "{path}" has an empty part (a double or trailing slash)', 'write folders and files separated by single slashes, with no slash at the end')
+        if '.' in segs or '..' in segs:
+            return None, (f'{w}.path "{path}" holds "." or ".."', 'write the real path from the repo root; a path may not climb out of it')
+        if path in seen:
+            return None, (f'{w}.path "{path}" is already opened earlier in this list', 'open each page once; to come back to it, open the next path under another folder')
+        if 'anchor' in e and not (isinstance(e['anchor'], str) and e['anchor'].strip()):
+            return None, (f'{w}.anchor is empty', 'write the spoken words that open this page, or leave "anchor" out')
+        if 'occurrence' in e and not (isinstance(e['occurrence'], int) and not isinstance(e['occurrence'], bool) and e['occurrence'] >= 0):
+            return None, (f'{w}.occurrence must be a number from 0', 'fix the value')
+        if 'chain' in e and not isinstance(e['chain'], bool):
+            return None, (f'{w}.chain must be true or false', 'fix the value')
+        parent = '/'.join(segs[:-1])
+        if parent and parent not in seen:
+            near = next((a for a in ('/'.join(segs[:k]) for k in range(len(segs) - 1, 0, -1)) if a in seen), '')
+            if not e.get('chain'):
+                page = f'"{near}"' if near else 'the repo root'
+                return None, (f'{w}.path "{path}" is opened from "{parent}", which is neither the repo root nor an earlier entry of this list',
+                              f'put "{parent}" before it in the list; or, if GitHub shows "{path}" as one row on the page of {page} '
+                              f'(a folder that holds only one folder), write {{"path": "{path}", "chain": true}}')
+            parent = near
+        seen.append(path)
+        out.append(dict(path=path, parent=parent, anchor=e.get('anchor'), occurrence=e.get('occurrence'), chain=bool(e.get('chain'))))
+    return out, None
+
+
 # ---------------- inputs ----------------
 def load_json(path, what):
     try:
@@ -222,8 +295,9 @@ def check_manifest(man):
 class Run:
     """One assembly: the script, the voice timing, the manifest; fills spec and notes."""
 
-    def __init__(self, kb, timing, manifest, out_dir, timing_path):
+    def __init__(self, kb, timing, manifest, out_dir, timing_path, quay=None):
         self.kb, self.t, self.caps, self.out_dir, self.timing_path = kb, timing, manifest, Path(out_dir), Path(timing_path)
+        self.quay = quay
         self.notes = []
         self.heard = need(timing, 'words_whisper_medium', 'timing file')
         self.paras = need(kb, 'paragraphs', 'script')
@@ -358,6 +432,56 @@ class Run:
             bands.append(dict(rect=m[0]['rect'], at=at))
         return pic, bands, c
 
+    def repo_beat(self, bt, where):
+        """The picture of a repo beat: {"kind": "repo", "manifest": <recorder manifest, relative to the spec>, "walk": [{page, a, via?}, ...]}.
+
+        `page` is a path from the repo root ("" = home); `a` is the second the page starts to appear; a page lasts until the next entry's `a` (the last
+        one until the beat's end). `via` is "tap" (opened from the page before it) or "back" (slide back to an earlier page); home has none.
+        Times: an entry with an anchor starts at the anchor; between two anchored entries (the whole beat when none has one) every page gets its
+        floor and the time above the floors is shared equally, so a beat that fits its pages never fails on an uneven split. A slide back is its
+        own entry. The walk emitter is the one place that writes entries: a field for the builder (a camera target, say) is added to `walk` below."""
+        rp = need(bt['spec'], 'repo', where)
+        ref = need(rp, 'ref', where + '.repo')
+        entries, bad = parse_open(rp.get('open'))
+        if bad:
+            fail(f'{where}.repo: {bad[0]}; {bad[1]}')
+        quay = (self.quay.get(ref) or self.quay.get(None)) if isinstance(self.quay, dict) else self.quay
+        if not quay:
+            fail(f'{where}: this is a repo beat but no recorder manifest was given for "{ref}"; pass --quay <quay.json> (or --quay {ref}=<quay.json>)')
+        first_repo = next(b for b in self.beats if b['spec'].get('kind') == 'repo')['id'] == bt['id']
+        slots = [dict(page='', via=None, floor=FLOOR['home'] + (FLOOR['glimpse'] if first_repo else 0), at=bt['a'], fixed=True, what='the home page')]
+        cur = ''
+        for n, e in enumerate(entries):
+            if e['parent'] != cur:
+                slots.append(dict(page=e['parent'], via='back', floor=FLOOR['back'], at=None, fixed=False, what=f'the slide back to "{e["parent"] or "home"}"'))
+            at = max(self.anchor(bt, e['anchor'], e['occurrence'], f'{where}.repo.open[{n}]'), bt['a']) if e['anchor'] else None
+            slots.append(dict(page=e['path'], via='tap', floor=FLOOR['tap'], at=at, fixed=at is not None, what=f'the page "{e["path"]}"'))
+            cur = e['path']
+        need_s, have = sum(s['floor'] for s in slots), bt['b'] - bt['a']
+        if have + 1e-9 < need_s:
+            parts = ', '.join('%s %.1f' % (s['what'], s['floor']) for s in slots)
+            fail(f'{where}: the voice gives this beat {have:.2f} s but its {len(slots)} pages need at least {need_s:.1f} s ({parts}); '
+                 f'lengthen the paragraph, or open fewer pages')
+        marks = [k for k, s in enumerate(slots) if s['fixed']] + [len(slots)]
+        for k0, k1 in zip(marks, marks[1:]):
+            t0 = slots[k0]['at']; t1 = slots[k1]['at'] if k1 < len(slots) else bt['b']
+            if not t1 > t0:
+                fail(f'{where}: {slots[k1]["what"] if k1 < len(slots) else "the end of the beat"} would start at {t1:.2f} s, not after {slots[k0]["what"]} at {t0:.2f} s; '
+                     f'anchors must follow the order of the "open" list, each inside the beat')
+            extra = ((t1 - t0) - sum(s['floor'] for s in slots[k0:k1])) / (k1 - k0)   # the time above the floors, shared equally
+            used = 0.0
+            for k in range(k0, k1):
+                slots[k]['raw'] = t0 + used + (k - k0) * extra
+                slots[k]['at'] = round(slots[k]['raw'], 2)
+                used += slots[k]['floor']
+        for k, s in enumerate(slots):
+            dur = (slots[k + 1]['raw'] if k + 1 < len(slots) else bt['b']) - s['raw']
+            if dur + 1e-9 < s['floor']:
+                fail(f'{where}: {s["what"]} would be on screen {dur:.2f} s, under its floor of {s["floor"]:.1f} s; the anchors leave it too little room: '
+                     f'move an anchor, lengthen the paragraph, or open fewer pages')
+        walk = [dict(page=s['page'], a=s['at'], **({'via': s['via']} if s['via'] else {})) for s in slots]
+        return dict(kind='repo', manifest=os.path.relpath(quay, self.out_dir).replace('\\', '/'), walk=walk)
+
     def has_word(self, bt, w):
         return any(nrm(self.aliases, x) == nrm(self.aliases, w) for x in self.toks[bt['ta']:bt['tb']])
 
@@ -371,7 +495,7 @@ class Run:
             d = dict(id=bt['id'], name=sp.get('name', bt['id']), a=bt['a'], b=bt['b'])
             texts = []; say = self.paras[bt['n']]['say']; nums = self.paras[bt['n']].get('numbers', {})
             wm = i == 0 or i == len(self.beats) - 1
-            if kind in ('capture', 'recording'):
+            if kind in ('capture', 'recording', 'repo'):
                 head = need(sp, 'headline', where)
                 if len(head) != 2:
                     fail(f'{where}.headline must be two lines')
@@ -386,6 +510,9 @@ class Run:
                     pic, bands, c = self.capture_beat(bt, i == 0)
                     chip = sp.get('chip') or f'{prefix}: {c["source"]}, {c["date"]}'
                     d['chip'] = dict(text=chip); tx_pic = pic
+                elif kind == 'repo':
+                    chip = sp.get('chip') or f'{prefix}: GitHub'
+                    d['chip'] = dict(text=chip); tx_pic = self.repo_beat(bt, where); bands = []
                 else:
                     d['chip'] = dict(line=need(sp, 'chip_line', where)); tx_pic = need(sp, 'picture', where); bands = []; chip = None
                 if chip and len(chip) > CHIP_MAX:
@@ -421,7 +548,7 @@ class Run:
                 d.update(level='HOOK', mark='wm', chip=first_chip, text=tx, picture=dict(kind='same_as', beat=self.beats[0]['id']))
                 strings.append(('small', where + '.kicker', tx['kicker']))
             else:
-                fail(f'{where}.kind "{kind}" is not one of capture, recording, number, chart, list, end')
+                fail(f'{where}.kind "{kind}" is not one of capture, repo, recording, number, chart, list, end')
             if kind == 'end' and i != len(self.beats) - 1:
                 fail(f'{where}: the end beat must be the last beat')
             if kind != 'end':
@@ -451,18 +578,24 @@ class Run:
         return spec
 
 
-def assemble(kb, timing, manifest, out_dir, timing_path):
-    return Run(kb, timing, manifest, out_dir, timing_path).build()
+def assemble(kb, timing, manifest, out_dir, timing_path, quay=None):
+    """quay: the repo recorder's manifest path, or {ref: path} ({None: path} serves every ref); only repo beats use it."""
+    return Run(kb, timing, manifest, out_dir, timing_path, quay).build()
 
 
 def main(argv):
     import argparse
     ap = argparse.ArgumentParser(description=__doc__.split('\n')[0])
     ap.add_argument('script'); ap.add_argument('--timing', required=True); ap.add_argument('--captures'); ap.add_argument('--out', required=True)
+    ap.add_argument('--quay', action='append', default=[], help='repo recorder manifest: PATH for every repo beat, or REF=PATH (repeatable)')
     a = ap.parse_args(argv)
     man = check_manifest(load_json(a.captures, 'captures manifest')) if a.captures else {}
     kb = load_json(a.script, 'script'); out = Path(a.out).resolve()
-    spec = assemble(kb, load_json(a.timing, 'timing file'), man, out.parent, Path(a.timing).resolve())
+    quay = {}
+    for q in a.quay:
+        m = re.fullmatch(r'([\w.-]+)=(.+)', q)
+        quay.update({m.group(1): Path(m.group(2)).resolve()} if m else {None: Path(q).resolve()})
+    spec = assemble(kb, load_json(a.timing, 'timing file'), man, out.parent, Path(a.timing).resolve(), quay)
     out.write_text(json.dumps(spec, ensure_ascii=False, indent=1) + '\n', encoding='utf-8', newline='\n')
     print(f'wrote {out}: {len(spec["beats"])} beats, {len(spec["captions"])} caption lines, duration {spec["duration"]}, {len(spec.get("word_aliases", {}))} word aliases')
 

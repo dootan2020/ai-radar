@@ -128,6 +128,88 @@ class ScriptChecks(unittest.TestCase):
         self.assertEqual(m.post_text(POST).count("\n"), 6)
 
 
+class RepoScriptChecks(unittest.TestCase):
+    """The repo beat and the repo source: every refusal that needs no network (KICH-BAN.md section 1 and 7)."""
+
+    def repo_script(self, open_=("packages", "packages/server", "package.json"), source=None):
+        kb = script()
+        kb["sources"]["pl"] = source if source is not None else {"repo": "backnotprop/plannotator"}
+        kb["paragraphs"][2]["beats"].append({"kind": "repo", "headline": ["Mở thư mục", "từng cái một"], "kicker": "Theo GitHub", "from_sentence": 0,
+                                             "repo": {"ref": "pl", "open": list(open_)}})
+        return kb
+
+    def beat(self, kb):
+        return kb["paragraphs"][2]["beats"][-1]["repo"]
+
+    def test_a_repo_beat_passes_and_is_planned_apart_from_the_captures(self):
+        plan = m.check_script(self.repo_script())
+        self.assertEqual(list(plan.refs), ["g-2b", "blog-google", "g-5a", "hco-5b"])
+        self.assertEqual(plan.repos["pl"]["repo"], "backnotprop/plannotator"); self.assertIsNone(plan.repos["pl"]["branch"])
+        self.assertEqual(plan.repos["pl"]["paths"], ["packages", "packages/server", "package.json"])
+        self.assertEqual(plan.repos["pl"]["beats"][0]["open"], ["packages", "packages/server", "package.json"])
+        self.assertEqual(plan.warnings, [])
+
+    def test_a_branch_is_allowed_and_home_only_is_allowed(self):
+        plan = m.check_script(self.repo_script([], {"repo": "a/b", "branch": "release/1.x"}))
+        self.assertEqual((plan.repos["pl"]["branch"], plan.repos["pl"]["paths"]), ("release/1.x", []))
+
+    def test_a_repo_that_is_not_owner_slash_name_is_refused(self):
+        for bad in ("plannotator", "https://github.com/backnotprop/plannotator", "a/b/c", ""):
+            refused(self, self.repo_script(source={"repo": bad}), "not owner/name", 'sources["pl"]')
+
+    def test_a_source_with_both_urls_and_repo_is_refused(self):
+        e = refused(self, self.repo_script(source={"repo": "a/b", "urls": ["https://github.com/a/b"]}), 'has both "urls" and "repo"')
+        self.assertIn("to fix:", str(e))
+
+    def test_a_repo_source_takes_nothing_else(self):
+        refused(self, self.repo_script(source={"repo": "a/b", "open": "x"}), "unknown key(s) open", "a repo source takes: repo, branch")
+        kb = self.repo_script(); kb["sources"]["g-2b"]["branch"] = "main"
+        refused(self, kb, 'has "branch" but no "repo"')
+
+    def test_a_path_that_is_empty_absolute_climbing_or_repeated_is_refused(self):
+        for open_, word in (([""], "missing or empty"), (["/packages"], "is absolute"), (["a/../b"], '".."'), (["a\\b"], "backslash"),
+                            (["packages", "packages"], "already opened"), (["a//b"], "empty part")):
+            e = refused(self, self.repo_script(open_), word, "paragraph 3, beat 2", "open[")
+            self.assertEqual(e.step, "kiem-kich-ban"); self.assertTrue(e.change)
+
+    def test_a_parent_that_is_neither_root_nor_earlier_is_refused_and_a_chain_is_the_way_out(self):
+        e = refused(self, self.repo_script(["packages", "packages/server/src"]), 'opened from "packages/server"', "neither the repo root nor an earlier entry")
+        self.assertIn("to fix:", str(e)); self.assertIn("chain", e.change)
+        m.check_script(self.repo_script(["packages", {"path": "packages/server/src", "chain": True}]))
+
+    def test_more_than_five_entries_in_one_beat_are_refused(self):
+        refused(self, self.repo_script(list("abcdef")), "most one beat may open is 5")
+        m.check_script(self.repo_script(list("abcde")))
+
+    def test_the_beats_of_one_repo_open_five_different_pages_at_most(self):
+        kb = self.repo_script(list("abc"))
+        kb["paragraphs"][3]["beats"][0] = {"kind": "repo", "headline": ["Mở thư mục", "từng cái một"], "kicker": "Theo GitHub", "repo": {"ref": "pl", "open": list("cdef")}}
+        refused(self, kb, "open 6 different pages in all", 'repo "pl"')
+        kb["paragraphs"][3]["beats"][0]["repo"]["open"] = list("cde")
+        self.assertEqual(m.check_script(kb).repos["pl"]["paths"], list("abcde"))
+
+    def test_a_repo_beat_needs_its_source_and_its_open_list(self):
+        kb = self.repo_script(); del kb["sources"]["pl"]
+        refused(self, kb, 'repo "pl" has no entry in "sources"', '"repo": "owner/name"')
+        refused(self, self.repo_script(source={"urls": ["https://github.com/a/b"]}), 'sources["pl"] has no "repo"')
+        kb = self.repo_script(); del self.beat(kb)["open"]
+        refused(self, kb, "repo.open is missing", "[]")
+        kb = self.repo_script(); kb["paragraphs"][2]["beats"][-1]["repo"] = "a/b"
+        refused(self, kb, 'has no "repo" block')
+
+    def test_a_capture_cannot_point_at_a_repo_source(self):
+        kb = self.repo_script(); kb["sources"]["g-2b"] = {"repo": "a/b"}
+        refused(self, kb, 'capture "g-2b" is a repo source', "repo beat")
+
+    def test_a_repo_source_no_beat_uses_is_a_warning(self):
+        kb = script(); kb["sources"]["unused"] = {"repo": "a/b"}
+        self.assertEqual(m.check_script(kb).warnings, ['sources["unused"] is not used by any capture beat'])
+
+    def test_a_recording_is_still_refused(self):
+        kb = self.repo_script(); kb["paragraphs"][2]["beats"][-1]["picture"] = {"kind": "photo", "file": "x.jpg"}
+        refused(self, kb, "hand-made recording or photo")
+
+
 class Settings(unittest.TestCase):
     def test_every_missing_setting_is_named_at_once(self):
         problems, _ = m.settings(env={"USERPROFILE": "u"}, which=lambda t: None if t in ("node", "magick") else "/bin/" + t, exists=lambda p: False)
