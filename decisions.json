@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-20T03:35:27.478186+00:00",
-  "input_generated_at": "2026-11-20T02:46:09Z",
+  "generated_at": "2026-11-20T05:23:25.612519+00:00",
+  "input_generated_at": "2026-11-20T04:46:01Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -110700,10 +110700,10 @@
       "use_original_title": false,
       "source_url": "https://www.semafor.com/article/11/19/2026/its-been-a-rough-go-lumentums-ceo-on-his-115-billion-marvell-deal",
       "key_points": [
-        "Theo Semafor, CEO Michael Hurlston của Lumentum đã lên tiếng bảo vệ thương vụ sáp nhập và kêu gọi cổ đông kiên nhẫn khi họ tỏ ra bất bình. Thỏa thuận sáp nhập bằng cổ phiếu trị giá 115 tỷ USD này kết hợp mảng công nghệ quang học của Lumentum với mảng kinh doanh chip của Marvell.",
-        "Ông Hurlston cho biết Lumentum tìm mua công ty chip suốt nhiều tháng vì cần tài sản bán dẫn, trước khi Marvell đề xuất sáp nhập. Ông khẳng định Marvell là đối tác tốt nhất và sản phẩm kết hợp sẽ giúp rút ngắn thời gian cung ứng tới trung tâm dữ liệu.",
-        "Dù một số cổ đông cho rằng công ty bán mình quá sớm, ông Hurlston thừa nhận họ lo ngại tiềm năng tăng trưởng bị ảnh hưởng khi gắn với Marvell.",
-        "Ông Hurlston nhấn mạnh hai bên sẽ theo đuổi thỏa thuận trừ khi cổ đông bỏ phiếu phản đối hoặc thương vụ không được cơ quan quản lý phê duyệt. Quá trình thẩm định tại Mỹ và Trung Quốc cũng có khả năng bị giám sát chặt chẽ hơn sau bê bối chip Nvidia."
+        "Theo Semafor, Lumentum đồng ý sáp nhập với Marvell trong thương vụ toàn bộ bằng cổ phiếu trị giá 115 tỷ USD, kết hợp mảng công nghệ quang học với kinh doanh chip. CEO Michael Hurlston của Lumentum kêu gọi cổ đông kiên nhẫn trước làn sóng phản đối thỏa thuận này.",
+        "Semafor cho biết cổ phiếu hai bên đã giảm khoảng 40% do nhà đầu tư lo ngại về dư địa tăng trưởng còn lại của làn sóng AI (trí tuệ nhân tạo). Ông Hurlston thừa nhận giới đầu tư lo ngại công ty bán mình quá sớm và gắn với đối tác có tiềm năng tăng trưởng khó đoán hơn.",
+        "Ông Hurlston cho biết việc xuất xưởng thành một sản phẩm hoàn chỉnh tới trung tâm dữ liệu sẽ giúp khách hàng rút ngắn đáng kể thời gian đưa sản phẩm ra thị trường. Trước đó, Lumentum đã tìm mua công ty bán dẫn suốt nhiều tháng và ông đánh giá Marvell là đối tác tốt nhất.",
+        "CEO Lumentum khẳng định hai bên sẽ theo đuổi thương vụ trừ khi cổ đông bỏ phiếu phản đối hoặc không được cơ quan quản lý phê duyệt. Semafor nhận định quá trình thẩm định tại Mỹ và Trung Quốc nhiều khả năng sẽ bị giám sát chặt chẽ hơn sau bê bối chip Nvidia."
       ],
       "same_event_coverage_ids": [
         "aefb8610fcfbbc3e47c5"
@@ -110732,30 +110732,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.05,
+        "value": 9.5,
         "answers": {
           "what": 10,
           "why": 9,
-          "notable": 8,
-          "meaning": 9
+          "notable": 10,
+          "meaning": 8
         },
-        "hard_errors": [
-          {
-            "kind": "quote",
-            "summary_text": "sản phẩm kết hợp sẽ giúp rút ngắn thời gian cung ứng tới trung tâm dữ liệu",
-            "explanation": "Hurlston says shipping the products as one finished product would improve customers’ time to market; he does not specifically claim shorter delivery or supply time to data centers (outlet:p013)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "notable",
-            "problem": "The product benefit reads as faster delivery to data centers.",
-            "fix": "Say Hurlston expects the combined finished product to help customers get to market faster (outlet:p013)."
-          },
-          {
-            "question": "why",
-            "problem": "Readers are not told why the shares fell.",
-            "fix": "Add that investors worried about how much runway the AI trade has left (outlet:p007)."
+            "question": "meaning",
+            "problem": "The reader misses why Hurlston asks shareholders to wait.",
+            "fix": "Add that he expects shares to rebound once filings and meetings let the companies give investors more information (outlet:p010)."
           }
         ],
         "writer_boats": [
@@ -110763,8 +110752,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "69e3e5b4c20364ddf0064ac2f73018209d0f9271e288b6e7b965095d30758b62",
-        "scored_at": "2026-11-20T03:32:01.744019+00:00"
+        "prose_sha256": "03323d2bd9b8024f1a7da2316783dc87efdc5d0473429478c157c71d695e4a1b",
+        "scored_at": "2026-11-20T05:23:25.604295+00:00"
       }
     },
     {
@@ -110785,10 +110774,10 @@
       "use_original_title": false,
       "source_url": "https://fedscoop.com/house-va-oracle-execs-ehrm-ai-veterans-data/",
       "key_points": [
-        "Theo FedScoop, Ủy ban Các vấn đề Cựu chiến binh Hạ viện Mỹ đã chất vấn lãnh đạo Oracle về việc sử dụng dữ liệu y tế và trí tuệ nhân tạo (AI). Phiên điều trần diễn ra sau khi hợp đồng hồ sơ bệnh án 10 tỷ USD của Bộ Cựu chiến binh bị tăng trần thêm 17 tỷ USD.",
-        "Giải trình trước quốc hội, các lãnh đạo Oracle cho biết trần hợp đồng tăng do mở rộng quy mô, chậm trễ vì đại dịch, tùy biến sớm và hạ tầng yếu kém. Phó Chủ tịch Điều hành Seema Verma cho biết thêm 40% mức trần ban đầu đã được chi hết trước khi Oracle mua lại Cerner năm 2022.",
-        "Chủ tịch Ủy ban Mike Bost chỉ trích hợp đồng sau khi mở rộng tiêu tốn hơn 2.000 USD cho mỗi cựu chiến binh. Trong khi bà Verma khẳng định Oracle hoàn toàn không tiếp cận dữ liệu cựu chiến binh, Nghị sĩ Nikki Budzinski cho rằng các điều khoản thương mại của công ty trên thực tế cho phép họ sở hữu dữ liệu này.",
-        "Nghị sĩ Abe Hamadeh yêu cầu ngừng cấp ngân sách cho đến khi Oracle và cơ quan này nộp ước tính chi phí được GAO chấp thuận, lịch trình cố định và giải trình chi tiêu. Nghị sĩ Mark Takano đánh giá phiên điều trần là tín hiệu tốt gửi tới các nhà thầu chính phủ về việc phải tuân thủ nghiêm túc."
+        "Theo FedScoop, lãnh đạo Oracle bị Hạ viện Mỹ chất vấn trước cáo buộc muốn dùng dữ liệu cựu chiến binh để huấn luyện hệ thống AI (trí tuệ nhân tạo). Phó Chủ tịch Điều hành Seema Verma khẳng định Oracle không tiếp cận dữ liệu này, giữa lúc hợp đồng bệnh án 10 tỷ USD bị tăng trần thêm 17 tỷ USD.",
+        "Giải trình trước quốc hội, lãnh đạo Oracle cho biết trần hợp đồng tăng do mở rộng quy mô, chậm trễ vì dịch bệnh, tùy biến sớm và hạ tầng yếu kém. Bà Verma cho biết thêm 40% mức trần ban đầu đã chi hết trước khi Oracle mua lại Cerner năm 2022.",
+        "Nghị sĩ Nikki Budzinski cáo buộc đội bán hàng của Oracle tìm cách lồng điều khoản thương mại mà trên thực tế sẽ cho phép công ty sở hữu dữ liệu cựu chiến binh. Chủ tịch Ủy ban Mike Bost chỉ trích hợp đồng mở rộng tiêu tốn hơn 2.000 USD cho mỗi cựu chiến binh.",
+        "Nghị sĩ Abe Hamadeh yêu cầu ngừng chi tiền cho đến khi nộp ước tính chi phí được GAO (Cơ quan Trách nhiệm Giải trình Chính phủ Mỹ) phê duyệt cùng lịch trình cố định. Nghị sĩ Mark Takano coi phiên giám sát lưỡng đảng là tín hiệu răn đe mọi nhà thầu chính phủ phải tuân thủ nghiêm túc."
       ],
       "same_event_coverage_ids": [
         "312028c36f8e88e1d283"
@@ -110819,39 +110808,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.6,
+        "value": 9.85,
         "answers": {
-          "what": 9,
+          "what": 10,
           "why": 10,
-          "notable": 7,
+          "notable": 10,
           "meaning": 9
         },
-        "hard_errors": [
-          {
-            "kind": "quote",
-            "summary_text": "các điều khoản thương mại của công ty trên thực tế cho phép họ sở hữu dữ liệu này",
-            "explanation": "Budzinski said Oracle’s sales team had been pursuing the inclusion of terms that would virtually allow Oracle to own the data. The source does not say those terms were included or already allow ownership (outlet:p020)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "notable",
-            "problem": "The reader may believe Oracle’s contract terms already grant it ownership of veterans’ data.",
-            "fix": "Say Budzinski alleged Oracle’s sales team was seeking terms that would virtually allow such ownership (outlet:p020)."
-          },
-          {
-            "question": "what",
-            "problem": "The AI allegation is vague in the Vietnamese.",
-            "fix": "Specify that Oracle faced an accusation that it wanted veterans’ health data to train its AI systems, and that Verma denied Oracle had access to the data (outlet:p016, outlet:p018)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "1c925593d4de74e5d203ea743c38af265156d9fb29ce1d478e31d591a8355748",
-        "scored_at": "2026-11-20T03:35:27.470050+00:00"
+        "prose_sha256": "de215f0d224b18aa8909a033fba814f75f078ef2451d9e445ae00fe93b89d121",
+        "scored_at": "2026-11-20T05:23:25.604340+00:00"
       }
     },
     {
@@ -111343,10 +111315,10 @@
       "use_original_title": false,
       "source_url": "https://sakana.ai/security-research-group/",
       "key_points": [
-        "Sakana AI thành lập Nhóm Nghiên cứu Bảo mật độc lập để nghiên cứu phòng thủ mạng tập thể bằng trí tuệ nhân tạo (AI) và an toàn của chính AI. Nhóm hoạt động trên bốn tầng phòng thủ nhưng ưu tiên dài hạn cho chất lượng sản phẩm và thiết kế hệ thống.",
-        "Sakana AI giải thích việc chỉ vá hệ thống đang vận hành không đủ để hạ thấp rủi ro tổng thể. Theo hãng, lỗ hổng xuất hiện ở tốc độ máy móc nhưng chỉ được sửa ở tốc độ tổ chức, và công việc sẽ tăng nếu kiến trúc lặp lại lỗi cũ.",
-        "Trên bài đánh giá chuẩn (benchmark - bài kiểm tra năng lực), Sakana AI báo cáo Fugu-Cyber đạt 86,9% trên CyberGym và 72,1% trên CTI-REALM, tương đương các mô hình tiên tiến chuyên an ninh mạng. Hãng nhận định công nghệ ShinkaEvolve từ nghiên cứu trước có thể phù hợp tạo quy tắc phát hiện và đề xuất bản vá khi thử nghiệm thực tế tốn kém.",
-        "Dù vậy, Sakana AI thừa nhận kết quả đánh giá chuẩn chưa chắc phản ánh môi trường doanh nghiệp thực tế và đo lường khoảng cách này là bài toán của nhóm. Hãng nhấn mạnh mô hình đơn lẻ có thể tạo cảnh báo sai và bản vá không an toàn nếu thiếu khung hỗ trợ thích ứng toàn hệ thống."
+        "Sakana AI lập Nhóm Nghiên cứu Bảo mật để nghiên cứu phòng thủ mạng tập thể bằng AI cùng an ninh và an toàn của chính AI. Nhóm làm việc trên bốn tầng phòng thủ nhưng dồn trọng tâm dài hạn vào chất lượng sản phẩm và thiết kế hệ thống.",
+        "Theo Sakana AI, lỗ hổng được phát hiện ở tốc độ máy móc nhưng chỉ được sửa ở tốc độ tổ chức, khiến việc vá hệ thống đang chạy không đủ hạ rủi ro. Hãng nhận định công việc sẽ tiếp tục tăng nếu các điểm yếu tương tự vẫn lặp lại trong phần mềm và kiến trúc.",
+        "Fugu-Cyber điều phối các mô hình chuyên biệt đạt 86,9% trên CyberGym và 72,1% trên CTI-REALM ở bài đánh giá chuẩn (benchmark - bài kiểm tra năng lực), được Sakana AI báo cáo tương đương các mô hình hàng đầu. Hãng nhận định ShinkaEvolve có thể phù hợp tạo quy tắc phát hiện và bản vá khi thử nghiệm thực tế tốn kém.",
+        "Sakana AI nhấn mạnh mô hình đơn lẻ có thể tạo cảnh báo sai và bản vá không an toàn nếu thiếu hỗ trợ thích ứng từng môi trường cùng cái nhìn toàn hệ thống. Hãng thừa nhận kết quả đánh giá chuẩn chưa chắc phản ánh môi trường doanh nghiệp thực tế và việc đo khoảng cách này là bài toán của nhóm."
       ],
       "same_event_coverage_ids": [
         "6345dc5f0cbf1ad0a2e7"
@@ -111375,44 +111347,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.55,
+        "value": 9.35,
         "answers": {
           "what": 9,
-          "why": 6,
-          "notable": 10,
-          "meaning": 8
+          "why": 10,
+          "notable": 9,
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "lỗ hổng xuất hiện ở tốc độ máy móc",
-            "explanation": "The source says flaws are being found at machine speed, not that they appear or are introduced at that speed (outlet:p006)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "why",
-            "problem": "The reader may think software flaws are being created at machine speed.",
-            "fix": "Say flaws are being discovered at machine speed but fixed at organizational speed (outlet:p006)."
-          },
-          {
-            "question": "what",
-            "problem": "The group's research on AI itself is described only as safety.",
-            "fix": "State that it covers both the security and safety of AI itself (outlet:p002)."
-          },
-          {
-            "question": "meaning",
-            "problem": "The conditions for using a model safely are blurred.",
-            "fix": "Specify that Sakana calls for support adapted to each environment and a view of the whole system (outlet:p023)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "bb82201146f70402082dbdace22de2acfe927adbf4d9dbf3d37cc3fde6c290e9",
-        "scored_at": "2026-11-20T03:24:09.800038+00:00"
+        "prose_sha256": "2023a75c56ef3a92bc2d49035912c42a4ec9c74f103d65a6ef1514b99fa021df",
+        "scored_at": "2026-11-20T05:23:25.604366+00:00"
       }
     },
     {
@@ -111518,6 +111468,378 @@
         "scorer_provider": "codex",
         "prose_sha256": "2cc961388f1e67546f9b3c2d2fb98dd0568085e1077a985bae72bdaa76293840",
         "scored_at": "2026-11-20T03:17:38.151204+00:00"
+      }
+    },
+    {
+      "id": "3f7f7cffebe4ba5935ad",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://simonwillison.net/2026/Nov/20/token-fraud-is-here-and-its-bad/",
+      "key_points": [
+        "Theo tác giả Simon Willison, bà Claire Vo đang dần đóng toàn bộ chương trình dùng thử miễn phí của nền tảng ChatPRD trước tình trạng bị lạm dụng.",
+        "Claire Vo cho biết nhiều nhóm lạm dụng dùng thử để lấy AI miễn phí, bán lại token (đơn vị dữ liệu xử lý) hoặc kinh doanh trên tác tử (chương trình AI tự hành).",
+        "Cụ thể, bà chia sẻ một xưởng game quốc tế đã quay vòng lượt dùng thử cùng mã giảm giá rồi kết nối vào tác tử để dựng bản đồ Roblox và Fortnite.",
+        "Simon Willison nhận định việc dừng hoàn toàn dùng thử tuy đáng tiếc nhưng có vẻ là quyết định đúng đắn trước tình trạng lạm dụng này."
+      ],
+      "same_event_coverage_ids": [
+        "78c941cf28d3d452ce1e"
+      ],
+      "split_coverage_ids": [],
+      "subject": "ChatPRD token fraud",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Claire Vo"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "ChatPRD dần đóng các bản dùng thử miễn phí vì bị lạm dụng để bán lại token và kinh doanh",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "simon-willison",
+          "url": "https://simonwillison.net/2026/Nov/20/token-fraud-is-here-and-its-bad/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "token (đơn vị dữ liệu xử lý)",
+            "explanation": "The source discusses reselling tokens but does not define a token as a unit of processed data (outlet:p003)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The studio example loses Claire’s striking point that its use of her agent leaves her effectively funding its work.",
+            "fix": "Include that point while retaining the trial and promo-code cycle (outlet:p004)."
+          },
+          {
+            "question": "what",
+            "problem": "The parenthetical definition of “token” is not established by the supplied source.",
+            "fix": "Remove the definition and retain the source’s statement that groups resell tokens (outlet:p003)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "bfa7db18441bdcf92bb6352e9ebb6a06f14c53349b3dcb5e8641b56882abe6fb",
+        "scored_at": "2026-11-20T05:18:46.578126+00:00"
+      }
+    },
+    {
+      "id": "aa7ec75adb1948c0b0bc",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.bxfoundry.com/chatgpt_snes/",
+      "key_points": [
+        "Tác giả Benj Edwards công bố ChatGPT for SNES phiên bản 0.7, một thử nghiệm không chính thức đưa chatbot lên máy Super Nintendo. Dự án này được các tác tử AI (chương trình phần mềm tự hành) lập trình và không thuộc OpenAI.",
+        "Bản dựng chính xuất từ trực tiếp từ mô hình, trong khi bản mở rộng tra cứu thêm câu mở đầu của 150.000 bài viết Wikipedia tiếng Anh đơn giản.",
+        "Mô hình ngôn ngữ khoảng 2,2 triệu tham số hoạt động trên chip Super FX 2 của băng trò chơi và phản hồi từng từ đơn lẻ. Bản ROM này có thể chạy trên trình giả lập hoặc qua băng flash trên máy Super Nintendo thực tế.",
+        "Tác giả Benj Edwards nhận định hệ thống không phải trợ lý hữu ích và thường đưa ra câu trả lời sai. Mô hình chỉ biết khoảng 8.000 từ, nhỏ hơn hàng triệu lần so với ChatGPT và dữ liệu tra cứu cũng có thể chứa sai sót."
+      ],
+      "same_event_coverage_ids": [
+        "39846e291bd106e8dd11"
+      ],
+      "split_coverage_ids": [],
+      "subject": "ChatGPT for SNES",
+      "video_labels": {
+        "video_hook": "usable_now",
+        "named_people": [
+          "Benj Edwards"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Benj Edwards thử nghiệm đưa mô hình ngôn ngữ 2,2 triệu tham số lên hệ máy Super Nintendo",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://www.bxfoundry.com/chatgpt_snes/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.85,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The real-console path omits the flash cart’s Super FX support requirement.",
+            "fix": "If retaining the hardware guidance, specify that the flash cart needs Super FX support; the fact-book build also needs MSU-1 support (outlet:p008)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "8600652d418bdcfbf30df99e07ad98946f8bdfb1550ade8f5967a4f6006a08c2",
+        "scored_at": "2026-11-20T05:15:27.766429+00:00"
+      }
+    },
+    {
+      "id": "bbb9d3be9b1acee1270c",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.26380",
+      "key_points": [
+        "Nhóm nghiên cứu của Yuqi Tang giới thiệu mô hình EgoCaptioner, dẫn đầu trong số các mô hình nguồn mở được đánh giá trên 5 bộ chuẩn (benchmark - bài kiểm tra hiệu năng chuẩn hóa) về chất lượng phụ đề, hỏi đáp và căn chỉnh thời gian cho video góc nhìn thứ nhất.",
+        "Theo nhóm tác giả, nghiên cứu nhằm khắc phục việc các mô hình đa phương thức hiện nay thường bỏ sót hành động ngắn, nhầm thứ tự hoặc hiểu sai chuyển động người quay. Nhóm đã phát triển quy trình chú thích từ thô đến tinh với 50.000 mẫu huấn luyện và áp dụng thuật toán GRPO để tinh chỉnh phụ đề.",
+        "Trong các thử nghiệm, EgoCaptioner đã vượt qua Gemini 3.1 Pro trên bài kiểm tra PhysCapBench và vượt toàn bộ các mô hình độc quyền được đánh giá trên Minerva-Ego theo giao thức hỏi đáp dựa trên phụ đề.",
+        "Kết quả thử nghiệm bóc tách chứng minh quy trình chú thích từ thô đến tinh mang lại hiệu quả giám sát tốt hơn phương pháp chú thích một lượt. Dù vậy, các tác giả lưu ý giải pháp bổ sung dữ liệu chuyển động từ tư thế chỉ áp dụng được khi có sẵn dữ liệu cảm biến."
+      ],
+      "same_event_coverage_ids": [
+        "5934114bd3f4c3323001"
+      ],
+      "split_coverage_ids": [],
+      "subject": "EgoCaptioner",
+      "video_labels": null,
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Mô hình EgoCaptioner vượt Gemini 3.1 Pro về phụ đề video góc nhìn thứ nhất trên PhysCapBench",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.26380"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.5,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "quote",
+            "summary_text": "Kết quả thử nghiệm bóc tách chứng minh",
+            "explanation": "The abstract says the ablations 'support' the conclusion, a weaker claim than proving it (outlet:p009)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The ablation result is stated with more certainty than the authors use.",
+            "fix": "Say the ablations support, rather than prove, the benefit of coarse-to-fine annotation (outlet:p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "16bd1e3e33b286a85e8e83c95eff814b19b4262c6e2d05e4ed5b37835bf090f5",
+        "scored_at": "2026-11-20T05:15:27.766469+00:00"
+      }
+    },
+    {
+      "id": "96c518469860b3cdb66c",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.26409",
+      "key_points": [
+        "Nhóm tác giả Changli Tang giới thiệu dòng mô hình nền tảng WeMM-Video song ngữ Trung - Anh với các phiên bản 2B, 4B, 9B và 35B-A3B. Hệ thống được thử nghiệm qua hơn 120 bài đánh giá chuẩn (benchmark - bài kiểm chuẩn năng lực) đa phương thức.",
+        "Nhóm tác giả cho biết việc hiểu video kèm âm thanh vẫn là thách thức cốt lõi của trí tuệ đa phương thức. Tập trung vào tri giác và suy luận nghe nhìn, WeMM-Video hợp nhất văn bản, hình ảnh, âm thanh cùng video trên khoảng 1,2 nghìn tỷ token.",
+        "Trong các đánh giá video đa phương thức, nhóm tác giả cho biết phiên bản WeMM-Video-35B-A3B lập đỉnh cao nguồn mở mới khi vượt trội các mô hình độc quyền Qwen3.5-Omni-Flash và Seed2.0-Mini-0428. Phiên bản WeMM-Video-9B nhỏ gọn hơn cũng vượt qua đối thủ nguồn mở lớn hơn là Qwen3-Omni-30B-A3B-Instruct.",
+        "Nhóm nghiên cứu công khai phát hành dòng mô hình WeMM-Video cùng quy trình đánh giá để thúc đẩy cộng đồng nguồn mở. Dù vậy, nhóm tác giả lưu ý WeMM-Video-35B-A3B mới chỉ thu hẹp khoảng cách với Gemini-3.0-Flash, đồng thời duy trì năng lực cạnh tranh ở các tác vụ âm thanh, video không tiếng, ảnh và văn bản."
+      ],
+      "same_event_coverage_ids": [
+        "4fe1be8b55ef96497066"
+      ],
+      "split_coverage_ids": [],
+      "subject": "WeMM-Video",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Changli Tang",
+          "Jie Yang",
+          "Tianyi Wang",
+          "Lei Li",
+          "Daoze Zhang",
+          "Zijie Xin",
+          "Zhan Liu",
+          "Li Li",
+          "Jinchang Xu",
+          "Fengyun Rao",
+          "Chao Zhang",
+          "Jing Lyu"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Mô hình WeMM-Video-35B-A3B lập đỉnh cao nguồn mở mới khi đánh giá video đa phương thức",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.26409"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.85,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "7c679ba4509638df6571d2acb8195b63fadc674efe976bb4f95dedae4711b2d0",
+        "scored_at": "2026-11-20T05:18:46.578250+00:00"
+      }
+    },
+    {
+      "id": "1fa2ba59a06eb9e49a41",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.26595",
+      "key_points": [
+        "Nhóm tác giả Yiyan Ji giới thiệu Coda-DaVinci, khung tác tử (agentic framework - hệ thống điều phối tự trị) tương thích tác vụ cho mô hình tạo video từ mã Code2Video. Khung này giúp bảo tồn tài sản khung cảnh và định hướng sửa lỗi qua kiểm tra trực quan cùng đánh giá độc lập.",
+        "Nhóm nghiên cứu đánh giá quy trình vì phương pháp tạo proxy (vật thể 3D đại diện) và câu lệnh tối ưu cho chất lượng đầu ra vốn chưa được khám phá đầy đủ. Thử nghiệm cho thấy proxy thô tạo chuyển động tự nhiên còn proxy chi tiết vừa giữ độ nhất quán, giúp hệ thống kết hợp mô phỏng vật lý với câu lệnh phù hợp.",
+        "Trong thử nghiệm, Coda-DaVinci dẫn đầu về độ tuân thủ chỉ dẫn trên chuẩn đánh giá (benchmark) VTR và tính nhất quán cảnh trên R2M. Nhóm tác giả cho biết hệ thống đạt tính hợp lý vật lý cao hơn tạo video trực tiếp, cùng độ chân thực thị giác vượt trội các phương pháp Code2Video cơ sở.",
+        "Đánh giá trên video dài cho thấy mô hình cải thiện cấu trúc sự kiện và độ nhất quán qua các tương tác tiếp theo. Dù vậy, nhóm tác giả chỉ ra hạn chế là hệ thống còn thiếu ổn định khi chuyển cảnh và chưa tuân thủ chặt chẽ các thiết lập bối cảnh."
+      ],
+      "same_event_coverage_ids": [
+        "0fcca85dfbd457544e84"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Coda-DaVinci",
+      "video_labels": null,
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Khung Coda-DaVinci dẫn đầu độ tuân thủ chỉ dẫn trên VTR và tính nhất quán cảnh trên R2M",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.26595"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.3,
+        "answers": {
+          "what": 8,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The reader learns that the framework adapts to tasks but not how it does so.",
+            "fix": "State that it selects proxy-guided or direct generation and adjusts proxy detail for each entity (outlet:p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "0dee21cb61876428de5e0b32f96fe4b8352c90ee8a74fc6f6575814837a281c6",
+        "scored_at": "2026-11-20T05:18:46.578328+00:00"
       }
     }
   ]
