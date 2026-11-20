@@ -16,7 +16,7 @@ Job fields: `scene` (`{"name": "giao-thuc", ...}`; another name is refused), opt
 
 ## Where the numbers come from
 - **Act 3 (8-15 s)**: the seven events of the README's `server.py` (commit `1de7b128`): `RUN_STARTED`, `TEXT_MESSAGE_START`, `TEXT_MESSAGE_CONTENT` x3 (`"Hello "`, `"from "`, `"AG-UI!"`), `TEXT_MESSAGE_END`, `RUN_FINISHED`. `canh.events_from_fence` parses them from the fence (the `for` loop expanded); `check_readme` proves the pinned README holds them (the README is supplied by hand, the producer never fetches). With `events_run`, the run record must have saved `server.py` from the same URL with the same sha256 and printed `Hello from AG-UI!`, so the diagram is the run the viewer installs.
-- **Act 4 (15-21 s)**: the demo's event counts. With `counts_demo`, `demo.json` must carry `"events": {"TYPE": n}` (or `event_counts`); the scene shows `TOOL_CALL_*` (START+ARGS+END+RESULT), `STATE_SNAPSHOT`, `TEXT_MESSAGE_CONTENT`, one bead per counted event, tallies ticking as they land. Without it the act names the types only. The order of state and text beads inside the act is schematic (interleaved in proportion); the counts are the measured part.
+- **Act 4 (15-21 s)**: the demo's own run. With `counts_demo`, `demo.json` (halcyon_demo.py) carries `"events": {"total", "by_type": {"TYPE": n}, "order": [types by first appearance], "streams"}` (a flat `{"TYPE": n}` or `event_counts` is read too). The scene shows `TOOL_CALL_*` (START+ARGS+END+RESULT), `STATE_SNAPSHOT`, `TEXT_MESSAGE_CONTENT`: one bead per counted event, tallies ticking as they land. **Ordered:** the three kinds leave in the order of their first appearance in that stream (`order`; in the 21/11/2026 run: STATE_SNAPSHOT, then TOOL_CALL, then TEXT_MESSAGE_CONTENT), and the tallies are listed in that order. **Aggregated:** the events of one kind travel as one group, because the manifest keeps first appearances and counts, not the place of every event (later snapshots may have interleaved with the tool call in the real stream). `RUN_STARTED` leaves first and `RUN_FINISHED` last, as in every AG-UI run. Without a demo the act names the types only, in the table's order; a stream that lacks one of the three kinds is refused.
 - **Act 5 (21-26 s)**: LangGraph, CrewAI, Google ADK, Microsoft Agent Framework, from the README's integrations table.
 
 ## Gates (each refuses, the chain stops with `to fix:`)
@@ -32,13 +32,6 @@ Job fields: `scene` (`{"name": "giao-thuc", ...}`; another name is refused), opt
 The clip is 886x976 at 30 fps (the builder's rate; it plays clips 1:1) and 26 s; the builder seats it in the FOOT window of thu-gon-r3-l2 (frame y 364-1340), on the same ink as its `bg`.
 
 ## Tooling (where three.js lives)
-playwright-core and three resolve from the chain's `video/` folder (`HALCYON_NODE_DIR` overrides it). three is not in `video/package.json` (this change owns only `scene3d/`); install it there once, locally, never globally:
-
-```
-cd video
-npm install --no-save --ignore-scripts three@0.187.0
-```
-
-It was installed this way on 21/11/2026 in the chain checkout's `video/` (MIT, no dependencies). A later `npm ci` removes it; the producer then refuses with this command. Fonts: Be Vietnam Pro (brand/fonts), Barlow Condensed and JetBrains Mono (video/halcyon/fonts). Chrome: the installed one (`CHROME_PATH` overrides).
+playwright-core and three resolve from the chain's `video/` folder (`HALCYON_NODE_DIR` overrides it). `three` is a dependency of `video/package.json`, pinned at exactly 0.187.0 (MIT, no dependencies, no install scripts), so the chain's ordinary `npm install --ignore-scripts` in `video/` brings it, and it stays for other work (owner, 21/11/2026 04:44: "Giữ lại threejs cho các tác vụ khác"). The producer still checks the sha256 of `three.module.js` and `three.core.js` and refuses a different build. Fonts: Be Vietnam Pro (brand/fonts), Barlow Condensed and JetBrains Mono (video/halcyon/fonts). Chrome: the installed one (`CHROME_PATH` overrides).
 
 Measured 21/11/2026 on the RTX 2060: WebGL `ANGLE (NVIDIA, NVIDIA GeForce RTX 2060 Direct3D11)`, 780 frames in about 27 s (34 ms a frame), 9 files served, 0 aborted.

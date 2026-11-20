@@ -143,6 +143,21 @@ class Timeline(unittest.TestCase):
         self.assertEqual(kinds[0], "life")
         self.assertEqual(kinds[-1], "life")
 
+    def test_act_four_sends_the_kinds_in_the_order_the_demo_stream_first_had_them(self):
+        order = ["RUN_STARTED", "STEP_STARTED", "STATE_SNAPSHOT", "RAW", "TOOL_CALL_START", "TOOL_CALL_ARGS", "TEXT_MESSAGE_START", "TEXT_MESSAGE_CONTENT", "RUN_FINISHED"]
+        c = dict(self.counts(), order=order)
+        d = canh.timeline(SRC, c)
+        self.assertEqual(d["run2"]["kind_order"], ["state", "tool", "text"])
+        self.assertEqual([t["label"] for t in d["run2"]["tallies"]], ["STATE_SNAPSHOT", "TOOL_CALL_*", "TEXT_MESSAGE_CONTENT"])
+        kinds = [b["kind"] for b in d["run2"]["beads"]]
+        self.assertEqual(kinds, ["life"] + ["state"] * 35 + ["tool"] * 15 + ["text"] * 29 + ["life"])   # each kind one group, in first-appearance order
+        self.assertTrue(canh.check_timeline(d, SRC, c))
+        d = canh.timeline(SRC, self.counts())                            # no order: the table's order
+        self.assertEqual(d["run2"]["kind_order"], ["tool", "state", "text"])
+        self.assertIn("not given", d["run2"]["kind_order_from"])
+        with self.assertRaises(canh.Refusal):
+            canh.timeline(SRC, dict(self.counts(), order=["RUN_STARTED", "TEXT_MESSAGE_CONTENT", "RUN_FINISHED"]))
+
     def test_without_a_demo_the_scene_names_the_types_only(self):
         d = canh.timeline(SRC, None)
         self.assertTrue(all(t["total"] is None for t in d["run2"]["tallies"]))

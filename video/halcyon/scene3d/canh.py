@@ -142,6 +142,18 @@ def _r(x):
     return round(x, 4)
 
 
+def demo_kind_order(groups, counts):
+    """The order act 4 sends its kinds in: by the first appearance of any of a kind's types in the demo's stream, when the manifest gives it."""
+    kinds = ['tool', 'state', 'text']
+    order = (counts or {}).get('order')
+    if not order:
+        return kinds, 'not given: table order'
+    first = {k: min((order.index(n) for n in groups[k] if n in order), default=None) for k in kinds}
+    if any(v is None for v in first.values()):
+        raise Refusal(f'the demo stream\'s order {order} lacks a kind the scene shows ({[k for k, v in first.items() if v is None]})', 'the demo must have streamed tool, state and text events')
+    return sorted(kinds, key=lambda k: first[k]), 'first appearance in the demo stream'
+
+
 def timeline(src, counts=None):
     """Everything the page draws, as times in seconds. Pure: the same sources give the same dict."""
     acts = {n: (a, b) for n, a, b, _ in ACTS}
@@ -156,24 +168,18 @@ def timeline(src, counts=None):
         if e == 'TEXT_MESSAGE_CONTENT':
             d = src['deltas'][di]; di += 1
         run1.append(dict(name=e, kind=kind(e), delta=d, t0=_r(t0), t1=_r(t0 + 0.95)))
-    # act 4: the demo's run, the types the scene names; counts from the demo manifest or names only
+    # act 4: the demo's run, the types the scene names; counts from the demo manifest or names only.
+    # Ordered: the kinds, by the first appearance of each in the demo's stream (demo.json events.order). Aggregated: the events of one kind travel as
+    # one group (the manifest keeps first appearances and counts, not every event's place). Without an order the kinds keep the table's order.
     groups = src['demo_kinds']
-    tallies, seq = [], []
-    for k in ('tool', 'state', 'text'):
+    kinds, kind_order = demo_kind_order(groups, counts)
+    tallies, order = [], ['life']
+    for k in kinds:
         names = groups[k]
         total = sum(counts['counts'].get(n, 0) for n in names) if counts else None
         label = names[0] if len(names) == 1 else 'TOOL_CALL_*'
         tallies.append(dict(label=label, kind=k, total=total))
-        seq.append((k, total if total is not None else 1))
-    tool_n, state_n, text_n = (n for _, n in seq)
-    order = ['life'] + ['tool'] * tool_n
-    # state and text interleaved in proportion (the scene does not claim their order; the tallies are the measured part)
-    a_s = a_t = 0
-    for _ in range(state_n + text_n):
-        if a_s < state_n and (a_t >= text_n or (a_s + .5) / state_n <= (a_t + .5) / text_n):
-            order.append('state'); a_s += 1
-        else:
-            order.append('text'); a_t += 1
+        order += [k] * (total if total is not None else 1)
     order.append('life')
     s0, s1, travel = 15.65, 20.25, 0.75
     step = (s1 - travel - s0) / max(1, len(order) - 1)
@@ -196,7 +202,7 @@ def timeline(src, counts=None):
     duration = ACTS[-1][2]
     return dict(w=W, h=H, fps=FPS, duration=duration, frames=int(round(duration * FPS)),
                 acts=[dict(name=n, a=a, b=b, head=h) for n, a, b, h in ACTS], request=req, run1=run1,
-                run2=dict(beads=beads, tallies=tallies, source_line=line), pulses=pulses, runs=runs, swap=swap,
+                run2=dict(beads=beads, tallies=tallies, source_line=line, kind_order=kinds, kind_order_from=kind_order), pulses=pulses, runs=runs, swap=swap,
                 agent_subs=[dict(text=src['server_label'], a=0.6, b=acts['tools'][0]), dict(text=src['demo_label'], a=acts['tools'][0], b=acts['swap'][0])],
                 log_y0=296, log_dy=40)
 
@@ -248,12 +254,12 @@ def node_dir():
 def three_build(nd):
     r = subprocess.run(['node', '-e', "console.log(require('path').dirname(require.resolve('three')))"], cwd=nd, capture_output=True, text=True, timeout=60)
     if r.returncode:
-        raise Refusal(f'three.js is not installed where the chain keeps its tooling ({nd})', f'cd {nd} && npm install --no-save --ignore-scripts three@{THREE_VERSION}')
+        raise Refusal(f'three.js is not installed where the chain keeps its tooling ({nd})', f'cd {nd} && npm install --ignore-scripts (video/package.json pins three@{THREE_VERSION})')
     build = Path(r.stdout.strip())
     for n, want in THREE_PIN.items():
         got = sha(build / n) if (build / n).exists() else 'missing'
         if got != want:
-            raise Refusal(f'{build / n} has sha256 {got[:12]}, the pin is three@{THREE_VERSION} {want[:12]}', f'cd {nd} && npm install --no-save --ignore-scripts three@{THREE_VERSION}')
+            raise Refusal(f'{build / n} has sha256 {got[:12]}, the pin is three@{THREE_VERSION} {want[:12]}', f'cd {nd} && npm install --ignore-scripts (video/package.json pins three@{THREE_VERSION})')
     return build
 
 
