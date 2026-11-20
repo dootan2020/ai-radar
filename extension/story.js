@@ -294,7 +294,7 @@ function renderSourceFooterHTML(story, name, srcMap) {
 export const GUIDE_KIND = 'huong-dan';
 export const GUIDE_LABEL = 'Hướng dẫn';
 const guideText = text => esc(text).replace(/`([^`]+)`/g, '<code>$1</code>').replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
-const guideImage = src => src.startsWith('assets/') ? new URL(src, import.meta.url).href : src;
+const guideImage = src => src.startsWith('assets/') ? new URL(src, 'https://radar-ai-vn.pages.dev/').href : src;
 
 export function renderGuideBodyHTML(story) {
   const blocks = Array.isArray(story.body) ? story.body : [];
