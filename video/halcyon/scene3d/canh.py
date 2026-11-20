@@ -390,7 +390,8 @@ def run(job, out, say=print, now=None):
                           offline=dict(served=rj.get('served'), aborted=rj.get('aborted')), determinism=rj['determinism'],
                           labels=dict(min_size=rj['labels']['min_size'], checked_frames=rj['labels']['frames'], safe_bottom=SAFE_BOTTOM, column=COLUMN),
                           events=dict(list=src['events'], readme=src['readme']['url'], readme_sha256=src['readme']['sha256'], fence_sha256=src['fence']['sha256'], run=run_proof),
-                          counts=(dict(tallies={t['label']: t['total'] for t in data['run2']['tallies']}, source=counts['source'], date=counts['date']) if counts else None),
+                          counts=(dict(tallies={t['label']: t['total'] for t in data['run2']['tallies']}, source=counts['source'], date=counts['date'],
+                                       kind_order=data['run2']['kind_order'], kind_order_from=data['run2']['kind_order_from'], stream_order=counts.get('order')) if counts else None),
                           encoded=enc, render_seconds=rj.get('seconds'), wall_seconds=rj.get('wall_seconds'), encoder='h264_nvenc'))
     (out / 'clip.json').write_text(json.dumps(man, ensure_ascii=False, indent=1), encoding='utf-8', newline='\n')
     say(f'wrote {out / "clip.json"}: {data["frames"]} frames, GPU "{rj["renderer"]}", smallest text {man["min_text_px"]} px, render {rj.get("seconds")} s')
