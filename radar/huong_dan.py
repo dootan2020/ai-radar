@@ -3,8 +3,10 @@
 A guide is Vietnamese prose the team wrote itself, so it never goes through the newsroom's writer and scoring desk,
 the translation step or the summary step. What stands in for the scoring desk is the owner's approval, recorded in
 the file (who, when, in his own words). A file without a complete approval is refused with a message that names the
-file and the missing field, and nothing of it reaches a reader. `is_guide` is the one test the narrow bypasses in
-the decision gate, the story pages and the search index share; it needs both the guide kind and a valid approval.
+file and the missing field, and nothing of it reaches a reader. The approval itself never leaves the file: the story
+the loader builds carries only `approved: true`, so no published projection holds the approver or his words.
+`is_guide` is the one test the narrow bypasses in the decision gate, the story pages and the search index share; it
+needs the guide kind, the guide source and that flag, which only this loader sets, after the approval check.
 """
 
 from __future__ import annotations
@@ -69,9 +71,10 @@ def approval_valid(approval, now=None):
 
 
 def is_guide(story):
-    """The only thing that lets a story skip the scoring desk: the guide kind plus a valid owner approval."""
+    """The only thing that lets a story skip the scoring desk: the guide kind and source, set with "approved" by the loader
+    after it checked the owner's approval."""
     return bool(isinstance(story, dict) and story.get("kind") == KIND and story.get("source_id") == SOURCE_ID
-                and approval_valid(story.get("approval")))
+                and story.get("approved") is True)
 
 
 def _check_block(index, block):
@@ -156,7 +159,7 @@ def guide_story(row):
         "key_points": points, "key_points_source": "nguoi-viet", "key_points_machine": False,
         "key_points_prompt_version": DESK_PROMPT_VERSION,
         "summary_sources": [dict(s) for s in row["summary_sources"]], "summary_limitations": [],
-        "body": [dict(block) for block in row["body"]], "approval": dict(row["approval"]),
+        "body": [dict(block) for block in row["body"]], "approved": True,
         "coverage": [{"id": row["id"], "source": SOURCE_ID, "publisher": PUBLISHER, "title": row["title"].strip(),
                       "url": url, "published_at": published, "time_basis": "published", "metrics": {}}],
     }

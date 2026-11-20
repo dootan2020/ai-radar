@@ -27,7 +27,7 @@ All fields are required except `image`. Unknown fields are refused.
 | `approval` | `{"approved_by": "...", "approved_at": "<ISO time with zone>", "words": "<the owner's own words>"}`; all three, nothing else, `approved_at` not in the future |
 | `image` | Optional `https://` URL for the card's picture. Without it the site draws a cover |
 
-The approval block is published with the story (the owner's words are short, for example "Duyệt cả hai"). Do not put anything private in it.
+The approval stays in the file. The loader checks it, then builds a story that carries only `approved: true`: no published file (story JSON, window and head projections, search index, pages) holds the approver or his words, and a test checks that. Archived pages keep working from that flag.
 
 ## Body blocks
 
@@ -49,7 +49,7 @@ Inline text in `text` and `items` supports `**bold**` and `` `code` ``. Everythi
 
 ## Rules the code enforces
 
-- The bypass in the decision gate, the story pages and the search index applies only to a story with `kind` `huong-dan`, source `hco-huong-dan` **and** a valid approval block. Anything else still needs a scored decision row.
+- The bypass in the decision gate, the story pages and the search index applies only to a story with `kind` `huong-dan`, source `hco-huong-dan` **and** `approved: true`, which only the loader sets, after the approval check. Anything else still needs a scored decision row.
 - `radar.translate` skips guides and `radar.summarize` leaves them alone (they carry desk prose); both are tested.
 - Code: `radar/huong_dan.py` (loader, validation, `is_guide`), `build.py` (injection), `radar/story_pages.py` and `site/story.js` (the same body markup for crawlers and for the app), `site/story.css` (`.story-kicker`, `.guide-*`), `site/feed.js` (`srcOf`).
 - Example and test fixture: `tests/fixtures/huong-dan/hd-thu-nghiem-fixture.json` (fake content, never copied into `data/`).

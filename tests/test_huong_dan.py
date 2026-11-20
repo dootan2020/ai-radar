@@ -8,6 +8,7 @@ import shutil
 import subprocess
 import tempfile
 import unittest
+from unittest.mock import patch
 
 from radar import summary_gemini as gemini, summary_pipeline, translate
 from radar.huong_dan import KIND, GuideError, guide_story, inject, is_guide, load_guides, validate
@@ -103,8 +104,8 @@ class GateTests(unittest.TestCase):
         self.assertEqual(result["sections"], {"hot": [NAME]})
         self.assertEqual(result["stories"][0]["body"], self.guide["body"])
 
-    def test_the_bypass_needs_the_kind_the_source_and_a_valid_approval(self):
-        for mutate in (lambda s: s.pop("approval"), lambda s: s["approval"].pop("words"),
+    def test_the_bypass_needs_the_kind_the_source_and_the_loader_flag(self):
+        for mutate in (lambda s: s.pop("approved"), lambda s: s.update(approved="yes"),
                        lambda s: s.update(kind="product"), lambda s: s.update(source_id="elsewhere"),
                        lambda s: s.update(key_points=["Một."])):
             story = deepcopy(self.guide)
@@ -118,13 +119,13 @@ class GateTests(unittest.TestCase):
         archive = {NAME: deepcopy(self.guide), "abc123": machine_story()}
         self.assertEqual(sorted(gated_stories(archive, None)), [NAME])
         forged = deepcopy(self.guide)
-        forged.pop("approval")
+        forged.pop("approved")
         self.assertEqual(gated_stories({NAME: forged}, None), {})
 
     def test_search_indexes_an_archived_guide_only_with_approval(self):
         payload = {"generated_at": "2026-11-20T00:00:00Z", "stories": [], "sources": []}
         forged = deepcopy(self.guide)
-        forged.pop("approval")
+        forged.pop("approved")
         found = search_payload(payload, {NAME: self.guide, "x1": machine_story("x1")}, None)
         self.assertEqual([r["id"] for r in found["stories"]], [NAME])
         self.assertEqual(search_payload(payload, {NAME: forged}, None)["stories"], [])
@@ -157,6 +158,41 @@ class GateTests(unittest.TestCase):
             self.assertTrue((Path(directory) / "tin" / NAME / "index.html").is_file())
             self.assertFalse((Path(directory) / "tin" / "abc123").exists())
             self.assertIn(f"/tin/{NAME}/", (Path(directory) / "sitemap.xml").read_text(encoding="utf-8"))
+
+
+class ApprovalStaysInTheFileTests(unittest.TestCase):
+    def test_no_published_projection_holds_the_approver_or_his_words(self):
+        from radar import site_payload
+        data = row()
+        secrets = [data["approval"]["approved_by"], data["approval"]["words"], data["approval"]["approved_at"],
+                   '"approval"']
+        guide = load_guides(FIXTURES, NOW)[0]
+        payload = {"schema_version": 2, "generated_at": "2026-11-20T05:00:00Z", "sources": [], "repos": [],
+                   "events": [], "live": [], "stories": [machine_story()], "sections": {}}
+        inject(payload, guide)
+        with tempfile.TemporaryDirectory() as directory, patch.dict(
+                "os.environ", {"RADAR_NEWSROOM_DECISIONS": str(Path(directory) / "none.json")}):
+            site = Path(directory) / "site"
+            (site / "data").mkdir(parents=True)
+            site_payload.write_site_snapshot(payload, site / "data" / "radar.json")
+            published = {p.name: p.read_text(encoding="utf-8") for p in (site / "data").iterdir()}
+            ui = json.loads(published["radar-ui.json"])
+            archive = {s["id"]: s for s in ui["stories"]}
+            render_site(archive, site, decisions=None)
+            for page in (site / "tin").rglob("*.html"):
+                published[str(page.relative_to(site))] = page.read_text(encoding="utf-8")
+            published["sitemap.xml"] = (site / "sitemap.xml").read_text(encoding="utf-8")
+        self.assertTrue({"radar.json", "radar-ui.json", "radar-window.json", "radar-head.json",
+                         "radar-search.json"} <= set(published), sorted(published))
+        self.assertTrue(any(name.startswith("tin") and NAME in name for name in published), sorted(published))
+        # radar-intake.json is the newsroom's unfiltered copy, never deployed, but it too carries only the flag.
+        for name, text in published.items():
+            for secret in secrets:
+                self.assertNotIn(secret, text, name)
+        self.assertIn('"approved":true', published["radar-ui.json"].replace(" ", ""))
+        guide_row = next(s for s in ui["stories"] if s["id"] == NAME)
+        self.assertNotIn("approval", guide_row)
+        self.assertEqual(guide_row["body"], guide[0]["body"])
 
 
 class MachineStepsLeaveGuidesAloneTests(unittest.TestCase):
