@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-20T15:59:46.263151+00:00",
-  "input_generated_at": "2026-11-20T14:45:57Z",
+  "generated_at": "2026-11-20T17:53:15.611440+00:00",
+  "input_generated_at": "2026-11-20T16:45:56Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -113244,10 +113244,10 @@
       "use_original_title": true,
       "source_url": "https://www.semafor.com/article/11/20/2026/outages-trigger-congressional-scrutiny-of-ai-enabled-attacks",
       "key_points": [
-        "Chính quyền Trump cho biết loạt sự cố công nghệ gần đây xuất phát từ việc các doanh nghiệp vội vã vá mạng lưới khi AI làm lộ lỗ hổng phần mềm cũ.",
-        "Các chuyên gia an ninh mạng nhận định chính phủ phần lớn nói đúng về nguyên nhân, nhưng cảnh báo bất ổn kỹ thuật số nghiêm trọng hơn sắp diễn ra.",
-        "Hai thượng nghị sĩ Maria Cantwell và Mike Rounds đã gửi thư kêu gọi mở nỗ lực quốc gia đối phó đe dọa mạng từ AI. Một nhà vận động hành lang nêu ví dụ vụ tấn công vào một ngân hàng cộng đồng có thể thúc đẩy chính quyền hành động.",
-        "Các nguồn tin quốc hội dự đoán tăng cường an ninh mạng AI sẽ là mục tiêu lập pháp trọng tâm từ tháng 1 tới. Dù vậy, Semafor nhận định chính quyền Trump có thể không can thiệp hỗ trợ khi các sự cố hoặc cuộc tấn công AI tiếp tục gia tăng."
+        "Chính quyền Trump cho biết loạt sự cố công nghệ gần đây diễn ra trên khắp nước Mỹ. Các chuyên gia an ninh mạng nhận định chính phủ phần lớn nói đúng, nhưng cảnh báo bất ổn tồi tệ hơn sắp tới.",
+        "Chính quyền Trump giải thích doanh nghiệp vội vã vá mạng lưới khi AI làm lộ lỗ hổng phần mềm cũ là nguyên nhân sự cố.",
+        "Thư thúc giục nỗ lực quốc gia đối phó đe dọa mạng từ AI đã được Thượng nghị sĩ Maria Cantwell và Mike Rounds gửi tới Giám đốc Tình báo Quốc gia.",
+        "Semafor nhận định chính phủ có thể không hỗ trợ khi sự cố gia tăng do cách tiếp cận buông lỏng của ông Trump đối với AI. Cơ quan an ninh mạng CISA cũng có nguy cơ kéo dài tình trạng thiếu giám đốc thường trực."
       ],
       "same_event_coverage_ids": [
         "204988e0128cd83ef45c"
@@ -113266,7 +113266,7 @@
         "is_leak": true
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Nghị sĩ Mỹ kêu gọi đối phó đe dọa mạng từ AI, hướng tới mục tiêu lập pháp trọng tâm vào tháng 1",
+      "editorial_headline_vi": "Nghị sĩ Mỹ thúc đẩy ứng phó đe dọa mạng từ AI khi CISA có nguy cơ tiếp tục thiếu giám đốc",
       "summary_sources": [
         {
           "id": "outlet",
@@ -113279,30 +113279,24 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.75,
+        "value": 8.45,
         "answers": {
           "what": 9,
           "why": 10,
-          "notable": 8,
+          "notable": 7,
           "meaning": 8
         },
-        "hard_errors": [
-          {
-            "kind": "role",
-            "summary_text": "Các nguồn tin quốc hội",
-            "explanation": "The prediction is attributed to a tech lobbyist and a Hill source, not two congressional sources (outlet:p004, outlet:p006)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
             "question": "notable",
-            "problem": "A reader may take the community bank attack as an event that occurred.",
-            "fix": "Make clear that the lobbyist posed an attack on a midsized community bank as a hypothetical; the attack mentioned as having happened was on Hugging Face (outlet:p007)."
+            "problem": "The reader cannot tell why CISA may remain without a permanent director.",
+            "fix": "Add that two senators said they would hold up nominee Michael LoSapio after his answers about January 6 and the 2020 election at his confirmation hearing (outlet:p008–p009)."
           },
           {
             "question": "meaning",
-            "problem": "The summary omits a concrete obstacle to a stronger federal response.",
-            "fix": "Add that CISA may remain without a permanent director longer after two senators said they would hold Trump’s nominee (outlet:p008-p009)."
+            "problem": "The anticipated congressional response is missing.",
+            "fix": "Add that sources described AI cybersecurity as a coming legislative goal alongside broader AI bills (outlet:p004–p006)."
           }
         ],
         "writer_boats": [
@@ -113310,8 +113304,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "1035c4e402ae4a1c22438832392fe1bba096cd3094b5500cc82012b78c36ab52",
-        "scored_at": "2026-11-20T15:59:46.253667+00:00"
+        "prose_sha256": "86903c293be7b30828138271a437afbeeae4871e966b19dccb2277be89ceeec1",
+        "scored_at": "2026-11-20T17:53:15.593744+00:00"
       }
     },
     {
@@ -113456,10 +113450,10 @@
       "use_original_title": true,
       "source_url": "https://www.tomshardware.com/tech-industry/data-centers/elon-musks-spacexai-suffers-chemical-spill-at-mississippi-ai-data-center-up-to-6-000-gallons-of-propylene-glycol-heat-transfer-fluid-lost-environment-agency-says-no-threat-to-residents",
       "key_points": [
-        "Cơ quan Quản lý Chất lượng Môi trường Mississippi (MDEQ) đã can thiệp sau sự cố tràn từ 5.000 đến 6.000 gallon propylene glycol tại một cơ sở của SpaceXAI ở Southaven. Lượng hóa chất này là chất lỏng truyền nhiệt dùng trong nhiều sản phẩm như chất chống đông, và đã chảy vào một con mương thoát nước tại cơ sở.",
-        "Hóa chất được khống chế bên trong mương thoát nước và không chảy tới rạch Horn Lake Creek ở gần đó. Giới chức xác nhận các mẫu nước được thu thập phục vụ phân tích trong phòng thí nghiệm trong khi công nhân tiếp tục dọn dẹp hiện trường.",
-        "Tại khu vực Southaven, SpaceXAI cũng gặp bất lợi trong một vụ kiện ô nhiễm từ tháng 4 năm 2026 liên quan đến nhà máy điện khí cung cấp năng lượng cho cơ sở của công ty. Đơn kiện cáo buộc 27 tuabin khí được lắp đặt khi chưa có giấy phép và có thể phát thải hơn 5.000 tấn oxit nitơ cùng 47 tấn formaldehyde mỗi năm.",
-        "Theo tin tức địa phương được dẫn lại, MDEQ thông báo với cư dân rằng sự cố không gây ra mối đe dọa tức thời đối với sức khỏe hoặc sự an toàn của họ. Dù vậy, các công nhân vẫn tiếp tục theo dõi hiện trường và cơ quan chức năng tiến hành kiểm nghiệm nước phòng ngừa các vấn đề phát sinh."
+        "Cơ quan Quản lý Chất lượng Môi trường Mississippi (MDEQ) đã can thiệp sau sự cố tràn từ 5.000 đến 6.000 gallon hóa chất propylene glycol tại một cơ sở của SpaceXAI ở Southaven.",
+        "Hóa chất này là một loại chất lỏng truyền nhiệt được sử dụng trong nhiều sản phẩm như chất chống đông. Lượng chất lỏng nói trên sau cùng đã chảy vào một con mương thoát nước.",
+        "Theo các báo cáo, lượng hóa chất đã được khống chế bên trong con mương thoát nước và không chảy tới rạch Horn Lake Creek ở gần đó. Trước đó vào đầu tháng này, SpaceXAI tại Southaven cũng gặp bất lợi trong một vụ kiện ô nhiễm liên quan đến cáo buộc lắp đặt 27 tuabin khí không phép có thể phát thải hơn 5.000 tấn oxit nitơ và 47 tấn formaldehyde mỗi năm.",
+        "Theo các báo cáo tin tức địa phương, MDEQ đã thông báo với cư dân rằng không có mối đe dọa tức thời nào đối với sức khỏe hoặc sự an toàn của họ. Thông tin cũng xác nhận các mẫu nước sẽ được thu thập cho việc phân tích trong phòng thí nghiệm trong khi các công nhân tiếp tục dọn dẹp và theo dõi khu vực."
       ],
       "same_event_coverage_ids": [
         "ca077d95829e545ed6e0"
@@ -113475,7 +113469,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Sự cố tràn hóa chất tại cơ sở SpaceXAI: MDEQ nhận định không có mối đe dọa tức thời đối với cư dân",
+      "editorial_headline_vi": "Sự cố tràn hóa chất tại cơ sở SpaceXAI: MDEQ thông báo không có mối đe dọa tức thời tới người dân",
       "summary_sources": [
         {
           "id": "outlet",
@@ -113488,54 +113482,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.1,
+        "value": 10.0,
         "answers": {
           "what": 10,
           "why": 10,
-          "notable": 8,
-          "meaning": 8
+          "notable": 10,
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "một con mương thoát nước tại cơ sở",
-            "explanation": "The source says the chemical reached a drainage ditch but does not locate that ditch within the facility (outlet:p015)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "các mẫu nước được thu thập phục vụ phân tích trong phòng thí nghiệm",
-            "explanation": "The source says water samples will be collected for further laboratory analysis, not that collection has occurred (outlet:p023)."
-          },
-          {
-            "kind": "role",
-            "summary_text": "Giới chức xác nhận",
-            "explanation": "The source says the planned sampling was confirmed but does not identify officials as the confirming party (outlet:p023)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "cơ quan chức năng tiến hành kiểm nghiệm nước",
-            "explanation": "The source describes water collection and laboratory analysis as forthcoming, and does not say an agency has begun testing (outlet:p023)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "meaning",
-            "problem": "Readers are told that water sampling and testing have already begun.",
-            "fix": "Say samples will be collected for further laboratory analysis while workers continue cleanup and monitoring (outlet:p023)."
-          },
-          {
-            "question": "notable",
-            "problem": "The summary places the drainage ditch inside the facility without source support.",
-            "fix": "Say only that the chemical reached a drainage ditch and reportedly did not reach Horn Lake Creek (outlet:p015, outlet:p023)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "17155307fa2ec29ff47b1c628b95888683be1f0a320b3d7b441d58cb44bc2d87",
-        "scored_at": "2026-11-20T15:59:46.253811+00:00"
+        "prose_sha256": "1dd8d787d45bcfe7e6a0bbc8817af8b0522849a53be78c73ecca23928f26bde3",
+        "scored_at": "2026-11-20T17:40:40.925733+00:00"
       }
     },
     {
@@ -114345,10 +114307,10 @@
       "use_original_title": true,
       "source_url": "https://backpackforlaravel.com/articles/opinions/llms-txt-and-mcp-didn-t-move-the-needle-for-us-here-s-what-did",
       "key_points": [
-        "Trong bài viết chia sẻ quan điểm, người bảo trì Backpack for Laravel nhận định tệp llms.txt và máy chủ MCP tài liệu hầu như không giúp ích cho tác tử AI (phần mềm tự động lập trình). Dù thời gian tạo bảng quản trị giảm từ vài ngày xuống một đến hai giờ, tác giả cho biết hiệu quả không đến từ hai giải pháp này.",
-        "Tác giả giải thích tác tử hoạt động kém khi phải tự nhớ tìm nạp thông tin, như việc hiếm khi tìm llms.txt hay gọi máy chủ MCP. Trái lại, API cốt lõi ổn định suốt bốn năm giúp các đoạn mã đã lưu trong dữ liệu huấn luyện luôn giữ đúng độ chính xác.",
-        "Với gói thương mại, tác giả coi trọng nhất việc cài đặt mã nguồn rõ ràng vào thư mục vendor không mã hóa, cho phép tác tử tự đọc khi tra cứu thắc mắc. Đồng thời, plugin Laravel Boost nạp thẳng chỉ dẫn khớp phiên bản vào ngữ cảnh ngay từ đầu, khắc phục việc mô hình viết theo cú pháp cũ.",
-        "Tác giả khuyên các gói phần mềm nên đưa tệp hướng dẫn khớp phiên bản thẳng vào ngữ cảnh của tác tử thay vì chờ tìm nạp. Người bảo trì kết luận máy chủ MCP chỉ phù hợp với dữ liệu trực tiếp hoặc công cụ, không dành cho tài liệu tĩnh."
+        "Trong bài viết chia sẻ quan điểm, người bảo trì Backpack for Laravel nhận định tệp llms.txt và máy chủ MCP (giao thức kết nối ngữ cảnh cho mô hình) hầu như không giúp ích cho tác tử AI (phần mềm tự động lập trình). Tác giả cho biết hiệu quả lập trình phần lớn nhờ các quyết định kiến trúc lâu năm thay vì tính năng mới cho AI.",
+        "Tác giả giải thích tác tử hoạt động kém khi phải tự nhớ tìm nạp thông tin, thay vì có sẵn trong ngữ cảnh. Thực tế, tác tử hiếm khi tìm llms.txt hay gọi máy chủ MCP, và các truy vấn tới MCP tài liệu thường quá ngắn.",
+        "Cụ thể, thời gian tạo bảng quản trị giảm từ một hoặc hai ngày xuống còn khoảng một đến hai giờ nhờ tác tử tự tạo mã và cấu hình. Dù vậy, tác giả lưu ý mặt trái là mô hình đôi khi viết theo cú pháp cũ, buộc dự án phải dùng tệp hướng dẫn riêng.",
+        "Tác giả kết luận máy chủ MCP chỉ phù hợp với dữ liệu trực tiếp hoặc công cụ, không dành cho tài liệu tĩnh. Người bảo trì khuyên các gói phần mềm nên cung cấp tệp hướng dẫn ngắn khớp phiên bản để nạp thẳng vào ngữ cảnh của tác tử."
       ],
       "same_event_coverage_ids": [
         "7fa0e8bfcb2113c3116e"
@@ -114377,25 +114339,24 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.45,
+        "value": 8.55,
         "answers": {
           "what": 9,
-          "why": 10,
-          "notable": 7,
+          "why": 9,
+          "notable": 8,
           "meaning": 8
         },
-        "hard_errors": [
-          {
-            "kind": "number",
-            "summary_text": "từ vài ngày xuống một đến hai giờ",
-            "explanation": "The author says the task previously took one day, perhaps two, and now takes one or two hours; “vài ngày” overstates the starting duration (outlet:p001–p002)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
+            "question": "meaning",
+            "problem": "Readers miss the package choices the maintainer identifies as his biggest gains.",
+            "fix": "Add the stable API and readable code in vendor/ alongside the recommendation for version-matched instructions (outlet:p013-p021, outlet:p027-p029)."
+          },
+          {
             "question": "notable",
-            "problem": "The reader is told the admin-panel task used to take several days.",
-            "fix": "Say it used to take one day, perhaps two, and now takes one or two hours (outlet:p001–p002)."
+            "problem": "Readers do not get the concrete way to place Backpack guidance in an agent’s context.",
+            "fix": "Mention the Laravel Boost plugin and its php artisan boost:install path (outlet:p027-p028)."
           }
         ],
         "writer_boats": [
@@ -114403,8 +114364,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "73e4ea0c8bd998aaece63f912c10df070243cbca649b7af22a88622720313f22",
-        "scored_at": "2026-11-20T15:46:53.799345+00:00"
+        "prose_sha256": "c05d2d72fda37b0aa247134ad80d24121c373ce1531c6d2e07f124420f4e38fa",
+        "scored_at": "2026-11-20T17:40:40.925557+00:00"
       }
     },
     {
@@ -114599,10 +114560,10 @@
       "use_original_title": true,
       "source_url": "https://analyticsindiamag.com/it-services/ai-is-forcing-mid-tier-indian-it-companies-to-rethink-their-competitive-advantage",
       "key_points": [
-        "Các công ty IT tầm trung Ấn Độ liên tiếp thâu tóm doanh nghiệp công nghệ trong quý 2 để mở rộng quy mô. Tại Coforge, doanh thu tăng 10,9% theo tỷ giá cố định nhờ các vụ sáp nhập, trong khi tăng trưởng hữu cơ chỉ đạt 3,8%.",
-        "Trong khi đó, chuyên gia DD Mishra của Gartner nhận định lợi thế của họ là am hiểu vận hành để đưa mô hình ngôn ngữ lớn vào đúng nhu cầu kinh doanh.",
-        "Coforge thâu tóm Encora với giá 22.090 crore rupee để bù đắp doanh thu, mang về khoảng 1.382 đến 1.391 crore rupee trong quý 2. Dù vậy, chi phí tích hợp thực tế đạt 160 crore rupee, vượt dự báo 141 đến 150 crore rupee và kéo biên lợi nhuận EBIT hợp nhất xuống 16%.",
-        "Analytics India Magazine nhận định doanh nghiệp IT chịu áp lực chi phí sáp nhập và áp lực tạo khác biệt khi ứng dụng AI mở rộng. Chuyên gia DD Mishra của Gartner lưu ý một số khách hàng đã thu hồi tác nhân AI (phần mềm tự hành thực hiện tác vụ) và phạt nhà cung cấp sau triển khai thất bại."
+        "Các hãng IT tầm trung Ấn Độ gồm Coforge, Cyient và Mphasis đã đẩy mạnh mua lại các công ty kỹ thuật dữ liệu và trí tuệ quyết định trong quý 2. Persistent dự kiến hoàn tất thâu tóm Nagarro vào quý 1 năm 2027, dù còn chờ cấp phép từ Ngân hàng Dự trữ Ấn Độ và cơ quan quản lý Áo, Tây Ban Nha.",
+        "Ông khẳng định rất ít công ty mua lại chủ yếu để loại bỏ đối thủ hay thâu tóm khách hàng.",
+        "Cụ thể, doanh thu quý 2 của Coforge tăng 10,9% theo quý theo tỷ giá cố định nhờ các vụ mua lại, so với mức tăng trưởng hữu cơ 3,8%. Biên lợi nhuận EBIT (lợi nhuận trước lãi vay và thuế) hợp nhất của Coforge đạt 16% so với 17% của hoạt động kinh doanh riêng lẻ, trong khi chi phí tích hợp chạm 160 crore rupee.",
+        "Analytics India Magazine nhận định thâu tóm mang lại năng lực chuyên môn và quan hệ khách hàng, trong bối cảnh AI làm thay đổi cách định giá dịch vụ. Tuy nhiên, kết quả quý 2 cho thấy gánh nặng chi phí tích hợp và áp lực tìm kiếm nguồn khác biệt hóa mới khi việc ứng dụng AI mở rộng."
       ],
       "same_event_coverage_ids": [
         "22b23d30e2472ce0ee47"
@@ -114618,7 +114579,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Coforge và loạt hãng IT Ấn Độ ồ ạt mua lại doanh nghiệp dữ liệu để bù đắp tăng trưởng",
+      "editorial_headline_vi": "Các hãng IT tầm trung Ấn Độ đẩy mạnh thâu tóm để bổ sung kỹ năng AI giữa áp lực chi phí tích hợp",
       "summary_sources": [
         {
           "id": "outlet",
@@ -114631,70 +114592,35 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 5.8,
+        "value": 7.75,
         "answers": {
-          "what": 6,
-          "why": 2,
+          "what": 9,
+          "why": 5,
           "notable": 7,
-          "meaning": 8
+          "meaning": 10
         },
         "hard_errors": [
           {
-            "kind": "fact",
-            "summary_text": "ồ ạt mua lại doanh nghiệp dữ liệu",
-            "explanation": "The source discusses several different acquisitions, including data engineering, decision intelligence, and IT staffing contracts; it does not describe all of them as purchases of data companies or characterize the activity as a buying spree (outlet:p003, outlet:p009, outlet:p014)."
+            "kind": "cause",
+            "summary_text": "để bổ sung kỹ năng AI",
+            "explanation": "The source says acquisitions mainly bring new skills and technology, and can add customer relationships; it does not give AI skills as the common purpose of these acquisitions (outlet:p007, outlet:p014, outlet:p031)."
           },
           {
             "kind": "cause",
-            "summary_text": "để bù đắp tăng trưởng",
-            "explanation": "The source says acquisitions supplement reported growth, but the stated primary acquisition rationale is to obtain specialist skills and technology, not a motive to compensate for weak growth (outlet:p001, outlet:p007)."
-          },
-          {
-            "kind": "cause",
-            "summary_text": "để mở rộng quy mô",
-            "explanation": "The source identifies specialist skills and technology as the main reason given for these acquisitions; it does not state expansion of scale as their purpose (outlet:p007)."
-          },
-          {
-            "kind": "cause",
-            "summary_text": "doanh thu tăng 10,9% theo tỷ giá cố định nhờ các vụ sáp nhập",
-            "explanation": "The source says acquisitions supplement growth and that an extra month of Encora revenue partly explains the gap between 10.9% consolidated and 3.8% organic growth. It does not attribute the entire 10.9% increase to acquisitions (outlet:p001–p002)."
-          },
-          {
-            "kind": "cause",
-            "summary_text": "để bù đắp doanh thu",
-            "explanation": "The source reports Coforge’s acquisition of Encora and Encora’s revenue contribution, but does not give making up revenue as Coforge’s motive (outlet:p002, outlet:p007)."
-          },
-          {
-            "kind": "cause",
-            "summary_text": "chi phí tích hợp thực tế đạt 160 crore rupee, vượt dự báo 141 đến 150 crore rupee và kéo biên lợi nhuận EBIT hợp nhất xuống 16%",
-            "explanation": "The source reports the 16% consolidated EBIT margin, the 17% standalone margin, and the higher-than-guided integration costs together. It does not state that those costs caused the margin to fall to 16% (outlet:p008)."
+            "summary_text": "doanh thu quý 2 của Coforge tăng 10,9% theo quý theo tỷ giá cố định nhờ các vụ mua lại",
+            "explanation": "The source says acquisitions supplemented growth and attributes the gap between consolidated and organic growth partly to including a full quarter of Encora revenue. It does not attribute the entire 10.9% growth to acquisitions (outlet:p001–p002)."
           }
         ],
         "findings": [
           {
             "question": "why",
-            "problem": "Readers are given revenue replacement and scale as acquisition motives.",
-            "fix": "State the Gartner analyst’s explanation: firms are mainly buying specialist skills and technology; some deals also add customer relationships (outlet:p007, outlet:p014)."
+            "problem": "The headline presents AI skills as the shared acquisition motive.",
+            "fix": "Say the firms are acquiring specialist skills, technology, and in some cases customer relationships; attribute the assessment about motives to Gartner analyst Milind Govekar (outlet:p007, outlet:p014)."
           },
           {
             "question": "notable",
-            "problem": "The growth figures lack the comparison that explains their gap.",
-            "fix": "Add that Encora contributed a full quarter in Q2 but only two months in Q1, and that this partly explains consolidated growth exceeding organic growth (outlet:p001–p002)."
-          },
-          {
-            "question": "what",
-            "problem": "The headline makes the acquisitions sound uniform in type and intensity.",
-            "fix": "Describe the distinct acquisitions and the proposed Nagarro deal without calling them all data-company purchases (outlet:p003, outlet:p009, outlet:p011, outlet:p014)."
-          },
-          {
-            "question": "notable",
-            "problem": "The summary presents an unproven causal link between integration costs and Coforge’s 16% margin.",
-            "fix": "Report the margin and costs as separate findings, with the 17% standalone margin as context (outlet:p008)."
-          },
-          {
-            "question": "meaning",
-            "problem": "Readers miss how AI is affecting the firms beyond acquisition costs.",
-            "fix": "Include the source’s conclusion that AI is changing service delivery and pricing, alongside the pressure to differentiate (outlet:p031)."
+            "problem": "The reader may take Coforge’s entire 10.9% growth as acquisition driven.",
+            "fix": "Explain that the gap with 3.8% organic growth partly reflects a full quarter of Encora revenue in Q2 versus two months in Q1 (outlet:p001–p002)."
           }
         ],
         "writer_boats": [
@@ -114702,8 +114628,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "2543406f3130e44176ff5ee84c2532a2a01c88cc80f89aa07a360d07aa6c4e77",
-        "scored_at": "2026-11-20T15:34:32.741823+00:00"
+        "prose_sha256": "1aefa09b6153bd7d66b0032005dcab745e9d9f54d8d5101ade945cb404ec4c89",
+        "scored_at": "2026-11-20T17:53:15.593611+00:00"
       }
     },
     {
@@ -114726,10 +114652,10 @@
       "use_original_title": true,
       "source_url": "https://spectrum.ieee.org/epic-games-unreal-engine-ai",
       "key_points": [
-        "Epic Games ra mắt Unreal Canvas trong Unreal Engine 5.9 bản xem trước cho nhà phát triển như một không gian làm việc giúp nắm bắt dự án. Hãng cũng sẽ loại bỏ hệ thống Blueprints trong Unreal Engine 6 để chuyển toàn bộ mã sang ngôn ngữ Verse.",
-        "Theo nhà phát triển Travis McGeathy, AI xử lý kém Blueprints và chuộng làm việc trực tiếp với mã nguồn hơn. Tạp chí IEEE Spectrum giải thích rằng Blueprints được lưu dưới dạng tệp nhị phân nên các mô hình ngôn ngữ lớn không thể đọc trực tiếp.",
-        "Claude Code giúp game KinForge chạy được mà không cần máy chủ AWS bằng cách cho phép người chơi tự lưu trữ ván đấu sau bốn giờ xử lý tự động. Công cụ AI này còn bổ sung kết nối ngang hàng cùng tính năng lưu trạng thái liên tục, một quy trình tác nhân AI (phần mềm tự hành thực hiện tác vụ) bỏ qua một phần giao diện động cơ game.",
-        "AI giúp hạ thấp chi phí chuyển đổi giữa các động cơ game, như trường hợp McGeathy dùng Claude để bắt đầu làm việc trên Godot dễ dàng dù chưa từng tiếp cận. Dù vậy, theo phó chủ tịch điều hành phát triển Marcus Wassmer của Epic Games, việc tự tạo động cơ bằng AI vẫn tiêu tốn rất nhiều token để tối ưu hóa và chạy trên mọi nền tảng."
+        "Epic Games dự kiến loại bỏ hệ thống lập trình trực quan Blueprints trong Unreal Engine 6 để chuyển toàn bộ mã sang ngôn ngữ Verse. Theo tạp chí IEEE Spectrum, trước đó hãng đã phát hành bản xem trước tính năng không gian làm việc Unreal Canvas trong Unreal Engine 5.9 vào ngày 9 tháng 11 năm 2026.",
+        "Nhà phát triển Travis McGeathy cho biết AI xử lý kém Blueprints và chuộng làm việc trực tiếp với mã nguồn hơn. Tạp chí IEEE Spectrum giải thích rằng Blueprints được lưu dưới dạng tệp nhị phân nên mô hình ngôn ngữ lớn không thể đọc trực tiếp, khác với ngôn ngữ Verse cho phép AI thao tác qua mã lệnh.",
+        "Điển hình, công cụ Claude Code của Anthropic chỉ mất bốn giờ xử lý gần như tự động để giúp trò chơi KinForge vận hành mà không cần máy chủ AWS. Claude Code còn bổ sung kết nối ngang hàng và tính năng lưu trạng thái giúp người chơi tiếp tục ván đấu nếu bị ngắt kết nối.",
+        "Theo Phó chủ tịch Marcus Wassmer, Epic Games đặt mục tiêu giữ sức cạnh tranh bằng cách thiết kế UE6 dạng mô-đun, mở giao diện lập trình cho AI và tương tác với các hệ sinh thái khác. Dù vậy, ông Wassmer nhận định việc tự tạo động cơ từ đầu vẫn tiêu tốn rất nhiều token để tối ưu hóa và vận hành trên mọi nền tảng."
       ],
       "same_event_coverage_ids": [
         "182608825a7e652c54be",
@@ -114747,7 +114673,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Epic Games sẽ loại bỏ Blueprints trong Unreal Engine 6 và ra mắt Unreal Canvas hỗ trợ AI",
+      "editorial_headline_vi": "Epic Games sẽ loại bỏ Blueprints trong Unreal Engine 6 để chuyển toàn bộ mã sang ngôn ngữ Verse",
       "summary_sources": [
         {
           "id": "outlet",
@@ -114762,30 +114688,24 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.4,
+        "value": 9.15,
         "answers": {
-          "what": 8,
-          "why": 10,
-          "notable": 8,
+          "what": 9,
+          "why": 9,
+          "notable": 10,
           "meaning": 8
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "tính năng lưu trạng thái liên tục",
-            "explanation": "The source says Claude added persistent save states, allowing players to resume after disconnection; it does not say the game saves continuously (outlet:p010)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "notable",
-            "problem": "The reader may understand KinForge to have gained continuous saving.",
-            "fix": "Describe persistent save states that let players resume after a disconnection (outlet:p010)."
+            "question": "meaning",
+            "problem": "Readers miss that AI is already reducing the cost of moving between engines.",
+            "fix": "Add McGeathy’s Unreal-to-Godot example and retain the article’s uncertainty about how engines will compete (outlet:p012, outlet:p027-p029)."
           },
           {
-            "question": "meaning",
-            "problem": "The reader misses how Epic intends to keep Unreal competitive as AI coding improves.",
-            "fix": "Add that UE6 is planned to be more modular, expose systems to AI tools, and interoperate with other ecosystems (outlet:p020, outlet:p024, outlet:p028)."
+            "question": "what",
+            "problem": "The UE6 transition appears limited to Blueprints.",
+            "fix": "Note that Verse is also planned to replace Unreal Engine 5’s C++ gameplay framework (outlet:p018)."
           }
         ],
         "writer_boats": [
@@ -114793,8 +114713,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "09dd50455f4cca75ada05a9842c3b497f47e8427ce85d25900daaa5dc8d5ff05",
-        "scored_at": "2026-11-20T15:46:53.799398+00:00"
+        "prose_sha256": "4c70a2f4912c4b2f2fe34f9a964d96f9437678c9031617792c8643b711a41576",
+        "scored_at": "2026-11-20T17:40:40.925654+00:00"
       }
     },
     {
@@ -114816,10 +114736,10 @@
       "use_original_title": false,
       "source_url": "https://www.wired.com/story/muse-is-unleashing-a-world-of-pettiness-on-instagram/",
       "key_points": [
-        "Theo tạp chí WIRED, nhiều người dùng chia sẻ mẹo tự động hủy theo dõi bằng Muse, trợ lý AI (trí tuệ nhân tạo) của Meta.",
-        "Theo WIRED, người dùng muốn tinh gọn bảng tin hoặc đòi hỏi sự tương tác hai chiều khi dọn tài khoản. Nhiều người coi việc theo dõi là nghĩa vụ có qua có lại và muốn lọc người quen đã bỏ theo dõi mình.",
-        "Điển hình, Muse xác định 151 tài khoản không theo dõi lại Khalil Roberts, người có hơn 7.600 người theo dõi, rồi lập bảng Excel để ông xác nhận hủy. Ở trường hợp khác, Elizabeth Brooks, người từng theo dõi tài khoản tặng quà suốt 10 năm, nhờ Muse gửi liên kết để tự tay hủy theo dõi.",
-        "Dù tính năng được chú ý, Business Insider đưa tin Meta đã gỡ quảng cáo hứa hẹn giúp xem ai hủy theo dõi mỗi tuần vào tháng 10."
+        "Theo tạp chí WIRED, nhiều người dùng mạng xã hội đang chia sẻ mẹo dùng trợ lý AI Muse của Meta để tự động hủy theo dõi hàng loạt trên Instagram. Tính năng này thu hút chú ý vì giúp người dùng thanh lọc danh sách theo dõi mà không bị gắn cờ thư rác như khi dùng ứng dụng bên thứ ba.",
+        "Theo ghi nhận của WIRED, một số người dùng hủy theo dõi vì xem đây là nghĩa vụ có qua có lại và không muốn theo dõi đơn phương.",
+        "Điển hình, Muse đã quét và lập bảng Excel phân loại 151 tài khoản không theo dõi lại Khalil Roberts để ông xác nhận trước khi hủy. Ở trường hợp khác, Elizabeth Brooks, một người hay tham gia thi nhận thưởng, đã nhờ Muse hỗ trợ hủy theo dõi các tài khoản tặng quà mà bà theo dõi suốt mười năm.",
+        "Phó giáo sư Natalie Pennington tại Đại học Bang Colorado cảnh báo rủi ro khi phó thác quyết định xã hội cho công nghệ, lưu ý dữ liệu nền tảng chưa chắc là điều cần biết. Ông Roberts cũng khẳng định hủy theo dõi là giới hạn cuối cùng và sẽ không để Muse quyết định thêm bất kỳ điều gì trong đời sống xã hội."
       ],
       "same_event_coverage_ids": [
         "84200a923e62d184acc9"
@@ -114835,7 +114755,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Người dùng tận dụng trợ lý AI Muse của Meta để tự động lọc và hủy theo dõi hàng loạt trên Instagram",
+      "editorial_headline_vi": "Người dùng tận dụng trợ lý AI Muse của Meta để lọc và hủy theo dõi hàng loạt trên Instagram",
       "summary_sources": [
         {
           "id": "outlet",
@@ -114848,24 +114768,30 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.35,
+        "value": 8.5,
         "answers": {
-          "what": 10,
-          "why": 9,
-          "notable": 10,
-          "meaning": 7
+          "what": 9,
+          "why": 8,
+          "notable": 8,
+          "meaning": 9
         },
-        "hard_errors": [],
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "không bị gắn cờ thư rác như khi dùng ứng dụng bên thứ ba",
+            "explanation": "The source reports Roberts’s belief that using Muse would avoid a spam flag and says he had heard accounts of people being removed for using third-party apps. It does not establish a general guarantee for Muse or say third-party use invariably triggers a spam flag (outlet:p001–p002)."
+          }
+        ],
         "findings": [
           {
-            "question": "meaning",
-            "problem": "The reader misses the article’s caution about letting technology make small social decisions.",
-            "fix": "Attribute Pennington’s concern and her point that easily available social data is not necessarily useful (outlet:p009–p010)."
+            "question": "why",
+            "problem": "The reader is given a general assurance that Muse avoids spam flags.",
+            "fix": "Attribute that expectation to Roberts and describe the third-party-app stories as what he had heard (outlet:p001–p002)."
           },
           {
-            "question": "meaning",
-            "problem": "The reader does not learn where Roberts draws the line after this unfollowing exercise.",
-            "fix": "Add that he does not plan to let Muse make further decisions about his social life (outlet:p015–p016)."
+            "question": "notable",
+            "problem": "Brooks’s example leaves unclear who performed the unfollows.",
+            "fix": "State that Muse supplied profile links and Brooks manually unfollowed the accounts one by one (outlet:p014)."
           }
         ],
         "writer_boats": [
@@ -114873,8 +114799,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "892f7e7fe967311f51f535f9a980c904e69bd9f7d1def8572dfe25c835490efe",
-        "scored_at": "2026-11-20T15:46:53.799420+00:00"
+        "prose_sha256": "1d8e493006356c1d0221d61b068799e1e3b1007d274e719f75fef04a64598159",
+        "scored_at": "2026-11-20T17:53:15.593690+00:00"
       }
     },
     {
@@ -115340,6 +115266,453 @@
         "scorer_provider": "codex",
         "prose_sha256": "eb24923a985b584a1a77b43a2dc40de4b2abbd3181a6bb6db9c5702c4e4f38ca",
         "scored_at": "2026-11-20T15:46:53.799478+00:00"
+      }
+    },
+    {
+      "id": "a9b311259107780377c5",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/20/2026/silicon-valley-needs-to-listen-to-the-ai-backlash",
+      "key_points": [
+        "Tác giả Ashley trên Semafor nhận định giới phát triển AI nhận thức rõ không phải ai cũng đồng thuận với tầm nhìn của họ, trong bối cảnh làn sóng phản đối AI đang dâng cao tại Mỹ. Tại hội nghị ở Palo Alto, Thượng nghị sĩ Mark Kelly nêu ví dụ một dự án trung tâm dữ liệu (nơi đặt hệ thống máy chủ vận hành AI) ở New Mexico có quy mô tương đương 1.000 sân bóng đá.",
+        "Các lãnh đạo công nghệ vẫn tìm cách tiếp tục mở rộng quy mô dù nguồn tài chính bấp bênh hơn và quy định pháp lý ngày càng khó xoay xở.",
+        "Đồng thời, những ứng cử viên theo đuổi thông điệp siết chặt quản lý AI cũng giành chiến thắng áp đảo tại các khu vực cạnh tranh.",
+        "Semafor nhận định các lãnh đạo công nghệ có lẽ nên xem xét nghiêm túc hơn những phản đối về quy mô tăng trưởng của AI. Dù vậy, giới công nghệ vẫn có đồng minh tại Nhà Trắng khi Tổng thống Donald Trump cảnh báo quy định ngặt nghèo có thể bóp nghẹt sự phát triển của AI."
+      ],
+      "same_event_coverage_ids": [
+        "0e611c69e09977d1802e"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Silicon Valley AI backlash and data center regulation",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Mark Kelly",
+          "Donald Trump",
+          "Jensen Huang"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Hơn 40 biện pháp bỏ phiếu siết trung tâm dữ liệu được thông qua giữa làn sóng phản đối AI tại Mỹ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/20/2026/silicon-valley-needs-to-listen-to-the-ai-backlash"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.9,
+        "answers": {
+          "what": 9,
+          "why": 7,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The reader does not learn how many tech leaders explain away public opposition.",
+            "fix": "Add that many view it as a marketing, education, or location problem and do not see it as a reason to stop building (outlet:p008)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The summary leaves out the source’s warning that governors and state lawmakers are ready to act.",
+            "fix": "Mention that state officials are already responding to anti-AI sentiment (outlet:p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "3bba351d26ad73398e15ab07ed994a984fad895607acaa36c9aa25cae8457469",
+        "scored_at": "2026-11-20T17:27:06.518719+00:00"
+      }
+    },
+    {
+      "id": "675650dffca0c9d45983",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "top",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/ai-artificial-intelligence/1010051/anthropic-riemann-hypothesis-millennium-prize-problem",
+      "key_points": [
+        "The Verge đưa tin nhà toán học Levent Alpöge tại Anthropic tuyên bố đã chứng minh Giả thuyết Riemann (bài toán toán học hóc búa về quy luật phân phối số nguyên tố) với sự hỗ trợ của mô hình Claude. Công trình này được công bố trên trang web cá nhân của Alpöge sau khi Anthropic thực hiện đợt chào bán cổ phiếu lần đầu ra công chúng (IPO).",
+        "Tác giả cho biết ông đã gửi tin nhắn về bài giải cho Giám đốc điều hành Dario Amodei vào đêm muộn Chủ nhật trước khi công bố.",
+        "Trên trang web cá nhân, Alpöge tuyên bố phương pháp này giải quyết Giả thuyết Riemann Tổng quát và ông kỳ vọng sẽ giải quyết tiếp Giả thuyết Riemann Mở rộng nếu có thêm thời gian. Theo quy định của Viện Toán học Clay, bài giải đề xuất phải được xuất bản, chịu đựng ít nhất hai năm thẩm định và nhận được sự công nhận chung từ cộng đồng toán học toàn cầu trước khi được xem xét trao thưởng.",
+        "The Verge nhận định nếu được xác thực, chứng minh này sẽ đánh dấu một thành tựu địa chấn của AI trong toán học, dù bài giải hiện vẫn chưa được kiểm chứng độc lập. Đáng chú ý, chính Anthropic từng lưu ý vào tháng 8 rằng công ty không kỳ vọng các kỹ thuật của Claude sẽ dẫn đến việc chứng minh được Giả thuyết Riemann."
+      ],
+      "same_event_coverage_ids": [
+        "d9134e2f71494c4a781d"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Anthropic mathematician claims Claude helped solve Riemann hypothesis",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Levent Alpöge",
+          "Robert Hart",
+          "Emma Roth"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nhà toán học tuyên bố dùng Claude giải Giả thuyết Riemann nhưng bài giải chưa được xác thực độc lập",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1010051/anthropic-riemann-hypothesis-millennium-prize-problem"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.85,
+        "answers": {
+          "what": 10,
+          "why": 8,
+          "notable": 8,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The reader gets Clay’s general rules but not the proposed proof’s present status with the institute.",
+            "fix": "State that the proof is published only on Alpöge’s website and has not been publicly accepted by Clay (outlet:p025)."
+          },
+          {
+            "question": "why",
+            "problem": "The relationship between the IPO and publication is presented only as a timeline.",
+            "fix": "If explaining the delay, attribute it to Alpöge’s suggestion that he held off publication until after the IPO (outlet:p020)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "6736ba34c085409ee223a1b67d10f998affef4fd9c944856a5a1bf3423cbe92f",
+        "scored_at": "2026-11-20T17:27:06.519052+00:00"
+      }
+    },
+    {
+      "id": "7220e54bdf8a93f9a841",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://simonwillison.net/2026/Nov/20/levent-alpoge/",
+      "key_points": [
+        "Simon Willison dẫn lại tài liệu cá nhân của Levent Alpöge, trong đó ông tin rằng mình cùng mô hình trí tuệ nhân tạo Claude đã tìm ra chứng minh cho Giả thuyết Riemann.",
+        "Trong tài liệu, Levent Alpöge cho biết phương pháp giải quyết Giả thuyết Riemann Tổng quát và kỳ vọng sẽ tiếp tục xử lý được Giả thuyết Riemann Mở rộng. Tác giả cùng mô hình Claude cũng đã hình thức hóa các lập luận mà không cần dựa vào bất kỳ giả định nào.",
+        "Alpöge tin rằng phát hiện này mở ra bình minh của bước tiến lớn hơn trong khoa học, dù bản thân ông cảm thấy mất đi ngọn hải đăng định hướng lâu năm. Dù vậy, đây vẫn chỉ là niềm tin cá nhân do tác giả công bố trong tài liệu ghi chú chứ chưa được cộng đồng khoa học kiểm chứng độc lập."
+      ],
+      "same_event_coverage_ids": [
+        "a3bdff9090bf3ebd45b8"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Levent Alpöge announces proof of Riemann Hypothesis with Claude",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Levent Alpöge"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Levent Alpöge tin đã tìm ra chứng minh Giả thuyết Riemann cùng AI Claude trong tài liệu cá nhân",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "simon-willison",
+          "url": "https://simonwillison.net/2026/Nov/20/levent-alpoge/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.85,
+        "answers": {
+          "what": 10,
+          "why": 8,
+          "notable": 10,
+          "meaning": 5
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "chưa được cộng đồng khoa học kiểm chứng độc lập",
+            "explanation": "This source reproduces Alpöge’s statement but does not report whether the scientific community has independently checked the proposed proof (outlet:p002–p004)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "Readers are given a definite verification status that this source does not establish.",
+            "fix": "Remove the independent-verification assertion, or limit the statement to Alpöge’s own expressed belief (outlet:p002–p004)."
+          },
+          {
+            "question": "why",
+            "problem": "The account misses how strongly Alpöge credits Claude near the end of the work.",
+            "fix": "Add that Alpöge says Claude far outpaced him near the finish (outlet:p003)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "a457fef9756240a20442ef22e42695499a971925497aa1eb0a2c239b860f8a5e",
+        "scored_at": "2026-11-20T17:22:39.184355+00:00"
+      }
+    },
+    {
+      "id": "ec275023734cb6bb5955",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-20/bessent-says-an-anthropic-founder-to-donate-will-trump-accounts",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "be5bc3eb3ccd9981a450"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "18bdf21ba44f0c10cb63",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-20/anthropic-ipo-is-monstrous-general-catalyst-s-namburi-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "de3da232a3c4467c049f"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "67cd9e6edbef035e68e7",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-20/ai-credit-risk-gauges-worsen-as-tech-selloff-roils-markets",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "79348f680f081b8b0630"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "15c704493eed9cc92f19",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-20/ubs-s-lovell-sees-ai-capex-at-risk-of-5-10-cut-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "002ff7b286f235d86df9"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "7c708284b0edb5d63dd7",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-20/investor-worry-has-come-to-a-head-allspring-s-milletti-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c716c532ebb39c584792"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "bc6cd0668a9d5bb9fc16",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "podcast",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/podcast/the-fallout-from-nvidias-jensen-huang-scandal-continues/",
+      "key_points": [
+        "Theo TechCrunch, Nvidia vừa công bố báo cáo kết quả kinh doanh với mức tăng trưởng lành mạnh giữa lúc xử lý hậu quả từ việc bãi nhiệm Giám đốc điều hành Jensen Huang. Nvidia đồng thời đưa ra lời hứa hẹn rằng thời kỳ thuận lợi của công ty sẽ tiếp tục được duy trì.",
+        "Cùng thời điểm, Nvidia tuyên bố ngừng bán dòng chip H200 tại thị trường Trung Quốc. Nvidia đồng thời bác bỏ các lời kêu gọi đưa cựu Giám đốc điều hành Jensen Huang quay trở lại.",
+        "Trên podcast Equity của TechCrunch, những người tham gia gồm Kirsten Korosec, Anthony Ha và Tim De Chant đã thảo luận về tương lai của Nvidia cùng toàn ngành trí tuệ nhân tạo (AI), đặc biệt khi Anthropic phát hành cổ phiếu ra công chúng và đưa mô hình cấp vốn xoay vòng của ngành vào thử thách."
+      ],
+      "same_event_coverage_ids": [
+        "f28fa5c8ee82635b2c40"
+      ],
+      "split_coverage_ids": [],
+      "subject": "TechCrunch Equity podcast on Nvidia Jensen Huang scandal fallout",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Jensen Huang",
+          "Kirsten Korosec",
+          "Anthony Ha",
+          "Tim De Chant"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nvidia báo cáo tăng trưởng và dừng bán chip H200 tại Trung Quốc sau khi bãi nhiệm CEO Jensen Huang",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/podcast/the-fallout-from-nvidias-jensen-huang-scandal-continues/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "7e3f553c0fdc6bdce9bfd6ed0a1c6ceb798322bed91c73172a6ec43b212ef1d1",
+        "scored_at": "2026-11-20T17:27:06.519174+00:00"
+      }
+    },
+    {
+      "id": "03b179946dd0e551984b",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.21885",
+      "key_points": [
+        "Researchers demonstrated that a language model can rewrite its own weights through reasoning without gradients or training.",
+        "The paper introduces self-rewriting, in which a language model acts as its own optimizer.",
+        "An open 27B model diagnosed its own failure and rewrote its weights, improving its performance by 6.6 points."
+      ],
+      "same_event_coverage_ids": [
+        "35cdea22e5540ac9d1e3",
+        "99134209402ca32a2bbd"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Research paper shows language models rewriting their own weights",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Jiajun Fan",
+          "Neil He",
+          "Changyi Yang",
+          "Andy Mao",
+          "Xi Zhu",
+          "Chaoran Cheng",
+          "Kaiqu Liang",
+          "Shuaike Shen",
+          "Zetian Li",
+          "Ruihan Guo",
+          "Ge Liu"
+        ],
+        "availability": "unknown",
+        "is_leak": false
       }
     }
   ]
