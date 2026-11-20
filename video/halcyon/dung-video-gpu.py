@@ -497,7 +497,7 @@ def load_spec(path):
 
 
 def build_beats(S, units):
-    beats = []; nvid = {}; byid = {}
+    beats = []; nvid = {}; nclip = {}; byid = {}
     chip_texts = [b['chip']['title'] if b.get('chip', {}).get('line') else b['chip']['text'] for b in S['beats'] if b.get('chip') and (b['chip'].get('title') or b['chip'].get('text'))]   # a chip with only a "line" has no chip box to size
     if chip_texts:
         ve.CHIP_S = ve.chip_text_size(chip_texts)
@@ -528,7 +528,8 @@ def build_beats(S, units):
         if level not in ('HOOK', 'FOOT', 'CARD'):
             raise SystemExit(f'spec: {where}.level must be HOOK, FOOT or CARD')
         b = dict(id=i, name=sp.get('name', i), a=float(need(sp, 'a', where)), b_=float(need(sp, 'b', where)), level=level, kind=None, bands=[], notes={},
-                 mark=sp.get('mark', 'tr'), chip=sp.get('chip'), text=t, cardlike=(level == 'CARD' or sp.get('picture') is None), ink_spec=sp.get('text_ink'))
+                 mark=sp.get('mark', 'tr'), chip=sp.get('chip'), text=t, cardlike=(level == 'CARD' or sp.get('picture') is None), ink_spec=sp.get('text_ink'),
+                 captions=spec_mod.beat_captions(sp, where))      # False: no subtitle is drawn during this beat (a silent stretch)
         b['f0'] = round(b['a'] * FPS); b['f1'] = min(round(b['b_'] * FPS), S['total'])
         if t is None and level == 'CARD':
             raise SystemExit(f'spec: {where}: a CARD beat needs a text element')
@@ -627,6 +628,19 @@ def build_beats(S, units):
             b['notes'] = dict(S_src=list(Su), y0=y0, k=round(k, 4), S_frame_h=round((Su[3] - Su[1]) * k), x_range=[x_at, x_at + out_w],
                               S_frame_y=[round((Su[1] - y0) * k), round((Su[3] - y0) * k)], geom=g)
             nvid.setdefault(str(webm), []).append(b)
+        elif pic['kind'] == 'clip':
+            if level not in ('HOOK', 'FOOT'):
+                raise SystemExit(f'spec: {where}.level must be HOOK or FOOT for a clip picture')
+            man = spec_mod.load_clip_manifest(need_file(S['base'], need(pic, 'manifest', where + '.picture'), where + '.picture.manifest'), where + '.picture')
+            cp = spec_mod.plan_clip(man, pic, ve.WIN[level], W, ve.REC_W, ve.PIC_X0, where + '.picture')
+            ve.check_pic(where + ' (clip)', cp['x_at'], cp['x_at'] + man['w'], (cp['y_at'], cp['y_at'] + man['h']), level, ve.REC_W)
+            b['kind'] = 'clip'; b['clip'] = str(man['video']); b['src0'] = cp['src0']; b['sdur'] = cp['sdur']; b['sfps'] = cp['sfps']; b['sframes'] = cp['sframes']
+            b['cw'], b['ch'], b['cx'], b['cy'] = man['w'], man['h'], cp['x_at'], cp['y_at']
+            b['clipbg'] = torch.tensor(man['bg'], device=DEV, dtype=torch.float32)[:, None, None].expand(3, H, W).contiguous()
+            b['stills_t'] = [s['t'] for s in man['stills'] if cp['src0'] - 1e-6 <= s['t'] <= cp['src0'] + cp['sdur'] + 1e-6]
+            b['notes'] = dict(manifest=str(man['path']), source=man['source'], captured=man['captured'], tool_sha=man['tool_sha'], x_range=[cp['x_at'], cp['x_at'] + man['w']],
+                              y_range=[cp['y_at'], cp['y_at'] + man['h']], min_text_px=man['min_text_px'], src=[cp['src0'], cp['src0'] + cp['sdur']])
+            nclip.setdefault((str(man['video']), man['w'], man['h'], cp['sfps']), []).append(b)
         elif pic['kind'] == 'repo':
             if level not in ('HOOK', 'FOOT'):
                 raise SystemExit(f'spec: {where}.level must be HOOK or FOOT for a repo picture')
@@ -651,7 +665,7 @@ def build_beats(S, units):
         elif pic['kind'] == 'same_as':
             b['kind'] = 'same_as'; b['of'] = str(need(pic, 'beat', where + '.picture'))
         else:
-            raise SystemExit(f'spec: {where}.picture.kind "{pic["kind"]}" is not capture, recording, repo or same_as')
+            raise SystemExit(f'spec: {where}.picture.kind "{pic["kind"]}" is not capture, recording, clip, repo or same_as')
         if b['bands'] and not b['level'] in ('HOOK', 'FOOT'):
             raise SystemExit(f'spec: {where}: bands need a picture beat')
         beats.append(b); byid[i] = b
@@ -662,6 +676,19 @@ def build_beats(S, units):
         buf = torch.from_numpy(raw[lo:need_n].copy()).to(DEV)
         for bb in bl:
             bb['frames'] = buf; bb['lo'] = lo
+    for (clip, cw, ch, sfps), bl in nclip.items():
+        need_n = min(max(int(math.floor((bb['src0'] + bb['sdur']) * sfps + 1e-6)) for bb in bl) + 1, bl[0]['sframes'])
+        t0 = time.time(); raw, cmd = decode_nv12(clip, need_n, cw, ch); print(f'NVDEC decoded {need_n} frames of {Path(clip).name} ({cw}x{ch}) in {time.time() - t0:.2f} s', flush=True)
+        lo = min(int(math.floor(bb['src0'] * sfps + 1e-6)) for bb in bl)
+        buf = torch.from_numpy(raw[lo:need_n].copy()).to(DEV)
+        for bb in bl:
+            bb['frames'] = buf; bb['lo'] = lo
+            ts = bb['stills_t'] or [bb['src0'] + bb['sdur'] / 2]        # a frame that is only the clip's background is refused: the producer drew nothing, or the span is past its content
+            bgc = bb['clipbg'][:, 0, 0]
+            for tm in ts:
+                f_ = min(max(int(math.floor(tm * sfps + 1e-6)), lo), need_n - 1)
+                win = clip_picture(bb, f_)[:, bb['cy']:bb['cy'] + ch, bb['cx']:bb['cx'] + cw]
+                bb['notes'].setdefault('ink_share', {})[f't{tm:g}'] = round(check_blank_window(f'beat {bb["id"]} (clip, source time {tm:g} s)', win, bgc), 3)
     return beats, byid
 
 
@@ -691,12 +718,22 @@ def choose_ink(beats):
 def src_index(b, f):
     """Recording frame shown at output frame f of a footage beat: the latest source frame at that moment; held at the end of the shot."""
     ts = min(b['src0'] + (f / FPS - b['a']), b['src0'] + b['sdur'])
-    return int(math.floor(ts * SRC_FPS + 1e-6))
+    i = int(math.floor(ts * b.get('sfps', SRC_FPS) + 1e-6))
+    return min(i, b['sframes'] - 1) if 'sframes' in b else i
+
+
+def clip_picture(b, si):
+    """A clip frame (source index si) placed 1:1 on the clip's flat background colour: the picture of a clip beat, never scaled."""
+    fr = b['clipbg'].clone()
+    fr[:, b['cy']:b['cy'] + b['ch'], b['cx']:b['cx'] + b['cw']] = nv12_to_rgb(b['frames'][si - b['lo']], b['cw'], b['ch'])
+    return fr
 
 
 def beat_pic(b, f):
     if b['kind'] == 'video':
         return vid_picture(nv12_to_rgb(b['frames'][src_index(b, f) - b['lo']]), b['geom'])
+    if b['kind'] == 'clip':
+        return clip_picture(b, src_index(b, f))
     if b['kind'] == 'repo':
         return repo_picture(b, f)
     return b['pic']
@@ -711,6 +748,8 @@ def resolve_same_as(beats, byid):
             if src['kind'] == 'video':
                 b['pic'] = vid_picture(nv12_to_rgb(src['frames'][src_index(src, src['f1'] - 1) - src['lo']]), src['geom'])
                 b['notes'] = dict(source=f'last frame of beat {src["id"]}', src_index=src_index(src, src['f1'] - 1))
+            elif src['kind'] == 'clip':
+                b['pic'] = clip_picture(src, src_index(src, src['f1'] - 1)); b['notes'] = dict(source=f'last frame of clip beat {src["id"]}', src_index=src_index(src, src['f1'] - 1))
             elif src['kind'] == 'repo':
                 b['pic'] = repo_picture(src, src['f1'] - 1); b['notes'] = dict(source=f'last frame of repo beat {src["id"]}')
             elif src['kind'] in ('still', 'card'):
@@ -764,7 +803,9 @@ def compose(f, bymap, units, ulay, tt=None):
     L = ulay[ui]
     si = max(n for n, s in enumerate(b['switch']) if s <= f)
     comp(out, b['layers'][si])
-    if b.get('ink'):                                  # field chu-muc: ink caption, no shadow
+    if not b['captions']:                             # a silent beat (spec `captions: false`): no subtitle during its frames, the frames on either side are drawn as before
+        pass
+    elif b.get('ink'):                                # field chu-muc: ink caption, no shadow
         comp(out, torch.where((L['colw'] < lit)[None, None, :], L['spoken_ink'], L['unspoken_ink']), ve.CAPY)
     else:
         comp(out, L['shadow'], ve.CAPY)
@@ -870,7 +911,10 @@ def contrast_frames(units, beats, bymap):
         # a unit may straddle beats: measure it inside each beat it overlaps
         seen = {}
         for f in range(lo, min(hi, len(bymap))):
-            bb = bymap[f]; seen.setdefault(bb['id'], [bb, f, f])[2] = f
+            bb = bymap[f]
+            if not bb['captions']:                    # no subtitle is drawn in a silent beat, so there is nothing to measure there
+                continue
+            seen.setdefault(bb['id'], [bb, f, f])[2] = f
         for bb, a, z in seen.values():
             out.append(((a + z) // 2, bb, ('unit', f'caption "{u["T"]}" f{(a + z) // 2}')))
     return out
@@ -945,7 +989,7 @@ def setup(S):
     contrast, card_warn = contrast_gate(units, beats, bymap, ulay)         # before anything is written: a refusal leaves the earlier files as they were
     plan = dict(frames=S['total'], fps=FPS, lead=LEAD, fade_frames=FADE, chip_size=ve.CHIP_S, field=ve.FIELD, pattern=ve.PATTERN, mesh_white=(ve.WHITE_K if ve.MESH else None), mesh_motion=(ve.MESH_MOTION if ve.MESH else None), contrast=contrast, card_small_text_under_4_5=card_warn, bands=rep, unit_notes=unit_notes,
                 units=[dict(s=round(u['s'], 3), e=round(u['e'], 3), T=u['T'], wstart=u['wstart']) for u in units],
-                beats=[dict(id=b['id'], name=b['name'], f0=b['f0'], f1=b['f1'], level=b['level'], kind=b['kind'], switch=b['switch'],
+                beats=[dict(id=b['id'], name=b['name'], f0=b['f0'], f1=b['f1'], level=b['level'], kind=b['kind'], switch=b['switch'], captions=b['captions'],
                             notes={k: v for k, v in b['notes'].items() if k != 'geom'}) for b in beats])
     (S['path'].with_name(S['path'].stem + '-plan.json')).write_text(json.dumps(plan, ensure_ascii=False, indent=1, default=str), encoding='utf-8', newline='\n')
     print(f'setup {time.time() - t0:.1f} s; {len(units)} caption units, {len(beats)} beats; unit notes: {unit_notes}', flush=True)
@@ -967,6 +1011,9 @@ def stills(S):
         if b['kind'] == 'repo':                       # one still per page of the walk, at its arrival and at its hover on the next row
             for lab, ff in b['plan']['stills']:
                 shots.append((f'beat {b["id"]} {lab}', ff))
+        elif b['kind'] == 'clip' and b['stills_t']:   # one still per time the clip's manifest names (inside the shown span), at that moment of the beat
+            for tm in b['stills_t']:
+                shots.append((f'beat {b["id"]} t{tm:g}', min(max(b['f0'] + round((tm - b['src0']) * FPS), b['f0']), b['f1'] - 1)))
         elif len(b['layers']) == 1:
             shots.append((f'beat {b["id"]}', (b['f0'] + b['f1']) // 2))
         else:
