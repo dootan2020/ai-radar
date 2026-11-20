@@ -126,10 +126,12 @@ class SitePayloadTests(unittest.TestCase):
                     patch.object(build, "prepare_publication", return_value=(data, {"published": True,
                                                                                        "freshness": {}})), \
                     patch.object(build, "promotion_reason", return_value="unchanged"), \
+                    patch.object(build, "load_guides", return_value=([], [])), \
                     patch.object(site_payload, "apply_decisions", newsroom_decisions.apply_decisions), \
                     redirect_stdout(io.StringIO()):
                 self.assertEqual(build.main(), 0)
             # No newsroom decisions means no scoring desk passed anything: fail closed, never unchecked stories.
+            # Committed guides are left out here: an owner-approved guide is the one story that needs no decision row.
             self.assertTrue(data["stories"])
             for path in (target, site_payload.page_path(target), site_payload.window_path(target)):
                 self.assertEqual(json.loads(path.read_bytes())["stories"], [], path.name)
