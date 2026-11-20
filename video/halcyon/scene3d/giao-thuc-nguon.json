@@ -1,0 +1,19 @@
+{
+  "about": "What the AG-UI scene draws, and where each fact comes from. The events of act 3 are parsed from the server.py fence of the pinned README by halcyon_canh.py and must equal the list below (gate: proof of diagram); a run record (chay.json) is accepted only if it ran this very fence (same source and sha256).",
+  "readme": {
+    "url": "https://raw.githubusercontent.com/ag-ui-protocol/ag-ui/1de7b12898f2aadd17fb0f03cbbe96dd2c07ddc9/README.md",
+    "sha256": "667422d2a16f79baa207b3e340947554c17158a009b3476040e52c8399d18f62",
+    "license": "MIT"
+  },
+  "fence": {"name": "server.py", "first_line": "# server.py", "sha256": "daa3d013de5660513c77c59f8b4a46502569d016aae146811d9f45e0e3aa659a"},
+  "events": ["RUN_STARTED", "TEXT_MESSAGE_START", "TEXT_MESSAGE_CONTENT", "TEXT_MESSAGE_CONTENT", "TEXT_MESSAGE_CONTENT", "TEXT_MESSAGE_END", "RUN_FINISHED"],
+  "deltas": ["Hello ", "from ", "AG-UI!"],
+  "wire_names": "The SDK class RunStartedEvent travels as \"type\": \"RUN_STARTED\" (seen on the live Dojo stream, 21/11/2026 04:30, kongming-261121-0430-video-07-v3.md); the scene shows wire names.",
+  "request": {"method": "POST", "type": "RunAgentInput", "user_text": "Hi there!", "carries": "tin nhắn · state · tools",
+              "source": "client.ts fence of the same README: agent.addMessage(... content: \"Hi there!\"), HttpAgent posts RunAgentInput"},
+  "server_label": "Python · FastAPI",
+  "demo_label": "LangGraph · demo Dojo",
+  "demo_kinds": {"tool": ["TOOL_CALL_START", "TOOL_CALL_ARGS", "TOOL_CALL_END", "TOOL_CALL_RESULT"], "state": ["STATE_SNAPSHOT"], "text": ["TEXT_MESSAGE_CONTENT"]},
+  "frameworks": ["LangGraph", "CrewAI", "Google ADK", "Microsoft Agent Framework"],
+  "frameworks_source": "README integrations table at the pinned commit (LangChain/LangGraph, CrewAI, Microsoft Agent Framework, Google ADK, Mastra, Pydantic AI); the Dojo demo runs langgraph-fastapi"
+}

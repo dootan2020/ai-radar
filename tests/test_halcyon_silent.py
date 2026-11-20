@@ -505,6 +505,7 @@ class Producers(unittest.TestCase):
         miss = dict((n, r) for n, r in ml.missing_producers(plan))
         want = {"run": "thu", "scene": "giao-thuc", "demo": "dojo"}
         self.assertTrue(ml.producer_ready("run"))
+        self.assertTrue(ml.producer_ready("scene"))
         self.assertEqual(miss, {n: r for n, r in want.items() if not ml.producer_ready(n)})
 
     def test_a_stub_refuses_with_a_clear_message(self):
@@ -528,15 +529,15 @@ class Producers(unittest.TestCase):
         self.assertLess(steps.index("demo:dojo"), steps.index("canh:giao-thuc"))
         self.assertLess(steps.index("giong"), steps.index("lang"))
         self.assertLess(steps.index("lang"), steps.index("lap-rap"))
-        with self.assertRaises(ml.Refusal) as cm:
-            ml.step_kiem_nguon_clip(ctx)
-        self.assertEqual(cm.exception.step, "canh:giao-thuc")
-        self.assertIn("producer not built yet", str(cm.exception))
-        # run and demo are built (they would install or record for real), so only the scene stub is called;
-        # the run step is checked with its producer marked unbuilt, so no unit test ever installs anything
-        for name, ref in (("scene", "giao-thuc"),):
+        # all three producers are built (they would install, record or render for real): each step is checked with its producer
+        # marked unbuilt, so no unit test ever runs a real producer
+        with mock.patch.object(ml, "producer_ready", side_effect=lambda name: name != "scene"):
             with self.assertRaises(ml.Refusal) as cm:
-                ml.step_producer(ctx, name, ref)
+                ml.step_kiem_nguon_clip(ctx)
+            self.assertEqual(cm.exception.step, "canh:giao-thuc")
+            self.assertIn("producer not built yet", str(cm.exception))
+            with self.assertRaises(ml.Refusal) as cm:
+                ml.step_producer(ctx, "scene", "giao-thuc")
             self.assertIn("producer not built yet", str(cm.exception))
         with mock.patch.object(ml, "producer_ready", return_value=False):
             with self.assertRaises(ml.Refusal) as cm:
@@ -588,7 +589,8 @@ class Producers(unittest.TestCase):
             ml.settings = lambda *a, **k: ([], {})
             lines = []
             try:
-                code = ml.main([str(script), "--out", str(Path(d) / "run"), "--chi-kiem"], say=lines.append)
+                with mock.patch.object(ml, "producer_ready", side_effect=lambda name: name != "scene"):   # every producer is built now: the warning is checked on one marked unbuilt
+                    code = ml.main([str(script), "--out", str(Path(d) / "run"), "--chi-kiem"], say=lines.append)
             finally:
                 ml.settings = old
         text = "\n".join(lines)
