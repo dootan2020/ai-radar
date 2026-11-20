@@ -105,7 +105,7 @@ def main(argv):
     if not all(say) or any(re.search(r'\n\s*\n', s) for s in say):
         fail('every paragraph needs a `say` text of its own with no blank line inside (one paragraph = one voice paragraph)')
     show = [re.sub(r'\s+', ' ', str(p.get('show', p['say'])).replace('/', ' ')).strip() for p in paras]
-    voice = [g.voice_text(s) for s in say]   # the channel's default readings (AI -> Ây-ai, GitHub -> Git hắp); `say` and `show` stay as written
+    voice = [g.voice_text(s) for s in say]   # the channel's default readings (AI -> Ây-ai, GitHub -> Git hắp, apps -> áp); `say` and `show` stay as written
     approved = g.load_approved(Path(a.approved).read_text(encoding='utf-8')) if a.approved and Path(a.approved).exists() else []
     out = Path(a.out).resolve()
     out.mkdir(parents=True, exist_ok=True)

@@ -19,7 +19,7 @@ Paths inside the output are relative to `--out`. The voice file is the timing fi
                     "numbers": {"8:30": "tám giờ rưỡi"},                      (optional, see 3)
                     "beats": [ {beat}, ... ] } ] }
 ```
-One paragraph = one voice paragraph (the voice step writes one blank-line paragraph per entry). Write `say` and `show` as the words are written (`AI`, `GitHub`): the voice step respells them for the voice only ([GIONG.md](GIONG.md) § Default readings: `AI` is read "Ây-ai", `GitHub` "Git hắp"); your own respelling in `say` wins. A paragraph has one beat, or several: the later ones carry `"from_sentence": k` (sentence k, counted from 0, a sentence ends at a word ending in `. ? !`). The first paragraph's first beat is the hook, the last beat must be `{"kind": "end"}`.
+One paragraph = one voice paragraph (the voice step writes one blank-line paragraph per entry). Write `say` and `show` as the words are written (`AI`, `GitHub`, `apps`): the voice step respells them for the voice only ([GIONG.md](GIONG.md) § Default readings: `AI` is read "Ây-ai", `GitHub` "Git hắp", `apps` and `app` "áp"); your own respelling in `say` wins. A paragraph has one beat, or several: the later ones carry `"from_sentence": k` (sentence k, counted from 0, a sentence ends at a word ending in `. ? !`). The first paragraph's first beat is the hook, the last beat must be `{"kind": "end"}`.
 
 Beat kinds (every beat may carry `name`, `id`; otherwise ids are `1`, `2a`, `2b`, ...):
 | kind | fields |
@@ -40,10 +40,10 @@ Beat kinds (every beat may carry `name`, `id`; otherwise ids are `1`, `2a`, `2b`
   "repo": { "ref": "plannotator",
             "open": ["packages", {"path": "packages/server", "anchor": "server"}, "package.json"] } }
 ```
-A full paragraph, as video 06's second script (backnotprop/plannotator) uses it: the voice says the respelled words (`ép` for apps, `húc` for hook), the subtitle keeps the written ones, each anchor is a word of the shown (written) text that the voice says at that moment (`apps`, not `ép`), and the beat is the paragraph's only beat.
+A full paragraph, as video 06's second script (backnotprop/plannotator) uses it: the voice says the respelled words (`húc` for hook; `apps` needs none, the default table reads it "áp"), the subtitle keeps the written ones, each anchor is a word of the shown (written) text that the voice says at that moment (`apps`), and the beat is the paragraph's only beat.
 ```
 "sources": { "gh-repo": { "repo": "backnotprop/plannotator" } },
-{ "say": "Nó chạy trên máy bạn, gắn vào các trợ lý AI viết cốt phổ biến hiện nay. Mở dự án này trên Git hắp ra, bạn sẽ thấy mỗi trợ lý có một chỗ gắn riêng. Tất cả nằm trong thư mục ép. Vào trong đó, mỗi trợ lý là một thư mục con, như thư mục húc. Mở thư mục đó ra, cuộn xuống từ từ, đọc thử vài dòng đầu, và tệp hướng dẫn sẽ chỉ bạn cách cài đặt từng bước.",
+{ "say": "Nó chạy trên máy bạn, gắn vào các trợ lý AI viết cốt phổ biến hiện nay. Mở dự án này trên Git hắp ra, bạn sẽ thấy mỗi trợ lý có một chỗ gắn riêng. Tất cả nằm trong thư mục apps. Vào trong đó, mỗi trợ lý là một thư mục con, như thư mục húc. Mở thư mục đó ra, cuộn xuống từ từ, đọc thử vài dòng đầu, và tệp hướng dẫn sẽ chỉ bạn cách cài đặt từng bước.",
   "show": "Nó chạy trên máy bạn, / gắn vào các trợ lý / AI viết code / phổ biến hiện nay. / Mở dự án này trên GitHub ra, / bạn sẽ thấy mỗi trợ lý / có một chỗ gắn riêng. / Tất cả nằm trong thư mục apps. / Vào trong đó, mỗi trợ lý / là một thư mục con, / như thư mục hook. / Mở thư mục đó ra, / cuộn xuống từ từ, / đọc thử vài dòng đầu, / và tệp hướng dẫn sẽ chỉ bạn / cách cài đặt từng bước.",
   "beats": [ { "kind": "repo", "name": "Mở thư mục apps trên GitHub", "headline": ["Mở thẳng repo", "xem từng thư mục"], "kicker": "Theo GitHub của Plannotator", "level": "FOOT",
               "repo": { "ref": "gh-repo", "open": [ { "path": "apps", "anchor": "apps" }, { "path": "apps/hook", "anchor": "hook" }, { "path": "apps/hook/README.md", "anchor": "tệp" } ] } } ] }
