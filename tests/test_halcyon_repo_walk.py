@@ -13,19 +13,20 @@ WW, HH_FOOT, HH_HOOK = 763, 850, 502
 
 
 def rows(prefix, n, x=338, y0=375):
-    return [dict(path=f'{prefix}{i}', rect=[x, y0 + 41 * i, 925, 41], name=[x + 42, y0 + 12 + 41 * i, 70, 19], font_px=14) for i in range(n)]
+    return [dict(path=f'{prefix}{i}', rect=[x, y0 + 41 * i, 925, 41], name_rect=[x + 42, y0 + 12 + 41 * i, 70, 19], font_px=14) for i in range(n)]
 
 
 def make_manifest(tmp):
     for n in ('0.png', '1.png', '2.png'):
         (tmp / n).write_bytes(b'png')
-    home_rows = [dict(path='apps', rect=[33, 608, 902, 41], name=[75, 620, 30, 19], font_px=14), dict(path='docs', rect=[33, 731, 902, 41], name=[75, 743, 30, 19], font_px=14)]
-    d = dict(viewport=1280, scale=2, bg='rgb(255, 255, 255)', pages={
-        '': dict(picture='0.png', type='home', css_height=14729, rows=home_rows, regions=dict(list=[32, 363, 904, 1353]), fonts=dict(list=14, readme=16)),
-        'apps': dict(picture='1.png', type='tree', css_height=1572, rows=[dict(path='..', rect=[338, 335, 925, 40])] + rows('apps/x', 14), regions=dict(list=[337, 294, 927, 1230]), fonts=dict(list=14)),
-        'docs': dict(picture='1.png', type='tree', css_height=1572, rows=[], regions=dict(list=[337, 294, 927, 1230]), fonts=dict(list=14)),
-        'apps/x5': dict(picture='2.png', type='blob', css_height=5539, rows=[], regions=dict(readme=[370, 372, 861, 5086]), fonts=dict(readme=16)),
-    })
+    home_rows = [dict(path='apps', rect=[33, 608, 902, 41], name_rect=[75, 620, 30, 19], font_px=14), dict(path='docs', rect=[33, 731, 902, 41], name_rect=[75, 743, 30, 19], font_px=14)]
+    pg = {
+        '': dict(picture='0.png', type='home', css_height=14729, rows=home_rows, boxes=dict(file_list=[32, 363, 904, 1353], about=None), row_font_px=14, background='rgb(255, 255, 255)'),
+        'apps': dict(picture='1.png', type='tree', css_height=1572, rows=[dict(path='apps', rect=[338, 335, 925, 40])] + rows('apps/x', 14), boxes=dict(file_list=[337, 294, 927, 1230]), row_font_px=14),
+        'docs': dict(picture='1.png', type='tree', css_height=1572, rows=[], boxes=dict(file_list=[337, 294, 927, 1230]), row_font_px=14),
+        'apps/x5': dict(picture='2.png', type='blob', css_height=5539, rows=[], boxes=dict(readme=[370, 372, 861, 5086], code=None), row_font_px=None),
+    }
+    d = dict(version=1, viewport=dict(width=1280, height=800), scale=2, pages=[dict(path=k, **v) for k, v in pg.items()])
     (tmp / 'quay.json').write_text(json.dumps(d), encoding='utf-8')
     return rw.load_manifest(tmp / 'quay.json')
 
@@ -69,6 +70,18 @@ class RepoWalk(unittest.TestCase):
             self.assertIsNone(rw.pointer_at(sg, sg['e'] - rw.LEAD - 1)[0])
             x, y = sg['ptr']['p1']
             self.assertTrue(0 <= x <= WW and 0 <= y <= HH_FOOT)
+
+    def test_zoom_from_the_overview_keeps_the_crop_on_the_top_of_the_page(self):
+        p = self.plan(default_overview=1.0)
+        sg = p['segments'][0]
+        (fa, fb, _, _), = sg['tweens'][:1]
+        for f in range(fa, fb + 1):
+            cx, cy, cw = rw.cam_at(sg, f)
+            self.assertAlmostEqual(cy - cw * sg['ratio'] / 2, 0.0, places=6)
+
+    def test_walk_without_a_camera_field_and_with_tap_via_plans(self):
+        p = self.plan([dict(page='', a=0.0), dict(page='apps', a=8.0, via='tap'), dict(page='apps/x5', a=14.0, via='tap')])
+        self.assertEqual([s['via'] for s in p['segments']], [None, 'click', 'click'])
 
     def test_last_page_reads_downwards_and_stops_at_the_page_end(self):
         p = self.plan(f1=40 * 30)

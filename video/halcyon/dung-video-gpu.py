@@ -266,8 +266,6 @@ def repo_resample(show, key, cam):
     if yb > ya and xb > xa:
         band[:, ya - j0y:yb - j0y, xa - j0x:xb - j0x] = img[:, ya:yb, xa:xb].float()
     out = (lz_weights(cy0, stepx, hh, j0y, j1y) @ band) @ lz_weights(cx0, stepx, ww, j0x, j1x).T
-    F_ = repo_mod.FEATHER
-
     def ramp(n, lo_len, hi_len):                               # 0 -> 1 over lo_len px at the start, 1 -> 0 over hi_len px at the end; a length of 0 is a hard edge
         i = torch.arange(n, device=DEV, dtype=torch.float32) + 0.5
         a = torch.ones(n, device=DEV)
@@ -276,9 +274,10 @@ def repo_resample(show, key, cam):
         if hi_len > 0:
             u = ((n - i) / hi_len).clamp(0, 1); a = a * (u * u * (3 - 2 * u))
         return a
-    ln = lambda d_: float(min(max(d_ / stepx, 0.0), F_))     # the feather shrinks to nothing where the crop edge is the page edge
-    ay = ramp(hh, ln(cy0), ln(H_ - (cy0 + hh * stepx)))
-    ax = ramp(ww, ln(cx0), ln(W_ - (cx0 + ww * stepx)))
+    ln = lambda d_, F_: float(min(max(d_ / stepx, 0.0), F_))   # the feather shrinks to nothing where the crop edge is the page edge
+    fy, fl, fr = repo_mod.FEATHER_Y, repo_mod.FEATHER_L, repo_mod.FEATHER_R
+    ay = ramp(hh, ln(cy0, fy), ln(H_ - (cy0 + hh * stepx), fy))
+    ax = ramp(ww, ln(cx0, fl), ln(W_ - (cx0 + ww * stepx), fr))
     return out, ay[:, None] * ax[None, :]
 
 
@@ -316,10 +315,10 @@ def repo_window(b, f):
     if sg['i'] > 0 and f < sg['s'] + repo_mod.XF:                # the page changes: a desktop browser swaps the page, so a quick dip through the page colour (old page frozen on its press,
         u = (f - sg['s'] + 1) / repo_mod.XF                       # out over the first half, new page in over the second): two text-dense views cross-faded at once would ghost
         bg = show['bg'][:, None, None]
-        if u < 0.5:
-            lay = bg + (repo_layer(show, segs[sg['i'] - 1], sg['s'] - 1) - bg) * (1 - repo_mod.smooth(2 * u))
+        if u < 0.5:                                               # the dip never reaches an empty frame (a blank frame reads as a glitch): the page stays at 25% at the turn
+            lay = bg + (repo_layer(show, segs[sg['i'] - 1], sg['s'] - 1) - bg) * (1 - 0.75 * repo_mod.smooth(2 * u))
         else:
-            lay = bg + (lay - bg) * repo_mod.smooth(2 * u - 1)
+            lay = bg + (lay - bg) * (0.25 + 0.75 * repo_mod.smooth(2 * u - 1))
     return lay
 
 
@@ -635,7 +634,8 @@ def build_beats(S, units):
             top = ve.WIN[level][0]
             bottom = ve.FADE_AT['HOOK'] if level == 'HOOK' else min(ve.FADE_AT['FOOT'], ve.SLOT[1] - 54)    # thu-gon-r3-l2: HOOK 364-866, FOOT 364-1214 (60 px above the subtitle ink)
             hh, ww = bottom - top, ve.PIC_W
-            plan_r = repo_mod.plan_walk(man, need(pic, 'walk', where + '.picture'), b['f0'], b['f1'], hh, ww, FPS, default_overview=1.0 if level == 'HOOK' else 0.0, where=where + '.picture')
+            first_repo = not any(bb['kind'] == 'repo' for bb in beats)         # the first repo beat of the video opens on the whole page for a moment (walk[0].camera.overview overrides)
+            plan_r = repo_mod.plan_walk(man, need(pic, 'walk', where + '.picture'), b['f0'], b['f1'], hh, ww, FPS, default_overview=1.0 if first_repo else 0.0, where=where + '.picture')
             ve.check_pic(where + ' (repo)', ve.PIC_X0, ve.PIC_X0 + ww, (top, bottom), level)
             bg = torch.tensor(man['bg'], device=DEV, dtype=torch.float32)
             show = dict(pages=man['pages'], bg=bg, ww=ww, hh=hh, top=top, scale=man['scale'], flat=bg[:, None, None].expand(3, H, W).contiguous())

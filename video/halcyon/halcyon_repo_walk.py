@@ -22,7 +22,8 @@ PAN_AIM = 0.75           # the plan aims for a peak pan speed of this share of t
 IDEAL_ZOOM = 1.0         # average zoom speed: ln units per second
 ROW_AT = 0.40            # the row to open sits at 40% of the window height
 ROW_SEEN = (0.12, 0.88)  # a row already inside this band of the window needs no pan
-FEATHER = 24             # frame px
+FEATHER_Y = 28           # frame px: top and bottom edge of a crop that is not the page's edge
+FEATHER_L, FEATHER_R = 24, 72    # left and right: the right one is long so a commit message cut by the crop fades out instead of ending sharp mid-word
 
 
 def smooth(u):
@@ -56,9 +57,9 @@ def load_manifest(path):
     for k in ('viewport', 'scale', 'pages'):
         if k not in d:
             raise SystemExit(f'{where}: "{k}" is missing')
+    vp = d['viewport']['width'] if isinstance(d['viewport'], dict) else d['viewport']
     pages = d['pages']
-    if isinstance(pages, list):
-        pages = {str(p.get('path', p.get('page', ''))): p for p in pages}
+    pages = {str(p['path']): p for p in pages} if isinstance(pages, list) else pages
     out = {}
     for key, p in pages.items():
         w = f'{where}: page "{key}"'
@@ -75,11 +76,17 @@ def load_manifest(path):
             if 'rect' not in r:
                 raise SystemExit(f'{w}: row "{r["path"]}" has no "rect"')
             rect = [float(x) for x in r['rect']]
-            name = [float(x) for x in r.get('name', r['rect'])]
-            rows.append(dict(path=r['path'], rect=rect, name=name, font_px=float(r.get('font_px') or p.get('fonts', {}).get('list') or 14)))
-        out[key] = dict(picture=pic, type=p.get('type') or ('home' if key == '' else 'tree'), css_height=float(p['css_height']), rows=rows,
-                        regions={k: v for k, v in (p.get('regions') or {}).items() if v and v[2] > 0 and v[3] > 0}, fonts=dict(p.get('fonts') or {}))
-    return dict(viewport=float(d['viewport']), scale=float(d['scale']), bg=parse_colour(d.get('bg') or next(iter(pages.values())).get('bg')), pages=out, path=path)
+            name = [float(x) for x in (r.get('name_rect') or r.get('name') or r['rect'])]
+            rows.append(dict(path=r['path'], rect=rect, name=name, font_px=float(r.get('font_px') or p.get('row_font_px') or 14)))
+        boxes = p.get('boxes') or p.get('regions') or {}
+        regions = {{'file_list': 'list'}.get(k, k): v for k, v in boxes.items() if v and v[2] > 0 and v[3] > 0}
+        fonts = dict(p.get('fonts') or {})
+        if p.get('row_font_px'):
+            fonts['list'] = p['row_font_px']
+        out[key] = dict(picture=pic, type=p.get('type') or ('home' if key == '' else 'tree'), css_height=float(p['css_height']), rows=rows, regions=regions, fonts=fonts,
+                        background=p.get('background'))
+    first = next(iter(out.values()))
+    return dict(viewport=float(vp), scale=float(d['scale']), bg=parse_colour(d.get('bg') or d.get('background') or first['background']), pages=out, path=path)
 
 
 def page_kind(key, page):
@@ -125,15 +132,22 @@ def cam_tl(geo, x0, y0, cw):
     return (x0 + cw / 2, y0 + geo.hh / (geo.ww / cw) / 2, cw)
 
 
-def lerp_cam(a, b, u):
+def lerp_cam(a, b, u, ratio):
+    """Between two cameras the top-left corner of the crop moves in a straight line and the width in log space (ratio = window height / width), so a crop that
+    starts at the top of the page stays on the page's top edge all the way (interpolating the centre would lift the crop off it and feather GitHub's black header)."""
     lw = math.log(a[2]) + (math.log(b[2]) - math.log(a[2])) * u
-    return (a[0] + (b[0] - a[0]) * u, a[1] + (b[1] - a[1]) * u, math.exp(lw))
+    cw = math.exp(lw)
+    ax, ay = a[0] - a[2] / 2, a[1] - a[2] * ratio / 2
+    bx, by = b[0] - b[2] / 2, b[1] - b[2] * ratio / 2
+    x0, y0 = ax + (bx - ax) * u, ay + (by - ay) * u
+    return (x0 + cw / 2, y0 + cw * ratio / 2, cw)
 
 
 def move_frames(geo, a, b):
     """Frames an eased (smoothstep, peak 1.5x the average) camera move a -> b needs: (minimum under the pan and zoom caps, the aimed one)."""
     za, zb = geo.z(a), geo.z(b)
-    dist = math.hypot(b[0] - a[0], b[1] - a[1])                      # css px, travelled while the zoom runs from za to zb
+    ta, tb = geo.tl(a), geo.tl(b)
+    dist = max(math.hypot(b[0] - a[0], b[1] - a[1]), math.hypot(tb[0] - ta[0], tb[1] - ta[1]))   # css px, travelled while the zoom runs from za to zb (centre or corner, the larger)
     dln = abs(math.log(b[2] / a[2]))
     pk = max(6 * (n / 100) * (1 - n / 100) * za * (zb / za) ** (n / 100) for n in range(101))   # peak of d(smoothstep)/du x zoom: frame px per css px per unit of u
     mn = max(dist * pk / (CAP_PAN * geo.hh / 30), 1.5 * dln / (CAP_ZOOM / 30))
@@ -150,7 +164,7 @@ def cam_at(seg, f):
         if f >= fb:
             cam = cb
         elif f >= fa:
-            return lerp_cam(ca, cb, smooth((f - fa) / (fb - fa)))
+            return lerp_cam(ca, cb, smooth((f - fa) / (fb - fa)), seg['ratio'])
         else:
             break
     rd = seg.get('read')
@@ -198,7 +212,7 @@ def plan_walk(man, walk, f0, f1, hh, ww, fps=30, default_overview=0.0, where='re
         if i and 'a' not in st:
             raise SystemExit(f'spec: {where}.walk[{i}].a is missing')
         s = f0 if i == 0 else max(round(float(st['a']) * fps), segs[-1]['s'] + 1)
-        segs.append(dict(i=i, page=key, step=st, s=s, e=f1, row=None))
+        segs.append(dict(i=i, page=key, step=st, s=s, e=f1, row=None, ratio=hh / ww))
     for i in range(len(segs) - 1):
         segs[i]['e'] = segs[i + 1]['s']
     for sg in segs:
@@ -353,7 +367,8 @@ def plan_walk(man, walk, f0, f1, hh, ww, fps=30, default_overview=0.0, where='re
             c = cam_at(sg, f)
             if prev is not None:
                 z = max(geo.z(c), geo.z(prev))
-                pan_pf = max(pan_pf, math.hypot(c[0] - prev[0], c[1] - prev[1]) * z)
+                tc, tp = geo.tl(c), geo.tl(prev)
+                pan_pf = max(pan_pf, math.hypot(c[0] - prev[0], c[1] - prev[1]) * z, math.hypot(tc[0] - tp[0], tc[1] - tp[1]) * z)
                 zoom_pf = max(zoom_pf, abs(math.log(c[2] / prev[2])))
             prev = c
     cap_px = CAP_PAN * hh / 30; cap_z = CAP_ZOOM / 30
