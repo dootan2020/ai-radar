@@ -25,11 +25,29 @@ Beat kinds (every beat may carry `name`, `id`; otherwise ids are `1`, `2a`, `2b`
 | kind | fields |
 |---|---|
 | `capture` | `headline` [2 lines], `kicker`, `chip` (else `<chip_prefix>: <source>, <date>` from the manifest), `headline_anchor` (reveals line 2), `capture: {ref, quote, bands: [{text, anchor? \| at?, occurrence?}]}`; `ref` names a manifest entry, `quote` is the verbatim sentence captured |
+| `repo` | `headline` [2 lines], `kicker`, `chip` (else `<chip_prefix>: GitHub`), `repo: {ref, open}`; the repository's pages shown one after another, see 1a |
 | `recording` | `headline`, `kicker`, `chip_line`, `picture` (copied as is: a hand-made screen recording is an input file, outside the chain) |
 | `number` | `kicker`, `line1`, `line2`, `source`, `anchor` (reveals line 2) |
 | `chart` | `kicker`, `rows: [{name, value, bar, anchor?}]`, `bar_full`, `note` + `note_anchor`, `source` |
 | `list` | `kicker`, `title`, `rows: [{text, anchor}]`, `source` |
 | `end` | nothing; copies the first beat's chip and picture |
+
+### 1a. The `repo` beat (a walk through a GitHub repository)
+```
+"sources": { "plannotator": { "repo": "backnotprop/plannotator" } }                     (optional "branch"; default = the repo's default branch)
+
+{ "kind": "repo", "headline": ["...", "..."], "kicker": "...",
+  "repo": { "ref": "plannotator",
+            "open": ["packages", {"path": "packages/server", "anchor": "server"}, "package.json"] } }
+```
+- **Which repo**: `sources[ref].repo`, `owner/name`. One ref is one repo; several beats may share it, each with its own `open`. A source has `repo` or `urls`, never both.
+- **What is shown**: every repo beat starts on the repo home page (name, description, stars, the first rows of the file list). `open` lists the folders and files to open, as paths from the repo root, in the order they are shown. `open: []` is the home page alone. A file ends a descent; `README.md` is a file like any other (write it as a path).
+- **Where a page is opened from**: its parent folder, which is the repo root or an earlier entry of the same list. When the parent is the page on screen the row is tapped; when it is an earlier page the view slides back to it first (its own `via: "back"` entry in the walk).
+- **GitHub's single-folder chains**: a folder that holds only one folder is shown as ONE row linking to the deepest folder (`.agents/skills` on a page that lists `.agents`; there is no page for `.agents` to open). Such a path may skip its intermediate folders only when it says so: `{"path": ".agents/skills", "chain": true}`. It is then opened from the nearest earlier entry that is its ancestor, or from the root. Without `chain` the parent must be listed (refused otherwise); the script cannot see the chain, so the `cay` step checks the skipped folders against GitHub.
+- **Limits**: at most 5 entries in one beat, and at most 5 different paths over all the beats of one repo (the recorder loads at most six pages per repo).
+- **When each page opens** (the assembler, `repo_beat`): an entry with an `anchor` (spoken words in the beat, like every anchor; `occurrence` as usual) opens at the anchor's time. Between two anchored entries, and over the whole beat when none has an anchor, every page gets its floor and the time above the floors is shared equally. The floors, the constants `FLOOR` in `halcyon_kich_ban.py`: home page 1.6 s, a page opened by a tap 1.4 s, a slide back 0.4 s, plus 1.2 s on the home page of the first repo beat of the video (the opening full-width look before the camera pushes in). They are provisional. A beat that cannot give its pages their floors is refused with the seconds needed; so is an anchor that leaves a page under its floor or puts pages out of order.
+- **What the assembler writes**: the beat's picture is `{"kind": "repo", "manifest": "<recorder manifest, relative to the spec>", "walk": [{"page": "", "a": 0.0}, {"page": "packages", "a": 2.92, "via": "tap"}, {"page": "", "a": 6.5, "via": "back"}, ...]}`. `page` is a path from the repo root (`""` = home); `a` is the second the page starts to appear in the video; a page lasts until the next entry's `a` (the last one until the beat's end). The recorder manifest is `--quay <quay.json>` (every repo beat) or `--quay <ref>=<quay.json>` (one per ref); the assembler only writes its path.
+- Level HOOK, `wm` on the first and last beat, like a capture beat. The end beat copies the first beat's chip and picture as usual.
 
 An **anchor** is the spoken words (one or more, in the `show` text) that trigger a reveal. It is searched only among the words of its own beat; not found, or found twice with no `occurrence`, refuses.
 
@@ -49,8 +67,8 @@ An **anchor** is the spoken words (one or more, in the `show` text) that trigger
 | `captions` | `show` split at `/`; a paragraph without a `/` is split by rule: a unit per clause (after `, : ;`), wrapped greedily to 22 characters. The rule matched 28% (05) and 27% (03) of the published lines, all of them fit; rhythm is a choice, write the `/` when it matters |
 | beat `a`, `b` | paragraph gap midpoints; inside a paragraph, the midpoint between the Whisper end of the last word of one sentence and the Whisper start of the first word of the next; first = 0, last = `duration` |
 | `text.cuts`, band `at` | Whisper start of the anchor's first word minus 0.08 s, rounded to 0.01 s; a chart row, or list/number reveal without `anchor`, shows at the beat start; a band with no `anchor`/`at` uses the first word of its text if that is spoken in the beat, otherwise it refuses |
-| `picture`, bands' `rect` | the capture manifest entry named by `ref` (section 4) |
-| `level`, `mark`, `lift`, `kicker_size` | constants: capture/recording beats HOOK; `wm` on the first and last beat; lift 24 on the first and the end beat; kicker size 26; cards have no `level` |
+| `picture`, bands' `rect` | the capture manifest entry named by `ref` (section 4); a repo beat: the walk of 1a |
+| `level`, `mark`, `lift`, `kicker_size` | constants: capture/repo/recording beats HOOK; `wm` on the first and last beat; lift 24 on the first and the end beat; kicker size 26; cards have no `level` |
 | `chip` | explicit, else `<chip_prefix>: <source>, <date>` of the manifest entry; at most 43 characters |
 | card `kicker`, `source` | `kicker` upper-cased; `source` explicit, else `Nguồn: <outlet>, <date>` (a list card has none unless given) |
 | `layout`, `drop_kickers` | `thu-gon-r3-l2` (owner 19/11/2026 22:54, "Chọn +2 dòng"), `true`. r3-l2 = thu-gon-r2 with the subtitle 312 px higher (its lowest ink then ends at y 1350, 343 px above y 1693), the headline block drawn on the opening beat only (lifted 262 px more) and none on the other picture beats; the ending card moves up with it. Posted videos keep naming `thu-gon-r2` in their own spec and rebuild as before |
@@ -71,6 +89,7 @@ An **anchor** is the spoken words (one or more, in the `show` text) that trigger
 | a character with no glyph in Barlow Condensed (upper-cased caps text) or Be Vietnam Pro (kicker, chip, source) | the character and the font file |
 | a band text not contained in the beat's `quote` | the band and beat |
 | anchor not spoken in the beat, ambiguous, or its word not heard; band time unknown | the anchor and the beat's words |
+| a repo beat with no recorder manifest; a bad `open` list (the same contract as the chain's check, 7); a beat too short for the floors of its pages; anchors out of order; an anchor that leaves a page under its floor | the beat, the page and the seconds |
 | script paragraphs differ from the timing file's; beat shorter than zero; bad `from_sentence`; chip over 43 characters; unknown `ref`; manifest field missing, `u_rows` not containing the focus | the field |
 
 Not checked here (they need Pillow, the GPU or the network, so they stay with the builder and later slices): contrast and safe frame (the builder refuses), a page that is a cookie wall or stale, voice pronunciation, a name read wrongly.
@@ -90,5 +109,6 @@ Two top-level blocks the assembler ignores and the chain reads. Both are checked
 "post": { "title": "one line", "body": "one block; single line breaks, no blank line", "hashtags": ["#AI", "#halcyon"] }
 ```
 - `sources` has one entry per capture `ref` used by a beat. The sentence captured is the beat's `capture.quote`; the phrases highlighted are the texts of the beat's `capture.bands` (a phrase that wraps over two lines comes back as one band per line, so name the bands by their line texts, as in the published 05 script). One ref is one picture of one sentence: a second beat that needs another sentence needs its own ref. The options are `chup.mjs`'s ([CHUP.md](CHUP.md)).
+- A **repo source** is `{"repo": "owner/name", "branch": "main"}` (branch optional) and nothing else. The chain's script check (`kiem-kich-ban`, no network) refuses, each with a `to fix:` line: `repo` that is not `owner/name`; a source with both `urls` and `repo` (or `branch` without `repo`); a repo beat with no `repo` block, no `open` key, or whose ref has no source or a source without `repo`; an `open` path that is empty, absolute, holds `..` (or `.`) or a backslash or an empty part, or repeats; a parent that is neither the root nor an earlier entry (unless `chain`); more than 5 entries in a beat, or more than 5 different paths over the beats of one repo; a capture beat whose ref is a repo source. The shared rules are `parse_open` and `repo_problem` in `halcyon_kich_ban.py`; the chain's check calls them.
 - `post` is the text posted with the video, in the owner's format of 19/11/2026: the chain writes `Tiêu đề:`, the title, `Nội dung đăng:`, the body, then the hashtag line. No source line, no link, no per-platform variants, no music credit line (all refused).
-- The chain makes `capture` and card beats (`number`, `chart`, `list`, `end`) only. A `recording` beat, or any beat with a `picture`, is refused: a hand-made recording or photo is an input file outside the chain.
+- The chain makes `capture`, `repo` and card beats (`number`, `chart`, `list`, `end`) only. A `recording` beat, or any beat with a `picture`, is refused: a hand-made recording or photo is an input file outside the chain.

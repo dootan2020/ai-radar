@@ -188,6 +188,151 @@ class Refuses(unittest.TestCase):
         self.assertIn("captured is missing", str(cm.exception))
 
 
+HOOK = ["Tắt lịch sử rồi?", "Vẫn giữ 2 tháng"]
+
+
+def repo_script(open_, i=None, extra_beats=None):
+    """Video 05 with its recording hook replaced by a repo beat that opens `open_`."""
+    i = i or inputs("05")
+    i["kb"]["paragraphs"][0]["beats"][0] = {"kind": "repo", "headline": HOOK, "kicker": "Theo Google", "repo": {"ref": "pl", "open": open_}}
+    return i
+
+
+def assemble_repo(i, quay=True):
+    return kb_mod.assemble(i["kb"], i["timing"], i["manifest"], i["out_dir"], i["timing_path"], i["out_dir"] / "quay.json" if quay else None)
+
+
+def walk_of(open_, b=None, edit=None):
+    """The walk of the hook beat; with `b` the beat is made that long (the real one lasts 4.43 s), so longer walks can be tested."""
+    i = repo_script(open_)
+    if edit:
+        edit(i)
+    r = kb_mod.Run(i["kb"], i["timing"], i["manifest"], i["out_dir"], i["timing_path"], i["out_dir"] / "quay.json")
+    r.tokens(); r.edges()
+    bt = dict(r.beats[0], b=b or r.beats[0]["b"])
+    return [(w["page"], w["a"], w.get("via")) for w in r.repo_beat(bt, "beat 1")["walk"]]
+
+
+class RepoBeat(unittest.TestCase):
+    def test_the_beat_becomes_a_repo_picture_with_a_walk(self):
+        got = assemble_repo(repo_script(["packages"]))
+        b = got["beats"][0]
+        self.assertEqual(b["picture"]["kind"], "repo"); self.assertEqual(b["picture"]["manifest"], "quay.json")
+        self.assertEqual(b["level"], "HOOK"); self.assertEqual(b["mark"], "wm"); self.assertEqual(b["chip"], {"text": "Ảnh chụp: GitHub"})
+        w = b["picture"]["walk"]
+        self.assertEqual([(x["page"], x.get("via")) for x in w], [("", None), ("packages", "tap")])
+        self.assertEqual(w[0]["a"], 0.0)
+        # 4.43 s, the first repo beat: floors 1.6 + 1.2 (the opening glimpse) and 1.4, the 0.23 s above them shared by the two pages
+        self.assertAlmostEqual(w[1]["a"], 2.8 + 0.115, delta=0.006)
+        self.assertEqual(got["beats"][-1]["picture"], {"kind": "same_as", "beat": "1"})
+
+    def test_an_empty_open_list_is_the_home_page_alone(self):
+        w = assemble_repo(repo_script([]))["beats"][0]["picture"]["walk"]
+        self.assertEqual(w, [{"page": "", "a": 0.0}])
+
+    def test_a_later_repo_beat_has_no_glimpse(self):
+        i = repo_script(["packages"])
+        i["kb"]["paragraphs"][2]["beats"][0] = {"kind": "repo", "headline": ["Toàn cầu,", "vài tuần tới"], "kicker": "Theo Google", "repo": {"ref": "pl", "open": ["docs"]}}
+        got = assemble_repo(i); b = got["beats"][3]
+        self.assertEqual((b["a"], b["b"]), (8.44, 12.69))
+        # 4.25 s for floors 1.6 + 1.4: the 1.25 s above them shared by the two pages
+        self.assertAlmostEqual(b["picture"]["walk"][1]["a"], 8.44 + 1.6 + 0.625, delta=0.006)
+
+    def test_a_slide_back_is_an_entry_of_its_own(self):
+        w = walk_of(["packages", "packages/server", "docs"], b=9.0)
+        self.assertEqual([x[0] for x in w], ["", "packages", "packages/server", "", "docs"])
+        self.assertEqual([x[2] for x in w], [None, "tap", "tap", "back", "tap"])
+        # floors 2.8 + 1.4 + 1.4 + 0.4 + 1.4 = 7.4; the 1.6 s above them shared by the five entries
+        for got, want in zip([x[1] for x in w], [0.0, 3.12, 4.84, 6.56, 7.28]):
+            self.assertAlmostEqual(got, want, delta=0.006)
+
+    def test_a_chain_entry_skips_the_folders_github_shows_as_one_row(self):
+        w = walk_of([{"path": "x/y/z", "chain": True}, "x/y/z/f.md"], b=9.0)
+        self.assertEqual([(x[0], x[2]) for x in w], [("", None), ("x/y/z", "tap"), ("x/y/z/f.md", "tap")])
+
+    def test_an_anchor_opens_the_page_when_the_voice_says_it(self):
+        w = walk_of([{"path": "a", "anchor": "khoảng"}, "a/b"], b=9.0)
+        self.assertEqual([x[1] for x in w], [0.0, 3.40, 6.20])      # "khoảng" is heard at 3.48 s, minus the 0.08 s lead; then a and a/b share the rest
+
+    def test_anchors_follow_the_order_of_the_list(self):
+        with self.assertRaises(SystemExit) as cm:
+            walk_of([{"path": "a", "anchor": "tháng"}, {"path": "b", "anchor": "khoảng"}], b=9.0)
+        self.assertIn("anchors must follow the order", str(cm.exception))
+
+    def test_an_anchor_that_leaves_a_page_under_its_floor(self):
+        with self.assertRaises(SystemExit) as cm:
+            walk_of([{"path": "a", "anchor": "Google"}], b=9.0)       # heard at 2.02 s: the home page would have 1.94 s, its floor is 2.8 s
+        self.assertIn("the home page would be on screen 1.94 s, under its floor of 2.8 s", str(cm.exception))
+
+    def test_an_anchor_not_spoken_in_the_beat(self):
+        with self.assertRaises(SystemExit) as cm:
+            walk_of([{"path": "a", "anchor": "huấn luyện"}], b=9.0)
+        self.assertIn('the anchor "huấn luyện" is not among the words spoken', str(cm.exception))
+
+    def test_a_beat_too_short_for_its_pages_names_the_seconds_needed(self):
+        with self.assertRaises(SystemExit) as cm:      # 4.43 s for the home page (2.8 s with the glimpse), two pages (1.4 s each) and the slide back between them (0.4 s)
+            assemble_repo(repo_script(["packages", "docs"]))
+        e = str(cm.exception)
+        self.assertTrue(e.startswith("kich-ban: ")); self.assertIn("gives this beat 4.43 s but its 4 pages need at least 6.0 s", e)
+
+    def test_a_repo_beat_needs_the_recorder_manifest(self):
+        with self.assertRaises(SystemExit) as cm:
+            assemble_repo(repo_script(["packages"]), quay=False)
+        self.assertIn("no recorder manifest was given for \"pl\"", str(cm.exception))
+
+    def test_the_manifest_can_be_given_per_ref(self):
+        i = repo_script(["packages"])
+        got = kb_mod.assemble(i["kb"], i["timing"], i["manifest"], i["out_dir"], i["timing_path"], {"pl": i["out_dir"] / "pl" / "quay.json"})
+        self.assertEqual(got["beats"][0]["picture"]["manifest"], "pl/quay.json")
+
+    def test_the_contract_is_refused_here_too(self):
+        for open_, word in ((["../x"], 'holds "." or ".."'), (["a/b"], "neither the repo root nor an earlier entry"), (["a", "a"], "already opened"),
+                            (["1", "2", "3", "4", "5", "6"], "most one beat may open is 5")):
+            with self.assertRaises(SystemExit) as cm:
+                assemble_repo(repo_script(open_))
+            self.assertIn(word, str(cm.exception))
+
+    def test_the_repo_beat_is_in_the_kinds_list(self):
+        i = repo_script([]); i["kb"]["paragraphs"][0]["beats"][0]["kind"] = "videos"
+        with self.assertRaises(SystemExit) as cm:
+            assemble_repo(i)
+        self.assertIn("capture, repo, recording", str(cm.exception))
+
+
+class OpenContract(unittest.TestCase):
+    def bad(self, open_):
+        entries, problem = kb_mod.parse_open(open_)
+        self.assertIsNone(entries); return problem
+
+    def test_every_refused_path_says_what_to_change(self):
+        for open_, word in (([""], "missing or empty"), ([" "], "missing or empty"), (["/packages"], "is absolute"), (["a\\b"], "backslash"),
+                            (["a//b"], "empty part"), (["packages/"], "empty part"), (["a/../b"], '".."'), ([".."], '".."'), (["a", "a"], "already opened"),
+                            (["a/b/c"], "neither the repo root nor an earlier entry"), ([5], "neither a path nor an object"), ("a", "not a list"),
+                            ([{"path": "a", "x": 1}], "unknown key"), ([{"path": "a", "anchor": ""}], "anchor is empty"),
+                            ([{"path": "a", "chain": "yes"}], "true or false")):
+            reason, fix = self.bad(open_)
+            self.assertIn(word, reason, open_); self.assertTrue(fix)
+
+    def test_a_missing_parent_suggests_both_ways_out(self):
+        reason, fix = self.bad(["a", "a/b/c"])
+        self.assertIn('"a/b"', reason); self.assertIn('put "a/b" before it', fix); self.assertIn('"chain": true', fix); self.assertIn('page of "a"', fix)
+
+    def test_entries_know_the_page_they_are_opened_from(self):
+        e, problem = kb_mod.parse_open(["a", "a/b", {"path": "a/b/c/d", "chain": True}, {"path": "e/f", "chain": True}, "README.md"])
+        self.assertIsNone(problem)
+        self.assertEqual([(x["path"], x["parent"]) for x in e], [("a", ""), ("a/b", "a"), ("a/b/c/d", "a/b"), ("e/f", ""), ("README.md", "")])
+
+    def test_five_entries_are_allowed(self):
+        self.assertIsNone(kb_mod.parse_open(list("abcde"))[1])
+
+    def test_repo_names(self):
+        for ok in ("backnotprop/plannotator", "jlevy/the-art-of-command-line", "a/b.c_d"):
+            self.assertIsNone(kb_mod.repo_problem(ok), ok)
+        for bad in ("plannotator", "https://github.com/a/b", "a/b/c", "a/", "/b", "a b/c", "a/..", "", None, 5):
+            self.assertIn("owner/name", kb_mod.repo_problem(bad)[0], bad)
+        self.assertIsNone(kb_mod.repo_problem("a/b", "release/1.x")); self.assertIn("branch", kb_mod.repo_problem("a/b", "a..b")[0])
+
+
 class Pieces(unittest.TestCase):
     def test_number_words(self):
         self.assertEqual(kb_mod.spoken_values("bảy mươi hai giờ, ba mươi ngày, hai tháng, mười hai, một trăm linh năm"), {72, 30, 2, 12, 105})

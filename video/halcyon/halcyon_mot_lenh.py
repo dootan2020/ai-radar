@@ -24,8 +24,9 @@ FPS = 30
 CAPTURE_MAX_AGE_S = 6 * 3600        # a capture older than this is taken again; at render time it is refused
 VOICE_PROFILE = 'vhn-giong-tin-ai'
 DEADLINES = dict(may=60, giong=20 * 60, anh=5 * 60, dung=10 * 60, nhac=5 * 60)   # seconds; captures: 60 s per attempt, see chup_deadline
-BEAT_KINDS = ('capture', 'number', 'chart', 'list', 'end')
+BEAT_KINDS = ('capture', 'repo', 'number', 'chart', 'list', 'end')
 SOURCE_KEYS = ('urls', 'hco', 'follow', 'occurrence', 'open', 'source', 'date', 'locale', 'ua', 'max_rows')
+REPO_SOURCE_KEYS = ('repo', 'branch')   # a source is a page to capture (`urls`) or a GitHub repository to record (`repo`), never both
 
 
 class Refusal(Exception):
@@ -104,6 +105,7 @@ class Plan:
 
     def __init__(self):
         self.refs = {}       # ref -> dict(urls, hco, quote, bands, options)
+        self.repos = {}      # ref -> dict(repo, branch, paths (every path opened by any beat, in order), beats [dict(name, open)])
         self.say = []
         self.warnings = []
 
@@ -114,10 +116,30 @@ def need_str(v, where):
     return v
 
 
+def kich_ban_module():
+    return load_module('halcyon_kich_ban', HERE / 'halcyon_kich_ban.py')
+
+
+def check_repo_source(ref, s):
+    where = f'sources["{ref}"]'
+    if 'urls' in s:
+        raise Refusal('kiem-kich-ban', f'{where} has both "urls" and "repo"', 'a source is either a page to capture ("urls") or a GitHub repository to record ("repo"); split it into two sources')
+    extra = [k for k in s if k not in REPO_SOURCE_KEYS]
+    if extra:
+        raise Refusal('kiem-kich-ban', f'{where} has unknown key(s) {", ".join(extra)}', f'a repo source takes: {", ".join(REPO_SOURCE_KEYS)}')
+    bad = kich_ban_module().repo_problem(s['repo'], s.get('branch'))
+    if bad:
+        raise Refusal('kiem-kich-ban', f'{where}: {bad[0]}', bad[1])
+
+
 def check_source(ref, s):
     where = f'sources["{ref}"]'
     if not isinstance(s, dict):
-        raise Refusal('kiem-kich-ban', f'{where} must be an object', f'give it "urls": ["https://..."] and, if needed, {", ".join(SOURCE_KEYS[1:])}')
+        raise Refusal('kiem-kich-ban', f'{where} must be an object', f'give it "urls": ["https://..."] and, if needed, {", ".join(SOURCE_KEYS[1:])}; or "repo": "owner/name" for a repo beat')
+    if 'repo' in s:
+        return check_repo_source(ref, s)
+    if 'branch' in s:
+        raise Refusal('kiem-kich-ban', f'{where} has "branch" but no "repo"', 'branch belongs to a repo source: add "repo": "owner/name", or remove it')
     extra = [k for k in s if k not in SOURCE_KEYS]
     if extra:
         raise Refusal('kiem-kich-ban', f'{where} has unknown key(s) {", ".join(extra)}', f'allowed keys: {", ".join(SOURCE_KEYS)}')
@@ -155,6 +177,33 @@ def check_post(post):
             raise Refusal('kiem-kich-ban', f'post text holds a source line ("{squash(text)[:60]}")', 'the owner decided on 19/11/2026: no source line in the post text')
         if re.search(r'Kevin MacLeod|incompetech|CC BY|\b(Nhạc|Music)\s*:', text, re.I):
             raise Refusal('kiem-kich-ban', f'post text holds a music credit ("{squash(text)[:60]}")', 'the owner decided on 19/11/2026: no music credit line (he adds it himself)')
+
+
+def check_repo_beat(plan, sources, b, name):
+    """A repo beat: {"kind": "repo", "headline": [...], "repo": {"ref": ..., "open": [...]}}; every refusal here needs no network."""
+    S = 'kiem-kich-ban'
+    r = b.get('repo')
+    if not isinstance(r, dict):
+        raise Refusal(S, f'{name} has no "repo" block', 'give it {"ref": ..., "open": ["folder", "folder/file"]} ("open": [] shows the home page only)')
+    ref = need_str(r.get('ref'), f'{name}.repo.ref')
+    if not re.fullmatch(r'[\w.-]+', ref):
+        raise Refusal(S, f'{name}: repo ref "{ref}" may hold letters, digits, dot, dash and underscore only', 'rename the ref')
+    src = sources.get(ref)
+    if src is None:
+        raise Refusal(S, f'{name}: repo "{ref}" has no entry in "sources"', f'add "sources": {{"{ref}": {{"repo": "owner/name"}}}} so the chain knows which repository to record')
+    if not isinstance(src, dict) or 'repo' not in src:
+        raise Refusal(S, f'{name}: sources["{ref}"] has no "repo"', 'a repo beat records a GitHub repository: write "repo": "owner/name" in the source (a source with "urls" is for capture beats)')
+    if 'open' not in r:
+        raise Refusal(S, f'{name}.repo.open is missing', 'write the folders and files to open, or [] to show the home page only')
+    entries, bad = kich_ban_module().parse_open(r['open'])
+    if bad:
+        raise Refusal(S, f'{name}: {bad[0]}', bad[1])
+    ent = plan.repos.setdefault(ref, dict(paths=[], beats=[]))
+    ent['beats'].append(dict(name=name, open=[e['path'] for e in entries]))
+    ent['paths'] += [e['path'] for e in entries if e['path'] not in ent['paths']]
+    if len(ent['paths']) > kich_ban_module().MAX_OPEN:
+        raise Refusal(S, f'{name}: the beats of repo "{ref}" open {len(ent["paths"])} different pages in all; the recorder takes at most {kich_ban_module().MAX_OPEN} besides the home page',
+                      'open fewer different folders and files over the beats of this repo')
 
 
 def check_script(kb):
@@ -198,6 +247,9 @@ def check_script(kb):
             if kind not in BEAT_KINDS:
                 raise Refusal(S, f'{name} has kind "{kind}"', f'kinds the chain makes: {", ".join(BEAT_KINDS)}')
             last = kind
+            if kind == 'repo':
+                check_repo_beat(plan, sources, b, name)
+                continue
             if kind != 'capture':
                 continue
             c = b.get('capture')
@@ -206,6 +258,8 @@ def check_script(kb):
             ref, quote = need_str(c.get('ref'), f'{name}.capture.ref'), squash(need_str(c.get('quote'), f'{name}.capture.quote'))
             if not re.fullmatch(r'[\w.-]+', ref):
                 raise Refusal(S, f'{name}: capture ref "{ref}" may hold letters, digits, dot, dash and underscore only', 'rename the ref')
+            if isinstance(sources.get(ref), dict) and 'repo' in sources[ref]:
+                raise Refusal(S, f'{name}: capture "{ref}" is a repo source', 'a capture takes a page address ("urls"); to show the repository use a repo beat, or give this capture its own source')
             if ref not in sources:
                 raise Refusal(S, f'{name}: capture "{ref}" has no entry in "sources"', f'add "sources": {{"{ref}": {{"urls": ["https://..."]}}}} so the chain knows which page to capture')
             if quotes.setdefault(ref, quote) != quote:
@@ -221,8 +275,11 @@ def check_script(kb):
         check_source(ref, sources[ref])
         s = sources[ref]
         ent.update(urls=list(s['urls']), hco=s.get('hco'), options={k: s[k] for k in SOURCE_KEYS[2:] if k in s})
+    for ref, ent in plan.repos.items():
+        check_source(ref, sources[ref])
+        ent.update(repo=sources[ref]['repo'], branch=sources[ref].get('branch'))
     for ref in sources:
-        if ref not in plan.refs:
+        if ref not in plan.refs and ref not in plan.repos:
             plan.warnings.append(f'sources["{ref}"] is not used by any capture beat')
     check_post(kb.get('post'))
     return plan
