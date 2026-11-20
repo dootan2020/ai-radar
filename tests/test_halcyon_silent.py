@@ -13,6 +13,7 @@ import tempfile
 import unittest
 import wave
 from pathlib import Path
+from unittest import mock
 
 ROOT = Path(__file__).resolve().parents[1]
 HAL = ROOT / "video" / "halcyon"
@@ -503,6 +504,7 @@ class Producers(unittest.TestCase):
         plan = ml.check_script(v3_script())
         miss = dict((n, r) for n, r in ml.missing_producers(plan))
         want = {"run": "thu", "scene": "giao-thuc", "demo": "dojo"}
+        self.assertTrue(ml.producer_ready("run"))
         self.assertEqual(miss, {n: r for n, r in want.items() if not ml.producer_ready(n)})
 
     def test_a_stub_refuses_with_a_clear_message(self):
@@ -515,8 +517,9 @@ class Producers(unittest.TestCase):
         self.assertIn("producer not built yet", str(ml.producer_stub("run", "thu")))
 
     def test_the_steps_refuse_before_anything_slow_runs(self):
-        plan = ml.check_script(v3_script())
-        ctx = ml.Ctx("s.json", tempfile.gettempdir() + "/x", plan, v3_script(), {"gpu_python": "python"})
+        kb = v3_script()
+        plan = ml.check_script(kb)
+        ctx = ml.Ctx("s.json", tempfile.gettempdir() + "/x", plan, kb, {"gpu_python": "python"})
         steps = [s.name for s in ml.real_steps(ctx)]
         self.assertEqual(steps[:3], ["kiem-kich-ban", "kiem-may", "kiem-nguon-clip"])
         for name in ("demo:dojo", "canh:giao-thuc", "lang"):
@@ -527,11 +530,18 @@ class Producers(unittest.TestCase):
         self.assertLess(steps.index("lang"), steps.index("lap-rap"))
         with self.assertRaises(ml.Refusal) as cm:
             ml.step_kiem_nguon_clip(ctx)
+        self.assertEqual(cm.exception.step, "canh:giao-thuc")
         self.assertIn("producer not built yet", str(cm.exception))
-        for fn, args in ((ml.step_producer, ("scene", "giao-thuc")), (ml.step_chay, ("thu",))):   # the demo producer is built (it would record); the others are stubs
+        # run and demo are built (they would install or record for real), so only the scene stub is called;
+        # the run step is checked with its producer marked unbuilt, so no unit test ever installs anything
+        for name, ref in (("scene", "giao-thuc"),):
             with self.assertRaises(ml.Refusal) as cm:
-                fn(ctx, *args)
+                ml.step_producer(ctx, name, ref)
             self.assertIn("producer not built yet", str(cm.exception))
+        with mock.patch.object(ml, "producer_ready", return_value=False):
+            with self.assertRaises(ml.Refusal) as cm:
+                ml.step_chay(ctx, "thu")
+        self.assertIn("producer not built yet", str(cm.exception))
 
     def test_a_script_without_moving_pictures_has_no_new_steps(self):
         kb = json.loads((FIX / "mot-lenh" / "kich-ban.json").read_text(encoding="utf-8"))

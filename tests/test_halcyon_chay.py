@@ -4,6 +4,7 @@ import importlib.util
 import json
 import os
 import re
+import shutil
 import tempfile
 import unittest
 from pathlib import Path
@@ -482,6 +483,118 @@ class RunsForReal(unittest.TestCase):
         _, go = self.go(doc(slow), [block("python slow.py", deadline=10)], files=[dict(name="slow.py", **{"from": DOC}, fence="# slow.py")])
         e = refusal(go)
         self.assertEqual(e.kind, "deadline")
+
+
+class Footage(unittest.TestCase):
+    def test_chain_producer_marker_and_block_validation(self):
+        self.assertEqual(hc.CLIP_PRODUCER, 1)
+        job = dict(run=dict(steps=[{}, {}, {}]))
+        self.assertEqual(hc.footage_blocks(job), [])
+        job['blocks'] = [[0, 1], [2]]
+        self.assertEqual(hc.footage_blocks(job), [[0, 1], [2]])
+        for blocks in ([[]], [[-1]], [[3]], [[0, 2]], [[1, 1]], [[True]], '0'):
+            with self.subTest(blocks=blocks):
+                job['blocks'] = blocks
+                self.assertEqual(refusal(hc.footage_blocks, job).kind, 'footage')
+
+    def test_invalid_block_refuses_run_before_creating_output(self):
+        job = dict(ref='fake', run=dict(files=[dict(name='hello.py', **{'from': DOC}, fence='# hello.py')],
+                                        steps=[block('python hello.py')]), blocks=[[0, 1]])
+        with tempfile.TemporaryDirectory() as d:
+            out = Path(d) / 'run'
+            self.assertEqual(refusal(hc.run, job, out).kind, 'footage')
+            self.assertFalse(out.exists())
+
+    def test_pipe_cast_records_monotonic_output_and_matches_log(self):
+        import sys
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            script = root / 'talk.py'
+            script.write_text('import time\nprint("first", flush=True)\ntime.sleep(0.12)\nprint("second", flush=True)\n', encoding='utf-8')
+            log = root / 'step-0.log'
+            p = hc.start(['python', str(script)], root, dict(os.environ, PATH=str(Path(sys.executable).parent)), log)
+            self.assertEqual(p.wait(timeout=5), 0)
+            p._reader.join(timeout=5)
+            events = hc.read_cast(log.with_suffix('.cast'), log)
+            self.assertIn('first', events[0][1])
+            self.assertIn('second', ''.join(e[1] for e in events))
+            self.assertGreater(events[-1][0] - events[0][0], 0.08)
+
+    def test_timeline_cuts_steps_and_marks_real_or_raised_speed(self):
+        steps = [dict(index=i, cmd='python demo.py', seconds=s, events=[[0.1, f'{i}\n']], expect=[])
+                 for i, s in enumerate((2, 2, 20))]
+        short, duration = hc.footage_timeline(steps[:2])
+        self.assertEqual([s['step']['index'] for s in short], [0, 1])
+        self.assertEqual([s['speed'] for s in short], [1, 1])
+        self.assertEqual(hc.speed_label(short[0]['speed']), 'TỐC ĐỘ THẬT x1')
+        self.assertLessEqual(duration, 18)
+        fast, duration = hc.footage_timeline(steps)
+        self.assertGreater(fast[0]['speed'], 1)
+        self.assertEqual(hc.speed_label(fast[0]['speed']), f'TUA NHANH x{fast[0]["speed"]}')
+        self.assertTrue(all(s['speed'] == fast[0]['speed'] for s in fast))
+        self.assertLessEqual(duration, 18)
+
+    @unittest.skipUnless(importlib.util.find_spec('PIL'), 'Pillow required for frame drawing')
+    def test_frame_changes_as_recorded_output_arrives(self):
+        step = dict(index=0, cmd='python demo.py', seconds=1,
+                    events=[[0.1, 'first\n'], [0.5, 'second\n']], expect=['second'])
+        seg = hc.footage_timeline([step])[0][0]
+        early = hc.draw_footage_frame(seg, seg['typing_s'] + 0.2, 1)
+        late = hc.draw_footage_frame(seg, seg['typing_s'] + 0.6, 2)
+        self.assertEqual(early.size, (762, 850))
+        self.assertNotEqual(early.tobytes(), late.tobytes())
+
+    @unittest.skipUnless(importlib.util.find_spec('PIL'), 'Pillow required for clip drawing')
+    def test_two_step_clip_manifest_passes_builder_contract(self):
+        ffmpeg = os.environ.get('HALCYON_FFMPEG') or shutil.which('ffmpeg')
+        if not ffmpeg:
+            self.skipTest('ffmpeg not on PATH; set HALCYON_FFMPEG for clip integration')
+        source = '# hello.py\nimport time\nprint("first", flush=True)\ntime.sleep(0.12)\nprint("Hello from AG-UI!", flush=True)\n'
+        run = dict(files=[dict(name='hello.py', **{'from': DOC}, fence='# hello.py')],
+                   steps=[block('python hello.py'), block('python hello.py', expect=['Hello from AG-UI!'])])
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            hc.run(dict(ref='fake', run=run), root / 'run', lambda u: doc(source), lambda u: {}, say=lambda s: None)
+            manifest = hc.make_footage(root / 'run', 0, 1, ffmpeg=ffmpeg, encoder='libx264')
+            spec = load('halcyon_spec_footage', 'video/halcyon/halcyon_spec.py')
+            result = spec.load_clip_manifest(manifest)
+            self.assertEqual(result['fps'], 25)
+            self.assertLessEqual(result['w'], 886)
+            self.assertLessEqual(result['h'], 976)
+            self.assertGreaterEqual(result['min_text_px'], 28)
+            self.assertEqual([s['name'] for s in result['segments']], ['step-0', 'step-1'])
+            self.assertTrue(result['video'].stat().st_size > 1000)
+
+    @unittest.skipUnless(importlib.util.find_spec('PIL'), 'Pillow required for clip drawing')
+    def test_run_writes_one_valid_manifest_beside_chay_for_each_block(self):
+        ffmpeg = os.environ.get('HALCYON_FFMPEG') or shutil.which('ffmpeg')
+        if not ffmpeg:
+            self.skipTest('ffmpeg not on PATH; set HALCYON_FFMPEG for clip integration')
+        from unittest.mock import patch
+        source = '# hello.py\nprint("Hello from AG-UI!", flush=True)\n'
+        steps = [block('python hello.py') for _ in range(3)]
+        job = dict(ref='fake', run=dict(files=[dict(name='hello.py', **{'from': DOC}, fence='# hello.py')], steps=steps),
+                   blocks=[[0, 1], [2]])
+        real_make = hc.make_footage
+
+        def cpu_make(*args, **kwargs):
+            return real_make(*args, ffmpeg=ffmpeg, encoder='libx264', **kwargs)
+
+        with tempfile.TemporaryDirectory() as d, patch.object(hc, 'make_footage', side_effect=cpu_make):
+            out = Path(d) / 'run'
+            hc.run(job, out, lambda u: doc(source), lambda u: {}, say=lambda s: None)
+            spec = load('halcyon_spec_run_blocks', 'video/halcyon/halcyon_spec.py')
+            self.assertTrue((out / 'chay.json').is_file())
+            for name, step_names in [('clip-0-1.json', ['step-0', 'step-1']),
+                                     ('clip-2.json', ['step-2'])]:
+                manifest = spec.load_clip_manifest(out / name)
+                self.assertEqual(manifest['path'].parent, out)
+                self.assertEqual(manifest['video'].parent, out)
+                self.assertEqual([s['name'] for s in manifest['segments']], step_names)
+                self.assertLessEqual(manifest['w'], 886)
+                self.assertLessEqual(manifest['h'], 976)
+                self.assertLessEqual(manifest['duration'], 40)
+                self.assertGreaterEqual(manifest['min_text_px'], 28)
 
 
 if __name__ == "__main__":

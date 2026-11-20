@@ -1,6 +1,6 @@
 # Showing commands run for real (`terminal` beat: `chay:<ref>` in the one command)
 
-A follow-along video must let the viewer do the same, so it shows the commands and what they print. The chain runs the commands for real in a throwaway folder, keeps the log, and draws the real log as phone-sized terminal stills, which the builder plays as an ordinary capture picture (the GPU builder is unchanged). Nothing is typed or edited by hand: the text on screen is the captured output (owner, 20/11/2026: "quay màn hình nếu cần ... user xem video là có thể làm theo được luôn"; free things only; "chú ý bảo mật, không tải virus, hay khiến máy anh hoặc user gặp nguy hiểm").
+A follow-along video shows commands and their real output. The chain runs them in a throwaway folder, keeps a timestamped pipe recording beside each log, and draws terminal stills. `make_footage()` also turns inclusive step ranges into silent moving clips: the recorded command appears at 18 characters per real second, then output arrives at its recorded times. No desktop or pseudo-terminal is captured. The typing is a rendering of the vetted command, not a keyboard recording.
 
 ```
 script (terminal beat)  ->  chay:<ref>  ->  giong  ->  lap-rap  ->  anh  ->  kiem-anh  ->  dung  ->  nhac  ->  goi
@@ -63,8 +63,18 @@ Every refusal is `chay: <kind>: <why>` and `to fix: ...`. The ones that need no 
 ## Output (`<run>/cong-viec/chay/<ref>/`)
 `chay.json` (tools and versions, files with SHA-256 and their fence, documents with SHA-256, packages checked and installed, pins, audit, environment variable names that passed, per step: command, cwd, exit code, seconds, the output, the rows drawn and the capture-manifest entry), `s<step>.png` (the picture of each step), `log/step-<n>.log` (the full real output of each step). The throwaway folder `work/` is deleted. The step is reused when the run block, the tool and the font are unchanged and `chay.json` is under 6 hours old; the pack's `tom-tat.md` lists "Nguồn đã chạy (máy)" (commands, exit codes, files, packages with their registry pages, audit), one line under "Máy đã kiểm" and two under "Máy chưa kiểm được" (that it runs on the viewer's machine; that dependencies are not checked one by one). Stills, `chay.json` and the logs go to "6 - Nguồn/chay-lenh" in `luu-tru.json`.
 
+### Silent footage
+
+Each run also records `log/step-<n>.cast`: JSON lines `[monotonic seconds since process start, decoded output chunk]`. Concatenated cast text must reproduce the log decoded as UTF-8.
+
+`make_footage(run_dir, first_step, last_step, out=None, ffmpeg=None, encoder='h264_nvenc', manifest_name='clip.json')` returns the manifest path. Step indexes are inclusive. Default output is `<run_dir>/clip-<first>-<last>/`; `ffmpeg` may name an installed executable. The CLI equivalent is `python video/halcyon/halcyon_chay.py footage --run <completed-run> --first 0 --last 1 --out <clip-folder> --ffmpeg <ffmpeg.exe>`. For AG-UI, make two blocks: steps 0–1 and 2–5.
+
+The chain calls `run --job <job.json> --out <folder>`. This module declares `CLIP_PRODUCER = 1`. When the job includes `"blocks": [[0, 1], [2, 3, 4, 5]]`, `run` records the commands and writes `clip-0-1.json` and `clip-2-3-4-5.json` beside `chay.json` in `<folder>`. Each manifest points to its distinct video file in the same folder. A block must be a nonempty list of consecutive, in-range step indexes; invalid blocks stop before any command runs. Jobs without `blocks` keep their existing still-picture behavior. `make_footage` remains available for an individual completed run; its optional `manifest_name` argument selects the chain's manifest name when writing into the run folder.
+
+A block has an 18 s budget including a 2.5 s hold on its final result. Playback is x1 when it fits; otherwise it uses the smallest whole speed factor that fits. Every frame carries `TỐC ĐỘ THẬT x1` or `TUA NHANH xN` and a clock of elapsed real seconds. The silent 25 fps H.264 clip is drawn at 762 × 850 final pixels with 30 px minimum text. The `clip.json` fields follow [SPEC.md](SPEC.md); its proof includes the step range and cast hashes. The builder places it 1:1. The script disables voice and captions on these beats.
+
 ## What this cannot show
-That the command works on the viewer's machine (another OS, Python or Node), that the project is worth following, or that a dependency's code is clean. The pictures are stills, not a live recording; the order of what the voice says against what is on screen is for the contact sheet and the person who writes the script.
+That the command works on the viewer's machine (another OS, Python or Node), that the project is worth following, or that a dependency's code is clean. The clip shows captured pipe output, not the desktop. Its visible typing is reconstructed from the vetted command; pipe programs may suppress interactive progress bars.
 
 ## Tests and a live run
 `python -m unittest tests.test_halcyon_chay tests.test_halcyon_mot_lenh tests.test_halcyon_kich_ban` (run with the GPU interpreter so the drawing test runs; the class `RunsForReal` runs real local Python in a venv, about a minute). A live run of the AG-UI case (installs from pypi.org and registry.npmjs.org, about 45 s): `python video/halcyon/halcyon_chay.py run --job job.json --out <folder outside the repo>`, or through `mot-lenh.py` with a `terminal` beat.
