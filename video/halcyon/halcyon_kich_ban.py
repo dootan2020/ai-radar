@@ -266,6 +266,11 @@ def parse_open(open_):
     return out, None
 
 
+def terminal_key(ref, step):
+    """The capture-manifest key of the picture of step `step` of the run `ref` (halcyon_chay.py writes one entry per step)."""
+    return f'{ref}-s{step}'
+
+
 # ---------------- inputs ----------------
 def load_json(path, what):
     try:
@@ -409,8 +414,19 @@ class Run:
         return caps
 
     # -- beats to spec
+    def terminal_cap(self, bt):
+        """A terminal beat is drawn as a capture of the picture its run step made: the quote is the text of that picture, the bands are the highlighted phrases."""
+        sp = bt['spec']; t = need(sp, 'terminal', f'beat {bt["id"]}'); where = f'beat {bt["id"]}.terminal'
+        ref = need(t, 'ref', where)
+        if not isinstance(t.get('step'), int) or isinstance(t['step'], bool) or t['step'] < 0:
+            fail(f'{where}.step must be the number of a step of the run (from 0)')
+        key = terminal_key(ref, t['step'])
+        if key not in self.caps:
+            fail(f'{where}: step {t["step"]} of run "{ref}" has no picture in the manifest (it has: {", ".join(self.caps)})')
+        return dict(ref=key, quote=need(self.caps[key], 'text', f'captures[{key}]'), bands=t.get('bands', []))
+
     def capture_beat(self, bt, first):
-        sp = bt['spec']; cap = need(sp, 'capture', f'beat {bt["id"]}'); ref = need(cap, 'ref', f'beat {bt["id"]}.capture')
+        sp = bt['spec']; cap = self.terminal_cap(bt) if sp.get('kind') == 'terminal' else need(sp, 'capture', f'beat {bt["id"]}'); ref = need(cap, 'ref', f'beat {bt["id"]}.capture')
         if ref not in self.caps:
             fail(f'beat {bt["id"]}: capture "{ref}" is not in the capture manifest (it has: {", ".join(self.caps)})')
         c = self.caps[ref]; quote = plain(need(cap, 'quote', f'beat {bt["id"]}.capture'))
@@ -503,7 +519,7 @@ class Run:
             d = dict(id=bt['id'], name=sp.get('name', bt['id']), a=bt['a'], b=bt['b'])
             texts = []; say = self.paras[bt['n']]['say']; nums = self.paras[bt['n']].get('numbers', {})
             wm = i == 0 or i == len(self.beats) - 1
-            if kind in ('capture', 'recording', 'repo'):
+            if kind in ('capture', 'recording', 'repo', 'terminal'):
                 head = need(sp, 'headline', where)
                 if len(head) != 2:
                     fail(f'{where}.headline must be two lines')
@@ -514,9 +530,9 @@ class Run:
                 if 'headline_anchor' in sp:
                     tx['cuts'] = [self.cut(bt, sp, where + '.headline_anchor', 'headline_anchor')]
                 texts += head
-                if kind == 'capture':
+                if kind in ('capture', 'terminal'):
                     pic, bands, c = self.capture_beat(bt, i == 0)
-                    chip = sp.get('chip') or f'{prefix}: {c["source"]}, {c["date"]}'
+                    chip = sp.get('chip') or (f'Chạy thật: {c["date"]}' if kind == 'terminal' else f'{prefix}: {c["source"]}, {c["date"]}')
                     d['chip'] = dict(text=chip); tx_pic = pic
                 elif kind == 'repo':
                     chip = sp.get('chip') or f'{prefix}: GitHub'
@@ -556,7 +572,7 @@ class Run:
                 d.update(level='HOOK', mark='wm', chip=first_chip, text=tx, picture=dict(kind='same_as', beat=self.beats[0]['id']))
                 strings.append(('small', where + '.kicker', tx['kicker']))
             else:
-                fail(f'{where}.kind "{kind}" is not one of capture, repo, recording, number, chart, list, end')
+                fail(f'{where}.kind "{kind}" is not one of capture, repo, recording, terminal, number, chart, list, end')
             if kind == 'end' and i != len(self.beats) - 1:
                 fail(f'{where}: the end beat must be the last beat')
             if kind != 'end':

@@ -370,5 +370,53 @@ class Pieces(unittest.TestCase):
         self.assertIn(ord("Ặ"), chars); self.assertNotIn(0x1F600, chars)
 
 
+TERM_ENTRY = {"file": "thu/s5.png", "focus": {"rows": [72, 344]}, "u_rows": [48, 356], "source": "Chạy thật trên máy Halcyon", "date": "20/11/2026",
+              "captured": "2026-11-20T20:00:00+07:00", "bands": [{"rect": [63, 208, 493, 68], "text": "Hello from AG-UI!"}],
+              "text": "$ npx tsx client.ts\nrun started (AG-UI 1.0)\nHello from AG-UI!\nrun finished"}
+
+
+def terminal_script(**term):
+    i = inputs("05")
+    t = dict(ref="thu", step=5, bands=[{"text": "Hello from AG-UI!", "at": 1.0}])
+    t.update(term)
+    i["kb"]["paragraphs"][0]["beats"][0] = {"kind": "terminal", "headline": HOOK, "level": "FOOT", "terminal": t}
+    i["manifest"] = dict(i["manifest"], **{kb_mod.terminal_key("thu", 5): TERM_ENTRY})
+    return i
+
+
+class TerminalBeat(unittest.TestCase):
+    def build(self, i):
+        return kb_mod.assemble(i["kb"], i["timing"], i["manifest"], i["out_dir"], i["timing_path"])
+
+    def test_it_assembles_to_the_spec_of_a_capture_beat(self):
+        b = self.build(terminal_script())["beats"][0]
+        self.assertEqual(b["level"], "FOOT")
+        self.assertEqual(b["picture"], {"kind": "capture", "file": "thu/s5.png", "rows": [72, 344], "u_rows": [48, 356]})
+        self.assertEqual(b["bands"], [{"rect": [63, 208, 493, 68], "at": 1.0}])
+        self.assertEqual(b["chip"], {"text": "Chạy thật: 20/11/2026"})
+
+    def test_the_key_names_the_run_and_the_step(self):
+        self.assertEqual(kb_mod.terminal_key("thu", 5), "thu-s5")
+
+    def refused(self, i, *words):
+        with self.assertRaises(SystemExit) as cm:
+            self.build(i)
+        for w in words:
+            self.assertIn(w, str(cm.exception))
+
+    def test_a_step_without_a_picture_is_refused(self):
+        self.refused(terminal_script(step=6), "step 6 of run \"thu\" has no picture")
+        self.refused(terminal_script(step="5"), "terminal.step must be the number")
+        self.refused(terminal_script(step=-1), "terminal.step must be the number")
+
+    def test_a_phrase_that_is_not_in_the_picture_is_refused(self):
+        self.refused(terminal_script(bands=[{"text": "Goodbye", "at": 1.0}]), "no band \"Goodbye\"")
+
+    def test_a_beat_without_its_block_is_refused(self):
+        i = terminal_script()
+        del i["kb"]["paragraphs"][0]["beats"][0]["terminal"]
+        self.refused(i, "terminal")
+
+
 if __name__ == "__main__":
     unittest.main()
