@@ -111,6 +111,9 @@ class Sources(unittest.TestCase):
             p = Path(d) / "demo.json"
             p.write_text(json.dumps({"events": DEMO, "source": "dojo", "date": "21/11/2026"}), encoding="utf-8")
             self.assertEqual(canh.counts_from_demo(p)["counts"]["STATE_SNAPSHOT"], 35)
+            p.write_text(json.dumps({"events": {"total": 209, "by_type": DEMO, "order": ["RUN_STARTED", "STATE_SNAPSHOT"], "streams": 1}}), encoding="utf-8")
+            c = canh.counts_from_demo(p)                                   # the shape halcyon_demo.py writes
+            self.assertEqual((c["counts"]["TOOL_CALL_ARGS"], c["order"]), (12, ["RUN_STARTED", "STATE_SNAPSHOT"]))
             p.write_text(json.dumps({"event_counts": DEMO}), encoding="utf-8")
             self.assertEqual(canh.counts_from_demo(p)["counts"]["TEXT_MESSAGE_CONTENT"], 29)
             for bad in ({}, {"events": {}}, {"events": {"X": -1}}, {"events": {"X": True}}, {"events": ["RUN_STARTED"]}):

@@ -121,7 +121,7 @@ def check_run(src, chay_path):
 
 
 def counts_from_demo(path):
-    """Event type counts of the demo the viewer watched (demo.json `events`, or `event_counts`: {TYPE: n}). None when no demo is named."""
+    """Event type counts of the demo the viewer watched: demo.json `events.by_type` (halcyon_demo.py), or a flat `events` / `event_counts` {TYPE: n}. None when no demo is named."""
     if not path:
         return None
     p = Path(path)
@@ -129,9 +129,13 @@ def counts_from_demo(path):
         raise Refusal(f'counts_demo names {p}, which does not exist', 'run the demo step of that source first')
     m = json.loads(p.read_text(encoding='utf-8'))
     ev = m.get('events', m.get('event_counts'))
+    order = None
+    if isinstance(ev, dict) and isinstance(ev.get('by_type'), dict):         # halcyon_demo.py writes {"total", "by_type", "order", "streams"}
+        order = ev.get('order') if isinstance(ev.get('order'), list) else None
+        ev = ev['by_type']
     if not isinstance(ev, dict) or not ev or not all(isinstance(k, str) and isinstance(v, int) and not isinstance(v, bool) and v >= 0 for k, v in ev.items()):
         raise Refusal(f'{p.name} carries no event counts ("events": {{"TYPE": n}})', 'the demo step must write the type counts of the stream it recorded')
-    return dict(counts=ev, source=str(m.get('source') or p), date=str(m.get('date') or ''), path=str(p))
+    return dict(counts=ev, order=order, source=str(m.get('source') or p), date=str(m.get('date') or ''), path=str(p))
 
 
 def _r(x):
