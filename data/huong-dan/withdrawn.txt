@@ -1,0 +1,2 @@
+# Withdrawn guides (see withdrawn_ids in radar/huong_dan.py): one id per line.
+hd-day-chuyen-video-halcyon
