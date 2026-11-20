@@ -39,6 +39,6 @@ cd video
 npm install --no-save --ignore-scripts three@0.187.0
 ```
 
-It was installed this way on 21/11/2026 in `C:\Users\Admin\ai-radar-wt-video-tu-dong\video` (MIT, no dependencies). A later `npm ci` removes it; the producer then refuses with this command. Fonts: Be Vietnam Pro (brand/fonts), Barlow Condensed and JetBrains Mono (video/halcyon/fonts). Chrome: the installed one (`CHROME_PATH` overrides).
+It was installed this way on 21/11/2026 in the chain checkout's `video/` (MIT, no dependencies). A later `npm ci` removes it; the producer then refuses with this command. Fonts: Be Vietnam Pro (brand/fonts), Barlow Condensed and JetBrains Mono (video/halcyon/fonts). Chrome: the installed one (`CHROME_PATH` overrides).
 
 Measured 21/11/2026 on the RTX 2060: WebGL `ANGLE (NVIDIA, NVIDIA GeForce RTX 2060 Direct3D11)`, 780 frames in about 27 s (34 ms a frame), 9 files served, 0 aborted.
