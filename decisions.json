@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-20T05:23:25.612519+00:00",
-  "input_generated_at": "2026-11-20T04:46:01Z",
+  "generated_at": "2026-11-20T07:44:24.609313+00:00",
+  "input_generated_at": "2026-11-20T06:45:58Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -111489,9 +111489,9 @@
       "use_original_title": false,
       "source_url": "https://simonwillison.net/2026/Nov/20/token-fraud-is-here-and-its-bad/",
       "key_points": [
-        "Theo tác giả Simon Willison, bà Claire Vo đang dần đóng toàn bộ chương trình dùng thử miễn phí của nền tảng ChatPRD trước tình trạng bị lạm dụng.",
-        "Claire Vo cho biết nhiều nhóm lạm dụng dùng thử để lấy AI miễn phí, bán lại token (đơn vị dữ liệu xử lý) hoặc kinh doanh trên tác tử (chương trình AI tự hành).",
-        "Cụ thể, bà chia sẻ một xưởng game quốc tế đã quay vòng lượt dùng thử cùng mã giảm giá rồi kết nối vào tác tử để dựng bản đồ Roblox và Fortnite.",
+        "Theo tác giả Simon Willison, bà Claire Vo đang dần đóng toàn bộ chương trình dùng thử miễn phí của nền tảng ChatPRD trước tình trạng lạm dụng.",
+        "Claire Vo cho biết nhiều nhóm lạm dụng dùng thử để lấy quyền sử dụng AI miễn phí, bán lại token hoặc kinh doanh trên tác tử (chương trình AI tự hành).",
+        "Cụ thể, bà chia sẻ bản thân đang phải tài trợ cho một xưởng làm bản đồ Roblox và Fortnite quốc tế. Nhóm này quay vòng các lượt dùng thử cùng mã giảm giá rồi kết nối vào tác tử của bà để dựng bản đồ.",
         "Simon Willison nhận định việc dừng hoàn toàn dùng thử tuy đáng tiếc nhưng có vẻ là quyết định đúng đắn trước tình trạng lạm dụng này."
       ],
       "same_event_coverage_ids": [
@@ -111508,7 +111508,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "ChatPRD dần đóng các bản dùng thử miễn phí vì bị lạm dụng để bán lại token và kinh doanh",
+      "editorial_headline_vi": "ChatPRD đóng dần các bản dùng thử miễn phí do bị lạm dụng để bán lại token và kinh doanh",
       "summary_sources": [
         {
           "id": "outlet",
@@ -111521,39 +111521,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.7,
+        "value": 10.0,
         "answers": {
           "what": 10,
           "why": 10,
-          "notable": 9,
+          "notable": 10,
           "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "token (đơn vị dữ liệu xử lý)",
-            "explanation": "The source discusses reselling tokens but does not define a token as a unit of processed data (outlet:p003)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "notable",
-            "problem": "The studio example loses Claire’s striking point that its use of her agent leaves her effectively funding its work.",
-            "fix": "Include that point while retaining the trial and promo-code cycle (outlet:p004)."
-          },
-          {
-            "question": "what",
-            "problem": "The parenthetical definition of “token” is not established by the supplied source.",
-            "fix": "Remove the definition and retain the source’s statement that groups resell tokens (outlet:p003)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "bfa7db18441bdcf92bb6352e9ebb6a06f14c53349b3dcb5e8641b56882abe6fb",
-        "scored_at": "2026-11-20T05:18:46.578126+00:00"
+        "prose_sha256": "44593fd565a12de690b9700dbb408067e9f78f48a040399feab0e989b47f7ad0",
+        "scored_at": "2026-11-20T07:44:24.604356+00:00"
       }
     },
     {
@@ -111643,10 +111626,10 @@
       "use_original_title": false,
       "source_url": "https://arxiv.org/abs/2611.26380",
       "key_points": [
-        "Nhóm nghiên cứu của Yuqi Tang giới thiệu mô hình EgoCaptioner, dẫn đầu trong số các mô hình nguồn mở được đánh giá trên 5 bộ chuẩn (benchmark - bài kiểm tra hiệu năng chuẩn hóa) về chất lượng phụ đề, hỏi đáp và căn chỉnh thời gian cho video góc nhìn thứ nhất.",
-        "Theo nhóm tác giả, nghiên cứu nhằm khắc phục việc các mô hình đa phương thức hiện nay thường bỏ sót hành động ngắn, nhầm thứ tự hoặc hiểu sai chuyển động người quay. Nhóm đã phát triển quy trình chú thích từ thô đến tinh với 50.000 mẫu huấn luyện và áp dụng thuật toán GRPO để tinh chỉnh phụ đề.",
+        "Nhóm nghiên cứu của Yuqi Tang giới thiệu mô hình EgoCaptioner, đạt hiệu năng dẫn đầu trong số các mô hình nguồn mở được đánh giá trên 5 bộ chuẩn (benchmark - bài kiểm tra hiệu năng chuẩn hóa) về chất lượng phụ đề, hỏi đáp và căn chỉnh thời gian cho video góc nhìn thứ nhất.",
+        "Theo nhóm tác giả, nghiên cứu nhằm khắc phục việc các mô hình đa phương thức hiện nay thường bỏ sót hành động ngắn hoặc hiểu sai chuyển động người quay. Nhóm phát triển quy trình chú thích từ thô đến tinh với 50.000 mẫu huấn luyện và áp dụng thuật toán GRPO để tinh chỉnh phụ đề.",
         "Trong các thử nghiệm, EgoCaptioner đã vượt qua Gemini 3.1 Pro trên bài kiểm tra PhysCapBench và vượt toàn bộ các mô hình độc quyền được đánh giá trên Minerva-Ego theo giao thức hỏi đáp dựa trên phụ đề.",
-        "Kết quả thử nghiệm bóc tách chứng minh quy trình chú thích từ thô đến tinh mang lại hiệu quả giám sát tốt hơn phương pháp chú thích một lượt. Dù vậy, các tác giả lưu ý giải pháp bổ sung dữ liệu chuyển động từ tư thế chỉ áp dụng được khi có sẵn dữ liệu cảm biến."
+        "Kết quả thử nghiệm bóc tách ủng hộ nhận định rằng quy trình chú thích từ thô đến tinh mang lại hiệu quả giám sát tốt hơn chú thích một lượt. Dù vậy, nhóm tác giả lưu ý giải pháp bổ sung dữ liệu chuyển động từ tư thế chỉ áp dụng được khi có sẵn dữ liệu cảm biến."
       ],
       "same_event_coverage_ids": [
         "5934114bd3f4c3323001"
@@ -111668,25 +111651,24 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.5,
+        "value": 8.45,
         "answers": {
-          "what": 10,
-          "why": 9,
-          "notable": 10,
-          "meaning": 8
+          "what": 8,
+          "why": 8,
+          "notable": 9,
+          "meaning": 9
         },
-        "hard_errors": [
-          {
-            "kind": "quote",
-            "summary_text": "Kết quả thử nghiệm bóc tách chứng minh",
-            "explanation": "The abstract says the ablations 'support' the conclusion, a weaker claim than proving it (outlet:p009)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "meaning",
-            "problem": "The ablation result is stated with more certainty than the authors use.",
-            "fix": "Say the ablations support, rather than prove, the benefit of coarse-to-fine annotation (outlet:p009)."
+            "question": "what",
+            "problem": "The reader does not learn the format that distinguishes EgoCaptioner.",
+            "fix": "Explain that it pairs a video-level overview with narrated steps anchored to timestamps (outlet:p009)."
+          },
+          {
+            "question": "why",
+            "problem": "The motivation omits action-order mistakes and the limits of existing caption formats.",
+            "fix": "Add that models can confuse action order and that existing formats struggle to combine detailed narration with precise timing (outlet:p009)."
           }
         ],
         "writer_boats": [
@@ -111694,8 +111676,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "16bd1e3e33b286a85e8e83c95eff814b19b4262c6e2d05e4ed5b37835bf090f5",
-        "scored_at": "2026-11-20T05:15:27.766469+00:00"
+        "prose_sha256": "04efc694e88c3ce1e7d4039ba1a15c6a09d9fe4adaa1a5832fbe3ddef1899db1",
+        "scored_at": "2026-11-20T07:44:24.604400+00:00"
       }
     },
     {
@@ -111840,6 +111822,1050 @@
         "scorer_provider": "codex",
         "prose_sha256": "0dee21cb61876428de5e0b32f96fe4b8352c90ee8a74fc6f6575814837a281c6",
         "scored_at": "2026-11-20T05:18:46.578328+00:00"
+      }
+    },
+    {
+      "id": "8cb12970dba527bdbd2f",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://analyticsindiamag.com/ai-news/samsung-electronics-names-new-heads-for-memory-system-lsi-and-mobile-businesses",
+      "key_points": [
+        "Samsung Electronics cải tổ lãnh đạo mảng bán dẫn và di động, thăng chức ông Sang Joon Hwang lên Chủ tịch và bổ nhiệm làm Giám đốc mảng Chip nhớ (Memory Business).",
+        "Theo Samsung, các bổ nhiệm này nhằm củng cố mảng kinh doanh bán dẫn và hỗ trợ giai đoạn tăng trưởng tiếp theo của công ty.",
+        "Tập đoàn chỉ định ông Sangyeun Cho đứng đầu mảng System LSI và ông Jong Myeong Lee làm Giám đốc công nghệ bộ phận Giải pháp Thiết bị (DS). Bên cạnh đó, ông Won-Joon Choi được bổ nhiệm lãnh đạo mảng Trải nghiệm Di động (MX).",
+        "Samsung kỳ vọng sự thay đổi này sẽ nâng cao năng lực cạnh tranh chip nhớ khi nhu cầu hạ tầng AI gia tăng. Dù vậy, hai lãnh đạo Young Hyun Jun và TM Roh vẫn tiếp tục giữ vị trí Tổng giám đốc điều hành của tập đoàn."
+      ],
+      "same_event_coverage_ids": [
+        "ee50ef49f99b1f530c2a"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Samsung Electronics",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Sang Joon Hwang",
+          "Sangyeun Cho",
+          "Jong Myeong Lee"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Samsung thăng chức Sang Joon Hwang lên Chủ tịch, bổ nhiệm loạt lãnh đạo mảng bán dẫn và di động",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "analytics-india-magazine",
+          "url": "https://analyticsindiamag.com/ai-news/samsung-electronics-names-new-heads-for-memory-system-lsi-and-mobile-businesses"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.3,
+        "answers": {
+          "what": 6,
+          "why": 10,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "role",
+            "summary_text": "thăng chức Sang Joon Hwang lên Chủ tịch",
+            "explanation": "The source says Samsung promoted Hwang to President, not chairman (outlet:p001)."
+          },
+          {
+            "kind": "role",
+            "summary_text": "thăng chức ông Sang Joon Hwang lên Chủ tịch",
+            "explanation": "The body repeats the title discrepancy: the source calls Hwang President (outlet:p001)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "Readers may understand Hwang to have become Samsung’s chairman.",
+            "fix": "Use a Vietnamese title that preserves the source’s President rank in both the headline and body (outlet:p001)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "c6ed97996b4baa4662a75a44a6b903e820660d7aee3a91a390558bc643371a9b",
+        "scored_at": "2026-11-20T07:40:29.732159+00:00"
+      }
+    },
+    {
+      "id": "b57085c8177aec9d7731",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-20/lenovo-cfo-winston-cheng-on-earnings-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "22153c6486976676b3ce"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "c0e172883169f940ce77",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://en.yna.co.kr/view/AEN20261120005400320",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "2b42324404516b218848",
+        "b7c8c0d4aacd2bf134e3"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Seoul stock market",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "3aa6b7b87fb52f896f12",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The report focuses on Australian equities suffering a major rout led by plunging mining stocks, with AI trade strains mentioned only in passing as a broader backdrop.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-20/australian-stocks-asx200-worst-week-since-2022-as-miners-tumble",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "791922160bcdeaa0377c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "45c72a4c06a821b63a7f",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://en.yna.co.kr/view/AEN20261120005100315",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "5e5e1efc87cdbcef23cb",
+        "93cbd5e41b70151574ce",
+        "f72ea674a66373d8ec53"
+      ],
+      "split_coverage_ids": [],
+      "subject": "State exam system",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Lee"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "457fa45be6861271dc25",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.haproxy.com/blog/on-the-use-of-ai-based-tools-to-find-bugs-in-open-source-software",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "5c2c33777548a312383d"
+      ],
+      "split_coverage_ids": [],
+      "subject": "AI tools for bug finding in open source software",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "fd1eeab1a50d0dcf7cf7",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.26298",
+      "key_points": [
+        "Nhóm tác giả giới thiệu bộ tiêu chuẩn DailySafe để đánh giá nhận thức an toàn động của mô hình ngôn ngữ lớn đa phương thức MLLM (AI xử lý văn bản và hình ảnh). Hệ thống đo lường khả năng theo dõi bối cảnh tác vụ, nhận diện rủi ro tiềm ẩn và cung cấp hỗ trợ an toàn.",
+        "Theo nhóm nghiên cứu, các bài kiểm tra hiện tại chủ yếu tập trung vào câu lệnh độc hại biệt lập mà bỏ qua rủi ro trong tác vụ đời thường. Trong thực tế, những yêu cầu tưởng như vô hại có thể trở nên mất an toàn khi kết hợp với hành động và hình ảnh trước đó.",
+        "DailySafe thu thập 195 tương tác đa lượt kèm hình ảnh trên 10 lĩnh vực và 42 danh mục tác vụ thường nhật. Bộ dữ liệu ghi nhận các tình huống thực tế mà dấu hiệu rủi ro chỉ bộc lộ dần qua từng lượt trao đổi và quan sát.",
+        "Nhóm tác giả nhận định bộ tiêu chuẩn này giúp việc kiểm thử an toàn AI tiếp cận sát hơn với ứng dụng thực tế. Qua đó, hệ thống đánh giá khả năng nhận diện rủi ro của mô hình trong khi vẫn giúp người dùng hoàn thành mục tiêu hợp lệ."
+      ],
+      "same_event_coverage_ids": [
+        "56dd16a50096b37bce47"
+      ],
+      "split_coverage_ids": [],
+      "subject": "DailySafe",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Xuankun Rong",
+          "Xinhao Deng",
+          "Wenzhang Jiang",
+          "Ziheng Peng",
+          "Siyuan Liang",
+          "Wenke Huang",
+          "Pablo Arbelaez",
+          "Mang Ye"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Ra mắt DailySafe, bộ tiêu chuẩn đánh giá an toàn động cho mô hình AI đa phương thức",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.26298"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "2f9127c4a738cdf76f9585a939f42be119e7dbfe8070ccc413234b295730fcd9",
+        "scored_at": "2026-11-20T07:32:08.558793+00:00"
+      }
+    },
+    {
+      "id": "a81baa5d2f5ff6cf804e",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.26414",
+      "key_points": [
+        "Nhóm tác giả giới thiệu khung điều hướng ZeroVLN không cần tinh chỉnh có giám sát mô hình thị giác - ngôn ngữ (VLM). Thay vì dự đoán tọa độ hình học, hệ thống dùng giao diện gọi công cụ để truyền lệnh di chuyển bằng ngôn ngữ tự nhiên tới chuyên gia hành động.",
+        "Theo nhóm tác giả, việc tinh chỉnh VLM trên dữ liệu điều hướng thường làm thay đổi trọng số gốc và làm suy giảm năng lực thị giác tổng quát. Họ giải quyết vấn đề này bằng cách kết hợp chuyên gia hành động và cải thiện quyết định qua học tăng cường RL vòng lặp kín.",
+        "Khi huấn luyện trên cùng số tập dữ liệu, ZeroVLN vượt trội hơn hẳn các phương pháp dựa trên SFT trên bài đo tiêu chuẩn môi trường liên tục VLN-CE. Kết quả cho thấy khung làm việc chỉ gây thay đổi nhỏ ở trọng số mô hình và phần lớn bảo toàn được năng lực tổng quát ban đầu.",
+        "Nhóm nghiên cứu nhận định ZeroVLN là khung đầu tiên không cần SFT dữ liệu miền mà cùng lúc tối ưu hai chính sách qua học tăng cường khép kín. Tuy nhiên, các tác giả nhấn mạnh năng lực mô hình phần lớn được bảo toàn nhưng vẫn chịu những biến đổi nhỏ ở trọng số trên môi trường chuẩn hóa."
+      ],
+      "same_event_coverage_ids": [
+        "53cf68f4b182036bc910"
+      ],
+      "split_coverage_ids": [],
+      "subject": "ZeroVLN",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Zixuan Huang",
+          "Yang Zhou",
+          "Guli Zhang",
+          "Sunzhu Li",
+          "Hongyan Xie",
+          "Zehao Chen",
+          "Fuzhen Zhuang",
+          "Kaixuan Wang",
+          "Xiaozhi Chen",
+          "Yikun Ban",
+          "Deqing Wang"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "ZeroVLN giúp mô hình thị giác - ngôn ngữ điều hướng hiệu quả mà không cần tinh chỉnh SFT",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.26414"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 6.35,
+        "answers": {
+          "what": 7,
+          "why": 6,
+          "notable": 5,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "không cần tinh chỉnh có giám sát mô hình thị giác - ngôn ngữ (VLM)",
+            "explanation": "The reported absence of SFT is specifically navigation-domain SFT of the VLM brain, not an unrestricted claim that the VLM needs no supervised fine-tuning (outlet:p009)."
+          },
+          {
+            "kind": "quote",
+            "summary_text": "thường làm thay đổi trọng số gốc và làm suy giảm năng lực thị giác tổng quát",
+            "explanation": "The source says this adaptation can substantially alter weights and degrade general visual capabilities; it does not say this usually happens (outlet:p009)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "Khi huấn luyện trên cùng số tập dữ liệu",
+            "explanation": "The methods were trained on the same navigation episodes, not merely the same number of datasets (outlet:p009)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "các phương pháp dựa trên SFT",
+            "explanation": "The reported comparison is against representative SFT-based hierarchical VLN methods, not SFT-based methods generally (outlet:p009)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "khung đầu tiên không cần SFT dữ liệu miền mà cùng lúc tối ưu hai chính sách",
+            "explanation": "The authors' qualified novelty claims concern a slow-fast VLN framework without navigation-domain SFT of the VLM brain and joint optimization of its slow and fast policies through closed-loop agentic RL in VLN-CE (outlet:p009)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The training comparison says the methods used an equal number of datasets.",
+            "fix": "Say they were trained on the same navigation episodes (outlet:p009)."
+          },
+          {
+            "question": "notable",
+            "problem": "The result appears to apply to all SFT-based methods.",
+            "fix": "Limit the comparison to representative SFT-based hierarchical VLN methods on standard VLN-CE benchmarks (outlet:p009)."
+          },
+          {
+            "question": "what",
+            "problem": "The lead makes the no-SFT claim too broad.",
+            "fix": "Specify zero navigation-domain SFT of the VLM brain (outlet:p009)."
+          },
+          {
+            "question": "why",
+            "problem": "A possible loss of general visual ability is presented as usual.",
+            "fix": "Use the source's conditional claim: navigation-domain adaptation can alter weights and degrade general visual capabilities (outlet:p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "02f46fdc8067a43ab9d65d8478fdce64362e267e0d22b3ae702bc8b0dcb06a57",
+        "scored_at": "2026-11-20T07:32:08.558838+00:00"
+      }
+    },
+    {
+      "id": "962c71b0c852050d4491",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.25776",
+      "key_points": [
+        "Nhóm tác giả đề xuất phương pháp VETO can thiệp vào khâu cập nhật tinh chỉnh thay vì chỉnh sửa dữ liệu huấn luyện. Kỹ thuật này chiếu cập nhật lên phần bù trực giao của không gian con văn bản trong kích hoạt mô hình gốc.",
+        "Theo nhóm tác giả, quy luật tạo lối tắt rất khó định nghĩa ở cấp dữ liệu và tự hình thành bất kể chu kỳ học hay quy mô dữ liệu. Lối tắt xuất hiện khi mô hình học theo tính quy luật văn bản trong dữ liệu tinh chỉnh có giám sát và bỏ qua video.",
+        "Phương pháp VETO bảo toàn mức tăng hiệu năng trên phân phối huấn luyện trên 7 mô hình video lớn và ức chế lối tắt. Trên 6 bài kiểm chuẩn (bộ công cụ đo hiệu năng) khi phân phối dịch chuyển, phương pháp vượt trội hơn tinh chỉnh có giám sát và trả lời từ toàn bộ đầu vào.",
+        "Kỹ thuật này giúp mô hình ức chế lối tắt khi hình thành để trả lời từ toàn bộ đầu vào mà không cần định nghĩa lối tắt. Theo nhóm tác giả, giải pháp giúp giữ lại lợi thế từ video vốn bị tinh chỉnh có giám sát làm mất khi dữ liệu dịch chuyển."
+      ],
+      "same_event_coverage_ids": [
+        "77e8711e63d18fd21da3"
+      ],
+      "split_coverage_ids": [],
+      "subject": "VETO",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Youngwoo Shin",
+          "Jongsuk Kim",
+          "Junmo Kim"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Kỹ thuật VETO vượt trội hơn SFT trên 6 bài kiểm chuẩn dịch chuyển phân phối và ức chế lối tắt trên 7 mô hình",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.25776"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.8,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "0f59c7f8695132311c29dc87182964f69b7969670de8e5c3c3ed605cd1b0efe7",
+        "scored_at": "2026-11-20T07:40:29.732215+00:00"
+      }
+    },
+    {
+      "id": "7d68f59ff31314ac1a91",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.26624",
+      "key_points": [
+        "Tác giả Weihao Cheng đề xuất khung làm việc tự động PlayCraft, dùng tác tử (chương trình tự hành) thị giác chơi thử để tinh chỉnh trò chơi hướng tới cảm giác thuần thục. Hệ thống luân phiên giữa việc tác tử người chơi ghi nhận trải nghiệm và tác tử thiết kế dùng báo cáo đó để sửa đổi trò chơi.",
+        "Theo tác giả, việc thiết kế trò chơi tạo cảm giác thuần thục đòi hỏi con người chơi thử và tinh chỉnh nhiều, dù AI tạo được trò chơi nhưng chưa chắc cuốn hút. Tác tử thiết kế đối chiếu năng lực người chơi với tiến trình học tập mục tiêu nhằm khắc phục các khoảng cách thiết kế.",
+        "PlayCraft đạt mức tiến bộ học tập lớn hơn và độ dốc học tập dốc hơn trong hầu hết trò chơi so với các trò chơi ban đầu. Tác giả đo lường kết quả qua chỉ số mức tăng và độ dốc học tập của tác tử người chơi ở ba thiết lập thông minh.",
+        "Theo tác giả, PlayCraft vượt trội hơn các phương pháp cơ sở ở giá trị trung bình vĩ mô của từng thước đo tại mọi thiết lập trí tuệ. Hệ thống mang lại cơ hội có ý nghĩa để người chơi tiến bộ qua các quyết định và thao tác tốt hơn."
+      ],
+      "same_event_coverage_ids": [
+        "a0e9659a0b9667d4b9ed"
+      ],
+      "split_coverage_ids": [],
+      "subject": "PlayCraft",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Weihao Cheng"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "PlayCraft giúp tác tử người chơi tăng mức tiến bộ và độ dốc học tập trong hầu hết trò chơi",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.26624"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "2bccd1ef384a3772c87831ee16bd89f4040a5532ea12b4a0ee4ca3ad41132eb9",
+        "scored_at": "2026-11-20T07:40:29.732253+00:00"
+      }
+    },
+    {
+      "id": "78d21f098c73e36a7a83",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.26629",
+      "key_points": [
+        "Nhóm tác giả giới thiệu phương pháp chưng cất PMD kết hợp lấy mẫu hậu nghiệm bao phủ đa chế độ với khả năng tạo ảnh tùy chọn bước. Mô hình học sinh ngẫu nhiên hỗ trợ mọi bước lấy mẫu trong lưới thời gian huấn luyện mà không cần đào tạo lại.",
+        "Theo nhóm tác giả, việc đối sánh phân phối thường dùng mục tiêu phân kỳ KL ngược, vốn thiên vị các chế độ vượt trội và làm giảm độ đa dạng mẫu. Để học các phân phối hậu nghiệm này, PMD đối sánh trung bình mẫu tái trọng số của học sinh với kỳ vọng hậu nghiệm của giáo viên.",
+        "Trên mô hình SDXL và FLUX.2 [klein] 4B, PMD đạt chỉ số FID (thước đo chất lượng ảnh) tốt nhất trong nhóm các phương pháp 4 bước. Phương pháp cũng duy trì hiệu năng cạnh tranh hoặc dẫn đầu ở thước đo bám sát văn bản nhắc và chất lượng cảm nhận.",
+        "Nhóm tác giả khẳng định PMD khôi phục toàn bộ phân phối hậu nghiệm ảnh sạch của giáo viên ở mỗi mức nhiễu huấn luyện khi tổn thất tổng thể bằng không. Mô hình giám sát toàn bộ phân phối có điều kiện qua các ràng buộc trung bình mà không cần mạng tính điểm phụ trợ."
+      ],
+      "same_event_coverage_ids": [
+        "c7ce954fc20a130f4b2d"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Posterior Matching Distillation",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Hidir Yesiltepe",
+          "Julius Berner",
+          "Arash Vahdat",
+          "Pinar Yanardag"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Phương pháp PMD đạt chỉ số FID tốt nhất nhóm 4 bước trên mô hình SDXL và FLUX.2 [klein] 4B",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.26629"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "82ce816ef6eb55abf498c0c6722b5bc9b11b6bb39669e6f1385d46753a9a700d",
+        "scored_at": "2026-11-20T07:40:29.732281+00:00"
+      }
+    },
+    {
+      "id": "6e2c30683b46ae44f864",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.25387",
+      "key_points": [
+        "Nhóm tác giả công bố môi trường đánh giá TuringSpace gồm 125 bài kiểm tra CAPTCHA tương tác, yêu cầu giải quyết thông qua thao tác nhấp và kéo chuột. Các tác vụ này bao quát năm năng lực không gian và tự động sinh phiên bản mới để làm môi trường huấn luyện có thể mở rộng.",
+        "Lý do nghiên cứu là kiểm tra khả năng suy luận không gian gắn liền hành động, lấp lỗ hổng khi các chuẩn CAPTCHA cũ phần lớn đã bị vượt qua và thiếu tính không gian, còn bài thử không gian lại thiếu tương tác. Thử nghiệm đánh giá việc suy đoán bố cục ba chiều từ ảnh hai chiều và tự sửa sai sau mỗi thao tác.",
+        "Thực nghiệm ghi nhận tỷ lệ thất bại của các mô hình lớn vượt xa con người: con người đạt 94,1% thành công, trong khi GPT-6 Astra vẫn thất bại 25,9% và mô hình mở Kimi K3 thất bại 68,0%. Đa số lỗi xuất phát từ việc đọc sai ảnh màn hình và mô hình hiếm khi tự sửa mà tạo ảo giác bằng chứng để bảo vệ lỗi.",
+        "Kết quả này phơi bày hạn chế suy luận không gian của mô hình ngôn ngữ đa phương thức, đồng thời cung cấp phương pháp huấn luyện có thể chuyển giao sang thế giới thực. Thử nghiệm tinh chỉnh Qwen3.5-9B giúp nâng tỷ lệ thành công từ 1,6% lên 33,1% và tăng 9,9 điểm trên bộ dữ liệu video thực tế VSI-Bench."
+      ],
+      "same_event_coverage_ids": [
+        "5f231f59a2545eff6b7f"
+      ],
+      "split_coverage_ids": [],
+      "subject": "TuringSpace",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Xuwei Ding",
+          "Skylar Zhai",
+          "Linxin Song",
+          "Jiarui Feng",
+          "Dongqi Fu",
+          "Huajun Xi",
+          "Junnan Li",
+          "Jingcheng Liang",
+          "Jieyu Zhao",
+          "Yinglong Xia",
+          "Hong Li",
+          "Jian Kang"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Mô hình hàng đầu GPT-6 Astra thất bại 25,9% bài thử CAPTCHA tương tác trên TuringSpace",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.25387"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.85,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "a824d747b680a6dd5706480da3ba3e07997741933da157047b3fa146ed199c83",
+        "scored_at": "2026-11-20T07:32:08.559001+00:00"
+      }
+    },
+    {
+      "id": "6c69b4c3f576a1c5e77d",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.26510",
+      "key_points": [
+        "Nhóm tác giả giới thiệu hệ thống AutoMaster nhằm tự động hóa hậu huấn luyện (tinh chỉnh sau đào tạo sơ bộ) cho mô hình ngôn ngữ lớn. Hệ thống dùng tác tử (chương trình trí tuệ nhân tạo tự hành) LLM để phân tích quỹ đạo và can thiệp kỹ năng.",
+        "Quỹ đạo mẫu thành công vẫn có thể chứa giả định thiếu căn cứ, lặp lại vô ích hoặc kiểm chứng hời hợt dù đã hoàn thành tác vụ. Do đó, nhóm nghiên cứu can thiệp định hình hành vi để triệt tiêu thói quen xấu trước khi tinh chỉnh mô hình mục tiêu.",
+        "AutoMaster cải thiện hiệu suất trung bình từ 1,42 đến 8,99 điểm phần trăm so với tinh chỉnh chuẩn trên quỹ đạo giáo viên không hướng dẫn. Kết quả đạt được trên tác vụ dòng lệnh, tìm kiếm và kỹ thuật phần mềm ở mô hình 4B và 9B khi cố định điều kiện huấn luyện.",
+        "Định hình hành vi có thể giúp một mô hình cố định trở thành giáo viên hiệu quả hơn theo nhận định của nhóm tác giả. Việc giữ lại chỉ dẫn kỹ năng cũng giúp tăng hiệu suất dù chúng vắng mặt khi đánh giá và đầu ra giám sát là giống nhau."
+      ],
+      "same_event_coverage_ids": [
+        "7fda4fd3925d6beb7a66"
+      ],
+      "split_coverage_ids": [],
+      "subject": "AutoMaster",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Guoxin Chen",
+          "Shuang Sun",
+          "Fanzhe Meng",
+          "Xinyu Tang",
+          "Ruihua Song",
+          "Wayne Xin Zhao"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "AutoMaster giúp tăng hiệu suất trung bình từ 1,42 đến 8,99 điểm phần trăm qua định hình hành vi mẫu",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.26510"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.85,
+        "answers": {
+          "what": 8,
+          "why": 10,
+          "notable": 9,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "55a33e7a58abe02d031ea2e747ea77c72568daa277ba1e1324fe550e2fc78216",
+        "scored_at": "2026-11-20T07:32:08.559030+00:00"
+      }
+    },
+    {
+      "id": "5b834f4b195a0e942484",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.26603",
+      "key_points": [
+        "Nhóm tác giả giới thiệu Depth Pro 2, phương pháp ước tính độ sâu đo lường dày đặc cho ảnh và video ở độ phân giải đầy đủ. Mô hình huấn luyện một mạng mở rộng duy nhất để xử lý cả hai định dạng và dự đoán bản đồ độ sâu ở độ phân giải gốc.",
+        "Theo nhóm nghiên cứu, các phương pháp đơn ảnh trước đây thường đánh đổi giữa tính nhất quán thời gian và độ sắc nét đường biên. Cụ thể, các kỹ thuật đa khung hình thiên về tính nhất quán, trong khi kỹ thuật đơn khung hình chỉ ưu tiên độ sắc nét.",
+        "Nhóm nghiên cứu phát hành họ mô hình đạt đường biên Pareto mới về độ chính xác đo lường, độ sắc nét, tính nhất quán thời gian và thời gian chạy. Toàn bộ mã nguồn và trọng số mô hình cũng được công bố công khai trên trang web nghiên cứu.",
+        "Theo nhóm tác giả, Depth Pro 2 tạo ra bản đồ độ sâu đồng thời chính xác đo lường, sắc nét và nhất quán theo thời gian. Nhóm nghiên cứu khẳng định mô hình vượt trội các công trình trước ở toàn bộ ba khía cạnh độ chính xác đo lường, độ sắc nét và tính nhất quán thời gian."
+      ],
+      "same_event_coverage_ids": [
+        "a2d04598ca238ac6192b"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Depth Pro 2",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Peiyun Hu",
+          "Marko Mihajlovic",
+          "Lyndon Duong",
+          "Lahav Lipson",
+          "Wei Dong",
+          "Amaël Delaunoy",
+          "Stephan R. Richter",
+          "Vladlen Koltun"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Depth Pro 2 ước tính độ sâu đo lường sắc nét và nhất quán thời gian cho ảnh và video",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.26603"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.8,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "quote",
+            "summary_text": "kỹ thuật đơn khung hình chỉ ưu tiên độ sắc nét",
+            "explanation": "The source says single-frame methods favor sharpness; it does not say they only prioritize it (outlet:p009)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "Toàn bộ mã nguồn",
+            "explanation": "The source says the authors release code and weights, without establishing that all source code is released (outlet:p009)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "“Only” makes the single-frame preference sound exclusive.",
+            "fix": "Say single-frame methods favor sharpness, as the source does (outlet:p009)."
+          },
+          {
+            "question": "notable",
+            "problem": "“All source code” promises more than the source establishes.",
+            "fix": "Say the authors release code and model weights (outlet:p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "88bdbf34daafaefeed1f1d48e1268879fd35cd59eda7e8ec0de65ed9075e102d",
+        "scored_at": "2026-11-20T07:40:29.732303+00:00"
+      }
+    },
+    {
+      "id": "07dc4a4232e04281e132",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.25980",
+      "key_points": [
+        "Nhóm tác giả đề xuất mục tiêu huấn luyện phụ trợ AFFECT cho mô hình thế giới, tức hệ thống dự đoán diễn biến môi trường theo hành động. Theo nhóm nghiên cứu, phương pháp này giúp các chuỗi diễn hoạt bám sát thực tế hơn trong mô phỏng OGBench cùng robot DROID và ALOHA-2 ngoài đời thực.",
+        "Kỹ thuật này ra đời vì theo nhóm tác giả, các mô hình thế giới hiện nay thường không nắm bắt được tác động của thay đổi hành động nhỏ đến quan sát tương lai. Nhóm tác giả chỉ ra hạn chế này gây khó khăn cho việc đánh giá chính sách robot và lập kế hoạch, nơi các hành động gần như giống nhau có thể dẫn tới kết cục hoàn toàn khác.",
+        "Trên robot DROID, hệ số tương quan Pearson giữa tỷ lệ thành công của chính sách trong mô hình và trên robot thật đã tăng từ 0,47 lên 0,79. Kết quả thực nghiệm này đồng thời ghi nhận chỉ số FVD giảm tới 23%.",
+        "Nhóm tác giả khẳng định việc chọn hành động bằng mô hình huấn luyện qua AFFECT giúp cải thiện tỷ lệ thành công khi lập kế hoạch lên tới 8,3%. Các kết quả này đến từ thử nghiệm trên mô phỏng OGBench cùng hệ thống robot DROID và ALOHA-2 ngoài đời thực."
+      ],
+      "same_event_coverage_ids": [
+        "843a3534bab5a70c84cb"
+      ],
+      "split_coverage_ids": [],
+      "subject": "AFFECT",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "John Won",
+          "Yonghoon Dong",
+          "Jinwoo Shin"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Phương pháp AFFECT giúp tăng tương quan đánh giá chính sách robot DROID từ 0,47 lên 0,79",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.25980"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.0,
+        "answers": {
+          "what": 8,
+          "why": 10,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "robot DROID và ALOHA-2",
+            "explanation": "The source calls DROID and ALOHA-2 real-world setups; it does not identify DROID as a robot (outlet:p009)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "Trên robot DROID",
+            "explanation": "The source says the correlation result is on DROID and compares model predictions with a real robot; it does not call that robot DROID (outlet:p009)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "hệ thống robot DROID và ALOHA-2",
+            "explanation": "The source describes real-world DROID and ALOHA-2 setups, without identifying DROID as a robot system (outlet:p009)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The reader may think DROID is the name of a robot.",
+            "fix": "Refer to the real-world DROID and ALOHA-2 setups, and say the DROID correlation compares model results with the real robot (outlet:p009)."
+          },
+          {
+            "question": "what",
+            "problem": "The description leaves out AFFECT’s distinguishing training method.",
+            "fix": "Explain that it perturbs actions and trains generated videos to respond as recorded videos do, without repeated runs from the same initial state (outlet:p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "8cb02ae2d578d87e674cdb86f76529907595eec8c7022a7d37e0ce6864d83c92",
+        "scored_at": "2026-11-20T07:40:29.732334+00:00"
+      }
+    },
+    {
+      "id": "1e0ea53f798a86c31a20",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "top",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/18/2026/nvidia-halts-sale-of-us-approved-h200-chips-to-china",
+      "key_points": [
+        "Nvidia tuyên bố dừng bán dòng chip H200 cho thị trường Trung Quốc dù Nhà Trắng từng cấp phép xuất khẩu vào tháng 1. Quyết định do Giám đốc tạm quyền Colette Kress thông báo trong cuộc họp báo cáo tài chính.",
+        "Sức ép gia tăng trước phiên điều trần của cựu CEO Jensen Huang trước Quốc hội vào tháng tới.",
+        "Trước đó, hồ sơ của Nvidia từng xin phê duyệt bán 610.000 chip cho tập đoàn Alibaba tại Trung Quốc. Chủ tịch Tencent thừa nhận lệnh kiểm soát kéo lùi các bên do AI trong nước vẫn phụ thuộc phần cứng Mỹ.",
+        "Theo phóng viên Brendan Ruberry của Semafor, áp lực này có thể thúc đẩy nỗ lực tự chủ bán dẫn tại Bắc Kinh. Diễn biến này được nhận định sẽ thúc đẩy các doanh nghiệp chuyển sang sử dụng điện toán nội địa."
+      ],
+      "same_event_coverage_ids": [
+        "6a754d86270b64a86f15",
+        "b3715fba167e0d5168ec",
+        "d59b02c30daa04c27ae7"
+      ],
+      "split_coverage_ids": [
+        "c806f08258c1cf6e31ea",
+        "fbd8ced0cc4691bcf3c9"
+      ],
+      "subject": "Nvidia",
+      "video_labels": {
+        "video_hook": "drama_company",
+        "named_people": [
+          "Jensen Huang"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nvidia dừng bán chip AI H200 cho Trung Quốc trước áp lực giám sát từ quốc hội Mỹ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/18/2026/nvidia-halts-sale-of-us-approved-h200-chips-to-china"
+        },
+        {
+          "id": "coverage1",
+          "role": "coverage",
+          "name": "analytics-india-magazine",
+          "url": "https://analyticsindiamag.com/ai-news/us-lawmakers-disclose-approvals-for-879000-nvidia-and-amd-chips-to-china"
+        },
+        {
+          "id": "coverage2",
+          "role": "coverage",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/tech/1036445/nvidia-h200-ai-chips-china-stop-selling"
+        }
+      ],
+      "summary_limitations": [
+        "source_conflict"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.2,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 9,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The final prediction loses the source’s attribution and its description of a possible future.",
+            "fix": "Attribute the domestic-compute outlook to Tencent’s president and retain that the pressure may hasten progress toward it (outlet:p003)."
+          },
+          {
+            "question": "notable",
+            "problem": "The reader misses the separate prospect of tighter rules on remote access to American compute.",
+            "fix": "Add that companies in Asia were bracing for those rules, if there is room for another policy detail (outlet:p002)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "9fd03c4ae3ffaa88bc0506646888f6d753956952fcce194f715cdcb7c1451298",
+        "scored_at": "2026-11-20T07:32:08.559109+00:00"
       }
     }
   ]
