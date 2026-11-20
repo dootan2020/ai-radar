@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-19T23:51:15.025329+00:00",
-  "input_generated_at": "2026-11-19T22:46:35Z",
+  "generated_at": "2026-11-20T01:46:29.982549+00:00",
+  "input_generated_at": "2026-11-20T00:45:38Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -109607,7 +109607,7 @@
       "use_original_title": false,
       "source_url": "https://www.wired.com/story/uncanny-valley-podcast-whats-with-all-these-outages/",
       "key_points": [
-        "Theo tạp chí WIRED, hàng loạt cơ quan và tập đoàn lớn tại Mỹ đồng loạt gián đoạn dịch vụ trong một tuần. Các đơn vị chịu ảnh hưởng gồm Microsoft, Cục Hàng không Liên bang Mỹ (FAA), ngân hàng Chase, United, Cơ quan An ninh Quốc gia (NSA) và Apple.",
+        "Theo tạp chí WIRED, hàng loạt cơ quan và tập đoàn lớn tại Mỹ lần lượt gặp sự cố gián đoạn vào các ngày khác nhau trong một tuần. Các đơn vị chịu ảnh hưởng gồm Microsoft, Cục Hàng không Liên bang Mỹ (FAA), ngân hàng Chase, United, Cơ quan An ninh Quốc gia (NSA) và Apple.",
         "Người dẫn chương trình Brian Barrett của WIRED cho biết không có bằng chứng các sự cố kỹ thuật liên quan nhau ngoại trừ ngành ngân hàng. Theo Barrett, sự cố tại JP Morgan Chase đã lan sang các ngân hàng khác do các bên đều là đối tác giao dịch của nhau.",
         "Cục Hàng không Liên bang Mỹ áp lệnh dừng bay trên toàn quốc kéo dài hơn bốn giờ, đợt gián đoạn dài nhất kể từ sự kiện 11/9. Ngoài ra, dịch vụ Outlook và Teams của Microsoft tê liệt khoảng 24 giờ, còn hãng United phải hoãn hơn một trăm chuyến bay.",
         "Tạp chí WIRED nhận xét giới chức khẳng định các sự cố không phải tấn công mạng nhưng dư luận vẫn hoài nghi. Brian Barrett nhấn mạnh không có bằng chứng cho thấy lỗi kỹ thuật do tin tặc hay trí tuệ nhân tạo (AI) gây ra, dù dư luận lan truyền nhiều thuyết âm mưu."
@@ -109646,34 +109646,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.25,
+        "value": 9.8,
         "answers": {
-          "what": 9,
-          "why": 8,
+          "what": 10,
+          "why": 9,
           "notable": 10,
           "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "đồng loạt gián đoạn dịch vụ trong một tuần",
-            "explanation": "The incidents occurred on different days within the week, rather than simultaneously (outlet:p032)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "what",
-            "problem": "A reader may think the systems failed at the same time.",
-            "fix": "Say the disruptions occurred on different days during one week (outlet:p032)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "65dd8c33e39d3e98760d704c6da1c088e8baf5097af3d8fe23b54e0d1fff0b0e",
-        "scored_at": "2026-11-19T23:36:28.902259+00:00"
+        "prose_sha256": "f15d5647ad2e4fc6f71521a94d6d7241472a94dbc65b54af2b815c97e38f4acd",
+        "scored_at": "2026-11-20T01:46:29.927702+00:00"
       }
     },
     {
@@ -109694,10 +109682,10 @@
       "use_original_title": false,
       "source_url": "https://techcrunch.com/2026/11/19/these-tech-outages-are-giving-y2k-ai-agent-style/",
       "key_points": [
-        "Theo TechCrunch, nhiều doanh nghiệp hàng đầu tại Mỹ đối mặt sự cố gián đoạn kỹ thuật trong hai tuần qua. Nhiều công ty và cơ quan an ninh cho biết đây là trục trặc kỹ thuật riêng lẻ chứ không phải do tấn công mạng.",
-        "Nhà đầu tư Dave DeWalt nhận định các doanh nghiệp vội vã vá các lỗ hổng do công cụ trí tuệ nhân tạo (AI) phát hiện gây gián đoạn hệ thống ngắn hạn. Kỹ sư Anusha Iyer giải thích thêm rằng việc vội vã kết nối hệ thống cũ với công nghệ mới mà thiếu kiểm soát rủi ro cũng gây quá tải.",
-        "Cục Hàng không Liên bang Mỹ (FAA) phải dừng bay nhiều giờ còn Microsoft gián đoạn Outlook, Teams và Copilot gần hai ngày.",
-        "DeWalt nhấn mạnh quá trình chuyển đổi này gây nhiều tổn thất ngắn hạn nhưng mở ra cơ hội lớn cho các giải pháp vá lỗi và bảo vệ hệ thống theo tốc độ của AI."
+        "Theo TechCrunch, hàng loạt doanh nghiệp hàng đầu tại Mỹ đối mặt sự cố kỹ thuật gây gián đoạn hệ thống trong hai tuần qua. Giám đốc Tình báo Quốc gia Mỹ cho biết sự cố dường như không liên quan khủng bố do nhà nước bảo trợ, còn nhiều công ty khẳng định đây là lỗi kỹ thuật chứ không phải bị tấn công mạng.",
+        "Nhà đầu tư Dave DeWalt nhận định các doanh nghiệp vội vã vá lỗ hổng do AI phát hiện gây gián đoạn ngắn hạn, dù nguyên nhân vẫn đang được điều tra. Kỹ sư Anusha Iyer cho rằng theo phát hiện sơ bộ, việc FAA hiện đại hóa hạ tầng có thể đã làm quá tải phần cứng cũ, chứ không phải do tốc độ ứng dụng AI.",
+        "Cục Hàng không Liên bang Mỹ (FAA) phải dừng bay nhiều giờ còn Microsoft gián đoạn dịch vụ Outlook, Teams và Copilot gần hai ngày. Nền tảng Apple Pay và mạng lưới liên lạc nội bộ của NASA cũng chịu cảnh ngưng trệ trong đợt này.",
+        "DeWalt cho biết các tổ chức cần tiếp cận AI thận trọng hơn qua việc tăng cường kiểm thử và ưu tiên những việc cần sửa chữa cùng thời điểm xử lý. Iyer cho biết các hệ thống công nghiệp cần được phân đoạn chặt chẽ hơn và kiểm soát truy cập khi đưa các hệ thống hiện đại vào triển khai theo từng giai đoạn."
       ],
       "same_event_coverage_ids": [
         "2dc067c2bbdbca3faa35"
@@ -109714,7 +109702,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Làn sóng vội vã vá lỗ hổng do AI phát hiện gây gián đoạn hàng loạt hệ thống lớn tại Mỹ",
+      "editorial_headline_vi": "Hàng loạt hệ thống trọng yếu tại Mỹ gián đoạn vì sự cố kỹ thuật, nguyên nhân đang được điều tra",
       "summary_sources": [
         {
           "id": "outlet",
@@ -109727,59 +109715,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.2,
+        "value": 10.0,
         "answers": {
-          "what": 9,
-          "why": 5,
+          "what": 10,
+          "why": 10,
           "notable": 10,
-          "meaning": 7
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "cause",
-            "summary_text": "Làn sóng vội vã vá lỗ hổng do AI phát hiện gây gián đoạn hàng loạt hệ thống lớn tại Mỹ",
-            "explanation": "The source presents patching disruption as DeWalt’s assessment, not a confirmed cause of the outages; investigations are still underway, and Iyer offers a different explanation (outlet:p012-outlet:p018)."
-          },
-          {
-            "kind": "quote",
-            "summary_text": "Nhiều công ty và cơ quan an ninh cho biết đây là trục trặc kỹ thuật riêng lẻ chứ không phải do tấn công mạng",
-            "explanation": "The source separates these statements: the director of National Intelligence said the outages did not seem related to state-sponsored terrorism, Trump called them individual events, and many companies said they were technical issues rather than cyberattacks or AI attacks (outlet:p008)."
-          },
-          {
-            "kind": "cause",
-            "summary_text": "việc vội vã kết nối hệ thống cũ với công nghệ mới mà thiếu kiểm soát rủi ro cũng gây quá tải",
-            "explanation": "Iyer identifies the rushed mix as a risk, but her specific account of the FAA’s legacy hardware being overwhelmed is tentative and tied to preliminary findings, not established as a cause across the outages (outlet:p017-outlet:p018)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "why",
-            "problem": "The headline turns one expert’s proposed explanation into a confirmed cause.",
-            "fix": "Attribute the patching explanation to DeWalt and preserve that the causes remain under investigation (outlet:p012-outlet:p015)."
-          },
-          {
-            "question": "why",
-            "problem": "The account of overloaded legacy systems loses its tentative, FAA-specific scope.",
-            "fix": "Say Iyer suggested the FAA transition may have overwhelmed older hardware, consistent with preliminary findings (outlet:p017-outlet:p018)."
-          },
-          {
-            "question": "what",
-            "problem": "The text merges distinct statements by the intelligence director, the president, and affected companies.",
-            "fix": "Attribute each statement separately if included (outlet:p008)."
-          },
-          {
-            "question": "meaning",
-            "problem": "The reader misses what the experts recommend doing in response.",
-            "fix": "Include the calls for better testing, prioritizing fixes, tighter segmentation, and phased introduction of modern systems (outlet:p019-outlet:p020)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "f9612f1ee08b67c9b245d79304d01d3a7db57deca489a0a547d381bb08c1ef61",
-        "scored_at": "2026-11-19T23:28:02.171749+00:00"
+        "prose_sha256": "d8c6565b4092faa31235065e0c914bbf58e16f5172a5083436f3c08778ad4165",
+        "scored_at": "2026-11-20T01:46:29.927869+00:00"
       }
     },
     {
@@ -110122,10 +110073,10 @@
       "use_original_title": false,
       "source_url": "https://www.robertpeake.com/archives/104254-ai-came-for-the-coders-understanding-why-tells-us-whos-next.html",
       "key_points": [
-        "Theo tác giả bài viết, kỹ thuật phần mềm đang trải qua khủng hoảng niềm tin khi AI làm đảo lộn việc lập trình mã nguồn. Tác giả nhận định sự rung chuyển này lan truyền nỗi sợ hãi sang giới lao động bàn giấy trí óc.",
-        "Tác giả lý giải khả năng tự động hóa bằng AI tuân theo nguyên tắc chấm điểm tự động và giá trị khách quan. Theo tác giả, phân tích định số cùng đánh giá tính đúng sai là yếu tố then chốt quyết định khả năng chấm điểm.",
-        "Theo tác giả, phần mềm thuộc nhóm công việc được chấm điểm nhiều nhất từng được tạo ra khi có thể kiểm thử tự động trong vài giây. Trái lại, tác giả chỉ ra việc nuôi con hay làm thơ khó tự động hóa do kết quả khó định lượng và mang tính thị hiếu.",
-        "Theo tác giả bài viết, động lực thị trường quyết định khả năng tự động hóa thành hiện thực theo quy luật tư bản. Tác giả nhấn mạnh việc đạt tiêu chí chấm điểm và giá trị chỉ chứng minh tính khả thi, chứ không bảo đảm chắc chắn xảy ra."
+        "Theo tác giả bài viết, ngành kỹ thuật phần mềm đang trải qua khủng hoảng niềm tin khi trí tuệ nhân tạo (AI) làm lung lay công việc viết mã. Tác giả nhận định sự rung chuyển ở ngành lập trình khiến nỗi sợ hãi lan sang giới lao động bàn giấy trí óc.",
+        "Tác giả lý giải khả năng tự động hóa tuân theo nguyên tắc chấm điểm tự động và giá trị khách quan. Theo tác giả, phân tích định số cùng đánh giá tính đúng sai là yếu tố then chốt quyết định khả năng chấm điểm.",
+        "Theo tác giả, phần mềm thuộc nhóm công việc được chấm điểm nhiều nhất từng được tạo ra khi việc kiểm thử tự động chỉ mất vài giây. Trái lại, tác giả chỉ ra việc nuôi con khó chấm điểm vì kết quả mất nhiều năm và khó định lượng, còn thơ ca không thể định giá khách quan do thị hiếu phân kỳ.",
+        "Theo tác giả bài viết, động lực thị trường quyết định việc tự động hóa khả thi có thể xảy ra, thay vì bảo đảm chắc chắn diễn ra. Tác giả nhấn mạnh việc đạt tiêu chí chấm điểm và giá trị chỉ chứng minh tính khả thi, chứ không bảo đảm sẽ thành hiện thực."
       ],
       "same_event_coverage_ids": [
         "a637a8cc305bd47e2764",
@@ -110140,7 +110091,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Lập trình viên đối mặt khủng hoảng niềm tin khi AI đe dọa các công việc trí óc có thể chấm điểm tự động",
+      "editorial_headline_vi": "Ngành phần mềm khủng hoảng niềm tin khi AI đe dọa những công việc trí óc có thể chấm điểm tự động",
       "summary_sources": [
         {
           "id": "outlet",
@@ -110155,39 +110106,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.25,
+        "value": 10.0,
         "answers": {
-          "what": 9,
-          "why": 9,
-          "notable": 7,
-          "meaning": 8
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "việc nuôi con hay làm thơ khó tự động hóa do kết quả khó định lượng và mang tính thị hiếu",
-            "explanation": "The source gives different reasons: parenting is valuable but its results take years or generations to assess and are hard to quantify; poetry's value is a matter of divergent taste (outlet:p026–p027)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "notable",
-            "problem": "The reader gets one combined explanation for two different examples.",
-            "fix": "Separate parenting's difficult, long-term assessment from poetry's subjective value (outlet:p026–p027)."
-          },
-          {
-            "question": "meaning",
-            "problem": "Market incentives sound as though they determine whether automation will occur.",
-            "fix": "Say they affect whether possible automation is probable; the author does not say adoption is guaranteed (outlet:p029–p030)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "4b6e98c3fd6063316fe41713fee4817b69c5405415fbf06f9da16bed65321287",
-        "scored_at": "2026-11-19T23:36:28.902361+00:00"
+        "prose_sha256": "2f0775a919da5df4c21521a4d8d677f2f589ad6967ce9bff8a008b054cd4ca7f",
+        "scored_at": "2026-11-20T01:46:29.927905+00:00"
       }
     },
     {
@@ -110239,10 +110173,10 @@
       "use_original_title": true,
       "source_url": "https://www.wired.com/story/anthropics-record-breaking-ipo-highlights-the-ai-giants-worst-enemy-itself/",
       "key_points": [
-        "Sau đợt chào bán cổ phiếu công khai lần đầu (IPO) lớn nhất lịch sử, Anthropic có khoảng 200 tỷ USD trong ngân hàng, vượt mọi tập đoàn công nghệ trừ Alphabet.",
-        "Theo tạp chí Wired, triển vọng dài hạn bị đánh giá bi quan xuất phát từ việc cử tri Mỹ phần lớn bác bỏ trung tâm dữ liệu và các cuộc biểu tình chưa có dấu hiệu hạ nhiệt. Tạp chí này nhận định sự chậm trễ mở rộng cơ sở mới có thể khiến Anthropic chật vật huấn luyện những mô hình AI mạnh mẽ hơn.",
-        "Giám đốc điều hành Dario Amodei cho biết công ty từng hoãn ra mắt một mô hình mới vào đầu năm nay nhằm bảo vệ công chúng trước nguy cơ gây hại, chấp nhận rủi ro doanh số. Dù vậy, số khách hàng chi từ sáu chữ số hàng năm cho hãng vẫn tăng gấp 12 lần so với năm trước.",
-        "Về ý nghĩa dài hạn, ông Amodei nhận định việc phát triển rào chắn an toàn là yếu tố hạn chế trong triển khai mô hình AI, điều Wired cho rằng có thể kìm hãm đà tăng trưởng của công ty. Ngoài ra, do cách tính chi phí trả thưởng bằng cổ phiếu cho nhân viên, Anthropic vẫn chịu khoản lỗ hơn 104 tỷ USD tính đến tháng 9 năm nay dù nhà đầu tư vẫn hào hứng mua cổ phiếu."
+        "Anthropic đã hoàn tất đợt chào bán cổ phiếu công khai lần đầu lớn nhất lịch sử vào thứ Tư, nắm giữ khoảng 200 tỷ USD trong ngân hàng. Khoản tiền mặt khoảng 200 tỷ USD đưa Anthropic vượt mọi tập đoàn công nghệ lớn, chỉ đứng sau Alphabet.",
+        "Theo Wired, triển vọng dài hạn bị đánh giá bi quan do những vấn đề có thể làm chậm tiến độ phát triển công cụ mới của Anthropic. Cử tri Mỹ phần lớn đã bác bỏ các trung tâm dữ liệu khi có cơ hội trong tháng này, đe dọa cản trở nỗ lực đào tạo mô hình mạnh hơn của Anthropic.",
+        "Do cách hạch toán chi phí thù lao cho nhân viên bằng cổ phiếu, Anthropic vẫn lỗ nặng hơn 104 tỷ USD tính đến tháng 9 năm nay.",
+        "Giám đốc điều hành Dario Amodei thừa nhận phát triển rào chắn an toàn là yếu tố hạn chế trong triển khai mô hình AI, do công ty không muốn các tác tử hoạt động mất kiểm soát. Wired nhận định Anthropic có thể ưu tiên sự an toàn đến mức làm kìm hãm đà tăng trưởng của chính mình."
       ],
       "same_event_coverage_ids": [
         "3ad99c20ced17fbb58f0",
@@ -110263,7 +110197,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Anthropic hoàn tất đợt IPO kỷ lục với 200 tỷ USD trong ngân hàng nhưng gánh cam kết chi hơn 900 tỷ USD",
+      "editorial_headline_vi": "Anthropic huy động khoảng 81 tỷ USD trong đợt IPO kỷ lục nhưng cam kết chi hơn 900 tỷ USD",
       "summary_sources": [
         {
           "id": "outlet",
@@ -110278,24 +110212,24 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 7.9,
+        "value": 8.65,
         "answers": {
-          "what": 8,
-          "why": 9,
-          "notable": 7,
-          "meaning": 8
+          "what": 9,
+          "why": 8,
+          "notable": 8,
+          "meaning": 10
         },
         "hard_errors": [],
         "findings": [
           {
             "question": "notable",
-            "problem": "The $900 billion commitment lacks its time span and purpose, making its scale harder to interpret.",
-            "fix": "Say it is payable over 19 years, mostly to develop data centers for Anthropic’s models (outlet:p001)."
+            "problem": "The $900 billion commitment can read as an immediate expense.",
+            "fix": "State that Anthropic committed to pay vendors more than $900 billion over the next 19 years, mostly to develop data centers (outlet:p001)."
           },
           {
-            "question": "what",
-            "problem": "The headline pairs the IPO with $200 billion in the bank without telling readers what the offering itself raised.",
-            "fix": "Add that the IPO raised about $81 billion, or more than $107 billion including private share sales (outlet:p011)."
+            "question": "why",
+            "problem": "The reader gets the risks to Anthropic’s prospects but little of the reason investors remain optimistic.",
+            "fix": "Add that its latest quarterly sales reached $17 billion, up more than 1,100% year over year, which some analysts say makes the gap between cash and commitments less concerning (outlet:p002)."
           }
         ],
         "writer_boats": [
@@ -110303,8 +110237,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "ad3e4490b1e79583814b97beb5d2c9e02d8c8aed6ad779953c3bb77a1b88febb",
-        "scored_at": "2026-11-19T23:36:28.902416+00:00"
+        "prose_sha256": "316c81f5d39c0ca95bbede30c4ff966806f576ffbbe8b3a32a24cd22669d87d0",
+        "scored_at": "2026-11-20T01:46:29.927979+00:00"
       }
     },
     {
@@ -110340,6 +110274,833 @@
         "availability": "unknown",
         "is_leak": false
       }
+    },
+    {
+      "id": "06863d94c187626f5c00",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/amazon-sagemaker-inference-2026-launches-in-review-part-2/",
+      "key_points": [
+        "Amazon thông báo SageMaker AI tự động theo dõi điểm cuối suy luận (inference - quá trình mô hình xử lý dữ liệu) và báo những thay đổi có thể nâng hiệu năng hoặc hạ chi phí. Hệ thống chỉ đọc các tín hiệu vận hành gồm độ trễ và mức dùng GPU chứ không truy cập nội dung yêu cầu hay phản hồi.",
+        "Về cách vận hành, tính năng phân vùng chia một GPU vật lý thành tối đa bảy phân vùng phần cứng riêng biệt tùy theo loại chip tăng tốc. Khi cập nhật mô hình, hệ thống bổ sung một lượng máy chủ nhỏ ban đầu, chuyển lưu lượng sang và tái sử dụng các máy được giải phóng trong các đợt tiếp theo.",
+        "Amazon nêu ví dụ đợt cập nhật trên cụm 20 máy chủ với quy mô đợt hai máy chỉ cần thêm hai máy mới thay cho 20 máy. Hệ thống cũng hỗ trợ định tuyến qua mạng riêng AWS PrivateLink mà không cần đi qua cổng Internet công cộng.",
+        "Theo Amazon, mức tiết kiệm chi phí đến từ việc đặt nhiều mô hình trên mỗi máy chứ không do hạ giá thuê giờ, trong khi các mô hình vẫn chia sẻ bộ nhớ và mạng máy chủ. Các khuyến nghị tối ưu từ hệ thống giám sát cũng sẽ không triển khai cho đến khi người dùng áp dụng."
+      ],
+      "same_event_coverage_ids": [
+        "487aac76b3dc373aab63"
+      ],
+      "split_coverage_ids": [
+        "59632d951f51bc71731c"
+      ],
+      "subject": "Amazon SageMaker",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Amazon SageMaker AI ra mắt phân vùng GPU tối đa bảy phần và cập nhật mô hình tại chỗ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "amazon",
+          "url": "https://aws.amazon.com/blogs/machine-learning/amazon-sagemaker-inference-2026-launches-in-review-part-2/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.75,
+        "answers": {
+          "what": 8,
+          "why": 8,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "b20b7962dc5d7c04292d2770910884d005a9c7cb5f070925b24fdd9ef1064407",
+        "scored_at": "2026-11-20T01:29:14.337454+00:00"
+      }
+    },
+    {
+      "id": "1d80e465e65b9589fb74",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Developer how-to walkthrough explaining how to configure and connect Kimi Code CLI with models on Amazon Bedrock using AWS credentials.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/use-kimi-code-cli-with-models-on-amazon-bedrock/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c3780a4a85434e9ddd17"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "0ddd7aeef210b8b2527f",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://en.yna.co.kr/view/AEN20261120001400320",
+      "key_points": [
+        "Theo Yonhap, ông Khalifa Al Qama thuộc Quỹ Tương lai Dubai nhận định Dubai thấy tiềm năng hợp tác chặt chẽ hơn với Hàn Quốc về ứng dụng trí tuệ nhân tạo trong logistics và di chuyển. Phát biểu được đưa ra tại buổi họp báo hôm thứ Năm khi thảo luận về các lĩnh vực ưu tiên mở rộng công nghệ.",
+        "Ông Al Qama giải thích hai bên có hệ sinh thái thuận lợi về thương mại và vận tải kết nối đông sang tây. Hợp tác này cũng có thể dựa vào kinh nghiệm vận hành sân bay và cảng biển của Dubai.",
+        "Về cách tiếp cận, ông Al Qama đề xuất các nhà khoa học và nhà đổi mới sáng tạo có thể bắt đầu hợp tác từ những dự án nhỏ. Ông đánh giá đây là cách an toàn nhất để hai nền văn hóa gặp gỡ nhau.",
+        "Ông Al Qama nhận định chuyển đổi vận tải là làn sóng quan trọng tiếp theo mà mọi thành phố sẽ quan tâm. Dù vậy, ông cho rằng hai bên nên tiến từng bước để xem xét giải pháp di chuyển thực sự hữu ích cho cả hai xã hội."
+      ],
+      "same_event_coverage_ids": [
+        "46e733043d39ec0e3db6"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Dubai Future Foundation",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Khalifa Al Qama"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Quan chức Dubai đề xuất hợp tác với Hàn Quốc ứng dụng AI vào logistics và di chuyển",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "yonhap",
+          "url": "https://en.yna.co.kr/view/AEN20261120001400320"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "eeb80d8067504856f2f546a0f2f32df8e238cc1804ac886fe75b9afd95c57cf7",
+        "scored_at": "2026-11-20T01:34:34.209251+00:00"
+      }
+    },
+    {
+      "id": "a473fca032034534dcc5",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://en.yna.co.kr/view/AEN20261120001000320",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "68ee7704286eb4b9e646",
+        "7bbc1a8f53c97aa496cf",
+        "93a1398c967157289e93"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Seoul stock market",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "region_locked:South Korea",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "d86e208b5504e08e26ee",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-19/the-city-at-the-center-of-ai-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "a4ee20718a14395681c4"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "bda522de56a34a98c046",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://git-aarvin.github.io/mei/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "1b2fc423d752af533f94"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Gemini 4 Neon",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "5a1e45b0fc8151aef24a",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Interview focusing on an entertainment docuseries about Sam Bankman-Fried and FTX; the mention of Anthropic is incidental background regarding past investments.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-19/propagate-co-ceo-on-new-sam-bankman-fried-docuseries-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "de14f671ebbf39a12d9a"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "1b55f5bf9dc5356d472e",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-19/the-close-11-19-2026-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "60d52deae183d544a8c5"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "39ef67dcebcbe731d115",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/enable-ai-agents-to-pay-for-aws-marketplace-x402-products-with-amazon-bedrock-agentcore-payments/",
+      "key_points": [
+        "Amazon bổ sung AWS Billing vào AgentCore payments, cho phép tác nhân AI (phần mềm tự hành) mua sản phẩm trên AWS Marketplace và thanh toán qua hóa đơn AWS. AgentCore payments đã ra mắt từ tháng 8 năm 2026, còn tính năng mua sắm qua AWS Billing là phần mở rộng mới công bố.",
+        "Theo Amazon, cập nhật này giúp loại bỏ nhu cầu dùng ví stablecoin hoặc khóa API khi tác nhân mua sắm. Nhà phát triển có thể đặt hạn mức cho từng phiên thanh toán, giúp tác nhân không thể chi tiêu vượt ngân sách.",
+        "Trong kịch bản mẫu với nhà bán Tavily, tác nhân tìm công cụ trên AWS Marketplace và nhận báo giá có chữ ký số theo giao thức x402. Bản thử nghiệm chạy với ngân sách phiên 0,05 USD và trần mỗi yêu cầu 0,02 USD, rồi nhận mã thanh toán có hiệu lực khoảng năm phút.",
+        "Amazon khẳng định việc thanh toán qua tài khoản AWS hai bên giúp đáp ứng tiêu chuẩn bảo mật và kiểm toán của doanh nghiệp. Dù vậy, tính năng hiện chỉ hỗ trợ mức giá cố định cho mỗi yêu cầu, và tác nhân chỉ được mua sản phẩm cho phép nếu dùng Private Marketplace."
+      ],
+      "same_event_coverage_ids": [
+        "8c533d35ef84dffca4a9"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Amazon Bedrock",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Amazon cho phép tác nhân AI mua sắm trên AWS Marketplace và trả phí qua hóa đơn AWS",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "amazon",
+          "url": "https://aws.amazon.com/blogs/machine-learning/enable-ai-agents-to-pay-for-aws-marketplace-x402-products-with-amazon-bedrock-agentcore-payments/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "8e964a58585af6a842247444d03557de42a325070c8b25b001d169566ec36e1a",
+        "scored_at": "2026-11-20T01:34:34.209308+00:00"
+      }
+    },
+    {
+      "id": "de9afba1cf63078e8734",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-19/catl-innolight-may-join-hong-kong-tech-index-in-major-ai-revamp",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "ea18c62fe00ad6c0a891"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "d128fc770eabd8c17b26",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-19/ai-cloud-ceo-hits-rock-bottom-in-race-to-survive-chip-crisis",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "2fa2ba5bc4bc3036e976"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "6c173935b946b512c162",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.techdirt.com/2026/11/19/court-tells-cops-that-the-4th-amendment-doesnt-cover-ai-generated-probable-cause/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "2a36c61596a4a1e05e9a",
+        "6fd29fed37cc3e956790"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Fourth Amendment and AI probable cause",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "region_locked:United States",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "4a7e05a2e981952f77d3",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/19/2026/its-been-a-rough-go-lumentums-ceo-on-his-115-billion-marvell-deal",
+      "key_points": [
+        "Đầu tháng này, Lumentum và Marvell đã đạt thỏa thuận sáp nhập toàn bộ bằng cổ phiếu trị giá 115 tỷ USD, kết hợp mảng quang học với mảng kinh doanh chip.",
+        "Theo Semafor, cổ phiếu hai bên giảm khoảng 40% sau khi công bố do giới đầu tư lo ngại về dư địa tăng trưởng của làn sóng AI. Một số cổ đông Lumentum cho rằng công ty bán mình quá sớm, còn ông Hurlston thừa nhận nhà đầu tư e ngại công ty đã bỏ bớt tiềm năng tăng trưởng.",
+        "Ông Hurlston lưu ý việc nhà quản lý danh mục chỉ nắm giữ cổ phiếu một bên có thể kích hoạt bán tháo bắt buộc, dù hai bên trùng lặp 80% cổ đông. Về vận hành, ông cho biết mô hình trọn gói giúp cung cấp sản phẩm hoàn chỉnh tới trung tâm dữ liệu, rút ngắn thời gian đưa hàng ra thị trường.",
+        "Ông Hurlston kỳ vọng giá cổ phiếu sẽ phục hồi khi các công ty công bố thêm thông tin cho cổ đông qua hồ sơ pháp lý và các cuộc gặp gỡ. Dù vậy, thương vụ vẫn có nguy cơ đổ vỡ nếu cổ đông bỏ phiếu phản đối hoặc cơ quan quản lý tại Mỹ và Trung Quốc bác bỏ sau bê bối chip Nvidia."
+      ],
+      "same_event_coverage_ids": [
+        "aefb8610fcfbbc3e47c5"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Lumentum and Marvell",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Michael Hurlston"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Cổ phiếu Lumentum và Marvell giảm khoảng 40% sau thỏa thuận sáp nhập trị giá 115 tỷ USD",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/19/2026/its-been-a-rough-go-lumentums-ceo-on-his-115-billion-marvell-deal"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 7.9,
+        "answers": {
+          "what": 8,
+          "why": 6,
+          "notable": 10,
+          "meaning": 6
+        },
+        "hard_errors": [
+          {
+            "kind": "cause",
+            "summary_text": "bác bỏ sau bê bối chip Nvidia",
+            "explanation": "The source says the Nvidia chip scandal is likely to bring more scrutiny to US and Chinese regulatory reviews; it does not say regulators would reject the deal because of the scandal (outlet:p010, outlet:p014)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The reader may infer that the Nvidia scandal would cause regulators to reject the deal.",
+            "fix": "State separately that lack of regulatory approval could stop the deal and that the scandal may increase scrutiny (outlet:p010, outlet:p014)."
+          },
+          {
+            "question": "why",
+            "problem": "The reason Lumentum sought the transaction is missing.",
+            "fix": "Add that Lumentum wanted semiconductor assets and Marvell proposed combining with it (outlet:p003–p005)."
+          },
+          {
+            "question": "what",
+            "problem": "The source’s central interview framing—Hurlston asking dissatisfied shareholders for patience—is faint.",
+            "fix": "Make clear that Hurlston defended the deal despite shareholders’ negative reaction (outlet:p002, outlet:p007–p008)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "9ec901fbb58335bf367c4434cc8f4d9d91b3c1b70777a2ae121381de5bde24a5",
+        "scored_at": "2026-11-20T01:34:34.209345+00:00"
+      }
+    },
+    {
+      "id": "33ab709ad595d6d2580c",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://fedscoop.com/house-va-oracle-execs-ehrm-ai-veterans-data/",
+      "key_points": [
+        "Hạ viện Mỹ chất vấn lãnh đạo Oracle về mức tăng trần 17 tỷ USD của hợp đồng hồ sơ y tế 10 tỷ USD và cáo buộc muốn dùng dữ liệu cựu chiến binh cho AI. Chủ tịch Ủy ban Mike Bost chỉ trích việc hợp đồng mở rộng qua cả hai đảng với mức chi hơn 2.000 USD mỗi cựu chiến binh.",
+        "Hai lãnh đạo Oracle giải trình trần hợp đồng tăng do mở rộng quy mô, trễ hạn vì COVID-19, tùy biến sớm và hạ tầng yếu kém. Bà Seema Verma cho biết 40% trần ban đầu đã chi hết trước khi Oracle mua lại Cerner năm 2022.",
+        "Nghị sĩ Nikki Budzinski cho biết Oracle tìm cách đưa vào điều khoản thương mại vốn trên thực tế sẽ cho phép công ty sở hữu dữ liệu. Đáp lại, bà Verma khẳng định Oracle không có quyền tiếp cận, không sử dụng dữ liệu cho bất kỳ mục đích nào và chỉ VA dùng để chăm sóc cựu chiến binh.",
+        "Hạ nghị sĩ Mark Takano nhận định với FedScoop rằng phiên điều trần giám sát lưỡng đảng là tín hiệu rất tốt gửi tới các nhà thầu chính phủ. Nghị sĩ Abe Hamadeh yêu cầu ngừng chuyển thêm tiền cho đến khi Oracle và VA nộp dự toán chi phí được GAO chấp thuận, lịch triển khai cố định và báo cáo rõ ràng về các khoản lãng phí."
+      ],
+      "same_event_coverage_ids": [
+        "312028c36f8e88e1d283"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Oracle",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Mark Takano",
+          "Mike Sicilia",
+          "Seema Verma"
+        ],
+        "availability": "region_locked:United States",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Hạ viện Mỹ chất vấn Oracle về mức tăng trần 17 tỷ USD và cáo buộc muốn dùng dữ liệu cựu chiến binh cho AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "fedscoop",
+          "url": "https://fedscoop.com/house-va-oracle-execs-ehrm-ai-veterans-data/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.3,
+        "answers": {
+          "what": 8,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "Hạ viện Mỹ chất vấn",
+            "explanation": "The questioning occurred in the House Veterans’ Affairs Committee, not a hearing of the full US House. The phrase appears in both the headline and first paragraph (outlet:p006–p007)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "Readers may think the full House questioned Oracle.",
+            "fix": "Identify the House Veterans’ Affairs Committee in the headline and opening sentence (outlet:p006–p007)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "889d0c9f4b0a0c19b49aa19227c4c58142197c982ef1b8b5a4c58ee9513bfbbd",
+        "scored_at": "2026-11-20T01:34:34.209374+00:00"
+      }
+    },
+    {
+      "id": "eb444c5d65e5551cb057",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-19/california-probing-if-nvidia-misled-investors-over-china-risks",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "57bbf8432ab6d3525229"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "433632750e0dd7c77c89",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.wired.com/story/anthropics-record-breaking-ipo-highlights-the-ai-giants-worst-enemy-itself/",
+      "key_points": [
+        "Anthropic shares, trading under ticker symbol ANT, jumped more than 30 percent when they debuted on Nasdaq midday Thursday.",
+        "Anthropic generated $17 billion in sales in its most recent quarter, an increase of more than 1,100 percent from the prior year.",
+        "Anthropic has committed to paying vendors more than $900 billion over the next 19 years, mostly to develop data centers powering Claude and its other AI models."
+      ],
+      "same_event_coverage_ids": [
+        "bfa2013ee1fe6fa57d11"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Anthropic",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Elaine Matheny"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "03c03ec56d84d1d1cf07",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://x.com/ArtificialAnlys/status/2123513872095269336",
+      "key_points": [
+        "Gemini 4 Carbon is priced at $4 per 1M input tokens and $20 per 1M output tokens, the highest among the new releases.",
+        "Gemini 4 Neon is priced at $3 per 1M input tokens and $15 per 1M output tokens.",
+        "Gemini 4 Hydrogen is priced at $1.50 per 1M input tokens and $7.50 per 1M output tokens.",
+        "The new Gemini 4 model family releases include Gemini 4 Carbon, Neon, and Hydrogen."
+      ],
+      "same_event_coverage_ids": [
+        "8eab3475f7b419b3d7dc"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Gemini 4",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "05cda428ac1817ba6292",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://x.com/ArtificialAnlys/status/2123242530489966738",
+      "key_points": [
+        "Kling Image 4.0 xếp thứ 7 về tạo ảnh từ văn bản và thứ 6 về chỉnh sửa ảnh. Mô hình Kling Image 4.0 chỉ đứng sau các sản phẩm trí tuệ nhân tạo do OpenAI và Microsoft AI phát triển.",
+        "Về khả năng kỹ thuật, mô hình Kling Image 4.0 vận hành tạo hình ảnh với độ phân giải hỗ trợ tối đa lên đến 8K.",
+        "Ở mảng chỉnh sửa ảnh, mô hình Kling Image 4.0 đứng ngay sau GPT Image 2.5.",
+        "Mức giá tạo ảnh 2K của Kling Image 4.0 chưa bằng một phần ba giá của mọi mô hình OpenAI xếp trên nó."
+      ],
+      "same_event_coverage_ids": [
+        "839924296deef9bca81f"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Kling Image 4.0",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Kling Image 4.0 xếp thứ 7 tạo ảnh AI với giá tạo ảnh 2K chưa bằng một phần ba các mô hình OpenAI xếp trên",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "x:@ArtificialAnlys",
+          "url": "https://x.com/ArtificialAnlys/status/2123242530489966738"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "28195a733eaa411514852b6c5402ad74838b8aa3a50f222501e4c3dd14e5b4fe",
+        "scored_at": "2026-11-20T01:29:14.338148+00:00"
+      }
+    },
+    {
+      "id": "4a4177ecfb12963e3566",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The story covers South Korea's annual college entrance exam (CSAT); mentions of AI and smart devices in the context of anti-cheating precautions are incidental to general education news.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://en.yna.co.kr/view/AEN20261119001151315",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "0752676e6fbebeb7859c",
+        "dcb4a7e810657ff1317b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "da30645137037f0052cd",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "A vendor product landing page on OpenAI for Business featuring an onboarding demo and setup walkthrough without independent reporting or a substantive release.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://openai.com/business/learn/daybreak-blue-onboarding-demo",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "6ce34d6aa663ccd5b0f0"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "a890a236270cc5e31862",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "A vendor product page on OpenAI for Business presenting a reference architecture for Daybreak Red without independent reporting or a substantive release.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://openai.com/business/learn/deploying-daybreak-red",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "9189d4604e66f030da54"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "82fe289fe466dcc1d4f7",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "A vendor product demo page on OpenAI for Business showcasing the Codex Security Plugin workflow without independent reporting or a substantive release.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://openai.com/business/learn/codex-security-plugin-demo",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "da83b030930b5360ba13"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "17b7a2b39f098895a220",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "A vendor product demo walkthrough on OpenAI for Business showing PR scans in action without independent reporting or a substantive release.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://openai.com/business/learn/pr-scans-demo",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "2c8ec81607e9c6bf263a"
+      ],
+      "split_coverage_ids": []
     }
   ]
 }
