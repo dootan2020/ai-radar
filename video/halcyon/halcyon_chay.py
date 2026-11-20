@@ -10,7 +10,10 @@ Standard library only, except that drawing imports Pillow (the GPU interpreter h
 is left running. The safety gates are the point of this file: a follow-along installs third-party packages, so what may run is a short allow list, every package is
 checked against its official registry before it is installed, and everything happens inside the throwaway folder with a scrubbed environment (CHAY.md)."""
 import argparse
+import codecs
 import hashlib
+import io
+import math
 import json
 import os
 import re
@@ -19,6 +22,7 @@ import socket
 import subprocess
 import sys
 import time
+import threading
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -26,6 +30,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
+CLIP_PRODUCER = 1
 REPO = HERE.parents[1]
 TZ = timezone(timedelta(hours=7))
 FONT = HERE / 'fonts' / 'JetBrainsMono-Medium.ttf'
@@ -342,6 +347,8 @@ def kill_tree(p):
         return
     if os.name == 'nt':
         subprocess.run(['taskkill', '/PID', str(p.pid), '/T', '/F'], capture_output=True)
+        if p.poll() is None:
+            p.kill()
     else:
         p.kill()
     try:
@@ -537,10 +544,161 @@ def start(argv, cwd, env, log):
         raise Refusal('command', f'"{argv[0]}" is not on the PATH of the throwaway environment', 'install the tool on the machine (python, node and npm are needed)')
     if Path(exe).resolve().as_posix().lower().startswith(REPO.as_posix().lower()):
         raise Refusal('location', f'"{exe}" is inside the repository checkout; nothing runs from there', 'tell the coordinator')
-    f = open(log, 'wb')
-    p = subprocess.Popen([exe] + argv[1:], cwd=cwd, env=env, stdout=f, stderr=subprocess.STDOUT, stdin=subprocess.DEVNULL)
-    p._log_file = f
+    p = subprocess.Popen([exe] + argv[1:], cwd=cwd, env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, stdin=subprocess.DEVNULL)
+    cast = Path(log).with_suffix('.cast')
+    began = time.monotonic()
+    def record():
+        decoder = codecs.getincrementaldecoder('utf-8')('replace')
+        with p.stdout, open(log, 'wb') as f, open(cast, 'w', encoding='utf-8', newline='\n') as c:
+            while True:
+                chunk = p.stdout.read1(4096)
+                if not chunk:
+                    break
+                f.write(chunk)
+                f.flush()
+                value = decoder.decode(chunk)
+                if value:
+                    c.write(json.dumps([round(time.monotonic() - began, 6), value], ensure_ascii=False) + '\n')
+            value = decoder.decode(b'', final=True)
+            if value:
+                c.write(json.dumps([round(time.monotonic() - began, 6), value], ensure_ascii=False) + '\n')
+    p._reader = threading.Thread(target=record, daemon=True)
+    p._reader.start()
     return p
+
+
+def read_cast(path, log):
+    """Read a timestamped pipe recording and prove it reproduces the saved output."""
+    events = [json.loads(line) for line in Path(path).read_text(encoding='utf-8').splitlines()]
+    if any(not isinstance(e, list) or len(e) != 2 or not isinstance(e[0], (int, float)) or e[0] < 0 or
+           not isinstance(e[1], str) for e in events):
+        raise Refusal('cast', f'{path} has an invalid event')
+    if any(b[0] < a[0] for a, b in zip(events, events[1:])):
+        raise Refusal('cast', f'{path} timestamps run backward')
+    if ''.join(e[1] for e in events) != Path(log).read_bytes().decode('utf-8', errors='replace'):
+        raise Refusal('cast', f'{path} does not reproduce {log}')
+    return events
+
+
+def footage_timeline(steps, budget=18.0, hold=2.5):
+    """Pure playback plan. Each step is typed, then its recorded output arrives at its original offsets."""
+    if not steps or budget <= hold:
+        raise Refusal('footage', 'a block needs steps and room for its final hold')
+    real = sum(len(s['cmd']) / 18 + max(s['seconds'], s['events'][-1][0] if s['events'] else 0) for s in steps)
+    speed = max(1, math.ceil(real / (budget - hold)))
+    at, segments = 0.0, []
+    for s in steps:
+        typing = len(s['cmd']) / 18
+        recorded = max(s['seconds'], s['events'][-1][0] if s['events'] else 0)
+        length = typing + recorded
+        segments.append(dict(name=f'step-{s["index"]}', a=at, b=at + length / speed,
+                             speed=speed, real_s=round(recorded, 6), typing_s=typing, step=s))
+        at += length / speed
+    return segments, at + hold
+
+
+def speed_label(speed):
+    return 'TỐC ĐỘ THẬT x1' if speed == 1 else f'TUA NHANH x{speed}'
+
+
+def draw_footage_frame(segment, local_s, real_clock, width=762, height=850, max_rows=MAX_ROWS):
+    """Draw terminal ink at final clip pixels, with the original font and colours."""
+    from PIL import Image, ImageDraw, ImageFont
+    cmd = segment['step']['cmd']
+    real_t = max(0, local_s * segment['speed'])
+    typed = cmd[:min(len(cmd), int(real_t * 18))]
+    output_t = real_t - segment['typing_s']
+    output = ''.join(value for t, value in segment['step']['events'] if t <= output_t)
+    rows, _ = build_rows(typed, clean_output(output), max_rows)
+    img = Image.new('RGB', (width, height), BG)
+    d = ImageDraw.Draw(img)
+    mono = ImageFont.truetype(str(FONT), 31)
+    label_font = ImageFont.truetype('C:/Windows/Fonts/arial.ttf' if os.name == 'nt' else 'DejaVuSans.ttf', 30)
+    d.text((37, 18), speed_label(segment['speed']), font=label_font, fill=MARK)
+    d.text((width - 38, 18), f'{real_clock:05.1f}s', font=label_font, fill=CMD, anchor='ra')
+    d.line((37, 65, width - 37, 65), fill=NOTE, width=2)
+    for i, row in enumerate(rows):
+        y = 111 + i * 57
+        if y + 31 > height - 20:
+            raise Refusal('footage', 'terminal rows do not fit the clip window')
+        for c, ch in enumerate(row['text']):
+            if ch != ' ':
+                amber = any(ch != ' ' and c >= pos and c < pos + len(ph) for ph in segment['step'].get('expect', [])
+                            for pos in [row['text'].find(ph)] if pos >= 0)
+                color = MARK if amber else PROMPT if row['kind'] == 'cmd' and i == 0 and c == 0 else CMD if row['kind'] == 'cmd' else NOTE if row['kind'] == 'note' else OUT
+                d.text((38 + c * 19, y), ch, font=mono, fill=color)
+    return img
+
+
+def make_footage(run_dir, first_step, last_step, out=None, ffmpeg=None, encoder='h264_nvenc', manifest_name='clip.json'):
+    """Create one silent block from inclusive step indexes in a completed chay run.
+
+    Returns the manifest path. `out` defaults to `<run_dir>/clip-<first>-<last>`.
+    `ffmpeg` names the installed encoder executable; `encoder` permits offline CPU validation.
+    """
+    run_dir = Path(run_dir).resolve()
+    data = json.loads((run_dir / 'chay.json').read_text(encoding='utf-8'))
+    states = data['states']
+    if not (0 <= first_step <= last_step < len(states)):
+        raise Refusal('footage', 'the requested step range is outside this run')
+    steps = []
+    for state in states[first_step:last_step + 1]:
+        n = state['step']
+        log = run_dir / 'log' / f'step-{n}.log'
+        events = read_cast(log.with_suffix('.cast'), log)
+        steps.append(dict(index=n, cmd=state['cmd'], seconds=state['seconds'], events=events,
+                          expect=next(s['expect'] for s in data['steps'] if s['index'] == n)))
+    max_rows = data.get('max_rows', MAX_ROWS)
+    check_glyphs([dict(kind='out', text=line) for s in steps
+                  for line in clean_output(''.join(v for _, v in s['events']))] +
+                 [r for s in steps for r in build_rows(s['cmd'], [], max_rows)[0]])
+    segments, duration = footage_timeline(steps)
+    fps, width, height = 25, 762, 850
+    frames = math.ceil(duration * fps)
+    if frames / fps > 40:
+        raise Refusal('footage', 'the block exceeds the clip duration limit')
+    out = Path(out).resolve() if out else run_dir / f'clip-{first_step}-{last_step}'
+    out.mkdir(parents=True, exist_ok=True)
+    video = out / ('terminal.mp4' if manifest_name == 'clip.json' else f'terminal-{first_step}-{last_step}.mp4')
+    executable = ffmpeg or shutil.which('ffmpeg')
+    if not executable:
+        raise Refusal('footage', 'ffmpeg is unavailable', 'pass ffmpeg=<installed executable>')
+    command = [str(executable), '-y', '-loglevel', 'error', '-nostats', '-f', 'image2pipe', '-vcodec', 'png', '-r', str(fps),
+               '-i', '-', '-an', '-c:v', encoder, '-pix_fmt', 'yuv420p', '-movflags', '+faststart', str(video)]
+    p = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
+    try:
+        for frame in range(frames):
+            t = frame / fps
+            seg = next((s for s in segments if t < s['b']), segments[-1])
+            local = min(max(0, t - seg['a']), seg['b'] - seg['a'])
+            clock = sum(s['real_s'] for s in segments if s['b'] <= t) + min(seg['real_s'], max(0, local * seg['speed'] - seg['typing_s']))
+            img = draw_footage_frame(seg, local, clock, width, height, max_rows)
+            buf = io.BytesIO()
+            img.save(buf, format='PNG')
+            try:
+                p.stdin.write(buf.getvalue())
+            except BrokenPipeError:
+                raise Refusal('footage', 'ffmpeg stopped before it could read the frames: ' +
+                              p.stderr.read().decode('utf-8', errors='replace')[-500:])
+        p.stdin.close()
+        error = p.stderr.read().decode('utf-8', errors='replace')
+        if p.wait() != 0:
+            raise Refusal('footage', f'ffmpeg failed: {error[-500:]}')
+    finally:
+        if p.poll() is None:
+            p.kill()
+            p.wait()
+        p.stderr.close()
+    manifest = dict(file=video.name, w=width, h=height, fps=fps, frames=frames, duration=frames / fps,
+                    bg=list(BG), min_text_px=30, captured=data['captured'], source=str(run_dir / 'chay.json'),
+                    date=datetime.now(TZ).strftime('%d/%m/%Y'), tool_sha=sha(Path(__file__).read_bytes()),
+                    stills=[dict(t=0.4, label='command'), dict(t=max(0, frames / fps - 1.0), label='result')],
+                    segments=[{k: s[k] for k in ('name', 'a', 'b', 'speed', 'real_s')} for s in segments],
+                    proof=dict(cast_logs=[sha((run_dir / 'log' / f'step-{s["index"]}.cast').read_bytes()) for s in steps],
+                               step_range=[first_step, last_step], real_seconds=sum(s['real_s'] for s in segments)))
+    path = out / manifest_name
+    path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n', encoding='utf-8', newline='\n')
+    return path
 
 
 def tool_version(argv, cwd, env):
@@ -551,10 +709,25 @@ def tool_version(argv, cwd, env):
         return 'unknown'
 
 
+def footage_blocks(job):
+    """Validate the chain's inclusive, consecutive step lists before starting a run."""
+    blocks = job.get('blocks', [])
+    if not isinstance(blocks, list):
+        raise Refusal('footage', 'blocks must be a list of step lists')
+    count = len(job['run'].get('steps', []))
+    for block in blocks:
+        if (not isinstance(block, list) or not block or
+                any(type(n) is not int or n < 0 or n >= count for n in block) or
+                any(b != a + 1 for a, b in zip(block, block[1:]))):
+            raise Refusal('footage', 'each block must contain consecutive step indexes in range')
+    return blocks
+
+
 def run(job, out, fetch_text=lambda u: http_get(u, 'text/plain'), fetch_json=http_json, say=print):
     """Everything, in order: no-network checks, the documents, the packages, the files, the steps, the stills. Returns the chay.json dict."""
     ref = job['ref']
     spec = check_run(job['run'])
+    clip_blocks = footage_blocks(job)
     out = Path(out).resolve()
     work = out / 'work'
     if REPO in (out, *out.parents) or str(out).lower().startswith(str(REPO).lower() + os.sep):
@@ -566,7 +739,7 @@ def run(job, out, fetch_text=lambda u: http_get(u, 'text/plain'), fetch_json=htt
     servers, procs, started = [], [], time.time()
     notes = ['blank lines are dropped, escape codes removed, a carriage return overwrites its line, tabs become spaces',
              'only the end of a long output is drawn: the marked row says how many earlier lines were left out']
-    result = dict(ref=ref, started=now_iso())
+    result = dict(ref=ref, started=now_iso(), max_rows=spec['max_rows'])
     try:
         # the documents and the files taken from their fenced blocks
         docs, blocks = {}, {}
@@ -633,7 +806,7 @@ def run(job, out, fetch_text=lambda u: http_get(u, 'text/plain'), fetch_json=htt
                 except subprocess.TimeoutExpired:
                     kill_tree(p)
                     raise Refusal('deadline', f'step {st["index"]} ({st["cmd"]}) ran over its {st["deadline"]} second deadline and was killed', 'run again; if it repeats, the step does not finish by itself')
-                p._log_file.close()
+                p._reader.join()
                 text = read_log(log)
                 if code:
                     raise Refusal('exit', f'step {st["index"]} ({st["cmd"]}) exited with {code}:\n    ' + '\n    '.join(clean_output(text)[-8:]), 'a follow-along shows only commands that succeed: fix the step or the run block')
@@ -704,8 +877,8 @@ def run(job, out, fetch_text=lambda u: http_get(u, 'text/plain'), fetch_json=htt
         for q in procs:
             kill_tree(q)
             try:
-                q._log_file.close()
-            except OSError:
+                q._reader.join(timeout=5)
+            except (OSError, AttributeError):
                 pass
         left = processes_under(work)
         for pid in left:
@@ -721,6 +894,9 @@ def run(job, out, fetch_text=lambda u: http_get(u, 'text/plain'), fetch_json=htt
         raise Refusal('leftover', f'{result["leftover_processes_after"]} process(es) still run from the throwaway folder', 'tell the coordinator; stop them before anything else')
     if not gone:
         result['warnings'].append(f'warning: the throwaway folder {work} could not be deleted')
+    for block in clip_blocks:
+        name = 'clip-' + '-'.join(map(str, block)) + '.json'
+        make_footage(out, block[0], block[-1], out=out, manifest_name=name)
     return result
 
 
@@ -730,8 +906,17 @@ def main(argv):
     r = sub.add_parser('run')
     r.add_argument('--job', required=True)
     r.add_argument('--out', required=True)
+    f = sub.add_parser('footage')
+    f.add_argument('--run', required=True)
+    f.add_argument('--first', required=True, type=int)
+    f.add_argument('--last', required=True, type=int)
+    f.add_argument('--out')
+    f.add_argument('--ffmpeg')
     a = ap.parse_args(argv)
     try:
+        if a.cmd == 'footage':
+            print(make_footage(a.run, a.first, a.last, out=a.out, ffmpeg=a.ffmpeg))
+            return 0
         job = json.loads(Path(a.job).read_text(encoding='utf-8'))
         res = run(job, a.out)
     except Refusal as e:
