@@ -1,0 +1,320 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-21",
+  "timezone": "Asia/Ho_Chi_Minh",
+  "window_start_at": "2026-11-19T23:00:00Z",
+  "cutoff_at": "2026-11-20T23:00:00Z",
+  "created_at": "2026-11-20T23:07:52Z",
+  "snapshot_generated_at": "2026-11-20T23:06:24Z",
+  "policy": {
+    "method": "daily-evidence-v3",
+    "max_stories": 5,
+    "window_hours": 24,
+    "cutoff_hour": 6,
+    "engagement_percentile_min": 0.8,
+    "publisher_coverage_excludes_forums": true,
+    "attention_requires_nonforum": true,
+    "forum_exception_percentile_min": 0.97,
+    "forum_exception_comments_min": 100,
+    "max_forum_only_stories": 1,
+    "score_measured_at": "2026-11-20T23:06:24Z",
+    "description": "Ưu tiên dấu hiệu công bố, số nhà xuất bản và tương tác đo được; sau đó theo điểm nóng và thời gian công bố"
+  },
+  "stories": [
+    {
+      "id": "06863d94c187626f5c00",
+      "title": "Amazon SageMaker Inference: 2026 launches in review, part 2",
+      "title_vi": "Amazon SageMaker Inference: 2026 ra mắt trong đánh giá, phần 2",
+      "headline": "Amazon SageMaker Inference: 2026 launches in review, part 2",
+      "headline_vi": "Amazon SageMaker Inference: 2026 ra mắt trong đánh giá, phần 2",
+      "url": "https://aws.amazon.com/blogs/machine-learning/amazon-sagemaker-inference-2026-launches-in-review-part-2/",
+      "published_at": "2026-11-20T00:34:07Z",
+      "kind": "product",
+      "time_basis": "published",
+      "editorial_headline_vi": "Amazon SageMaker AI ra mắt phân vùng GPU tối đa bảy phần và cập nhật mô hình tại chỗ",
+      "editorial_headline_verified": true,
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "487aac76b3dc373aab63",
+          "title": "Amazon SageMaker Inference: 2026 launches in review, part 2",
+          "title_vi": "Amazon SageMaker Inference: 2026 ra mắt trong đánh giá, phần 2",
+          "headline": "Amazon SageMaker Inference: 2026 launches in review, part 2",
+          "headline_vi": "Amazon SageMaker Inference: 2026 ra mắt trong đánh giá, phần 2",
+          "url": "https://aws.amazon.com/blogs/machine-learning/amazon-sagemaker-inference-2026-launches-in-review-part-2/",
+          "published_at": "2026-11-20T00:34:07Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "aws-ml-blog",
+          "publisher": "amazon",
+          "entity": "amazon",
+          "group": "lab",
+          "observed_at": "2026-11-20T23:06:24Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [
+          {
+            "code": "primary_release",
+            "text": "Tiêu đề nguồn gốc có dấu hiệu công bố model hoặc sản phẩm",
+            "observation_ids": [
+              "487aac76b3dc373aab63"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "amazon"
+          ],
+          "age_hours_at_cutoff": 22.4314,
+          "hot_score": 51.028,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "585b84b1937546daaf84",
+      "title": "Advancing Science Together: Highlights From the Open Source AI For Science Summit",
+      "title_vi": "Tiến bộ khoa học cùng nhau: Điểm nổi bật từ Hội nghị thượng đỉnh AI mã nguồn mở cho khoa học",
+      "headline": "Advancing Science Together: Highlights From the Open Source AI For Science Summit",
+      "headline_vi": "Tiến bộ khoa học cùng nhau: Điểm nổi bật từ Hội nghị thượng đỉnh AI mã nguồn mở cho khoa học",
+      "url": "https://about.fb.com/news/2026/11/advancing-science-together-highlights-from-the-open-source-ai-for-science-summit/",
+      "published_at": "2026-11-20T18:30:45Z",
+      "kind": "product",
+      "time_basis": "published",
+      "editorial_headline_vi": "Meta công bố mô hình UMA Nitro và mở rộng dự án dữ liệu não bộ tại hội nghị AI khoa học",
+      "editorial_headline_verified": true,
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "c3c20d80a8ed89cd4537",
+          "title": "Advancing Science Together: Highlights From the Open Source AI For Science Summit",
+          "title_vi": "Tiến bộ khoa học cùng nhau: Điểm nổi bật từ Hội nghị thượng đỉnh AI mã nguồn mở cho khoa học",
+          "headline": "Advancing Science Together: Highlights From the Open Source AI For Science Summit",
+          "headline_vi": "Tiến bộ khoa học cùng nhau: Điểm nổi bật từ Hội nghị thượng đỉnh AI mã nguồn mở cho khoa học",
+          "url": "https://about.fb.com/news/2026/11/advancing-science-together-highlights-from-the-open-source-ai-for-science-summit/",
+          "published_at": "2026-11-20T18:30:45Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "meta-newsroom",
+          "publisher": "meta",
+          "entity": "meta",
+          "group": "lab",
+          "observed_at": "2026-11-20T23:06:24Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [
+          {
+            "code": "primary_release",
+            "text": "Tiêu đề nguồn gốc có dấu hiệu công bố model hoặc sản phẩm",
+            "observation_ids": [
+              "c3c20d80a8ed89cd4537"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "meta"
+          ],
+          "age_hours_at_cutoff": 4.4875,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "b91e0d0a1a224c11a62d",
+      "title": "Introducing enhanced infrastructure observability in Amazon SageMaker HyperPod",
+      "title_vi": "Ra mắt cải thiện khả năng quan sát cơ sở hạ tầng trong Amazon SageMaker HyperPod",
+      "headline": "Introducing enhanced infrastructure observability in Amazon SageMaker HyperPod",
+      "headline_vi": "Ra mắt cải thiện khả năng quan sát cơ sở hạ tầng trong Amazon SageMaker HyperPod",
+      "url": "https://aws.amazon.com/blogs/machine-learning/introducing-enhanced-observability-in-amazon-sagemaker-hyperpod-to-diagnose-gpu-training-issues/",
+      "published_at": "2026-11-20T18:24:06Z",
+      "kind": "product",
+      "time_basis": "published",
+      "editorial_headline_vi": "Amazon ra mắt tính năng quan sát trên SageMaker HyperPod giúp chẩn đoán nhanh sự cố GPU",
+      "editorial_headline_verified": true,
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "5d040986a880023d6768",
+          "title": "Introducing enhanced infrastructure observability in Amazon SageMaker HyperPod",
+          "title_vi": "Ra mắt cải thiện khả năng quan sát cơ sở hạ tầng trong Amazon SageMaker HyperPod",
+          "headline": "Introducing enhanced infrastructure observability in Amazon SageMaker HyperPod",
+          "headline_vi": "Ra mắt cải thiện khả năng quan sát cơ sở hạ tầng trong Amazon SageMaker HyperPod",
+          "url": "https://aws.amazon.com/blogs/machine-learning/introducing-enhanced-observability-in-amazon-sagemaker-hyperpod-to-diagnose-gpu-training-issues/",
+          "published_at": "2026-11-20T18:24:06Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "aws-ml-blog",
+          "publisher": "amazon",
+          "entity": "amazon",
+          "group": "lab",
+          "observed_at": "2026-11-20T23:06:24Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [
+          {
+            "code": "primary_release",
+            "text": "Tiêu đề nguồn gốc có dấu hiệu công bố model hoặc sản phẩm",
+            "observation_ids": [
+              "5d040986a880023d6768"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "amazon"
+          ],
+          "age_hours_at_cutoff": 4.5983,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "701a571706ec6c00de8b",
+      "title": "Introducing harness adapters: adapt your favorite model to your harness to improve performance and cost",
+      "title_vi": "Ra mắt bộ điều chỉnh khung chạy: thích nghi mô hình yêu thích của bạn với khung chạy của bạn để cải thiện hiệu suất và chi phí",
+      "headline": "Introducing harness adapters: adapt your favorite model to your harness to improve performance and cost",
+      "headline_vi": "Ra mắt bộ điều chỉnh khung chạy: thích nghi mô hình yêu thích của bạn với khung chạy của bạn để cải thiện hiệu suất và chi phí",
+      "url": "https://huggingface.co/blog/harness-adapters-at-scale",
+      "published_at": "2026-11-20T00:00:00Z",
+      "kind": "product",
+      "time_basis": "published",
+      "editorial_headline_vi": "Hugging Face phát triển bộ điều hợp cho mô hình 27B giúp cắt giảm 56–72% lượt gọi công cụ trên SWE-bench Pro",
+      "editorial_headline_verified": true,
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "aa683d8c3ca0b73d3e8c",
+          "title": "Introducing harness adapters: adapt your favorite model to your harness to improve performance and cost",
+          "title_vi": "Ra mắt bộ điều chỉnh khung chạy: thích nghi mô hình yêu thích của bạn với khung chạy của bạn để cải thiện hiệu suất và chi phí",
+          "headline": "Introducing harness adapters: adapt your favorite model to your harness to improve performance and cost",
+          "headline_vi": "Ra mắt bộ điều chỉnh khung chạy: thích nghi mô hình yêu thích của bạn với khung chạy của bạn để cải thiện hiệu suất và chi phí",
+          "url": "https://huggingface.co/blog/harness-adapters-at-scale",
+          "published_at": "2026-11-20T00:00:00Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "huggingface-blog",
+          "publisher": "huggingface",
+          "entity": "huggingface",
+          "group": "lab",
+          "observed_at": "2026-11-20T23:06:24Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [
+          {
+            "code": "primary_release",
+            "text": "Tiêu đề nguồn gốc có dấu hiệu công bố model hoặc sản phẩm",
+            "observation_ids": [
+              "aa683d8c3ca0b73d3e8c"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "huggingface"
+          ],
+          "age_hours_at_cutoff": 23.0,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "ce276ea26dcc538eddca",
+      "title": "Ex-Qwen chief’s Pragmatik Labs raises funding at $5 billion valuation",
+      "title_vi": "Công ty Pragmatik Labs của cựu giám đốc Qwen đã huy động tài trợ trị giá 5 tỷ đô la.",
+      "headline": "Ex-Qwen chief’s Pragmatik Labs raises funding at $5 billion valuation",
+      "headline_vi": "Công ty Pragmatik Labs của cựu giám đốc Qwen đã huy động tài trợ trị giá 5 tỷ đô la.",
+      "url": "https://technode.com/2026/11/20/ex-qwen-chiefs-pragmatik-labs-raises-funding-at-5-billion-valuation/",
+      "published_at": "2026-11-20T14:14:22Z",
+      "kind": "other",
+      "time_basis": "published",
+      "editorial_headline_vi": "Startup AI của cựu lãnh đạo Alibaba Qwen gọi vốn mới với mức định giá 5 tỷ USD",
+      "editorial_headline_verified": true,
+      "source_count": 2,
+      "coverage": [
+        {
+          "id": "416b0b44c439c56017ff",
+          "title": "Ex-Alibaba Star’s AI Startup Doubles Valuation to $5 Billion",
+          "title_vi": "Startup AI của cựu Alibaba Star tăng giá trị lên 5 tỷ đô la",
+          "headline": "Ex-Alibaba Star’s AI Startup Doubles Valuation to $5 Billion",
+          "headline_vi": "Startup AI của cựu Alibaba Star tăng giá trị lên 5 tỷ đô la",
+          "url": "https://www.bloomberg.com/news/articles/2026-11-20/ex-alibaba-star-s-ai-startup-doubles-valuation-to-5-billion",
+          "published_at": "2026-11-20T08:25:04Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "bloomberg-tech",
+          "publisher": "bloomberg",
+          "entity": "bloomberg",
+          "group": "press",
+          "observed_at": "2026-11-20T16:26:14Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "05dc83c0cd0bf8e0eb83",
+          "title": "Ex-Qwen chief’s Pragmatik Labs raises funding at $5 billion valuation",
+          "title_vi": "Công ty Pragmatik Labs của cựu giám đốc Qwen đã huy động tài trợ trị giá 5 tỷ đô la.",
+          "headline": "Ex-Qwen chief’s Pragmatik Labs raises funding at $5 billion valuation",
+          "headline_vi": "Công ty Pragmatik Labs của cựu giám đốc Qwen đã huy động tài trợ trị giá 5 tỷ đô la.",
+          "url": "https://technode.com/2026/11/20/ex-qwen-chiefs-pragmatik-labs-raises-funding-at-5-billion-valuation/",
+          "published_at": "2026-11-20T14:14:22Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "technode",
+          "publisher": "technode",
+          "entity": "technode",
+          "group": "press",
+          "observed_at": "2026-11-20T23:06:24Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "2 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "bloomberg",
+              "technode"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "bloomberg",
+            "technode"
+          ],
+          "age_hours_at_cutoff": 8.7606,
+          "hot_score": 58.206,
+          "engagement_percentile": null
+        }
+      }
+    }
+  ],
+  "source_health": {
+    "active_remote_sources": 77,
+    "successful_remote_sources": 77,
+    "failed_remote_sources": []
+  }
+}
