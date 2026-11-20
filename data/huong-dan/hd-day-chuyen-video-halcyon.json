@@ -1,7 +1,7 @@
 {
   "id": "hd-day-chuyen-video-halcyon",
   "title": "Video này do AI dựng: đây là dây chuyền, từ một mẩu tin tới video dọc",
-  "published_at": "2026-11-20T17:00:00+07:00",
+  "published_at": "2026-11-20T17:46:00+07:00",
   "key_points": [
     "Mỗi video tin AI ngắn của Halcyon đi qua một dây chuyền chạy trên một máy tính: chọn tin, viết kịch bản, chụp nguồn thật, làm giọng đọc, dựng hình bằng card đồ hoạ, trộn nhạc, rồi đóng thành một gói để người phụ trách kênh duyệt.",
     "Máy làm phần lặp lại và tự kiểm: câu trích có đúng trên trang gốc không, giọng đọc có nói đủ từng chữ không, chữ có lọt vào vùng nút bấm của TikTok không. Tin có đúng không, nói gì, giọng nghe có ổn không thì vẫn cần trợ lý AI đọc nguồn và người nghe duyệt.",
@@ -62,5 +62,10 @@
       "PyTorch và Pillow: vẽ và ghép khung hình.",
       "Nhạc nền “Voice Over Under” của Kevin MacLeod, giấy phép CC BY 4.0. Phông chữ Be Vietnam Pro và Barlow Condensed."
     ]}
-  ]
+  ],
+  "approval": {
+    "approved_by": "anh Tuấn",
+    "approved_at": "2026-11-20T17:45:00+07:00",
+    "words": "Theo khuyến nghị đi"
+  }
 }
