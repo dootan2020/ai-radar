@@ -1,0 +1,283 @@
+{
+ "days": [
+  {
+   "date": "2026-11-10",
+   "excluded": [
+    {
+     "breakdown": {
+      "hook": {
+       "hook": "usable_now",
+       "labels": "repos",
+       "max": 40,
+       "points": 35,
+       "why": "miễn phí, dùng được ngay"
+      },
+      "momentum": {
+       "max": 25,
+       "points": 15,
+       "stars": 8337,
+       "stars_week": 6542
+      },
+      "vietnam": {
+       "max": 15,
+       "points": 15,
+       "why": "repo mở, cài được ở Việt Nam"
+      },
+      "visual": {
+       "max": 20,
+       "points": 12,
+       "why": "trang repo có README minh hoạ"
+      }
+     },
+     "gates": [
+      "không phải công cụ dùng ngay",
+      "không có lệnh cài hay demo để quay"
+     ],
+     "headline_vi": "Keep your coding agent up to date with the latest web best practices",
+     "id": "GoogleChrome/modern-web-guidance-src",
+     "kind": "repo",
+     "lane": "dung-duoc-ngay",
+     "lane_name": "Dùng được ngay",
+     "score": 77,
+     "source_urls": [
+      "https://github.com/GoogleChrome/modern-web-guidance-src"
+     ],
+     "title": "GoogleChrome/modern-web-guidance-src",
+     "visual_links": [
+      "https://github.com/GoogleChrome/modern-web-guidance-src"
+     ]
+    },
+    {
+     "breakdown": {
+      "hook": {
+       "hook": "usable_now",
+       "labels": "repos",
+       "max": 40,
+       "points": 35,
+       "why": "miễn phí, dùng được ngay"
+      },
+      "momentum": {
+       "max": 25,
+       "points": 0,
+       "stars": 9996,
+       "stars_week": 943
+      },
+      "vietnam": {
+       "max": 15,
+       "points": 15,
+       "why": "repo mở, cài được ở Việt Nam"
+      },
+      "visual": {
+       "max": 20,
+       "points": 20,
+       "why": "tự quay màn hình được: có lệnh cài"
+      }
+     },
+     "gates": [
+      "repo dưới 3.000 sao/tuần"
+     ],
+     "headline_vi": "A library of Agent Skills designed to work with the Stitch MCP server. Each skill follows the Agent Skills open standard, for compatibility with coding agents such as Antigravity, Gemini CLI, Claude Code, Cursor.",
+     "id": "google-labs-code/stitch-skills",
+     "install_command": "npx plugins add google-labs-code/stitch-skills --scope project --target claude-code",
+     "kind": "repo",
+     "lane": "dung-duoc-ngay",
+     "lane_name": "Dùng được ngay",
+     "score": 70,
+     "source_urls": [
+      "https://github.com/google-labs-code/stitch-skills"
+     ],
+     "title": "google-labs-code/stitch-skills",
+     "visual_links": [
+      "https://github.com/google-labs-code/stitch-skills"
+     ]
+    }
+   ],
+   "no_video": false,
+   "picked_at": "2026-11-10T05:00:00+07:00",
+   "picks": [
+    {
+     "breakdown": {
+      "hook": {
+       "hook": "drama_person",
+       "labels": "keyword",
+       "max": 40,
+       "points": 40,
+       "why": "drama có tên người thật"
+      },
+      "momentum": {
+       "hn_points": 0,
+       "max": 25,
+       "points": 20,
+       "sources": 5
+      },
+      "vietnam": {
+       "max": 15,
+       "points": 7,
+       "why": "thương hiệu người Việt dùng hằng ngày"
+      },
+      "visual": {
+       "max": 20,
+       "points": 10,
+       "why": "ảnh thật từ nguồn (feed-media)"
+      }
+     },
+     "chain": {
+      "orgs": [
+       "nvidia"
+      ],
+      "people": [
+       "huang"
+      ],
+      "person_drama": true,
+      "subject": null
+     },
+     "gates": [],
+     "hco_url": "https://hco.news/tin/33a0483307191e736514/",
+     "headline_vi": "Nvidia điều tra CEO Jensen Huang sau khi thừa nhận quan hệ với nhà điều hành bị nghi làm gián điệp",
+     "id": "33a0483307191e736514",
+     "kind": "story",
+     "lane": "tin-nong",
+     "lane_name": "Tin nóng",
+     "picked_at": "2026-11-10T05:00:00+07:00",
+     "published_at": "2026-11-09T15:23:20Z",
+     "reason": "Tin nóng 77/100; drama có tên người thật; 5 nguồn độc lập; ảnh thật từ nguồn (feed-media); thương hiệu người Việt dùng hằng ngày",
+     "score": 77,
+     "source_urls": [
+      "https://arstechnica.com/tech-policy/2026/11/ceo-jensen-huang-admits-affair-as-nvidia-probes-possible-chinese-espionage/",
+      "https://www.scmp.com/news/article/3374047/nvidia-ceo-jensen-huangs-affair-everything-you-need-know",
+      "https://www.semafor.com/article/11/11/2026/white-house-hit-by-intensified-scrutiny-over-knowledge-of-nvidia-ceos-affair",
+      "https://techcrunch.com/2026/11/10/nvidia-ceo-jensen-huangs-affair-with-alleged-chinese-spy-a-timeline/",
+      "https://www.bloomberg.com/news/newsletters/2026-11-10/nvidia-ceo-jensen-huang-s-affair-shows-pitfalls-of-imperious-leaders"
+     ],
+     "title": "Nvidia CEO's affair becomes a national security problem",
+     "visual_links": [
+      "https://cdn.arstechnica.net/wp-content/uploads/2026/03/huang-1152x648.jpg"
+     ]
+    },
+    {
+     "breakdown": {
+      "hook": {
+       "hook": "usable_now",
+       "labels": "repos",
+       "max": 40,
+       "points": 35,
+       "why": "miễn phí, dùng được ngay"
+      },
+      "momentum": {
+       "max": 25,
+       "points": 20,
+       "stars": 30019,
+       "stars_week": 10939
+      },
+      "vietnam": {
+       "max": 15,
+       "points": 15,
+       "why": "repo mở, cài được ở Việt Nam"
+      },
+      "visual": {
+       "max": 20,
+       "points": 20,
+       "why": "tự quay màn hình được: có lệnh cài"
+      }
+     },
+     "chain": {
+      "orgs": [],
+      "people": [],
+      "person_drama": false,
+      "subject": "repo:meta/astryx"
+     },
+     "gates": [],
+     "headline_vi": "An open source design system that's fully customizable and agent ready",
+     "id": "meta/astryx",
+     "install_command": "npm i -g @astryxdesign/cli",
+     "kind": "repo",
+     "lane": "dung-duoc-ngay",
+     "lane_name": "Dùng được ngay",
+     "picked_at": "2026-11-10T05:00:00+07:00",
+     "reason": "Dùng được ngay 90/100; miễn phí, dùng được ngay; +10.939 sao/tuần; cài: npm i -g @astryxdesign/cli; tự quay màn hình được: có lệnh cài; repo mở, cài được ở Việt Nam",
+     "score": 90,
+     "source_urls": [
+      "https://github.com/meta/astryx"
+     ],
+     "title": "meta/astryx",
+     "visual_links": [
+      "https://github.com/meta/astryx"
+     ]
+    },
+    {
+     "breakdown": {
+      "hook": {
+       "hook": "usable_now",
+       "labels": "repos",
+       "max": 40,
+       "points": 35,
+       "why": "miễn phí, dùng được ngay"
+      },
+      "momentum": {
+       "max": 25,
+       "points": 15,
+       "stars": 322057,
+       "stars_week": 9575
+      },
+      "vietnam": {
+       "max": 15,
+       "points": 15,
+       "why": "repo mở, cài được ở Việt Nam"
+      },
+      "visual": {
+       "max": 20,
+       "points": 20,
+       "why": "tự quay màn hình được: có lệnh cài"
+      }
+     },
+     "chain": {
+      "orgs": [],
+      "people": [],
+      "person_drama": false,
+      "subject": "repo:mattpocock/skills"
+     },
+     "gates": [],
+     "headline_vi": "Skills cho các kỹ sư thực thụ. Trực tiếp từ thư mục .agents của tôi.",
+     "id": "mattpocock/skills",
+     "install_command": "npx skills@latest add mattpocock/skills -a <agent>  # cursor, opencode, devin, windsurf, amp, pi; omit -a to choose",
+     "kind": "repo",
+     "lane": "dung-duoc-ngay",
+     "lane_name": "Dùng được ngay",
+     "picked_at": "2026-11-10T05:00:00+07:00",
+     "reason": "Dùng được ngay 85/100; miễn phí, dùng được ngay; +9.575 sao/tuần; cài: npx skills@latest add mattpocock/skills -a <agent>  # cursor, opencode, devin, windsurf, amp, pi; omit -a to choose; tự quay màn hình được: có lệnh cài; repo mở, cài được ở Việt Nam",
+     "score": 85,
+     "source_urls": [
+      "https://github.com/mattpocock/skills"
+     ],
+     "title": "mattpocock/skills",
+     "visual_links": [
+      "https://github.com/mattpocock/skills"
+     ]
+    }
+   ],
+   "refused": []
+  }
+ ],
+ "generated_at": "2026-11-10T05:00:00+07:00",
+ "memory": "cold-start",
+ "rubric": {
+  "chain_days": 3,
+  "fresh_hours": 48,
+  "hook_points": {
+   "drama_company": 30,
+   "drama_person": 40,
+   "launch": 10,
+   "money_jobs": 25,
+   "other": 5,
+   "usable_now": 35
+  },
+  "major_followup_threshold": 70,
+  "max_hot_per_day": 1,
+  "max_per_day": 3,
+  "max_usable_per_day": 2,
+  "min_hot_sources": 2,
+  "threshold": 60
+ },
+ "schema_version": 2,
+ "version": "video-diem-1"
+}

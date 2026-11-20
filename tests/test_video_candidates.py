@@ -327,6 +327,88 @@ class RepoTests(unittest.TestCase):
                       v.score_repo(REPOS["GoogleChrome/modern-web-guidance-src"])["gates"])
 
 
+def guide(gid="cach-dung-claude-code", published="2026-10-01T03:00:00+00:00", **changes):
+    """A guide story as radar.huong_dan injects it into the stream."""
+    return {"id": gid, "kind": "huong-dan", "title": "Cách dùng Claude Code từ đầu", "title_vi": "Cách dùng Claude Code từ đầu",
+            "editorial_headline_vi": "Cách dùng Claude Code từ đầu", "published_at": published,
+            "url": f"https://hco.news/tin/{gid}/", "key_points": ["Một ý đã kiểm."], "key_points_source": "nguoi-viet",
+            "summary_sources": ["https://docs.example.com/claude-code", {"url": "https://docs.example.com/setup"}],
+            "coverage": [{"source": "hco-huong-dan", "publisher": "halcyon"}], **changes}
+
+
+class GuideLaneTests(unittest.TestCase):
+    def test_no_guide_leaves_the_real_data_output_identical(self):
+        golden = json.loads((Path(__file__).parent / "fixtures" / "video-candidates-golden-no-guide.json")
+                            .read_text(encoding="utf-8"))
+        now = datetime(2026, 11, 10, 5, tzinfo=v.VIETNAM)
+        result = v.video_candidates(FIXTURE["stories"], ROWS, FIXTURE["repos"], now=now, previous=None)
+        self.assertEqual(result["rubric"].pop("max_guide_per_day"), 1)
+        self.assertEqual(json.loads(json.dumps(result)), golden)
+        self.assertNotIn("guide_log", result)
+
+    def test_an_approved_guide_is_offered_with_every_field_the_builder_reads(self):
+        day = run([guide()], [], vn(20, 5))["days"][0]
+        (pick,) = day["picks"]
+        self.assertEqual((pick["id"], pick["kind"], pick["lane"], pick["lane_name"]),
+                         ("cach-dung-claude-code", "story", "huong-dan", "Hướng dẫn"))
+        self.assertGreaterEqual(pick["score"], v.CANDIDATE_THRESHOLD)
+        self.assertEqual(pick["hco_url"], "https://hco.news/tin/cach-dung-claude-code/")
+        self.assertEqual(pick["source_urls"], ["https://hco.news/tin/cach-dung-claude-code/",
+                                               "https://docs.example.com/claude-code", "https://docs.example.com/setup"])
+        self.assertEqual(pick["visual_links"], [pick["hco_url"]])
+        for key in ("reason", "title", "headline_vi", "published_at", "breakdown", "gates", "picked_at", "chain"):
+            self.assertIn(key, pick)
+        self.assertEqual(pick["chain"]["subject"], "guide:cach-dung-claude-code")
+        self.assertFalse(day["no_video"])
+
+    def test_a_guide_has_no_freshness_limit(self):
+        old = guide(published="2026-01-05T03:00:00+00:00")
+        self.assertEqual(picks_by_day(run([old], [], vn(20, 5)))["2026-11-20"], ["cach-dung-claude-code"])
+        self.assertEqual(run([story(HUANG)], [], vn(11, 23))["days"][0]["picks"], [])   # news still ages out
+
+    def test_at_most_one_guide_a_day_oldest_first(self):
+        guides = [guide("bai-moi", "2026-11-18T03:00:00+00:00"), guide("bai-cu", "2026-11-01T03:00:00+00:00")]
+        day = run(guides, [], vn(20, 5))["days"][0]
+        self.assertEqual([p["id"] for p in day["picks"]], ["bai-cu"])
+        self.assertEqual([r["id"] for r in day["refused"]], ["bai-moi"])
+        nxt = run(guides, [], vn(21, 5), run(guides, [], vn(20, 5)))
+        self.assertEqual(picks_by_day(nxt)["2026-11-21"], ["bai-moi"])
+
+    def test_a_guide_is_never_offered_twice_even_after_the_history_window(self):
+        first = run([guide()], [], vn(20, 5))
+        self.assertEqual(first["guide_log"], {"cach-dung-claude-code": "2026-11-20"})
+        rerun = run([guide()], [], vn(20, 5, 20), first)            # same day: today is recomputed, still offered
+        self.assertEqual(picks_by_day(rerun)["2026-11-20"], ["cach-dung-claude-code"])
+        later = first
+        for day in range(21, 21 + v.HISTORY_DAYS + 3):               # past the 14 stored days
+            later = run([guide()], [], datetime(2026, 11, 1, 5, tzinfo=v.VIETNAM) + timedelta(days=day - 1), later)
+        self.assertTrue(all("cach-dung-claude-code" not in ids for date, ids in picks_by_day(later).items()
+                            if date != "2026-11-20"))
+        self.assertIn("cach-dung-claude-code", later["guide_log"])
+
+    def test_a_guide_takes_the_slot_of_the_usable_lane_so_a_day_never_passes_three(self):
+        repos = list(REPOS.values()) + [{**REPOS["meta/astryx"], "id": "example/third", "full_name": "example/third"}]
+        day = run([story(HUANG), guide()], repos, vn(10, 5))["days"][0]
+        self.assertEqual([p["lane"] for p in day["picks"]], [v.LANE_HOT, v.LANE_GUIDE, v.LANE_USABLE])
+        self.assertEqual(len(day["picks"]), v.MAX_PER_DAY)
+        self.assertTrue(any(r["lane"] == v.LANE_USABLE and r["refused"] == "đã đủ chỗ trong ngày" for r in day["refused"]))
+        quiet = run([guide()], repos, vn(20, 5))["days"][0]["picks"]   # no hot news: guide plus two repos
+        self.assertEqual([p["lane"] for p in quiet], [v.LANE_GUIDE, v.LANE_USABLE, v.LANE_USABLE])
+
+    def test_a_guide_is_not_blocked_by_and_does_not_block_a_news_chain(self):
+        gid = "huang-nvidia"
+        g = guide(gid, title="Nvidia Jensen Huang investigates CEO guide")
+        first = run([story(HUANG), g], [], vn(10, 5))
+        self.assertEqual(picks_by_day(first)["2026-11-10"], [HUANG, gid])
+        self.assertTrue(v.same_chain(v.score_story(story(HUANG), row(HUANG)), v.score_story(story(FOLLOW_UP), row(FOLLOW_UP))))
+        self.assertFalse(v.same_chain(v.score_story(g), v.score_story(story(HUANG), row(HUANG))))
+
+    def test_stored_guide_picks_survive_the_history_filter(self):
+        first = run([guide()], [], vn(20, 5))
+        later = run([], [], vn(21, 5), first)
+        self.assertEqual(picks_by_day(later)["2026-11-20"], ["cach-dung-claude-code"])
+
+
 class FileTests(unittest.TestCase):
     def test_write_reads_snapshot_and_decisions_and_writes_payload(self):
         now = datetime(2026, 11, 10, 5, tzinfo=v.VIETNAM)

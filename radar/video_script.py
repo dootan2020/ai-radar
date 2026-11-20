@@ -287,7 +287,16 @@ MIN_HOT_SOURCES = 2           # spec §1: "Tin nóng" needs at least 2 independe
 HISTORY_DAYS = 14             # earlier days kept in the published file; only CHAIN_DAYS of them block
 LANE_HOT = "tin-nong"
 LANE_USABLE = "dung-duoc-ngay"
-LANE_NAMES = {LANE_HOT: "Tin nóng", LANE_USABLE: "Dùng được ngay"}
+LANE_GUIDE = "huong-dan"
+LANE_NAMES = {LANE_HOT: "Tin nóng", LANE_USABLE: "Dùng được ngay", LANE_GUIDE: "Hướng dẫn"}
+# The how-to lane (owner approval 2026-11-20: one video in three is a guide). A guide is a hand-written article that
+# radar.huong_dan injects into the story stream with kind "huong-dan" only after the owner approved it, so the kind
+# is the marker. It is evergreen (no freshness limit), at most one is offered a day, and it takes one of the day's
+# MAX_PER_DAY slots from the usable lane: "Tin nóng" is perishable and keeps its slot, repo picks are the most
+# replaceable. The 1-in-3 ratio of videos actually made is enforced by the builder's ledger, not here.
+GUIDE_KIND = "huong-dan"
+GUIDE_SCORE = 75
+MAX_GUIDE_PER_DAY = 1
 VIDEO_HOOKS = ("drama_person", "drama_company", "usable_now", "money_jobs", "launch", "other")
 HOOK_POINTS = {"drama_person": 40, "usable_now": 35, "drama_company": 30, "money_jobs": 25, "launch": 10, "other": 5}
 HOOK_NAMES = {"drama_person": "drama có tên người thật", "drama_company": "drama công ty",
@@ -458,8 +467,50 @@ def _verified(story: dict, row: dict | None) -> str | None:
     return None
 
 
+def is_guide(story: dict) -> bool:
+    return isinstance(story, dict) and story.get("kind") == GUIDE_KIND
+
+
+def _guide_sources(story: dict) -> list[str]:
+    """The official pages the guide was checked against: `summary_sources` holds URLs or objects with a `url`."""
+    out = []
+    for item in story.get("summary_sources") or []:
+        url = _str(item.get("url")) if isinstance(item, dict) else _str(item)
+        if url.startswith("https://"):
+            out.append(url)
+    return out
+
+
+def score_guide(story: dict) -> dict:
+    """An approved guide: a fixed score above the threshold and no gates (the loader already refused an unapproved
+    file). The pick carries every field a story pick has, so the video builder reads it the same way."""
+    sid = story.get("id")
+    page = f"{SITE_BASE_URL.rstrip('/')}/tin/{sid}/" if sid else None
+    return {
+        "id": sid, "kind": "story", "lane": LANE_GUIDE, "score": GUIDE_SCORE,
+        "breakdown": {
+            "hook": {"points": 0, "max": 40, "hook": "guide", "why": "bài hướng dẫn Halcyon tự viết, chủ đã duyệt",
+                     "labels": "huong-dan"},
+            "vietnam": {"points": 0, "max": 15, "why": "viết riêng cho người xem Việt Nam"},
+            "momentum": {"points": 0, "max": 25, "sources": 0, "hn_points": 0},
+            "visual": {"points": 0, "max": 20, "why": "trang hướng dẫn trên hco.news"},
+        },
+        "gates": [] if sid and page else ["hướng dẫn thiếu mã bài"],
+        "title": _str(story.get("title")),
+        "headline_vi": _str(story.get("editorial_headline_vi")) or _str(story.get("title_vi")) or _str(story.get("title")),
+        "published_at": _str(story.get("published_at")),
+        "hco_url": page,
+        "source_urls": list(dict.fromkeys(u for u in [page] + _guide_sources(story) if u)),
+        "visual_links": [page] if page else [],
+        "chain": {"person_drama": False, "people": [], "orgs": [], "subject": f"guide:{sid}"},
+        "hot_score": 0,
+    }
+
+
 def score_story(story: dict, row: dict | None = None) -> dict:
     """Score one feed story on the 100-point rubric and list every exclusion gate it fails."""
+    if is_guide(story):
+        return score_guide(story)
     labels = editor_video_labels(row)
     title = _story_title(story, row)
     text = " ".join([title] + [p for p in (row or {}).get("key_points") or story.get("key_points") or []
@@ -610,6 +661,8 @@ def same_chain(a: dict, b: dict) -> bool:
     back-test grouped by title only and let one chain fill 7 of the top 10. A person merely quoted in a launch does
     not tie it to that person's later scandal, and two unrelated lawsuits against one company are two chains."""
     ca, cb = _chain(a), _chain(b)
+    if LANE_GUIDE in (a.get("lane"), b.get("lane")):
+        return False   # a guide is evergreen: it neither blocks nor is blocked by the news chains
     if ca.get("person_drama") is True or cb.get("person_drama") is True:
         if any(_same_person(x, y) for x in _names(ca.get("people")) for y in _names(cb.get("people"))):
             return True
@@ -652,6 +705,8 @@ def _rank(c: dict):
 def _reason(c: dict) -> str:
     b = c["breakdown"]
     parts = [f"{LANE_NAMES[c['lane']]} {c['score']}/100", b["hook"]["why"]]
+    if c["lane"] == LANE_GUIDE:
+        return "; ".join(parts + [b["visual"]["why"]])
     if c["kind"] == "repo":
         parts.append(f"+{b['momentum']['stars_week']:,} sao/tuần".replace(",", "."))
         if c.get("install_command"):
@@ -675,9 +730,13 @@ def pick_day(candidates: list[dict], kept: list[dict], now: datetime) -> tuple[l
     Returns (picks, refused) where refused lists strong candidates and why they were not taken."""
     picks, refused = [], []
     eligible = sorted((c for c in candidates if not c["gates"] and c["score"] >= CANDIDATE_THRESHOLD), key=_rank)
-    for lane, limit in ((LANE_HOT, MAX_HOT_PER_DAY), (LANE_USABLE, MAX_USABLE_PER_DAY)):
+    # The guide lane comes before the usable lane, so a guide takes a slot the usable lane would have had.
+    for lane, limit in ((LANE_HOT, MAX_HOT_PER_DAY), (LANE_GUIDE, MAX_GUIDE_PER_DAY), (LANE_USABLE, MAX_USABLE_PER_DAY)):
         taken = 0
-        for c in (c for c in eligible if c["lane"] == lane):
+        lane_candidates = [c for c in eligible if c["lane"] == lane]
+        if lane == LANE_GUIDE:   # oldest approved guide first, so none waits behind a newer one
+            lane_candidates.sort(key=lambda c: (c.get("published_at") or "", c.get("id") or ""))
+        for c in lane_candidates:
             if taken >= limit or len(picks) >= MAX_PER_DAY:
                 refused.append({**c, "refused": "đã đủ chỗ trong ngày"})
                 continue
@@ -746,9 +805,15 @@ def video_candidates(stories: list[dict], decision_rows: dict | None = None, rep
     history = _history(previous, today)
     kept = [_stored_pick(p, day) for day in history for p in day["picks"]]
     stored_ids = {p["id"] for p in kept}
+    # A guide is offered once ever: stored days only reach back HISTORY_DAYS, so the ids of offered guides are also
+    # kept, with the date offered, under `guide_log`. A date of today is ignored so a rerun recomputes today.
+    guide_log = {gid: day for gid, day in (previous.get("guide_log") if isinstance(previous, dict)
+                                           and isinstance(previous.get("guide_log"), dict) else {}).items()
+                 if isinstance(gid, str) and isinstance(day, str) and day < today.isoformat()}
+    stored_ids |= set(guide_log)
     scored = [score_story(s, rows.get(s.get("id"))) for s in stories if isinstance(s, dict) and s.get("id")]
-    pool = [c for c in scored if c["id"] not in stored_ids and _at(c)
-            and timedelta(0) <= now - _at(c) <= timedelta(hours=FRESH_HOURS)]
+    pool = [c for c in scored if c["id"] not in stored_ids
+            and (c["lane"] == LANE_GUIDE or (_at(c) and timedelta(0) <= now - _at(c) <= timedelta(hours=FRESH_HOURS)))]
     pool += [score_repo(r) for r in repos or [] if isinstance(r, dict)]
     picks, refused = pick_day(pool, kept, now)
     excluded = sorted([c for c in pool if c["gates"]], key=_rank)[:5]
@@ -759,15 +824,20 @@ def video_candidates(stories: list[dict], decision_rows: dict | None = None, rep
         "refused": [_public(c) for c in refused[:5]],
         "excluded": [_public(c) for c in excluded],
     }
-    return {
+    result = {
         "schema_version": 2, "version": CANDIDATES_VERSION, "generated_at": now.isoformat(),
         "memory": "stored" if previous is not None and isinstance(previous, dict) else "cold-start",
         "rubric": {"threshold": CANDIDATE_THRESHOLD, "major_followup_threshold": MAJOR_THRESHOLD,
                    "chain_days": CHAIN_DAYS, "fresh_hours": FRESH_HOURS, "max_per_day": MAX_PER_DAY,
                    "max_hot_per_day": MAX_HOT_PER_DAY, "max_usable_per_day": MAX_USABLE_PER_DAY,
+                   "max_guide_per_day": MAX_GUIDE_PER_DAY,
                    "min_hot_sources": MIN_HOT_SOURCES, "hook_points": HOOK_POINTS},
         "days": [today_out] + history,
     }
+    offered = {**guide_log, **{p["id"]: today.isoformat() for p in picks if p["lane"] == LANE_GUIDE}}
+    if offered:
+        result["guide_log"] = dict(sorted(offered.items()))
+    return result
 
 
 def write_video_candidates(input_path: str | Path, output_path: str | Path, decisions_path: str | Path | None = None,
