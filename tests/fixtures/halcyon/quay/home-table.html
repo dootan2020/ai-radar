@@ -1,0 +1,99 @@
+<table class="Box__0K17vj OverviewTable__rPbUfl" aria-labelledby="folders-and-files"><thead class="OverviewHeaderRow__Z_ScMh Box_1__wW_V7a"><tr class="Box_2__2RzMbJ"><th colspan="2" class="Box__l3IzCz"><span class="text-bold">Name</span></th><th colspan="1" class="Box_1__vRncVq"><span class="text-bold">Name</span></th><th class="hide-sm"><div class="width-fit prc-Truncate-Truncate-2G1eo" data-inline="true" title="Last commit message" style="--truncate-max-width:125px"><span class="text-bold">Last commit message</span></div></th><th colspan="1" class="Box_2__Sojj6x"><div class="width-fit prc-Truncate-Truncate-2G1eo" data-inline="true" title="Last commit date" style="--truncate-max-width:125px"><span class="text-bold">Last commit date</span></div></th></tr></thead><tbody class="OverviewTableBody__ZmULK8"><tr class="react-directory-row undefined" id="folder-row-0"><td class="react-directory-row-name-cell-small-screen" colspan="2"><div class="react-directory-filename-column"><div class="overflow-hidden"><div class="react-directory-filename-cell"><div class="react-directory-truncate"><a title="This path skips through empty directories" aria-label=".agents/skills, (Directory)" class="Link--primary" href="/backnotprop/plannotator/tree/main/.agents/skills" data-discover="true"><span class="react-directory-default-color" data-testid="path-name-segment">.agents/</span><span class="" data-testid="path-name-segment">skills</span></a></div></div></div></div></td><td class="react-directory-row-name-cell-large-screen" colspan="1"><div class="react-directory-filename-column"><div class="overflow-hidden"><div class="react-directory-filename-cell"><div class="react-directory-truncate"><a title="This path skips through empty directories" aria-label=".agents/skills, (Directory)" class="Link--primary" href="/backnotprop/plannotator/tree/main/.agents/skills" data-discover="true"><span class="react-directory-default-color" data-testid="path-name-segment">.agents/</span><span class="" data-testid="path-name-segment">skills</span></a></div></div></div></div></td><td class="react-directory-row-commit-cell"><div><div class="react-directory-commit-message"><a data-pjax="true" title="Run the generators' own rules from the contract check, not from unit tests
+
+An ordinary Inbox change could still turn a unit test red for a phone's
+reason: the door checks read door.ts's own tables, the doc-comment check
+needed schema.ts's roots, and the word checks needed words.ts's templates.
+
+- scripts/mobile/rules.ts holds those checks; check.ts runs them in the
+  mobile-contract workflow. The door table itself stays held by the
+  Inbox's own tests (inbox-door-version.test.ts, inbox-outbox.test.ts).
+- check.ts and all.ts import the mobile modules one step at a time: a
+  generator that throws, or a product export it needs going missing, is
+  reported under the first line with its message, not as a stack.
+- check.ts and all.ts list a decided ledger row a rename leaves naming
+  nothing (emptiedRows in parity.ts). Rows that never named an entry are
+  not listed.
+- parity.ts is the rules only; reading the ledger and the fingerprints
+  moved to ledger.ts. contractVersion moved from lib.ts to door.ts. Tests
+  may import only lib, tokens, parity, parity-debts and flows, which import
+  nothing but node: and each other; the map test holds that, and that no
+  test calls a generator or names a contract file.
+- The window route reader is Inbox code now:
+  packages/server/inbox-window-routes.ts. A new route module no longer
+  touches scripts/mobile/, so it never starts the mobile workflow.
+- The map test fails if a workflow other than mobile-*.yml runs a
+  scripts/mobile/ command, and if a wire, window or shared UI change picks
+  a mobile test.
+- tests/mobile-stream-vectors.test.ts is removed; check.ts compares the
+  stream suite.
+- The guide, the contract README and the release skill say where the
+  checks run, and that the ledger job runs on every mobile pull request
+  and every push to main." class="Link--secondary" href="/backnotprop/plannotator/commit/7204e1fe42feb7ca5bacbfae307247dec77f5ec4">Run the generators' own rules from the contract check, not from unit …</a></div></div></td><td><div class="react-directory-commit-age"><relative-time data-component="RelativeTime" tense="past" datetime="2026-11-19T02:14:31.000Z" title="Nov 19, 2026, 9:14 AM GMT+7">Nov 19, 2026</relative-time></div></td></tr><tr class="react-directory-row undefined" id="folder-row-1"><td class="react-directory-row-name-cell-small-screen" colspan="2"><div class="react-directory-filename-column"><div class="overflow-hidden"><div class="react-directory-filename-cell"><div class="react-directory-truncate"><a title=".claude-plugin" aria-label=".claude-plugin, (Directory)" class="Link--primary" href="/backnotprop/plannotator/tree/main/.claude-plugin" data-discover="true">.claude-plugin</a></div></div></div></div></td><td class="react-directory-row-name-cell-large-screen" colspan="1"><div class="react-directory-filename-column"><div class="overflow-hidden"><div class="react-directory-filename-cell"><div class="react-directory-truncate"><a title=".claude-plugin" aria-label=".claude-plugin, (Directory)" class="Link--primary" href="/backnotprop/plannotator/tree/main/.claude-plugin" data-discover="true">.claude-plugin</a></div></div></div></div></td><td class="react-directory-row-commit-cell"><div><div class="react-directory-commit-message"><a data-pjax="true" title="Add npm distribution infrastructure and update landing page
+
+npm distribution:
+- Add npm/ directory with main package and platform-specific packages
+- Add JS wrapper for cross-platform binary resolution
+- Add GitHub Actions workflow for OIDC-based npm publishing
+- Configure for darwin-arm64, darwin-x64, linux-x64, win32-x64
+
+Plugin changes:
+- Simplify apps/hook to config-only (calls `plannotator` from PATH)
+- Add README with installation instructions
+
+UI updates:
+- Add theme toggle to Landing nav
+- Update footer with author links and copyright
+- Update copy: &quot;How it works&quot; step 3, Solution section
+- Flip hero image horizontally
+- Fix tater sprite z-index (behind dialogs)
+- Change tater breakpoint from lg to md (show on tablets)
+- Remove icon from editor header
+
+Package metadata:
+- Update root and npm package.json with full metadata
+- Set version to 0.1.0
+- Set license to BSL-1.1
+
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
+
+Co-Authored-By: Claude Opus 4.5 &lt;noreply@anthropic.com&gt;" class="Link--secondary" href="/backnotprop/plannotator/commit/6c4bb89cde6525e77700923b4b3a3e74f015e3de">Add npm distribution infrastructure and update landing page</a></div></div></td><td><div class="react-directory-commit-age"><relative-time data-component="RelativeTime" tense="past" datetime="2025-12-28T21:28:51.000Z" title="Dec 29, 2025, 4:28 AM GMT+7">Dec 28, 2025</relative-time></div></td></tr><tr class="react-directory-row undefined" id="folder-row-2"><td class="react-directory-row-name-cell-small-screen" colspan="2"><div class="react-directory-filename-column"><div class="overflow-hidden"><div class="react-directory-filename-cell"><div class="react-directory-truncate"><a title=".factory-plugin" aria-label=".factory-plugin, (Directory)" class="Link--primary" href="/backnotprop/plannotator/tree/main/.factory-plugin" data-discover="true">.factory-plugin</a></div></div></div></div></td><td class="react-directory-row-name-cell-large-screen" colspan="1"><div class="react-directory-filename-column"><div class="overflow-hidden"><div class="react-directory-filename-cell"><div class="react-directory-truncate"><a title=".factory-plugin" aria-label=".factory-plugin, (Directory)" class="Link--primary" href="/backnotprop/plannotator/tree/main/.factory-plugin" data-discover="true">.factory-plugin</a></div></div></div></div></td><td class="react-directory-row-commit-cell"><div><div class="react-directory-commit-message"><a data-pjax="true" title="Add Droid slash-command integration (#787)
+
+* feat: add Droid slash-command integration
+
+* fix: restore Droid command launcher behavior
+
+* chore: remove archive command from homepage
+
+* fix(droid): tighten last-message session resolution" class="Link--secondary" href="/backnotprop/plannotator/commit/4de62e83e137a61cfe8a3c56e46eb4e2899614b5">Add Droid slash-command integration (</a><a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="4510570141" data-permission-text="Title is private" data-url="https://github.com/backnotprop/plannotator/issues/787" data-hovercard-type="pull_request" data-hovercard-url="/backnotprop/plannotator/pull/787/hovercard" href="https://github.com/backnotprop/plannotator/pull/787" aria-keyshortcuts="Alt+ArrowUp">#787</a><a data-pjax="true" title="Add Droid slash-command integration (#787)
+
+* feat: add Droid slash-command integration
+
+* fix: restore Droid command launcher behavior
+
+* chore: remove archive command from homepage
+
+* fix(droid): tighten last-message session resolution" class="Link--secondary" href="/backnotprop/plannotator/commit/4de62e83e137a61cfe8a3c56e46eb4e2899614b5">)</a></div></div></td><td><div class="react-directory-commit-age"><relative-time data-component="RelativeTime" tense="past" datetime="2026-05-24T16:29:13.000Z" title="May 24, 2026, 11:29 PM GMT+7">May 24, 2026</relative-time></div></td></tr><tr class="react-directory-row undefined" id="folder-row-3"><td class="react-directory-row-name-cell-small-screen" colspan="2"><div class="react-directory-filename-column"><div class="overflow-hidden"><div class="react-directory-filename-cell"><div class="react-directory-truncate"><a title=".github" aria-label=".github, (Directory)" class="Link--primary" href="/backnotprop/plannotator/tree/main/.github" data-discover="true">.github</a></div></div></div></div></td><td class="react-directory-row-name-cell-large-screen" colspan="1"><div class="react-directory-filename-column"><div class="overflow-hidden"><div class="react-directory-filename-cell"><div class="react-directory-truncate"><a title=".github" aria-label=".github, (Directory)" class="Link--primary" href="/backnotprop/plannotator/tree/main/.github" data-discover="true">.github</a></div></div></div></div></td><td class="react-directory-row-commit-cell"><div><div class="react-directory-commit-message"><a data-pjax="true" title="chore: bump version to 0.29.1" class="Link--secondary" href="/backnotprop/plannotator/commit/1d3903e475567577c2728c215267b16231da6b8f">chore: bump version to 0.29.1</a></div></div></td><td><div class="react-directory-commit-age"><relative-time data-component="RelativeTime" tense="past" datetime="2026-11-19T16:24:04.000Z" title="Nov 19, 2026, 11:24 PM GMT+7">Nov 19, 2026</relative-time></div></td></tr><tr class="react-directory-row undefined" id="folder-row-4"><td class="react-directory-row-name-cell-small-screen" colspan="2"><div class="react-directory-filename-column"><div class="overflow-hidden"><div class="react-directory-filename-cell"><div class="react-directory-truncate"><a title="This path skips through empty directories" aria-label=".product/approved, (Directory)" class="Link--primary" href="/backnotprop/plannotator/tree/main/.product/approved" data-discover="true"><span class="react-directory-default-color" data-testid="path-name-segment">.product/</span><span class="" data-testid="path-name-segment">approved</span></a></div></div></div></div></td><td class="react-directory-row-name-cell-large-screen" colspan="1"><div class="react-directory-filename-column"><div class="overflow-hidden"><div class="react-directory-filename-cell"><div class="react-directory-truncate"><a title="This path skips through empty directories" aria-label=".product/approved, (Directory)" class="Link--primary" href="/backnotprop/plannotator/tree/main/.product/approved" data-discover="true"><span class="react-directory-default-color" data-testid="path-name-segment">.product/</span><span class="" data-testid="path-name-segment">approved</span></a></div></div></div></div></td><td class="react-directory-row-commit-cell"><div><div class="react-directory-commit-message"><a data-pjax="true" title="Merge remote-tracking branch 'origin/main' into feat/spaces-home" class="Link--secondary" href="/backnotprop/plannotator/commit/2b89f80413f233a90625e0a547ceb85e3b1df140">Merge remote-tracking branch 'origin/main' into feat/spaces-home</a></div></div></td><td><div class="react-directory-commit-age"><relative-time data-component="RelativeTime" tense="past" datetime="2026-11-17T07:18:57.000Z" title="Nov 17, 2026, 2:18 PM GMT+7">Nov 17, 2026</relative-time></div></td></tr><tr class="react-directory-row undefined" id="folder-row-5"><td class="react-directory-row-name-cell-small-screen" colspan="2"><div class="react-directory-filename-column"><div class="overflow-hidden"><div class="react-directory-filename-cell"><div class="react-directory-truncate"><a title="adr" aria-label="adr, (Directory)" class="Link--primary" href="/backnotprop/plannotator/tree/main/adr" data-discover="true">adr</a></div></div></div></div></td><td class="react-directory-row-name-cell-large-screen" colspan="1"><div class="react-directory-filename-column"><div class="overflow-hidden"><div class="react-directory-filename-cell"><div class="react-directory-truncate"><a title="adr" aria-label="adr, (Directory)" class="Link--primary" href="/backnotprop/plannotator/tree/main/adr" data-discover="true">adr</a></div></div></div></div></td><td class="react-directory-row-commit-cell"><div><div class="react-directory-commit-message"><a data-pjax="true" title="not_after after the key: an applied write replays its answer however late; same refusal order on both paths
+
+The relay hands the sealed not_after to the door, which checks it in claim after the replay and
+in-flight wait. Relay: a device registered again tells the Inbox its topic is gone. Tests wait on
+the Inbox taking a topic frame and give the snooze return wider margins." class="Link--secondary" href="/backnotprop/plannotator/commit/faf318ad56c6870387b4ac3ef5efb655c4dafc37">not_after after the key: an applied write replays its answer however …</a></div></div></td><td><div class="react-directory-commit-age"><relative-time data-component="RelativeTime" tense="past" datetime="2026-11-18T21:24:57.000Z" title="Nov 19, 2026, 4:24 AM GMT+7">Nov 18, 2026</relative-time></div></td></tr><tr class="react-directory-row undefined" id="folder-row-6"><td class="react-directory-row-name-cell-small-screen" colspan="2"><div class="react-directory-filename-column"><div class="overflow-hidden"><div class="react-directory-filename-cell"><div class="react-directory-truncate"><a title="apps" aria-label="apps, (Directory)" class="Link--primary" href="/backnotprop/plannotator/tree/main/apps" data-discover="true">apps</a></div></div></div></div></td><td class="react-directory-row-name-cell-large-screen" colspan="1"><div class="react-directory-filename-column"><div class="overflow-hidden"><div class="react-directory-filename-cell"><div class="react-directory-truncate"><a title="apps" aria-label="apps, (Directory)" class="Link--primary" href="/backnotprop/plannotator/tree/main/apps" data-discover="true">apps</a></div></div></div></div></td><td class="react-directory-row-commit-cell"><div><div class="react-directory-commit-message"><a data-pjax="true" title="Merge branch 'main' into feat/custom-theme-files" class="Link--secondary" href="/backnotprop/plannotator/commit/815db474745e264906ff00ebb3d67cb6ae5a6402">Merge branch 'main' into feat/custom-theme-files</a></div></div></td><td><div class="react-directory-commit-age"><relative-time data-component="RelativeTime" tense="past" datetime="2026-11-20T00:27:41.000Z" title="Nov 20, 2026, 7:27 AM GMT+7">Nov 20, 2026</relative-time></div></td></tr><tr class="react-directory-row undefined" id="folder-row-7"><td class="react-directory-row-name-cell-small-screen" colspan="2"><div class="react-directory-filename-column"><div class="overflow-hidden"><div class="react-directory-filename-cell"><div class="react-directory-truncate"><a title="bin" aria-label="bin, (Directory)" class="Link--primary" href="/backnotprop/plannotator/tree/main/bin" data-discover="true">bin</a></div></div></div></div></td><td class="react-directory-row-name-cell-large-screen" colspan="1"><div class="react-directory-filename-column"><div class="overflow-hidden"><div class="react-directory-filename-cell"><div class="react-directory-truncate"><a title="bin" aria-label="bin, (Directory)" class="Link--primary" href="/backnotprop/plannotator/tree/main/bin" data-discover="true">bin</a></div></div></div></div></td><td class="react-directory-row-commit-cell"><div><div class="react-directory-commit-message"><a data-pjax="true" title="Add bun link support for local CLI development (#656)
+
+* chore: support bun link for local CLI development
+
+* move Local Development section to end of README as Development
+
+For provenance purposes, this commit was AI assisted.
+
+---------
+
+Co-authored-by: Michael Ramos &lt;mdramos8@gmail.com&gt;" class="Link--secondary" href="/backnotprop/plannotator/commit/87e92b9d86539d4b4dc6b3fc3cfe721e27384fab">Add bun link support for local CLI development (</a><a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="4375645391" data-permission-text="Title is private" data-url="https://github.com/backnotprop/plannotator/issues/656" data-hovercard-type="pull_request" data-hovercard-url="/backnotprop/plannotator/pull/656/hovercard" href="https://github.com/backnotprop/plannotator/pull/656" aria-keyshortcuts="Alt+ArrowUp">#656</a><a data-pjax="true" title="Add bun link support for local CLI development (#656)
+
+* chore: support bun link for local CLI development
+
+* move Local Development section to end of README as Development
+
+For provenance purposes, this commit was AI assisted.
+
+---------
+
+Co-authored-by: Michael Ramos &lt;mdramos8@gmail.com&gt;" class="Link--secondary" href="/backnotprop/plannotator/commit/87e92b9d86539d4b4dc6b3fc3cfe721e27384fab">)</a></div></div></td><td><div class="react-directory-commit-age"><relative-time data-component="RelativeTime" tense="past" datetime="2026-05-05T07:07:54.000Z" title="May 5, 2026, 2:07 PM GMT+7">May 5, 2026</relative-time></div></td></tr></tbody></table>

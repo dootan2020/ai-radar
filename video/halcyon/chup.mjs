@@ -8,12 +8,12 @@ import os from 'node:os';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 
-const VIEW_W = 390, VIEW_H = 844, SCALE = 3;                 // the published capture size: 1170 px wide
-const INK_MARGIN = 85, INK_X0 = 60, INK_X1 = 1110;           // ve_halcyon.py: one definition of ink
+export const VIEW_W = 390, VIEW_H = 844, SCALE = 3;                 // the published capture size: 1170 px wide
+export const INK_MARGIN = 85, INK_X0 = 60, INK_X1 = 1110;           // ve_halcyon.py: one definition of ink
 const PAD_ABOVE = 24, PAD_BELOW = 12;                        // capture px kept above the first and below the last shown line
 const MARGIN_CSS = 36;                                       // page kept around the focus in the picture (css px)
-const IPHONE_UA = 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Mobile/15E148 Safari/604.1';
-const DECLINE = '^(decline optional|reject|decline|only necessary|necessary only|refuse|deny|no,? thanks|từ chối)';
+export const IPHONE_UA = 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Mobile/15E148 Safari/604.1';
+export const DECLINE = '^(decline optional|reject|decline|only necessary|necessary only|refuse|deny|no,? thanks|từ chối)';
 
 class Refusal extends Error {
   constructor(kind, msg, retry = false) { super(msg); this.kind = kind; this.retry = retry; }
@@ -81,7 +81,7 @@ export function bangkokStamp(d = new Date()) {
 const bangkokDate = (d = new Date()) => d.toLocaleDateString('en-GB', { timeZone: 'Asia/Bangkok' });
 
 // ---------------------------------------------------------------- code that runs inside the page
-function wallScan() {
+export function wallScan() {
   const WALL = [
     ['bot check', /verify you are (a )?human|just a moment|captcha|access denied|unusual traffic|are you a robot|attention required|request blocked|checking your browser/i],
     ['sign-in or paywall', /sign in to (continue|read|view|see)|log ?in to (continue|read|view|see)|subscribe to (continue|read|unlock)|create (a free )?account to (continue|read)|log ?in or sign ?up|đăng nhập để (tiếp tục|xem|đọc)|đăng ký để (đọc|xem)/i],
@@ -220,10 +220,10 @@ function measure(a) {
     scrollY, covered, ctx: N.slice(Math.max(0, pick - 60), pick + need.length + 60) };
 }
 
-const hideFixed = () => { for (const e of document.querySelectorAll('*')) { const p = getComputedStyle(e).position; if (p === 'fixed' || p === 'sticky') e.style.visibility = 'hidden'; } };
+export const hideFixed = () => { for (const e of document.querySelectorAll('*')) { const p = getComputedStyle(e).position; if (p === 'fixed' || p === 'sticky') e.style.visibility = 'hidden'; } };
 
 // ---------------------------------------------------------------- one attempt on one address
-async function inkRows(ctx, buf) {
+export async function inkRows(ctx, buf) {
   const p = await ctx.newPage();
   try {
     return await p.evaluate(async ([b64, m, x0, x1]) => {

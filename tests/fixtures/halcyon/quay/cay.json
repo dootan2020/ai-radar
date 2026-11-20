@@ -1,0 +1,406 @@
+{
+ "version": 1,
+ "repo": "backnotprop/plannotator",
+ "branch": "main",
+ "commit": "edd4537665d9dd5a89accd52ae89a698afc7d43e",
+ "fetched": "2026-11-20T08:59:17+07:00",
+ "open": [
+  "apps",
+  "package.json"
+ ],
+ "pages": [
+  {
+   "path": "",
+   "kind": "home"
+  },
+  {
+   "path": "apps",
+   "kind": "tree"
+  },
+  {
+   "path": "package.json",
+   "kind": "blob"
+  }
+ ],
+ "listings": {
+  "": [
+   {
+    "name": ".adr-dir",
+    "path": ".adr-dir",
+    "kind": "blob",
+    "chain_to": ".adr-dir"
+   },
+   {
+    "name": ".agents",
+    "path": ".agents",
+    "kind": "tree",
+    "chain_to": ".agents/skills"
+   },
+   {
+    "name": ".claude-plugin",
+    "path": ".claude-plugin",
+    "kind": "tree",
+    "chain_to": ".claude-plugin"
+   },
+   {
+    "name": ".factory-plugin",
+    "path": ".factory-plugin",
+    "kind": "tree",
+    "chain_to": ".factory-plugin"
+   },
+   {
+    "name": ".gitattributes",
+    "path": ".gitattributes",
+    "kind": "blob",
+    "chain_to": ".gitattributes"
+   },
+   {
+    "name": ".github",
+    "path": ".github",
+    "kind": "tree",
+    "chain_to": ".github"
+   },
+   {
+    "name": ".gitignore",
+    "path": ".gitignore",
+    "kind": "blob",
+    "chain_to": ".gitignore"
+   },
+   {
+    "name": ".gitleaks.toml",
+    "path": ".gitleaks.toml",
+    "kind": "blob",
+    "chain_to": ".gitleaks.toml"
+   },
+   {
+    "name": ".product",
+    "path": ".product",
+    "kind": "tree",
+    "chain_to": ".product/approved"
+   },
+   {
+    "name": ".semgrep.yml",
+    "path": ".semgrep.yml",
+    "kind": "blob",
+    "chain_to": ".semgrep.yml"
+   },
+   {
+    "name": ".semgrepignore",
+    "path": ".semgrepignore",
+    "kind": "blob",
+    "chain_to": ".semgrepignore"
+   },
+   {
+    "name": "AGENTS.md",
+    "path": "AGENTS.md",
+    "kind": "blob",
+    "chain_to": "AGENTS.md"
+   },
+   {
+    "name": "CLAUDE.md",
+    "path": "CLAUDE.md",
+    "kind": "blob",
+    "chain_to": "CLAUDE.md"
+   },
+   {
+    "name": "CONTRIBUTING.md",
+    "path": "CONTRIBUTING.md",
+    "kind": "blob",
+    "chain_to": "CONTRIBUTING.md"
+   },
+   {
+    "name": "LICENSE-APACHE",
+    "path": "LICENSE-APACHE",
+    "kind": "blob",
+    "chain_to": "LICENSE-APACHE"
+   },
+   {
+    "name": "LICENSE-MIT",
+    "path": "LICENSE-MIT",
+    "kind": "blob",
+    "chain_to": "LICENSE-MIT"
+   },
+   {
+    "name": "README.md",
+    "path": "README.md",
+    "kind": "blob",
+    "chain_to": "README.md"
+   },
+   {
+    "name": "SECURITY.md",
+    "path": "SECURITY.md",
+    "kind": "blob",
+    "chain_to": "SECURITY.md"
+   },
+   {
+    "name": "adr",
+    "path": "adr",
+    "kind": "tree",
+    "chain_to": "adr"
+   },
+   {
+    "name": "apps",
+    "path": "apps",
+    "kind": "tree",
+    "chain_to": "apps"
+   },
+   {
+    "name": "bin",
+    "path": "bin",
+    "kind": "tree",
+    "chain_to": "bin"
+   },
+   {
+    "name": "build",
+    "path": "build",
+    "kind": "tree",
+    "chain_to": "build"
+   },
+   {
+    "name": "bun.lock",
+    "path": "bun.lock",
+    "kind": "blob",
+    "chain_to": "bun.lock"
+   },
+   {
+    "name": "bunfig.toml",
+    "path": "bunfig.toml",
+    "kind": "blob",
+    "chain_to": "bunfig.toml"
+   },
+   {
+    "name": "docs",
+    "path": "docs",
+    "kind": "tree",
+    "chain_to": "docs"
+   },
+   {
+    "name": "openpackage.yml",
+    "path": "openpackage.yml",
+    "kind": "blob",
+    "chain_to": "openpackage.yml"
+   },
+   {
+    "name": "package.json",
+    "path": "package.json",
+    "kind": "blob",
+    "chain_to": "package.json"
+   },
+   {
+    "name": "packages",
+    "path": "packages",
+    "kind": "tree",
+    "chain_to": "packages"
+   },
+   {
+    "name": "patches",
+    "path": "patches",
+    "kind": "tree",
+    "chain_to": "patches"
+   },
+   {
+    "name": "scripts",
+    "path": "scripts",
+    "kind": "tree",
+    "chain_to": "scripts"
+   },
+   {
+    "name": "spec",
+    "path": "spec",
+    "kind": "tree",
+    "chain_to": "spec"
+   },
+   {
+    "name": "tests",
+    "path": "tests",
+    "kind": "tree",
+    "chain_to": "tests"
+   },
+   {
+    "name": "vendor",
+    "path": "vendor",
+    "kind": "tree",
+    "chain_to": "vendor/pierre-diffs"
+   }
+  ],
+  "apps": [
+   {
+    "name": "amp-plugin",
+    "path": "apps/amp-plugin",
+    "kind": "tree",
+    "chain_to": "apps/amp-plugin"
+   },
+   {
+    "name": "cline-plugin",
+    "path": "apps/cline-plugin",
+    "kind": "tree",
+    "chain_to": "apps/cline-plugin"
+   },
+   {
+    "name": "codex",
+    "path": "apps/codex",
+    "kind": "tree",
+    "chain_to": "apps/codex"
+   },
+   {
+    "name": "copilot",
+    "path": "apps/copilot",
+    "kind": "tree",
+    "chain_to": "apps/copilot"
+   },
+   {
+    "name": "droid-plugin",
+    "path": "apps/droid-plugin",
+    "kind": "tree",
+    "chain_to": "apps/droid-plugin"
+   },
+   {
+    "name": "dsh-plugin",
+    "path": "apps/dsh-plugin",
+    "kind": "tree",
+    "chain_to": "apps/dsh-plugin"
+   },
+   {
+    "name": "feedback-service",
+    "path": "apps/feedback-service",
+    "kind": "tree",
+    "chain_to": "apps/feedback-service"
+   },
+   {
+    "name": "gemini",
+    "path": "apps/gemini",
+    "kind": "tree",
+    "chain_to": "apps/gemini"
+   },
+   {
+    "name": "guides-show",
+    "path": "apps/guides-show",
+    "kind": "tree",
+    "chain_to": "apps/guides-show"
+   },
+   {
+    "name": "hermes-plugin",
+    "path": "apps/hermes-plugin",
+    "kind": "tree",
+    "chain_to": "apps/hermes-plugin"
+   },
+   {
+    "name": "hook",
+    "path": "apps/hook",
+    "kind": "tree",
+    "chain_to": "apps/hook"
+   },
+   {
+    "name": "inbox",
+    "path": "apps/inbox",
+    "kind": "tree",
+    "chain_to": "apps/inbox"
+   },
+   {
+    "name": "kiro-cli",
+    "path": "apps/kiro-cli",
+    "kind": "tree",
+    "chain_to": "apps/kiro-cli"
+   },
+   {
+    "name": "marketing",
+    "path": "apps/marketing",
+    "kind": "tree",
+    "chain_to": "apps/marketing"
+   },
+   {
+    "name": "mobile",
+    "path": "apps/mobile",
+    "kind": "tree",
+    "chain_to": "apps/mobile"
+   },
+   {
+    "name": "openclaw-plugin",
+    "path": "apps/openclaw-plugin",
+    "kind": "tree",
+    "chain_to": "apps/openclaw-plugin"
+   },
+   {
+    "name": "opencode-plugin",
+    "path": "apps/opencode-plugin",
+    "kind": "tree",
+    "chain_to": "apps/opencode-plugin"
+   },
+   {
+    "name": "paste-service",
+    "path": "apps/paste-service",
+    "kind": "tree",
+    "chain_to": "apps/paste-service"
+   },
+   {
+    "name": "pi-extension",
+    "path": "apps/pi-extension",
+    "kind": "tree",
+    "chain_to": "apps/pi-extension"
+   },
+   {
+    "name": "portal",
+    "path": "apps/portal",
+    "kind": "tree",
+    "chain_to": "apps/portal"
+   },
+   {
+    "name": "qwen-code",
+    "path": "apps/qwen-code",
+    "kind": "tree",
+    "chain_to": "apps/qwen-code"
+   },
+   {
+    "name": "relay",
+    "path": "apps/relay",
+    "kind": "tree",
+    "chain_to": "apps/relay"
+   },
+   {
+    "name": "review",
+    "path": "apps/review",
+    "kind": "tree",
+    "chain_to": "apps/review"
+   },
+   {
+    "name": "skills",
+    "path": "apps/skills",
+    "kind": "tree",
+    "chain_to": "apps/skills"
+   },
+   {
+    "name": "telemetry",
+    "path": "apps/telemetry",
+    "kind": "tree",
+    "chain_to": "apps/telemetry"
+   },
+   {
+    "name": "vibe",
+    "path": "apps/vibe",
+    "kind": "tree",
+    "chain_to": "apps/vibe"
+   },
+   {
+    "name": "vscode-extension",
+    "path": "apps/vscode-extension",
+    "kind": "tree",
+    "chain_to": "apps/vscode-extension"
+   },
+   {
+    "name": "waitlist-service",
+    "path": "apps/waitlist-service",
+    "kind": "tree",
+    "chain_to": "apps/waitlist-service"
+   }
+  ]
+ },
+ "files": {
+  "package.json": {
+   "state": "text",
+   "first_line": "{",
+   "index": 0
+  }
+ },
+ "api_calls": 5,
+ "api_remaining": 55
+}
