@@ -1,0 +1,1450 @@
+{
+ "version": 1,
+ "repo": "backnotprop/plannotator",
+ "branch": "main",
+ "commit": "edd4537665d9dd5a89accd52ae89a698afc7d43e",
+ "captured": "2026-11-20T08:59:58+07:00",
+ "scale": 2,
+ "viewport": {
+  "width": 1280,
+  "height": 800
+ },
+ "open": [
+  "apps",
+  "package.json"
+ ],
+ "loads": 3,
+ "pages": [
+  {
+   "path": "",
+   "type": "home",
+   "requested": "https://github.com/backnotprop/plannotator",
+   "final": "https://github.com/backnotprop/plannotator",
+   "status": 200,
+   "title": "GitHub - backnotprop/plannotator: The workspace to stay in the loop and on top of agents - shape, decide, plan, annotate, review code, share with team, and send all feedback to agents with one click. \u00b7 GitHub",
+   "picture": "0.png",
+   "css_height": 5000,
+   "capped": true,
+   "picture_px": [
+    2560,
+    10000
+   ],
+   "ink_ratio": 0.13543,
+   "background": "rgb(255, 255, 255)",
+   "luminance": 1,
+   "truncated": false,
+   "expanded": false,
+   "entries": [
+    {
+     "name": ".agents/skills",
+     "path": ".agents/skills",
+     "kind": "tree"
+    },
+    {
+     "name": ".claude-plugin",
+     "path": ".claude-plugin",
+     "kind": "tree"
+    },
+    {
+     "name": ".factory-plugin",
+     "path": ".factory-plugin",
+     "kind": "tree"
+    },
+    {
+     "name": ".github",
+     "path": ".github",
+     "kind": "tree"
+    },
+    {
+     "name": ".product/approved",
+     "path": ".product/approved",
+     "kind": "tree"
+    },
+    {
+     "name": "adr",
+     "path": "adr",
+     "kind": "tree"
+    },
+    {
+     "name": "apps",
+     "path": "apps",
+     "kind": "tree"
+    },
+    {
+     "name": "bin",
+     "path": "bin",
+     "kind": "tree"
+    },
+    {
+     "name": "build",
+     "path": "build",
+     "kind": "tree"
+    },
+    {
+     "name": "docs",
+     "path": "docs",
+     "kind": "tree"
+    },
+    {
+     "name": "packages",
+     "path": "packages",
+     "kind": "tree"
+    },
+    {
+     "name": "patches",
+     "path": "patches",
+     "kind": "tree"
+    },
+    {
+     "name": "scripts",
+     "path": "scripts",
+     "kind": "tree"
+    },
+    {
+     "name": "spec",
+     "path": "spec",
+     "kind": "tree"
+    },
+    {
+     "name": "tests",
+     "path": "tests",
+     "kind": "tree"
+    },
+    {
+     "name": "vendor/pierre-diffs",
+     "path": "vendor/pierre-diffs",
+     "kind": "tree"
+    },
+    {
+     "name": ".adr-dir",
+     "path": ".adr-dir",
+     "kind": "blob"
+    },
+    {
+     "name": ".gitattributes",
+     "path": ".gitattributes",
+     "kind": "blob"
+    },
+    {
+     "name": ".gitignore",
+     "path": ".gitignore",
+     "kind": "blob"
+    },
+    {
+     "name": ".gitleaks.toml",
+     "path": ".gitleaks.toml",
+     "kind": "blob"
+    },
+    {
+     "name": ".semgrep.yml",
+     "path": ".semgrep.yml",
+     "kind": "blob"
+    },
+    {
+     "name": ".semgrepignore",
+     "path": ".semgrepignore",
+     "kind": "blob"
+    },
+    {
+     "name": "AGENTS.md",
+     "path": "AGENTS.md",
+     "kind": "blob"
+    },
+    {
+     "name": "CLAUDE.md",
+     "path": "CLAUDE.md",
+     "kind": "blob"
+    },
+    {
+     "name": "CONTRIBUTING.md",
+     "path": "CONTRIBUTING.md",
+     "kind": "blob"
+    },
+    {
+     "name": "LICENSE-APACHE",
+     "path": "LICENSE-APACHE",
+     "kind": "blob"
+    },
+    {
+     "name": "LICENSE-MIT",
+     "path": "LICENSE-MIT",
+     "kind": "blob"
+    },
+    {
+     "name": "README.md",
+     "path": "README.md",
+     "kind": "blob"
+    },
+    {
+     "name": "SECURITY.md",
+     "path": "SECURITY.md",
+     "kind": "blob"
+    },
+    {
+     "name": "bun.lock",
+     "path": "bun.lock",
+     "kind": "blob"
+    },
+    {
+     "name": "bunfig.toml",
+     "path": "bunfig.toml",
+     "kind": "blob"
+    },
+    {
+     "name": "openpackage.yml",
+     "path": "openpackage.yml",
+     "kind": "blob"
+    },
+    {
+     "name": "package.json",
+     "path": "package.json",
+     "kind": "blob"
+    }
+   ],
+   "rows": [
+    {
+     "path": ".agents/skills",
+     "rect": [
+      33,
+      363,
+      902,
+      40
+     ],
+     "name_rect": [
+      75,
+      374,
+      79,
+      19
+     ],
+     "font_px": 14
+    },
+    {
+     "path": ".claude-plugin",
+     "rect": [
+      33,
+      403,
+      902,
+      41
+     ],
+     "name_rect": [
+      75,
+      415,
+      88,
+      19
+     ],
+     "font_px": 14
+    },
+    {
+     "path": ".factory-plugin",
+     "rect": [
+      33,
+      444,
+      902,
+      41
+     ],
+     "name_rect": [
+      75,
+      456,
+      90,
+      19
+     ],
+     "font_px": 14
+    },
+    {
+     "path": ".github",
+     "rect": [
+      33,
+      485,
+      902,
+      41
+     ],
+     "name_rect": [
+      75,
+      497,
+      44,
+      19
+     ],
+     "font_px": 14
+    },
+    {
+     "path": ".product/approved",
+     "rect": [
+      33,
+      526,
+      902,
+      41
+     ],
+     "name_rect": [
+      75,
+      538,
+      116,
+      19
+     ],
+     "font_px": 14
+    },
+    {
+     "path": "adr",
+     "rect": [
+      33,
+      567,
+      902,
+      41
+     ],
+     "name_rect": [
+      75,
+      579,
+      20,
+      19
+     ],
+     "font_px": 14
+    },
+    {
+     "path": "apps",
+     "rect": [
+      33,
+      608,
+      902,
+      41
+     ],
+     "name_rect": [
+      75,
+      620,
+      30,
+      19
+     ],
+     "font_px": 14
+    },
+    {
+     "path": "bin",
+     "rect": [
+      33,
+      649,
+      902,
+      41
+     ],
+     "name_rect": [
+      75,
+      661,
+      20,
+      19
+     ],
+     "font_px": 14
+    },
+    {
+     "path": "build",
+     "rect": [
+      33,
+      690,
+      902,
+      41
+     ],
+     "name_rect": [
+      75,
+      702,
+      31,
+      19
+     ],
+     "font_px": 14
+    },
+    {
+     "path": "docs",
+     "rect": [
+      33,
+      731,
+      902,
+      41
+     ],
+     "name_rect": [
+      75,
+      743,
+      29,
+      19
+     ],
+     "font_px": 14
+    },
+    {
+     "path": "packages",
+     "rect": [
+      33,
+      772,
+      902,
+      41
+     ],
+     "name_rect": [
+      75,
+      784,
+      57,
+      19
+     ],
+     "font_px": 14
+    },
+    {
+     "path": "patches",
+     "rect": [
+      33,
+      813,
+      902,
+      41
+     ],
+     "name_rect": [
+      75,
+      825,
+      48,
+      19
+     ],
+     "font_px": 14
+    },
+    {
+     "path": "scripts",
+     "rect": [
+      33,
+      854,
+      902,
+      41
+     ],
+     "name_rect": [
+      75,
+      866,
+      40,
+      19
+     ],
+     "font_px": 14
+    },
+    {
+     "path": "spec",
+     "rect": [
+      33,
+      895,
+      902,
+      41
+     ],
+     "name_rect": [
+      75,
+      907,
+      28,
+      19
+     ],
+     "font_px": 14
+    },
+    {
+     "path": "tests",
+     "rect": [
+      33,
+      936,
+      902,
+      41
+     ],
+     "name_rect": [
+      75,
+      948,
+      29,
+      19
+     ],
+     "font_px": 14
+    },
+    {
+     "path": "vendor/pierre-diffs",
+     "rect": [
+      33,
+      977,
+      902,
+      41
+     ],
+     "name_rect": [
+      75,
+      989,
+      117,
+      19
+     ],
+     "font_px": 14
+    },
+    {
+     "path": ".adr-dir",
+     "rect": [
+      33,
+      1018,
+      902,
+      41
+     ],
+     "name_rect": [
+      75,
+      1030,
+      45,
+      19
+     ],
+     "font_px": 14
+    },
+    {
+     "path": ".gitattributes",
+     "rect": [
+      33,
+      1059,
+      902,
+      41
+     ],
+     "name_rect": [
+      75,
+      1071,
+      78,
+      19
+     ],
+     "font_px": 14
+    },
+    {
+     "path": ".gitignore",
+     "rect": [
+      33,
+      1100,
+      902,
+      41
+     ],
+     "name_rect": [
+      75,
+      1112,
+      59,
+      19
+     ],
+     "font_px": 14
+    },
+    {
+     "path": ".gitleaks.toml",
+     "rect": [
+      33,
+      1141,
+      902,
+      41
+     ],
+     "name_rect": [
+      75,
+      1153,
+      82,
+      19
+     ],
+     "font_px": 14
+    },
+    {
+     "path": ".semgrep.yml",
+     "rect": [
+      33,
+      1182,
+      902,
+      41
+     ],
+     "name_rect": [
+      75,
+      1194,
+      82,
+      19
+     ],
+     "font_px": 14
+    },
+    {
+     "path": ".semgrepignore",
+     "rect": [
+      33,
+      1223,
+      902,
+      41
+     ],
+     "name_rect": [
+      75,
+      1235,
+      97,
+      19
+     ],
+     "font_px": 14
+    },
+    {
+     "path": "AGENTS.md",
+     "rect": [
+      33,
+      1264,
+      902,
+      41
+     ],
+     "name_rect": [
+      75,
+      1276,
+      74,
+      19
+     ],
+     "font_px": 14
+    },
+    {
+     "path": "CLAUDE.md",
+     "rect": [
+      33,
+      1305,
+      902,
+      41
+     ],
+     "name_rect": [
+      75,
+      1317,
+      74,
+      19
+     ],
+     "font_px": 14
+    },
+    {
+     "path": "CONTRIBUTING.md",
+     "rect": [
+      33,
+      1346,
+      902,
+      41
+     ],
+     "name_rect": [
+      75,
+      1358,
+      121,
+      19
+     ],
+     "font_px": 14
+    },
+    {
+     "path": "LICENSE-APACHE",
+     "rect": [
+      33,
+      1387,
+      902,
+      41
+     ],
+     "name_rect": [
+      75,
+      1399,
+      107,
+      19
+     ],
+     "font_px": 14
+    },
+    {
+     "path": "LICENSE-MIT",
+     "rect": [
+      33,
+      1428,
+      902,
+      41
+     ],
+     "name_rect": [
+      75,
+      1440,
+      80,
+      19
+     ],
+     "font_px": 14
+    },
+    {
+     "path": "README.md",
+     "rect": [
+      33,
+      1469,
+      902,
+      41
+     ],
+     "name_rect": [
+      75,
+      1481,
+      77,
+      19
+     ],
+     "font_px": 14
+    },
+    {
+     "path": "SECURITY.md",
+     "rect": [
+      33,
+      1510,
+      902,
+      41
+     ],
+     "name_rect": [
+      75,
+      1522,
+      84,
+      19
+     ],
+     "font_px": 14
+    },
+    {
+     "path": "bun.lock",
+     "rect": [
+      33,
+      1551,
+      902,
+      41
+     ],
+     "name_rect": [
+      75,
+      1563,
+      52,
+      19
+     ],
+     "font_px": 14
+    },
+    {
+     "path": "bunfig.toml",
+     "rect": [
+      33,
+      1592,
+      902,
+      41
+     ],
+     "name_rect": [
+      75,
+      1604,
+      72,
+      19
+     ],
+     "font_px": 14
+    },
+    {
+     "path": "openpackage.yml",
+     "rect": [
+      33,
+      1633,
+      902,
+      41
+     ],
+     "name_rect": [
+      75,
+      1645,
+      108,
+      19
+     ],
+     "font_px": 14
+    },
+    {
+     "path": "package.json",
+     "rect": [
+      33,
+      1674,
+      902,
+      41
+     ],
+     "name_rect": [
+      75,
+      1686,
+      80,
+      19
+     ],
+     "font_px": 14
+    }
+   ],
+   "row_font_px": 14,
+   "listing_ignored": {
+    "article": 27,
+    "chrome": 0,
+    "hidden": 33,
+    "notChild": 0,
+    "other_tables": 0
+   },
+   "boxes": {
+    "file_list": [
+     32,
+     363,
+     904,
+     1353
+    ],
+    "readme": [
+     65,
+     1813,
+     838,
+     12690
+    ],
+    "about": [
+     976,
+     245,
+     272,
+     589
+    ],
+    "code": null
+   },
+   "file": null,
+   "seconds": 17.5
+  },
+  {
+   "path": "apps",
+   "type": "tree",
+   "requested": "https://github.com/backnotprop/plannotator/tree/main/apps",
+   "final": "https://github.com/backnotprop/plannotator/tree/main/apps",
+   "status": 200,
+   "title": "plannotator/apps at main \u00b7 backnotprop/plannotator \u00b7 GitHub",
+   "picture": "1.png",
+   "css_height": 1572,
+   "capped": false,
+   "picture_px": [
+    2560,
+    3144
+   ],
+   "ink_ratio": 0.06845,
+   "background": "rgb(255, 255, 255)",
+   "luminance": 1,
+   "truncated": false,
+   "expanded": false,
+   "entries": [
+    {
+     "name": "amp-plugin",
+     "path": "apps/amp-plugin",
+     "kind": "tree"
+    },
+    {
+     "name": "cline-plugin",
+     "path": "apps/cline-plugin",
+     "kind": "tree"
+    },
+    {
+     "name": "codex",
+     "path": "apps/codex",
+     "kind": "tree"
+    },
+    {
+     "name": "copilot",
+     "path": "apps/copilot",
+     "kind": "tree"
+    },
+    {
+     "name": "droid-plugin",
+     "path": "apps/droid-plugin",
+     "kind": "tree"
+    },
+    {
+     "name": "dsh-plugin",
+     "path": "apps/dsh-plugin",
+     "kind": "tree"
+    },
+    {
+     "name": "feedback-service",
+     "path": "apps/feedback-service",
+     "kind": "tree"
+    },
+    {
+     "name": "gemini",
+     "path": "apps/gemini",
+     "kind": "tree"
+    },
+    {
+     "name": "guides-show",
+     "path": "apps/guides-show",
+     "kind": "tree"
+    },
+    {
+     "name": "hermes-plugin",
+     "path": "apps/hermes-plugin",
+     "kind": "tree"
+    },
+    {
+     "name": "hook",
+     "path": "apps/hook",
+     "kind": "tree"
+    },
+    {
+     "name": "inbox",
+     "path": "apps/inbox",
+     "kind": "tree"
+    },
+    {
+     "name": "kiro-cli",
+     "path": "apps/kiro-cli",
+     "kind": "tree"
+    },
+    {
+     "name": "marketing",
+     "path": "apps/marketing",
+     "kind": "tree"
+    },
+    {
+     "name": "mobile",
+     "path": "apps/mobile",
+     "kind": "tree"
+    },
+    {
+     "name": "openclaw-plugin",
+     "path": "apps/openclaw-plugin",
+     "kind": "tree"
+    },
+    {
+     "name": "opencode-plugin",
+     "path": "apps/opencode-plugin",
+     "kind": "tree"
+    },
+    {
+     "name": "paste-service",
+     "path": "apps/paste-service",
+     "kind": "tree"
+    },
+    {
+     "name": "pi-extension",
+     "path": "apps/pi-extension",
+     "kind": "tree"
+    },
+    {
+     "name": "portal",
+     "path": "apps/portal",
+     "kind": "tree"
+    },
+    {
+     "name": "qwen-code",
+     "path": "apps/qwen-code",
+     "kind": "tree"
+    },
+    {
+     "name": "relay",
+     "path": "apps/relay",
+     "kind": "tree"
+    },
+    {
+     "name": "review",
+     "path": "apps/review",
+     "kind": "tree"
+    },
+    {
+     "name": "skills",
+     "path": "apps/skills",
+     "kind": "tree"
+    },
+    {
+     "name": "telemetry",
+     "path": "apps/telemetry",
+     "kind": "tree"
+    },
+    {
+     "name": "vibe",
+     "path": "apps/vibe",
+     "kind": "tree"
+    },
+    {
+     "name": "vscode-extension",
+     "path": "apps/vscode-extension",
+     "kind": "tree"
+    },
+    {
+     "name": "waitlist-service",
+     "path": "apps/waitlist-service",
+     "kind": "tree"
+    }
+   ],
+   "rows": [
+    {
+     "path": "apps/amp-plugin",
+     "rect": [
+      338,
+      375,
+      925,
+      41
+     ],
+     "name_rect": [
+      380,
+      387,
+      72,
+      19
+     ],
+     "font_px": 14
+    },
+    {
+     "path": "apps/cline-plugin",
+     "rect": [
+      338,
+      416,
+      925,
+      41
+     ],
+     "name_rect": [
+      380,
+      428,
+      73,
+      19
+     ],
+     "font_px": 14
+    },
+    {
+     "path": "apps/codex",
+     "rect": [
+      338,
+      457,
+      925,
+      41
+     ],
+     "name_rect": [
+      380,
+      469,
+      37,
+      19
+     ],
+     "font_px": 14
+    },
+    {
+     "path": "apps/copilot",
+     "rect": [
+      338,
+      498,
+      925,
+      41
+     ],
+     "name_rect": [
+      380,
+      510,
+      43,
+      19
+     ],
+     "font_px": 14
+    },
+    {
+     "path": "apps/droid-plugin",
+     "rect": [
+      338,
+      539,
+      925,
+      41
+     ],
+     "name_rect": [
+      380,
+      551,
+      78,
+      19
+     ],
+     "font_px": 14
+    },
+    {
+     "path": "apps/dsh-plugin",
+     "rect": [
+      338,
+      580,
+      925,
+      41
+     ],
+     "name_rect": [
+      380,
+      592,
+      67,
+      19
+     ],
+     "font_px": 14
+    },
+    {
+     "path": "apps/feedback-service",
+     "rect": [
+      338,
+      621,
+      925,
+      41
+     ],
+     "name_rect": [
+      380,
+      633,
+      104,
+      19
+     ],
+     "font_px": 14
+    },
+    {
+     "path": "apps/gemini",
+     "rect": [
+      338,
+      662,
+      925,
+      41
+     ],
+     "name_rect": [
+      380,
+      674,
+      42,
+      19
+     ],
+     "font_px": 14
+    },
+    {
+     "path": "apps/guides-show",
+     "rect": [
+      338,
+      703,
+      925,
+      41
+     ],
+     "name_rect": [
+      380,
+      715,
+      79,
+      19
+     ],
+     "font_px": 14
+    },
+    {
+     "path": "apps/hermes-plugin",
+     "rect": [
+      338,
+      744,
+      925,
+      41
+     ],
+     "name_rect": [
+      380,
+      756,
+      90,
+      19
+     ],
+     "font_px": 14
+    },
+    {
+     "path": "apps/hook",
+     "rect": [
+      338,
+      785,
+      925,
+      41
+     ],
+     "name_rect": [
+      380,
+      797,
+      31,
+      19
+     ],
+     "font_px": 14
+    },
+    {
+     "path": "apps/inbox",
+     "rect": [
+      338,
+      826,
+      925,
+      41
+     ],
+     "name_rect": [
+      380,
+      838,
+      34,
+      19
+     ],
+     "font_px": 14
+    },
+    {
+     "path": "apps/kiro-cli",
+     "rect": [
+      338,
+      867,
+      925,
+      41
+     ],
+     "name_rect": [
+      380,
+      879,
+      42,
+      19
+     ],
+     "font_px": 14
+    },
+    {
+     "path": "apps/marketing",
+     "rect": [
+      338,
+      908,
+      925,
+      41
+     ],
+     "name_rect": [
+      380,
+      920,
+      63,
+      19
+     ],
+     "font_px": 14
+    },
+    {
+     "path": "apps/mobile",
+     "rect": [
+      338,
+      949,
+      925,
+      41
+     ],
+     "name_rect": [
+      380,
+      961,
+      43,
+      19
+     ],
+     "font_px": 14
+    },
+    {
+     "path": "apps/openclaw-plugin",
+     "rect": [
+      338,
+      990,
+      925,
+      41
+     ],
+     "name_rect": [
+      380,
+      1002,
+      103,
+      19
+     ],
+     "font_px": 14
+    },
+    {
+     "path": "apps/opencode-plugin",
+     "rect": [
+      338,
+      1031,
+      925,
+      41
+     ],
+     "name_rect": [
+      380,
+      1043,
+      107,
+      19
+     ],
+     "font_px": 14
+    },
+    {
+     "path": "apps/paste-service",
+     "rect": [
+      338,
+      1072,
+      925,
+      41
+     ],
+     "name_rect": [
+      380,
+      1084,
+      81,
+      19
+     ],
+     "font_px": 14
+    },
+    {
+     "path": "apps/pi-extension",
+     "rect": [
+      338,
+      1113,
+      925,
+      41
+     ],
+     "name_rect": [
+      380,
+      1125,
+      76,
+      19
+     ],
+     "font_px": 14
+    },
+    {
+     "path": "apps/portal",
+     "rect": [
+      338,
+      1154,
+      925,
+      41
+     ],
+     "name_rect": [
+      380,
+      1166,
+      37,
+      19
+     ],
+     "font_px": 14
+    },
+    {
+     "path": "apps/qwen-code",
+     "rect": [
+      338,
+      1195,
+      925,
+      41
+     ],
+     "name_rect": [
+      380,
+      1207,
+      69,
+      19
+     ],
+     "font_px": 14
+    },
+    {
+     "path": "apps/relay",
+     "rect": [
+      338,
+      1236,
+      925,
+      41
+     ],
+     "name_rect": [
+      380,
+      1248,
+      29,
+      19
+     ],
+     "font_px": 14
+    },
+    {
+     "path": "apps/review",
+     "rect": [
+      338,
+      1277,
+      925,
+      41
+     ],
+     "name_rect": [
+      380,
+      1289,
+      40,
+      19
+     ],
+     "font_px": 14
+    },
+    {
+     "path": "apps/skills",
+     "rect": [
+      338,
+      1318,
+      925,
+      41
+     ],
+     "name_rect": [
+      380,
+      1330,
+      29,
+      19
+     ],
+     "font_px": 14
+    },
+    {
+     "path": "apps/telemetry",
+     "rect": [
+      338,
+      1359,
+      925,
+      41
+     ],
+     "name_rect": [
+      380,
+      1371,
+      59,
+      19
+     ],
+     "font_px": 14
+    },
+    {
+     "path": "apps/vibe",
+     "rect": [
+      338,
+      1400,
+      925,
+      41
+     ],
+     "name_rect": [
+      380,
+      1412,
+      26,
+      19
+     ],
+     "font_px": 14
+    },
+    {
+     "path": "apps/vscode-extension",
+     "rect": [
+      338,
+      1441,
+      925,
+      41
+     ],
+     "name_rect": [
+      380,
+      1453,
+      108,
+      19
+     ],
+     "font_px": 14
+    },
+    {
+     "path": "apps/waitlist-service",
+     "rect": [
+      338,
+      1482,
+      925,
+      41
+     ],
+     "name_rect": [
+      380,
+      1494,
+      90,
+      19
+     ],
+     "font_px": 14
+    }
+   ],
+   "row_font_px": 14,
+   "listing_ignored": {
+    "article": 0,
+    "chrome": 0,
+    "hidden": 31,
+    "notChild": 1,
+    "other_tables": 0
+   },
+   "boxes": {
+    "file_list": [
+     337,
+     294,
+     927,
+     1230
+    ],
+    "readme": null,
+    "about": null,
+    "code": null
+   },
+   "file": null,
+   "seconds": 5
+  },
+  {
+   "path": "package.json",
+   "type": "blob",
+   "requested": "https://github.com/backnotprop/plannotator/blob/main/package.json",
+   "final": "https://github.com/backnotprop/plannotator/blob/main/package.json",
+   "status": 200,
+   "title": "plannotator/package.json at main \u00b7 backnotprop/plannotator \u00b7 GitHub",
+   "picture": "2.png",
+   "css_height": 2262,
+   "capped": false,
+   "picture_px": [
+    2560,
+    4524
+   ],
+   "ink_ratio": 0.05223,
+   "background": "rgb(255, 255, 255)",
+   "luminance": 1,
+   "truncated": false,
+   "expanded": false,
+   "entries": [],
+   "rows": [],
+   "row_font_px": null,
+   "listing_ignored": null,
+   "boxes": {
+    "file_list": null,
+    "readme": null,
+    "about": null,
+    "code": [
+     420,
+     348,
+     860,
+     800
+    ]
+   },
+   "file": {
+    "kind": "code",
+    "code_lines": [
+     "{",
+     "  \"name\": \"plannotator\",",
+     "  \"version\": \"0.29.1\",",
+     "  \"private\": true,",
+     "  \"description\": \"Interactive Plan Review for Claude Code - annotate plans visually, share with team, automatically send feedback\",",
+     "  \"author\": \"backnotprop\",",
+     "  \"license\": \"MIT OR Apache-2.0\",",
+     "  \"bin\": {"
+    ],
+    "rendered_lines": 92
+   },
+   "seconds": 5.4
+  }
+ ]
+}
