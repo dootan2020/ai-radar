@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-20T11:45:46.365572+00:00",
-  "input_generated_at": "2026-11-20T10:46:08Z",
+  "generated_at": "2026-11-20T15:59:46.263151+00:00",
+  "input_generated_at": "2026-11-20T14:45:57Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -112795,10 +112795,10 @@
       "use_original_title": false,
       "source_url": "https://pandaily.com/simplex-ai-linger-local-personal-agent-polystrata",
       "key_points": [
-        "Simplex AI đã công khai mã nguồn Linger, phần mềm tác tử cá nhân (chương trình AI tự thực hiện tác vụ) trên máy tính và mô hình ngôn ngữ cục bộ. Theo nhà phát triển, tác tử Another Me được dự kiến sắp xếp thư, lịch, hội thoại thành kho tri thức, tìm việc tiếp nối và phân công tác vụ.",
-        "Thành phần PolyStrata phân tầng khối lượng mô hình qua bộ nhớ đồ họa, RAM và SSD thay cho việc nạp toàn bộ vào cạc màn hình. Các chuyên gia dùng nhiều nằm gần chip đồ họa hơn, phần ít dùng chuyển qua các tầng lưu trữ khác.",
-        "Pandaily lưu ý đây là tốc độ giải mã từ nhà cung cấp chứ không phải thời gian chạy tác vụ hoàn chỉnh hay bảo chứng chất lượng đám mây.",
-        "Pandaily ghi nhận bản cài đặt hoàn chỉnh chưa ra mắt khi bản tải về cho macOS, Windows và Linux vẫn ghi sắp ra mắt dù mã nguồn đã mở. Giấy phép đòi hỏi văn bản ủy quyền khi chạy dịch vụ máy chủ, đồng thời suy luận cục bộ không bảo đảm mọi quy trình hoàn toàn ngoại tuyến."
+        "Simplex AI đã mở mã nguồn Linger, phần mềm tác tử cá nhân (chương trình AI tự thực hiện tác vụ) trên máy tính và mô hình ngôn ngữ cục bộ. Tác tử Another Me có chức năng sắp xếp thư từ, lịch và phân công công việc, dù Pandaily lưu ý đây là năng lực do nhà phát triển tự mô tả.",
+        "Thành phần PolyStrata phân tầng khối lượng tính toán qua bộ nhớ đồ họa, RAM và ổ SSD thay cho việc nạp toàn bộ lên cạc màn hình. Các phần chuyên gia dùng nhiều nằm gần chip đồ họa hơn, còn phần ít dùng chuyển qua các tầng lưu trữ khác.",
+        "Pandaily lưu ý đây là số đo tốc độ giải mã từ nhà cung cấp chứ không phải thời gian chạy tác vụ hoàn chỉnh hay bảo chứng chất lượng đám mây.",
+        "Giấy phép yêu cầu văn bản ủy quyền khi cung cấp dịch vụ máy chủ cho bên ngoài, nhưng cho phép dùng thương mại nội bộ và làm phụ trợ cho ứng dụng riêng. Ngoài ra, việc mở mã nguồn chưa đồng nghĩa với phát hành bộ cài đặt hoàn chỉnh khi các bản tải về cho hệ điều hành vẫn ghi sắp ra mắt."
       ],
       "same_event_coverage_ids": [
         "042c0f8ffb9db3627dc0"
@@ -112814,7 +112814,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Simplex AI mở mã nguồn tác tử Linger, báo cáo tốc độ giải mã đạt 179 token mỗi giây trên RTX 5090",
+      "editorial_headline_vi": "Simplex AI công khai mã nguồn Linger, báo cáo tốc độ giải mã đạt 179 token mỗi giây trên RTX 5090",
       "summary_sources": [
         {
           "id": "outlet",
@@ -112827,30 +112827,24 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.8,
+        "value": 8.75,
         "answers": {
-          "what": 10,
+          "what": 9,
           "why": 10,
           "notable": 8,
-          "meaning": 6
+          "meaning": 8
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "Giấy phép đòi hỏi văn bản ủy quyền khi chạy dịch vụ máy chủ",
-            "explanation": "Written authorization is required when Linger is run as a hosted or managed service for outsiders. The license permits commercial internal work and use as the backend of an organization's own applications (outlet:p005)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "meaning",
-            "problem": "Readers may think any hosted use requires written authorization.",
-            "fix": "Specify that the requirement applies to hosted or managed services for outsiders, while internal commercial use and use behind an organization's own applications are permitted (outlet:p005)."
+            "question": "notable",
+            "problem": "The speed figure lacks the conditions needed to interpret it.",
+            "fix": "Specify that 179 tokens per second was Simplex AI’s decode-speed result for a 125-billion-parameter Qwen3.8-Flash-Next model on a 32GB RTX 5090 (outlet:p004)."
           },
           {
-            "question": "notable",
-            "problem": "The speed figure lacks the tested model and hardware context.",
-            "fix": "Identify the 125-billion-parameter Qwen3.8-Flash-Next model and the 32GB RTX 5090; the source also reports 45.5 tokens per second on an RTX 3060 with 12GB of video memory and 64GB of RAM (outlet:p004)."
+            "question": "meaning",
+            "problem": "Readers may assume local inference keeps every workflow offline and agents isolated from their files.",
+            "fix": "Add that connected services can send data outside and the documented checks are not a file-isolating sandbox (outlet:p007)."
           }
         ],
         "writer_boats": [
@@ -112858,8 +112852,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "5cedecdf87da38e304e026fbe2260826e614fd08275780b39bf56fa642609965",
-        "scored_at": "2026-11-20T09:29:23.932389+00:00"
+        "prose_sha256": "b500e5f4d1e766447a5f0826b23c527c564dfdde4d265a9aac8b90dda8028e62",
+        "scored_at": "2026-11-20T15:59:46.253769+00:00"
       }
     },
     {
@@ -113250,10 +113244,10 @@
       "use_original_title": true,
       "source_url": "https://www.semafor.com/article/11/20/2026/outages-trigger-congressional-scrutiny-of-ai-enabled-attacks",
       "key_points": [
-        "Chính quyền Trump cho rằng loạt sự cố sập mạng gần đây bắt nguồn từ việc các công ty vội vã vá lỗ hổng phần mềm cũ khi trí tuệ nhân tạo (AI) làm lộ ra các điểm yếu này.",
-        "Các chuyên gia an ninh mạng nhận định chính phủ phần lớn nói đúng về nguyên nhân sự cố, nhưng cảnh báo tình trạng bất ổn kỹ thuật số nghiêm trọng hơn nhiều sắp xảy ra.",
-        "Dẫn chứng vụ tấn công vào nền tảng Hugging Face, một nhà vận động hành lang công nghệ cảnh báo nguy cơ bị xâm nhập có thể sắp nhắm tới các ngân hàng cộng đồng quy mô vừa.",
-        "Theo Semafor, Cơ quan An ninh mạng và Cơ sở hạ tầng Mỹ có nguy cơ tiếp tục thiếu giám đốc thường trực."
+        "Chính quyền Trump cho biết loạt sự cố công nghệ gần đây xuất phát từ việc các doanh nghiệp vội vã vá mạng lưới khi AI làm lộ lỗ hổng phần mềm cũ.",
+        "Các chuyên gia an ninh mạng nhận định chính phủ phần lớn nói đúng về nguyên nhân, nhưng cảnh báo bất ổn kỹ thuật số nghiêm trọng hơn sắp diễn ra.",
+        "Hai thượng nghị sĩ Maria Cantwell và Mike Rounds đã gửi thư kêu gọi mở nỗ lực quốc gia đối phó đe dọa mạng từ AI. Một nhà vận động hành lang nêu ví dụ vụ tấn công vào một ngân hàng cộng đồng có thể thúc đẩy chính quyền hành động.",
+        "Các nguồn tin quốc hội dự đoán tăng cường an ninh mạng AI sẽ là mục tiêu lập pháp trọng tâm từ tháng 1 tới. Dù vậy, Semafor nhận định chính quyền Trump có thể không can thiệp hỗ trợ khi các sự cố hoặc cuộc tấn công AI tiếp tục gia tăng."
       ],
       "same_event_coverage_ids": [
         "204988e0128cd83ef45c"
@@ -113272,7 +113266,7 @@
         "is_leak": true
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Loạt sự cố công nghệ tại Mỹ thúc đẩy Quốc hội chuẩn bị siết kiểm soát các mối đe dọa an ninh mạng do AI",
+      "editorial_headline_vi": "Nghị sĩ Mỹ kêu gọi đối phó đe dọa mạng từ AI, hướng tới mục tiêu lập pháp trọng tâm vào tháng 1",
       "summary_sources": [
         {
           "id": "outlet",
@@ -113285,40 +113279,30 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 7.25,
+        "value": 8.75,
         "answers": {
           "what": 9,
           "why": 10,
-          "notable": 4,
-          "meaning": 6
+          "notable": 8,
+          "meaning": 8
         },
         "hard_errors": [
           {
-            "kind": "cause",
-            "summary_text": "Loạt sự cố công nghệ tại Mỹ thúc đẩy Quốc hội chuẩn bị siết kiểm soát",
-            "explanation": "The source reports a senators’ letter and sources’ expectations for a legislative goal; it does not say the outages caused Congress to prepare tighter controls (outlet:p004–p006)."
-          },
-          {
-            "kind": "quote",
-            "summary_text": "nguy cơ bị xâm nhập có thể sắp nhắm tới các ngân hàng cộng đồng quy mô vừa",
-            "explanation": "The lobbyist used an attack on a midsized community bank as a hypothetical event that might prompt government action, not a prediction of an imminent target (outlet:p007)."
+            "kind": "role",
+            "summary_text": "Các nguồn tin quốc hội",
+            "explanation": "The prediction is attributed to a tech lobbyist and a Hill source, not two congressional sources (outlet:p004, outlet:p006)."
           }
         ],
         "findings": [
           {
             "question": "notable",
-            "problem": "The reader misses the concrete bipartisan action.",
-            "fix": "Describe Cantwell and Rounds’s letter urging a national AI cyber-threat effort and attribute the January outlook to the two sources (outlet:p004–p006)."
-          },
-          {
-            "question": "notable",
-            "problem": "A hypothetical bank attack reads as an imminent threat.",
-            "fix": "Present the bank as the lobbyist’s example of an event that could spur action (outlet:p007)."
+            "problem": "A reader may take the community bank attack as an event that occurred.",
+            "fix": "Make clear that the lobbyist posed an attack on a midsized community bank as a hypothetical; the attack mentioned as having happened was on Hugging Face (outlet:p007)."
           },
           {
             "question": "meaning",
-            "problem": "The headline asserts that outages caused a planned tightening of controls.",
-            "fix": "Say sources expect AI cybersecurity to become a legislative priority, and include the source’s concern about limited federal help (outlet:p003–p006)."
+            "problem": "The summary omits a concrete obstacle to a stronger federal response.",
+            "fix": "Add that CISA may remain without a permanent director longer after two senators said they would hold Trump’s nominee (outlet:p008-p009)."
           }
         ],
         "writer_boats": [
@@ -113326,8 +113310,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "b87629444562003fc2e5c73c787526f5e80314547cd4423f947052dc5852ce18",
-        "scored_at": "2026-11-20T11:31:20.774698+00:00"
+        "prose_sha256": "1035c4e402ae4a1c22438832392fe1bba096cd3094b5500cc82012b78c36ab52",
+        "scored_at": "2026-11-20T15:59:46.253667+00:00"
       }
     },
     {
@@ -113472,10 +113456,10 @@
       "use_original_title": true,
       "source_url": "https://www.tomshardware.com/tech-industry/data-centers/elon-musks-spacexai-suffers-chemical-spill-at-mississippi-ai-data-center-up-to-6-000-gallons-of-propylene-glycol-heat-transfer-fluid-lost-environment-agency-says-no-threat-to-residents",
       "key_points": [
-        "Khoảng 5.000 đến 6.000 gallon propylene glycol được xác nhận bị tràn tại một cơ sở của SpaceXAI ở Southaven, và MDEQ đã vào cuộc xử lý. Theo Tom's Hardware, lượng dung dịch này đã chảy vào một con mương thoát nước tại cơ sở.",
-        "Theo Tom's Hardware, propylene glycol là dung dịch truyền nhiệt dùng trong nhiều sản phẩm như chất chống đông. Hóa chất này được khống chế trong mương thoát nước và không chảy tới rạch Horn Lake Creek gần đó.",
-        "Về tranh chấp môi trường, một đơn kiện vào tháng 4 năm 2026 nhắm vào nhà máy điện khí cấp nguồn cho cơ sở tại Greater Memphis cáo buộc 27 tuabin khí được lắp đặt khi chưa có giấy phép. Đơn kiện cũng cho rằng nhà máy có thể phát thải hơn 5.000 tấn oxit nitơ và 47 tấn formaldehyde mỗi năm.",
-        "Theo tin tức địa phương được Tom's Hardware dẫn lại, MDEQ thông báo sự cố không gây ra mối đe dọa tức thời đối với sức khỏe hoặc an toàn của cư dân. Tuy nhiên, giới chức xác nhận sẽ thu thập các mẫu nước để phân tích trong phòng thí nghiệm trong khi công nhân tiếp tục dọn dẹp hiện trường."
+        "Cơ quan Quản lý Chất lượng Môi trường Mississippi (MDEQ) đã can thiệp sau sự cố tràn từ 5.000 đến 6.000 gallon propylene glycol tại một cơ sở của SpaceXAI ở Southaven. Lượng hóa chất này là chất lỏng truyền nhiệt dùng trong nhiều sản phẩm như chất chống đông, và đã chảy vào một con mương thoát nước tại cơ sở.",
+        "Hóa chất được khống chế bên trong mương thoát nước và không chảy tới rạch Horn Lake Creek ở gần đó. Giới chức xác nhận các mẫu nước được thu thập phục vụ phân tích trong phòng thí nghiệm trong khi công nhân tiếp tục dọn dẹp hiện trường.",
+        "Tại khu vực Southaven, SpaceXAI cũng gặp bất lợi trong một vụ kiện ô nhiễm từ tháng 4 năm 2026 liên quan đến nhà máy điện khí cung cấp năng lượng cho cơ sở của công ty. Đơn kiện cáo buộc 27 tuabin khí được lắp đặt khi chưa có giấy phép và có thể phát thải hơn 5.000 tấn oxit nitơ cùng 47 tấn formaldehyde mỗi năm.",
+        "Theo tin tức địa phương được dẫn lại, MDEQ thông báo với cư dân rằng sự cố không gây ra mối đe dọa tức thời đối với sức khỏe hoặc sự an toàn của họ. Dù vậy, các công nhân vẫn tiếp tục theo dõi hiện trường và cơ quan chức năng tiến hành kiểm nghiệm nước phòng ngừa các vấn đề phát sinh."
       ],
       "same_event_coverage_ids": [
         "ca077d95829e545ed6e0"
@@ -113491,7 +113475,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Khoảng 6.000 gallon propylene glycol bị tràn tại cơ sở SpaceXAI ở Southaven, MDEQ nói cư dân không bị đe dọa",
+      "editorial_headline_vi": "Sự cố tràn hóa chất tại cơ sở SpaceXAI: MDEQ nhận định không có mối đe dọa tức thời đối với cư dân",
       "summary_sources": [
         {
           "id": "outlet",
@@ -113504,25 +113488,45 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.85,
+        "value": 9.1,
         "answers": {
           "what": 10,
           "why": 10,
-          "notable": 10,
-          "meaning": 9
+          "notable": 8,
+          "meaning": 8
         },
         "hard_errors": [
           {
-            "kind": "quote",
-            "summary_text": "MDEQ nói cư dân không bị đe dọa",
-            "explanation": "MDEQ said there was no immediate threat to residents' health or safety; the headline omits that time limit (outlet:p015)."
+            "kind": "fact",
+            "summary_text": "một con mương thoát nước tại cơ sở",
+            "explanation": "The source says the chemical reached a drainage ditch but does not locate that ditch within the facility (outlet:p015)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "các mẫu nước được thu thập phục vụ phân tích trong phòng thí nghiệm",
+            "explanation": "The source says water samples will be collected for further laboratory analysis, not that collection has occurred (outlet:p023)."
+          },
+          {
+            "kind": "role",
+            "summary_text": "Giới chức xác nhận",
+            "explanation": "The source says the planned sampling was confirmed but does not identify officials as the confirming party (outlet:p023)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "cơ quan chức năng tiến hành kiểm nghiệm nước",
+            "explanation": "The source describes water collection and laboratory analysis as forthcoming, and does not say an agency has begun testing (outlet:p023)."
           }
         ],
         "findings": [
           {
             "question": "meaning",
-            "problem": "The headline makes MDEQ's assessment sound unconditional.",
-            "fix": "Say that MDEQ found no immediate threat, as the body already does (outlet:p015)."
+            "problem": "Readers are told that water sampling and testing have already begun.",
+            "fix": "Say samples will be collected for further laboratory analysis while workers continue cleanup and monitoring (outlet:p023)."
+          },
+          {
+            "question": "notable",
+            "problem": "The summary places the drainage ditch inside the facility without source support.",
+            "fix": "Say only that the chemical reached a drainage ditch and reportedly did not reach Horn Lake Creek (outlet:p015, outlet:p023)."
           }
         ],
         "writer_boats": [
@@ -113530,8 +113534,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "0cb1fe52f7869619a57e0842166c919aa5afdc218a7b1f1333e691e1ca9f9661",
-        "scored_at": "2026-11-20T11:40:16.529247+00:00"
+        "prose_sha256": "17155307fa2ec29ff47b1c628b95888683be1f0a320b3d7b441d58cb44bc2d87",
+        "scored_at": "2026-11-20T15:59:46.253811+00:00"
       }
     },
     {
@@ -113786,10 +113790,10 @@
       "use_original_title": false,
       "source_url": "https://arxiv.org/abs/2611.26248",
       "key_points": [
-        "Hai tác giả Yang Wan và Linchao Zhu đã giới thiệu TwinLab-Bench, bộ tiêu chuẩn đánh giá các nhà khoa học AI (tác tử AI) tự thiết kế thí nghiệm. Hệ thống gồm 52 nhiệm vụ từ các phòng thí nghiệm thuộc khoa học vật lý, khoa học sự sống và kỹ thuật.",
-        "Theo nhóm nghiên cứu, các bộ tiêu chuẩn cũ chưa đánh giá được việc tự thiết kế thí nghiệm vốn đòi hỏi số liệu thực thi phải bám sát phòng thí nghiệm thực tế. Do đó, mỗi nhiệm vụ dùng một tác tử TwinLab làm môi trường thực thi với hơn 100 loại hành động và chấm điểm theo đáp án ẩn từ hồ sơ gốc.",
-        "So với một mô hình ngôn ngữ chỉ thấy mô tả nhiệm vụ, tác tử TwinLab gần như loại bỏ các số liệu sai lệch so với hồ sơ thực và câu trả lời bất nhất. Phương pháp này cũng dùng các phép thăm dò đóng sách (closed-book probes) để kiểm soát câu trả lời do mô hình nhớ lại từ bộ nhớ.",
-        "Các tác giả kết luận những nhiệm vụ này vẫn rất khó đối với các mô hình hàng đầu, khi mô hình mạnh nhất Claude Fable 5.2 chỉ đạt điểm trung bình 45,0. Nhóm nghiên cứu cũng thực hiện phân tích thực nghiệm để chỉ ra những điểm mà riêng Claude Fable 5.2 thất bại."
+        "Hai tác giả Yang Wan và Linchao Zhu giới thiệu TwinLab-Bench đánh giá AI tự thiết kế thí nghiệm trong 52 nhiệm vụ từ các phòng thí nghiệm khoa học vật lý, sự sống và kỹ thuật. Bộ tiêu chuẩn (benchmark - hệ thống đo lường hiệu năng) này hỗ trợ hơn 100 loại hành động và chấm điểm tác tử AI (agent - phần mềm tự hành) theo đáp án ẩn từ hồ sơ thực tế.",
+        "Theo nhóm tác giả, tiêu chuẩn hiện có chủ yếu đánh giá hai năng lực đầu trong dòng lệnh hoặc vòng lặp đóng chọn ứng viên có sẵn. Do việc đánh giá tự thiết kế đòi hỏi số liệu bám sát thực tế, mỗi nhiệm vụ dùng một tác tử TwinLab làm môi trường thực thi qua hồ sơ gốc.",
+        "Tác tử TwinLab gần như loại bỏ số liệu sai lệch so với hồ sơ thực và câu trả lời bất nhất khi so với mô hình chỉ đọc mô tả nhiệm vụ. Hệ thống cũng dùng các phép thăm dò đóng để kiểm soát câu trả lời nhớ lại từ bộ nhớ.",
+        "Nhóm tác giả kết luận các nhiệm vụ vẫn khó đối với mô hình hàng đầu, khi mô hình mạnh nhất Claude Fable 5.2 chỉ đạt điểm trung bình 45,0. Các tác giả đồng thời thực hiện nghiên cứu thực nghiệm về những điểm mà mô hình thất bại."
       ],
       "same_event_coverage_ids": [
         "d8eb617bfe1990d5000d"
@@ -113806,7 +113810,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "TwinLab-Bench thử nghiệm AI tự thiết kế thí nghiệm: Claude Fable 5.2 chỉ đạt điểm trung bình 45,0",
+      "editorial_headline_vi": "Tiêu chuẩn TwinLab-Bench thử thách AI tự thiết kế thí nghiệm: Claude Fable 5.2 chỉ đạt trung bình 45,0 điểm",
       "summary_sources": [
         {
           "id": "outlet",
@@ -113819,34 +113823,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.4,
+        "value": 10.0,
         "answers": {
           "what": 10,
-          "why": 7,
+          "why": 10,
           "notable": 10,
           "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "các bộ tiêu chuẩn cũ chưa đánh giá được việc tự thiết kế thí nghiệm",
-            "explanation": "The abstract says existing benchmarks mainly evaluate the first two abilities; it does not say they categorically cannot evaluate self-designed experiments (outlet:p009)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "why",
-            "problem": "The account overstates the limitation of earlier benchmarks.",
-            "fix": "Say they mainly assess prescribed workflows and selection from predefined candidates, leaving self-designed experiments less directly evaluated (outlet:p009)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "4476a5a5c066d4769231156327aa6bcdab8cf05c9072213f361da7373f35543c",
-        "scored_at": "2026-11-20T11:40:16.529276+00:00"
+        "prose_sha256": "f1604188270788e60ea5baacb58b4e85092248b592ec41d29f6deef6d2d01537",
+        "scored_at": "2026-11-20T15:59:46.253839+00:00"
       }
     },
     {
@@ -114030,6 +114022,1324 @@
         "scorer_provider": "codex",
         "prose_sha256": "bb147dd579fd07a9ad187059352bf6f7400db7430e71ed7428ba68c78976fc40",
         "scored_at": "2026-11-20T11:31:20.775112+00:00"
+      }
+    },
+    {
+      "id": "ce82d1747bbdf68024fd",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-20/novartis-ai-could-cut-drug-development-time-by-years-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "5cd27eda262c26412202"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "3b3270b0917323ae879a",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The content concerns a mathematical claim regarding the Riemann Hypothesis; the reference to an Anthropic employee is incidental employment context, not AI news.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://alpo.ge/remark.pdf",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c8b2d670ccc4fd9bb24a"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "32ed2d5619b58cc7c3cf",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://technode.com/2026/11/20/tencent-releases-hy4-model-weights-with-million-token-context/",
+      "key_points": [
+        "Tencent phát hành trọng số mô hình AI chủ lực Hy4 vào thứ Sáu theo giấy phép Apache 2.0, cho phép tải về và sử dụng thương mại. Đợt mở trọng số này diễn ra sau khi Hy4 ra mắt lần đầu vào ngày 4 tháng 11.",
+        "Mô hình Hy4 hỗ trợ văn bản, hình ảnh và video với cửa sổ ngữ cảnh khoảng một triệu token (đơn vị từ tố). Khung ngôn ngữ sử dụng kiến trúc hỗn hợp chuyên gia chứa 770 tỷ tham số, trong đó kích hoạt 49 tỷ tham số cho mỗi token.",
+        "Tencent cung cấp tài nguyên tinh chỉnh và hướng dẫn triển khai trên vLLM cùng SGLang, kèm thẻ đánh giá độ an toàn. Mô hình hỗ trợ lập trình giao diện, làm trò chơi và tác vụ văn phòng từ giao diện đồ họa đến công cụ dòng lệnh.",
+        "Tencent cho biết mô hình cải thiện so với bản xem trước Hy4 preview ở khả năng tuân thủ chỉ dẫn và hiểu ngữ cảnh dài trong các tác vụ nghiên cứu."
+      ],
+      "same_event_coverage_ids": [
+        "59968ca044c2572df67c"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Tencent Hy4 model weights release",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Tencent phát hành mở trọng số mô hình AI chủ lực Hy4 với ngữ cảnh một triệu token",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "technode",
+          "url": "https://technode.com/2026/11/20/tencent-releases-hy4-model-weights-with-million-token-context/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.85,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "79cb4c178b32c30e8904bff3f8adf13b8991e5f57389b9539aaaa63c67bf5836",
+        "scored_at": "2026-11-20T15:34:32.741595+00:00"
+      }
+    },
+    {
+      "id": "77d6591743b36a44eae7",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://technode.com/2026/11/20/alibaba-uses-its-own-chips-to-train-next-generation-qwen-model/",
+      "key_points": [
+        "Alibaba sử dụng chip do công ty con T-Head phát triển để huấn luyện mô hình Qwen tiếp theo, theo CEO Eddie Wu thông báo vào thứ Năm. Động thái này mở rộng vai trò của T-Head sang cả hai khâu huấn luyện mô hình và vận hành suy luận.",
+        "Sự phối hợp giữa chip và mô hình của Alibaba sẽ cải thiện chi phí tính toán cùng hiệu quả phát triển ứng dụng, theo lời CEO Eddie Wu.",
+        "Nền tảng Bailian cung cấp dịch vụ suy luận (xử lý yêu cầu người dùng) bằng chip sản xuất tại Trung Quốc. Hệ thống này cung cấp quyền truy cập các mô hình và công cụ để xây dựng ứng dụng AI.",
+        "CEO Eddie Wu nhận định hạ tầng AI toàn diện sẽ mang lại lợi thế cho Alibaba trong chuỗi cung ứng tính toán nội địa Trung Quốc. TechNode nhận xét quá trình huấn luyện này kết nối hai mảng đầu tư AI cốt lõi gồm dòng mô hình Qwen và phần cứng đám mây."
+      ],
+      "same_event_coverage_ids": [
+        "27d2c70fffac3581de3c"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Alibaba training Qwen on T-Head silicon",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Eddie Wu"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Alibaba dùng chip tự phát triển của T-Head để huấn luyện mô hình AI Qwen thế hệ mới",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "technode",
+          "url": "https://technode.com/2026/11/20/alibaba-uses-its-own-chips-to-train-next-generation-qwen-model/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "ecfdddf2c31bc7514ae9df0c165efcb9e4b9c321cc0c4f927e2ac1a8403e62f3",
+        "scored_at": "2026-11-20T15:34:32.741658+00:00"
+      }
+    },
+    {
+      "id": "5d16bfc42a18c857bfde",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://technode.com/2026/11/20/huawei-debuts-osta-smartphone-brand-with-o1-pro-starting-at-rmb-5499/",
+      "key_points": [
+        "Huawei ra mắt thương hiệu điện thoại OSTA và mẫu O1 Pro vào thứ Sáu, với giá mở bán từ 5.499 đến 8.799 Nhân dân tệ. Thiết bị dùng chip Kirin 9030S cùng phiên bản HarmonyOS 7 hỗ trợ yêu cầu dịch vụ qua hội thoại ngôn ngữ tự nhiên.",
+        "Điện thoại đặt trợ lý hoạt hình trên màn hình AI cấp hệ thống để nhận lệnh trực tiếp mà không cần mở ứng dụng. Thiết bị dùng thông tin ngữ cảnh để đề xuất dịch vụ và duy trì bộ nhớ thông qua tính năng Xiaoyi Space.",
+        "Huawei cho biết hệ thống kết nối hơn 2.100 chức năng và hơn 500 kỹ năng sinh thái. Hệ sinh thái này hỗ trợ các dịch vụ gồm Alipay, Xiaohongshu, JD.com và Taobao.",
+        "Đợt ra mắt tạo nền tảng riêng để thử nghiệm đưa trợ lý ảo thành trung tâm điều hướng điện thoại và phân phối dịch vụ, theo TechNode. Lãnh đạo Richard Yu của Huawei định vị OSTA là thương hiệu tiêu dùng mới được xây dựng xoay quanh AI."
+      ],
+      "same_event_coverage_ids": [
+        "c15faf86cd68bdfabe6a"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Huawei OSTA brand and O1 Pro smartphone launch",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Richard Yu"
+        ],
+        "availability": "region_locked:China",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Huawei ra mắt thương hiệu điện thoại OSTA và mẫu O1 Pro với giá từ 5.499 Nhân dân tệ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "technode",
+          "url": "https://technode.com/2026/11/20/huawei-debuts-osta-smartphone-brand-with-o1-pro-starting-at-rmb-5499/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "6615210fcffd834bc48e23ae1b0e36141645977ffba51638f87e7a3528db3554",
+        "scored_at": "2026-11-20T15:34:32.741683+00:00"
+      }
+    },
+    {
+      "id": "d4da4d56f427a0a235d5",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.semafor.com/article/11/20/2026/tech-rout-hits-asian-shares-with-us-market-likely-to-follow",
+      "key_points": [
+        "Chứng khoán châu Á lao dốc và thị trường Mỹ có xu hướng giảm theo do tâm lý ngành công nghệ xấu đi. Dù vậy, giới chuyên gia nhận định đợt bán tháo này nhiều khả năng đã diễn ra quá mức.",
+        "Nguyên nhân là lo ngại cơn sốt AI biến thành cú sụp đổ đã lấn át đợt IPO thành công của Anthropic.",
+        "Tại Nhật Bản, tập đoàn SoftBank trải qua ngày tồi tệ nhất trong hơn hai năm. Thị trường toàn châu lục cũng có tuần tồi tệ nhất kể từ sau khi đại dịch COVID-19 bùng phát.",
+        "Chủ tịch nghiên cứu toàn cầu của Barclays nhận định nỗi lo làn sóng AI sụp đổ bị thổi phồng quá mức và các động lực kinh tế phần lớn vẫn duy trì. Ông khẳng định thị trường đã điều chỉnh và kịch bản sụp đổ sẽ không diễn ra."
+      ],
+      "same_event_coverage_ids": [
+        "de2983313d145c5eb69a"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Global tech stock selloff",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Prashant Rao"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Chứng khoán châu Á lao dốc do tâm lý tiêu cực ngành công nghệ dù chuyên gia đánh giá quá đà",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/20/2026/tech-rout-hits-asian-shares-with-us-market-likely-to-follow"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "6999552af0666d14534d3e42f2e1336c1dc81918d7b21a59b1b0eef01923b452",
+        "scored_at": "2026-11-20T15:46:53.799275+00:00"
+      }
+    },
+    {
+      "id": "2c85eb4b824892025ef6",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://backpackforlaravel.com/articles/opinions/llms-txt-and-mcp-didn-t-move-the-needle-for-us-here-s-what-did",
+      "key_points": [
+        "Trong bài viết chia sẻ quan điểm, người bảo trì Backpack for Laravel nhận định tệp llms.txt và máy chủ MCP tài liệu hầu như không giúp ích cho tác tử AI (phần mềm tự động lập trình). Dù thời gian tạo bảng quản trị giảm từ vài ngày xuống một đến hai giờ, tác giả cho biết hiệu quả không đến từ hai giải pháp này.",
+        "Tác giả giải thích tác tử hoạt động kém khi phải tự nhớ tìm nạp thông tin, như việc hiếm khi tìm llms.txt hay gọi máy chủ MCP. Trái lại, API cốt lõi ổn định suốt bốn năm giúp các đoạn mã đã lưu trong dữ liệu huấn luyện luôn giữ đúng độ chính xác.",
+        "Với gói thương mại, tác giả coi trọng nhất việc cài đặt mã nguồn rõ ràng vào thư mục vendor không mã hóa, cho phép tác tử tự đọc khi tra cứu thắc mắc. Đồng thời, plugin Laravel Boost nạp thẳng chỉ dẫn khớp phiên bản vào ngữ cảnh ngay từ đầu, khắc phục việc mô hình viết theo cú pháp cũ.",
+        "Tác giả khuyên các gói phần mềm nên đưa tệp hướng dẫn khớp phiên bản thẳng vào ngữ cảnh của tác tử thay vì chờ tìm nạp. Người bảo trì kết luận máy chủ MCP chỉ phù hợp với dữ liệu trực tiếp hoặc công cụ, không dành cho tài liệu tĩnh."
+      ],
+      "same_event_coverage_ids": [
+        "7fa0e8bfcb2113c3116e"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Developer experience with AI agents, llms.txt, and MCP",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Người bảo trì Backpack for Laravel nhận định llms.txt và máy chủ MCP hầu như không giúp ích cho tác tử AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://backpackforlaravel.com/articles/opinions/llms-txt-and-mcp-didn-t-move-the-needle-for-us-here-s-what-did"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.45,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 7,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "number",
+            "summary_text": "từ vài ngày xuống một đến hai giờ",
+            "explanation": "The author says the task previously took one day, perhaps two, and now takes one or two hours; “vài ngày” overstates the starting duration (outlet:p001–p002)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The reader is told the admin-panel task used to take several days.",
+            "fix": "Say it used to take one day, perhaps two, and now takes one or two hours (outlet:p001–p002)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "73e4ea0c8bd998aaece63f912c10df070243cbca649b7af22a88622720313f22",
+        "scored_at": "2026-11-20T15:46:53.799345+00:00"
+      }
+    },
+    {
+      "id": "1895a884c21c9ded0549",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "A consumer buying guide and shopping roundup showcasing commercial office hardware with retail pricing rather than reported news or technical analysis.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://techcrunch.com/2026/11/20/6-ai-powered-gadgets-that-could-make-your-home-office-smarter/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "2978d74fea7c3127435b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "064310339737c91b106d",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-20/us-stock-futures-dip-as-anthropic-premiere-disappoints-investors",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "3bfdd78e96de2cc85be6"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "cd73ec5da27d58b73781",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://analyticsindiamag.com/ai-news/goa-cabinet-approves-ai-policy-2026-puts-60-towards-skilling",
+      "key_points": [
+        "Nội các bang Goa phê duyệt Chính sách AI 2026 với lộ trình ba năm bao phủ giáo dục, công nghiệp, khởi nghiệp và quản trị.",
+        "Chính sách dành 60% nguồn lực cho đào tạo kỹ năng AI, còn phát triển hạ tầng và hỗ trợ khởi nghiệp nhận 20% mỗi mảng.",
+        "Chính quyền bang đặt mục tiêu đào tạo và cấp chứng chỉ cho 50.000 cử nhân vào năm 2030. Cùng lúc đó, Google Cloud và Accenture cũng dự kiến mở phòng học AI tại hơn 1.000 trường học Ấn Độ.",
+        "Chính sách đề xuất kế hoạch Konkani AI phát triển mô hình ngôn ngữ lớn dựa trên kho ngữ liệu cần sự xác thực và đồng thuận cộng đồng. Văn bản cũng bổ sung đề án Udyam AI hỗ trợ doanh nghiệp siêu nhỏ, nhỏ và vừa, do hội đồng của Thủ hiến Pramod Sawant giám sát."
+      ],
+      "same_event_coverage_ids": [
+        "25d1c47c5f1f5422baea"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Goa Artificial Intelligence Policy 2026",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "region_locked:Goa, India",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Bang Goa duyệt lộ trình AI ba năm: Dành 60% nguồn lực đào tạo 50.000 cử nhân",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "analytics-india-magazine",
+          "url": "https://analyticsindiamag.com/ai-news/goa-cabinet-approves-ai-policy-2026-puts-60-towards-skilling"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.85,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "2c01f15c36212b43f5138eac2819bb80490c28ace375894df9f83579ec4042e6",
+        "scored_at": "2026-11-20T15:46:53.799369+00:00"
+      }
+    },
+    {
+      "id": "af7d30f58230f92314a9",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/ai-artificial-intelligence/1038390/signal-blocking-ai-agent-screenshots-mobile-app",
+      "key_points": [
+        "Theo The Verge, Signal chặn chụp màn hình trên Android và iOS nhằm ngăn các tác tử AI (phần mềm tự động thao tác trên thiết bị) đọc tin nhắn và dữ liệu người dùng.",
+        "Bà cho biết Apple, Google và Microsoft không cung cấp cơ chế giới hạn quyền truy cập của AI nếu không ảnh hưởng xấu đến trải nghiệm người dùng cốt lõi.",
+        "Ứng dụng quyết định chặn chụp màn hình để ngăn Siri và Gemini đọc nội dung tin nhắn trên thiết bị di động. Người dùng vẫn có thể bật lại tính năng này trong phần cài đặt, dù Signal cảnh báo thao tác đó có thể khiến dữ liệu trò chuyện bị lộ cho các tác tử AI.",
+        "Bà Whittaker nhận định việc tích hợp tác tử AI vào hệ điều hành là mối đe dọa sinh tồn với quyền riêng tư ở tầng ứng dụng nếu thiếu các công cụ kiểm soát cần thiết. Lãnh đạo Signal cũng thừa nhận giải pháp chặn chụp màn hình này chưa hoàn thiện vì chưa ngăn được các cách thức truy xuất khác như qua hệ thống tệp tin của máy."
+      ],
+      "same_event_coverage_ids": [
+        "dc1e49571449010413c5"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Signal blocking AI screen-reading capabilities",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Meredith Whittaker",
+          "Jess Weatherbed"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Signal chặn chụp màn hình trên iOS và Android để ngăn trợ lý AI đọc dữ liệu người dùng",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1038390/signal-blocking-ai-agent-screenshots-mobile-app"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.85,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "bb2aa5067b1412ffc875d6d16c03dcd7098f35fb482306207a771ca2ff459220",
+        "scored_at": "2026-11-20T15:34:32.741796+00:00"
+      }
+    },
+    {
+      "id": "8786d4af3f2ef06cc3e1",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://analyticsindiamag.com/it-services/ai-is-forcing-mid-tier-indian-it-companies-to-rethink-their-competitive-advantage",
+      "key_points": [
+        "Các công ty IT tầm trung Ấn Độ liên tiếp thâu tóm doanh nghiệp công nghệ trong quý 2 để mở rộng quy mô. Tại Coforge, doanh thu tăng 10,9% theo tỷ giá cố định nhờ các vụ sáp nhập, trong khi tăng trưởng hữu cơ chỉ đạt 3,8%.",
+        "Trong khi đó, chuyên gia DD Mishra của Gartner nhận định lợi thế của họ là am hiểu vận hành để đưa mô hình ngôn ngữ lớn vào đúng nhu cầu kinh doanh.",
+        "Coforge thâu tóm Encora với giá 22.090 crore rupee để bù đắp doanh thu, mang về khoảng 1.382 đến 1.391 crore rupee trong quý 2. Dù vậy, chi phí tích hợp thực tế đạt 160 crore rupee, vượt dự báo 141 đến 150 crore rupee và kéo biên lợi nhuận EBIT hợp nhất xuống 16%.",
+        "Analytics India Magazine nhận định doanh nghiệp IT chịu áp lực chi phí sáp nhập và áp lực tạo khác biệt khi ứng dụng AI mở rộng. Chuyên gia DD Mishra của Gartner lưu ý một số khách hàng đã thu hồi tác nhân AI (phần mềm tự hành thực hiện tác vụ) và phạt nhà cung cấp sau triển khai thất bại."
+      ],
+      "same_event_coverage_ids": [
+        "22b23d30e2472ce0ee47"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Indian mid-cap IT sector M&A and AI revenue trends",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Saurabh Goel"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Coforge và loạt hãng IT Ấn Độ ồ ạt mua lại doanh nghiệp dữ liệu để bù đắp tăng trưởng",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "analytics-india-magazine",
+          "url": "https://analyticsindiamag.com/it-services/ai-is-forcing-mid-tier-indian-it-companies-to-rethink-their-competitive-advantage"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 5.8,
+        "answers": {
+          "what": 6,
+          "why": 2,
+          "notable": 7,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "ồ ạt mua lại doanh nghiệp dữ liệu",
+            "explanation": "The source discusses several different acquisitions, including data engineering, decision intelligence, and IT staffing contracts; it does not describe all of them as purchases of data companies or characterize the activity as a buying spree (outlet:p003, outlet:p009, outlet:p014)."
+          },
+          {
+            "kind": "cause",
+            "summary_text": "để bù đắp tăng trưởng",
+            "explanation": "The source says acquisitions supplement reported growth, but the stated primary acquisition rationale is to obtain specialist skills and technology, not a motive to compensate for weak growth (outlet:p001, outlet:p007)."
+          },
+          {
+            "kind": "cause",
+            "summary_text": "để mở rộng quy mô",
+            "explanation": "The source identifies specialist skills and technology as the main reason given for these acquisitions; it does not state expansion of scale as their purpose (outlet:p007)."
+          },
+          {
+            "kind": "cause",
+            "summary_text": "doanh thu tăng 10,9% theo tỷ giá cố định nhờ các vụ sáp nhập",
+            "explanation": "The source says acquisitions supplement growth and that an extra month of Encora revenue partly explains the gap between 10.9% consolidated and 3.8% organic growth. It does not attribute the entire 10.9% increase to acquisitions (outlet:p001–p002)."
+          },
+          {
+            "kind": "cause",
+            "summary_text": "để bù đắp doanh thu",
+            "explanation": "The source reports Coforge’s acquisition of Encora and Encora’s revenue contribution, but does not give making up revenue as Coforge’s motive (outlet:p002, outlet:p007)."
+          },
+          {
+            "kind": "cause",
+            "summary_text": "chi phí tích hợp thực tế đạt 160 crore rupee, vượt dự báo 141 đến 150 crore rupee và kéo biên lợi nhuận EBIT hợp nhất xuống 16%",
+            "explanation": "The source reports the 16% consolidated EBIT margin, the 17% standalone margin, and the higher-than-guided integration costs together. It does not state that those costs caused the margin to fall to 16% (outlet:p008)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "Readers are given revenue replacement and scale as acquisition motives.",
+            "fix": "State the Gartner analyst’s explanation: firms are mainly buying specialist skills and technology; some deals also add customer relationships (outlet:p007, outlet:p014)."
+          },
+          {
+            "question": "notable",
+            "problem": "The growth figures lack the comparison that explains their gap.",
+            "fix": "Add that Encora contributed a full quarter in Q2 but only two months in Q1, and that this partly explains consolidated growth exceeding organic growth (outlet:p001–p002)."
+          },
+          {
+            "question": "what",
+            "problem": "The headline makes the acquisitions sound uniform in type and intensity.",
+            "fix": "Describe the distinct acquisitions and the proposed Nagarro deal without calling them all data-company purchases (outlet:p003, outlet:p009, outlet:p011, outlet:p014)."
+          },
+          {
+            "question": "notable",
+            "problem": "The summary presents an unproven causal link between integration costs and Coforge’s 16% margin.",
+            "fix": "Report the margin and costs as separate findings, with the 17% standalone margin as context (outlet:p008)."
+          },
+          {
+            "question": "meaning",
+            "problem": "Readers miss how AI is affecting the firms beyond acquisition costs.",
+            "fix": "Include the source’s conclusion that AI is changing service delivery and pricing, alongside the pressure to differentiate (outlet:p031)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "2543406f3130e44176ff5ee84c2532a2a01c88cc80f89aa07a360d07aa6c4e77",
+        "scored_at": "2026-11-20T15:34:32.741823+00:00"
+      }
+    },
+    {
+      "id": "6a27c4ad2fc94f282af8",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://spectrum.ieee.org/epic-games-unreal-engine-ai",
+      "key_points": [
+        "Epic Games ra mắt Unreal Canvas trong Unreal Engine 5.9 bản xem trước cho nhà phát triển như một không gian làm việc giúp nắm bắt dự án. Hãng cũng sẽ loại bỏ hệ thống Blueprints trong Unreal Engine 6 để chuyển toàn bộ mã sang ngôn ngữ Verse.",
+        "Theo nhà phát triển Travis McGeathy, AI xử lý kém Blueprints và chuộng làm việc trực tiếp với mã nguồn hơn. Tạp chí IEEE Spectrum giải thích rằng Blueprints được lưu dưới dạng tệp nhị phân nên các mô hình ngôn ngữ lớn không thể đọc trực tiếp.",
+        "Claude Code giúp game KinForge chạy được mà không cần máy chủ AWS bằng cách cho phép người chơi tự lưu trữ ván đấu sau bốn giờ xử lý tự động. Công cụ AI này còn bổ sung kết nối ngang hàng cùng tính năng lưu trạng thái liên tục, một quy trình tác nhân AI (phần mềm tự hành thực hiện tác vụ) bỏ qua một phần giao diện động cơ game.",
+        "AI giúp hạ thấp chi phí chuyển đổi giữa các động cơ game, như trường hợp McGeathy dùng Claude để bắt đầu làm việc trên Godot dễ dàng dù chưa từng tiếp cận. Dù vậy, theo phó chủ tịch điều hành phát triển Marcus Wassmer của Epic Games, việc tự tạo động cơ bằng AI vẫn tiêu tốn rất nhiều token để tối ưu hóa và chạy trên mọi nền tảng."
+      ],
+      "same_event_coverage_ids": [
+        "182608825a7e652c54be",
+        "57521dec08262b9bf09c"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Impact of AI coding tools on video game engine development",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Matthew S. Smith",
+          "Travis McGeathy"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Epic Games sẽ loại bỏ Blueprints trong Unreal Engine 6 và ra mắt Unreal Canvas hỗ trợ AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://spectrum.ieee.org/epic-games-unreal-engine-ai"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.4,
+        "answers": {
+          "what": 8,
+          "why": 10,
+          "notable": 8,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "tính năng lưu trạng thái liên tục",
+            "explanation": "The source says Claude added persistent save states, allowing players to resume after disconnection; it does not say the game saves continuously (outlet:p010)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The reader may understand KinForge to have gained continuous saving.",
+            "fix": "Describe persistent save states that let players resume after a disconnection (outlet:p010)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The reader misses how Epic intends to keep Unreal competitive as AI coding improves.",
+            "fix": "Add that UE6 is planned to be more modular, expose systems to AI tools, and interoperate with other ecosystems (outlet:p020, outlet:p024, outlet:p028)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "09dd50455f4cca75ada05a9842c3b497f47e8427ce85d25900daaa5dc8d5ff05",
+        "scored_at": "2026-11-20T15:46:53.799398+00:00"
+      }
+    },
+    {
+      "id": "2c6a1dd0cfe294e076b7",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.wired.com/story/muse-is-unleashing-a-world-of-pettiness-on-instagram/",
+      "key_points": [
+        "Theo tạp chí WIRED, nhiều người dùng chia sẻ mẹo tự động hủy theo dõi bằng Muse, trợ lý AI (trí tuệ nhân tạo) của Meta.",
+        "Theo WIRED, người dùng muốn tinh gọn bảng tin hoặc đòi hỏi sự tương tác hai chiều khi dọn tài khoản. Nhiều người coi việc theo dõi là nghĩa vụ có qua có lại và muốn lọc người quen đã bỏ theo dõi mình.",
+        "Điển hình, Muse xác định 151 tài khoản không theo dõi lại Khalil Roberts, người có hơn 7.600 người theo dõi, rồi lập bảng Excel để ông xác nhận hủy. Ở trường hợp khác, Elizabeth Brooks, người từng theo dõi tài khoản tặng quà suốt 10 năm, nhờ Muse gửi liên kết để tự tay hủy theo dõi.",
+        "Dù tính năng được chú ý, Business Insider đưa tin Meta đã gỡ quảng cáo hứa hẹn giúp xem ai hủy theo dõi mỗi tuần vào tháng 10."
+      ],
+      "same_event_coverage_ids": [
+        "84200a923e62d184acc9"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Meta Muse",
+      "video_labels": {
+        "video_hook": "usable_now",
+        "named_people": [
+          "Khalil Roberts"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Người dùng tận dụng trợ lý AI Muse của Meta để tự động lọc và hủy theo dõi hàng loạt trên Instagram",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "wired",
+          "url": "https://www.wired.com/story/muse-is-unleashing-a-world-of-pettiness-on-instagram/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.35,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 10,
+          "meaning": 7
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The reader misses the article’s caution about letting technology make small social decisions.",
+            "fix": "Attribute Pennington’s concern and her point that easily available social data is not necessarily useful (outlet:p009–p010)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The reader does not learn where Roberts draws the line after this unfollowing exercise.",
+            "fix": "Add that he does not plan to let Muse make further decisions about his social life (outlet:p015–p016)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "892f7e7fe967311f51f535f9a980c904e69bd9f7d1def8572dfe25c835490efe",
+        "scored_at": "2026-11-20T15:46:53.799420+00:00"
+      }
+    },
+    {
+      "id": "aca6109170e49b2d8888",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "This is a series index and landing hub page listing parts of an article series rather than an individual news article or substantive report.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.scmp.com/tech/tech-trends/series/3375265/chinas-ai-watchdogs",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "986dd3b967b37fe266dd"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "3f22954268c89caf7af8",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The announcement focuses on a workplace culture certification for data engineering and cloud-native platform delivery, not artificial intelligence.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://analyticsindiamag.com/ai-highlights/logic-pursuits-certified-as-best-firm-for-data-engineers",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "4205282f3767e1b5bfa5"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "6473df4c41d922a4b309",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-20/the-pulse-with-francine-lacqua-11-20-2026-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "830bfa76593a91cbf9ae"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "4ce3a8cf466a92e17e2b",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://analyticsindiamag.com/ai-highlights/why-banks-are-betting-on-ai-orchestration-over-autonomy",
+      "key_points": [
+        "Theo Analytics India Magazine, các ngân hàng đang chọn giới hạn mô hình AI ở vai trò điều phối quy trình và chọn công cụ thay vì để hệ thống tính toán độc lập. Tại hội thảo gần đây, đại diện ngân hàng HDFC Bank cho biết đơn vị không cho phép AI tự động tạo mã trong vận hành nghiệp vụ.",
+        "Lý do là ngân hàng không thể chấp nhận rủi ro sai số tính toán trước nguy cơ bị cơ quan quản lý điều tra và khách hàng phản ứng. Ông Amit Sehgal từ HDFC Bank nhấn mạnh mô hình ngôn ngữ lớn rất khó giải trình hoạt động và ngành tài chính hoàn toàn không chấp nhận ảo giác (sai lệch thông tin).",
+        "Cụ thể, HDFC Bank chuyển các phép tính tài chính sang hàm kỹ thuật dựng sẵn qua giao thức MCP, còn AI chỉ tiếp nhận và diễn giải yêu cầu. Tuy nhiên, do mô hình vẫn có thể gọi nhầm công cụ, ngân hàng này áp dụng quy trình đánh giá bổ sung, trong đó kết quả đầu ra được kiểm tra độ chuẩn xác của số liệu.",
+        "Theo bài viết, việc cô lập phép tính trong các hàm kỹ thuật giúp từng bước ứng dụng AI dễ kiểm tra và giải trình hơn trước nhà chức trách."
+      ],
+      "same_event_coverage_ids": [
+        "e69fd235f55e3e72f1a8"
+      ],
+      "split_coverage_ids": [],
+      "subject": "banking AI adoption",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Amit Sehgal",
+          "Karthigeyan S",
+          "Sujit Janardanan"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Vì sao các ngân hàng chỉ dùng AI để điều phối quy trình mà không trao quyền tự chủ tính toán",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "analytics-india-magazine",
+          "url": "https://analyticsindiamag.com/ai-highlights/why-banks-are-betting-on-ai-orchestration-over-autonomy"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The summary omits the source’s distinction between AI that recommends and AI that takes consequential action.",
+            "fix": "Add that the fraud example calls for human verification and a human final decision before an action is finalized (outlet:p032–p038)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "e71a9829f02441849232977ba3b7196d5a5e0d86de97ead515370818e0740a47",
+        "scored_at": "2026-11-20T15:34:32.741902+00:00"
+      }
+    },
+    {
+      "id": "2b5fa55f8105dc7edbf8",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Broad geopolitical news covering US-China relations across robot maker visas, car bans, and defense contracts, with only an incidental mention of AI disclosure rules.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.semafor.com/article/11/20/2026/washington-takes-aim-at-china-despite-trump-xi-summit",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "f0fc1892052658e8c0d0"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "d8ccb568818a6772b8cd",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-20/morgan-stanley-sees-telecoms-using-muse-style-ai-to-fight-rivals",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "ed017a855d16b32757a6"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "0451c5addfe9097609ea",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-20/franklin-templeton-sees-opportunity-in-ai-beneficiaries-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "52dc68d5981b4e4dbc57"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "ce276ea26dcc538eddca",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://technode.com/2026/11/20/ex-qwen-chiefs-pragmatik-labs-raises-funding-at-5-billion-valuation/",
+      "key_points": [
+        "Theo hãng tin Bloomberg dẫn các nguồn tin am hiểu sự việc, công ty khởi nghiệp Pragmatik Labs do cựu lãnh đạo nhóm Qwen của Alibaba sáng lập đã huy động vốn mới ở mức định giá 5 tỷ USD. Mức định giá này cao gấp 2,5 lần mức 2 tỷ USD vào tháng 8, thời điểm công ty nhận được khoản đầu tư từ Tencent và một quỹ của chính quyền Thượng Hải.",
+        "Nhà sáng lập Lin Junyang rời Alibaba vào tháng 3 và thành lập công ty có trụ sở tại Thượng Hải. Doanh nghiệp này phát triển các tác nhân AI (hệ thống phần mềm tự vận hành) thế hệ tiếp theo cho cả môi trường kỹ thuật số lẫn môi trường thực tế.",
+        "Vòng gọi vốn mới thu hút hàng chục triệu USD từ các nhà đầu tư gồm HyT Capital, CDH Investments và hãng xe Geely.",
+        "Bloomberg đánh giá việc tăng hơn gấp đôi định giá sau vài tháng là tín hiệu tích cực cho các nhà phát triển nhỏ hơn giữa thị trường AI đông đúc. Theo TechNode dẫn lại từ Bloomberg, lý lịch kỹ thuật của nhà sáng lập đem lại lợi thế cho công ty khi cạnh tranh nguồn vốn và nhân tài tại Trung Quốc."
+      ],
+      "same_event_coverage_ids": [
+        "05dc83c0cd0bf8e0eb83",
+        "416b0b44c439c56017ff"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Pragmatik Labs",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Lin Junyang"
+        ],
+        "availability": "unknown",
+        "is_leak": true
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Startup AI của cựu lãnh đạo Alibaba Qwen gọi vốn mới với mức định giá 5 tỷ USD",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "technode",
+          "url": "https://technode.com/2026/11/20/ex-qwen-chiefs-pragmatik-labs-raises-funding-at-5-billion-valuation/"
+        },
+        {
+          "id": "coverage1",
+          "role": "coverage",
+          "name": "bloomberg",
+          "url": "https://www.bloomberg.com/news/articles/2026-11-20/ex-alibaba-star-s-ai-startup-doubles-valuation-to-5-billion"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.85,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "28b6c7b586a6e70156746da0a1f0b7d21ec258d82c8d0547978737c8c2ef2749",
+        "scored_at": "2026-11-20T15:34:32.741925+00:00"
+      }
+    },
+    {
+      "id": "fd109fdc361c3cd3d582",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.anthropic.com/news/ipo-close",
+      "key_points": [
+        "Anthropic closed its initial public offering of 1,127,000,000 Class A shares at $83.00 per share, including the full exercise of underwriters' options.",
+        "Anthropic Class A common stock started trading on the Nasdaq Global Select Market under ticker ANT on November 19, 2026.",
+        "Anthropic closed a concurrent private sale of 313,253,007 Class N shares to investors including AMD, Broadcom, and Google."
+      ],
+      "same_event_coverage_ids": [
+        "74aa90d82847af9674dc"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Anthropic",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "701a571706ec6c00de8b",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://huggingface.co/blog/harness-adapters-at-scale",
+      "key_points": [
+        "Hugging Face huấn luyện bộ điều hợp khung điều phối (harness adapter) cho mô hình 27B trên ba khung điều phối tác nhân (agent - hệ thống AI tự chủ) gồm Pi, OpenCode và Hermes Agent. Các bộ điều hợp này được thử nghiệm trên hai benchmark (bộ kiểm chuẩn năng lực) lập trình gồm Terminal-Bench 2.1 và SWE-bench Pro.",
+        "Theo Hugging Face, mô hình chỉ nhắm tới hiệu năng tổng quát nên chưa tối ưu cho từng khung điều phối và tác vụ cụ thể của người dùng. Việc huấn luyện bộ điều hợp bằng học tăng cường giúp mô hình khai thác triệt để hiệu năng khi kết hợp với khung điều phối.",
+        "Bộ điều hợp giảm 56–72% lượt gọi công cụ trên SWE-bench Pro đối với các tác vụ mà cả hai phiên bản cùng giải được. Khi bật suy nghĩ ở cùng mức nỗ lực, siêu bộ điều hợp vượt mô hình gốc ở 5 trên 6 cặp thử nghiệm nhưng hòa trên khung Pi tại SWE-bench Pro.",
+        "Theo Hugging Face, bộ điều hợp ngang ngửa hiệu năng bản suy nghĩ và tiết kiệm token hơn trong cùng điều kiện ngân sách token cố định. Dù vậy, nhóm nghiên cứu nhận định cần thử nghiệm tiếp trên các mô hình thuần suy nghĩ để hiểu rõ hành vi học tăng cường."
+      ],
+      "same_event_coverage_ids": [
+        "aa683d8c3ca0b73d3e8c"
+      ],
+      "split_coverage_ids": [],
+      "subject": "harness adapters",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Younes B",
+          "ben burtenshaw",
+          "Nathan Habib",
+          "Lysandre",
+          "Amine Dirhoussi",
+          "Adithya S K",
+          "shaun smith",
+          "Sergio Paniego",
+          "Joel Niklaus",
+          "Lewis Tunstall"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Hugging Face phát triển bộ điều hợp cho mô hình 27B giúp cắt giảm 56–72% lượt gọi công cụ trên SWE-bench Pro",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://huggingface.co/blog/harness-adapters-at-scale"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "36e2744afcdf5c4642e1e2256bbba34fe2244f85920ae21a8b0a8f77f91017d2",
+        "scored_at": "2026-11-20T15:46:53.799451+00:00"
+      }
+    },
+    {
+      "id": "86eda0043e3a167dac86",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.wired.com/story/anthropics-record-breaking-ipo-highlights-the-ai-giants-worst-enemy-itself/",
+      "key_points": [
+        "Anthropic hoàn tất đợt phát hành cổ phiếu lần đầu ra công chúng (IPO) lớn nhất lịch sử vào thứ Tư. Doanh nghiệp hiện có khoảng 200 tỷ USD trong ngân hàng, nhiều hơn mọi tập đoàn công nghệ ngoại trừ Alphabet.",
+        "Theo tạp chí Wired, cử tri Mỹ phần lớn bác bỏ trung tâm dữ liệu và các cuộc biểu tình chưa có dấu hiệu hạ nhiệt. Người dân phản đối do lo ngại hóa đơn điện tăng, ô nhiễm môi trường cùng ách tắc giao thông vì thi công.",
+        "Công ty từng hoãn phát hành mô hình mới đầu năm nay nhằm bảo vệ công chúng trước công nghệ tiềm ẩn nguy hại, theo Giám đốc điều hành Dario Amodei. Dù vậy, giới phân tích tài chính đánh giá chi tiêu chưa đáng ngại khi doanh thu quý gần nhất đạt 17 tỷ USD, tăng hơn 1.100% so với năm trước.",
+        "Tạp chí Wired nhận định việc ưu tiên an toàn có thể kìm hãm tăng trưởng, và sự chậm trễ cơ sở hạ tầng có thể cản trở huấn luyện mô hình mạnh hơn. Nhà đầu tư Tomasz Tunguz cho rằng khó khăn cấp phép tại Mỹ có thể đẩy các công ty chuyển hướng trung tâm dữ liệu ra nước ngoài, làm tăng rủi ro và chi phí."
+      ],
+      "same_event_coverage_ids": [
+        "dad2740584741793d912"
+      ],
+      "split_coverage_ids": [
+        "da34cddf692907f5679c"
+      ],
+      "subject": "Anthropic",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Elaine Matheny"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Anthropic lập kỷ lục IPO huy động 81 tỷ USD nhưng đối mặt áp lực từ cam kết chi tiêu và rào cản an toàn",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "wired",
+          "url": "https://www.wired.com/story/anthropics-record-breaking-ipo-highlights-the-ai-giants-worst-enemy-itself/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.2,
+        "answers": {
+          "what": 9,
+          "why": 8,
+          "notable": 7,
+          "meaning": 9
+        },
+        "hard_errors": [
+          {
+            "kind": "quote",
+            "summary_text": "giới phân tích tài chính đánh giá chi tiêu chưa đáng ngại",
+            "explanation": "The source says some financial analysts consider the gap between Anthropic’s roughly $200 billion in cash and more than $900 billion in vendor commitments less concerning when recent sales are factored in; it does not say spending itself is unconcerning (outlet:p001–p002)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The headline promises a spending concern, but the reader never sees its scale.",
+            "fix": "State that Anthropic has committed more than $900 billion to vendors over 19 years, mostly for data centers (outlet:p001)."
+          },
+          {
+            "question": "why",
+            "problem": "The analysts’ view is presented as a broad judgment about spending.",
+            "fix": "Specify that some analysts were assessing the gap between cash and vendor commitments in light of $17 billion in recent quarterly sales (outlet:p001–p002)."
+          },
+          {
+            "question": "why",
+            "problem": "The statement about US voters loses the condition on who had an opportunity to vote.",
+            "fix": "Say voters largely rejected data centers when given the chance that month (outlet:p003)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "eb24923a985b584a1a77b43a2dc40de4b2abbd3181a6bb6db9c5702c4e4f38ca",
+        "scored_at": "2026-11-20T15:46:53.799478+00:00"
       }
     }
   ]
