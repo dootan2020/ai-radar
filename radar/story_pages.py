@@ -15,6 +15,7 @@ from urllib.parse import urlsplit
 from radar.catalog import is_retired
 from radar.clustering import canonical_url
 from radar.common import stable_id
+from radar.huong_dan import LABEL as GUIDE_LABEL, is_guide
 from radar.items import publisher_identity
 from radar.newsroom_decisions import (DESK_PROMPT_VERSIONS, DESK_SUMMARY_SOURCE, desk_summary, load_decisions,
                                       story_decisions)
@@ -130,6 +131,42 @@ def _has_editorial_summary(story):
 
 def _summary_text(text):
     return re.sub(r"\*\*([^*]+)\*\*", r"<strong>\1</strong>", html.escape(text, quote=True))
+
+
+def _guide_text(text):
+    """A guide's inline text: escaped, with **bold** and `code`. site/story.js guideText does the same."""
+    escaped = html.escape(text, quote=True)
+    escaped = re.sub(r"`([^`]+)`", r"<code>\1</code>", escaped)
+    return re.sub(r"\*\*([^*]+)\*\*", r"<strong>\1</strong>", escaped)
+
+
+def _guide_image_src(src, base_url):
+    return f"{base_url}/{src}" if src.startswith("assets/") else src
+
+
+def _guide_body_html(story, base_url):
+    """The article body of a hand-written guide: headings, paragraphs, numbered steps, lists, code and pictures."""
+    esc = lambda value: html.escape(str(value), quote=True)
+    parts = []
+    for block in story.get("body") or []:
+        kind = block.get("type")
+        if kind == "heading":
+            parts.append(f'<h2 class="guide-h2">{_guide_text(block["text"])}</h2>')
+        elif kind == "paragraph":
+            parts.append(f'<p class="guide-p">{_guide_text(block["text"])}</p>')
+        elif kind in ("steps", "list"):
+            tag, cls = ("ol", "guide-steps") if kind == "steps" else ("ul", "guide-list")
+            items = "".join(f"<li>{_guide_text(item)}</li>" for item in block["items"])
+            parts.append(f'<{tag} class="{cls}">{items}</{tag}>')
+        elif kind == "code":
+            caption = f'<figcaption class="guide-caption">{_guide_text(block["caption"])}</figcaption>' if block.get("caption") else ""
+            language = f' data-language="{esc(block["language"])}"' if block.get("language") else ""
+            parts.append(f'<figure class="guide-code"{language}>{caption}<pre tabindex="0"><code>{esc(block["text"])}</code></pre></figure>')
+        elif kind == "image":
+            caption = f'<figcaption class="guide-caption">{_guide_text(block["caption"])}</figcaption>' if block.get("caption") else ""
+            parts.append(f'<figure class="guide-figure"><img src="{esc(_guide_image_src(block["src"], base_url))}" '
+                         f'alt="{esc(block["alt"])}" loading="lazy" decoding="async">{caption}</figure>')
+    return f'<div class="guide-body">{"".join(parts)}</div>' if parts else ""
 
 
 def _page_fields(story, base_url):
@@ -304,14 +341,19 @@ def render_story_page(story, base_url=BASE_URL, sources=None):
                  f'{esc(date_label)}</time></div></div>') if published_at else ""
     title_length = len(fields["title"])
     title_class = "story-headline is-post" if title_length > 180 else "story-headline is-long" if title_length > 100 else "story-headline"
+    guide = is_guide(story)
+    kicker_html = f'<p class="story-kicker">{GUIDE_LABEL}</p>' if guide else ""
+    guide_html = _guide_body_html(story, base_url.rstrip("/")) if guide else ""
+    origin_html = "" if guide else (
+        f'<a class="story-origin-cta" href="{esc(fields["original_url"])}" target="_blank" rel="noopener noreferrer">Đọc bài gốc <span class="story-cta-arrow" aria-hidden="true">↗</span></a>')
     article_html = (
         f'<article class="story-article" data-id="{esc(story["id"])}" aria-labelledby="story-modal-title">'
-        '<header class="story-header">'
+        f'<header class="story-header">{kicker_html}'
         f'<h1 class="{title_class}" id="story-modal-title">{esc(fields["title"])}</h1>'
         f'{time_html}</header>'
-        f'{media_html}<div class="story-body">{fallback_content}</div>'
+        f'{media_html}<div class="story-body">{fallback_content}{guide_html}</div>'
         '<footer class="story-detail-footer">'
-        f'<a class="story-origin-cta" href="{esc(fields["original_url"])}" target="_blank" rel="noopener noreferrer">Đọc bài gốc <span class="story-cta-arrow" aria-hidden="true">↗</span></a>'
+        f'{origin_html}'
         f'{source_html}{coverage_html}{original_html}{image_credit}{related_html}</footer></article>')
     document = TEMPLATE_PATH.read_text(encoding="utf-8")
     document, article_count = re.subn(r'<article class="story-article".*?</article>', lambda _: article_html,
@@ -445,6 +487,9 @@ def gated_stories(stories, decisions):
     rows = story_decisions([{**story, "id": story_id} for story_id, story in live.items()], decisions)
     shown = {}
     for story_id, story in stories.items():
+        if is_guide(story) and not story.get("redirect_to") and _has_editorial_summary(story):
+            shown[story_id] = story
+            continue
         written = None if story.get("redirect_to") else desk_summary(rows.get(story_id))
         if written is not None:
             shown[story_id] = {**story, **written}

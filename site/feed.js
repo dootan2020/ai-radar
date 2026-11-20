@@ -419,6 +419,7 @@ const SHORT_NAMES = {
   'ars-technica-ai': 'Ars Technica',
   'the-verge-ai': 'The Verge',
   'lobsters-ai': 'Lobsters',
+  'hco-huong-dan': 'Halcyon',
 };
 const srcName = id => SHORT_NAMES[id] || String((SRC.get(id) || {}).name || id || '').replace(/\s*\(.*?\)\s*/g, ' ').trim();
 const covName = c => c.author_handle
@@ -2176,7 +2177,8 @@ function appendOlder() {
 }
 
 /* ---------- the first row's cards ---------- */
-const srcOf = st => { const t = titleOf(st), c = t.cov || covsOf(st)[0] || {}; return { name: covName(c) || hostOf(st.url), face: faceOfSource(c, SRC) }; };
+/* A hand-written guide wears its label on the source line of every card and row: "Hướng dẫn · Halcyon". */
+const srcOf = st => { const t = titleOf(st), c = t.cov || covsOf(st)[0] || {}; const name = covName(c) || hostOf(st.url); return { name: st.kind === 'huong-dan' ? `Hướng dẫn · ${name}` : name, face: faceOfSource(c, SRC) }; };
 /* Who and when. The source name is never cut (captain, 10/11: "Anthropi…"): when the line is full the time wraps
    under it. A machine-translated headline is not labelled on the front page (captain, 10/11 17:51): the label lives in
    the story page's and the story modal's footer. */

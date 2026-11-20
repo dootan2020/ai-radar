@@ -1,0 +1,39 @@
+{
+  "id": "hd-thu-nghiem-fixture",
+  "title": "[BÀI THỬ NGHIỆM] Cách giao một việc cho trợ lý AI trong năm bước",
+  "published_at": "2026-11-20T09:00:00+07:00",
+  "key_points": [
+    "Đây là bài giả dùng để kiểm thử trang hướng dẫn; nội dung không dạy điều gì thật và không bao giờ được đăng lên hco.news.",
+    "Bài thử đủ mọi loại khối: tiêu đề phụ, đoạn văn, các bước đánh số, danh sách, khối lệnh và một chỗ cho ảnh chụp màn hình.",
+    "Mỗi bài hướng dẫn thật phải được anh Tuấn duyệt, và tệp ghi rõ ai duyệt, lúc nào, bằng lời nào."
+  ],
+  "summary_sources": [
+    {"name": "Tài liệu thử nghiệm (giả)", "url": "https://example.com/tai-lieu-thu-nghiem", "role": "primary"},
+    {"name": "Trang tham khảo thứ hai (giả)", "url": "https://example.org/tham-khao"}
+  ],
+  "body": [
+    {"type": "paragraph", "text": "**Đây là nội dung giả cho kiểm thử.** Đoạn mở đầu nói bài này dành cho ai và người đọc sẽ làm được gì sau năm phút. Lệnh `echo xin chao` nằm giữa câu để kiểm tra kiểu chữ đặt trong dòng."},
+    {"type": "heading", "text": "Trước khi bắt đầu"},
+    {"type": "list", "items": [
+      "Một tài khoản thử nghiệm (không có thật).",
+      "Một thư mục trống để thử, ví dụ `thu-nghiem/`.",
+      "Khoảng năm phút."
+    ]},
+    {"type": "heading", "text": "Năm bước"},
+    {"type": "steps", "items": [
+      "Nêu **mục đích** trong một câu: ai dùng kết quả và dùng để làm gì.",
+      "Dán đường dẫn tới dữ liệu thật mà trợ lý cần đọc.",
+      "Nói rõ ranh giới: điều gì không được đụng tới, và vì sao.",
+      "Chạy lệnh ở khối bên dưới rồi đọc kết quả, đừng tin lời báo xong.",
+      "Ghi lại điều đã học vào một tệp để lần sau không làm lại từ đầu."
+    ]},
+    {"type": "code", "language": "bash", "caption": "Lệnh giả để kiểm tra khối lệnh cuộn ngang trên màn hình hẹp", "text": "mkdir -p thu-nghiem && cd thu-nghiem\necho \"đây là một dòng rất dài để thử cuộn ngang: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"\ncat ket-qua.txt"},
+    {"type": "heading", "text": "Trông như thế nào"},
+    {"type": "image", "src": "assets/huong-dan/thu-nghiem-man-hinh.svg", "alt": "Ảnh chụp màn hình giả: một khung có dòng chữ THỬ NGHIỆM", "caption": "Chỗ dành cho ảnh chụp màn hình thật của bước bốn."}
+  ],
+  "approval": {
+    "approved_by": "Kiểm thử tự động (không phải sự duyệt thật của chủ sở hữu)",
+    "approved_at": "2026-11-20T09:30:00+07:00",
+    "words": "BÀI THỬ NGHIỆM, chỉ dùng trong tests/"
+  }
+}

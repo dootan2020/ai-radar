@@ -289,6 +289,30 @@ function renderSourceFooterHTML(story, name, srcMap) {
     ${!editorial && (sumVi || sumEn) ? `<p class="story-points-disclosure">${SOURCE_DESCRIPTION_LABEL}. Đoạn trích do nhà xuất bản cung cấp. Bản quyền thuộc về nhà xuất bản.</p>` : ''}`;
 }
 
+/* A hand-written guide ("Hướng dẫn", kind huong-dan): one label, one body of blocks. radar/story_pages.py draws the
+   same markup for crawlers; keep the two in step. */
+export const GUIDE_KIND = 'huong-dan';
+export const GUIDE_LABEL = 'Hướng dẫn';
+const guideText = text => esc(text).replace(/`([^`]+)`/g, '<code>$1</code>').replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+const guideImage = src => src.startsWith('assets/') ? new URL(src, import.meta.url).href : src;
+
+export function renderGuideBodyHTML(story) {
+  const blocks = Array.isArray(story.body) ? story.body : [];
+  const caption = block => block.caption ? `<figcaption class="guide-caption">${guideText(block.caption)}</figcaption>` : '';
+  const parts = blocks.map(block => {
+    switch (block && block.type) {
+      case 'heading': return `<h2 class="guide-h2">${guideText(block.text)}</h2>`;
+      case 'paragraph': return `<p class="guide-p">${guideText(block.text)}</p>`;
+      case 'steps': return `<ol class="guide-steps">${block.items.map(i => `<li>${guideText(i)}</li>`).join('')}</ol>`;
+      case 'list': return `<ul class="guide-list">${block.items.map(i => `<li>${guideText(i)}</li>`).join('')}</ul>`;
+      case 'code': return `<figure class="guide-code"${block.language ? ` data-language="${esc(block.language)}"` : ''}>${caption(block)}<pre tabindex="0"><code>${esc(block.text)}</code></pre></figure>`;
+      case 'image': return `<figure class="guide-figure"><img src="${esc(guideImage(block.src))}" alt="${esc(block.alt)}" loading="lazy" decoding="async">${caption(block)}</figure>`;
+      default: return '';
+    }
+  }).join('');
+  return parts ? `<div class="guide-body">${parts}</div>` : '';
+}
+
 /* Render Coverage List */
 export function renderCoverageListHTML(coverage, srcMap = new Map(), originalUrl = '') {
   const others = (coverage || []).filter(c => c && c.url !== originalUrl);
@@ -354,6 +378,7 @@ export function renderStoryHTML(story, srcMap = new Map(), options = {}) {
   const isSaved = !!options.isSaved;
   const isModal = !!options.isModal;
   const origUrl = story.url || (story.coverage && story.coverage[0] && story.coverage[0].url) || '#';
+  const isGuide = story.kind === GUIDE_KIND;
 
   // Media image block
   let mediaHTML = '';
@@ -374,6 +399,7 @@ export function renderStoryHTML(story, srcMap = new Map(), options = {}) {
   return `
     <article class="story-article" data-id="${esc(story.id)}" aria-labelledby="story-modal-title">
       <header class="story-header">
+        ${isGuide ? `<p class="story-kicker">${GUIDE_LABEL}</p>` : ''}
         <h1 class="${headlineClass}" id="story-modal-title">${esc(titleVi)}</h1>
         <div class="story-meta-row">
           <div class="story-pub-info"><time datetime="${esc(story.published_at || '')}">${story.published_at ? esc(ago(story.published_at)) : ''}</time></div>
@@ -395,10 +421,11 @@ export function renderStoryHTML(story, srcMap = new Map(), options = {}) {
 
       <div class="story-body">
         ${renderEditorialSummaryHTML(story)}
+        ${isGuide ? renderGuideBodyHTML(story) : ''}
       </div>
 
       <footer class="story-detail-footer">
-        <a class="story-origin-cta" href="${esc(safe(origUrl))}" target="_blank" rel="noopener noreferrer" title="Đọc bài gốc tại ${esc(name)}"><span class="story-cta-label">Đọc bài gốc</span><span class="story-cta-arrow" aria-hidden="true">↗</span></a>
+        ${isGuide ? '' : `<a class="story-origin-cta" href="${esc(safe(origUrl))}" target="_blank" rel="noopener noreferrer" title="Đọc bài gốc tại ${esc(name)}"><span class="story-cta-label">Đọc bài gốc</span><span class="story-cta-arrow" aria-hidden="true">↗</span></a>`}
         ${renderSourceFooterHTML(story, name, srcMap)}
         ${renderCoverageListHTML(story.coverage, srcMap, origUrl)}
         ${hasOrig ? `<div class="story-orig-block"><p class="card-orig"><span class="mt" aria-hidden="true" title="Bản dịch máy; dòng này là tiêu đề gốc">Translated</span><span class="sr" lang="vi">Bản dịch máy. Tiêu đề gốc: </span><span class="orig-text" lang="en">${esc(story.title)}</span></p></div>` : ''}

@@ -1270,3 +1270,144 @@ dialog.story-dialog::backdrop {
     padding: 0 var(--space-16);
   }
 }
+
+/* ===== Hand-written guide ("Hướng dẫn"): label above the headline, then a body of blocks under the summary. ===== */
+
+.story-kicker {
+  margin: 0 0 var(--space-8);
+  color: var(--color-accent);
+  font-size: var(--text-meta);
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.02em;
+  line-height: var(--leading-body);
+}
+
+.guide-body {
+  display: grid;
+  gap: var(--space-16);
+  min-width: 0;
+  margin-top: var(--space-32);
+}
+
+.guide-body > * {
+  min-width: 0;
+  margin: 0;
+}
+
+.guide-h2 {
+  margin-top: var(--space-16);
+  color: var(--color-ink);
+  font-size: var(--text-tile);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-display);
+  line-height: var(--leading-snug);
+  text-wrap: balance;
+}
+
+.guide-p,
+.guide-steps,
+.guide-list {
+  color: var(--color-ink);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+  text-wrap: pretty;
+  overflow-wrap: anywhere;
+}
+
+@media (min-width: 768px) {
+  .guide-p,
+  .guide-steps,
+  .guide-list {
+    font-size: var(--text-title);
+  }
+}
+
+.guide-steps,
+.guide-list {
+  display: grid;
+  gap: var(--space-12);
+  padding: 0;
+  list-style: none;
+}
+
+.guide-steps {
+  counter-reset: guide-step;
+}
+
+.guide-steps > li,
+.guide-list > li {
+  position: relative;
+  padding-left: var(--space-32);
+}
+
+.guide-steps > li::before {
+  counter-increment: guide-step;
+  content: counter(guide-step);
+  position: absolute;
+  left: 0;
+  color: var(--color-accent);
+  font-size: inherit;
+  font-weight: var(--weight-bold);
+  font-variant-numeric: tabular-nums;
+}
+
+.guide-list > li::before {
+  content: "";
+  position: absolute;
+  left: var(--space-8);
+  top: calc(0.5lh - var(--space-6) / 2);
+  width: var(--space-6);
+  height: var(--space-6);
+  border-radius: var(--radius-full);
+  background: var(--color-accent-fill);
+}
+
+.guide-p code,
+.guide-steps code,
+.guide-list code,
+.guide-caption code {
+  padding: 0 var(--space-4);
+  border-radius: var(--radius-8);
+  background: var(--color-fill);
+  font-family: var(--family-mono);
+  font-size: 0.9em;
+}
+
+.guide-code,
+.guide-figure {
+  display: grid;
+  gap: var(--space-8);
+}
+
+.guide-code pre {
+  margin: 0;
+  padding: var(--space-16);
+  overflow-x: auto;
+  border-radius: var(--radius-12);
+  background: var(--color-fill);
+  color: var(--color-ink);
+  font-family: var(--family-mono);
+  font-size: var(--text-small);
+  line-height: var(--leading-body);
+  white-space: pre;
+  tab-size: 2;
+}
+
+.guide-code pre:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-offset);
+}
+
+.guide-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-12);
+  background: var(--color-fill);
+}
+
+.guide-caption {
+  color: var(--color-ink-2);
+  font-size: var(--text-small);
+  line-height: var(--leading-body);
+}

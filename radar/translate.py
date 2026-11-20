@@ -335,7 +335,9 @@ def compose(source, cache, *, protected_names=CATALOG_NAMES):
 # ---------- which strings, in which order ----------
 
 def _story_ok(story):
-    return story.get("kind") != "event" and "event" not in (story.get("groups") or [])
+    # A hand-written guide is Vietnamese already; the machine never rewrites it.
+    return (story.get("kind") not in ("event", "huong-dan")
+            and "event" not in (story.get("groups") or []))
 
 
 def targets(payload):
@@ -387,8 +389,9 @@ def pending_segments(payload, cache):
 
 def clear_translations(payload):
     """Drop derived fields even if a source was removed or became an event."""
-    rows = list(payload.get("stories") or []) + list(payload.get("live") or [])
-    for story in payload.get("stories") or []:
+    stories = [s for s in payload.get("stories") or [] if not (isinstance(s, dict) and s.get("kind") == "huong-dan")]
+    rows = stories + list(payload.get("live") or [])
+    for story in stories:
         if isinstance(story, dict):
             rows.extend(story.get("coverage") or [])
     for row in rows:
