@@ -105,6 +105,7 @@ def main(argv):
     if not all(say) or any(re.search(r'\n\s*\n', s) for s in say):
         fail('every paragraph needs a `say` text of its own with no blank line inside (one paragraph = one voice paragraph)')
     show = [re.sub(r'\s+', ' ', str(p.get('show', p['say'])).replace('/', ' ')).strip() for p in paras]
+    voice = [g.voice_text(s) for s in say]   # the channel's default readings (AI -> Ây-ai, GitHub -> Git hắp); `say` and `show` stay as written
     approved = g.load_approved(Path(a.approved).read_text(encoding='utf-8')) if a.approved and Path(a.approved).exists() else []
     out = Path(a.out).resolve()
     out.mkdir(parents=True, exist_ok=True)
@@ -115,7 +116,7 @@ def main(argv):
     steps = Steps()
 
     with steps('1 text'):
-        (out / 'loi-doc-tts.txt').write_text('\n\n'.join(say) + '\n', encoding='utf-8', newline='\n')
+        (out / 'loi-doc-tts.txt').write_text('\n\n'.join(voice) + '\n', encoding='utf-8', newline='\n')
         (out / 'loi-hien-thi.txt').write_text('\n\n'.join(show) + '\n', encoding='utf-8', newline='\n')
 
     raw, raw_json = out / 'tts-raw.wav', out / 'tts-raw.json'
@@ -156,7 +157,7 @@ def main(argv):
         spans = g.paragraphs_from_silences(sil, duration, len(say))
 
     with steps('6 gate'):
-        rep = g.check_reading(say, words, spans, approved)
+        rep = g.check_reading(voice, words, spans, approved)
         seg = json.loads(raw_json.read_text(encoding='utf-8')).get('segments', [])
         rep['raw_spans_differ'] = [i + 1 for i, (s, q) in enumerate(zip(spans, seg)) if abs(s['start'] - q['start']) > 0.5 or abs(s['end'] - q['end']) > 0.5]
         rep['steps_s'] = dict(steps.rows)
@@ -169,7 +170,7 @@ def main(argv):
              'change the say text of the paragraph (a respelling) and run again')
 
     with steps('7 timing'):
-        timing = g.build_timing(final.name, 48000, duration, loudness, PAUSE_MS / 1000, spans, words, say, show)
+        timing = g.build_timing(final.name, 48000, duration, loudness, PAUSE_MS / 1000, spans, words, voice, show)
         g.write_json(out / 'giong-day-du-timing.json', timing)
         text = g.format_listen(rep['listen'], rep['approved'])
         (out / 'nghe-lai.txt').write_text(text + '\n', encoding='utf-8', newline='\n')

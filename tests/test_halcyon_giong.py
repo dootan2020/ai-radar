@@ -210,5 +210,59 @@ class TimingFile(unittest.TestCase):
             self.assertEqual(json.loads(raw.decode("utf-8")), {"a": "Tắt"})
 
 
+class Pronunciations(unittest.TestCase):
+    def test_ai_and_github_are_respelled_for_the_voice(self):
+        self.assertEqual(g.voice_text("AI mới ra mắt trên GitHub."), "Ây-ai mới ra mắt trên Git hắp.")
+        self.assertEqual(g.voice_text("Chatbot AI, không phải AI-driven."), "Chatbot Ây-ai, không phải Ây-ai-driven.")
+
+    def test_only_the_whole_capitalised_word(self):
+        for text in ("Ai cũng biết, ai đó nói.", "Ai nấy đều vui", "MAIL và AIR", "GitHubs", "xGitHub", "ai ai"):
+            self.assertEqual(g.voice_text(text), text)
+
+    def test_a_script_authors_own_respelling_wins(self):
+        for text in ("Ây ai ra mắt", "Ây-ai ra mắt", "Git hắp mới", "Ây-ai và Git hắp"):
+            self.assertEqual(g.voice_text(text), text)
+
+    def test_the_subtitle_text_is_not_touched_by_the_voice_step(self):
+        say, show = "AI trên GitHub.", "AI trên GitHub."
+        self.assertEqual(g.voice_text(say), "Ây-ai trên Git hắp.")
+        self.assertEqual(show, "AI trên GitHub.")
+
+    def test_the_gate_expects_what_is_spoken(self):
+        voice = [g.voice_text("AI trên GitHub rất nhanh.")]
+
+        def heard(*ws):
+            return [dict(w=w, s=i * 0.3, e=i * 0.3 + 0.25) for i, w in enumerate(ws)]
+        for ws in (("Ây", "ai", "trên", "Git", "hắp", "rất", "nhanh"), ("Ây-ai", "trên", "Git", "hắp", "rất", "nhanh")):
+            rep = g.check_reading(voice, heard(*ws))
+            self.assertTrue(rep["ok"], (ws, rep["problems"]))
+        # the written word is no longer what the voice must say: a voice that spoke "AI" the English way and dropped the rest fails
+        bad = g.check_reading(voice, heard("trên", "rất", "nhanh"))
+        self.assertFalse(bad["ok"])
+
+    def test_whisper_writing_the_written_word_is_accepted_and_listed(self):
+        voice = [g.voice_text("Chat AI trên GitHub rất nhanh, theo AI.")]
+        ws = ["Chat", "AI", "trên", "GitHub", "rất", "nhanh", "theo", "Ây", "ai"]
+        rep = g.check_reading(voice, [dict(w=w, s=i * 0.3, e=i * 0.3 + 0.25) for i, w in enumerate(ws)])
+        self.assertTrue(rep["ok"], rep["problems"])
+        self.assertEqual(rep["unmatched"], 0)
+        listed = {x["say"]: x["heard"] for x in rep["listen"]}
+        self.assertEqual(listed, {"Ây-ai": "AI / Ây ai", "Git hắp": "GitHub"})
+
+    def test_a_heard_vietnamese_ai_is_not_the_abbreviation(self):
+        rep = g.check_reading(["Ai cũng biết"], [dict(w=w, s=i * 0.3, e=i * 0.3 + 0.25) for i, w in enumerate(["Ai", "cũng", "biết"])])
+        self.assertTrue(rep["ok"] and rep["unmatched"] == 0)
+        rep = g.check_reading(["Ây-ai cũng biết"], [dict(w=w, s=i * 0.3, e=i * 0.3 + 0.25) for i, w in enumerate(["ai", "cũng", "biết"])])
+        self.assertEqual(rep["unmatched"], 2)  # a heard "ai" is the word "who", not "Ây-ai"
+
+    def test_the_subtitle_still_matches_the_heard_words(self):
+        display =["AI", "trên", "GitHub", "rất", "nhanh"]
+        words = [dict(w=w, s=i * 0.3, e=i * 0.3 + 0.25) for i, w in enumerate(["Ây", "ai", "trên", "Git", "hắp", "rất", "nhanh"])]
+        aliases = kb_mod.derive_aliases(display, words, {})
+        idx, _ = kb_mod.align(display, words, aliases)
+        self.assertIn(idx[0], (0, 1))  # "AI" lands on one of its two heard words ("Ây", "ai"); every other word keeps its own
+        self.assertEqual(idx[1:], [2, 3, 5, 6])  # "trên", "GitHub" (first of its two heard words), "rất", "nhanh"
+
+
 if __name__ == "__main__":
     unittest.main()
