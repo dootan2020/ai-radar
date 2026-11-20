@@ -24,9 +24,10 @@ FPS = 30
 CAPTURE_MAX_AGE_S = 6 * 3600        # a capture older than this is taken again; at render time it is refused
 VOICE_PROFILE = 'vhn-giong-tin-ai'
 DEADLINES = dict(may=60, giong=20 * 60, anh=5 * 60, dung=10 * 60, nhac=5 * 60)   # seconds; captures: 60 s per attempt, see chup_deadline
-BEAT_KINDS = ('capture', 'repo', 'number', 'chart', 'list', 'end')
+BEAT_KINDS = ('capture', 'repo', 'terminal', 'number', 'chart', 'list', 'end')
 SOURCE_KEYS = ('urls', 'hco', 'follow', 'occurrence', 'open', 'source', 'date', 'locale', 'ua', 'max_rows')
-REPO_SOURCE_KEYS = ('repo', 'branch')   # a source is a page to capture (`urls`) or a GitHub repository to record (`repo`), never both
+REPO_SOURCE_KEYS = ('repo', 'branch')   # a source is a page to capture (`urls`), a GitHub repository to record (`repo`) or commands to run (`run`), never two of them
+RUN_SOURCE_KEYS = ('run',)
 
 
 class Refusal(Exception):
@@ -106,6 +107,7 @@ class Plan:
     def __init__(self):
         self.refs = {}       # ref -> dict(urls, hco, quote, bands, options)
         self.repos = {}      # ref -> dict(repo, branch, paths (every path opened by any beat, in order), chain {path: bool}, beats [dict(name, open)])
+        self.runs = {}       # ref -> dict(run (the source's `run` block as checked), steps {step: [phrases to highlight]}, beats [name])
         self.say = []
         self.warnings = []
 
@@ -132,10 +134,54 @@ def check_repo_source(ref, s):
         raise Refusal('kiem-kich-ban', f'{where}: {bad[0]}', bad[1])
 
 
+def chay_module():
+    return load_module('halcyon_chay', HERE / 'halcyon_chay.py')
+
+
+def check_run_source(ref, s):
+    """A source of commands to run (CHAY.md): the whole `run` block is checked here, with no network, by the same code that runs it."""
+    where = f'sources["{ref}"]'
+    extra = [k for k in s if k not in RUN_SOURCE_KEYS]
+    if extra:
+        raise Refusal('kiem-kich-ban', f'{where} has unknown key(s) {", ".join(extra)}', f'a run source takes: {", ".join(RUN_SOURCE_KEYS)}')
+    cm = chay_module()
+    try:
+        return cm.check_run(s['run'], f'{where}.run')
+    except cm.Refusal as r:
+        raise Refusal('kiem-kich-ban', f'{where}.run: {r.kind}: {r.why}', r.fix or 'see CHAY.md')
+
+
+def check_terminal_beat(plan, sources, b, name):
+    """A terminal beat: {"kind": "terminal", "headline": [...], "terminal": {"ref": ..., "step": N, "bands": [{"text": ..., "anchor": ...}]}}; no network."""
+    S = 'kiem-kich-ban'
+    t = b.get('terminal')
+    if not isinstance(t, dict):
+        raise Refusal(S, f'{name} has no "terminal" block', 'give it {"ref": <a source with "run">, "step": <number of a step of the run, from 0>}')
+    ref = need_str(t.get('ref'), f'{name}.terminal.ref')
+    src = sources.get(ref)
+    if not isinstance(src, dict) or 'run' not in src:
+        raise Refusal(S, f'{name}: terminal "{ref}" has no source with "run"', f'add "sources": {{"{ref}": {{"run": {{...}}}}}} (CHAY.md): the commands the video shows, run for real')
+    run = check_run_source(ref, src)
+    step = t.get('step')
+    if not isinstance(step, int) or isinstance(step, bool) or not 0 <= step < len(run['steps']):
+        raise Refusal(S, f'{name}.terminal.step must be a number from 0 to {len(run["steps"]) - 1}', 'the steps of the source\'s run are numbered from 0, in order')
+    ent = plan.runs.setdefault(ref, dict(run=run, steps={}, beats=[]))
+    ent['beats'].append(name)
+    phrases = ent['steps'].setdefault(step, [])
+    for bd in t.get('bands', []):
+        text = need_str(bd.get('text') if isinstance(bd, dict) else None, f'{name}.terminal.bands[].text')
+        if text not in phrases:
+            phrases.append(text)
+
+
 def check_source(ref, s):
     where = f'sources["{ref}"]'
     if not isinstance(s, dict):
-        raise Refusal('kiem-kich-ban', f'{where} must be an object', f'give it "urls": ["https://..."] and, if needed, {", ".join(SOURCE_KEYS[1:])}; or "repo": "owner/name" for a repo beat')
+        raise Refusal('kiem-kich-ban', f'{where} must be an object', f'give it "urls": ["https://..."] and, if needed, {", ".join(SOURCE_KEYS[1:])}; or "repo": "owner/name" for a repo beat; or "run": {{...}} for a terminal beat')
+    if 'run' in s:
+        if any(k in s for k in ('urls', 'repo')):
+            raise Refusal('kiem-kich-ban', f'{where} has "run" and also "urls" or "repo"', 'a source is one of: a page to capture, a repository to record, commands to run')
+        return check_run_source(ref, s)
     if 'repo' in s:
         return check_repo_source(ref, s)
     if 'branch' in s:
@@ -245,13 +291,16 @@ def check_script(kb):
             kind = b.get('kind') if isinstance(b, dict) else None
             if kind == 'recording' or (isinstance(b, dict) and 'picture' in b):
                 raise Refusal(S, f'{name} needs a hand-made recording or photo ("{kind}")',
-                              'the one-command chain makes capture beats (a verbatim sentence from a public page) and card beats (number, chart, list, end) only; '
+                              'the one-command chain makes capture beats (a verbatim sentence from a public page), repo beats, terminal beats (commands it runs for real) and card beats (number, chart, list, end) only; '
                               'a hand-made recording belongs to the manual lane. Replace the beat with a capture of a page passage or a card')
             if kind not in BEAT_KINDS:
                 raise Refusal(S, f'{name} has kind "{kind}"', f'kinds the chain makes: {", ".join(BEAT_KINDS)}')
             last = kind
             if kind == 'repo':
                 check_repo_beat(plan, sources, b, name)
+                continue
+            if kind == 'terminal':
+                check_terminal_beat(plan, sources, b, name)
                 continue
             if kind != 'capture':
                 continue
@@ -261,8 +310,8 @@ def check_script(kb):
             ref, quote = need_str(c.get('ref'), f'{name}.capture.ref'), squash(need_str(c.get('quote'), f'{name}.capture.quote'))
             if not re.fullmatch(r'[\w.-]+', ref):
                 raise Refusal(S, f'{name}: capture ref "{ref}" may hold letters, digits, dot, dash and underscore only', 'rename the ref')
-            if isinstance(sources.get(ref), dict) and 'repo' in sources[ref]:
-                raise Refusal(S, f'{name}: capture "{ref}" is a repo source', 'a capture takes a page address ("urls"); to show the repository use a repo beat, or give this capture its own source')
+            if isinstance(sources.get(ref), dict) and ('repo' in sources[ref] or 'run' in sources[ref]):
+                raise Refusal(S, f'{name}: capture "{ref}" is a {"repo" if "repo" in sources[ref] else "run"} source', 'a capture takes a page address ("urls"); to show a repository use a repo beat, to show commands a terminal beat, or give this capture its own source')
             if ref not in sources:
                 raise Refusal(S, f'{name}: capture "{ref}" has no entry in "sources"', f'add "sources": {{"{ref}": {{"urls": ["https://..."]}}}} so the chain knows which page to capture')
             if quotes.setdefault(ref, quote) != quote:
@@ -282,7 +331,7 @@ def check_script(kb):
         check_source(ref, sources[ref])
         ent.update(repo=sources[ref]['repo'], branch=sources[ref].get('branch'))
     for ref in sources:
-        if ref not in plan.refs and ref not in plan.repos:
+        if ref not in plan.refs and ref not in plan.repos and ref not in plan.runs:
             plan.warnings.append(f'sources["{ref}"] is not used by any capture beat')
     check_post(kb.get('post'))
     return plan
@@ -488,6 +537,7 @@ def archive_manifest(c):
         dict(nguon='cong-viec/nguon.txt', dich='6 - Nguồn', ten=pre + 'nguon.txt'),
         dict(nguon='cong-viec/chup/*/*', dich='6 - Nguồn/anh-chup-bai-goc', tien_to=pre),
     ] + [dict(nguon=f'cong-viec/quay/{r["ref"]}/*', dich='6 - Nguồn/anh-quay-repo', tien_to=f'{pre}{r["ref"]}-') for r in c.get('repos', [])] + [
+        dict(nguon=f'cong-viec/chay/{r["ref"]}/{pat}', dich='6 - Nguồn/chay-lenh', tien_to=f'{pre}{r["ref"]}-') for r in c.get('runs', []) for pat in ('chay.json', '*.png', 'log/*.log')] + [
         dict(nguon=pk + 'xem-truoc-dien-thoai/' + c['tiktok_mp4'], dich='7 - Thông số dựng', ten=pre + 'ban-xem-truoc-giao-dien-tiktok.mp4'),
         dict(nguon='cong-viec/dung/video.json', dich='7 - Thông số dựng', ten=pre + 'video.json'),
         dict(nguon='cong-viec/dung/video-plan.json', dich='7 - Thông số dựng', ten=pre + 'video-plan.json'),
@@ -527,6 +577,10 @@ def summary_texts(c):
          '- Chữ, màu tương phản, khung an toàn: bộ dựng từ chối nếu sai. Video dài đúng số khung, có hình và tiếng; nhạc trộn không đổi hình, độ to lệch dưới 0,3 LU.']
     if c.get('repos'):
         L += ['- Mỗi thư mục và tệp mở trong video có thật ở commit ghi dưới đây, và các dòng hiện trên màn hình khớp danh sách của chính GitHub (API); mỗi trang có trong kế hoạch của bộ dựng, đủ lâu để nhìn.']
+    if c.get('runs'):
+        L += ['- Mỗi dòng lệnh và kết quả hiện trên màn hình là đầu ra thật của lệnh đó, chạy trong thư mục tạm trong lần dựng này (exit 0, có đủ chữ kịch bản cần). '
+              'Mỗi gói cài đều tồn tại trên pypi.org hoặc registry.npmjs.org, trỏ đúng về kho mã nguồn kịch bản khai, và đúng phiên bản đã kiểm; chỉ cài từ hai kho chính thức, npm không chạy script cài đặt, pip chỉ cài wheel.',
+              '- Thư mục tạm đã xoá, không còn tiến trình nào chạy sót (máy đọc lại sau khi dừng).']
     L += ['',
          '## Máy chưa kiểm được', '',
          '- Giọng đọc nghe có đúng và tự nhiên không (tên riêng, con số): xem `nghe-lai.txt`.',
@@ -534,6 +588,9 @@ def summary_texts(c):
     if c.get('repos'):
         L += ['- Mấy thư mục kịch bản chọn mở có đáng cho người xem thấy không, và cái tên thư mục có đúng lúc giọng đọc nhắc tới không: xem `anh-tong-quan.jpg`.',
               '- Cách quay: ảnh chụp thật github.com (máy tính để bàn, không đăng nhập). Con trỏ, cuộn và phóng to là bộ dựng vẽ từ các ảnh đó, không phải quay màn hình trực tiếp.']
+    if c.get('runs'):
+        L += ['- Lệnh có chạy được trên máy của người xem hay không (hệ điều hành, phiên bản Python và Node khác): ảnh chỉ chứng minh nó chạy trên máy Halcyon hôm nay.',
+              '- Các gói phụ thuộc (gián tiếp) cũng từ hai kho chính thức nhưng máy không kiểm từng gói; máy ghi phiên bản đã cài, không đọc mã của chúng.']
     L += ['',
          '## Các bước', '', '| bước | trạng thái | giây |', '| --- | --- | --- |']
     for name, status, secs, warns, note in rows:
@@ -551,11 +608,19 @@ def summary_texts(c):
         for r in c['repos']:
             L += [f'- `{r["ref"]}`: {r["repo"]} (nhánh {r["branch"]}, commit `{r["commit"][:12]}`), quay {r["captured"]}']
             L += [f'  - `{p["path"] or "(trang chủ repo)"}`: {p["address"]} (HTTP {p["status"]}' + (f', {p["seconds"]} giây' if p.get('seconds') is not None else '') + ')' for p in r['pages']]
+    if c.get('runs'):
+        L += ['', '## Nguồn đã chạy (máy)', '']
+        for r in c['runs']:
+            L += [f'- `{r["ref"]}`: chạy {r["captured"]} ({r["seconds"]} giây); {r["tools"].get("python") or "không dùng Python"}, Node {r["tools"].get("node")}, npm {r["tools"].get("npm")}']
+            L += [f'  - lệnh {k["index"]}: `{k["cwd"]}> {k["cmd"]}` exit {k["exit"] if k["exit"] is not None else "(máy chủ, dừng sau khi dùng xong)"}, {k["seconds"]} giây' for k in r['steps']]
+            L += [f'  - tệp `{f["name"]}` lấy từ khối mã của {f["source"]} (dòng đầu `{f["fence"]}`), SHA-256 `{f["sha256"][:16]}`' for f in r['files']]
+            L += [f'  - gói {p["registry"]} `{p["name"]}` {p["version"]} ({p["repository"]}, đăng {p["published"]}): {p["page"]}' for p in r['packages']]
+            L += [f'  - kiểm lỗ hổng: `{k}`: {v}' for k, v in r['audit'].items()]
     L += ['', '## Mã băm đầu vào (SHA-256)', '']
     L += [f'- {k}: `{v}`' for k, v in c['hashes'].items()]
     L += ['', '## Kiểm file cuối', '', f'- ffprobe: {c["probe_text"]}', f'- nhạc: {c["music_text"]}', '']
     data = dict(id=c['id'], title=c['title'], made=now_iso(), total_s=c['total_s'], steps=[dict(step=n, status=st, seconds=s, warnings=w, note=nt) for n, st, s, w, nt in rows],
-                sources=c['sources'], repos=c.get('repos', []), hashes=c['hashes'], probe=c['probe'], music=c['music_text'], archive_command=c['archive_cmd'], listen_count=n_listen)
+                sources=c['sources'], repos=c.get('repos', []), runs=c.get('runs', []), hashes=c['hashes'], probe=c['probe'], music=c['music_text'], archive_command=c['archive_cmd'], listen_count=n_listen)
     return '\n'.join(L), data
 
 
@@ -606,7 +671,7 @@ class Ctx:
         self.pack = self.run / 'goi-duyet'
         self.logs = self.work / 'nhat-ky'
         self.script = self.work / 'kich-ban.json'
-        self.chup, self.giong, self.dung, self.nhac, self.quay = (self.work / x for x in ('chup', 'giong', 'dung', 'nhac', 'quay'))
+        self.chup, self.giong, self.dung, self.nhac, self.quay, self.chay = (self.work / x for x in ('chup', 'giong', 'dung', 'nhac', 'quay', 'chay'))
         self.spec = self.dung / 'video.json'
         self.chain_rows, self.chain_total = (lambda: []), (lambda: 0.0)
 
@@ -661,6 +726,50 @@ def quay_refusal(ref, code, so, se):
         fix = ('GitHub refused or throttled the page, which no change to the script fixes: run the same command later; if it stops the same way twice, skip this pick and say why'
                if outside else 'change the "open" list of the repo beat (or "repo" and "branch" of its source) to pages that exist and show what the voice says; the message names the page')
     return Refusal(f'quay:{ref}', reason, fix)
+
+
+def chay_deadline(run):
+    """Every step's own deadline, the server's wait for readiness, and four minutes for the Python environment, the registry checks and the audit."""
+    return sum(s['deadline'] for s in run['steps']) + 60 + 240
+
+
+def chay_manifest(ctx, ref):
+    return load_json(ctx.chay / ref / 'chay.json')
+
+
+def chay_age_ok(ctx, ref, now=None):
+    try:
+        return stamp_age_ok(chay_manifest(ctx, ref)['captured'], now)
+    except (OSError, KeyError, ValueError):
+        return False
+
+
+def chay_refusal(ref, code, so, se):
+    """The refusal halcyon_chay.py printed (`chay: <kind>: <why>`, then `to fix: ...`) as the chain's own refusal."""
+    lines = [x.rstrip() for x in se.strip().splitlines() if x.strip()]
+    fix = next((x.split(':', 1)[1].strip() for x in reversed(lines) if x.startswith('to fix:')), '')
+    start = next((i for i, x in enumerate(lines) if x.startswith('chay:')), None)
+    said = [x for x in (lines[start:] if start is not None else []) if not x.startswith('to fix:')]
+    reason = '\n    '.join(said) if said else (tail(se, 3) or tail(so, 3) or f'halcyon_chay.py exited {code} without a message')
+    kind = re.match(r'chay: ([\w-]+):', reason)
+    if not fix:
+        fix = 'run the same command again later' if kind and kind.group(1) in ('network', 'deadline', 'leftover') else 'change the "run" block of the source (or the beat\'s step); the message names the step and what the real output was'
+    return Refusal(f'chay:{ref}', reason, fix)
+
+
+def step_chay(ctx, ref):
+    """Run the commands of the source for real in a throwaway folder (halcyon_chay.py): a log, one picture per step, the packages checked and pinned."""
+    e = ctx.plan.runs[ref]
+    out = ctx.chay / ref
+    shutil.rmtree(out, ignore_errors=True)
+    ctx.chay.mkdir(parents=True, exist_ok=True)
+    job = ctx.chay / f'{ref}.job.json'
+    write_json(job, dict(ref=ref, run=ctx.kb['sources'][ref]['run'], bands={str(k): v for k, v in e['steps'].items()}))
+    cmd = [ctx.cfg['gpu_python'], '-I', '-X', 'utf8', HERE / 'halcyon_chay.py', 'run', '--job', job, '--out', out]
+    code, so, se = run_process(cmd, chay_deadline(e['run']), ctx.logs / f'chay-{ref}', step=f'chay:{ref}')
+    if code:
+        raise chay_refusal(ref, code, so, se)
+    return warnings_in(so) + warnings_in(se)
 
 
 def capture_info(ctx, ref):
@@ -732,6 +841,11 @@ def merged_captures(ctx):
         ent = capture_info(ctx, ref)['entry']
         ent = dict(ent, file=os.path.relpath(ctx.chup / ref / ent['file'], ctx.dung).replace('\\', '/'))
         caps[ref] = ent
+    kb = kich_ban_module()
+    for ref in ctx.plan.runs:
+        for st in chay_manifest(ctx, ref)['states']:
+            ent = dict(st['entry'], file=os.path.relpath(ctx.chay / ref / st['entry']['file'], ctx.dung).replace('\\', '/'))
+            caps[kb.terminal_key(ref, st['step'])] = ent
     return dict(captures=caps)
 
 
@@ -739,7 +853,7 @@ def step_lap_rap(ctx):
     ctx.dung.mkdir(parents=True, exist_ok=True)
     write_json(ctx.chup / 'captures.json', merged_captures(ctx))
     cmd = [sys.executable, '-X', 'utf8', HERE / 'halcyon_kich_ban.py', ctx.script, '--timing', ctx.giong / 'giong-day-du-timing.json', '--out', ctx.spec]
-    if ctx.plan.refs:
+    if ctx.plan.refs or ctx.plan.runs:
         cmd += ['--captures', ctx.chup / 'captures.json']
     for ref in ctx.plan.repos:
         cmd += ['--quay', f'{ref}={ctx.quay / ref / "quay.json"}']
@@ -825,7 +939,8 @@ def step_kiem_anh(ctx):
             raise Refusal('kiem-anh', f'the stills folder has no {f}', 'tell the coordinator')
     if not list(d.glob('*-tt.jpg')):
         raise Refusal('kiem-anh', 'the stills folder has no TikTok-overlay preview', 'tell the coordinator')
-    stale = [r for r in ctx.plan.refs if not capture_age_ok(ctx, r)] + [f'{r} (repo)' for r in ctx.plan.repos if not quay_age_ok(ctx, r)]
+    stale = ([r for r in ctx.plan.refs if not capture_age_ok(ctx, r)] + [f'{r} (repo)' for r in ctx.plan.repos if not quay_age_ok(ctx, r)]
+             + [f'{r} (run)' for r in ctx.plan.runs if not chay_age_ok(ctx, r)])
     if stale:
         raise Refusal('kiem-anh', f'capture(s) {", ".join(stale)} are older than {CAPTURE_MAX_AGE_S // 3600} hours or have no time', 'run the command again: stale captures are taken again')
     bad = repo_plan_problems(load_json(ctx.spec), load_json(ctx.dung / 'video-plan.json'))
@@ -895,7 +1010,14 @@ def step_goi(ctx):
         m = quay_manifest(ctx, ref)
         repos.append(dict(ref=ref, repo=m['repo'], branch=m['branch'], commit=m['commit'], captured=m['captured'],
                           pages=[dict(path=p['path'], address=p['final'], status=p['status'], seconds=p.get('seconds')) for p in m['pages']]))
+    runs = []
+    for ref in ctx.plan.runs:
+        m = chay_manifest(ctx, ref)
+        runs.append(dict(ref=ref, captured=m['captured'], seconds=m['seconds'], tools=m['tools'], files=m['files'], steps=m['steps'], packages=list(m['packages'].values()),
+                         audit=m['audit'], leftover=m['leftover_processes_after'], deleted=m['throwaway_folder_deleted']))
     write_text(ctx.work / 'nguon.txt', ''.join(f'{s["ref"]}\t{s["url"]}\tHTTP {s["http"]}\tchụp {s["captured"]}\n' for s in srcs)
+               + ''.join(f'{r["ref"]}\tchạy thật\t{k["cmd"]}\texit {k["exit"]}\n' for r in runs for k in r['steps'])
+               + ''.join(f'{r["ref"]}\t{p["page"]}\t{p["name"]} {p["version"]}\n' for r in runs for p in r['packages'])
                + ''.join(f'{r["ref"]}\t{p["address"]}\tHTTP {p["status"]}\tquay {r["captured"]}\tcommit {r["commit"]}\n' for r in repos for p in r['pages']))
     fm, pm = ffprobe_facts(final), ffprobe_facts(clean)
     bad = check_render(fm, spec['duration'])
@@ -908,13 +1030,16 @@ def step_goi(ctx):
         hashes[f'capture {ref} (picture)'] = sha_file(ctx.chup / ref / capture_info(ctx, ref)['entry']['file'])
     for r in repos:
         hashes[f'repo {r["ref"]} (quay.json)'] = sha_file(ctx.quay / r['ref'] / 'quay.json')
+    for r in runs:
+        hashes[f'run {r["ref"]} (chay.json)'] = sha_file(ctx.chay / r['ref'] / 'chay.json')
+        hashes.update({f'run {r["ref"]} file {f["name"]}': f['sha256'] for f in r['files']})
     hashes['mp4 no music'] = sha_file(clean)
     hashes['mp4 with music'] = sha_file(final)
     slug = Path(spec['out']['clean']).stem[len(spec['name']) + 1:]
     mins = spec['duration']
     c = dict(id=ctx.kb['id'], title=ctx.kb['title'], date_iso=datetime.now(TZ).strftime('%Y-%m-%d'), run_dir=str(ctx.run), slug=slug,
              final_mp4=names['final'], plain_mp4=names['plain'], tiktok_mp4=names['tiktok'], post_file=names['post'], music_json=final.with_suffix('.json').name,
-             duration_text=f'{mins:g} s'.replace('.', ','), say=ctx.plan.say, listen_count=len(rep.get('listen', [])), sources=srcs, repos=repos, hashes=hashes,
+             duration_text=f'{mins:g} s'.replace('.', ','), say=ctx.plan.say, listen_count=len(rep.get('listen', [])), sources=srcs, repos=repos, runs=runs, hashes=hashes,
              probe=dict(final=fm, plain=pm), probe_text=probe_text(fm), music_text=(music[1].strip() if len(music) > 1 else ' '.join(music).strip()) or '(không đọc được)',
              rows=ctx.chain_rows(), total_s=ctx.chain_total(),
              archive_cmd=f'py -3.12 "<kho video>\\_he-thong\\luu-tru-video.py" "{ctx.pack / "luu-tru.json"}" --duyet')
@@ -942,6 +1067,13 @@ def real_steps(ctx):
                                                      tools=tool_hashes('halcyon_quay.py', 'quay-repo.mjs', 'chup.mjs')),
                           outputs=lambda c, r=ref: [c.quay / r / 'quay.json', c.quay / r / 'cay.json'],
                           valid=lambda c, r=ref: quay_age_ok(c, r), what=f'recording {e["repo"]} on github.com'))
+    for ref in ctx.plan.runs:
+        e = ctx.plan.runs[ref]
+        steps.append(Step(f'chay:{ref}', lambda c, r=ref: step_chay(c, r),
+                          inputs=lambda c, r=ref, e=e: dict(run=c.kb['sources'][r]['run'], bands={str(k): v for k, v in e['steps'].items()}, tool=tool_hashes('halcyon_chay.py'),
+                                                            font=sha_file(HERE / 'fonts' / 'JetBrainsMono-Medium.ttf')),
+                          outputs=lambda c, r=ref: [c.chay / r / 'chay.json'],
+                          valid=lambda c, r=ref: chay_age_ok(c, r), what=f'running the commands of {ref} for real (installs packages into a throwaway folder)'))
     voice_inputs = lambda c: dict(say=c.plan.say, approved=sha_file(HERE / 'giong-da-nghe.txt'), tools=tool_hashes('lam-giong.py', 'halcyon_giong.py'),
                                   tts=sha_file(HERE.parent / 'scripts' / 'omnivoice_tts.py'),
                                   reference=sha_file(Path(c.cfg['profiles']) / VOICE_PROFILE / 'reference.wav'))
@@ -992,7 +1124,8 @@ def main(argv, say=print):
         for w in plan.warnings:
             say(f'warning: {w}')
         say(f'script ok: {len(plan.say)} voice paragraphs, {len(plan.refs)} capture(s): {", ".join(plan.refs) or "none"}'
-            + (f'; {len(plan.repos)} repo recording(s): {", ".join(plan.repos)}' if plan.repos else ''))
+            + (f'; {len(plan.repos)} repo recording(s): {", ".join(plan.repos)}' if plan.repos else '')
+            + (f'; {len(plan.runs)} run(s) of commands: {", ".join(plan.runs)}' if plan.runs else ''))
         if a.chi_kiem:
             if check_repo_seconds(kb, plan, run_dir):
                 say('repo beats: the seconds fit the voice already made')
