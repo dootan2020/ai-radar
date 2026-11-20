@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-20T07:44:24.609313+00:00",
-  "input_generated_at": "2026-11-20T06:45:58Z",
+  "generated_at": "2026-11-20T09:43:41.345665+00:00",
+  "input_generated_at": "2026-11-20T08:46:27Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -111842,10 +111842,10 @@
       "use_original_title": true,
       "source_url": "https://analyticsindiamag.com/ai-news/samsung-electronics-names-new-heads-for-memory-system-lsi-and-mobile-businesses",
       "key_points": [
-        "Samsung Electronics cải tổ lãnh đạo mảng bán dẫn và di động, thăng chức ông Sang Joon Hwang lên Chủ tịch và bổ nhiệm làm Giám đốc mảng Chip nhớ (Memory Business).",
-        "Theo Samsung, các bổ nhiệm này nhằm củng cố mảng kinh doanh bán dẫn và hỗ trợ giai đoạn tăng trưởng tiếp theo của công ty.",
-        "Tập đoàn chỉ định ông Sangyeun Cho đứng đầu mảng System LSI và ông Jong Myeong Lee làm Giám đốc công nghệ bộ phận Giải pháp Thiết bị (DS). Bên cạnh đó, ông Won-Joon Choi được bổ nhiệm lãnh đạo mảng Trải nghiệm Di động (MX).",
-        "Samsung kỳ vọng sự thay đổi này sẽ nâng cao năng lực cạnh tranh chip nhớ khi nhu cầu hạ tầng AI gia tăng. Dù vậy, hai lãnh đạo Young Hyun Jun và TM Roh vẫn tiếp tục giữ vị trí Tổng giám đốc điều hành của tập đoàn."
+        "Samsung Electronics vừa công bố đợt cải tổ lãnh đạo ở các mảng bán dẫn và di động, trong đó thăng chức ông Sang Joon Hwang lên Tổng giám đốc và bổ nhiệm làm người đứng đầu mảng Chip nhớ (Memory Business).",
+        "Theo Samsung, các quyết định bổ nhiệm này nhằm củng cố mảng kinh doanh bán dẫn và hỗ trợ giai đoạn tăng trưởng tiếp theo của công ty.",
+        "Samsung thăng chức Sang Joon Hwang lên Tổng giám đốc mảng chip nhớ. Doanh nghiệp này cũng bổ nhiệm ông Sangyeun Cho phụ trách mảng System LSI và ông Won-Joon Choi phụ trách mảng Trải nghiệm Di động.",
+        "Samsung kỳ vọng ông Hwang sẽ giúp củng cố năng lực cạnh tranh của sản phẩm chip nhớ khi nhu cầu hạ tầng AI ngày càng tăng. Dù vậy, Phó chủ tịch Young Hyun Jun và Tổng giám đốc TM Roh vẫn sẽ tiếp tục giữ chức Tổng giám đốc điều hành của tập đoàn."
       ],
       "same_event_coverage_ids": [
         "ee50ef49f99b1f530c2a"
@@ -111863,7 +111863,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Samsung thăng chức Sang Joon Hwang lên Chủ tịch, bổ nhiệm loạt lãnh đạo mảng bán dẫn và di động",
+      "editorial_headline_vi": "Samsung thăng chức Sang Joon Hwang lên Tổng giám đốc, cải tổ loạt lãnh đạo mảng bán dẫn và di động",
       "summary_sources": [
         {
           "id": "outlet",
@@ -111876,30 +111876,50 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.3,
+        "value": 7.4,
         "answers": {
           "what": 6,
           "why": 10,
-          "notable": 9,
-          "meaning": 10
+          "notable": 7,
+          "meaning": 8
         },
         "hard_errors": [
           {
             "kind": "role",
-            "summary_text": "thăng chức Sang Joon Hwang lên Chủ tịch",
-            "explanation": "The source says Samsung promoted Hwang to President, not chairman (outlet:p001)."
+            "summary_text": "Tổng giám đốc",
+            "explanation": "In the headline, this renders Hwang's promotion as general director. The source says he was promoted to President and appointed Head of Memory Business (outlet:p001)."
           },
           {
             "kind": "role",
-            "summary_text": "thăng chức ông Sang Joon Hwang lên Chủ tịch",
-            "explanation": "The body repeats the title discrepancy: the source calls Hwang President (outlet:p001)."
+            "summary_text": "thăng chức ông Sang Joon Hwang lên Tổng giám đốc",
+            "explanation": "The source calls Hwang's new rank President, separately from his appointment as Head of Memory Business (outlet:p001)."
+          },
+          {
+            "kind": "role",
+            "summary_text": "Tổng giám đốc mảng chip nhớ",
+            "explanation": "The source does not give Hwang the title of general director of the memory business; it names him President and Head of Memory Business (outlet:p001)."
+          },
+          {
+            "kind": "role",
+            "summary_text": "Tổng giám đốc TM Roh",
+            "explanation": "The source calls TM Roh President, Head of the DX Division, and a continuing CEO; it does not give him the additional title used here (outlet:p007)."
           }
         ],
         "findings": [
           {
             "question": "what",
-            "problem": "Readers may understand Hwang to have become Samsung’s chairman.",
-            "fix": "Use a Vietnamese title that preserves the source’s President rank in both the headline and body (outlet:p001)."
+            "problem": "Hwang's rank is misstated repeatedly.",
+            "fix": "Say he was promoted to President and appointed Head of Memory Business (outlet:p001)."
+          },
+          {
+            "question": "what",
+            "problem": "The DS technology leadership change is missing.",
+            "fix": "Add Jong Myeong Lee's appointment as CTO of the Device Solutions Division (outlet:p003)."
+          },
+          {
+            "question": "meaning",
+            "problem": "TM Roh receives an inaccurate additional title.",
+            "fix": "Call him President, Head of DX, and a continuing CEO (outlet:p007)."
           }
         ],
         "writer_boats": [
@@ -111907,8 +111927,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "c6ed97996b4baa4662a75a44a6b903e820660d7aee3a91a390558bc643371a9b",
-        "scored_at": "2026-11-20T07:40:29.732159+00:00"
+        "prose_sha256": "be124f91820a1eff5329b82708d20092829dc54401f8a9e2d2f2f4331d263d8f",
+        "scored_at": "2026-11-20T09:40:21.239446+00:00"
       }
     },
     {
@@ -112133,10 +112153,10 @@
       "use_original_title": false,
       "source_url": "https://arxiv.org/abs/2611.26414",
       "key_points": [
-        "Nhóm tác giả giới thiệu khung điều hướng ZeroVLN không cần tinh chỉnh có giám sát mô hình thị giác - ngôn ngữ (VLM). Thay vì dự đoán tọa độ hình học, hệ thống dùng giao diện gọi công cụ để truyền lệnh di chuyển bằng ngôn ngữ tự nhiên tới chuyên gia hành động.",
-        "Theo nhóm tác giả, việc tinh chỉnh VLM trên dữ liệu điều hướng thường làm thay đổi trọng số gốc và làm suy giảm năng lực thị giác tổng quát. Họ giải quyết vấn đề này bằng cách kết hợp chuyên gia hành động và cải thiện quyết định qua học tăng cường RL vòng lặp kín.",
-        "Khi huấn luyện trên cùng số tập dữ liệu, ZeroVLN vượt trội hơn hẳn các phương pháp dựa trên SFT trên bài đo tiêu chuẩn môi trường liên tục VLN-CE. Kết quả cho thấy khung làm việc chỉ gây thay đổi nhỏ ở trọng số mô hình và phần lớn bảo toàn được năng lực tổng quát ban đầu.",
-        "Nhóm nghiên cứu nhận định ZeroVLN là khung đầu tiên không cần SFT dữ liệu miền mà cùng lúc tối ưu hai chính sách qua học tăng cường khép kín. Tuy nhiên, các tác giả nhấn mạnh năng lực mô hình phần lớn được bảo toàn nhưng vẫn chịu những biến đổi nhỏ ở trọng số trên môi trường chuẩn hóa."
+        "Nhóm tác giả giới thiệu ZeroVLN và cho biết ZeroVLN điều hướng hiệu quả không cần SFT (tinh chỉnh có giám sát) trên dữ liệu miền điều hướng cho bộ não VLM (mô hình thị giác - ngôn ngữ). Thay vì dạy bộ não dự đoán mục tiêu hình học, hệ thống dùng giao diện gọi công cụ theo ngữ nghĩa để truyền lệnh di chuyển bằng ngôn ngữ tự nhiên tới chuyên gia hành động.",
+        "Theo các tác giả, việc thích ứng bộ não trên dữ liệu miền điều hướng có thể làm thay đổi đáng kể trọng số gốc và làm suy giảm năng lực thị giác tổng quát. Khung làm việc điều chỉnh chuyên gia hành động trước, sau đó cùng cải thiện quyết định và việc thực thi liên tục qua học tăng cường (RL) vòng lặp kín.",
+        "Mô hình chỉ gây thay đổi nhỏ ở trọng số bộ não và phần lớn bảo toàn năng lực tổng quát ban đầu.",
+        "Theo hiểu biết của nhóm nghiên cứu, ZeroVLN là khung nhanh - chậm đầu tiên không cần SFT dữ liệu miền cho bộ não VLM. Hệ thống này cũng lần đầu cùng tối ưu hai chính sách qua học tăng cường dạng tác tử vòng lặp kín trên chuẩn VLN-CE."
       ],
       "same_event_coverage_ids": [
         "53cf68f4b182036bc910"
@@ -112162,7 +112182,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "ZeroVLN giúp mô hình thị giác - ngôn ngữ điều hướng hiệu quả mà không cần tinh chỉnh SFT",
+      "editorial_headline_vi": "ZeroVLN giúp mô hình thị giác - ngôn ngữ điều hướng mà không cần SFT trên dữ liệu miền",
       "summary_sources": [
         {
           "id": "outlet",
@@ -112175,60 +112195,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 6.35,
+        "value": 8.8,
         "answers": {
-          "what": 7,
-          "why": 6,
-          "notable": 5,
+          "what": 10,
+          "why": 10,
+          "notable": 7,
           "meaning": 8
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "không cần tinh chỉnh có giám sát mô hình thị giác - ngôn ngữ (VLM)",
-            "explanation": "The reported absence of SFT is specifically navigation-domain SFT of the VLM brain, not an unrestricted claim that the VLM needs no supervised fine-tuning (outlet:p009)."
-          },
-          {
-            "kind": "quote",
-            "summary_text": "thường làm thay đổi trọng số gốc và làm suy giảm năng lực thị giác tổng quát",
-            "explanation": "The source says this adaptation can substantially alter weights and degrade general visual capabilities; it does not say this usually happens (outlet:p009)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "Khi huấn luyện trên cùng số tập dữ liệu",
-            "explanation": "The methods were trained on the same navigation episodes, not merely the same number of datasets (outlet:p009)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "các phương pháp dựa trên SFT",
-            "explanation": "The reported comparison is against representative SFT-based hierarchical VLN methods, not SFT-based methods generally (outlet:p009)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "khung đầu tiên không cần SFT dữ liệu miền mà cùng lúc tối ưu hai chính sách",
-            "explanation": "The authors' qualified novelty claims concern a slow-fast VLN framework without navigation-domain SFT of the VLM brain and joint optimization of its slow and fast policies through closed-loop agentic RL in VLN-CE (outlet:p009)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
             "question": "notable",
-            "problem": "The training comparison says the methods used an equal number of datasets.",
-            "fix": "Say they were trained on the same navigation episodes (outlet:p009)."
-          },
-          {
-            "question": "notable",
-            "problem": "The result appears to apply to all SFT-based methods.",
-            "fix": "Limit the comparison to representative SFT-based hierarchical VLN methods on standard VLN-CE benchmarks (outlet:p009)."
-          },
-          {
-            "question": "what",
-            "problem": "The lead makes the no-SFT claim too broad.",
-            "fix": "Specify zero navigation-domain SFT of the VLM brain (outlet:p009)."
-          },
-          {
-            "question": "why",
-            "problem": "A possible loss of general visual ability is presented as usual.",
-            "fix": "Use the source's conditional claim: navigation-domain adaptation can alter weights and degrade general visual capabilities (outlet:p009)."
+            "problem": "Readers miss the paper's concrete performance result.",
+            "fix": "State that, with the same navigation training episodes, ZeroVLN substantially outperformed representative supervised-fine-tuning-based hierarchical methods on standard VLN-CE benchmarks (outlet:p009)."
           }
         ],
         "writer_boats": [
@@ -112236,8 +112215,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "02f46fdc8067a43ab9d65d8478fdce64362e267e0d22b3ae702bc8b0dcb06a57",
-        "scored_at": "2026-11-20T07:32:08.558838+00:00"
+        "prose_sha256": "349b11ddf1fed72c2c93d1a82a64dfafea2daf8c240d2511c8a9085504429797",
+        "scored_at": "2026-11-20T09:40:21.239510+00:00"
       }
     },
     {
@@ -112602,10 +112581,10 @@
       "use_original_title": false,
       "source_url": "https://arxiv.org/abs/2611.26603",
       "key_points": [
-        "Nhóm tác giả giới thiệu Depth Pro 2, phương pháp ước tính độ sâu đo lường dày đặc cho ảnh và video ở độ phân giải đầy đủ. Mô hình huấn luyện một mạng mở rộng duy nhất để xử lý cả hai định dạng và dự đoán bản đồ độ sâu ở độ phân giải gốc.",
-        "Theo nhóm nghiên cứu, các phương pháp đơn ảnh trước đây thường đánh đổi giữa tính nhất quán thời gian và độ sắc nét đường biên. Cụ thể, các kỹ thuật đa khung hình thiên về tính nhất quán, trong khi kỹ thuật đơn khung hình chỉ ưu tiên độ sắc nét.",
-        "Nhóm nghiên cứu phát hành họ mô hình đạt đường biên Pareto mới về độ chính xác đo lường, độ sắc nét, tính nhất quán thời gian và thời gian chạy. Toàn bộ mã nguồn và trọng số mô hình cũng được công bố công khai trên trang web nghiên cứu.",
-        "Theo nhóm tác giả, Depth Pro 2 tạo ra bản đồ độ sâu đồng thời chính xác đo lường, sắc nét và nhất quán theo thời gian. Nhóm nghiên cứu khẳng định mô hình vượt trội các công trình trước ở toàn bộ ba khía cạnh độ chính xác đo lường, độ sắc nét và tính nhất quán thời gian."
+        "Nhóm tác giả giới thiệu Depth Pro 2 để ước tính độ sâu theo đơn vị đo thực cho ảnh và video ở độ phân giải gốc. Họ báo cáo bản đồ độ sâu vừa chính xác, rõ đường biên, vừa ổn định giữa các khung hình.",
+        "Nhóm nghiên cứu nhận thấy phương pháp dùng nhiều khung hình thường thiên về độ ổn định theo thời gian, còn phương pháp dùng một khung hình thiên về đường biên sắc nét. Để xử lý sự đánh đổi đó, họ huấn luyện một mạng có thể mở rộng, xử lý cả ảnh lẫn video và tạo bản đồ độ sâu ở độ phân giải gốc.",
+        "Theo nhóm tác giả, một mạng xử lý cả ảnh và video ở độ phân giải gốc tạo ra bản đồ độ sâu vượt trội hơn các công trình trước ở tất cả các khía cạnh này. Họ cũng công bố mã nguồn và trọng số của mô hình.",
+        "Theo nhóm tác giả, họ mô hình này đặt ra mức đánh đổi mới giữa độ chính xác theo đơn vị đo, độ nét, độ ổn định theo thời gian và thời gian chạy."
       ],
       "same_event_coverage_ids": [
         "a2d04598ca238ac6192b"
@@ -112628,7 +112607,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Depth Pro 2 ước tính độ sâu đo lường sắc nét và nhất quán thời gian cho ảnh và video",
+      "editorial_headline_vi": "Nhóm tác giả báo cáo Depth Pro 2 vượt phương pháp trước về độ chính xác, nét biên và độ ổn định video",
       "summary_sources": [
         {
           "id": "outlet",
@@ -112639,47 +112618,7 @@
       ],
       "summary_limitations": [],
       "key_points_prompt_version": "summary-vi-7-bullets",
-      "score": {
-        "version": "cham-4-cau-1",
-        "value": 9.8,
-        "answers": {
-          "what": 10,
-          "why": 9,
-          "notable": 10,
-          "meaning": 10
-        },
-        "hard_errors": [
-          {
-            "kind": "quote",
-            "summary_text": "kỹ thuật đơn khung hình chỉ ưu tiên độ sắc nét",
-            "explanation": "The source says single-frame methods favor sharpness; it does not say they only prioritize it (outlet:p009)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "Toàn bộ mã nguồn",
-            "explanation": "The source says the authors release code and weights, without establishing that all source code is released (outlet:p009)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "why",
-            "problem": "“Only” makes the single-frame preference sound exclusive.",
-            "fix": "Say single-frame methods favor sharpness, as the source does (outlet:p009)."
-          },
-          {
-            "question": "notable",
-            "problem": "“All source code” promises more than the source establishes.",
-            "fix": "Say the authors release code and model weights (outlet:p009)."
-          }
-        ],
-        "writer_boats": [
-          "agy"
-        ],
-        "scorer_boat": "codex",
-        "scorer_provider": "codex",
-        "prose_sha256": "88bdbf34daafaefeed1f1d48e1268879fd35cd59eda7e8ec0de65ed9075e102d",
-        "scored_at": "2026-11-20T07:40:29.732303+00:00"
-      }
+      "score": null
     },
     {
       "id": "07dc4a4232e04281e132",
@@ -112695,10 +112634,10 @@
       "use_original_title": false,
       "source_url": "https://arxiv.org/abs/2611.25980",
       "key_points": [
-        "Nhóm tác giả đề xuất mục tiêu huấn luyện phụ trợ AFFECT cho mô hình thế giới, tức hệ thống dự đoán diễn biến môi trường theo hành động. Theo nhóm nghiên cứu, phương pháp này giúp các chuỗi diễn hoạt bám sát thực tế hơn trong mô phỏng OGBench cùng robot DROID và ALOHA-2 ngoài đời thực.",
-        "Kỹ thuật này ra đời vì theo nhóm tác giả, các mô hình thế giới hiện nay thường không nắm bắt được tác động của thay đổi hành động nhỏ đến quan sát tương lai. Nhóm tác giả chỉ ra hạn chế này gây khó khăn cho việc đánh giá chính sách robot và lập kế hoạch, nơi các hành động gần như giống nhau có thể dẫn tới kết cục hoàn toàn khác.",
-        "Trên robot DROID, hệ số tương quan Pearson giữa tỷ lệ thành công của chính sách trong mô hình và trên robot thật đã tăng từ 0,47 lên 0,79. Kết quả thực nghiệm này đồng thời ghi nhận chỉ số FVD giảm tới 23%.",
-        "Nhóm tác giả khẳng định việc chọn hành động bằng mô hình huấn luyện qua AFFECT giúp cải thiện tỷ lệ thành công khi lập kế hoạch lên tới 8,3%. Các kết quả này đến từ thử nghiệm trên mô phỏng OGBench cùng hệ thống robot DROID và ALOHA-2 ngoài đời thực."
+        "Nhóm tác giả đề xuất AFFECT, cách huấn luyện bổ sung cho mô hình thế giới (hệ thống dự đoán môi trường thay đổi theo hành động), và báo cáo dự đoán sát kết quả thực hơn trong mô phỏng OGBench cùng các thiết lập DROID, ALOHA-2 ngoài đời. Phương pháp thêm nhiễu có liên hệ theo thời gian vào hành động, rồi huấn luyện video tạo ra phản ứng như video ghi lại mà không cần lặp thử nghiệm từ cùng trạng thái ban đầu.",
+        "Nhóm tác giả nhận thấy mô hình hiện nay thường bỏ sót tác động của thay đổi hành động nhỏ dù video tạo ra ngày càng giống thật. Theo họ, hạn chế này cản trở việc đánh giá chiến lược điều khiển robot và lập kế hoạch, nơi hai hành động gần giống có thể dẫn tới kết quả khác hẳn.",
+        "Trong thiết lập DROID, nhóm tác giả cho biết hệ số tương quan Pearson giữa tỷ lệ thành công của chiến lược điều khiển trong mô hình và trên robot thật tăng từ 0,47 lên 0,79.",
+        "Trong các thử nghiệm lập kế hoạch, nhóm tác giả báo cáo việc chọn hành động bằng mô hình huấn luyện với AFFECT cải thiện tỷ lệ hoàn thành nhiệm vụ tới 8,3%; kết quả được nêu trong phạm vi mô phỏng OGBench và các thiết lập thực tế DROID, ALOHA-2."
       ],
       "same_event_coverage_ids": [
         "843a3534bab5a70c84cb"
@@ -112716,7 +112655,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Phương pháp AFFECT giúp tăng tương quan đánh giá chính sách robot DROID từ 0,47 lên 0,79",
+      "editorial_headline_vi": "Trong thiết lập DROID, nhóm tác giả báo cáo AFFECT nâng tương quan đánh giá chính sách robot từ 0,47 lên 0,79",
       "summary_sources": [
         {
           "id": "outlet",
@@ -112727,52 +112666,7 @@
       ],
       "summary_limitations": [],
       "key_points_prompt_version": "summary-vi-7-bullets",
-      "score": {
-        "version": "cham-4-cau-1",
-        "value": 9.0,
-        "answers": {
-          "what": 8,
-          "why": 10,
-          "notable": 9,
-          "meaning": 10
-        },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "robot DROID và ALOHA-2",
-            "explanation": "The source calls DROID and ALOHA-2 real-world setups; it does not identify DROID as a robot (outlet:p009)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "Trên robot DROID",
-            "explanation": "The source says the correlation result is on DROID and compares model predictions with a real robot; it does not call that robot DROID (outlet:p009)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "hệ thống robot DROID và ALOHA-2",
-            "explanation": "The source describes real-world DROID and ALOHA-2 setups, without identifying DROID as a robot system (outlet:p009)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "notable",
-            "problem": "The reader may think DROID is the name of a robot.",
-            "fix": "Refer to the real-world DROID and ALOHA-2 setups, and say the DROID correlation compares model results with the real robot (outlet:p009)."
-          },
-          {
-            "question": "what",
-            "problem": "The description leaves out AFFECT’s distinguishing training method.",
-            "fix": "Explain that it perturbs actions and trains generated videos to respond as recorded videos do, without repeated runs from the same initial state (outlet:p009)."
-          }
-        ],
-        "writer_boats": [
-          "agy"
-        ],
-        "scorer_boat": "codex",
-        "scorer_provider": "codex",
-        "prose_sha256": "8cb02ae2d578d87e674cdb86f76529907595eec8c7022a7d37e0ce6864d83c92",
-        "scored_at": "2026-11-20T07:40:29.732334+00:00"
-      }
+      "score": null
     },
     {
       "id": "1e0ea53f798a86c31a20",
@@ -112866,6 +112760,455 @@
         "scorer_provider": "codex",
         "prose_sha256": "9fd03c4ae3ffaa88bc0506646888f6d753956952fcce194f715cdcb7c1451298",
         "scored_at": "2026-11-20T07:32:08.559109+00:00"
+      }
+    },
+    {
+      "id": "9d1769ec73460b821112",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-20/ex-alibaba-star-s-ai-startup-doubles-valuation-to-5-billion",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "416b0b44c439c56017ff"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "54bcdab6f9d2db6e36ae",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://pandaily.com/mega188-edge-ai-chip-tests-stacked-dram-production",
+      "key_points": [
+        "MetaChip's MEGA188 edge-AI inference coprocessor has progressed through silicon bring-up and model tests, targeting mass production in Q1 2027.",
+        "The 28-nanometer design vertically integrates DRAM with logic through hybrid bonding and through-silicon vias.",
+        "MetaChip claims peak memory bandwidth of 600GB per second, memory configurations of 2GB, 4GB, and 8GB, and average power consumption of 5 to 10 watts.",
+        "The coprocessor supplements host processors via interfaces including PCIe and M.2."
+      ],
+      "same_event_coverage_ids": [
+        "cf3363d42d3b3072ba3b"
+      ],
+      "split_coverage_ids": [],
+      "subject": "MetaChip MEGA188",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "c1ab19455959206ce1d9",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://pandaily.com/simplex-ai-linger-local-personal-agent-polystrata",
+      "key_points": [
+        "Simplex AI đã công khai mã nguồn Linger, phần mềm tác tử cá nhân (chương trình AI tự thực hiện tác vụ) trên máy tính và mô hình ngôn ngữ cục bộ. Theo nhà phát triển, tác tử Another Me được dự kiến sắp xếp thư, lịch, hội thoại thành kho tri thức, tìm việc tiếp nối và phân công tác vụ.",
+        "Thành phần PolyStrata phân tầng khối lượng mô hình qua bộ nhớ đồ họa, RAM và SSD thay cho việc nạp toàn bộ vào cạc màn hình. Các chuyên gia dùng nhiều nằm gần chip đồ họa hơn, phần ít dùng chuyển qua các tầng lưu trữ khác.",
+        "Pandaily lưu ý đây là tốc độ giải mã từ nhà cung cấp chứ không phải thời gian chạy tác vụ hoàn chỉnh hay bảo chứng chất lượng đám mây.",
+        "Pandaily ghi nhận bản cài đặt hoàn chỉnh chưa ra mắt khi bản tải về cho macOS, Windows và Linux vẫn ghi sắp ra mắt dù mã nguồn đã mở. Giấy phép đòi hỏi văn bản ủy quyền khi chạy dịch vụ máy chủ, đồng thời suy luận cục bộ không bảo đảm mọi quy trình hoàn toàn ngoại tuyến."
+      ],
+      "same_event_coverage_ids": [
+        "042c0f8ffb9db3627dc0"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Simplex AI Linger",
+      "video_labels": {
+        "video_hook": "usable_now",
+        "named_people": [
+          "Tony Zhang"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Simplex AI mở mã nguồn tác tử Linger, báo cáo tốc độ giải mã đạt 179 token mỗi giây trên RTX 5090",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "pandaily",
+          "url": "https://pandaily.com/simplex-ai-linger-local-personal-agent-polystrata"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.8,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 8,
+          "meaning": 6
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "Giấy phép đòi hỏi văn bản ủy quyền khi chạy dịch vụ máy chủ",
+            "explanation": "Written authorization is required when Linger is run as a hosted or managed service for outsiders. The license permits commercial internal work and use as the backend of an organization's own applications (outlet:p005)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "Readers may think any hosted use requires written authorization.",
+            "fix": "Specify that the requirement applies to hosted or managed services for outsiders, while internal commercial use and use behind an organization's own applications are permitted (outlet:p005)."
+          },
+          {
+            "question": "notable",
+            "problem": "The speed figure lacks the tested model and hardware context.",
+            "fix": "Identify the 125-billion-parameter Qwen3.8-Flash-Next model and the 32GB RTX 5090; the source also reports 45.5 tokens per second on an RTX 3060 with 12GB of video memory and 64GB of RAM (outlet:p004)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "5cedecdf87da38e304e026fbe2260826e614fd08275780b39bf56fa642609965",
+        "scored_at": "2026-11-20T09:29:23.932389+00:00"
+      }
+    },
+    {
+      "id": "b85b531d0885957958d0",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://analyticsindiamag.com/ai-news/soket-ai-secures-usd-4-million-as-it-rolls-out-its-eka-1-model",
+      "key_points": [
+        "Soket AI launched EKA-1, a 26-billion-parameter foundation model under Project EKA focused on math, code, and reasoning.",
+        "The investment supports sovereign AI solutions where data security, reliability, and technological sovereignty are critical."
+      ],
+      "same_event_coverage_ids": [
+        "07cb92c1fb879a2c80c0"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Soket AI EKA-1",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Sanjiv Bajaj",
+          "Rajeev Jain"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "f46f451b0bc55d2dd33b",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.scmp.com/tech/tech-trends/article/3375211/fighting-ai-ai-how-chinese-cybersecurity-giant-defending-against-new-hacks",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "519b5b354872bd576812"
+      ],
+      "split_coverage_ids": [],
+      "subject": "AI cybersecurity defense",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Xi Jinping",
+          "Donald Trump"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "1db3b9f3f38e3db7158f",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The story reports on a corporate bond conversion between memory semiconductor makers SK Hynix and Kioxia; the reference to AI development is purely incidental.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-20/sk-hynix-to-be-kioxia-s-top-shareholder-after-bond-conversion",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "720de1fe9a693808b682"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "562876fc4512bf702b03",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.wired.com/story/henrijs-dandzbergs-polemos-missiles-ai-warfare/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "8c756be030a92df7a7b0"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Henrijs Dandzbergs Polemos Industries",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Henrijs Dandzbergs"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "6f51d7cfe5721bf84c20",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-20/nvidia-scandal-fallout-india-ai-yotta-ambani-adani-am-intelligence-e2e-networks",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "65c9251b0b08d1517107"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "8e390788c0738087f296",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-20/japanese-shares-slide-amid-uncertainty-around-the-ai-trade-mwo9cqcj",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "e251ff0703fe49399767"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "ac639ea5b9e14273646a",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-20/anthropic-shares-drop-post-market-on-apple-s-ai-agent-plans",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "6f35ebb6170609f514cc"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "4070e4e3ccd525b3cf23",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-19/spacex-eyes-at-least-32-billion-ai-chip-debt-sale-on-thursday",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "2565556a89e6099ed62c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "eb6a41c5e6627e45c72b",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The cluster mistakenly aggregates routine Yonhap reporting on South Korean stock market (KOSPI) movements with an unrelated Semafor report on Anthropic's record US market debut.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://en.yna.co.kr/view/AEN20261119006551320",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "2814e7692a92dd73a0e1",
+        "3b88ac3cb694ddc2f218",
+        "5a5bc3c97728f8fdbac2",
+        "60e68a2acef4f719b49b",
+        "6435658ccdf9e95beaeb",
+        "9f352f33b031a8012dbc",
+        "f643664e51abff49794e"
+      ],
+      "split_coverage_ids": [
+        "41d4d036eebae0431c74"
+      ]
+    },
+    {
+      "id": "b4748dcf13b9fda43d20",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.26444",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "7d8e81f6e1f3cc93e40f"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Mind2Act World benchmark",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "10acc898a0a978c7268f",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.26268",
+      "key_points": [
+        "Nhóm tác giả giới thiệu LightningMoBA, giải pháp đồng thiết kế khâu chọn lọc và thực thi cho cơ chế chú ý theo khối (giảm tính toán ngữ cảnh dài). Kỹ thuật này kết hợp định tuyến động, phân quyền theo khối khóa-giá trị (KV) và phân luồng xử lý thời gian chạy.",
+        "Theo nhóm nghiên cứu, ngân sách Top-k cố định áp đặt một mức chọn cho các phân phối điểm khác nhau, trong khi quyền sở hữu theo vùng truy vấn gây phân mảnh khả năng tái sử dụng khối khóa-giá trị khi nhiều vùng cùng chọn một cột. Họ giải quyết bằng cách đặt ngưỡng điểm khối để tạo siêu dữ liệu thưa, đồng thời chia nhỏ cột phân nhánh cao và tái sử dụng từng mảng nạp sẵn.",
+        "LightningMoBA tăng tốc tạo văn bản đầu-cuối từ 1,20 đến 1,60 lần ở mức lưu giữ tương đương Top-16 khối trên 5 điểm kiểm tra mô hình. Phương pháp này đồng thời nâng điểm chuẩn ngữ cảnh dài RULER trung bình từ 74,42 lên 75,28.",
+        "Nhóm tác giả kết luận sự kết hợp của các cơ chế giúp tách rời việc lưu giữ dữ liệu khỏi lịch điều phối của bộ xử lý đồ họa. Trên kiến trúc Hopper, cơ chế phân luồng xử lý vận hành nhờ chồng lấn việc truyền dữ liệu khóa-giá trị với tính toán của lõi Tensor."
+      ],
+      "same_event_coverage_ids": [
+        "db8e249b2ba76740371e"
+      ],
+      "split_coverage_ids": [],
+      "subject": "LightningMoBA",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "LightningMoBA tăng tốc tạo văn bản từ 1,20 đến 1,60 lần và nâng điểm chuẩn ngữ cảnh dài RULER",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.26268"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.85,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "bf116adbe97f6ed6e416f82216d548fbb65542382eaa73c7257583f5be3c5d4e",
+        "scored_at": "2026-11-20T09:29:23.932445+00:00"
       }
     }
   ]
