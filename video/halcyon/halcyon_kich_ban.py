@@ -271,6 +271,81 @@ def terminal_key(ref, step):
     return f'{ref}-s{step}'
 
 
+# ---------------- moving-picture beats: screen, scene3d, demo (contract shared with the chain's script check) ----------------
+CLIP_KINDS = ('screen', 'scene3d', 'demo')
+CLIP_FIELDS = ('file', 'w', 'h', 'fps', 'frames', 'duration', 'captured', 'source', 'date')   # what a clip producer's manifest (clip.json) must say; MOT-LENH.md has the rest
+DEMO_FIELDS = ('file', 'duration', 'captured', 'source', 'date')                              # the demo producer's manifest (demo.json)
+REC_W_SRC, REC_H_SRC = 390, 844                                                               # the builder's recording size: a demo rect is in these pixels
+CLIP_TOL = 0.05                                                                               # seconds a silent beat may differ from its clip
+
+
+def clip_key(kind, ref, steps=None):
+    """The key of one moving picture in the clips file (--clips) and in the timing file's `silences`."""
+    if kind == 'screen':
+        return f'screen:{ref}:' + '-'.join(str(x) for x in steps)
+    return f'{kind}:{ref}'
+
+
+def is_num(v):
+    return isinstance(v, (int, float)) and not isinstance(v, bool)
+
+
+def parse_clip_beat(sp):
+    """A screen, scene3d or demo beat -> ({kind, ref, steps, key, from, to, rect}, None), or (None, (reason, fix)). No files are read.
+
+    screen:  {"kind": "screen",  "screen":  {"ref": <a run source>, "steps": [0, 1]}}               the commands of those steps, played back to back
+    scene3d: {"kind": "scene3d", "scene3d": {"ref": <a scene source>}}                               the three.js clip of a scene source
+    demo:    {"kind": "demo",    "demo":    {"ref": <a demo source>, "from": 2.0, "to": 21.5, "rect": [x0, y0, x1, y1]}}   the part of a recorded page, rect in the 390x844 recording"""
+    kind = sp.get('kind') if isinstance(sp, dict) else None
+    b = sp.get(kind) if kind in CLIP_KINDS else None
+    if not isinstance(b, dict):
+        return None, (f'a {kind} beat has no "{kind}" block', f'write {{"kind": "{kind}", "{kind}": {{"ref": ...}}}} (MOT-LENH.md)')
+    ref = b.get('ref')
+    if not isinstance(ref, str) or not re.fullmatch(r'[\w.-]+', ref):
+        return None, (f'{kind}.ref is {json.dumps(ref, ensure_ascii=False)}', 'give the name of a source: letters, digits, dot, dash and underscore only')
+    info = dict(kind=kind, ref=ref, steps=None, key=None, **{'from': None, 'to': None, 'rect': None})
+    allowed = {'screen': ('ref', 'steps'), 'scene3d': ('ref',), 'demo': ('ref', 'from', 'to', 'rect')}[kind]
+    extra = [k for k in b if k not in allowed]
+    if extra:
+        return None, (f'{kind} has unknown key(s) {", ".join(extra)}', f'allowed keys: {", ".join(allowed)}')
+    if kind == 'screen':
+        st = b.get('steps')
+        if not (isinstance(st, list) and st and all(isinstance(x, int) and not isinstance(x, bool) and x >= 0 for x in st) and all(x < y for x, y in zip(st, st[1:]))):
+            return None, (f'screen.steps is {json.dumps(st)}', 'write the numbers of the run\'s steps to play, from 0, increasing, for example [0, 1]')
+        info['steps'] = st
+    if kind == 'demo':
+        a, z, r = b.get('from'), b.get('to'), b.get('rect')
+        if not (is_num(a) and is_num(z) and 0 <= a < z):
+            return None, (f'demo.from/to are {json.dumps(a)} and {json.dumps(z)}', 'write the seconds of the recording to show: "from" at least 0 and below "to"')
+        if not (isinstance(r, list) and len(r) == 4 and all(is_num(x) for x in r) and 0 <= r[0] < r[2] <= REC_W_SRC and 0 <= r[1] < r[3] <= REC_H_SRC):
+            return None, (f'demo.rect is {json.dumps(r)}', f'write [x0, y0, x1, y1] inside the {REC_W_SRC}x{REC_H_SRC} recording: the part of the page the voice is about')
+        info.update({'from': a, 'to': z, 'rect': r})
+    info['key'] = clip_key(kind, ref, info['steps'])
+    return info, None
+
+
+def silent_problem(paras, n, where):
+    """None when paragraph n is a valid silent paragraph, else (reason, what to change): no voice and no subtitle, one moving picture, never first or last, never next to
+    another silent paragraph."""
+    p = paras[n]
+    if p.get('silent') is not True:
+        return f'{where}.silent must be true (or left out)', 'write "silent": true, or remove the key'
+    for k in ('say', 'show'):
+        if k in p:
+            return (f'{where} is silent but has "{k}": a silent paragraph has no voice and no subtitle',
+                    f'remove "{k}", or remove "silent" to make it a voiced paragraph')
+    if n in (0, len(paras) - 1):
+        return f'{where} is silent but is the {"first" if n == 0 else "last"} paragraph', 'the video opens and closes on the voice: put a voiced paragraph there'
+    if paras[n - 1].get('silent'):
+        return f'{where} is silent like the paragraph before it', 'make the two one block: one silent paragraph with one picture'
+    if n + 1 < len(paras) and paras[n + 1].get('silent'):
+        return f'{where} is silent like the paragraph after it', 'make the two one block: one silent paragraph with one picture'
+    bl = p.get('beats')
+    if not (isinstance(bl, list) and len(bl) == 1 and isinstance(bl[0], dict) and bl[0].get('kind') in CLIP_KINDS):
+        return f'{where}.beats must be exactly one beat of kind {", ".join(CLIP_KINDS)}', 'a silent paragraph is as long as its one moving picture'
+    return None
+
+
 # ---------------- inputs ----------------
 def load_json(path, what):
     try:
@@ -304,22 +379,41 @@ def check_manifest(man):
 class Run:
     """One assembly: the script, the voice timing, the manifest; fills spec and notes."""
 
-    def __init__(self, kb, timing, manifest, out_dir, timing_path, quay=None):
+    def __init__(self, kb, timing, manifest, out_dir, timing_path, quay=None, clips=None):
         self.kb, self.t, self.caps, self.out_dir, self.timing_path = kb, timing, manifest, Path(out_dir), Path(timing_path)
         self.quay = quay
+        self.clips = clips or {}           # clip key -> path of its manifest (clip.json, or demo.json for a demo)
         self.notes = []
         self.heard = need(timing, 'words_whisper_medium', 'timing file')
         self.paras = need(kb, 'paragraphs', 'script')
         spans = need(timing, 'beats', 'timing file')
-        if len(spans) != len(self.paras):
-            fail(f'the script has {len(self.paras)} paragraphs but the timing file measured {len(spans)} voice paragraphs; they must match one to one')
+        self.silent = [bool(p.get('silent')) for p in self.paras]
+        for n, sil in enumerate(self.silent):
+            bad = silent_problem(self.paras, n, f'paragraphs[{n}]') if sil else None
+            if bad:
+                fail(f'{bad[0]}; {bad[1]}')
+        voiced = self.silent.count(False)
+        if len(spans) != voiced:
+            fail(f'the script has {voiced} voiced paragraphs but the timing file measured {len(spans)} voice paragraphs; they must match one to one '
+                 f'(a silent paragraph has no voice and is not counted)')
         self.spans = spans
+        self.silences = timing.get('silences', [])
+        if len(self.silences) != len(self.silent) - voiced:
+            fail(f'the script has {len(self.silent) - voiced} silent paragraphs but the timing file has {len(self.silences)} silences; '
+                 f'the silence is put into the voice by halcyon_lang.py (the chain\'s `lang` step) before the spec is assembled')
+        self.slot, vi, si = {}, 0, 0         # paragraph -> its voice span (voiced) or its silence (silent)
+        for n, sil in enumerate(self.silent):
+            self.slot[n] = ('silence', si) if sil else ('voice', vi)
+            si, vi = si + sil, vi + (not sil)
 
     # -- tokens
     def tokens(self):
         self.pieces, self.toks, self.pspan = [], [], []
         for n, p in enumerate(self.paras):
             where = f'paragraphs[{n}]'
+            if self.silent[n]:
+                self.pieces.append([]); self.pspan.append((len(self.toks), len(self.toks)))
+                continue
             need(p, 'say', where); need(p, 'show', where); need(p, 'beats', where)
             pcs = paragraph_pieces(p['show']); self.pieces.append(pcs)
             a = len(self.toks)
@@ -343,13 +437,26 @@ class Run:
 
     # -- beats of a paragraph: [(first token, last token+1)] and the cut times
     def edges(self):
+        def times(n):
+            what, i = self.slot[n]
+            return (self.silences[i]['a'], self.silences[i]['b']) if what == 'silence' else (self.spans[i]['start'], self.spans[i]['end'])
         cuts = [0.0]
         for n in range(len(self.paras) - 1):
-            cuts.append(round((self.spans[n]['end'] + self.spans[n + 1]['start']) / 2, 2))
+            (_, e0), (s1, _) = times(n), times(n + 1)
+            if self.silent[n]:
+                cuts.append(round(e0, 2))               # the silence ends: the voice (or the next picture) starts
+            elif self.silent[n + 1]:
+                cuts.append(round(s1, 2))               # the silence starts
+            else:
+                cuts.append(round((e0 + s1) / 2, 2))
         self.pcut = cuts
         self.duration = round(float(need(self.t, 'duration_s', 'timing file')) + float(self.kb.get('tail', TAIL)), 2)
         self.beats = []
         for n, p in enumerate(self.paras):
+            if self.silent[n]:
+                bb = p['beats'][0]
+                self.beats.append(dict(n=n, k=0, spec=bb, ta=self.pspan[n][0], tb=self.pspan[n][0], a=self.pcut[n], last=True, id=bb.get('id') or str(n + 1)))
+                continue
             bl = p['beats']; sents = self.sentences(n); a, b = self.pspan[n]
             firsts = [0] + [bb.get('from_sentence') for bb in bl[1:]]
             for k, f in enumerate(firsts):
@@ -506,6 +613,51 @@ class Run:
         walk = [dict(page=s['page'], a=s['at'], **({'via': s['via']} if s['via'] else {})) for s in slots]
         return dict(kind='repo', manifest=os.path.relpath(quay, self.out_dir).replace('\\', '/'), walk=walk)
 
+    def clip_manifest(self, info, where):
+        """The manifest of a moving picture: (dict, path). The chain's producers write it; the checks here are the ones every consumer needs."""
+        path = self.clips.get(info['key'])
+        if not path:
+            fail(f'{where}: no manifest for the {info["kind"]} "{info["key"]}" was given; pass --clips <clips.json> naming it (the chain\'s producer step writes it)')
+        man = load_json(path, f'manifest of {info["key"]}')
+        for fld in (DEMO_FIELDS if info['kind'] == 'demo' else CLIP_FIELDS):
+            need(man, fld, f'manifest of {info["key"]}')
+        if not (is_num(man['duration']) and man['duration'] > 0):
+            fail(f'{where}: the manifest of {info["key"]} has duration {man["duration"]!r}')
+        if info['kind'] != 'demo' and abs(man['duration'] - man['frames'] / man['fps']) > 1 / man['fps'] + 1e-3:
+            fail(f'{where}: the manifest of {info["key"]} says {man["frames"]} frames at {man["fps"]} fps but duration {man["duration"]} s; one of them is wrong')
+        return man, Path(path)
+
+    def clip_beat(self, bt, d, where, silent):
+        """screen / scene3d: the picture is the producer's clip, played from its start; demo: a recording of the page, the part from..to, focused on rect."""
+        sp = bt['spec']
+        info, bad = parse_clip_beat(sp)
+        if bad:
+            fail(f'{where}: {bad[0]}; {bad[1]}')
+        man, mpath = self.clip_manifest(info, where)
+        rel = lambda p: os.path.relpath(p, self.out_dir).replace('\\', '/')
+        if info['kind'] == 'demo':
+            if info['to'] > man['duration'] + 1e-6:
+                fail(f'{where}: demo.to is {info["to"]} s but the recording of "{info["ref"]}" lasts {man["duration"]} s')
+            length = info['to'] - info['from']
+            pic = dict(kind='recording', file=rel(mpath.parent / man['file']), start=float(info['from']), dur=round(length, 3), rect=info['rect'])
+            chip = sp.get('chip') or f'Demo công khai: {man["source"]}, {man["date"]}'
+        else:
+            length = man['duration']
+            pic = dict(kind='clip', manifest=rel(mpath), start=0.0, dur=man['duration'])
+            chip = sp.get('chip') or (f'Chạy thật: {man["date"]}' if info['kind'] == 'screen' else f'{self.kb.get("chip_prefix", "Ảnh chụp")}: {man["source"]}, {man["date"]}')
+        have = bt['b'] - bt['a']
+        if silent and abs(have - length) > CLIP_TOL:
+            fail(f'{where}: the silent beat lasts {have:.2f} s but its picture lasts {length:.2f} s; the silence is made as long as the picture, so the timing file or the clip changed after the `lang` step')
+        if not silent and length > have + CLIP_TOL:
+            fail(f'{where}: its picture lasts {length:.2f} s but the voice gives the beat {have:.2f} s, so the end of the picture would be cut; lengthen the paragraph or shorten the picture')
+        if len(chip) > CHIP_MAX:
+            fail(f'{where}: the chip "{chip}" is {len(chip)} characters; the limit is {CHIP_MAX} (longer chips shrink below 21 px)')
+        d['level'] = sp.get('level', 'HOOK' if info['kind'] == 'demo' else 'FOOT')
+        d['chip'] = dict(text=chip); d['picture'] = pic
+        if silent:
+            d['captions'] = False
+        return chip
+
     def has_word(self, bt, w):
         return any(nrm(self.aliases, x) == nrm(self.aliases, w) for x in self.toks[bt['ta']:bt['tb']])
 
@@ -517,7 +669,7 @@ class Run:
         for i, bt in enumerate(self.beats):
             sp = bt['spec']; kind = need(sp, 'kind', f'beat {bt["id"]}'); where = f'beat {bt["id"]}'
             d = dict(id=bt['id'], name=sp.get('name', bt['id']), a=bt['a'], b=bt['b'])
-            texts = []; say = self.paras[bt['n']]['say']; nums = self.paras[bt['n']].get('numbers', {})
+            texts = []; silent = self.silent[bt['n']]; say = '' if silent else self.paras[bt['n']]['say']; nums = self.paras[bt['n']].get('numbers', {})
             wm = i == 0 or i == len(self.beats) - 1
             if kind in ('capture', 'recording', 'repo', 'terminal'):
                 head = need(sp, 'headline', where)
@@ -545,6 +697,18 @@ class Run:
                 if bands: d['bands'] = bands
                 if i == 0: first_chip = d['chip']
                 strings += [('small', where + '.chip', chip or d['chip']['line']), ('small', where + '.kicker', tx['kicker'])]
+            elif kind in CLIP_KINDS:
+                if wm:
+                    d['mark'] = 'wm'
+                chip = self.clip_beat(bt, d, where, silent)
+                strings.append(('small', where + '.chip', chip))
+                if sp.get('headline'):
+                    head = sp['headline']
+                    if len(head) != 2:
+                        fail(f'{where}.headline must be two lines')
+                    d['text'] = dict(kind='block', lines=[h.upper() for h in head], kicker=sp.get('kicker', f'Theo {outlet}'), kicker_size=26)
+                    texts += head
+                    strings.append(('small', where + '.kicker', d['text']['kicker']))
             elif kind in ('number', 'chart', 'list'):
                 kick = need(sp, 'kicker', where).upper()
                 src = sp.get('source', f'Nguồn: {outlet}, {date}')
@@ -572,17 +736,18 @@ class Run:
                 d.update(level='HOOK', mark='wm', chip=first_chip, text=tx, picture=dict(kind='same_as', beat=self.beats[0]['id']))
                 strings.append(('small', where + '.kicker', tx['kicker']))
             else:
-                fail(f'{where}.kind "{kind}" is not one of capture, repo, recording, terminal, number, chart, list, end')
+                fail(f'{where}.kind "{kind}" is not one of capture, repo, recording, terminal, screen, scene3d, demo, number, chart, list, end')
             if kind == 'end' and i != len(self.beats) - 1:
                 fail(f'{where}: the end beat must be the last beat')
             if kind != 'end':
-                check_digits(texts, ' '.join(p['say'] for p in self.paras), {k: v for p in self.paras for k, v in p.get('numbers', {}).items()}, where)   # a card may recap what an earlier paragraph said
+                check_digits(texts, ' '.join(p.get('say', '') for p in self.paras), {k: v for p in self.paras for k, v in p.get('numbers', {}).items()}, where)   # a card may recap what an earlier paragraph said
                 strings += [('caps', where, t) for t in texts]
             if kind in ('number', 'chart', 'list') and 'level' in sp:
                 d['level'] = sp['level']
             out.append(d)
         for n, p in enumerate(self.paras):
-            check_digits(self.pieces[n], p['say'], p.get('numbers', {}), f'paragraphs[{n}].show')
+            if not self.silent[n]:
+                check_digits(self.pieces[n], p['say'], p.get('numbers', {}), f'paragraphs[{n}].show')
         strings += [('caps', 'captions', c) for c in captions]
         check_glyphs(strings)
         spec = dict(name=f'halcyon-{need(kb, "id", "script")}', duration=self.duration)
@@ -597,20 +762,24 @@ class Run:
         slug = kb.get('slug') or slugify(need(kb, 'title', 'script'))
         spec['out'] = dict(clean=f'{spec["name"]}-{slug}.mp4', tiktok=f'{spec["name"]}-{slug}-tiktok.mp4')
         spec['captions'] = captions
+        if self.silences:
+            spec['silences'] = [dict(a=s['a'], b=s['b']) for s in self.silences]
         spec['beats'] = out
         spec['layout'] = kb.get('layout', LAYOUT); spec['drop_kickers'] = kb.get('drop_kickers', True)
         return spec
 
 
-def assemble(kb, timing, manifest, out_dir, timing_path, quay=None):
-    """quay: the repo recorder's manifest path, or {ref: path} ({None: path} serves every ref); only repo beats use it."""
-    return Run(kb, timing, manifest, out_dir, timing_path, quay).build()
+def assemble(kb, timing, manifest, out_dir, timing_path, quay=None, clips=None):
+    """quay: the repo recorder's manifest path, or {ref: path} ({None: path} serves every ref); only repo beats use it.
+    clips: {clip key: manifest path}; only screen, scene3d and demo beats use it."""
+    return Run(kb, timing, manifest, out_dir, timing_path, quay, clips).build()
 
 
 def main(argv):
     import argparse
     ap = argparse.ArgumentParser(description=__doc__.split('\n')[0])
     ap.add_argument('script'); ap.add_argument('--timing', required=True); ap.add_argument('--captures'); ap.add_argument('--out', required=True)
+    ap.add_argument('--clips', help='JSON file {clip key: manifest path} for screen, scene3d and demo beats (relative paths are from the file)')
     ap.add_argument('--quay', action='append', default=[], help='repo recorder manifest: PATH for every repo beat, or REF=PATH (repeatable)')
     a = ap.parse_args(argv)
     man = check_manifest(load_json(a.captures, 'captures manifest')) if a.captures else {}
@@ -619,7 +788,11 @@ def main(argv):
     for q in a.quay:
         m = re.fullmatch(r'([\w.-]+)=(.+)', q)
         quay.update({m.group(1): Path(m.group(2)).resolve()} if m else {None: Path(q).resolve()})
-    spec = assemble(kb, load_json(a.timing, 'timing file'), man, out.parent, Path(a.timing).resolve(), quay)
+    clips = {}
+    if a.clips:
+        cp = Path(a.clips).resolve()
+        clips = {k: str((cp.parent / v).resolve()) for k, v in load_json(cp, 'clips file').items()}
+    spec = assemble(kb, load_json(a.timing, 'timing file'), man, out.parent, Path(a.timing).resolve(), quay, clips)
     out.write_text(json.dumps(spec, ensure_ascii=False, indent=1) + '\n', encoding='utf-8', newline='\n')
     print(f'wrote {out}: {len(spec["beats"])} beats, {len(spec["captions"])} caption lines, duration {spec["duration"]}, {len(spec.get("word_aliases", {}))} word aliases')
 
