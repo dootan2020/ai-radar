@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-20T09:43:41.345665+00:00",
-  "input_generated_at": "2026-11-20T08:46:27Z",
+  "generated_at": "2026-11-20T11:45:46.365572+00:00",
+  "input_generated_at": "2026-11-20T10:46:08Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -111842,10 +111842,10 @@
       "use_original_title": true,
       "source_url": "https://analyticsindiamag.com/ai-news/samsung-electronics-names-new-heads-for-memory-system-lsi-and-mobile-businesses",
       "key_points": [
-        "Samsung Electronics vừa công bố đợt cải tổ lãnh đạo ở các mảng bán dẫn và di động, trong đó thăng chức ông Sang Joon Hwang lên Tổng giám đốc và bổ nhiệm làm người đứng đầu mảng Chip nhớ (Memory Business).",
-        "Theo Samsung, các quyết định bổ nhiệm này nhằm củng cố mảng kinh doanh bán dẫn và hỗ trợ giai đoạn tăng trưởng tiếp theo của công ty.",
-        "Samsung thăng chức Sang Joon Hwang lên Tổng giám đốc mảng chip nhớ. Doanh nghiệp này cũng bổ nhiệm ông Sangyeun Cho phụ trách mảng System LSI và ông Won-Joon Choi phụ trách mảng Trải nghiệm Di động.",
-        "Samsung kỳ vọng ông Hwang sẽ giúp củng cố năng lực cạnh tranh của sản phẩm chip nhớ khi nhu cầu hạ tầng AI ngày càng tăng. Dù vậy, Phó chủ tịch Young Hyun Jun và Tổng giám đốc TM Roh vẫn sẽ tiếp tục giữ chức Tổng giám đốc điều hành của tập đoàn."
+        "Samsung Electronics công bố cải tổ lãnh đạo mảng bán dẫn và di động, thăng chức ông Sang Joon Hwang lên Chủ tịch và bổ nhiệm làm người đứng đầu mảng Chip nhớ.",
+        "Theo Samsung, các bổ nhiệm này nhằm củng cố mảng kinh doanh bán dẫn và hỗ trợ giai đoạn tăng trưởng tiếp theo.",
+        "Doanh nghiệp này bổ nhiệm ông Sangyeun Cho phụ trách mảng System LSI, ông Jong Myeong Lee làm Giám đốc Công nghệ bộ phận DS, và ông Won-Joon Choi phụ trách mảng Trải nghiệm Di động.",
+        "Samsung kỳ vọng ông Hwang sẽ củng cố năng lực cạnh tranh chip nhớ trước nhu cầu hạ tầng AI. Dù vậy, Phó chủ tịch Young Hyun Jun phụ trách bộ phận DS và Chủ tịch TM Roh đứng đầu bộ phận DX vẫn tiếp tục giữ chức Tổng giám đốc điều hành tập đoàn."
       ],
       "same_event_coverage_ids": [
         "ee50ef49f99b1f530c2a"
@@ -111863,7 +111863,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Samsung thăng chức Sang Joon Hwang lên Tổng giám đốc, cải tổ loạt lãnh đạo mảng bán dẫn và di động",
+      "editorial_headline_vi": "Samsung thăng chức Sang Joon Hwang lên Chủ tịch, cải tổ loạt lãnh đạo mảng bán dẫn và di động",
       "summary_sources": [
         {
           "id": "outlet",
@@ -111876,50 +111876,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 7.4,
+        "value": 9.4,
         "answers": {
-          "what": 6,
+          "what": 10,
           "why": 10,
-          "notable": 7,
-          "meaning": 8
+          "notable": 8,
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "role",
-            "summary_text": "Tổng giám đốc",
-            "explanation": "In the headline, this renders Hwang's promotion as general director. The source says he was promoted to President and appointed Head of Memory Business (outlet:p001)."
-          },
-          {
-            "kind": "role",
-            "summary_text": "thăng chức ông Sang Joon Hwang lên Tổng giám đốc",
-            "explanation": "The source calls Hwang's new rank President, separately from his appointment as Head of Memory Business (outlet:p001)."
-          },
-          {
-            "kind": "role",
-            "summary_text": "Tổng giám đốc mảng chip nhớ",
-            "explanation": "The source does not give Hwang the title of general director of the memory business; it names him President and Head of Memory Business (outlet:p001)."
-          },
-          {
-            "kind": "role",
-            "summary_text": "Tổng giám đốc TM Roh",
-            "explanation": "The source calls TM Roh President, Head of the DX Division, and a continuing CEO; it does not give him the additional title used here (outlet:p007)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "what",
-            "problem": "Hwang's rank is misstated repeatedly.",
-            "fix": "Say he was promoted to President and appointed Head of Memory Business (outlet:p001)."
-          },
-          {
-            "question": "what",
-            "problem": "The DS technology leadership change is missing.",
-            "fix": "Add Jong Myeong Lee's appointment as CTO of the Device Solutions Division (outlet:p003)."
-          },
-          {
-            "question": "meaning",
-            "problem": "TM Roh receives an inaccurate additional title.",
-            "fix": "Call him President, Head of DX, and a continuing CEO (outlet:p007)."
+            "question": "notable",
+            "problem": "Readers do not learn the experience behind the two most prominent appointments.",
+            "fix": "Add that Hwang previously led DRAM and HBM development (outlet:p002), and that Choi had been MX Chief Operating Officer since March 2025 (outlet:p006)."
           }
         ],
         "writer_boats": [
@@ -111927,8 +111896,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "be124f91820a1eff5329b82708d20092829dc54401f8a9e2d2f2f4331d263d8f",
-        "scored_at": "2026-11-20T09:40:21.239446+00:00"
+        "prose_sha256": "2c6ebaa062eb96fadf67e0f89f9d62f4853263c229f0daea4b6e533fca4bca9d",
+        "scored_at": "2026-11-20T11:45:46.355441+00:00"
       }
     },
     {
@@ -113209,6 +113178,858 @@
         "scorer_provider": "codex",
         "prose_sha256": "bf116adbe97f6ed6e416f82216d548fbb65542382eaa73c7257583f5be3c5d4e",
         "scored_at": "2026-11-20T09:29:23.932445+00:00"
+      }
+    },
+    {
+      "id": "3381c1b46b2b81fa0a77",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://architectlabs.com/blog/frostbite",
+      "key_points": [
+        "Frostbite exploits interaction net properties where every step is local, every dependency is explicit, and every value has exactly one owner.",
+        "On 25 evaluation workloads, Frostbite achieved a 4.59x performance-per-watt multiple compared to a modern silicon-proven dual-issue in-order superscalar CPU core."
+      ],
+      "same_event_coverage_ids": [
+        "1d129632a824b74f53a6",
+        "d8ac096fe985543e0b5b"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Architect Labs Frostbite CPU",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "343f6363b717982b79f1",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-20/anthropic-slumps-in-premarket-trading-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "f9f36169fce3bf5b8965"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "71246c71df7288a0a1be",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.semafor.com/article/11/20/2026/outages-trigger-congressional-scrutiny-of-ai-enabled-attacks",
+      "key_points": [
+        "Chính quyền Trump cho rằng loạt sự cố sập mạng gần đây bắt nguồn từ việc các công ty vội vã vá lỗ hổng phần mềm cũ khi trí tuệ nhân tạo (AI) làm lộ ra các điểm yếu này.",
+        "Các chuyên gia an ninh mạng nhận định chính phủ phần lớn nói đúng về nguyên nhân sự cố, nhưng cảnh báo tình trạng bất ổn kỹ thuật số nghiêm trọng hơn nhiều sắp xảy ra.",
+        "Dẫn chứng vụ tấn công vào nền tảng Hugging Face, một nhà vận động hành lang công nghệ cảnh báo nguy cơ bị xâm nhập có thể sắp nhắm tới các ngân hàng cộng đồng quy mô vừa.",
+        "Theo Semafor, Cơ quan An ninh mạng và Cơ sở hạ tầng Mỹ có nguy cơ tiếp tục thiếu giám đốc thường trực."
+      ],
+      "same_event_coverage_ids": [
+        "204988e0128cd83ef45c"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Congressional scrutiny of AI-enabled cyber attacks",
+      "video_labels": {
+        "video_hook": "drama_company",
+        "named_people": [
+          "Donald Trump",
+          "Maria Cantwell",
+          "Mike Rounds",
+          "Jay Clayton"
+        ],
+        "availability": "unknown",
+        "is_leak": true
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Loạt sự cố công nghệ tại Mỹ thúc đẩy Quốc hội chuẩn bị siết kiểm soát các mối đe dọa an ninh mạng do AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/20/2026/outages-trigger-congressional-scrutiny-of-ai-enabled-attacks"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 7.25,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 4,
+          "meaning": 6
+        },
+        "hard_errors": [
+          {
+            "kind": "cause",
+            "summary_text": "Loạt sự cố công nghệ tại Mỹ thúc đẩy Quốc hội chuẩn bị siết kiểm soát",
+            "explanation": "The source reports a senators’ letter and sources’ expectations for a legislative goal; it does not say the outages caused Congress to prepare tighter controls (outlet:p004–p006)."
+          },
+          {
+            "kind": "quote",
+            "summary_text": "nguy cơ bị xâm nhập có thể sắp nhắm tới các ngân hàng cộng đồng quy mô vừa",
+            "explanation": "The lobbyist used an attack on a midsized community bank as a hypothetical event that might prompt government action, not a prediction of an imminent target (outlet:p007)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The reader misses the concrete bipartisan action.",
+            "fix": "Describe Cantwell and Rounds’s letter urging a national AI cyber-threat effort and attribute the January outlook to the two sources (outlet:p004–p006)."
+          },
+          {
+            "question": "notable",
+            "problem": "A hypothetical bank attack reads as an imminent threat.",
+            "fix": "Present the bank as the lobbyist’s example of an event that could spur action (outlet:p007)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The headline asserts that outages caused a planned tightening of controls.",
+            "fix": "Say sources expect AI cybersecurity to become a legislative priority, and include the source’s concern about limited federal help (outlet:p003–p006)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "b87629444562003fc2e5c73c787526f5e80314547cd4423f947052dc5852ce18",
+        "scored_at": "2026-11-20T11:31:20.774698+00:00"
+      }
+    },
+    {
+      "id": "da76432eb2bd40a6036e",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "General stock market commentary on equity selloffs with only a brief incidental reference to AI companies.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-20/schroders-sees-healthy-correction-in-markets-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "879dc9404958e6edc268"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "5a5fd427533c34273534",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://analyticsindiamag.com/global-tech/nvidias-crisis-has-only-just-begun-and-theres-no-jensen-charm-to-save-it",
+      "key_points": [
+        "Cổ phiếu NVIDIA giảm 2,9% sau báo cáo tài chính quý ba, nối dài mức sụt giảm 36% so với đỉnh lịch sử ngày 6 tháng 10. Đà giảm diễn ra dù doanh thu quý của hãng tăng hơn gấp đôi lên 115,8 tỷ USD, trong đó mảng trung tâm dữ liệu tăng 110% đạt 107,6 tỷ USD.",
+        "Theo ông Richard Clode tại Janus Henderson Investors, nhà đầu tư lo ngại tốc độ tăng trưởng chi tiêu vốn cho trí tuệ nhân tạo (AI) sẽ chậm lại từ năm 2028. Analytics India Magazine nhận định dù nhu cầu trước mắt rất mạnh, thị trường vẫn hoài nghi về tính bền vững của các khoản đầu tư dài hạn.",
+        "Ngân hàng UBS ước tính chi tiêu của bốn tập đoàn công nghệ lớn vẫn tăng 76% lên 673 tỷ USD năm 2026, nhưng tốc độ tăng trưởng sẽ giảm còn 25% năm 2027 và 6% năm 2028. Nhóm khách hàng này đóng góp 60,1 tỷ USD doanh thu quý ba cho NVIDIA nhưng cũng đang tự phát triển chip riêng nhằm giảm bớt phụ thuộc.",
+        "Analytics India Magazine nhận định đà mở rộng ngân sách hạ tầng chậm lại có thể hạn chế đơn đặt hàng bộ xử lý đồ họa (GPU), giữa lúc gói tài trợ 500 tỷ USD mua chip đang đình trệ. Công ty cũng chịu thêm sức ép định giá khi các biện pháp kiểm soát xuất khẩu siết chặt phân phối quốc tế và nhóm khách hàng đám mây mới đang chịu áp lực nợ lớn."
+      ],
+      "same_event_coverage_ids": [
+        "103690b921ef36e04b48"
+      ],
+      "split_coverage_ids": [],
+      "subject": "NVIDIA",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Jensen Huang",
+          "Colette Kress",
+          "Richard Clode"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Cổ phiếu NVIDIA giảm 2,9% dù doanh thu quý tăng hơn gấp đôi, giữa lo ngại tăng trưởng chi tiêu AI chậm lại",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "analytics-india-magazine",
+          "url": "https://analyticsindiamag.com/global-tech/nvidias-crisis-has-only-just-begun-and-theres-no-jensen-charm-to-save-it"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.85,
+        "answers": {
+          "what": 10,
+          "why": 8,
+          "notable": 8,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The reader misses the source's concern about the consequences of Jensen Huang's departure.",
+            "fix": "Add the potential effects on NVIDIA's product roadmap, partnerships and financing initiatives, attributed as investor concerns (outlet:p015–p016)."
+          },
+          {
+            "question": "notable",
+            "problem": "The valuation paradox is less clear without the analyst estimates.",
+            "fix": "State that the adjusted net-income estimate rose from $380 billion to $393 billion while the average price target fell from $265.70 to $251.74 (outlet:p004–p006)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "c3af7259407800b3c8b5e3d297ec8f3384fbde300ee296283ac79e668be7a506",
+        "scored_at": "2026-11-20T11:40:16.529195+00:00"
+      }
+    },
+    {
+      "id": "774dfe3d7d83c6e12ded",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-20/how-a-us-ai-company-uses-chinese-open-weight-models-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "62b5a860f14518341ba2"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "162796a3aae85bb3be61",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.tomshardware.com/tech-industry/data-centers/elon-musks-spacexai-suffers-chemical-spill-at-mississippi-ai-data-center-up-to-6-000-gallons-of-propylene-glycol-heat-transfer-fluid-lost-environment-agency-says-no-threat-to-residents",
+      "key_points": [
+        "Khoảng 5.000 đến 6.000 gallon propylene glycol được xác nhận bị tràn tại một cơ sở của SpaceXAI ở Southaven, và MDEQ đã vào cuộc xử lý. Theo Tom's Hardware, lượng dung dịch này đã chảy vào một con mương thoát nước tại cơ sở.",
+        "Theo Tom's Hardware, propylene glycol là dung dịch truyền nhiệt dùng trong nhiều sản phẩm như chất chống đông. Hóa chất này được khống chế trong mương thoát nước và không chảy tới rạch Horn Lake Creek gần đó.",
+        "Về tranh chấp môi trường, một đơn kiện vào tháng 4 năm 2026 nhắm vào nhà máy điện khí cấp nguồn cho cơ sở tại Greater Memphis cáo buộc 27 tuabin khí được lắp đặt khi chưa có giấy phép. Đơn kiện cũng cho rằng nhà máy có thể phát thải hơn 5.000 tấn oxit nitơ và 47 tấn formaldehyde mỗi năm.",
+        "Theo tin tức địa phương được Tom's Hardware dẫn lại, MDEQ thông báo sự cố không gây ra mối đe dọa tức thời đối với sức khỏe hoặc an toàn của cư dân. Tuy nhiên, giới chức xác nhận sẽ thu thập các mẫu nước để phân tích trong phòng thí nghiệm trong khi công nhân tiếp tục dọn dẹp hiện trường."
+      ],
+      "same_event_coverage_ids": [
+        "ca077d95829e545ed6e0"
+      ],
+      "split_coverage_ids": [],
+      "subject": "SpaceXAI Mississippi data center chemical spill",
+      "video_labels": {
+        "video_hook": "drama_company",
+        "named_people": [
+          "Elon Musk"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Khoảng 6.000 gallon propylene glycol bị tràn tại cơ sở SpaceXAI ở Southaven, MDEQ nói cư dân không bị đe dọa",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://www.tomshardware.com/tech-industry/data-centers/elon-musks-spacexai-suffers-chemical-spill-at-mississippi-ai-data-center-up-to-6-000-gallons-of-propylene-glycol-heat-transfer-fluid-lost-environment-agency-says-no-threat-to-residents"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.85,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [
+          {
+            "kind": "quote",
+            "summary_text": "MDEQ nói cư dân không bị đe dọa",
+            "explanation": "MDEQ said there was no immediate threat to residents' health or safety; the headline omits that time limit (outlet:p015)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The headline makes MDEQ's assessment sound unconditional.",
+            "fix": "Say that MDEQ found no immediate threat, as the body already does (outlet:p015)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "0cb1fe52f7869619a57e0842166c919aa5afdc218a7b1f1333e691e1ca9f9661",
+        "scored_at": "2026-11-20T11:40:16.529247+00:00"
+      }
+    },
+    {
+      "id": "dacfd4e636afb29170f9",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.25935",
+      "key_points": [
+        "Nhóm tác giả đề xuất mô hình TwinD, bộ phát hiện khuôn mặt giả mạo (facial deepfake detector) huấn luyện trên FaceForensics++ cùng hai dạng ảnh sinh đôi tạo từ khung hình thật. Theo nhóm nghiên cứu của Andrii Yermakov, các ảnh sinh đôi này nhắm tới dấu vết của bộ giải mã và khiếm khuyết ghép nối.",
+        "Theo các tác giả, các công cụ tạo ảnh gần đây tổng hợp toàn bộ khuôn mặt và không để lại dấu vết ghép nối. Vì vậy, không công cụ phát hiện cũ nào vượt qua 78,1% điểm AUROC (thước đo phân loại) trên 5 bộ dữ liệu tổng hợp toàn bộ khuôn mặt.",
+        "Mô hình TwinD đạt AUROC trung bình 96,3% trên chuẩn đối chuẩn (benchmark, bộ kiểm thử tiêu chuẩn) 19 tập dữ liệu, vượt kỷ lục trước 8,9 điểm phần trăm. Cụ thể, mô hình đạt 98,1% trên 10 tập dữ liệu ghép nối và 95,6% trên 5 tập dữ liệu tổng hợp toàn bộ khuôn mặt.",
+        "Nhóm tác giả khẳng định hai dạng ảnh sinh đôi cung cấp hai manh mối pháp y bổ trợ giúp khái quát hóa trước các thủ thuật chưa từng thấy. Khi chỉ huấn luyện bằng ảnh sinh đôi, mô hình đơn lẻ vẫn đạt AUROC trung bình 94,3% qua ba lần khởi tạo ngẫu nhiên."
+      ],
+      "same_event_coverage_ids": [
+        "d1a2cb5d8b261ea90d00"
+      ],
+      "split_coverage_ids": [],
+      "subject": "TwinD deepfake detector",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Andrii Yermakov",
+          "Jan Cech",
+          "Mario Fritz",
+          "Jiri Matas"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Mô hình TwinD phát hiện ảnh khuôn mặt giả mạo đạt AUROC 96,3% trên 19 bộ dữ liệu chuẩn",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.25935"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "4aeddeed3a6b432f0f881cf537084268cc1be193c3560374135a46c559d5c4f9",
+        "scored_at": "2026-11-20T11:31:20.774906+00:00"
+      }
+    },
+    {
+      "id": "da20115bbd5574520aaf",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.26617",
+      "key_points": [
+        "Researchers introduced O2LaF, a framework that repurposes a pretrained video diffusion transformer as a shared prior for inverse and forward dynamics.",
+        "O2LaF adapts the video DiT into a feed-forward transition encoder with learnable action queries for inverse dynamics alongside a causal action-conditioned model."
+      ],
+      "same_event_coverage_ids": [
+        "571f24934325cdcfa9e8"
+      ],
+      "split_coverage_ids": [],
+      "subject": "O2LaF latent action learning framework",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Yuxin Jiang",
+          "Wenqiang Sun",
+          "Jiaqi Li",
+          "Yuchao Gu",
+          "Lvmin Zhang",
+          "Ivor Tsang",
+          "Mike Zheng Shou"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "d2a088477a0fed89badf",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.26107",
+      "key_points": [
+        "Nhóm tác giả Jiahao Hu giới thiệu mô hình đa phương thức hợp nhất HiUni để mở rộng trực tiếp VLM (mô hình thị giác - ngôn ngữ) tiền huấn luyện nhờ chia sẻ sâu rộng tham số. Hệ thống dùng chung mạng ViT (bộ xử lý ảnh) và mạng trục Transformer cho cả hai năng lực, chỉ giữ tính toán riêng ở đầu ra.",
+        "Theo nhóm nghiên cứu, các phương pháp hiện nay phân tách tính toán để đáp ứng yêu cầu khác nhau giữa hai tác vụ, làm hạn chế mức độ hợp nhất. Để giải quyết trở ngại tối ưu hóa điểm ảnh và sự hao hụt chi tiết không gian ở ViT, nhóm bổ sung đầu khuếch tán điểm ảnh cùng nhánh HiGate.",
+        "Trong các thử nghiệm sâu rộng, HiUni đạt điểm hiểu trung bình tương đương VLM tiền huấn luyện trên thước đo năng lực hiểu thị giác. Mô hình đồng thời đạt hiệu năng cạnh tranh ở cả hai tác vụ tạo ảnh và chỉnh sửa hình ảnh.",
+        "Nhóm tác giả chứng minh một mạng trục dày đặc duy nhất có thể hỗ trợ hiệu quả cả hai năng lực mà không cần tính toán mạng trục riêng cho từng tác vụ. Phát hiện này mở ra một lộ trình đơn giản hơn hướng tới mô hình đa phương thức hợp nhất."
+      ],
+      "same_event_coverage_ids": [
+        "14152468d8ea0becc321"
+      ],
+      "split_coverage_ids": [],
+      "subject": "HiUni multimodal model",
+      "video_labels": null,
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "HiUni đạt điểm hiểu tương đương VLM tiền huấn luyện dù dùng chung mạng trục tạo ảnh",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.26107"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.8,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "9f715643c7a48210653e6f36c20ef7a7498d6084081c4cc4f96a9b2274569fc0",
+        "scored_at": "2026-11-20T11:31:20.774965+00:00"
+      }
+    },
+    {
+      "id": "b9aacaf0840e34dfbe94",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.26073",
+      "key_points": [
+        "Kiểm định thống kê AltRA-Test được đề xuất bởi nhóm tác giả, là phương pháp không đòi hỏi tất cả các mục dữ liệu phải do cùng một nhóm người gán nhãn.",
+        "Thiết lập quy mô lớn gán nhãn bởi các nhóm người khác nhau đòi hỏi giải pháp mới do công cụ Alt-Test cũ chỉ hỗ trợ dữ liệu có chung nhóm người chấm. Kiểm định mới xác nhận thay thế khi độ đồng thuận (IAA, mức độ nhất quán) của nhóm hỗn hợp người và máy không thua kém nhóm thuần con người.",
+        "Mô hình ngôn ngữ chỉ vượt qua kiểm định trong khoảng một nửa số thiết lập thực tế khi thử nghiệm 18 mô hình trên 20 bộ dữ liệu. Trong các mô phỏng, AltRA-Test đưa ra nhiều quyết định chính xác hơn các phương pháp đối chứng, và cỡ mẫu khoảng 100 mục thường là đủ.",
+        "Việc thay thế chuyên viên gán nhãn không phải lúc nào cũng hợp lý mà phụ thuộc vào từng tác vụ, theo kết luận của nhóm tác giả. Do đó, các nhà nghiên cứu được khuyến khích nên tự kiểm định cho tác vụ riêng thay vì mặc định dùng trí tuệ nhân tạo."
+      ],
+      "same_event_coverage_ids": [
+        "3aada7d610c7d3fc0060"
+      ],
+      "split_coverage_ids": [],
+      "subject": "AltRA-Test statistical test for LLM judges",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Nagham Omar",
+          "Rotem Dror",
+          "Almog Gueta",
+          "Avigdor Gal",
+          "Roi Reichart",
+          "Nitay Calderon"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nghiên cứu: AI chỉ vượt qua kiểm định thay thế người gán nhãn trong khoảng một nửa số thử nghiệm thực tế",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.26073"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.5,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "adc3f21083dd01b3ba89b752a104276a48222e3fc6ce7b1d16caf01588df3153",
+        "scored_at": "2026-11-20T11:31:20.774999+00:00"
+      }
+    },
+    {
+      "id": "913e9c317570573a8a79",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.26248",
+      "key_points": [
+        "Hai tác giả Yang Wan và Linchao Zhu đã giới thiệu TwinLab-Bench, bộ tiêu chuẩn đánh giá các nhà khoa học AI (tác tử AI) tự thiết kế thí nghiệm. Hệ thống gồm 52 nhiệm vụ từ các phòng thí nghiệm thuộc khoa học vật lý, khoa học sự sống và kỹ thuật.",
+        "Theo nhóm nghiên cứu, các bộ tiêu chuẩn cũ chưa đánh giá được việc tự thiết kế thí nghiệm vốn đòi hỏi số liệu thực thi phải bám sát phòng thí nghiệm thực tế. Do đó, mỗi nhiệm vụ dùng một tác tử TwinLab làm môi trường thực thi với hơn 100 loại hành động và chấm điểm theo đáp án ẩn từ hồ sơ gốc.",
+        "So với một mô hình ngôn ngữ chỉ thấy mô tả nhiệm vụ, tác tử TwinLab gần như loại bỏ các số liệu sai lệch so với hồ sơ thực và câu trả lời bất nhất. Phương pháp này cũng dùng các phép thăm dò đóng sách (closed-book probes) để kiểm soát câu trả lời do mô hình nhớ lại từ bộ nhớ.",
+        "Các tác giả kết luận những nhiệm vụ này vẫn rất khó đối với các mô hình hàng đầu, khi mô hình mạnh nhất Claude Fable 5.2 chỉ đạt điểm trung bình 45,0. Nhóm nghiên cứu cũng thực hiện phân tích thực nghiệm để chỉ ra những điểm mà riêng Claude Fable 5.2 thất bại."
+      ],
+      "same_event_coverage_ids": [
+        "d8eb617bfe1990d5000d"
+      ],
+      "split_coverage_ids": [],
+      "subject": "TwinLab-Bench AI scientist benchmark",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Yang Wan",
+          "Linchao Zhu"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "TwinLab-Bench thử nghiệm AI tự thiết kế thí nghiệm: Claude Fable 5.2 chỉ đạt điểm trung bình 45,0",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.26248"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.4,
+        "answers": {
+          "what": 10,
+          "why": 7,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "các bộ tiêu chuẩn cũ chưa đánh giá được việc tự thiết kế thí nghiệm",
+            "explanation": "The abstract says existing benchmarks mainly evaluate the first two abilities; it does not say they categorically cannot evaluate self-designed experiments (outlet:p009)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The account overstates the limitation of earlier benchmarks.",
+            "fix": "Say they mainly assess prescribed workflows and selection from predefined candidates, leaving self-designed experiments less directly evaluated (outlet:p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "4476a5a5c066d4769231156327aa6bcdab8cf05c9072213f361da7373f35543c",
+        "scored_at": "2026-11-20T11:40:16.529276+00:00"
+      }
+    },
+    {
+      "id": "092d41b74344476ed882",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.26590",
+      "key_points": [
+        "Nghiên cứu giới thiệu công cụ MC-Lens do hai tác giả Jiahao Huang và Jun Wang đề xuất để khảo sát cách mô hình thị giác-ngôn ngữ xử lý khái niệm. Hai tác giả phát hiện quy luật tiếp cận khái niệm xuất hiện tương tự giữa nhiều dòng mô hình dù cấu trúc nội bộ có khác biệt.",
+        "Đầu ra mô hình không tiết lộ biểu diễn khái niệm nội bộ dù tích hợp đồng thời thông tin hình ảnh và văn bản.",
+        "Hai chỉ số không gian J theo dõi căn chỉnh khái niệm rõ hơn độ tương đồng cosine của trạng thái ẩn trong huấn luyện có kiểm soát. Thực nghiệm này đồng thời chỉ ra khả năng truy cập chọn lọc đáng tin cậy hình thành muộn hơn tính khả cận khái niệm.",
+        "Kết quả tạo cơ sở thực nghiệm nghiên cứu lý thuyết không gian làm việc toàn cầu trên các hệ thống trí tuệ nhân tạo đa phương thức theo hai tác giả. Nhóm nghiên cứu nhận định phát hiện này có thể định hướng cải thiện việc căn chỉnh giữa hai phương thức thị giác và ngôn ngữ."
+      ],
+      "same_event_coverage_ids": [
+        "0785a5b2120d4d3b0ebc"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Multimodal Concept Lens (MC-Lens)",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Jiahao Huang",
+          "Jun Wang"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nghiên cứu giới thiệu công cụ MC-Lens theo dõi căn chỉnh khái niệm trong mô hình thị giác-ngôn ngữ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.26590"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.7,
+        "answers": {
+          "what": 8,
+          "why": 10,
+          "notable": 8,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The reader misses the experiment showing that accessed concepts affect later computation and reasoning.",
+            "fix": "Add the counterfactual-intervention finding, attributed to the authors (outlet:p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "3506872b752733e6c0cd88a35727cf2ab5ea539d6056e7cd62a3974b46c639b5",
+        "scored_at": "2026-11-20T11:40:16.529301+00:00"
+      }
+    },
+    {
+      "id": "cc1ad5a98a21b90747d9",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "checker rejected title; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected title",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.wired.com/story/the-ai-chip-war-meets-the-jensen-huang-affair/",
+      "key_points": [
+        "Chính quyền Trump siết chặt việc công ty Trung Quốc tiếp cận chip AI tiên tiến từ xa bằng quy định cấp phép cho trung tâm dữ liệu nước ngoài. Mỹ đồng thời áp đặt quy định kiểm soát nghiêm ngặt hơn đối với chuyến hàng tới năm quốc gia, gồm Singapore và Malaysia, do nghi ngờ buôn lậu.",
+        "Tuy vậy, tác giả trên Wired nhận định quyết định này được thúc đẩy sau khi Jensen Huang từ chức Tổng giám đốc Nvidia vì bê bối tình cảm liên quan công ty Megaspeed.",
+        "Khoảng 50.000 chip AI do Megaspeed nhập khẩu từng không thể kiểm đếm tại Malaysia và Indonesia, dù Nvidia sau đó cho biết đã tìm lại được một phần. Viện Tiến bộ (Institute for Progress) ước tính Trung Quốc có thể tích lũy lượng chip lậu tương đương 1 triệu chip cao cấp H100 vào cuối năm 2026.",
+        "Tác giả trên Wired lo ngại Washington mở rộng nỗ lực kiểm soát cách thức sử dụng công nghệ Mỹ trên toàn cầu dù khó thực thi và có thể gây hại doanh nghiệp trong nước. Theo Ngân hàng Dự trữ Liên bang New York, các hạn chế trước đây từng xóa sổ 130 tỷ USD vốn hóa của nhà cung cấp Mỹ và thúc đẩy Trung Quốc tự chủ công nghệ."
+      ],
+      "same_event_coverage_ids": [
+        "05cb535952d20f247266",
+        "e24850b0fb9af0ee8d3e"
+      ],
+      "split_coverage_ids": [],
+      "subject": "US AI chip export controls and Jensen Huang scandal",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Jensen Huang",
+          "Alice Huang"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Mỹ siết chặt dịch vụ thuê chip AI từ xa đối với Trung Quốc và hạn chế vận chuyển tới năm quốc gia",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "wired",
+          "url": "https://www.wired.com/story/the-ai-chip-war-meets-the-jensen-huang-affair/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.2,
+        "answers": {
+          "what": 10,
+          "why": 7,
+          "notable": 7,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "cause",
+            "summary_text": "quyết định này được thúc đẩy sau khi Jensen Huang từ chức",
+            "explanation": "The writer speculates that the scandal may have compelled officials to act; the source does not establish it as the decision’s cause (outlet:p003–p005)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "bê bối tình cảm liên quan công ty Megaspeed",
+            "explanation": "The affair was with Alice Huang, who had previously worked at Megaspeed. The source does not say the company was involved in the affair (outlet:p004)."
+          },
+          {
+            "kind": "number",
+            "summary_text": "lượng chip lậu tương đương 1 triệu chip cao cấp H100",
+            "explanation": "The estimate concerns smuggled computing power equivalent to roughly one million H100 chips, not a count of smuggled chips (outlet:p013)."
+          },
+          {
+            "kind": "role",
+            "summary_text": "Theo Ngân hàng Dự trữ Liên bang New York, các hạn chế trước đây từng xóa sổ 130 tỷ USD vốn hóa của nhà cung cấp Mỹ và thúc đẩy Trung Quốc tự chủ công nghệ",
+            "explanation": "The New York Fed researchers estimated the $130 billion market value loss. The point about incentives for China appears separately in the writer’s account (outlet:p019–p020)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The reader may take the scandal as an established motive.",
+            "fix": "Keep the writer’s uncertainty: the scandal may have influenced the timing, while the White House cited smuggling and priority for US innovators (outlet:p005)."
+          },
+          {
+            "question": "notable",
+            "problem": "The one million H100 comparison reads like a chip count.",
+            "fix": "Specify that it is an estimate of smuggled computing power equivalent to that many H100 chips (outlet:p013)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The New York Fed researchers appear to be the source of the conclusion about China.",
+            "fix": "Attribute only the $130 billion estimate to their study, then state the writer’s separate point about China’s incentive to reduce reliance on US technology (outlet:p019–p020)."
+          },
+          {
+            "question": "why",
+            "problem": "The wording suggests Megaspeed was involved in the affair.",
+            "fix": "Say that Alice Huang previously worked at Megaspeed (outlet:p004)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "bb147dd579fd07a9ad187059352bf6f7400db7430e71ed7428ba68c78976fc40",
+        "scored_at": "2026-11-20T11:31:20.775112+00:00"
       }
     }
   ]
