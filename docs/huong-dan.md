@@ -10,7 +10,7 @@ One file per guide: `data/huong-dan/<id>.json`, UTF-8, no comments. The file nam
 
 A file that is incomplete, or has no approval, is **refused**: the build prints `::error title=Guide refused::<file>: <reason>` and the guide is not published (a guide already live is withdrawn at that build). `tests/test_huong_dan.py` loads every committed file, so a bad file fails CI before it reaches `main`.
 
-To withdraw a guide, delete its file.
+To withdraw a guide, delete its file **and** add its id to `data/huong-dan/withdrawn.txt` (one id per line, `#` comments allowed). Deleting the file alone removes the guide from the stream, but the story history branch is append-only: it keeps the record, and the page and search entry would stay. A listed id stops counting as a guide everywhere (`is_guide`), so the archived record falls back to the scoring desk, has no decision row and is dropped from pages, sitemap and search at the next run. Delete the guide's images under `site/assets/huong-dan/` too.
 
 ## Fields
 

@@ -122,6 +122,23 @@ class GateTests(unittest.TestCase):
         forged.pop("approved")
         self.assertEqual(gated_stories({NAME: forged}, None), {})
 
+    def test_a_withdrawn_guide_loses_its_page_and_search_entry_though_the_archive_keeps_it(self):
+        archive = {NAME: deepcopy(self.guide), "abc123": machine_story()}
+        payload = {"generated_at": "2026-11-20T00:00:00Z", "stories": [], "sources": []}
+        with patch("radar.huong_dan.withdrawn_ids", return_value=frozenset({NAME})):
+            self.assertFalse(is_guide(self.guide))
+            self.assertEqual(gated_stories(archive, None), {})
+            self.assertEqual(search_payload(payload, archive, None)["stories"], [])
+            self.assertEqual(apply_decisions({"stories": [deepcopy(self.guide)]}, None)["stories"], [])
+            with tempfile.TemporaryDirectory() as directory:
+                shutil.copy(FIXTURES / f"{NAME}.json", directory)
+                self.assertEqual(load_guides(directory, NOW), ([], []))
+
+    def test_the_committed_withdrawal_list_names_the_removed_video_chain_guide(self):
+        from radar.huong_dan import withdrawn_ids
+        self.assertIn("hd-day-chuyen-video-halcyon", withdrawn_ids())
+        self.assertFalse((ROOT / "data" / "huong-dan" / "hd-day-chuyen-video-halcyon.json").exists())
+
     def test_search_indexes_an_archived_guide_only_with_approval(self):
         payload = {"generated_at": "2026-11-20T00:00:00Z", "stories": [], "sources": []}
         forged = deepcopy(self.guide)

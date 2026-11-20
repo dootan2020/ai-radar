@@ -23,6 +23,7 @@ LABEL = "Hướng dẫn"
 SOURCE_ID = "hco-huong-dan"
 PUBLISHER = "Halcyon"
 DEFAULT_DIR = Path(__file__).resolve().parents[1] / "data" / "huong-dan"
+WITHDRAWN_FILE = DEFAULT_DIR / "withdrawn.txt"
 ID_PATTERN = re.compile(r"hd-[a-z0-9][a-z0-9_-]*\Z")
 IMAGE_PATTERN = re.compile(r"(https://\S+|assets/huong-dan/[\w.-]+\.(?:png|jpe?g|webp|svg))\Z")
 DESK_PROMPT_VERSION = "summary-vi-7-bullets"
@@ -70,11 +71,25 @@ def approval_valid(approval, now=None):
     return _text(approval.get("approved_by"), 120) and _text(approval.get("words"), 500)
 
 
+def withdrawn_ids(path=WITHDRAWN_FILE):
+    """IDs of guides the owner withdrew, one per line in data/huong-dan/withdrawn.txt (blank lines and # comments ignored).
+
+    Deleting a guide's file takes it out of the stream, but the story history branch is append-only and keeps its
+    record, which would keep the page and the search entry alive. An ID listed here stops being a guide everywhere
+    `is_guide` is asked, so the archived record falls back to the scoring desk, finds no decision row and is dropped.
+    """
+    try:
+        lines = Path(path).read_text(encoding="utf-8").splitlines()
+    except FileNotFoundError:
+        return frozenset()
+    return frozenset(line.strip() for line in lines if line.strip() and not line.lstrip().startswith("#"))
+
+
 def is_guide(story):
     """The only thing that lets a story skip the scoring desk: the guide kind and source, set with "approved" by the loader
-    after it checked the owner's approval."""
+    after it checked the owner's approval, and an ID the owner has not withdrawn."""
     return bool(isinstance(story, dict) and story.get("kind") == KIND and story.get("source_id") == SOURCE_ID
-                and story.get("approved") is True)
+                and story.get("approved") is True and story.get("id") not in withdrawn_ids())
 
 
 def _check_block(index, block):
@@ -175,6 +190,8 @@ def load_guides(directory=DEFAULT_DIR, now=None):
     directory = Path(directory)
     for path in sorted(directory.glob("*.json")) if directory.is_dir() else []:
         try:
+            if path.stem in withdrawn_ids():
+                continue
             row = validate(json.loads(path.read_text(encoding="utf-8")), path.stem, now)
             stories.append(guide_story(row))
         except (GuideError, ValueError) as error:
