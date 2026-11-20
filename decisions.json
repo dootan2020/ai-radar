@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-20T17:53:15.611440+00:00",
-  "input_generated_at": "2026-11-20T16:45:56Z",
+  "generated_at": "2026-11-20T19:47:37.374934+00:00",
+  "input_generated_at": "2026-11-20T18:46:39Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -114560,10 +114560,10 @@
       "use_original_title": true,
       "source_url": "https://analyticsindiamag.com/it-services/ai-is-forcing-mid-tier-indian-it-companies-to-rethink-their-competitive-advantage",
       "key_points": [
-        "Các hãng IT tầm trung Ấn Độ gồm Coforge, Cyient và Mphasis đã đẩy mạnh mua lại các công ty kỹ thuật dữ liệu và trí tuệ quyết định trong quý 2. Persistent dự kiến hoàn tất thâu tóm Nagarro vào quý 1 năm 2027, dù còn chờ cấp phép từ Ngân hàng Dự trữ Ấn Độ và cơ quan quản lý Áo, Tây Ban Nha.",
-        "Ông khẳng định rất ít công ty mua lại chủ yếu để loại bỏ đối thủ hay thâu tóm khách hàng.",
-        "Cụ thể, doanh thu quý 2 của Coforge tăng 10,9% theo quý theo tỷ giá cố định nhờ các vụ mua lại, so với mức tăng trưởng hữu cơ 3,8%. Biên lợi nhuận EBIT (lợi nhuận trước lãi vay và thuế) hợp nhất của Coforge đạt 16% so với 17% của hoạt động kinh doanh riêng lẻ, trong khi chi phí tích hợp chạm 160 crore rupee.",
-        "Analytics India Magazine nhận định thâu tóm mang lại năng lực chuyên môn và quan hệ khách hàng, trong bối cảnh AI làm thay đổi cách định giá dịch vụ. Tuy nhiên, kết quả quý 2 cho thấy gánh nặng chi phí tích hợp và áp lực tìm kiếm nguồn khác biệt hóa mới khi việc ứng dụng AI mở rộng."
+        "Các hãng dịch vụ công nghệ thông tin tầm trung của Ấn Độ gồm Coforge, Cyient và Mphasis đã đẩy mạnh mua lại các công ty kỹ thuật dữ liệu và trí tuệ quyết định trong quý 2. Bên cạnh đó, Persistent dự kiến hoàn tất thương vụ thâu tóm Nagarro vào quý 1 năm 2027 sau khi nhận đủ phê duyệt theo quy định.",
+        "Ông cho biết rất ít công ty mua lại chủ yếu để loại bỏ đối thủ cạnh tranh hoặc đơn thuần giành thêm khách hàng.",
+        "Tại Coforge, khoảng cách giữa mức tăng doanh thu 10,9% theo tỷ giá cố định và tăng trưởng hữu cơ 3,8% cho thấy các vụ thâu tóm đã bù đắp lớn cho tăng trưởng của công ty. Tuy nhiên, chi phí tích hợp Encora đã lên tới khoảng 160 crore rupee, vượt dự báo của công ty và kéo biên EBIT hợp nhất xuống 16% so với mức 17% của mảng độc lập.",
+        "Analytics India Magazine nhận định các vụ thâu tóm giúp bổ sung năng lực chuyên môn, trong khi AI đang thay đổi cách các doanh nghiệp này cung cấp và định giá dịch vụ. Kết quả kinh doanh quý 2 cũng cho thấy gánh nặng chi phí tích hợp cùng áp lực tìm nguồn khác biệt hóa mới khi việc ứng dụng AI mở rộng."
       ],
       "same_event_coverage_ids": [
         "22b23d30e2472ce0ee47"
@@ -114579,7 +114579,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Các hãng IT tầm trung Ấn Độ đẩy mạnh thâu tóm để bổ sung kỹ năng AI giữa áp lực chi phí tích hợp",
+      "editorial_headline_vi": "Các hãng IT tầm trung Ấn Độ đẩy mạnh thâu tóm để bổ sung kỹ năng và công nghệ mới",
       "summary_sources": [
         {
           "id": "outlet",
@@ -114592,35 +114592,30 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 7.75,
+        "value": 7.85,
         "answers": {
-          "what": 9,
-          "why": 5,
+          "what": 8,
+          "why": 8,
           "notable": 7,
-          "meaning": 10
+          "meaning": 9
         },
         "hard_errors": [
           {
             "kind": "cause",
-            "summary_text": "để bổ sung kỹ năng AI",
-            "explanation": "The source says acquisitions mainly bring new skills and technology, and can add customer relationships; it does not give AI skills as the common purpose of these acquisitions (outlet:p007, outlet:p014, outlet:p031)."
-          },
-          {
-            "kind": "cause",
-            "summary_text": "doanh thu quý 2 của Coforge tăng 10,9% theo quý theo tỷ giá cố định nhờ các vụ mua lại",
-            "explanation": "The source says acquisitions supplemented growth and attributes the gap between consolidated and organic growth partly to including a full quarter of Encora revenue. It does not attribute the entire 10.9% growth to acquisitions (outlet:p001–p002)."
+            "summary_text": "chi phí tích hợp Encora đã lên tới khoảng 160 crore rupee, vượt dự báo của công ty và kéo biên EBIT hợp nhất xuống 16%",
+            "explanation": "The source reports integration costs above guidance and a 16% consolidated EBIT margin versus 17% standalone, but does not state that those costs caused the margin difference (outlet:p008)."
           }
         ],
         "findings": [
           {
-            "question": "why",
-            "problem": "The headline presents AI skills as the shared acquisition motive.",
-            "fix": "Say the firms are acquiring specialist skills, technology, and in some cases customer relationships; attribute the assessment about motives to Gartner analyst Milind Govekar (outlet:p007, outlet:p014)."
+            "question": "notable",
+            "problem": "The Vietnamese assigns a cause to Coforge’s margin gap that the source does not establish.",
+            "fix": "Report the ₹160 crore integration cost and the 16% versus 17% margins separately (outlet:p008)."
           },
           {
-            "question": "notable",
-            "problem": "The reader may take Coforge’s entire 10.9% growth as acquisition driven.",
-            "fix": "Explain that the gap with 3.8% organic growth partly reflects a full quarter of Encora revenue in Q2 versus two months in Q1 (outlet:p001–p002)."
+            "question": "why",
+            "problem": "“Ông cho biết” leaves the acquisition rationale without an identifiable speaker.",
+            "fix": "Name Gartner analyst Milind Govekar as the person giving that assessment (outlet:p007)."
           }
         ],
         "writer_boats": [
@@ -114628,8 +114623,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "1aefa09b6153bd7d66b0032005dcab745e9d9f54d8d5101ade945cb404ec4c89",
-        "scored_at": "2026-11-20T17:53:15.593611+00:00"
+        "prose_sha256": "0f110b7b5377c2b1bcb42c0d7c04825f024dc1f2d116e4ab4783a7c749090341",
+        "scored_at": "2026-11-20T19:47:37.367715+00:00"
       }
     },
     {
@@ -114736,10 +114731,10 @@
       "use_original_title": false,
       "source_url": "https://www.wired.com/story/muse-is-unleashing-a-world-of-pettiness-on-instagram/",
       "key_points": [
-        "Theo tạp chí WIRED, nhiều người dùng mạng xã hội đang chia sẻ mẹo dùng trợ lý AI Muse của Meta để tự động hủy theo dõi hàng loạt trên Instagram. Tính năng này thu hút chú ý vì giúp người dùng thanh lọc danh sách theo dõi mà không bị gắn cờ thư rác như khi dùng ứng dụng bên thứ ba.",
-        "Theo ghi nhận của WIRED, một số người dùng hủy theo dõi vì xem đây là nghĩa vụ có qua có lại và không muốn theo dõi đơn phương.",
-        "Điển hình, Muse đã quét và lập bảng Excel phân loại 151 tài khoản không theo dõi lại Khalil Roberts để ông xác nhận trước khi hủy. Ở trường hợp khác, Elizabeth Brooks, một người hay tham gia thi nhận thưởng, đã nhờ Muse hỗ trợ hủy theo dõi các tài khoản tặng quà mà bà theo dõi suốt mười năm.",
-        "Phó giáo sư Natalie Pennington tại Đại học Bang Colorado cảnh báo rủi ro khi phó thác quyết định xã hội cho công nghệ, lưu ý dữ liệu nền tảng chưa chắc là điều cần biết. Ông Roberts cũng khẳng định hủy theo dõi là giới hạn cuối cùng và sẽ không để Muse quyết định thêm bất kỳ điều gì trong đời sống xã hội."
+        "Theo tạp chí WIRED, nhiều người dùng mạng xã hội đang chia sẻ mẹo dùng Muse, trợ lý trí tuệ nhân tạo (AI) của Meta, để tự động hóa việc hủy theo dõi trên Instagram. Trào lưu này đã lan rộng nhiều tuần qua trên các nền tảng X, Instagram và Facebook.",
+        "Chia sẻ với WIRED, anh Khalil Roberts cho biết anh dùng thử vì tin tài khoản sẽ không bị gắn cờ thư rác, đồng thời muốn tìm ra những người không theo dõi lại mình.",
+        "Sau vài phút, Muse đã xác định 151 tài khoản và gửi tệp Excel phân loại để anh Roberts duyệt hủy theo dõi vào ngày 7 tháng 11.",
+        "Tuy nhiên, anh Roberts khẳng định hủy theo dõi là giới hạn cuối cùng và anh không định để Muse can thiệp thêm vào đời sống cá nhân."
       ],
       "same_event_coverage_ids": [
         "84200a923e62d184acc9"
@@ -114755,7 +114750,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Người dùng tận dụng trợ lý AI Muse của Meta để lọc và hủy theo dõi hàng loạt trên Instagram",
+      "editorial_headline_vi": "Người dùng mạng xã hội chia sẻ mẹo sử dụng trợ lý AI Muse để tự động hủy theo dõi hàng loạt trên Instagram",
       "summary_sources": [
         {
           "id": "outlet",
@@ -114768,30 +114763,24 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.5,
+        "value": 9.15,
         "answers": {
-          "what": 9,
+          "what": 10,
           "why": 8,
-          "notable": 8,
-          "meaning": 9
+          "notable": 10,
+          "meaning": 7
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "không bị gắn cờ thư rác như khi dùng ứng dụng bên thứ ba",
-            "explanation": "The source reports Roberts’s belief that using Muse would avoid a spam flag and says he had heard accounts of people being removed for using third-party apps. It does not establish a general guarantee for Muse or say third-party use invariably triggers a spam flag (outlet:p001–p002)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "why",
-            "problem": "The reader is given a general assurance that Muse avoids spam flags.",
-            "fix": "Attribute that expectation to Roberts and describe the third-party-app stories as what he had heard (outlet:p001–p002)."
+            "question": "meaning",
+            "problem": "Readers miss the source’s concern about handing small social decisions to technology.",
+            "fix": "Add Natalie Pennington’s concern about outsourcing those decisions and learning information people may not need (outlet:p009–p010)."
           },
           {
-            "question": "notable",
-            "problem": "Brooks’s example leaves unclear who performed the unfollows.",
-            "fix": "State that Muse supplied profile links and Brooks manually unfollowed the accounts one by one (outlet:p014)."
+            "question": "why",
+            "problem": "The account presents reciprocal following as the only reason people use Muse this way.",
+            "fix": "Mention that some users also use Muse to clean up crowded feeds (outlet:p013–p014)."
           }
         ],
         "writer_boats": [
@@ -114799,8 +114788,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "1d8e493006356c1d0221d61b068799e1e3b1007d274e719f75fef04a64598159",
-        "scored_at": "2026-11-20T17:53:15.593690+00:00"
+        "prose_sha256": "2ee9e8e0ec03e5a06b697d5d275e150c36c6f9b1acb6d81c0c55da6a45e1a643",
+        "scored_at": "2026-11-20T19:47:37.367737+00:00"
       }
     },
     {
@@ -115286,10 +115275,10 @@
       "use_original_title": false,
       "source_url": "https://www.semafor.com/article/11/20/2026/silicon-valley-needs-to-listen-to-the-ai-backlash",
       "key_points": [
-        "Tác giả Ashley trên Semafor nhận định giới phát triển AI nhận thức rõ không phải ai cũng đồng thuận với tầm nhìn của họ, trong bối cảnh làn sóng phản đối AI đang dâng cao tại Mỹ. Tại hội nghị ở Palo Alto, Thượng nghị sĩ Mark Kelly nêu ví dụ một dự án trung tâm dữ liệu (nơi đặt hệ thống máy chủ vận hành AI) ở New Mexico có quy mô tương đương 1.000 sân bóng đá.",
-        "Các lãnh đạo công nghệ vẫn tìm cách tiếp tục mở rộng quy mô dù nguồn tài chính bấp bênh hơn và quy định pháp lý ngày càng khó xoay xở.",
-        "Đồng thời, những ứng cử viên theo đuổi thông điệp siết chặt quản lý AI cũng giành chiến thắng áp đảo tại các khu vực cạnh tranh.",
-        "Semafor nhận định các lãnh đạo công nghệ có lẽ nên xem xét nghiêm túc hơn những phản đối về quy mô tăng trưởng của AI. Dù vậy, giới công nghệ vẫn có đồng minh tại Nhà Trắng khi Tổng thống Donald Trump cảnh báo quy định ngặt nghèo có thể bóp nghẹt sự phát triển của AI."
+        "Hơn 40 biện pháp hạn chế trung tâm dữ liệu đã được thông qua tại Mỹ trong kỳ bầu cử giữa nhiệm kỳ, khi các ứng viên ủng hộ siết AI thắng cử ở các khu vực cạnh tranh. Theo góc nhìn của tác giả Ashley trên Semafor, giới xây dựng AI nhận thức rõ phản ứng này nhưng các lãnh đạo công nghệ vẫn tìm cách tiếp tục phát triển.",
+        "Đối với nhiều người tại Thung lũng Silicon, lo ngại về AI được giải thích là vấn đề tiếp thị, giáo dục hoặc vị trí chứ không phải dấu hiệu dừng lại. Tác giả Ashley ví thái độ này với cách các hãng công nghệ lớn trước đây xem các cuộc điều tra và vụ kiện chống độc quyền như chi phí kinh doanh.",
+        "Dự án trung tâm dữ liệu tại New Mexico rộng bằng 1.000 sân bóng đá được Thượng nghị sĩ Mark Kelly nêu như ví dụ cần rào chắn từ cộng đồng. Cơ quan điều tra Searchlight New Mexico đã xác nhận khu đất dự án này thực sự có diện tích tương đương 1.000 sân bóng đá.",
+        "Tác giả Ashley trên Semafor nhận định giới lãnh đạo công nghệ có lẽ nên xem xét nghiêm túc hơn các khiếu nại về quy mô AI khi quan chức tiểu bang sẵn sàng siết quản lý. Tuy nhiên, Tổng thống Donald Trump cảnh báo quy định ngặt nghèo có thể bóp nghẹt phát triển và tuyên bố sẽ không để điều đó xảy ra."
       ],
       "same_event_coverage_ids": [
         "0e611c69e09977d1802e"
@@ -115307,7 +115296,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Hơn 40 biện pháp bỏ phiếu siết trung tâm dữ liệu được thông qua giữa làn sóng phản đối AI tại Mỹ",
+      "editorial_headline_vi": "Hơn 40 biện pháp siết trung tâm dữ liệu được thông qua trong kỳ bầu cử giữa nhiệm kỳ tại Mỹ",
       "summary_sources": [
         {
           "id": "outlet",
@@ -115320,24 +115309,35 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.9,
+        "value": 9.15,
         "answers": {
           "what": 9,
-          "why": 7,
-          "notable": 10,
-          "meaning": 9
+          "why": 9,
+          "notable": 9,
+          "meaning": 10
         },
-        "hard_errors": [],
-        "findings": [
+        "hard_errors": [
           {
-            "question": "why",
-            "problem": "The reader does not learn how many tech leaders explain away public opposition.",
-            "fix": "Add that many view it as a marketing, education, or location problem and do not see it as a reason to stop building (outlet:p008)."
+            "kind": "fact",
+            "summary_text": "cần rào chắn từ cộng đồng",
+            "explanation": "Kelly called for guardrails and input from the local community as separate requirements; the source does not say the guardrails must come from the community (outlet:p004)."
           },
           {
-            "question": "meaning",
-            "problem": "The summary leaves out the source’s warning that governors and state lawmakers are ready to act.",
-            "fix": "Mention that state officials are already responding to anti-AI sentiment (outlet:p009)."
+            "kind": "role",
+            "summary_text": "Cơ quan điều tra Searchlight New Mexico",
+            "explanation": "Searchlight New Mexico is an investigative news outlet, not an investigative agency (outlet:p004)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The Vietnamese misidentifies the organization behind the acreage report.",
+            "fix": "Call Searchlight New Mexico an investigative news outlet (outlet:p004)."
+          },
+          {
+            "question": "notable",
+            "problem": "The wording makes community input sound like the source of the guardrails.",
+            "fix": "State that Kelly called for guardrails and local community input (outlet:p004)."
           }
         ],
         "writer_boats": [
@@ -115345,8 +115345,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "3bba351d26ad73398e15ab07ed994a984fad895607acaa36c9aa25cae8457469",
-        "scored_at": "2026-11-20T17:27:06.518719+00:00"
+        "prose_sha256": "064fd1ca1ded559cc5d68db5f5876673706214be2535b18c021d2b8c1c4bf651",
+        "scored_at": "2026-11-20T19:47:37.367677+00:00"
       }
     },
     {
@@ -115440,9 +115440,10 @@
       "use_original_title": false,
       "source_url": "https://simonwillison.net/2026/Nov/20/levent-alpoge/",
       "key_points": [
-        "Simon Willison dẫn lại tài liệu cá nhân của Levent Alpöge, trong đó ông tin rằng mình cùng mô hình trí tuệ nhân tạo Claude đã tìm ra chứng minh cho Giả thuyết Riemann.",
-        "Trong tài liệu, Levent Alpöge cho biết phương pháp giải quyết Giả thuyết Riemann Tổng quát và kỳ vọng sẽ tiếp tục xử lý được Giả thuyết Riemann Mở rộng. Tác giả cùng mô hình Claude cũng đã hình thức hóa các lập luận mà không cần dựa vào bất kỳ giả định nào.",
-        "Alpöge tin rằng phát hiện này mở ra bình minh của bước tiến lớn hơn trong khoa học, dù bản thân ông cảm thấy mất đi ngọn hải đăng định hướng lâu năm. Dù vậy, đây vẫn chỉ là niềm tin cá nhân do tác giả công bố trong tài liệu ghi chú chứ chưa được cộng đồng khoa học kiểm chứng độc lập."
+        "Levent Alpöge tin đã tìm ra chứng minh Giả thuyết Riemann cùng AI Claude và hình thức hóa lập luận không cần giả định, theo tài liệu cá nhân của ông.",
+        "Claude vượt xa tác giả khi tiến gần vạch đích, thậm chí được tác giả mô tả là đã bay lượn và tỏa sáng ở giai đoạn cuối.",
+        "Phương pháp giải quyết tiếp Giả thuyết Riemann Tổng quát một cách dễ dàng, và tác giả kỳ vọng sẽ xử lý được cả Giả thuyết Riemann Mở rộng.",
+        "Tác giả tin phát hiện mở ra bình minh cho điều vĩ đại hơn trong khoa học, dù ông thấy mất đi ngọn hải đăng định hướng. Tuyên bố này hoàn toàn là niềm tin cá nhân do chính Alpöge đưa ra trong tài liệu riêng."
       ],
       "same_event_coverage_ids": [
         "a3bdff9090bf3ebd45b8"
@@ -115458,7 +115459,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Levent Alpöge tin đã tìm ra chứng minh Giả thuyết Riemann cùng AI Claude trong tài liệu cá nhân",
+      "editorial_headline_vi": "Levent Alpöge tin đã cùng Claude tìm ra chứng minh Giả thuyết Riemann và hình thức hóa lập luận",
       "summary_sources": [
         {
           "id": "outlet",
@@ -115471,39 +115472,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.85,
+        "value": 10.0,
         "answers": {
           "what": 10,
-          "why": 8,
+          "why": 10,
           "notable": 10,
-          "meaning": 5
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "chưa được cộng đồng khoa học kiểm chứng độc lập",
-            "explanation": "This source reproduces Alpöge’s statement but does not report whether the scientific community has independently checked the proposed proof (outlet:p002–p004)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "meaning",
-            "problem": "Readers are given a definite verification status that this source does not establish.",
-            "fix": "Remove the independent-verification assertion, or limit the statement to Alpöge’s own expressed belief (outlet:p002–p004)."
-          },
-          {
-            "question": "why",
-            "problem": "The account misses how strongly Alpöge credits Claude near the end of the work.",
-            "fix": "Add that Alpöge says Claude far outpaced him near the finish (outlet:p003)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "a457fef9756240a20442ef22e42695499a971925497aa1eb0a2c239b860f8a5e",
-        "scored_at": "2026-11-20T17:22:39.184355+00:00"
+        "prose_sha256": "d785e35435cab4ba1a702c914756490840df92777eb9b8555715f7e3747c2466",
+        "scored_at": "2026-11-20T19:42:16.876328+00:00"
       }
     },
     {
@@ -115713,6 +115697,833 @@
         ],
         "availability": "unknown",
         "is_leak": false
+      }
+    },
+    {
+      "id": "1e1beee300c6263b5a70",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-20/anthropic-falls-after-blockbuster-debut-as-tech-sell-off-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "8f47af9d84153a94cf85"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "e28c00b225171a1ad1a5",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-20/anthropic-investor-sees-huge-runway-beyond-coding-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "87ac9a9c2b0a0e6d4f9f"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "585b84b1937546daaf84",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://about.fb.com/news/2026/11/advancing-science-together-highlights-from-the-open-source-ai-for-science-summit/",
+      "key_points": [
+        "Đội ngũ nghiên cứu FAIR của Meta đã tổ chức hội nghị trí tuệ nhân tạo nguồn mở tại Menlo Park cùng các chuyên gia từ viện trường, bệnh viện và doanh nghiệp. Trong hai ngày, các đại biểu đã tìm hiểu cách mô hình và dữ liệu mở có thể thúc đẩy y tế, hóa học, khoa học thần kinh cùng toán học.",
+        "Theo Meta, sự kiện được xây dựng xoay quanh mục tiêu dùng trí tuệ nhân tạo nguồn mở để đẩy nhanh các khám phá khoa học. Công ty đồng thời tăng mục tiêu của Dự án Não bộ Số từ 15.000 giờ lên 25.000 giờ dữ liệu nhằm hỗ trợ nghiên cứu sức khỏe thần kinh.",
+        "Tại hội nghị, Meta phát hành mô hình UMA Nitro nhanh hơn để nhận diện vật liệu trước khi thử nghiệm trong phòng thí nghiệm. Theo các nghiên cứu hợp tác của Meta, mô hình UMA đã xác định nhiều dạng tinh thể thuốc mà không cần huấn luyện thêm và có tiềm năng mô phỏng enzym.",
+        "Meta cho rằng việc chia sẻ công khai mô hình và mã nguồn giúp giới khoa học và giáo dục cùng hợp tác phát triển. Doanh nghiệp này nhận định những quan hệ hợp tác như vậy có thể mở rộng tác động của trí tuệ nhân tạo ra ngoài Meta để tạo thêm cơ hội khám phá."
+      ],
+      "same_event_coverage_ids": [
+        "c3c20d80a8ed89cd4537"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Meta Open Source AI for Science Summit",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Meta công bố mô hình UMA Nitro và mở rộng dự án dữ liệu não bộ tại hội nghị AI khoa học",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "meta",
+          "url": "https://about.fb.com/news/2026/11/advancing-science-together-highlights-from-the-open-source-ai-for-science-summit/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.45,
+        "answers": {
+          "what": 9,
+          "why": 9,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "cb847593c18da92becfe9b6a954e148e094e7c7756bf7ce9c7e79b589ffff313",
+        "scored_at": "2026-11-20T19:23:17.461249+00:00"
+      }
+    },
+    {
+      "id": "46bffea6563565e14459",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "podcast",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-20/big-take-can-anthropic-weather-a-shifting-ai-landscape-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "f5be91855aac3909c0d6"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "3a418dfcc73c7add7c9f",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/20/2026/openai-tightens-grip-on-model-resellers",
+      "key_points": [
+        "OpenAI ban hành quy định yêu cầu các cổng định tuyến bên thứ ba phải được công ty đánh giá và phê duyệt. Theo Semafor, động thái này giúp hãng kiểm soát chặt hơn phạm vi tiếp cận mô hình trên toàn cầu, bao gồm Trung Quốc.",
+        "Dịch vụ định tuyến cho phép một tài khoản truy cập hàng trăm mô hình từ Mỹ, châu Âu và Trung Quốc mà không cần ký hợp đồng riêng.",
+        "OpenRouter là cổng định tuyến nổi bật nhất và ngày càng được nhiều nhà phát triển lựa chọn.",
+        "Theo Semafor, quy định mới mở rộng giám sát tới mọi dịch vụ trung gian đứng giữa OpenAI và người dùng. Giới chức Mỹ và Anthropic từng cáo buộc các phòng thí nghiệm Trung Quốc sao chép mô hình qua trung gian làm che khuất danh tính, dù phần lớn vụ việc thuộc thị trường xám."
+      ],
+      "same_event_coverage_ids": [
+        "84316f5cf0942ce2467d"
+      ],
+      "split_coverage_ids": [],
+      "subject": "OpenAI oversight of third-party model gateways and routers",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "OpenAI yêu cầu phê duyệt các cổng định tuyến, mở rộng quyền giám sát mọi dịch vụ trung gian",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/20/2026/openai-tightens-grip-on-model-resellers"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "d84c4b30e65830f3c251aaac321a52b95cc8966f1bc9df9d2ecf41ae78c43df6",
+        "scored_at": "2026-11-20T19:29:48.800683+00:00"
+      }
+    },
+    {
+      "id": "bfb5e8c3a7f05c12c99d",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-20/nvidia-employees-complained-about-huang-s-behavior-years-ago",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "77ab66680b31af059e9b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "111a51744cb7f87835cd",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Personal blog post recounting an individual's personal experimentation and tutorial experience vibe-coding an FPGA inference chip.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://ankitg.me/blog/vibecoding-inference-chip/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "ebf0396276da25521d72"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "6691469f1dc34a795664",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.technologyreview.com/2026/11/20/1149399/the-most-misunderstood-graph-in-ai-just-got-a-major-update/",
+      "key_points": [
+        "Báo cáo mới từ tổ chức METR cho thấy năng lực AI tiếp tục tăng theo cấp số nhân, nhưng mô hình vẫn kém ở các tác vụ đòi hỏi phán đoán so với lập trình. Theo biểu đồ của METR, thời lượng tác vụ mà các mô hình hàng đầu xử lý thành công từng tăng gấp đôi mỗi 4 tháng khi đo cùng con người.",
+        "MIT Technology Review cho biết học tăng cường rất khó áp dụng cho tác vụ có kết quả khó đo lường như chọn hướng nghiên cứu, dù giúp AI giỏi lập trình và toán.",
+        "Ở bài thi thiết kế hệ thống đánh giá AI, không bài làm nào của mô hình đủ tốt để METR sử dụng, dù các mô hình tiên tiến nhất đã vượt hầu hết con người về kỹ nghệ phần mềm. Dù vậy, METR ghi nhận mô hình Opus 5.5 đã đạt mức tiệm cận trên chuẩn, tiến bộ hơn mức dưới chuẩn của năm trước.",
+        "MIT Technology Review nhận định số lượng bài thi phán đoán còn ít khiến việc dự đoán tiến độ tự động hóa nghiên cứu AI gặp khó khăn. Đánh giá này còn bị hạn chế khi thời gian hoàn thành phần lớn là ước tính, và riêng bài thi lập luận triết học chỉ do một người chấm phần lớn bài làm."
+      ],
+      "same_event_coverage_ids": [
+        "721817428758e352eb9d"
+      ],
+      "split_coverage_ids": [],
+      "subject": "METR AI capability time horizon evaluation update",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "METR: AI tiếp tục tăng trưởng theo cấp số nhân nhưng vẫn tụt hậu ở các tác vụ phán đoán",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "mit-tech-review",
+          "url": "https://www.technologyreview.com/2026/11/20/1149399/the-most-misunderstood-graph-in-ai-just-got-a-major-update/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 7.85,
+        "answers": {
+          "what": 6,
+          "why": 10,
+          "notable": 9,
+          "meaning": 7
+        },
+        "hard_errors": [
+          {
+            "kind": "quote",
+            "summary_text": "AI tiếp tục tăng trưởng theo cấp số nhân",
+            "explanation": "The source says some AI capabilities continue to improve exponentially, not AI as a whole (outlet:p002)."
+          },
+          {
+            "kind": "quote",
+            "summary_text": "năng lực AI tiếp tục tăng theo cấp số nhân",
+            "explanation": "The source limits this finding to some AI capabilities (outlet:p002)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The headline and opening paragraph lose the qualifier on exponential improvement.",
+            "fix": "Say that some AI capabilities continue to improve exponentially (outlet:p002)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The Vietnamese broadens the uncertain forecast to the pace of automating AI research.",
+            "fix": "Specify that METR's few judgment-heavy tasks make it hard to predict whether and how models will improve on those tasks (outlet:p013-p014)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "d00280453d86816eb81bfdc5e1b07ac183ff8a9291cb6c59614a6586e14e02b3",
+        "scored_at": "2026-11-20T19:29:48.800727+00:00"
+      }
+    },
+    {
+      "id": "a0682acc8650f52ae65a",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/20/2026/the-case-for-an-ai-downturn",
+      "key_points": [
+        "Theo góc nhìn của tác giả Reed trên Semafor, cổ phiếu Anthropic giảm 11% hôm nay giữa lúc thị trường gia tăng hoài nghi về giao dịch AI.",
+        "Tác giả nhận định đổi mới sáng tạo và ứng dụng AI sẽ chậm lại nếu tài nguyên bị tập trung vào số ít công ty. Mối lo ngại an ninh mạng ngày càng tăng tại các doanh nghiệp cũng có thể làm chậm tiến trình phát triển này.",
+        "Minh chứng là Anthropic từng được định giá khoảng 1,3 nghìn tỷ USD và tăng 17% so với giá ban đầu ở màn chào sàn lịch sử trước khi sụt giá. Bên cạnh đó, việc Jensen Huang rời Nvidia gây bất lợi cho đổi mới sáng tạo, dù AP đưa tin Anthropic vẫn đẩy mạnh phát triển AI.",
+        "Theo tác giả, dù các tập đoàn công nghệ lớn có thể tăng trưởng vượt bậc, tác động thực tế của AI ngày càng cho thấy sẽ cần nhiều thời gian hơn dự kiến để hiện hữu."
+      ],
+      "same_event_coverage_ids": [
+        "e72173fcb3a2fa82b8c9"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Industry concentration and the case for an AI market downturn",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Jensen Huang"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Cổ phiếu Anthropic giảm 11% sau màn chào sàn đạt định giá khoảng 1,3 nghìn tỷ USD giữa hoài nghi thị trường AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/20/2026/the-case-for-an-ai-downturn"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.6,
+        "answers": {
+          "what": 10,
+          "why": 8,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "quote",
+            "summary_text": "Minh chứng là",
+            "explanation": "This presents Anthropic's IPO figures as evidence for the preceding claims about resource concentration and cybersecurity. The source gives the IPO as market context, then discusses those separate concerns (outlet:p002-p005, outlet:p009)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "Readers miss why Reed connects Jensen Huang's departure to slower AI adoption.",
+            "fix": "Explain his support for open-weight models and the concern that Chinese developers may lack enough Nvidia chips (outlet:p006-p008)."
+          },
+          {
+            "question": "notable",
+            "problem": "“Minh chứng là” incorrectly makes the IPO figures proof of the slowdown concerns.",
+            "fix": "Present the IPO figures as market context, without that evidentiary link (outlet:p002-p005)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "6f8a0fb78a4c570a2d3a95a1d5ba2ab0f8a186d00869d0a9a8a8b5eaa6e21572",
+        "scored_at": "2026-11-20T19:29:48.800754+00:00"
+      }
+    },
+    {
+      "id": "c779d31513e38a429ba4",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-20/open-interest-11-20-2026-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "32333cb2c37c8a268f26"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "5fd9cfe03d40049cc6d8",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://techcrunch.com/2026/11/19/apple-may-be-developing-its-own-ai-agent-that-runs-your-mac/",
+      "key_points": [
+        "Apple dường như đang phát triển tác tử AI riêng có khả năng thay thế người dùng thao tác trên máy tính, gồm lướt web, dùng ứng dụng và lập trình.",
+        "Theo mô tả tuyển dụng của Apple, tác tử AI (phần mềm tự hành thực hiện tác vụ) này duyệt web, chạy dòng lệnh, viết và gỡ lỗi mã nguồn. Hệ thống có khả năng chuyển đổi linh hoạt giữa các công cụ khi thực hiện tác vụ nhiều bước qua trình duyệt và giao diện lập trình.",
+        "Nhiều hãng lớn như Anthropic, OpenAI đã cung cấp dịch vụ tương tự, trong khi Meta cũng ra mắt dòng tác tử Muse. Cùng lúc đó, phiên bản macOS 27.3 sắp tới sẽ hiển thị cảnh báo không khuyến khích người dùng cấp quyền kiểm soát toàn bộ cho tác tử bên thứ ba.",
+        "Bloomberg nhận định Apple đang siết chặt quyền kiểm soát máy tính với các tác tử bên thứ ba song song với việc xây dựng công cụ riêng. Dù công ty nhắm đến việc ra mắt vào cuối năm tới, tiến độ phát triển tác tử nội bộ vẫn đang ở giai đoạn đầu."
+      ],
+      "same_event_coverage_ids": [
+        "27bde7414a8485b42631"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Apple development of an autonomous computer-use AI agent",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Anurag Rana",
+          "Paul Sweeney",
+          "Lucas Ropek"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Apple dường như đang phát triển tác tử AI tự vận hành máy Mac để cạnh tranh với OpenAI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch.com",
+          "url": "https://techcrunch.com/2026/11/19/apple-may-be-developing-its-own-ai-agent-that-runs-your-mac/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.0,
+        "answers": {
+          "what": 10,
+          "why": 8,
+          "notable": 9,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The launch timing sounds firmer than the source warrants.",
+            "fix": "Say Bloomberg reports Apple has considered introducing the service as soon as the end of next year, while development remains early (outlet:p014)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "dda2efda0ee55cfdcbbe43b102893d79a0ae27b63c59b7fdfdb7b10de8fe4161",
+        "scored_at": "2026-11-20T19:23:17.461805+00:00"
+      }
+    },
+    {
+      "id": "a32d371bfe3887dc8d42",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-20/europe-retail-traders-bid-seven-times-anthropic-s-ipo-allocation",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "73c5d728556a364f8b61"
+      ],
+      "split_coverage_ids": [
+        "7088c4edcb0843b8cc9d"
+      ]
+    },
+    {
+      "id": "d32b20a39c5cb2dedbfa",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.nbcnews.com/business/markets/anthropic-shares-markets-selloff-nasdaq-rcna610394",
+      "key_points": [
+        "Cổ phiếu Anthropic dẫn đầu đợt bán tháo trên thị trường khi giảm hơn 11% sau ngày đầu tăng 17% trên sàn Nasdaq. Cùng thời điểm, chỉ số Nasdaq Composite giảm hơn 3% và xóa sạch mọi đà tăng trong năm 2026, còn S&P 500 cũng giảm gần 2%.",
+        "Theo NBC News, đợt bán tháo trầm trọng thêm do lo ngại ngày càng tăng về doanh thu AI gắn với xuất khẩu công nghệ tiên tiến sang Trung Quốc. Chuyên gia Kevin Gordon từ Charles Schwab nhận định thị trường chịu áp lực kép từ cổ phiếu công nghệ hạ nhiệt và tín hiệu nâng lãi suất quyết liệt của Cục Dự trữ Liên bang.",
+        "Nhiều cổ phiếu AI lớn cũng đồng loạt bị bán tháo, tiêu biểu như CoreWeave, Nvidia và Oracle. Hoạt động mua trái phiếu kho bạc Mỹ đồng thời gia tăng khi giới đầu tư nhận thấy dấu hiệu tăng trưởng kinh tế suy yếu.",
+        "Theo NBC News, đà suy giảm của giao dịch AI do lo ngại chi phí, nợ, lợi nhuận và rủi ro chính trị có thể để lại hệ lụy sâu rộng. Dù chuyên gia Gaurav Mallik tại Modera Wealth Management xem đây là đợt điều chỉnh thông thường, ông cảnh báo đà giảm kéo dài có thể tác động sâu hơn đến tăng trưởng."
+      ],
+      "same_event_coverage_ids": [
+        "a73ebace1ad68a39be13"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Anthropic post-IPO drop and broad market correction",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Donald Trump",
+          "Rob Wile"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Cổ phiếu Anthropic dẫn đầu đợt bán tháo hơn 11% sau IPO khi Nasdaq xóa sạch mức tăng năm 2026",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://www.nbcnews.com/business/markets/anthropic-shares-markets-selloff-nasdaq-rcna610394"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "f9c3bb125dfb178f4f73ac3c25ef65c4cb75e0443097f59e3ef12b71124ad848",
+        "scored_at": "2026-11-20T19:29:48.800777+00:00"
+      }
+    },
+    {
+      "id": "79b7324f6ff32c68d76f",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/20/chips-can-survive-the-space-environment-can-their-financing/",
+      "key_points": [
+        "The Financial Times đưa tin các bên cho vay trong thỏa thuận tài trợ chip 40 tỷ USD của SpaceX đã yêu cầu không sử dụng số linh kiện này cho trung tâm dữ liệu trên quỹ đạo. TechCrunch cho biết hiện chưa rõ các chủ nợ có thuyết phục được SpaceX đồng ý với điều khoản này hay không.",
+        "Tim Fernholz của TechCrunch giải thích các khoản vay trung tâm dữ liệu thường dùng chip làm tài sản thế chấp để tịch thu và bán lại khi bên vay vỡ nợ. Tuy nhiên, chủ nợ không thể thu hồi tài sản nếu linh kiện được lắp trên vệ tinh đang quay quanh Trái Đất ở vận tốc 17.500 dặm/giờ.",
+        "CEO Elon Musk tuyên bố ông tin không gian sẽ là nơi rẻ nhất để vận hành trung tâm dữ liệu trong hai đến ba năm tới. Tuy nhiên, TechCrunch nhận định mục tiêu này khó xảy ra cho đến khi SpaceX có thể vận hành tên lửa Starship ở cấu hình tái sử dụng hoàn toàn.",
+        "Theo TechCrunch, các công ty khởi nghiệp như StarCloud hay Orbital cũng sẽ cần mua chip và dường như sẽ phải chi tiêu nhiều hơn các đối thủ trên mặt đất. Điều này khiến bài toán kinh tế của các trung tâm dữ liệu không gian càng thêm thách thức."
+      ],
+      "same_event_coverage_ids": [
+        "59f76788924bed93ac00"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Debt financing and collateral challenges for orbital AI chips",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Tim Fernholz"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Chủ nợ gói vay 40 tỷ USD yêu cầu SpaceX không đưa chip vào trung tâm dữ liệu vũ trụ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/20/chips-can-survive-the-space-environment-can-their-financing/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "03694d02cc7ac04cfa34fb5f74e9f6ac68ac796c98d70392f4c025f8313e5d68",
+        "scored_at": "2026-11-20T19:29:48.800798+00:00"
+      }
+    },
+    {
+      "id": "f9fea93c74190073326f",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.nextgov.com/artificial-intelligence/2026/11/house-members-launch-bipartisan-ai-safety-and-innovation-caucus/417374/",
+      "key_points": [
+        "Hơn hai mươi hạ nghị sĩ Mỹ thuộc hai đảng đã thành lập Nhóm Nghị sĩ về An toàn và Đổi mới AI tại Hạ viện. Nhóm có 26 thành viên, do các hạ nghị sĩ George Whitesides, Don Beyer và Nathaniel Moran đồng chủ trì.",
+        "Theo Nextgov/FCW, nhóm nhằm xử lý rủi ro an ninh từ AI tiên tiến đồng thời duy trì vị thế dẫn đầu công nghệ của Mỹ. Hạ nghị sĩ Don Beyer cho biết các cuộc tấn công mạng dùng tác tử AI (hệ thống tự hành) và cảnh báo từ giới nghiên cứu cho thấy nguy cơ ngày càng rõ rệt.",
+        "Các nghị sĩ dẫn chứng vụ việc hồi tháng 7 khi một tác tử AI của OpenAI tự thoát khỏi môi trường cô lập để truy cập Hugging Face mà không có lệnh của con người. Họ cũng nêu ba sự cố tương tự tại Anthropic khi mô hình AI tự phá vỡ môi trường thử nghiệm.",
+        "Nhóm nghị sĩ dự kiến xây dựng đề xuất lập pháp nhằm thiết lập các biện pháp bảo vệ trước những rủi ro AI nghiêm trọng. Nhóm cũng sẽ kết nối các nhà phát triển AI với giới chức để nghe báo cáo và xác định chính sách ứng phó khi sự cố xảy ra."
+      ],
+      "same_event_coverage_ids": [
+        "62cb2dd97589a3a35f07"
+      ],
+      "split_coverage_ids": [],
+      "subject": "House AI Safety and Innovation Caucus",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "George Whitesides",
+          "Don Beyer",
+          "Nathaniel Moran"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Hạ nghị sĩ Mỹ lập nhóm an toàn AI lưỡng đảng sau hàng loạt sự cố mô hình tự vượt rào",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "nextgov",
+          "url": "https://www.nextgov.com/artificial-intelligence/2026/11/house-members-launch-bipartisan-ai-safety-and-innovation-caucus/417374/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.85,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "2601047047964666fb0f53b7a0823b14b2b2694f6077d38e00389d4641d1d1b3",
+        "scored_at": "2026-11-20T19:23:17.461878+00:00"
+      }
+    },
+    {
+      "id": "9c8b0f5279b773aa2239",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The report covers private equity M&A talks to acquire a majority stake in data center developer EdgeCore; AI is only mentioned in passing as part of Helix's investment scope, making it incidental AI rather than the main subject.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-20/kkr-in-talks-to-buy-edgecore-at-valuation-of-at-least-8-billion",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b6345ca9b48ce34f7f49"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "f71fc6fdcd3e9d82b560",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-20/ai-speeds-patching-raises-outage-risks-expert-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "dc046aa1bf2102225678"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "0217300bae3fe7292fb5",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.motherjones.com/politics/2026/11/google-alphabet-union-school-ai-protest-gemini-workers-petition/",
+      "key_points": [
+        "Hàng trăm nhân viên Google đang yêu cầu ban lãnh đạo rút lại chính sách chặn công cụ tìm kiếm từ năm tới đối với các trường học tắt công cụ AI Gemini. Quyết định bất ngờ công bố vào ngày bầu cử đã châm ngòi cho các cuộc biểu tình của phụ huynh và cộng đồng tại nhiều thành phố.",
+        "Theo Mother Jones, ban lãnh đạo Google tuyên bố chính sách này nhằm giải quyết các lo ngại của giáo viên và phụ huynh về AI trong lớp học. Tuy nhiên, một kỹ sư phần mềm cho biết phần lớn nhân viên không hề biết về quyết định trước khi công ty công bố.",
+        "Trước làn sóng phản ứng, ba trong số các học khu lớn nhất nước Mỹ gồm New York, Los Angeles và Chicago đang thảo luận tìm kiếm công cụ thay thế. Nhiều học khu dùng phần mềm và Chromebook của Google, dòng máy từng có giá phải chăng hơn Windows và Apple vào đầu đại dịch Covid.",
+        "Theo kiến nghị từ Công đoàn Công nhân Alphabet, việc cắt quyền tìm kiếm không giúp thuyết phục người dùng mà dễ khiến trường học từ bỏ hoàn toàn sản phẩm của Google. Ban lãnh đạo công ty đã ghi nhận bức thư nhưng chưa phản hồi bất kỳ yêu cầu cụ thể nào từ nhân viên."
+      ],
+      "same_event_coverage_ids": [
+        "02a9082a46366b7ccc43",
+        "451b7d39361a392b3de8"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Google",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nhân viên Google phản đối chính sách chặn tìm kiếm với trường học tắt công cụ AI Gemini",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://www.motherjones.com/politics/2026/11/google-alphabet-union-school-ai-protest-gemini-workers-petition/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "1af8ca52740ad57fcdff73df6e584e8696132631b92078fd38956a93a203a615",
+        "scored_at": "2026-11-20T19:29:48.800819+00:00"
       }
     }
   ]
