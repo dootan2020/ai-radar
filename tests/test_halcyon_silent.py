@@ -498,11 +498,12 @@ class ScriptContract(unittest.TestCase):
 
 
 class Producers(unittest.TestCase):
-    def test_the_table_names_three_producers_and_none_is_built_yet(self):
+    def test_the_table_names_three_producers_and_the_unbuilt_ones_are_missing(self):
         self.assertEqual({k: v["step"] for k, v in ml.PRODUCERS.items()}, {"run": "chay", "scene": "canh", "demo": "demo"})
         plan = ml.check_script(v3_script())
         miss = dict((n, r) for n, r in ml.missing_producers(plan))
-        self.assertEqual(miss, {"run": "thu", "scene": "giao-thuc", "demo": "dojo"})
+        want = {"run": "thu", "scene": "giao-thuc", "demo": "dojo"}
+        self.assertEqual(miss, {n: r for n, r in want.items() if not ml.producer_ready(n)})
 
     def test_a_stub_refuses_with_a_clear_message(self):
         r = ml.producer_stub("demo", "dojo")
@@ -527,7 +528,7 @@ class Producers(unittest.TestCase):
         with self.assertRaises(ml.Refusal) as cm:
             ml.step_kiem_nguon_clip(ctx)
         self.assertIn("producer not built yet", str(cm.exception))
-        for fn, args in ((ml.step_producer, ("demo", "dojo")), (ml.step_producer, ("scene", "giao-thuc")), (ml.step_chay, ("thu",))):
+        for fn, args in ((ml.step_producer, ("scene", "giao-thuc")), (ml.step_chay, ("thu",))):   # the demo producer is built (it would record); the others are stubs
             with self.assertRaises(ml.Refusal) as cm:
                 fn(ctx, *args)
             self.assertIn("producer not built yet", str(cm.exception))
