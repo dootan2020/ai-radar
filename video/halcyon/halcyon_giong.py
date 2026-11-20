@@ -23,16 +23,23 @@ SHOW_WORDS = 14
 # timing file); the subtitle (`show`), cards and post text keep the written word. Whole word, case-sensitive: "AI" is the abbreviation, the
 # Vietnamese "ai" (who) is not touched. A script author's own respelling in `say` wins, because the written word is then no longer in it.
 # Owner, 20/11/2026 08:12: "A thấy có từ "AI" thì đọc là "Ây-ai" trong tiếng việt." and 07:52: "Git đọc là "Git hắp"". To add a word: one more pair.
+# 14:33 the same day: "chứ apps đọc là áp". Words in IGNORE_CASE match in any case ("Apps" at a sentence start, "APPS"); the others stay case-sensitive.
+# A Vietnamese ear says "áp" for the singular "app" too, and "ap" is no Vietnamese word, so nothing is lost. WHISPER_WRITES lists the spellings
+# Whisper may give the spoken "áp" (gate side only).
 PRONUNCIATIONS = (
     ('AI', 'Ây-ai'),
     ('GitHub', 'Git hắp'),
+    ('apps', 'áp'),
+    ('app', 'áp'),
 )
+IGNORE_CASE = frozenset({'apps', 'app'})
+WHISPER_WRITES = {'áp': ('app', 'apps', 'áp', 'ấp', 'ắp')}
 
 
 def voice_text(say):
     """The text the voice reads for one `say` paragraph: PRONUNCIATIONS applied to whole words."""
     for written, spoken in PRONUNCIATIONS:
-        say = re.sub(r'(?<![^\W_])' + re.escape(written) + r'(?![^\W_])', spoken, say)
+        say = re.sub(r'(?<![^\W_])' + re.escape(written) + r'(?![^\W_])', spoken, say, flags=re.I if written in IGNORE_CASE else 0)
     return say
 
 WORD = re.compile(r'\d+(?:[.,]\d+)*|[^\W\d_]+')
@@ -214,6 +221,13 @@ def looks_foreign(word, sentence_start):
     return len(base) > 1 and not SYLLABLE.fullmatch(base)
 
 
+def written_as(raw, written, spoken):
+    """True when one word is the written word as written (any case for IGNORE_CASE words) or one of the spellings Whisper may give the spoken word."""
+    if raw == written or (written in IGNORE_CASE and raw.lower() == written):
+        return True
+    return key(raw) in {key(w) for w in WHISPER_WRITES.get(spoken, ())}
+
+
 def collapse_readings(items, side):
     """Fold each default reading (PRONUNCIATIONS) into one token, so the gate expects what the voice says and accepts how Whisper writes it:
     the spoken words ('Ây ai', 'Ây-ai') or the written word exactly as written ('AI', 'GitHub'; case-sensitive, so 'ai' stays 'who'; a script that has not been respelled, or a Whisper that writes the word).
@@ -224,10 +238,10 @@ def collapse_readings(items, side):
             sk = tuple(key(w) for w in WORD.findall(spoken))
             parts = items[i:i + len(sk)]
             if tuple(x['key'] for x in parts) != sk:
-                parts = items[i:i + 1] if items[i]['raw'] == written else None
+                parts = items[i:i + 1] if written_as(items[i]['raw'], written, spoken) else None
             if parts:
                 raw = spoken if side == 'script' and len(parts) > 1 else ' '.join(x['raw'] for x in parts)
-                out.append(dict(number_item(parts, 0), key='P:' + written, val=None, kind='word', name=True, raw=raw))
+                out.append(dict(number_item(parts, 0), key='P:' + spoken, val=None, kind='word', name=True, raw=raw))
                 i += len(parts)
                 break
         else:

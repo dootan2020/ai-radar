@@ -255,6 +255,25 @@ class Pronunciations(unittest.TestCase):
         rep = g.check_reading(["Ây-ai cũng biết"], [dict(w=w, s=i * 0.3, e=i * 0.3 + 0.25) for i, w in enumerate(["ai", "cũng", "biết"])])
         self.assertEqual(rep["unmatched"], 2)  # a heard "ai" is the word "who", not "Ây-ai"
 
+    def test_apps_and_app_are_read_ap_in_any_case(self):
+        self.assertEqual(g.voice_text("Apps mới. Các apps và APPS, một app."), "áp mới. Các áp và áp, một áp.")
+        self.assertEqual(g.voice_text("Ai biết apps?"), "Ai biết áp?")
+        for text in ("mapps", "apps2", "appsy", "Capp", "áp mới"):
+            self.assertEqual(g.voice_text(text), text)
+
+    def test_the_gate_accepts_how_whisper_writes_ap(self):
+        voice = [g.voice_text("Thư mục apps rất nhanh.")]
+        for w in ("áp", "app", "apps", "Apps", "ấp", "ắp"):
+            ws = ["Thư", "mục", w, "rất", "nhanh"]
+            rep = g.check_reading(voice, [dict(w=x, s=i * 0.3, e=i * 0.3 + 0.25) for i, x in enumerate(ws)])
+            self.assertTrue(rep["ok"] and rep["unmatched"] == 0, (w, rep["problems"]))
+        rep = g.check_reading(voice, [dict(w=x, s=i * 0.3, e=i * 0.3 + 0.25) for i, x in enumerate(["Thư", "mục", "rất", "nhanh"])])
+        self.assertEqual(rep["unmatched"], 1)
+
+    def test_a_heard_ai_stays_who_next_to_apps(self):
+        rep = g.check_reading([g.voice_text("Ai dùng apps")], [dict(w=x, s=i * 0.3, e=i * 0.3 + 0.25) for i, x in enumerate(["Ai", "dùng", "app"])])
+        self.assertTrue(rep["ok"] and rep["unmatched"] == 0)
+
     def test_the_subtitle_still_matches_the_heard_words(self):
         display =["AI", "trên", "GitHub", "rất", "nhanh"]
         words = [dict(w=w, s=i * 0.3, e=i * 0.3 + 0.25) for i, w in enumerate(["Ây", "ai", "trên", "Git", "hắp", "rất", "nhanh"])]
