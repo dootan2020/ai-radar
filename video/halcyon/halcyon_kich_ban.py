@@ -27,9 +27,13 @@ DIGITS = re.compile(r'\d+(?:[.,:]\d+)*')
 REPO_NAME = re.compile(r'[A-Za-z0-9][A-Za-z0-9-]{0,38}/[A-Za-z0-9._-]{1,100}')
 BRANCH_NAME = re.compile(r'[A-Za-z0-9_][A-Za-z0-9._/-]{0,199}')
 MAX_OPEN = 5                     # entries in one repo beat, and distinct paths over all beats of one repo (the recorder loads at most six pages per repo)
-# Least seconds a page stays on screen: the home page, a page opened by a tap, a slide back to an earlier page; `glimpse` is added to the home page
-# of the first repo beat of the video (the opening full-width look before the camera pushes in). Provisional: the builder slice may ask to tune them.
-FLOOR = dict(home=1.6, tap=1.4, back=0.4, glimpse=1.2)
+# Least seconds a page stays on screen, by the window the beat is drawn in (HOOK is the short window of the opening beat, FOOT the tall one). Each
+# value is the least the builder's camera needs (measured on PR #277: home 2.05 / 3.05, a page whose next row needs a pan 2.1 / 3.15, a slide back
+# 1.05, the last page 0.6, and the opening whole-width glimpse 2.25 / 2.9 on top of the home page) plus 0.1 s, because `a` is rounded to 0.01 s and
+# the builder counts whole frames. They are the worst case (a row that needs a pan), so a script that passes `--chi-kiem` is never refused by
+# the builder for time. `last` is a page nothing is opened from (the last page of the beat, or one followed by a slide back).
+FLOOR = dict(FOOT=dict(home=2.15, tap=2.2, back=1.15, last=0.7, glimpse=2.25),
+             HOOK=dict(home=3.15, tap=3.25, back=1.15, last=0.7, glimpse=2.9))
 OPEN_KEYS = ('path', 'anchor', 'occurrence', 'chain')
 
 
@@ -449,14 +453,18 @@ class Run:
         if not quay:
             fail(f'{where}: this is a repo beat but no recorder manifest was given for "{ref}"; pass --quay <quay.json> (or --quay {ref}=<quay.json>)')
         first_repo = next(b for b in self.beats if b['spec'].get('kind') == 'repo')['id'] == bt['id']
-        slots = [dict(page='', via=None, floor=FLOOR['home'] + (FLOOR['glimpse'] if first_repo else 0), at=bt['a'], fixed=True, what='the home page')]
+        fl = FLOOR.get(bt['spec'].get('level', 'HOOK'), FLOOR['HOOK'])
+        slots = [dict(page='', via=None, floor=fl['home'] + (fl['glimpse'] if first_repo else 0), at=bt['a'], fixed=True, what='the home page')]
         cur = ''
         for n, e in enumerate(entries):
             if e['parent'] != cur:
-                slots.append(dict(page=e['parent'], via='back', floor=FLOOR['back'], at=None, fixed=False, what=f'the slide back to "{e["parent"] or "home"}"'))
+                slots.append(dict(page=e['parent'], via='back', floor=fl['back'], at=None, fixed=False, what=f'the slide back to "{e["parent"] or "home"}"'))
             at = max(self.anchor(bt, e['anchor'], e['occurrence'], f'{where}.repo.open[{n}]'), bt['a']) if e['anchor'] else None
-            slots.append(dict(page=e['path'], via='tap', floor=FLOOR['tap'], at=at, fixed=at is not None, what=f'the page "{e["path"]}"'))
+            slots.append(dict(page=e['path'], via='tap', floor=fl['tap'], at=at, fixed=at is not None, what=f'the page "{e["path"]}"'))
             cur = e['path']
+        for k, s in enumerate(slots):          # a page nothing is opened from needs only its last-page time; the home page of a beat that opens nothing keeps its own
+            if s['via'] == 'tap' and (k + 1 == len(slots) or slots[k + 1]['via'] == 'back'):
+                s['floor'] = fl['last']
         need_s, have = sum(s['floor'] for s in slots), bt['b'] - bt['a']
         if have + 1e-9 < need_s:
             parts = ', '.join('%s %.1f' % (s['what'], s['floor']) for s in slots)

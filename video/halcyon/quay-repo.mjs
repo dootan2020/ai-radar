@@ -118,7 +118,8 @@ function boxScan() {
   const md = [...document.querySelectorAll('article.markdown-body')].find(vis);
   const h2 = [...document.querySelectorAll('h2')].find((h) => /^about$/i.test(h.textContent.trim()) && vis(h));
   const about = h2 ? (h2.closest('div[class*="sidebarSection"]') || h2.parentElement) : null;
-  return { readme: md ? R(md) : null, about: about && vis(about) ? R(about) : null };
+  const body = md ? ([...md.querySelectorAll('p, li')].find(vis) || md) : null;      // the size of README text: the first visible paragraph or list item
+  return { readme: md ? R(md) : null, about: about && vis(about) ? R(about) : null, readme_font: body ? parseFloat(getComputedStyle(body).fontSize) : null };
 }
 
 // A file page: the code lines are drawn from the data-code-text attribute (textContent is empty), and only a window of lines exists.
@@ -136,7 +137,8 @@ function fileScan() {
     const first = byNo.get(1).getBoundingClientRect(), last = byNo.get(lines.length).getBoundingClientRect();
     box = [Math.round(first.left + scrollX), Math.round(first.top + scrollY), Math.round(Math.min(first.right, innerWidth) - first.left), Math.round(last.bottom - first.top)];
   }
-  return { kind: code ? 'code' : md ? 'markdown' : 'other', code_lines: lines, rendered_lines: lineEls.length, code_box: box };
+  const code_font = lines.length ? parseFloat(getComputedStyle(byNo.get(1)).fontSize) : null;
+  return { kind: code ? 'code' : md ? 'markdown' : 'other', code_lines: lines, rendered_lines: lineEls.length, code_box: box, code_font };
 }
 
 async function waitImages(page) {
@@ -222,6 +224,7 @@ async function capturePage(ctx, page, o, cay, entry, state) {
     rows: listing ? listing.rows.map((r) => ({ path: r.path, rect: r.rect, name_rect: r.name_rect, font_px: r.font_px })) : [],
     row_font_px: listing ? Math.min(...listing.rows.map((r) => r.font_px)) : null,
     listing_ignored: listing ? listing.ignored : null,
+    fonts: { ...(boxes.readme_font ? { readme: boxes.readme_font } : {}), ...(file && file.code_font ? { code: file.code_font } : {}) },
     boxes: { file_list: listing ? listing.file_list : null, readme: boxes.readme, about: boxes.about, code: file ? file.code_box : null },
     file: file ? { kind: file.kind, code_lines: file.code_lines, rendered_lines: file.rendered_lines } : null,
     seconds: Math.round((Date.now() - t0) / 100) / 10,

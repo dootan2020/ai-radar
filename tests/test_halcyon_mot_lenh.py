@@ -463,5 +463,179 @@ class PackFiles(unittest.TestCase):
             self.assertIn(w, text)
 
 
+class RepoWiring(unittest.TestCase):
+    """The repo recording inside the chain: the `quay:<ref>` step, what its reuse and the builder's reuse hash, the second witness in `kiem-anh`, the pack."""
+
+    def plan_script(self):
+        kb = RepoScriptChecks().repo_script(["packages", {"path": "packages/server/src", "chain": True}, "package.json"])
+        return kb
+
+    def ctx(self, run="halcyon-run-test"):
+        kb = self.plan_script()
+        return m.Ctx("kich-ban.json", Path(tempfile.gettempdir()) / run, m.check_script(kb), kb, {"gpu_python": "p", "music": "t", "profiles": "v"})
+
+    def test_the_recording_comes_after_the_captures_and_before_the_voice(self):
+        names = [s.name for s in m.real_steps(self.ctx())]
+        self.assertEqual(names[:7], ["kiem-kich-ban", "kiem-may", "chup:g-2b", "chup:blog-google", "chup:g-5a", "chup:hco-5b", "quay:pl"])
+        self.assertEqual(names[7], "giong")
+
+    def test_a_script_without_a_repo_beat_has_no_such_step(self):
+        c = m.Ctx("k.json", Path(tempfile.gettempdir()) / "halcyon-run-test", m.check_script(script()), script(), {"gpu_python": "p", "music": "t", "profiles": "v"})
+        self.assertFalse([s for s in m.real_steps(c) if s.name.startswith("quay")])
+
+    def test_the_arguments_and_the_deadline_follow_the_pages(self):
+        c = self.ctx()
+        self.assertEqual(m.quay_open_args(c.plan.repos["pl"]), ["--open", "packages", "--open", "packages/server/src#chain", "--open", "package.json"])
+        self.assertEqual(m.quay_deadline(c.plan.repos["pl"]["paths"]), 90 * 4 + 30)
+        self.assertEqual(m.quay_deadline([]), 120)
+
+    def test_the_step_reuses_until_the_pages_the_tools_or_the_age_change(self):
+        c = self.ctx()
+        st = next(s for s in m.real_steps(c) if s.name == "quay:pl")
+        before = m.sha_json(st.inputs(c))
+        c.plan.repos["pl"]["paths"].append("docs"); c.plan.repos["pl"]["chain"]["docs"] = False
+        self.assertNotEqual(m.sha_json(st.inputs(c)), before)
+        c = self.ctx(); c.plan.repos["pl"]["chain"]["packages"] = True
+        self.assertNotEqual(m.sha_json(st.inputs(c)), before)       # the same paths opened another way are another recording
+        c = self.ctx(); c.plan.repos["pl"]["branch"] = "next"
+        self.assertNotEqual(m.sha_json(st.inputs(c)), before)
+
+    def test_the_recording_is_taken_again_after_six_hours(self):
+        from datetime import datetime
+        with tempfile.TemporaryDirectory() as d:
+            c = m.Ctx("s.json", d, m.check_script(self.plan_script()), self.plan_script(), {})
+            (c.quay / "pl").mkdir(parents=True)
+            m.write_json(c.quay / "pl" / "quay.json", {"captured": "2026-11-20T10:00:00+07:00"})
+            at = lambda h, mi: datetime.fromisoformat(f"2026-11-20T{h:02d}:{mi:02d}:00+07:00")
+            self.assertTrue(m.quay_age_ok(c, "pl", at(15, 59))); self.assertFalse(m.quay_age_ok(c, "pl", at(16, 1)))
+            self.assertFalse(m.quay_age_ok(c, "none", at(11, 0)))
+            m.write_json(c.quay / "pl" / "quay.json", {})
+            self.assertFalse(m.quay_age_ok(c, "pl", at(11, 0)))
+
+    def test_a_refusal_of_the_recorder_stops_the_chain_with_a_fix(self):
+        cay = "cay: path: `packages/servr` is not in a/b at `abc1234`; `packages` holds: ai, server\nto fix: pick one of those (`packages/<name>`)\n"
+        e = m.quay_refusal("pl", 1, "", cay)
+        self.assertEqual(e.step, "quay:pl"); self.assertIn("packages/servr", e.reason); self.assertIn("pick one of those", e.change)
+        self.assertNotIn("to fix:", e.reason)
+        wall = "quay: https://github.com/a/b: wall: GitHub sent the page to /login, a sign-in page (one retry)\nquay: https://github.com/a/b: wall: GitHub sent the page to /login, a sign-in page\n"
+        e = m.quay_refusal("pl", 1, "", wall)
+        self.assertIn("/login", e.reason); self.assertIn("run the same command later", e.change); self.assertEqual(e.reason.count("quay:"), 1)
+        e = m.quay_refusal("pl", 1, "", "quay: https://github.com/a/b/tree/main/x: listing: GitHub lists 3 entries and the page shows 2\n")
+        self.assertIn("open", e.change)
+        self.assertIn("without a message", m.quay_refusal("pl", 7, "", "").reason)
+
+    def test_the_step_runs_the_recorder_with_the_pages_and_no_token(self):
+        c = self.ctx("halcyon-run-test-step"); seen = {}
+        def fake(cmd, deadline, log, env=None, cwd=None, step="?"):
+            seen.update(cmd=[str(x) for x in cmd], deadline=deadline, env=env, step=step); return 1, "", "quay: https://github.com/a/b: status: HTTP 404 (200 needed)\n"
+        real, m.run_process = m.run_process, fake
+        try:
+            with self.assertRaises(m.Refusal) as cm:
+                m.step_quay(c, "pl")
+        finally:
+            m.run_process = real
+        self.assertEqual(cm.exception.step, "quay:pl")
+        self.assertEqual(seen["step"], "quay:pl"); self.assertEqual(seen["deadline"], 390); self.assertIsNone(seen["env"])
+        cmd = seen["cmd"]
+        self.assertEqual(cmd[4:6], ["run", "--repo"]); self.assertIn("backnotprop/plannotator", cmd); self.assertIn("packages/server/src#chain", cmd)
+        self.assertNotIn("--branch", cmd)
+
+    def run_with_voice(self, d, say_extra=""):
+        """A run folder that holds the voice timing of video 05 for the script's own `say` texts (the fixture's words stand in for the voice)."""
+        kb = script(); kb["sources"]["pl"] = {"repo": "a/b"}
+        kb["paragraphs"][2]["beats"] = [{"kind": "repo", "headline": ["Mở thư mục", "từng cái một"], "kicker": "Theo GitHub", "level": "FOOT", "repo": {"ref": "pl", "open": ["packages", "docs"]}}]
+        plan = m.check_script(kb)
+        timing = json.loads((FIX / "05" / "giong" / "v3" / "giong-day-du-timing.json").read_text(encoding="utf-8"))
+        for b, s in zip(timing["beats"], plan.say):
+            b["text_spoken"] = g.voice_text(s) + say_extra
+        (Path(d) / "cong-viec" / "giong").mkdir(parents=True)
+        m.write_json(Path(d) / "cong-viec" / "giong" / "giong-day-du-timing.json", timing)
+        return kb, plan
+
+    def test_chi_kiem_refuses_a_repo_beat_too_short_for_its_pages_and_names_the_seconds(self):
+        with tempfile.TemporaryDirectory() as d:
+            kb, plan = self.run_with_voice(d)
+            with self.assertRaises(m.Refusal) as cm:
+                m.check_repo_seconds(kb, plan, d)
+            e = cm.exception
+            self.assertEqual(e.step, "kiem-kich-ban"); self.assertIn("pages need at least", e.reason); self.assertIn("s (the home page", e.reason); self.assertIn("lengthen", e.change)
+            self.assertFalse(e.reason.startswith("kich-ban:"))
+
+    def test_the_seconds_are_not_checked_without_a_voice_made_from_these_say_texts(self):
+        with tempfile.TemporaryDirectory() as d:
+            kb = RepoScriptChecks().repo_script(["packages"])
+            self.assertFalse(m.check_repo_seconds(kb, m.check_script(kb), d))           # no voice yet: the seconds are not known
+        with tempfile.TemporaryDirectory() as d:
+            kb, plan = self.run_with_voice(d, say_extra=" thêm")
+            self.assertFalse(m.check_repo_seconds(kb, plan, d))                          # another voice: its timing says nothing about this script
+        self.assertFalse(m.check_repo_seconds(script(), m.check_script(script()), tempfile.gettempdir()))
+
+    def spec_with_repo(self, d, still=b"png-1"):
+        base = Path(d)
+        (base / "q").mkdir(parents=True, exist_ok=True)
+        (base / "q" / "0.png").write_bytes(still); (base / "q" / "1.png").write_bytes(b"png-2")
+        m.write_json(base / "q" / "quay.json", {"scale": 2, "viewport": {"width": 1280}, "pages": [{"path": "", "picture": "0.png"}, {"path": "apps", "picture": "1.png"}]})
+        return {"manifest": "q/quay.json", "kind": "repo", "walk": [{"page": "", "a": 0.0}, {"page": "apps", "a": 4.0, "via": "tap"}]}
+
+    def test_the_builder_reuse_hash_covers_the_manifest_and_every_still(self):
+        with tempfile.TemporaryDirectory() as d:
+            lay = self.spec_with_repo(d)
+            before = m.repo_picture_hashes(Path(d), lay)
+            self.assertEqual(sorted(before), ["q/0.png", "q/1.png", "q/quay.json"])
+            (Path(d) / "q" / "1.png").write_bytes(b"png-changed")
+            after = m.repo_picture_hashes(Path(d), lay)
+            self.assertEqual([k for k in before if before[k] != after[k]], ["q/1.png"])
+            m.write_json(Path(d) / "q" / "quay.json", {"scale": 2, "viewport": {"width": 1280}, "pages": [{"path": "", "picture": "0.png"}, {"path": "apps", "picture": "1.png"}], "commit": "x"})
+            self.assertNotEqual(m.repo_picture_hashes(Path(d), lay)["q/quay.json"], after["q/quay.json"])
+
+    def test_the_builder_inputs_carry_the_repo_hashes_and_the_camera_code(self):
+        with tempfile.TemporaryDirectory() as d:
+            c = m.Ctx("s.json", Path(d) / "run", m.check_script(script()), script(), {})
+            c.dung.mkdir(parents=True)
+            lay = self.spec_with_repo(c.dung)
+            (c.dung / "v.wav").write_bytes(b"w"); m.write_json(c.dung / "t.json", {"duration_s": 1, "beats": []})
+            m.write_json(c.spec, {"voice": "v.wav", "timing": "t.json", "beats": [{"id": "1", "picture": lay}]})
+            inputs = m.builder_inputs(c)
+            self.assertEqual(sorted(inputs["pictures"]), ["q/0.png", "q/1.png", "q/quay.json"])
+            self.assertIn("halcyon_repo_walk.py", inputs["builder"])
+
+    def plan_of(self, frames):
+        return {"beats": [{"id": "1", "kind": "repo", "notes": {"segments": [{"page": p, "frames": f} for p, f in frames]}}]}
+
+    def spec_of(self):
+        return {"beats": [{"id": "1", "picture": {"kind": "repo", "walk": [{"page": ""}, {"page": "apps"}, {"page": "apps/x"}]}}, {"id": "2", "picture": {"kind": "same_as", "beat": "1"}}]}
+
+    def test_the_second_witness_wants_every_page_in_order_and_long_enough(self):
+        ok = self.plan_of([("", [0, 130]), ("apps", [130, 200]), ("apps/x", [200, 230])])
+        self.assertEqual(m.repo_plan_problems(self.spec_of(), ok), [])
+        self.assertIn("shows the pages", m.repo_plan_problems(self.spec_of(), self.plan_of([("", [0, 130]), ("apps/x", [130, 200]), ("apps", [200, 230])]))[0])
+        self.assertIn("shows the pages", m.repo_plan_problems(self.spec_of(), self.plan_of([("", [0, 130]), ("apps", [130, 230])]))[0])
+        short = m.repo_plan_problems(self.spec_of(), self.plan_of([("", [0, 130]), ("apps", [130, 200]), ("apps/x", [200, 210])]))
+        self.assertEqual(len(short), 1); self.assertIn('page "apps/x" is on screen 10 frames', short[0])
+        self.assertIn("is not a repo beat", m.repo_plan_problems(self.spec_of(), {"beats": [{"id": "1", "kind": "capture"}]})[0])
+        self.assertEqual(m.repo_plan_problems({"beats": [{"id": "1", "picture": {"kind": "capture"}}]}, {"beats": []}), [])
+
+    def facts(self):
+        f = PackFiles().facts()
+        f["repos"] = [dict(ref="pl", repo="backnotprop/plannotator", branch="main", commit="edd45372aaaabbbbccccddddeeeeffff00001111", captured="2026-11-20T10:05:00+07:00",
+                           pages=[dict(path="", address="https://github.com/backnotprop/plannotator", status=200, seconds=7.1),
+                                  dict(path="apps", address="https://github.com/backnotprop/plannotator/tree/main/apps", status=200, seconds=5.0)])]
+        return f
+
+    def test_the_summary_lists_the_pages_the_commit_and_what_the_machine_could_not_check(self):
+        md, data = m.summary_texts(self.facts())
+        for w in ("## Nguồn đã quay (GitHub)", "backnotprop/plannotator", "edd45372aaaa", "2026-11-20T10:05:00+07:00", "https://github.com/backnotprop/plannotator/tree/main/apps", "HTTP 200, 5.0 giây",
+                  "khớp danh sách của chính GitHub", "không phải quay màn hình trực tiếp", "anh-tong-quan.jpg"):
+            self.assertIn(w, md)
+        self.assertEqual(data["repos"][0]["commit"][:7], "edd4537")
+        self.assertNotIn("Nguồn đã quay", m.summary_texts(PackFiles().facts())[0])
+
+    def test_the_recording_goes_to_the_source_folder_of_the_archive_per_repo(self):
+        man = m.archive_manifest(self.facts())
+        it = next(x for x in man["muc"] if x["nguon"] == "cong-viec/quay/pl/*")
+        self.assertEqual(it["dich"], "6 - Nguồn/anh-quay-repo"); self.assertEqual(it["tien_to"], "halcyon-05-pl-"); self.assertTrue(it["cho_duyet"])
+        self.assertFalse([x for x in m.archive_manifest(PackFiles().facts())["muc"] if "quay" in x["nguon"]])
+
+
 if __name__ == "__main__":
     unittest.main()
