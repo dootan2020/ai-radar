@@ -28,6 +28,8 @@ _s = importlib.util.spec_from_file_location('ve', HERE / 've_halcyon.py')
 ve = importlib.util.module_from_spec(_s); _s.loader.exec_module(ve)
 _s = importlib.util.spec_from_file_location('halcyon_spec', HERE / 'halcyon_spec.py')     # spec loading: stdlib only, tested without a GPU
 spec_mod = importlib.util.module_from_spec(_s); _s.loader.exec_module(spec_mod)
+_s = importlib.util.spec_from_file_location('halcyon_repo_walk', HERE / 'halcyon_repo_walk.py')   # the repo picture's manifest and camera plan: stdlib only, tested without a GPU
+repo_mod = importlib.util.module_from_spec(_s); _s.loader.exec_module(repo_mod)
 assert (ve.W, ve.H) == (W, H)
 
 
@@ -205,6 +207,135 @@ def vid_picture(rgb, g):
         else:
             fr[:, end:] = rgb[:, g['ub'] - 1, g['ux0']:g['ux1']].median(dim=1).values[:, None, None]
     return fr
+
+
+# ---------------- repo picture: desktop github.com stills played through a camera (see SPEC.md, halcyon_repo_walk.py) ----------------
+_REPO_IMG = {}                                  # still path -> uint8 (3, h, w) on the GPU, one upload per file
+_POINTER = []
+
+
+def repo_image(path):
+    key = str(path)
+    if key not in _REPO_IMG:
+        arr = np.asarray(Image.open(path).convert('RGB'))      # PIL only decodes the PNG
+        _REPO_IMG[key] = torch.from_numpy(arr.copy()).to(DEV).permute(2, 0, 1).contiguous()
+    return _REPO_IMG[key]
+
+
+def lz_weights(c0, step, n_out, j0, j1):
+    """Lanczos-3 weights (n_out, j1 - j0) for output pixel i centred at input coordinate c0 + (i + .5) * step, built on the GPU for any fractional crop."""
+    fs = max(step, 1.0)
+    j = torch.arange(j0, j1, device=DEV, dtype=torch.float32) + 0.5
+    c = c0 + (torch.arange(n_out, device=DEV, dtype=torch.float32) + 0.5) * step
+    t = (j[None, :] - c[:, None]) / fs
+    w = torch.sinc(t) * torch.sinc(t / 3) * (t.abs() < 3)
+    return w / w.sum(1, keepdim=True)
+
+
+def pointer_sprite():
+    """The mouse pointer (arrow tip at the sprite's (PAD, PAD)): ink fill, white outline, soft shadow; drawn once with PIL at 4x and reduced."""
+    if not _POINTER:
+        s, pad, hgt = 4, 6, 46
+        k = hgt / 19.0
+        pts = [(0, 0), (0, 16), (4, 12.5), (6.5, 18.5), (8.8, 17.5), (6.5, 11.8), (11.5, 11.8)]
+        cw_, ch_ = int(12 * k) + 2 * pad + 4, hgt + 2 * pad + 4
+        big = Image.new('RGBA', (cw_ * s, ch_ * s), (0, 0, 0, 0))
+        poly = [((pad + x * k) * s, (pad + y * k) * s) for x, y in pts]
+        sh = Image.new('RGBA', big.size, (0, 0, 0, 0)); ImageDraw.Draw(sh).polygon([(x + 2 * s, y + 3 * s) for x, y in poly], fill=(0, 0, 0, 90))
+        sh = sh.filter(ve.ImageFilter.GaussianBlur(2 * s))
+        d = ImageDraw.Draw(big); d.polygon(poly, fill=(255, 255, 255, 255), outline=(255, 255, 255, 255), width=int(3.2 * s))
+        inner = Image.new('RGBA', big.size, (0, 0, 0, 0)); ImageDraw.Draw(inner).polygon(poly, fill=ve.INK + (255,))
+        inner = inner.filter(ve.ImageFilter.MinFilter(2 * s + 1))
+        big = Image.alpha_composite(Image.alpha_composite(sh, big), inner)
+        _POINTER.append((to_gpu_rgba(np.asarray(big.resize((cw_, ch_), Image.LANCZOS))), pad))
+    return _POINTER[0]
+
+
+def repo_resample(show, key, cam):
+    """The page's still seen through the camera: (3, hh, ww) float, Lanczos on the GPU, bg beyond the page, plus the feather mask (hh, ww)."""
+    img = repo_image(show['pages'][key]['picture'])
+    bg = show['bg']; ww, hh, sc = show['ww'], show['hh'], show['scale']
+    H_, W_ = img.shape[1], img.shape[2]
+    stepx = cam[2] * sc / ww                                  # still px per frame px (both axes)
+    cx0 = (cam[0] - cam[2] / 2) * sc; cy0 = (cam[1] - hh / (ww / cam[2]) / 2) * sc
+    sup = 3 * max(stepx, 1.0)
+    j0x, j1x = int(math.floor(cx0 - sup)), int(math.ceil(cx0 + ww * stepx + sup))
+    j0y, j1y = int(math.floor(cy0 - sup)), int(math.ceil(cy0 + hh * stepx + sup))
+    band = bg[:, None, None].expand(3, j1y - j0y, j1x - j0x).clone()
+    ya, yb, xa, xb = max(j0y, 0), min(j1y, H_), max(j0x, 0), min(j1x, W_)
+    if yb > ya and xb > xa:
+        band[:, ya - j0y:yb - j0y, xa - j0x:xb - j0x] = img[:, ya:yb, xa:xb].float()
+    out = (lz_weights(cy0, stepx, hh, j0y, j1y) @ band) @ lz_weights(cx0, stepx, ww, j0x, j1x).T
+    F_ = repo_mod.FEATHER
+
+    def ramp(n, lo_len, hi_len):                               # 0 -> 1 over lo_len px at the start, 1 -> 0 over hi_len px at the end; a length of 0 is a hard edge
+        i = torch.arange(n, device=DEV, dtype=torch.float32) + 0.5
+        a = torch.ones(n, device=DEV)
+        if lo_len > 0:
+            u = (i / lo_len).clamp(0, 1); a = a * (u * u * (3 - 2 * u))
+        if hi_len > 0:
+            u = ((n - i) / hi_len).clamp(0, 1); a = a * (u * u * (3 - 2 * u))
+        return a
+    ln = lambda d_: float(min(max(d_ / stepx, 0.0), F_))     # the feather shrinks to nothing where the crop edge is the page edge
+    ay = ramp(hh, ln(cy0), ln(H_ - (cy0 + hh * stepx)))
+    ax = ramp(ww, ln(cx0), ln(W_ - (cx0 + ww * stepx)))
+    return out, ay[:, None] * ax[None, :]
+
+
+def repo_layer(show, sg, f):
+    """One page of a repo beat at frame f: camera, hover tint on the row, feather, mouse pointer. (3, hh, ww) float."""
+    cam = repo_mod.cam_at(sg, f)
+    out, mask = repo_resample(show, sg['page'], cam)
+    out = out.clamp(0, 255)
+    ptr, hover, press = repo_mod.pointer_at(sg, f)
+    p = sg['ptr']
+    if p and (hover > 0 or press > 0):
+        x, y, w, h = p['rect']
+        yy = torch.arange(show['hh'], device=DEV, dtype=torch.float32) + 0.5; xx = torch.arange(show['ww'], device=DEV, dtype=torch.float32) + 0.5
+        cov = ((torch.minimum(yy - y, y + h - yy) + 0.5).clamp(0, 1))[:, None] * ((torch.minimum(xx - x, x + w - xx) + 0.5).clamp(0, 1))[None, :]
+        a = (0.075 * hover + 0.07 * press) * cov
+        out = out * (1 - a[None]) + torch.tensor(ve.INK, device=DEV, dtype=torch.float32)[:, None, None] * a[None]
+    bg = show['bg'][:, None, None]
+    out = bg + (out - bg) * mask[None]
+    if ptr:
+        sprite, pad = pointer_sprite()
+        sh_, sw_ = sprite.shape[1], sprite.shape[2]
+        x0, y0 = int(round(ptr[0])) - pad, int(round(ptr[1])) - pad
+        xa, ya, xb, yb = max(x0, 0), max(y0, 0), min(x0 + sw_, show['ww']), min(y0 + sh_, show['hh'])
+        if xb > xa and yb > ya:
+            sp = sprite[:, ya - y0:yb - y0, xa - x0:xb - x0]
+            a = sp[3:4].float() / 255.0 * ptr[2]
+            out[:, ya:yb, xa:xb] = out[:, ya:yb, xa:xb] * (1 - a) + sp[:3].float() * a
+    return out
+
+
+def repo_window(b, f):
+    show, segs = b['show'], b['plan']['segments']
+    sg = repo_mod.seg_at(segs, f)
+    lay = repo_layer(show, sg, f)
+    if sg['i'] > 0 and f < sg['s'] + repo_mod.XF:                # the page changes: a desktop browser swaps the page, so a quick dip through the page colour (old page frozen on its press,
+        u = (f - sg['s'] + 1) / repo_mod.XF                       # out over the first half, new page in over the second): two text-dense views cross-faded at once would ghost
+        bg = show['bg'][:, None, None]
+        if u < 0.5:
+            lay = bg + (repo_layer(show, segs[sg['i'] - 1], sg['s'] - 1) - bg) * (1 - repo_mod.smooth(2 * u))
+        else:
+            lay = bg + (lay - bg) * repo_mod.smooth(2 * u - 1)
+    return lay
+
+
+def repo_picture(b, f):
+    show = b['show']
+    pic = show['flat'].clone()
+    pic[:, show['top']:show['top'] + show['hh'], ve.PIC_X0:ve.PIC_X0 + show['ww']] = repo_window(b, f)
+    return pic
+
+
+def check_blank_window(where, layer, bg):
+    """A repo still whose window holds (almost) nothing but the page colour is refused: fewer than 0.5% of the window's pixels differ from it by more than 24 levels."""
+    share = float(((layer - bg[:, None, None]).abs().amax(0) > 24).float().mean())
+    if share < 0.005:
+        raise SystemExit(f'blank window: {where}: only {share * 100:.2f}% of the window differs from the page colour (floor 0.5%): the still is empty or the camera looks past the page')
+    return share
 
 
 # ---------------- captions ----------------
@@ -497,10 +628,30 @@ def build_beats(S, units):
             b['notes'] = dict(S_src=list(Su), y0=y0, k=round(k, 4), S_frame_h=round((Su[3] - Su[1]) * k), x_range=[x_at, x_at + out_w],
                               S_frame_y=[round((Su[1] - y0) * k), round((Su[3] - y0) * k)], geom=g)
             nvid.setdefault(str(webm), []).append(b)
+        elif pic['kind'] == 'repo':
+            if level not in ('HOOK', 'FOOT'):
+                raise SystemExit(f'spec: {where}.level must be HOOK or FOOT for a repo picture')
+            man = repo_mod.load_manifest(need_file(S['base'], need(pic, 'manifest', where + '.picture'), where + '.picture.manifest'))
+            top = ve.WIN[level][0]
+            bottom = ve.FADE_AT['HOOK'] if level == 'HOOK' else min(ve.FADE_AT['FOOT'], ve.SLOT[1] - 54)    # thu-gon-r3-l2: HOOK 364-866, FOOT 364-1214 (60 px above the subtitle ink)
+            hh, ww = bottom - top, ve.PIC_W
+            plan_r = repo_mod.plan_walk(man, need(pic, 'walk', where + '.picture'), b['f0'], b['f1'], hh, ww, FPS, default_overview=1.0 if level == 'HOOK' else 0.0, where=where + '.picture')
+            ve.check_pic(where + ' (repo)', ve.PIC_X0, ve.PIC_X0 + ww, (top, bottom), level)
+            bg = torch.tensor(man['bg'], device=DEV, dtype=torch.float32)
+            show = dict(pages=man['pages'], bg=bg, ww=ww, hh=hh, top=top, scale=man['scale'], flat=bg[:, None, None].expand(3, H, W).contiguous())
+            b['kind'] = 'repo'; b['show'] = show; b['plan'] = plan_r
+            b['notes'] = dict(manifest=str(man['path']), window=dict(x=[ve.PIC_X0, ve.PIC_X0 + ww], y=[top, bottom]), **repo_mod.plan_notes(plan_r))
+            for lab, ff in [(f'still {lab}', fr_) for lab, fr_ in plan_r['stills']] + [(f'hold {h["kind"]} step {h["step"]}', h['frame']) for h in plan_r['holds']]:
+                sg_ = repo_mod.seg_at(plan_r['segments'], ff)
+                share = check_blank_window(f'{where} ({lab}, frame {ff})', repo_window(b, ff), bg)
+                b['notes'].setdefault('ink_share', {})[f'{lab} f{ff}'] = round(share, 3)
+            print(f'repo beat {i}: {len(plan_r["segments"])} pages, largest pan step {plan_r["max_pan_px_per_frame"]} px/frame (cap {plan_r["pan_cap_px_per_frame"]}), '
+                  f'largest zoom step {plan_r["max_zoom_per_frame"]} ln/frame (cap {plan_r["zoom_cap_per_frame"]}); hold text sizes (frame px): '
+                  + ', '.join(f'{h["page"] or "home"}:{h["kind"]}={h["text_frame_px"]}' for h in plan_r['holds']), flush=True)
         elif pic['kind'] == 'same_as':
             b['kind'] = 'same_as'; b['of'] = str(need(pic, 'beat', where + '.picture'))
         else:
-            raise SystemExit(f'spec: {where}.picture.kind "{pic["kind"]}" is not capture, recording or same_as')
+            raise SystemExit(f'spec: {where}.picture.kind "{pic["kind"]}" is not capture, recording, repo or same_as')
         if b['bands'] and not b['level'] in ('HOOK', 'FOOT'):
             raise SystemExit(f'spec: {where}: bands need a picture beat')
         beats.append(b); byid[i] = b
@@ -546,6 +697,8 @@ def src_index(b, f):
 def beat_pic(b, f):
     if b['kind'] == 'video':
         return vid_picture(nv12_to_rgb(b['frames'][src_index(b, f) - b['lo']]), b['geom'])
+    if b['kind'] == 'repo':
+        return repo_picture(b, f)
     return b['pic']
 
 
@@ -558,6 +711,8 @@ def resolve_same_as(beats, byid):
             if src['kind'] == 'video':
                 b['pic'] = vid_picture(nv12_to_rgb(src['frames'][src_index(src, src['f1'] - 1) - src['lo']]), src['geom'])
                 b['notes'] = dict(source=f'last frame of beat {src["id"]}', src_index=src_index(src, src['f1'] - 1))
+            elif src['kind'] == 'repo':
+                b['pic'] = repo_picture(src, src['f1'] - 1); b['notes'] = dict(source=f'last frame of repo beat {src["id"]}')
             elif src['kind'] in ('still', 'card'):
                 b['pic'] = src['pic']; b['notes'] = dict(source=f'beat {src["id"]} picture')
             else:
@@ -809,7 +964,10 @@ def stills(S):
     shots = []                                      # (label, frame)
     for b in beats:
         sw = b['switch'] + [b['f1']]
-        if len(b['layers']) == 1:
+        if b['kind'] == 'repo':                       # one still per page of the walk, at its arrival and at its hover on the next row
+            for lab, ff in b['plan']['stills']:
+                shots.append((f'beat {b["id"]} {lab}', ff))
+        elif len(b['layers']) == 1:
             shots.append((f'beat {b["id"]}', (b['f0'] + b['f1']) // 2))
         else:
             for s in range(len(b['layers'])):
@@ -819,7 +977,7 @@ def stills(S):
     imgs = []
     for label, f in shots:
         im = to_pil(compose(f, bymap, units, ulay)); imgs.append((label, f, im))
-        stem = label.replace(' ', '-') + f'-f{f}'
+        stem = re.sub(r'[^\w.-]+', '-', label) + f'-f{f}'
         im.convert('RGB').save(d / (stem + '.jpg'), quality=92)
         for case in ('fb', 'xau-nhat', 'tt'):
             ve.phone_preview(im, case).save(d / f'{stem}-{case}.jpg', quality=92)
