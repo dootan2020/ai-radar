@@ -241,8 +241,8 @@ class Pronunciations(unittest.TestCase):
         self.assertFalse(bad["ok"])
 
     def test_whisper_writing_the_written_word_is_accepted_and_listed(self):
-        voice = [g.voice_text("Chat AI trên GitHub rất nhanh, theo AI.")]
-        ws = ["Chat", "AI", "trên", "GitHub", "rất", "nhanh", "theo", "Ây", "ai"]
+        voice = [g.voice_text("Nói AI trên GitHub rất nhanh, theo AI.")]
+        ws = ["Nói", "AI", "trên", "GitHub", "rất", "nhanh", "theo", "Ây", "ai"]
         rep = g.check_reading(voice, [dict(w=w, s=i * 0.3, e=i * 0.3 + 0.25) for i, w in enumerate(ws)])
         self.assertTrue(rep["ok"], rep["problems"])
         self.assertEqual(rep["unmatched"], 0)
@@ -273,6 +273,85 @@ class Pronunciations(unittest.TestCase):
     def test_a_heard_ai_stays_who_next_to_apps(self):
         rep = g.check_reading([g.voice_text("Ai dùng apps")], [dict(w=x, s=i * 0.3, e=i * 0.3 + 0.25) for i, x in enumerate(["Ai", "dùng", "app"])])
         self.assertTrue(rep["ok"] and rep["unmatched"] == 0)
+
+    # -- the owner's table of 20/11/2026 ~15:00 (written -> spoken)
+    TABLE = (
+        ("code", "cốt"), ("Google", "Gu-gồ"), ("Gemini", "Gem-mi-nai"), ("ChatGPT", "Chát Gi-pi-ti"), ("OpenAI", "Âu-pần Ây-ai"),
+        ("Claude", "Clâu"), ("Anthropic", "An-thờ-rô-pích"), ("Codex", "Cô-đếch"), ("Nvidia", "En-vi-đi-a"), ("Microsoft", "Mai-crô-xốp"),
+        ("Meta", "Mê-ta"), ("Apple", "Áp-pồ"), ("Perplexity", "Pơ-plếch-xi-ti"), ("Google Maps", "Gu-gồ Mép"), ("Chrome", "Crôm"),
+        ("Windows", "Guyn đâu"), ("TikTok", "Tích-tóc"), ("YouTube", "Diu-túp"), ("Facebook", "Phây-búc"), ("Instagram", "In-xta-gram"),
+        ("Elon Musk", "I-lon Mắc"), ("Jensen Huang", "Gien-xần Hoàng"), ("TechCrunch", "Téc-crân"), ("The Verge", "Đờ Vơ-giơ"),
+        ("Yonhap", "Yôn-háp"), ("Semafor", "Xe-ma-pho"), ("chat", "chát"), ("web", "wép"), ("website", "wép-xai"), ("CEO", "xi-i-ô"),
+        ("README", "rít-mi"), ("CLI", "cờ lờ i"), ("hook", "húc"), ("plugin", "plắc-in"), ("prompt", "prom"), ("agent", "ây-giần"),
+        ("blog", "blóc"), ("video", "vi-đê-ô"), ("USD", "đô la Mỹ"),
+    )
+
+    @staticmethod
+    def heard(*ws):
+        return [dict(w=w, s=i * 0.3, e=i * 0.3 + 0.25) for i, w in enumerate(ws)]
+
+    def test_every_row_of_the_table_is_read_as_approved(self):
+        for written, spoken in self.TABLE:
+            self.assertEqual(g.voice_text(f"Nói về {written} hôm nay."), f"Nói về {spoken} hôm nay.", written)
+        self.assertEqual(g.voice_text("Claude Code và Google Maps, không phải Google."), "Clâu cốt và Gu-gồ Mép, không phải Gu-gồ.")
+        self.assertEqual(g.voice_text("ChatGPT và OpenAI, chat với AI."), "Chát Gi-pi-ti và Âu-pần Ây-ai, chát với Ây-ai.")
+        self.assertEqual(g.voice_text("NVIDIA, the Verge, Tiktok"), "En-vi-đi-a, Đờ Vơ-giơ, Tiktok")
+
+    def test_terms_match_in_any_case_and_in_the_plural_acronyms_and_brands_do_not(self):
+        self.assertEqual(g.voice_text("Video mới, hai videos, Prompt và PROMPTS, Agents, Plugin, Hooks, Blogs, Websites"),
+                         "vi-đê-ô mới, hai vi-đê-ô, prom và prom, ây-giần, plắc-in, húc, blóc, wép-xai")
+        for text in ("ceo", "Ceo", "cli", "usd", "Readme", "readme", "google", "meta", "windows", "claude", "ChatGPTs", "webhook", "website2", "codex",
+                     "Ai ai", "AI2", "videoconf", "metadata", "mô hình agentic"):
+            self.assertEqual(g.voice_text(text), text if text != "AI2" else text)
+        self.assertEqual(g.voice_text("Web-based, chat-bot"), "wép-based, chát-bot")
+
+    def test_a_longer_phrase_wins_and_a_spoken_word_is_not_read_again(self):
+        self.assertEqual(g.voice_text("OpenAI ra AI mới"), "Âu-pần Ây-ai ra Ây-ai mới")
+        self.assertEqual(g.voice_text("Google Maps"), "Gu-gồ Mép")
+        self.assertEqual(g.voice_text("Gu-gồ Mép, Clâu cốt"), "Gu-gồ Mép, Clâu cốt")
+
+    def test_usd_next_to_a_number_passes_the_number_check(self):
+        voice = [g.voice_text("Giá 30 USD, và 2 triệu USD.")]
+        self.assertEqual(voice, ["Giá 30 đô la Mỹ, và 2 triệu đô la Mỹ."])
+        for ws in (("Giá", "30", "đô", "la", "Mỹ", "và", "2", "triệu", "đô", "la", "Mỹ"), ("Giá", "ba", "mươi", "đô", "la", "Mỹ", "và", "hai", "triệu", "đô", "la", "Mỹ"),
+                   ("Giá", "30", "USD", "và", "2", "triệu", "USD"), ("Giá", "30", "đô", "la", "và", "2", "triệu", "đô", "la")):
+            rep = g.check_reading(voice, self.heard(*ws))
+            self.assertTrue(rep["ok"] and rep["unmatched"] == 0, (ws, rep["problems"], rep["residual"]))
+        bad = g.check_reading(voice, self.heard("Giá", "30", "và", "2", "triệu"))
+        self.assertFalse(bad["ok"] and bad["unmatched"] == 0)
+
+    def test_the_gate_accepts_the_written_word_and_the_spoken_words_for_every_row(self):
+        for written, spoken in self.TABLE:
+            voice = [g.voice_text(f"Nói về {written} hôm nay rất nhanh.")]
+            spoken_words = tuple(g.WORD.findall(spoken))
+            for ws in (spoken_words, tuple(g.WORD.findall(written))):
+                rep = g.check_reading(voice, self.heard("Nói", "về", *ws, "hôm", "nay", "rất", "nhanh"))
+                self.assertTrue(rep["ok"] and rep["unmatched"] == 0, (written, ws, rep["problems"], rep["residual"]))
+            # the voice that dropped the word fails, so the entry is not accepted for free
+            bad = g.check_reading(voice, self.heard("Nói", "về", "hôm", "nay", "rất", "nhanh"))
+            self.assertGreater(bad["unmatched"], 0, written)
+
+    def test_the_gate_accepts_the_obvious_whisper_spellings(self):
+        cases = (("Claude Code", ("Claude", "Code")), ("Claude Code", ("Clâu", "code")), ("ChatGPT", ("Chat", "GPT")), ("ChatGPT", ("ChatGPT",)),
+                 ("OpenAI", ("Open", "AI")), ("Google Maps", ("Google", "Maps")), ("Nvidia", ("NVIDIA",)), ("TikTok", ("Tik", "Tok")),
+                 ("YouTube", ("You", "Tube")), ("website", ("web", "site")), ("README", ("readme",)), ("CLI", ("cli",)), ("Semafor", ("Semaphore",)),
+                 ("video", ("video",)), ("prompt", ("prompts",)), ("agent", ("agent",)), ("hook", ("hook",)), ("blog", ("blog",)))
+        for written, ws in cases:
+            voice = [g.voice_text(f"Nói về {written} hôm nay rất nhanh.")]
+            rep = g.check_reading(voice, self.heard("Nói", "về", *ws, "hôm", "nay", "rất", "nhanh"))
+            self.assertTrue(rep["ok"] and rep["unmatched"] == 0, (written, ws, rep["problems"], rep["residual"]))
+
+    def test_a_heard_ai_is_still_who_next_to_the_new_rows(self):
+        rep = g.check_reading([g.voice_text("Ai dùng ChatGPT")], self.heard("Ai", "dùng", "ChatGPT"))
+        self.assertTrue(rep["ok"] and rep["unmatched"] == 0)
+        rep = g.check_reading([g.voice_text("OpenAI ra mắt")], self.heard("ai", "ra", "mắt"))
+        self.assertGreater(rep["unmatched"], 0)
+
+    def test_the_new_readings_are_listed_for_the_ear(self):
+        voice = [g.voice_text("Google Maps trên Windows rất nhanh.")]
+        rep = g.check_reading(voice, self.heard("Google", "Maps", "trên", "Windows", "rất", "nhanh"))
+        self.assertEqual({x["say"]: x["heard"] for x in rep["listen"]}, {"Gu-gồ Mép": "Google Maps", "Guyn đâu": "Windows"})
+
 
     def test_the_subtitle_still_matches_the_heard_words(self):
         display =["AI", "trên", "GitHub", "rất", "nhanh"]
