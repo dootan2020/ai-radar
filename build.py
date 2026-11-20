@@ -5,6 +5,7 @@ from datetime import datetime, timezone
 import os
 import time
 
+from radar.huong_dan import inject, load_guides
 from radar.measurement_cache import load_baseline, promotion_reason
 from radar.pipeline import build_v2, write_atomic
 from radar.publication import assess_publication, load_published, prepare_publication
@@ -52,6 +53,12 @@ def main():
         print(f"Publication rejected: {status['reason']}; prior snapshot left unchanged")
         return 1
     payload["freshness"] = status["freshness"]
+    # Owner-approved hand-written guides join the stories here, before the snapshot and the published cache are written:
+    # the later steps (translate, summarize, covers) complete the cache only when every current story is already in it.
+    guides, refused = load_guides(root / "data" / "huong-dan", datetime.now(timezone.utc))
+    for message in refused:
+        print(f"::error title=Guide refused::{message}")
+    payload = inject(payload, guides)
     write_site_snapshot(payload, output)
     write_sitemap(payload["generated_at"], sitemap)
     write_atomic(payload, published_cache)

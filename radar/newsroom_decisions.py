@@ -13,6 +13,7 @@ from pathlib import Path
 from radar.clustering import canonical_url
 from radar.common import stable_id
 from radar.evidence_refs import strip_evidence_refs
+from radar.huong_dan import is_guide
 
 
 DEFAULT_PATH = Path(__file__).resolve().parents[1] / "phong-bao" / "decisions.json"
@@ -205,6 +206,10 @@ def apply_decisions(payload, decisions):
     reviewed = story_decisions(result.get("stories", []), decisions)
     stories = []
     for story in result.get("stories", []):
+        if is_guide(story) and desk_fields_valid(story):
+            # An owner-approved hand-written guide (radar.huong_dan) has no decision row; its approval stands in.
+            stories.append(story)
+            continue
         row = reviewed.get(story.get("id"))
         written = desk_summary(row)
         if written is None:

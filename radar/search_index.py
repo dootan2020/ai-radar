@@ -4,6 +4,7 @@ from pathlib import Path
 import re
 import unicodedata
 
+from radar.huong_dan import is_guide
 from radar.newsroom_decisions import desk_summary, story_decisions
 from radar.story_pages import _has_editorial_summary
 
@@ -130,6 +131,10 @@ def search_payload(payload, archived_stories=None, decisions=None):
         reviewed = story_decisions([{**story, "id": story_id} for story_id, story in live.items()], decisions)
         for story_id, story in live.items():
             if story_id in seen:
+                continue
+            if is_guide(story):
+                indexed_stories.append(search_story_row(story))
+                seen.add(story_id)
                 continue
             decision = reviewed.get(story_id)
             if decision is None or decision.get("decision") != "publish":
