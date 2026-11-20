@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-20T21:53:28.769923+00:00",
-  "input_generated_at": "2026-11-20T20:47:07Z",
+  "generated_at": "2026-11-20T23:36:29.202856+00:00",
+  "input_generated_at": "2026-11-20T22:54:16Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -116507,10 +116507,10 @@
       "use_original_title": true,
       "source_url": "https://finance.yahoo.com/markets/article/nvidia-stock-extends-25-trillion-rout-as-sec-probe-reportedly-investigates-its-accounting-194945274.html",
       "key_points": [
-        "Theo Yahoo Finance, cổ phiếu Nvidia giảm khoảng 10% trong phiên thứ Sáu, ghi nhận ngày tồi tệ nhất kể từ tháng 1 năm 2025.",
-        "Reuters đưa tin nguyên nhân đợt giảm giá này bắt nguồn từ việc SEC đang điều tra các vấn đề kế toán tiềm ẩn của Nvidia. The Wall Street Journal cho biết thêm cuộc điều tra làm rõ liệu Nvidia có công bố thông tin gây hiểu lầm cho nhà đầu tư hay không, dù công ty và SEC đều từ chối bình luận.",
-        "Theo Yahoo Finance, Nvidia bốc hơi khoảng 400 tỷ USD vốn hóa trong một ngày thứ Sáu và đang trên đà mất hơn 750 tỷ USD trong tuần này. Theo Dow Jones Market Data, con số này sẽ vượt mức 573 tỷ USD của tuần trước, trở thành mức giảm trong một tuần lớn nhất lịch sử đối với một công ty.",
-        "Chuyên gia Ted Mortonson của hãng Baird nhận định mọi thỏa thuận tài chính xoay vòng của Nvidia sẽ bị soi xét kỹ lưỡng. Dù vậy, theo Yahoo Finance, hiện vẫn chưa rõ SEC đang tập trung cụ thể vào nội dung nào trong các nghi vấn kế toán này."
+        "Cổ phiếu Nvidia giảm gần 14% vào thứ Sáu trong phiên giảm thứ bảy liên tiếp. Kể từ đỉnh ngày 6 tháng 10, công ty đã mất khoảng 2,7 nghìn tỷ USD vốn hóa thị trường và tụt xuống vị trí thứ tư tại Mỹ.",
+        "Đợt sụt giảm diễn ra khi Reuters đưa tin Ủy ban Chứng khoán và Giao dịch Mỹ (SEC) điều tra các vấn đề kế toán tiềm ẩn của hãng. The Wall Street Journal cho biết cuộc điều tra xem xét liệu Nvidia có công bố thông tin gây hiểu lầm hay không, giữa lúc Nvidia không phản hồi còn SEC từ chối bình luận.",
+        "Nvidia bốc hơi gần 900 tỷ USD vốn hóa trong tuần, ghi nhận tuần tồi tệ nhất kể từ tháng 10 năm 2008 theo Dow Jones Market Data. Hãng cũng hoãn nộp báo cáo quý 10-Q và đối mặt nghi vấn công bố thông tin về khách hàng Megaspeed tại Singapore.",
+        "Dù vậy, tác giả bài viết nhấn mạnh hiện chưa rõ SEC có tập trung vào các vấn đề kế toán nói trên hay không. Chiến lược gia Ted Mortonson của hãng Baird nhận định trên Yahoo Finance rằng mọi thương vụ tài chính xoay vòng của Nvidia sẽ bị soi xét kỹ lưỡng."
       ],
       "same_event_coverage_ids": [
         "0a8f3bacf02cb4cfeb91"
@@ -116524,7 +116524,7 @@
         "is_leak": true
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Cổ phiếu Nvidia lao dốc 10% khi cơ quan quản lý Mỹ điều tra các vấn đề kế toán tiềm ẩn",
+      "editorial_headline_vi": "Cổ phiếu Nvidia nối dài đà lao dốc 2,7 nghìn tỷ USD giữa thông tin SEC điều tra kế toán",
       "summary_sources": [
         {
           "id": "outlet",
@@ -116537,45 +116537,30 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 5.95,
+        "value": 9.1,
         "answers": {
-          "what": 6,
-          "why": 2,
-          "notable": 8,
-          "meaning": 7
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 6
         },
         "hard_errors": [
           {
-            "kind": "fact",
-            "summary_text": "ghi nhận ngày tồi tệ nhất kể từ tháng 1 năm 2025",
-            "explanation": "The source says the stock was on track for its worst day since January 2025, not that the day's result had been recorded (outlet:p006)."
-          },
-          {
-            "kind": "cause",
-            "summary_text": "nguyên nhân đợt giảm giá này bắt nguồn từ việc SEC đang điều tra các vấn đề kế toán tiềm ẩn của Nvidia",
-            "explanation": "The source reports that the drop came as Reuters described the SEC probe; it does not establish the probe as the cause (outlet:p006)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "công ty và SEC đều từ chối bình luận",
-            "explanation": "The SEC declined to comment, but Nvidia did not respond to Bloomberg's request for comment; the source does not say Nvidia declined (outlet:p007)."
+            "kind": "quote",
+            "summary_text": "hiện chưa rõ SEC có tập trung vào các vấn đề kế toán nói trên hay không",
+            "explanation": "This changes the scope of the source’s uncertainty. Reuters reported that the SEC probe was examining potential accounting issues; what remained unclear was which, if any, of the specific matters subsequently listed were its focus (outlet:p006, outlet:p010–p012)."
           }
         ],
         "findings": [
           {
-            "question": "why",
-            "problem": "Readers are told the investigation caused the share decline.",
-            "fix": "Describe the decline as occurring alongside Reuters' report of the SEC probe, without asserting a proven cause (outlet:p006)."
+            "question": "meaning",
+            "problem": "The reader may think it is uncertain whether the SEC is examining accounting issues at all.",
+            "fix": "Say that the probe reportedly examines potential accounting issues, while its focus on the specific 10-Q, Singapore, Megaspeed or payment matters remains unclear (outlet:p006, outlet:p010–p012)."
           },
           {
-            "question": "what",
-            "problem": "Readers miss the cumulative scale central to the source's headline.",
-            "fix": "Add that Nvidia had lost more than $2.5 trillion in market value since its October 6 record (outlet:p009)."
-          },
-          {
-            "question": "what",
-            "problem": "The account treats a projected worst day as a completed result and says Nvidia declined to comment.",
-            "fix": "Retain “on track for” and distinguish Nvidia's lack of response from the SEC's refusal to comment (outlet:p006, outlet:p007)."
+            "question": "meaning",
+            "problem": "The wider market effect is absent.",
+            "fix": "Add that the sell-off spread to chip stocks and the broader market (outlet:p014)."
           }
         ],
         "writer_boats": [
@@ -116583,8 +116568,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "3b2a0a558cf8f8d30bf19a3ddce8effb1ab2eed406623bb236bfe1759f24a015",
-        "scored_at": "2026-11-20T21:33:00.976696+00:00"
+        "prose_sha256": "9c43e9e401033421c200512ddfcd52536e0c7390ccdb248ca805455fd9ffe696",
+        "scored_at": "2026-11-20T23:36:29.179746+00:00"
       }
     },
     {
@@ -116970,10 +116955,10 @@
       "use_original_title": false,
       "source_url": "https://www.echr.coe.int/w/romanian-lawyer-barred-for-two-years-from-representing-applicants-before-the-court-over-unverified-ai-generated-citations",
       "key_points": [
-        "Chủ tịch Tòa án Nhân quyền Châu Âu cấm một nữ luật sư Romania đại diện cho các đương sự trong thời hạn hai năm. Quyết định được đưa ra ngày 13 tháng 11 năm 2026 sau đề xuất của Phòng xét xử thụ lý vụ việc.",
-        "Theo Phòng xét xử, nguyên nhân kỷ luật là do các bản đệ trình của luật sư chứa nhiều lỗi về án lệ. Hồ sơ này trích dẫn vụ án không có thật do AI tạo ảo giác, bịa đặt đoạn văn phán quyết và viện dẫn án lệ mâu thuẫn.",
-        "Nữ luật sư thừa nhận đã dùng công cụ trí tuệ nhân tạo để soạn thảo văn bản và cho rằng sai sót chỉ là lỗi trích dẫn đơn lẻ.",
-        "Phòng xét xử kết luận hành vi vi phạm nghĩa vụ nghề nghiệp và đạo đức vì chứa chuỗi lỗi sai lặp lại mang tính bản chất. Tòa án nhấn mạnh các nghĩa vụ này vừa do Tòa án quy định vừa có trong luật quốc nội."
+        "Ngày 13 tháng 11 năm 2026, Chủ tịch Tòa án quyết định cấm một luật sư Romania đại diện hoặc hỗ trợ đương sự trước Tòa án trong thời hạn hai năm.",
+        "Theo Phòng xét xử, lệnh cấm bắt nguồn từ việc văn bản đệ trình của nữ luật sư chứa nhiều sai sót về án lệ của Tòa án. Bà thừa nhận dùng trí tuệ nhân tạo (AI) để soạn thảo và tự gọi đây là lỗi trích dẫn cùng sự thiếu chính xác.",
+        "Sai phạm gồm việc trích dẫn các vụ án không có thật, bịa ra các đoạn văn trong phán quyết có thật của Tòa án. Bà cũng viện dẫn án lệ không liên quan hoặc mâu thuẫn trực tiếp với lập luận đưa ra.",
+        "Phòng xét xử kết luận hành vi của nữ luật sư không đáp ứng các nghĩa vụ chuyên môn và đạo đức của Tòa án lẫn luật quốc nội. Hồ sơ bị xác định chứa chuỗi lỗi sai bản chất lặp lại chứ không phải sơ suất trích dẫn đơn lẻ."
       ],
       "same_event_coverage_ids": [
         "8a42c4fc062cd2d58aa0"
@@ -116987,7 +116972,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Tòa án Nhân quyền Châu Âu cấm một luật sư Romania hành nghề 2 năm vì dùng AI bịa đặt án lệ",
+      "editorial_headline_vi": "Tòa án cấm một luật sư Romania hành nghề hai năm vì dùng trích dẫn do AI tự bịa đặt",
       "summary_sources": [
         {
           "id": "outlet",
@@ -117000,35 +116985,25 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.6,
+        "value": 9.0,
         "answers": {
           "what": 8,
-          "why": 8,
-          "notable": 9,
-          "meaning": 10
+          "why": 10,
+          "notable": 10,
+          "meaning": 8
         },
         "hard_errors": [
           {
             "kind": "fact",
-            "summary_text": "cấm một luật sư Romania hành nghề 2 năm",
-            "explanation": "The restriction concerns representing or otherwise assisting litigants before the Court; the source does not report a general ban on practicing law (outlet:p004)."
-          },
-          {
-            "kind": "quote",
-            "summary_text": "cho rằng sai sót chỉ là lỗi trích dẫn đơn lẻ",
-            "explanation": "The lawyer called the mistakes “inaccuracies” and “citation errors.” It was the Chamber that contrasted the repeated substantive errors with isolated citation mistakes (outlet:p006)."
+            "summary_text": "cấm một luật sư Romania hành nghề hai năm",
+            "explanation": "The source reports a two-year exclusion from representing or otherwise assisting litigants before this Court, not a general ban on practising law (outlet:p004, outlet:p007)."
           }
         ],
         "findings": [
           {
             "question": "what",
-            "problem": "The headline makes the two-year restriction sound like a general prohibition on practicing law.",
-            "fix": "Specify that she was barred from representing or otherwise assisting litigants before the Court (outlet:p004)."
-          },
-          {
-            "question": "why",
-            "problem": "The text attributes an “isolated errors” defense to the lawyer.",
-            "fix": "Use her reported descriptions, “inaccuracies” and “citation errors,” and attribute the finding of repeated substantive errors to the Chamber (outlet:p006)."
+            "problem": "The headline makes the sanction sound like a general prohibition on practising law.",
+            "fix": "Specify that she was barred for two years from representing or assisting litigants before the Court (outlet:p004, outlet:p007)."
           }
         ],
         "writer_boats": [
@@ -117036,8 +117011,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "0036dd54afed920526e4a2889f8ae92ec1d5e35b9be7a10b90779ac283e23d79",
-        "scored_at": "2026-11-20T21:33:00.976825+00:00"
+        "prose_sha256": "7d0b6b734a4c9e83fb5a76232660fd9f35e63640c6a89a8c0b860351e703289c",
+        "scored_at": "2026-11-20T23:36:29.179802+00:00"
       }
     },
     {
@@ -117056,10 +117031,10 @@
       "use_original_title": false,
       "source_url": "https://a90.com/experiments/same-advice/",
       "key_points": [
-        "Tác giả bài viết nhận thấy lời khuyên đưa ra có xu hướng hội tụ khi thử nghiệm 65 mô hình trí tuệ nhân tạo (AI - hệ thống mô phỏng trí tuệ con người) mười lần mỗi câu hỏi và không dùng câu lệnh hệ thống. Sự hội tụ này xuất hiện ở các lời khuyên về đọc sách, điểm đến, đầu tư và học tập, trong khi gợi ý về phim ảnh hay bữa tối vẫn phân tán.",
+        "Tác giả bài viết nhận thấy lời khuyên đưa ra có xu hướng hội tụ khi thử nghiệm 65 mô hình trí tuệ nhân tạo (AI - hệ thống mô phỏng trí tuệ con người) mười lần mỗi câu hỏi và không dùng câu lệnh hệ thống. Hiện tượng hội tụ xuất hiện ở các lời khuyên về đọc sách, điểm đến, đầu tư và học tập, trong khi gợi ý về phim ảnh hay bữa tối vẫn phân tán.",
         "Trong cùng một cuộc trò chuyện, mô hình liên tục đưa ra gợi ý mới, nhưng khi sang phiên mới thì lặp lại từ đầu. Khi người dùng thêm một câu mô tả bản thân, mô hình xếp họ vào một nhóm cố định và mọi người trong nhóm đều nhận chung kết quả.",
         "Khi được hỏi gợi ý sách đổi đời, mỗi mô hình lặp lại cuốn sách ban đầu của chính mình ở các phiên mới. Cả sáu mô hình lớn như Claude Opus 5.5 hay GPT-6.2 Sol đều lặp lại lựa chọn riêng đó qua tám cuộc trò chuyện độc lập.",
-        "Tác giả bài viết nhấn mạnh câu trả lời đa dạng hơn không đồng nghĩa với tốt hơn. Với những câu hỏi như nơi gửi 10.000 USD, tác giả nhận định lời khuyên trùng lặp hoàn toàn có thể là đáp án chính xác."
+        "Tác giả bài viết nhấn mạnh câu trả lời đa dạng hơn không đồng nghĩa với tốt hơn. Với những câu hỏi như nơi đặt 10.000 USD, tác giả nhận định lời khuyên trùng lặp hoàn toàn có thể là đáp án chính xác."
       ],
       "same_event_coverage_ids": [
         "327dfd220cfe1c73d714"
@@ -117088,34 +117063,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.7,
+        "value": 10.0,
         "answers": {
           "what": 10,
           "why": 10,
-          "notable": 9,
+          "notable": 10,
           "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "nơi gửi 10.000 USD",
-            "explanation": "The source describes a question about where to put $10,000, without specifying a deposit destination (outlet:p026)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "meaning",
-            "problem": "“Nơi gửi 10.000 USD” narrows the example to depositing money.",
-            "fix": "Describe it as a question about where to put $10,000, as the source does (outlet:p026)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "dba6894b69458cd389bab51769c4b7b5dab66875f9e41a6c229316bd93ef9e0d",
-        "scored_at": "2026-11-20T21:38:42.239138+00:00"
+        "prose_sha256": "ffdf349fe69f025a292179631e83299218fccb6471c1b94debb445c3b4aef7dc",
+        "scored_at": "2026-11-20T23:30:58.275327+00:00"
       }
     },
     {
@@ -117236,10 +117199,10 @@
       "use_original_title": false,
       "source_url": "https://openai.com/index/introducing-medchembench",
       "key_points": [
-        "OpenAI giới thiệu MedChemBench, một benchmark (bộ kiểm tra năng lực) đo lường khả năng suy luận hóa dược của trí tuệ nhân tạo (AI). Bộ dữ liệu gồm 99 bài toán trích từ 117 bài báo khoa học và bằng sáng chế với 761 cấu trúc phân tử.",
-        "Ở phần lớn bài toán, mô hình nhận dữ liệu về đích sinh học, các hợp chất đã nghiên cứu và kết quả thực nghiệm. Hệ thống chấm điểm bốn phần gồm cấu trúc phân tử, suy luận khoa học, xếp hạng hợp chất và dự đoán đặc tính.",
-        "Dù đạt 95,4% điểm cấu trúc ở mức xhigh, Astra chỉ giành khoảng một nửa số điểm khi chọn hợp chất và dự đoán đặc tính số học.",
-        "OpenAI nhấn mạnh kết quả không chứng minh mô hình có thể phát hiện thuốc mới hay cải thiện quyết định trong phòng thí nghiệm. Thử nghiệm chỉ đánh giá suy luận từ dữ liệu lịch sử thay vì phát hiện thuốc thực tế, và mỗi câu trả lời là lần thử duy nhất không có công cụ."
+        "OpenAI giới thiệu bộ kiểm tra MedChemBench (bộ đánh giá năng lực) gồm 99 bài toán để đo lường khả năng suy luận hóa dược của AI.",
+        "Theo OpenAI, thách thức lớn của hóa dược là việc cải thiện một đặc tính phân tử có thể làm suy giảm đặc tính khác. Chẳng hạn, một hợp chất có hoạt tính mạnh lên protein mục tiêu nhưng lại hấp thụ kém hoặc phân rã nhanh trong cơ thể.",
+        "Astra đạt điểm cấu trúc cao nhưng chỉ đạt khoảng một nửa số điểm khi chọn hợp chất. Ở mức suy luận xhigh, Astra đạt 95,4% điểm cấu trúc phân tử, nhưng việc lựa chọn hợp chất và dự đoán đặc tính số học vẫn khó khăn.",
+        "OpenAI nhấn mạnh kết quả này không chứng minh mô hình có thể phát hiện thuốc mới hay cải thiện quyết định trong phòng thí nghiệm. Thử nghiệm chỉ đánh giá suy luận từ dữ liệu lịch sử thay vì nghiên cứu thực tế, và mỗi câu trả lời là một lần thử không có công cụ hay phản hồi."
       ],
       "same_event_coverage_ids": [
         "458d13c0f8b0c45aa88a"
@@ -117253,7 +117216,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "GPT-6.2 Astra đạt 84,5% điểm ở bài kiểm tra MedChemBench của OpenAI nhưng việc chọn hợp chất vẫn khó",
+      "editorial_headline_vi": "Ở mức suy luận xhigh, GPT-6.2 Astra đạt 84,5% điểm MedChemBench nhưng việc chọn hợp chất vẫn khó",
       "summary_sources": [
         {
           "id": "outlet",
@@ -117266,30 +117229,25 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 6.8,
+        "value": 8.35,
         "answers": {
-          "what": 9,
-          "why": 4,
+          "what": 10,
+          "why": 10,
           "notable": 5,
           "meaning": 9
         },
         "hard_errors": [
           {
             "kind": "name",
-            "summary_text": "Dù đạt 95,4% điểm cấu trúc ở mức xhigh, Astra chỉ giành khoảng một nửa số điểm khi chọn hợp chất và dự đoán đặc tính số học",
-            "explanation": "In context, “Astra” follows a headline naming GPT-6.2 Astra. The 95.4% structure result and approximately half-credit selection and prediction results refer to GPT-6 Astra, a different model (outlet:p026, outlet:p031–p038); GPT-6.2 Astra’s 84.5% is an overall score (outlet:p010)."
+            "summary_text": "Astra đạt 95,4% điểm cấu trúc phân tử",
+            "explanation": "After the headline names GPT-6.2 Astra, this wording appears to assign it the 95.4% structure result. The source assigns that result to GPT-6 Astra (outlet:p031); GPT-6.2 Astra’s reported 84.5% is an overall score (outlet:p010)."
           }
         ],
         "findings": [
           {
             "question": "notable",
-            "problem": "Readers can attribute GPT-6 Astra’s component results to GPT-6.2 Astra.",
-            "fix": "Name GPT-6 Astra explicitly in the sentence about 95.4% structure credit and roughly half-credit selection and prediction results; keep GPT-6.2 Astra’s 84.5% overall result separate (outlet:p010, outlet:p031–p038)."
-          },
-          {
-            "question": "why",
-            "problem": "The text does not explain why selecting compounds remains difficult.",
-            "fix": "Add the source’s example that stronger activity against a target may come with poorer absorption or faster breakdown (outlet:p009, outlet:p020)."
+            "problem": "Two different Astra models’ results appear to be combined.",
+            "fix": "Name GPT-6 Astra explicitly for the 95.4% structure result and the roughly half-credit selection and prediction results; keep GPT-6.2 Astra’s 84.5% overall result separate (outlet:p010, outlet:p031, outlet:p038)."
           }
         ],
         "writer_boats": [
@@ -117297,8 +117255,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "d38f7457b02aca7671913a9ab7fc4825a6025729a71f794a3397386a13d588f7",
-        "scored_at": "2026-11-20T21:33:00.976891+00:00"
+        "prose_sha256": "c6f5cc44aa20ea6a0957d0ea5f58737a5dc05d78f4b806567cf8db1fab71ca4f",
+        "scored_at": "2026-11-20T23:30:58.275382+00:00"
       }
     },
     {
@@ -117396,6 +117354,426 @@
         "d77eb98c1fd7f5e53975"
       ],
       "split_coverage_ids": []
+    },
+    {
+      "id": "43a143984eebbb59e152",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "intake",
+      "reason": "publication date is in the future",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.youtube.com/watch?v=1bpRQlLVDjU",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "72420144a28587709b46"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "a5a8fe0522ff39b768d8",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-20/scribe-ceo-jennifer-smith-on-ai-usage-in-the-workplace-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "1eb8bc19a13272059431"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "d5bec1fa3b07f6176fa0",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/introducing-amazon-sagemaker-hyperpod-global-inference-gateway-one-endpoint-across-regions-and-clusters/",
+      "key_points": [
+        "Amazon SageMaker HyperPod ra mắt Global Inference Gateway, đóng vai trò cổng điều phối duy nhất cho mọi cụm máy chủ trong một hoặc nhiều khu vực. Cổng này tự động chọn cụm tối ưu và chuyển tiếp yêu cầu qua mạng đường trục AWS với tính năng tự động chuyển đổi dự phòng.",
+        "Theo Amazon, các mô hình ngày càng lớn khiến năng lực GPU khó tìm kiếm, buộc người dùng phải phân tán tài nguyên qua nhiều cụm và khu vực. Hãng cho biết vào giờ cao điểm, yêu cầu có thể bị nghẽn ở cụm quá tải dù GPU ở khu vực khác đang nhàn rỗi.",
+        "Trong các đợt thử nghiệm beta, Bagelcode đã định tuyến qua hai khu vực AWS bằng một điểm cuối duy nhất. Ông Jinhyung Park tại Bagelcode xác nhận hệ thống vẫn tiếp tục phục vụ khi một cụm không còn khả năng phục vụ mô hình mà nhóm không cần tự dựng tầng định tuyến.",
+        "Amazon nhận định cổng điều phối giúp người dùng tận dụng nhiều hơn năng lực GPU sẵn có và giảm gánh nặng vận hành. Tuy nhiên, một cụm chỉ có thể truy cập được sau khi người dùng bật spec.globalRouting trong cấu hình hiện có để bộ điều khiển phát hành riêng tư từ tài khoản."
+      ],
+      "same_event_coverage_ids": [
+        "61afb29bad0ecfa0b0c2"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Amazon Web Services",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Amazon ra mắt Global Inference Gateway định tuyến suy luận qua một điểm cuối giữa các cụm và khu vực",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "amazon",
+          "url": "https://aws.amazon.com/blogs/machine-learning/introducing-amazon-sagemaker-hyperpod-global-inference-gateway-one-endpoint-across-regions-and-clusters/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "0f16e0925350ea52b7590a0bbe9894e038a1d6e5924ddc9bda4ec432824797d5",
+        "scored_at": "2026-11-20T23:18:22.211536+00:00"
+      }
+    },
+    {
+      "id": "cdb655553e90536b9b5c",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.researchgate.net/publication/418143113_The_Hungry_Butler_Effect_Concealed_Commercial_Incentives_and_the_Erosion_of_Epistemic_Rigour_in_Large_Language_Models",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "ae643dd3313ee2fd30fd"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Large Language Models",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "66eae4612900f2e7c8ef",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://arstechnica.com/ai/2026/11/meta-reconsiders-2030-net-zero-goal-amid-record-emissions-from-ai-data-centers/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "abe30792c696e7a7ac69"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Meta",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "adc46ec10496777d0afd",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Link pointing to an empty or 404 GitHub repository without documentation, release details, or news coverage.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/google-deepmind/math-horizon",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "e2416d678e3439761122"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "1c24f7eebd5836880887",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-20/victor-peng-sees-ai-quantum-as-long-term-opportunities-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "a55d7eb11ba124d0e35d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "0f0652c8afdf96f58586",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://fedscoop.com/treasury-nominee-ai-agents-bank-accounts/",
+      "key_points": [
+        "Ứng viên trợ lý bộ trưởng Tài chính Mỹ Rebekah Jurata từ chối nêu lập trường dứt khoát về trách nhiệm khi đại lý AI (phần mềm AI tự hành) thao tác trái phép trên tài khoản ngân hàng. Sự thận trọng này diễn ra khi một số ngân hàng Mỹ bắt đầu dồn trách nhiệm pháp lý sang khách hàng.",
+        "Về lý do, bà Jurata giải thích cần cân bằng lợi ích công nghệ của người dùng với sự an toàn của hệ thống ngân hàng. Bà lưu ý công nghệ này vẫn đang phát triển nên hiện còn nhiều câu hỏi chưa có lời giải đáp.",
+        "Tại phiên điều trần, Thượng nghị sĩ Ruben Gallego chất vấn về việc ai chịu trách nhiệm nếu đại lý AI tự ý chuyển tiền từ tài khoản người dùng. Ông Gallego cảnh báo kịch bản các đại lý AI được trao quyền tìm kiếm rủi ro lại bất ngờ gây rút tiền hàng loạt, làm tê liệt nền kinh tế.",
+        "Bà Jurata cam kết nếu được phê chuẩn sẽ phối hợp với các cơ quan quản lý trong khuôn khổ pháp lý hiện hành để duy trì tính toàn vẹn hệ thống."
+      ],
+      "same_event_coverage_ids": [
+        "0def791bf591c512226b"
+      ],
+      "split_coverage_ids": [],
+      "subject": "U.S. Department of the Treasury",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Rebekah Jurata",
+          "Ruben Gallego"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Ứng viên Bộ Tài chính Mỹ thận trọng về trách nhiệm khi đại lý AI tự ý thao tác trên tài khoản ngân hàng",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "fedscoop",
+          "url": "https://fedscoop.com/treasury-nominee-ai-agents-bank-accounts/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.35,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "một số ngân hàng Mỹ bắt đầu dồn trách nhiệm pháp lý sang khách hàng",
+            "explanation": "The source limits this to some U.S. financial institutions placing liability on customers who open their accounts to third-party AI agents; it does not describe a general shift of bank liability to customers (outlet:p006)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The liability shift reads as unconditional.",
+            "fix": "Specify that it concerns customers granting third-party AI agents access to their accounts (outlet:p006)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The reader misses the banking industry warning that frames the unresolved policy question.",
+            "fix": "Add that the Bank Policy Institute said agent risk management is not sufficiently developed and agents should not yet have access to financial accounts (outlet:p014–p015)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "480548cd6dadfd15f868dd58461467f28831827494c6a11025bf6b7195bad081",
+        "scored_at": "2026-11-20T23:18:22.211605+00:00"
+      }
+    },
+    {
+      "id": "f22d46a83ecd25c4b9af",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://arstechnica.com/security/2026/11/a-leaky-ai-supply-chain-is-exposing-secret-user-data-at-an-alarming-rate/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "15fc7991b08626374046"
+      ],
+      "split_coverage_ids": [],
+      "subject": "AI Security",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "4a4697006df93076aaf3",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-20/cognition-in-talks-for-75-billion-value-with-new-funding",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "e1df9554b296db0a5777"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "7bbde4382a9fd7e8ef80",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare Hugging Face model repository page without an announcement, release notes, or independent reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://huggingface.co/unsloth/Inkling-2-Mini-GGUF",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "fedf1af085d8edb5415a"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "ff62a6d0a83feae45bdb",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/tech/1038059/google-search-homepage-ai-chats",
+      "key_points": [
+        "Google đang cập nhật trang chủ để hiển thị các cuộc trò chuyện AI qua thanh bên thu gọn, theo chia sẻ từ Phó chủ tịch Robby Stein.",
+        "Theo ông Stein, Google triển khai tính năng vì người dùng có nhiều câu hỏi không chỉ tra cứu một lần, và thử nghiệm cho thấy thanh bên giúp ích lớn cho việc khám phá web.",
+        "Dựa trên ảnh GIF từ ông Stein, The Verge cho rằng người dùng dường như có thể mở thanh bên bằng thanh xám bên trái. Tại đây, người dùng có thể xem lại tìm kiếm trong Chế độ AI (AI Mode), tạo hoặc tìm kiếm chuỗi trò chuyện và kết nối Gemini Notebook.",
+        "The Verge nhận xét đây là thay đổi lớn đối với trang chủ Google vốn trước nay chỉ có một thanh tìm kiếm. Giao diện này hiện được phát hành toàn cầu nhưng chỉ áp dụng trên máy tính để bàn."
+      ],
+      "same_event_coverage_ids": [
+        "1959ecb02df3952ac1db",
+        "498d00e0a3f808ff266c"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Google",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Robby Stein"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Google đưa thanh bên hiển thị các cuộc trò chuyện AI lên trang chủ tìm kiếm trên máy tính",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/tech/1038059/google-search-homepage-ai-chats"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "efeedfa3271325cc929dc061c9686b4cd25b175283b1a14a9c84d6134d4902a7",
+        "scored_at": "2026-11-20T23:18:22.211633+00:00"
+      }
     }
   ]
 }
