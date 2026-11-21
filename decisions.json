@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-21T13:12:47.751677+00:00",
-  "input_generated_at": "2026-11-21T12:46:25Z",
+  "generated_at": "2026-11-21T17:21:12.449724+00:00",
+  "input_generated_at": "2026-11-21T16:46:36Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -118947,6 +118947,424 @@
         "scorer_provider": "codex",
         "prose_sha256": "8afbc3605090be0a42130dda621ecd7e9d05151fe59f292557b8d475e7433826",
         "scored_at": "2026-11-21T13:12:47.732201+00:00"
+      }
+    },
+    {
+      "id": "f2e0e504895b9fb3da93",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/21/is-selling-an-ai-version-of-your-face-to-this-microdrama-startup-the-future-of-hollywood/",
+      "key_points": [
+        "Hãng Shortical vừa ra mắt phim ngắn “Inevitable” hoàn toàn bằng trí tuệ nhân tạo (AI), dùng gương mặt diễn viên Aki Avni tạo nhân vật kỹ thuật số. Bộ phim đánh dấu lần đầu công ty cấp phép hình ảnh trực tiếp từ nghệ sĩ cho nội dung AI.",
+        "TechCrunch nhận định chi phí sản xuất phim AI thấp hơn đáng kể so với phim người đóng, với tiềm năng lợi nhuận cao hơn nếu thu hút được khán giả. Giám đốc điều hành Guy Shimoni cho biết công nghệ này giúp đội ngũ nhỏ dựng bối cảnh kỳ ảo vượt ngân sách đóng phim thông thường.",
+        "Chương trình cấp phép gương mặt của Shortical vẫn ở giai đoạn đầu và chưa có hợp đồng nào được ký qua nền tảng, theo đại diện công ty. Đại diện này cho biết Avni nhận thù lao tương đương vai diễn thông thường, nhưng báo cáo từ Rest of World ghi nhận các hãng tại Trung Quốc chỉ trả 15 đến 700 USD cho mỗi gương mặt.",
+        "TechCrunch nhận xét các công ty đang thu hẹp quy mô và sản xuất nội dung không cần diễn viên thật, làm mất cơ hội tích lũy kinh nghiệm trường quay của nghệ sĩ trẻ."
+      ],
+      "same_event_coverage_ids": [
+        "7c0b55dffb00b2ec3b98"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Shortical",
+      "video_labels": {
+        "video_hook": "money_jobs",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Shortical ra mắt phim AI dùng gương mặt diễn viên Aki Avni nhưng chưa ký được hợp đồng mới nào",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/21/is-selling-an-ai-version-of-your-face-to-this-microdrama-startup-the-future-of-hollywood/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.9,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 9,
+          "meaning": 7
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The reader gets the employment concern but misses the uncertainty around licensing and demand.",
+            "fix": "Add that Shortical has not disclosed a general payment figure, royalty terms are case by case, and a quoted industry observer doubts audience demand for much AI content (outlet:p020, outlet:p028)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "474321586f085f311342b7ad8468410e0f8c10b9bc8ea1d701019b3a6924ff93",
+        "scored_at": "2026-11-21T17:21:12.424929+00:00"
+      }
+    },
+    {
+      "id": "3298713995b153167b47",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "podcast",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/podcast/1038701/anthropic-ipo-ai-safety-openai-nvidia-structure",
+      "key_points": [
+        "Phòng thí nghiệm trí tuệ nhân tạo (AI) Anthropic đứng sau Claude đã chính thức niêm yết trên sàn Nasdaq vào thứ Năm tuần trước. Theo The Verge, Anthropic trở thành phòng thí nghiệm AI đầu tiên phát hành cổ phiếu ra công chúng và đạt quy mô vốn hóa thuộc nhóm dẫn đầu thế giới.",
+        "Khi trở thành công ty đại chúng chịu trách nhiệm trước cổ đông, Anthropic đối mặt với các hóa đơn điện toán ước tính khoảng 900 tỷ USD trong những năm tới. Một số cựu nhân viên tiết lộ hội đồng tín thác quản trị của công ty do chính các nhà sáng lập chỉ định.",
+        "Về tài chính, tập đoàn Nvidia đã đồng ý mua 10 tỷ USD cổ phần phát hành riêng lẻ của Anthropic, tiếp nối cam kết tài trợ 10 tỷ USD vào năm ngoái. Ở chiều ngược lại, một số tiếng nói bất đồng nội bộ phản ánh quan điểm của công ty rằng không thể bảo đảm an toàn từ vị trí thứ hai.",
+        "The Verge nhận định Anthropic nhiều khả năng sẽ chứng kiến nhiều nỗ lực an toàn tốn kém bị gạt bỏ trước áp lực doanh thu. Nhiều cựu nhân viên cũng cho rằng ngành AI đang thiếu sự quản lý từ bên ngoài khi trao quyền tự quyết hoàn toàn cho ban lãnh đạo."
+      ],
+      "same_event_coverage_ids": [
+        "9b7dbc0718260c82d16d"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Anthropic",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Nilay Patel",
+          "Hayden Field"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Anthropic lên sàn Nasdaq giữa áp lực chi phí điện toán 900 tỷ USD và cam kết an toàn",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/podcast/1038701/anthropic-ipo-ai-safety-openai-nvidia-structure"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.25,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 5
+        },
+        "hard_errors": [
+          {
+            "kind": "quote",
+            "summary_text": "Anthropic nhiều khả năng sẽ chứng kiến nhiều nỗ lực an toàn tốn kém bị gạt bỏ",
+            "explanation": "The speaker predicts many things may fall by the wayside and says expensive safety efforts might be among them; the source does not predict that many safety efforts will be dropped (outlet:p045)."
+          },
+          {
+            "kind": "role",
+            "summary_text": "Một số cựu nhân viên tiết lộ hội đồng tín thác quản trị của công ty do chính các nhà sáng lập chỉ định",
+            "explanation": "The source says the speaker talked to a couple of former employees, but attributes the observation about the trust to one of them (outlet:p074)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "A possible safety cut becomes a likely loss of many safety efforts.",
+            "fix": "Say the speaker expects financial pressure to force difficult choices and suggests that even some expensive safety efforts might be affected (outlet:p045)."
+          },
+          {
+            "question": "notable",
+            "problem": "The trust observation is attributed to multiple former employees.",
+            "fix": "Attribute it to one former employee interviewed by the speaker (outlet:p074)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "7a7bd3101e241f4304b0b473e80d8df3f0d521ad7288ade5666e780ec57bfc28",
+        "scored_at": "2026-11-21T17:16:25.241818+00:00"
+      }
+    },
+    {
+      "id": "789fe6497147609bf4d5",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-21/wall-street-confronts-ai-reality-check-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "572d0e8212ce1ca01946"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "a0ab65cb5afa735d7d37",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.wired.com/story/brace-yourself-for-years-of-outage-chaos/",
+      "key_points": [
+        "Tạp chí Wired cho biết các sự cố gián đoạn công nghệ gần đây đều có những giải thích thông thường riêng chứ không phải do tấn công mạng phối hợp. Tuy nhiên, giới nghiên cứu an ninh kết luận áp lực phòng thủ do AI gây ra đang bắt đầu góp phần dẫn đến các lỗi kỹ thuật trong thực tế.",
+        "Theo Wired, AI giúp phát hiện ồ ạt lỗ hổng và hỗ trợ tin tặc khai thác nhanh hơn, buộc các tổ chức phải vội vã tung ra bản vá. Chuyên gia Joe Slowik tại Dataminr cho biết chu kỳ quá gấp có thể khiến đội ngũ kỹ thuật trong một số trường hợp không còn thời gian kiểm tra bản vá.",
+        "Giới chức Mỹ cho biết sự cố gián đoạn hệ thống liên lạc nội bộ của NSA bắt nguồn từ bản vá PHP bị lỗi sau đợt cập nhật bảo mật tháng 10. Cùng tuần đó, Apple xác nhận sự cố liên quan đến cập nhật nội bộ, còn Microsoft 365 bị gián đoạn do bản cập nhật hạ tầng lỗi kết hợp với sự cố mạng.",
+        "Ông Joe Slowik nhận định dù tổng số lỗ hổng bùng nổ, số lượng lỗi cần bận tâm xử lý vẫn ở mức tương đối ổn định."
+      ],
+      "same_event_coverage_ids": [
+        "f5e442580b35e175bbe1"
+      ],
+      "split_coverage_ids": [],
+      "subject": "AI Cybersecurity Outages",
+      "video_labels": {
+        "video_hook": "drama_company",
+        "named_people": [
+          "Lily Hay Newman",
+          "Matt Burgess"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Hàng loạt sự cố gián đoạn có lý do riêng, song giới nghiên cứu nhận định áp lực từ AI bắt đầu gây lỗi hệ thống",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "wired",
+          "url": "https://www.wired.com/story/brace-yourself-for-years-of-outage-chaos/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 7.05,
+        "answers": {
+          "what": 8,
+          "why": 7,
+          "notable": 6,
+          "meaning": 7
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "đều có những giải thích thông thường riêng chứ không phải do tấn công mạng phối hợp",
+            "explanation": "The source says the incidents *seem* to have routine individual explanations and rules out a coordinated AI hacking spree specifically; it reports no evidence of cyberattacks, rather than conclusively ruling out every coordinated cyberattack (outlet:p002–p003)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "buộc các tổ chức phải vội vã tung ra bản vá",
+            "explanation": "The source says organizations are pressured to evaluate patches and push updates to their own systems, not to release patches (outlet:p004)."
+          },
+          {
+            "kind": "cause",
+            "summary_text": "bắt nguồn từ bản vá PHP bị lỗi sau đợt cập nhật bảo mật tháng 10",
+            "explanation": "Officials attributed the NSA outage to botched patching *following* October’s critical PHP updates; the source does not say the PHP patch itself was faulty (outlet:p005)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The NSA sentence assigns the failure to a faulty PHP patch.",
+            "fix": "Say the outage resulted from botched patching after October’s critical PHP updates (outlet:p005)."
+          },
+          {
+            "question": "what",
+            "problem": "The opening presents routine explanations and the absence of coordinated cyberattacks more definitively than the source.",
+            "fix": "Retain that the incidents *appear* to have routine explanations, that there is no evidence they were cyberattacks, and that the source specifically rules out a coordinated AI hacking spree (outlet:p002–p003)."
+          },
+          {
+            "question": "notable",
+            "problem": "The reader misses the scale of vulnerability discovery and how few discovered flaws are known to have been exploited.",
+            "fix": "Include the more-than-100,000 figure for 2026, the roughly 25,000 comparison for 2022, and the source’s exploited-vulnerability qualification (outlet:p011–p014)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The summary leaves out the source’s limit on AI-assisted patching and its conclusion about responsibility.",
+            "fix": "Add that AI tools cannot replace human checking and planning, and attribute responsibility for infrastructure decisions to the people and companies making them (outlet:p008–p009, outlet:p015)."
+          },
+          {
+            "question": "why",
+            "problem": "The patching sentence makes organizations sound as though they release patches.",
+            "fix": "Describe them as evaluating patches and deploying updates to their systems under time pressure (outlet:p004)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "246b66f716c90d785db0f69c4373125bc72bfb49d5c78514a58e09f26642538e",
+        "scored_at": "2026-11-21T17:21:12.424981+00:00"
+      }
+    },
+    {
+      "id": "b82d511c0259b1c9918b",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://github.com/w01fb0ss/PiBot",
+      "key_points": [
+        "Dự án Pi Bot cung cấp nhóm trợ lý AI (agent - phần mềm tự hành) mã nguồn mở chạy cục bộ trên máy tính cá nhân. Phần mềm hỗ trợ macOS 13 Ventura trở lên, Windows 10, 11 và Linux 64-bit, kèm ứng dụng trên thiết bị Android.",
+        "Tài liệu dự án trên GitHub cho biết người dùng tạo từng bot với vai trò, mô hình, bộ nhớ riêng và có thể lập nhóm trò chuyện. Trong nhóm, bot điều phối lập kế hoạch và phân chia công việc cho thành viên sau khi người dùng phê duyệt.",
+        "Người dùng giao thư mục làm việc và duyệt từng thao tác rủi ro trước khi bot chạy lệnh hay sửa tệp. Mọi lệnh chạy trong môi trường cô lập (@anthropic-ai/sandbox-runtime), đồng thời nhật ký kiểm toán ghi lại các thao tác cùng dữ liệu gửi ra ngoài.",
+        "Dữ liệu trò chuyện, tệp và mã khóa lưu cục bộ trên máy tính, trong khi máy chủ Pi Bot không thu thập dữ liệu đo kiểm (telemetry). Ngoài nhà cung cấp mô hình do người dùng chọn, ứng dụng chỉ kết nối mạng khi kiểm tra cập nhật và bật các tính năng liên kết."
+      ],
+      "same_event_coverage_ids": [
+        "a54fa47776a1a8e88d03"
+      ],
+      "split_coverage_ids": [],
+      "subject": "PiBot",
+      "video_labels": {
+        "video_hook": "usable_now",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Dự án mã nguồn mở Pi Bot ra mắt nhóm trợ lý AI hoạt động cục bộ và yêu cầu người dùng duyệt tác vụ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "github",
+          "url": "https://github.com/w01fb0ss/PiBot"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.4,
+        "answers": {
+          "what": 8,
+          "why": 10,
+          "notable": 9,
+          "meaning": 6
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "ra mắt nhóm trợ lý AI",
+            "explanation": "The source describes Pi Bot and provides downloads, but does not report a launch event (outlet:p002–p006, outlet:p017–p018)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "Ngoài nhà cung cấp mô hình do người dùng chọn, ứng dụng chỉ kết nối mạng khi kiểm tra cập nhật và bật các tính năng liên kết",
+            "explanation": "The source also lists websites and searches used by bots, plus optional phone, runner, and connection features, as outbound connections (outlet:p016)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The privacy description excludes network access for websites and searches used by bots.",
+            "fix": "Include those outbound connections alongside the chosen model provider, update checks, and enabled features (outlet:p016)."
+          },
+          {
+            "question": "what",
+            "problem": "The headline presents the project description as a new launch.",
+            "fix": "Describe Pi Bot as an available open-source desktop app without claiming a launch event (outlet:p002, outlet:p018)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "73c892bb310703cab378e09041fe17890f8afd2c1ba240ee8a99f80b26669dc6",
+        "scored_at": "2026-11-21T17:16:25.241877+00:00"
+      }
+    },
+    {
+      "id": "c8578f36663fdd901477",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.wsj.com/finance/stocks/anthropics-ipo-bust-punctuates-4-trillion-ai-wipeout-on-wall-street-f1f1ec90",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "900639daa9a024e0ef9d"
+      ],
+      "split_coverage_ids": [
+        "b611bee17f25a5512110"
+      ],
+      "subject": "Anthropic",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
       }
     }
   ]
