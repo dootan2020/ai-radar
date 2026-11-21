@@ -1,23 +1,27 @@
 """stream_raw / read_raw_frames: the incremental ffmpeg stdout reader of video/halcyon/dung-video-gpu.py. The builder needs a GPU and torch, so
 the function is lifted from its source and run against small Python child processes standing in for ffmpeg."""
+import importlib.util
 import subprocess
 import sys
 import tempfile
 import unittest
 from pathlib import Path
 
-import numpy as np
-
 SRC = (Path(__file__).resolve().parent.parent / 'video' / 'halcyon' / 'dung-video-gpu.py').read_text(encoding='utf-8')
-NS = {'np': np, 'subprocess': subprocess, 'tempfile': tempfile}
-exec(SRC[SRC.index('def stream_raw'):SRC.index('def read_raw_frames_gpu')], NS)
-read_raw_frames = NS['read_raw_frames']
+HAS_NUMPY = importlib.util.find_spec('numpy') is not None     # the GPU interpreter has numpy; the CI Python does not (torch is not needed here)
+NS = {'subprocess': subprocess, 'tempfile': tempfile}
+if HAS_NUMPY:
+    import numpy as np
+    NS['np'] = np
+    exec(SRC[SRC.index('def stream_raw'):SRC.index('def read_raw_frames_gpu')], NS)
+    read_raw_frames = NS['read_raw_frames']
 
 
 def child(code):
     return [sys.executable, '-I', '-c', code]
 
 
+@unittest.skipUnless(HAS_NUMPY, 'the incremental reader needs numpy (the GPU interpreter has it, the CI Python does not)')
 class ReadRawFrames(unittest.TestCase):
     def test_reads_known_bytes_across_chunks(self):
         code = "import sys; sys.stdout.buffer.write(bytes(range(256)) * 40)"
