@@ -1,18 +1,18 @@
 import * as THREE from '/three.module.js';
 import { createTimeline, ease, mix, progress, flightHeight } from './timeline.mjs';
-import { stage, material, box, line, edges, glow, project, labels, orderedTransparency, ready, COLORS as C } from './stage.mjs';
+import { stage, material, box, line, strokes, dots, nodeSpheres, edges, glow, project, labels, orderedTransparency, ready, H, COLORS as C } from './stage.mjs';
 
 const D = await (await fetch('/data.json')).json();
 const timeline = createTimeline(D);
 const KIND = { life: C.cyan, text: C.white, state: C.pink, tool: C.amber };
-const { renderer, scene } = stage();
+const { renderer, scene, render } = stage();
 const camera = new THREE.OrthographicCamera(-6.65, 4.55, 6.17, -6.17, .1, 80);
 const assembly = new THREE.Group(); assembly.position.y = 1.25; scene.add(assembly);
 const layerY = [2.5, 0, -2.5];
 const layerColors = [C.coral, C.cyan, C.white];
 const layers = [], tiles = [];
-const nodeGeometry = new THREE.SphereGeometry(.055, 8, 6), nodeCount = 9 * 6;
-const dummy = new THREE.Object3D(), color = new THREE.Color();
+const color = new THREE.Color();
+const nodeMatrix = new THREE.Matrix4(), nodePosition = new THREE.Vector3(), nodeScale = new THREE.Vector3(), nodeRotation = new THREE.Quaternion();
 layerY.forEach((y, index) => {
   const group = new THREE.Group(); group.position.y = y; assembly.add(group);
   const pane = box(group, [6.4, .065, 4], [0, 0, 0], index === 1 ? 0x467788 : 0x526481, .18, .12);
@@ -24,22 +24,19 @@ layerY.forEach((y, index) => {
     box(group, [.09, .09, .48], [x, .03, z - Math.sign(z) * .18], C.white, .8, .1);
     const collar = new THREE.Mesh(new THREE.CylinderGeometry(.11, .11, .15, 10), material(C.metal)); collar.position.set(x, .02, z); group.add(collar);
   }
-  box(group, [5.7, .025, .025], [0, .07, 2.02], layerColors[index], .8, .5);
+  line(group, [[-2.85, .07, 2.02], [2.85, .07, 2.02]], layerColors[index], 1, 2);
   const links = [], nodes = [];
   for (let ix = 0; ix < 9; ix++) for (let iz = 0; iz < 6; iz++) {
     const x = (ix - 4) * .66, z = (iz - 2.5) * .59;
     nodes.push([x, .11, z]);
-    if (ix < 8) links.push(new THREE.Vector3(x, .1, z), new THREE.Vector3(x + .66, .1, z));
-    if (iz < 5) links.push(new THREE.Vector3(x, .1, z), new THREE.Vector3(x, .1, z + .59));
-    if ((ix + iz) % 4 === 0 && ix < 8 && iz < 5) links.push(new THREE.Vector3(x, .1, z), new THREE.Vector3(x + .66, .1, z + .59));
+    if (ix < 8) links.push([x, .1, z], [x + .66, .1, z]);
+    if (iz < 5) links.push([x, .1, z], [x, .1, z + .59]);
+    if ((ix + iz) % 4 === 0 && ix < 8 && iz < 5) links.push([x, .1, z], [x + .66, .1, z + .59]);
   }
-  const lattice = new THREE.LineSegments(new THREE.BufferGeometry().setFromPoints(links), new THREE.LineBasicMaterial({ color: layerColors[index], transparent: true, opacity: index === 1 ? .5 : .22, depthWrite: false })); group.add(lattice);
-  const nodeMesh = new THREE.InstancedMesh(nodeGeometry, material(layerColors[index], 1, .35), nodeCount);
-  nodeMesh.material.transparent = false; nodeMesh.material.depthWrite = true;
-  nodeMesh.boundingSphere = new THREE.Sphere(new THREE.Vector3(0, .11, 0), 4);
-  nodeMesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage); group.add(nodeMesh);
+  const lattice = strokes(group, links, layerColors[index], index === 1 ? .3 : .15);
+  const nodeMesh = nodeSpheres(group, nodes.length, layerColors[index]);
   const halo = glow(group, layerColors[index], 5); halo.position.y = .12; halo.material.opacity = .12;
-  const scan = box(group, [.022, .02, 3.2], [-2.8, .12, 0], layerColors[index], .35, .8);
+  const scan = line(group, [[0, .12, -1.6], [0, .12, 1.6]], layerColors[index], .35);
   layers.push({ group, pane, nodes, nodeMesh, lattice, halo, scan });
 });
 // Engineering registration guides align the three exploded plates.
@@ -53,8 +50,8 @@ for (const x of [-3.18, 3.18]) for (const z of [-1.98, 1.98]) {
 for (let x = 0; x < 4; x++) for (let z = 0; z < 3; z++) {
   const tile = new THREE.Group(); tile.position.set((x - 1.5) * 1.35, 2.84, (z - 1) * 1.04); assembly.add(tile);
   const body = box(tile, [1.08, .13, .76], [0, 0, 0], 0x5c324b, .88, .18); edges(body, C.coral, .8);
-  for (let k = 0; k < 4; k++) box(tile, [.12, .035, .06], [-.33 + k * .22, .10, .17], C.coral, .9, .8);
-  box(tile, [.67, .025, .035], [0, .1, -.15], C.white, .65, .3);
+  for (let k = 0; k < 4; k++) line(tile, [[-.39 + k * .22, .1, .17], [-.27 + k * .22, .1, .17]], C.coral, .9, 3);
+  line(tile, [[-.335, .1, -.15], [.335, .1, -.15]], C.white, .65);
   tiles.push({ tile, body, index: x * 3 + z });
 }
 const socket = new THREE.Mesh(new THREE.TorusGeometry(.32, .055, 8, 48), material(C.cyan, 1, .8)); socket.rotation.x = Math.PI / 2; socket.position.set(1.1, .14, .5); assembly.add(socket);
@@ -69,7 +66,7 @@ const packets = timeline.events.map((event) => {
   core.material.depthWrite = false;
   const halo = glow(group, KIND[event.kind], 1.1);
   const tail = Array.from({ length: event.small ? 0 : 8 }, (_, i) => {
-    const bead = new THREE.Mesh(new THREE.SphereGeometry(.025 + .002 * (12 - i), 6, 4), material(KIND[event.kind], .8, .6)); assembly.add(bead); return bead;
+    return dots(assembly, [[0, 0, 0]], KIND[event.kind], 7.6 - i * .3, .8);
   });
   return { group, core, halo, tail, event };
 });
@@ -131,11 +128,15 @@ function renderAt(value) {
     const activity = timeline.activity(t, index);
     nodes.forEach(([x, y, z], j) => {
       const wave = timeline.activity(t, index, Math.hypot(x - 1.1, z - .5), Math.hypot(x + 1.25, z - .6));
-      dummy.position.set(x, y, z); dummy.rotation.set(0, 0, 0); dummy.scale.setScalar(1 + wave * .7); dummy.updateMatrix();
-      nodeMesh.setMatrixAt(j, dummy.matrix); color.setHex(layerColors[index]).multiplyScalar(.25 + .75 * wave); nodeMesh.setColorAt(j, color);
+      // Keep a visible, lit sphere even at rest; the arrival wave adds size and light.
+      color.setHex(layerColors[index]).multiplyScalar(.55 + .45 * wave);
+      const radius = 8 * (1 + wave * .7) * (camera.top - camera.bottom) / (2 * H * camera.zoom);
+      nodePosition.set(x, y, z); nodeScale.setScalar(radius);
+      nodeMatrix.compose(nodePosition, nodeRotation, nodeScale);
+      nodeMesh.setMatrixAt(j, nodeMatrix); nodeMesh.setColorAt(j, color);
     });
     nodeMesh.instanceMatrix.needsUpdate = true; nodeMesh.instanceColor.needsUpdate = true;
-    lattice.material.opacity = (index === 1 ? .45 : .22) + activity * .24;
+    lattice.material.opacity = (index === 1 ? .30 : .15) + activity * .16;
     halo.material.opacity = (index === 1 ? .17 : .06) + activity * .22;
     scan.position.x = 2.8 * Math.sin(t * .22 + index * .8); scan.material.opacity = index === 1 ? .5 : .18;
   });
@@ -196,8 +197,8 @@ function renderAt(value) {
     chunkX += width; receivedWidth += width * alpha;
   });
   ui.place(stateTag, 72, 798, stateOpacity);
-  stateTag.element.style.background = s.state.hot > .5 ? '#f0446e' : '#ffc9d6';
-  stateTag.element.style.color = s.state.hot > .5 ? '#ffffff' : '#101828';
+  stateTag.element.style.background = `#${color.setHex(C.pink).lerp(new THREE.Color(0xf0446e), s.state.hot).getHexString()}`;
+  stateTag.element.style.color = `#${color.setHex(C.ink).lerp(new THREE.Color(C.white), s.state.hot).getHexString()}`;
   ui.place(stateNote, 204, 802, stateOpacity * (s.state.note ? 1 : 0));
   const widths = [Math.min(1, s.state.fraction * 2) * 360, Math.max(0, s.state.fraction * 2 - 1) * 280, s.textFraction * 144];
   bars.forEach((bar, i) => {
@@ -212,7 +213,7 @@ function renderAt(value) {
     const [x, y] = project(camera, anchor), row = [166, 416, 582][index];
     path.setAttribute('d', `M ${index === 1 ? 176 : 238} ${row} H 260 L ${x.toFixed(3)} ${y.toFixed(3)} l 7 -3 m -7 3 l 7 3`);
   });
-  renderer.render(scene, camera);
+  render(camera);
 }
 
 await ready(renderer, renderAt, ui.measure, D.duration);
