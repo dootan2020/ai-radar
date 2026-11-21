@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-20T23:36:29.202856+00:00",
-  "input_generated_at": "2026-11-20T22:54:16Z",
+  "generated_at": "2026-11-21T01:45:46.859545+00:00",
+  "input_generated_at": "2026-11-21T00:46:55Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -116507,10 +116507,10 @@
       "use_original_title": true,
       "source_url": "https://finance.yahoo.com/markets/article/nvidia-stock-extends-25-trillion-rout-as-sec-probe-reportedly-investigates-its-accounting-194945274.html",
       "key_points": [
-        "Cổ phiếu Nvidia giảm gần 14% vào thứ Sáu trong phiên giảm thứ bảy liên tiếp. Kể từ đỉnh ngày 6 tháng 10, công ty đã mất khoảng 2,7 nghìn tỷ USD vốn hóa thị trường và tụt xuống vị trí thứ tư tại Mỹ.",
-        "Đợt sụt giảm diễn ra khi Reuters đưa tin Ủy ban Chứng khoán và Giao dịch Mỹ (SEC) điều tra các vấn đề kế toán tiềm ẩn của hãng. The Wall Street Journal cho biết cuộc điều tra xem xét liệu Nvidia có công bố thông tin gây hiểu lầm hay không, giữa lúc Nvidia không phản hồi còn SEC từ chối bình luận.",
-        "Nvidia bốc hơi gần 900 tỷ USD vốn hóa trong tuần, ghi nhận tuần tồi tệ nhất kể từ tháng 10 năm 2008 theo Dow Jones Market Data. Hãng cũng hoãn nộp báo cáo quý 10-Q và đối mặt nghi vấn công bố thông tin về khách hàng Megaspeed tại Singapore.",
-        "Dù vậy, tác giả bài viết nhấn mạnh hiện chưa rõ SEC có tập trung vào các vấn đề kế toán nói trên hay không. Chiến lược gia Ted Mortonson của hãng Baird nhận định trên Yahoo Finance rằng mọi thương vụ tài chính xoay vòng của Nvidia sẽ bị soi xét kỹ lưỡng."
+        "Cổ phiếu Nvidia giảm gần 14% vào thứ Sáu, ghi nhận phiên giảm thứ bảy liên tiếp và là ngày tệ nhất kể từ tháng 1 năm 2025. Kể từ mức đỉnh ngày 6 tháng 10, hãng đã mất khoảng 2,7 nghìn tỷ USD vốn hóa thị trường và tụt xuống vị trí thứ tư tại Mỹ sau Apple, Microsoft và Alphabet.",
+        "Đợt sụt giảm diễn ra khi Reuters đưa tin Ủy ban Chứng khoán và Giao dịch Mỹ (SEC) đang điều tra các vấn đề kế toán tiềm ẩn của Nvidia. The Wall Street Journal cho biết thêm cuộc điều tra xem xét liệu Nvidia có công bố thông tin gây hiểu lầm cho giới đầu tư hay không, trong khi Nvidia và SEC từ chối bình luận.",
+        "Nvidia bốc hơi gần 900 tỷ USD vốn hóa trong tuần, ghi nhận tuần giảm mạnh nhất kể từ tháng 10 năm 2008 theo dữ liệu của Dow Jones Market Data. Hãng hoãn nộp báo cáo quý 10-Q (hồ sơ định kỳ chi tiết theo quý) sang vài tuần tới, đồng thời khách hàng mất tới 64 ngày doanh thu để thanh toán hóa đơn.",
+        "Tác giả Jared Blikre trên Yahoo Finance lưu ý hiện chưa rõ SEC có tập trung vào các nghi vấn tài chính cụ thể nêu trên hay không. Đợt bán tháo lan rộng toàn thị trường, khiến các cổ phiếu chip trải qua tuần giao dịch tồi tệ nhất kể từ năm 2001."
       ],
       "same_event_coverage_ids": [
         "0a8f3bacf02cb4cfeb91"
@@ -116524,7 +116524,7 @@
         "is_leak": true
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Cổ phiếu Nvidia nối dài đà lao dốc 2,7 nghìn tỷ USD giữa thông tin SEC điều tra kế toán",
+      "editorial_headline_vi": "Cổ phiếu Nvidia giảm gần 14% giữa tin SEC điều tra kế toán, bốc hơi gần 900 tỷ USD trong tuần",
       "summary_sources": [
         {
           "id": "outlet",
@@ -116537,30 +116537,25 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.1,
+        "value": 10.0,
         "answers": {
           "what": 10,
           "why": 10,
-          "notable": 9,
-          "meaning": 6
+          "notable": 10,
+          "meaning": 10
         },
         "hard_errors": [
           {
-            "kind": "quote",
-            "summary_text": "hiện chưa rõ SEC có tập trung vào các vấn đề kế toán nói trên hay không",
-            "explanation": "This changes the scope of the source’s uncertainty. Reuters reported that the SEC probe was examining potential accounting issues; what remained unclear was which, if any, of the specific matters subsequently listed were its focus (outlet:p006, outlet:p010–p012)."
+            "kind": "fact",
+            "summary_text": "Nvidia và SEC từ chối bình luận",
+            "explanation": "The SEC declined to comment, but Nvidia did not respond to Bloomberg’s request for comment. The source does not say Nvidia refused to comment (outlet:p007)."
           }
         ],
         "findings": [
           {
-            "question": "meaning",
-            "problem": "The reader may think it is uncertain whether the SEC is examining accounting issues at all.",
-            "fix": "Say that the probe reportedly examines potential accounting issues, while its focus on the specific 10-Q, Singapore, Megaspeed or payment matters remains unclear (outlet:p006, outlet:p010–p012)."
-          },
-          {
-            "question": "meaning",
-            "problem": "The wider market effect is absent.",
-            "fix": "Add that the sell-off spread to chip stocks and the broader market (outlet:p014)."
+            "question": "what",
+            "problem": "The reader is told that Nvidia declined to comment.",
+            "fix": "Say that Nvidia did not respond to Bloomberg’s request for comment, while the SEC declined to comment (outlet:p007)."
           }
         ],
         "writer_boats": [
@@ -116568,8 +116563,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "9c43e9e401033421c200512ddfcd52536e0c7390ccdb248ca805455fd9ffe696",
-        "scored_at": "2026-11-20T23:36:29.179746+00:00"
+        "prose_sha256": "a14b3bc9991d222977d7c5f8c9123f93e5633935ab9a1303219e56b58ac71050",
+        "scored_at": "2026-11-21T01:45:46.847609+00:00"
       }
     },
     {
@@ -116957,7 +116952,7 @@
       "key_points": [
         "Ngày 13 tháng 11 năm 2026, Chủ tịch Tòa án quyết định cấm một luật sư Romania đại diện hoặc hỗ trợ đương sự trước Tòa án trong thời hạn hai năm.",
         "Theo Phòng xét xử, lệnh cấm bắt nguồn từ việc văn bản đệ trình của nữ luật sư chứa nhiều sai sót về án lệ của Tòa án. Bà thừa nhận dùng trí tuệ nhân tạo (AI) để soạn thảo và tự gọi đây là lỗi trích dẫn cùng sự thiếu chính xác.",
-        "Sai phạm gồm việc trích dẫn các vụ án không có thật, bịa ra các đoạn văn trong phán quyết có thật của Tòa án. Bà cũng viện dẫn án lệ không liên quan hoặc mâu thuẫn trực tiếp với lập luận đưa ra.",
+        "Sai phạm gồm việc trích dẫn các vụ án không có thật và đoạn văn hư cấu trong phán quyết có thật của Tòa án. Nữ luật sư cũng dẫn án lệ không liên quan hoặc mâu thuẫn trực tiếp với lập luận đệ trình.",
         "Phòng xét xử kết luận hành vi của nữ luật sư không đáp ứng các nghĩa vụ chuyên môn và đạo đức của Tòa án lẫn luật quốc nội. Hồ sơ bị xác định chứa chuỗi lỗi sai bản chất lặp lại chứ không phải sơ suất trích dẫn đơn lẻ."
       ],
       "same_event_coverage_ids": [
@@ -116972,7 +116967,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Tòa án cấm một luật sư Romania hành nghề hai năm vì dùng trích dẫn do AI tự bịa đặt",
+      "editorial_headline_vi": "Tòa án cấm một luật sư Romania đại diện đương sự trước Tòa trong hai năm vì trích dẫn do AI tạo ra",
       "summary_sources": [
         {
           "id": "outlet",
@@ -116985,34 +116980,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.0,
+        "value": 10.0,
         "answers": {
-          "what": 8,
+          "what": 10,
           "why": 10,
           "notable": 10,
-          "meaning": 8
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "cấm một luật sư Romania hành nghề hai năm",
-            "explanation": "The source reports a two-year exclusion from representing or otherwise assisting litigants before this Court, not a general ban on practising law (outlet:p004, outlet:p007)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "what",
-            "problem": "The headline makes the sanction sound like a general prohibition on practising law.",
-            "fix": "Specify that she was barred for two years from representing or assisting litigants before the Court (outlet:p004, outlet:p007)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "7d0b6b734a4c9e83fb5a76232660fd9f35e63640c6a89a8c0b860351e703289c",
-        "scored_at": "2026-11-20T23:36:29.179802+00:00"
+        "prose_sha256": "6d38efa7892afc42847050171820ebeec87f8fbee440e99032b3a907de2a7a53",
+        "scored_at": "2026-11-21T01:42:02.104154+00:00"
       }
     },
     {
@@ -117199,9 +117182,9 @@
       "use_original_title": false,
       "source_url": "https://openai.com/index/introducing-medchembench",
       "key_points": [
-        "OpenAI giới thiệu bộ kiểm tra MedChemBench (bộ đánh giá năng lực) gồm 99 bài toán để đo lường khả năng suy luận hóa dược của AI.",
+        "OpenAI giới thiệu MedChemBench, bộ chuẩn đối sánh (công cụ đo lường và đánh giá năng lực) gồm 99 bài toán để kiểm tra suy luận hóa dược của AI.",
         "Theo OpenAI, thách thức lớn của hóa dược là việc cải thiện một đặc tính phân tử có thể làm suy giảm đặc tính khác. Chẳng hạn, một hợp chất có hoạt tính mạnh lên protein mục tiêu nhưng lại hấp thụ kém hoặc phân rã nhanh trong cơ thể.",
-        "Astra đạt điểm cấu trúc cao nhưng chỉ đạt khoảng một nửa số điểm khi chọn hợp chất. Ở mức suy luận xhigh, Astra đạt 95,4% điểm cấu trúc phân tử, nhưng việc lựa chọn hợp chất và dự đoán đặc tính số học vẫn khó khăn.",
+        "Mô hình này tái tạo cấu trúc tốt nhưng việc dự đoán các đặc tính số học và lựa chọn hợp chất vẫn khó khăn.",
         "OpenAI nhấn mạnh kết quả này không chứng minh mô hình có thể phát hiện thuốc mới hay cải thiện quyết định trong phòng thí nghiệm. Thử nghiệm chỉ đánh giá suy luận từ dữ liệu lịch sử thay vì nghiên cứu thực tế, và mỗi câu trả lời là một lần thử không có công cụ hay phản hồi."
       ],
       "same_event_coverage_ids": [
@@ -117216,7 +117199,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Ở mức suy luận xhigh, GPT-6.2 Astra đạt 84,5% điểm MedChemBench nhưng việc chọn hợp chất vẫn khó",
+      "editorial_headline_vi": "Ở mức suy luận xhigh, GPT-6.2 Astra đạt 84,5% điểm trên bộ đánh giá MedChemBench của OpenAI",
       "summary_sources": [
         {
           "id": "outlet",
@@ -117229,25 +117212,25 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.35,
+        "value": 8.65,
         "answers": {
           "what": 10,
           "why": 10,
-          "notable": 5,
+          "notable": 6,
           "meaning": 9
         },
         "hard_errors": [
           {
             "kind": "name",
-            "summary_text": "Astra đạt 95,4% điểm cấu trúc phân tử",
-            "explanation": "After the headline names GPT-6.2 Astra, this wording appears to assign it the 95.4% structure result. The source assigns that result to GPT-6 Astra (outlet:p031); GPT-6.2 Astra’s reported 84.5% is an overall score (outlet:p010)."
+            "summary_text": "Mô hình này tái tạo cấu trúc tốt nhưng việc dự đoán các đặc tính số học và lựa chọn hợp chất vẫn khó khăn.",
+            "explanation": "In context, “this model” points back to GPT-6.2 Astra in the headline. The source attributes these particular strengths and weaknesses to GPT-6 Astra (outlet:p010, outlet:p037–p038)."
           }
         ],
         "findings": [
           {
             "question": "notable",
-            "problem": "Two different Astra models’ results appear to be combined.",
-            "fix": "Name GPT-6 Astra explicitly for the 95.4% structure result and the roughly half-credit selection and prediction results; keep GPT-6.2 Astra’s 84.5% overall result separate (outlet:p010, outlet:p031, outlet:p038)."
+            "problem": "The reader may attribute GPT-6 Astra’s component results to GPT-6.2 Astra.",
+            "fix": "Name GPT-6 Astra explicitly when describing strong structure reconstruction and the harder selection and numerical-prediction tasks (outlet:p010, outlet:p037–p038)."
           }
         ],
         "writer_boats": [
@@ -117255,8 +117238,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "c6f5cc44aa20ea6a0957d0ea5f58737a5dc05d78f4b806567cf8db1fab71ca4f",
-        "scored_at": "2026-11-20T23:30:58.275382+00:00"
+        "prose_sha256": "3cf79ab958afa3a977ed13de5ec2a9093168605475fe54c6c3503567f100e524",
+        "scored_at": "2026-11-21T01:42:02.104197+00:00"
       }
     },
     {
@@ -117570,10 +117553,10 @@
       "use_original_title": false,
       "source_url": "https://fedscoop.com/treasury-nominee-ai-agents-bank-accounts/",
       "key_points": [
-        "Ứng viên trợ lý bộ trưởng Tài chính Mỹ Rebekah Jurata từ chối nêu lập trường dứt khoát về trách nhiệm khi đại lý AI (phần mềm AI tự hành) thao tác trái phép trên tài khoản ngân hàng. Sự thận trọng này diễn ra khi một số ngân hàng Mỹ bắt đầu dồn trách nhiệm pháp lý sang khách hàng.",
-        "Về lý do, bà Jurata giải thích cần cân bằng lợi ích công nghệ của người dùng với sự an toàn của hệ thống ngân hàng. Bà lưu ý công nghệ này vẫn đang phát triển nên hiện còn nhiều câu hỏi chưa có lời giải đáp.",
-        "Tại phiên điều trần, Thượng nghị sĩ Ruben Gallego chất vấn về việc ai chịu trách nhiệm nếu đại lý AI tự ý chuyển tiền từ tài khoản người dùng. Ông Gallego cảnh báo kịch bản các đại lý AI được trao quyền tìm kiếm rủi ro lại bất ngờ gây rút tiền hàng loạt, làm tê liệt nền kinh tế.",
-        "Bà Jurata cam kết nếu được phê chuẩn sẽ phối hợp với các cơ quan quản lý trong khuôn khổ pháp lý hiện hành để duy trì tính toàn vẹn hệ thống."
+        "Ứng viên Bộ Tài chính Mỹ Rebekah Jurata từ chối nêu lập trường dứt khoát về trách nhiệm của đại lý AI (phần mềm AI tự hành), khi bà viện dẫn công nghệ cần phát triển thêm và còn nhiều câu hỏi chưa có lời giải đáp. Theo FedScoop, sự thận trọng này diễn ra khi một số tổ chức tài chính Mỹ bắt đầu quy trách nhiệm cho khách hàng tự mở quyền truy cập tài khoản cho đại lý AI bên thứ ba.",
+        "Về lý do, bà Jurata giải thích cần cân bằng lợi ích công nghệ của người dùng với sự an toàn của hệ thống ngân hàng. Bà cũng cho biết Bộ Tài chính lạc quan về cơ hội tăng cường an ninh mạng từ AI.",
+        "Tại phiên điều trần, Thượng nghị sĩ Ruben Gallego đã chất vấn trách nhiệm nếu đại lý AI nổi loạn tự ý chuyển tiền từ tài khoản người dùng. Ông Gallego cảnh báo kịch bản đại lý AI tìm kiếm rủi ro có thể bất ngờ gây rút tiền hàng loạt, đe dọa làm tê liệt nền kinh tế.",
+        "Viện Chính sách Ngân hàng cảnh báo chưa nên cấp quyền truy cập tài khoản tài chính cho đại lý AI vì quy trình quản lý rủi ro chưa đủ phát triển. Tổ chức này lưu ý một vụ tấn công tiêm câu lệnh (prompt injection) có thể khiến tài khoản bị vét sạch tiền, trong khi năng lực phòng thủ hiện chưa đủ tốt."
       ],
       "same_event_coverage_ids": [
         "0def791bf591c512226b"
@@ -117590,7 +117573,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Ứng viên Bộ Tài chính Mỹ thận trọng về trách nhiệm khi đại lý AI tự ý thao tác trên tài khoản ngân hàng",
+      "editorial_headline_vi": "Ứng viên Bộ Tài chính Mỹ thận trọng về trách nhiệm khi đại lý AI truy cập tài khoản ngân hàng",
       "summary_sources": [
         {
           "id": "outlet",
@@ -117603,30 +117586,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.35,
+        "value": 9.7,
         "answers": {
-          "what": 9,
+          "what": 10,
           "why": 10,
           "notable": 10,
           "meaning": 8
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "một số ngân hàng Mỹ bắt đầu dồn trách nhiệm pháp lý sang khách hàng",
-            "explanation": "The source limits this to some U.S. financial institutions placing liability on customers who open their accounts to third-party AI agents; it does not describe a general shift of bank liability to customers (outlet:p006)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "what",
-            "problem": "The liability shift reads as unconditional.",
-            "fix": "Specify that it concerns customers granting third-party AI agents access to their accounts (outlet:p006)."
-          },
-          {
             "question": "meaning",
-            "problem": "The reader misses the banking industry warning that frames the unresolved policy question.",
-            "fix": "Add that the Bank Policy Institute said agent risk management is not sufficiently developed and agents should not yet have access to financial accounts (outlet:p014–p015)."
+            "problem": "The reader misses what Jurata said she would do if confirmed.",
+            "fix": "Add that she pledged to coordinate with other bank regulators within the existing legal framework (outlet:p013)."
           }
         ],
         "writer_boats": [
@@ -117634,8 +117606,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "480548cd6dadfd15f868dd58461467f28831827494c6a11025bf6b7195bad081",
-        "scored_at": "2026-11-20T23:18:22.211605+00:00"
+        "prose_sha256": "ec49dd13ff7251219019baee0fbdf539a29fe3c3b8253a89eaa837b061b69258",
+        "scored_at": "2026-11-21T01:42:02.103990+00:00"
       }
     },
     {
@@ -117774,6 +117746,386 @@
         "prose_sha256": "efeedfa3271325cc929dc061c9686b4cd25b175283b1a14a9c84d6134d4902a7",
         "scored_at": "2026-11-20T23:18:22.211633+00:00"
       }
+    },
+    {
+      "id": "f6e744ab21c05cebfa08",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Walkthrough guide explaining how to implement distributed KV caching with Amazon ElastiCache rather than reporting new event news.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/cut-self-hosted-llm-cost-and-latency-with-the-distributed-kv-caching-agent-skill/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "583d927e8667210469b6"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "6b2968a45eab8d07ca1d",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "General financial and economic news broadcast focusing on federal debt, Fed policy, and video games, with only incidental mention of AI in the title.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-21/wall-street-week-gaming-blockbuster-cybersecurity-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c56f639b0cf1eb189848"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "80d43c96566439658b9d",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-20/tony-wang-on-crowdstrike-zscaler-deal-ai-trade-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "2e0cb259463d05927e1b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "24a3a35b947b3236755b",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/introducing-managed-cluster-extensions-for-observability-and-user-management-in-amazon-sagemaker-hyperpod-slurm/",
+      "key_points": [
+        "Vào tháng 11 năm 2026, Amazon ra mắt các tiện ích mở rộng cụm cho quan sát và quản lý người dùng trên SageMaker HyperPod Slurm (bộ điều phối cụm). Các gói phần mềm do AWS quản lý này cho phép cài đặt và định cấu hình trực tiếp qua API hoặc bảng điều khiển.",
+        "Amazon giải thích tập lệnh vòng đời cũ chỉ chạy khi cấp phát nút, nên mỗi thay đổi đòi hỏi sửa lệnh rồi thay thế nút hoặc chạy lại trên toàn cụm. Cách cũ khiến cấu hình nút dễ bị sai lệch và chỉ phát hiện lỗi khi tập lệnh chạy thực tế.",
+        "Tiện ích quan sát thu thập chỉ số về nút, GPU và tác vụ Slurm để gửi tới CloudWatch hoặc Prometheus. HyperPod kiểm tra cấu hình theo lược đồ định sẵn ngay khi gửi, giúp từ chối thiết lập sai chính tả trước khi chuyển tới nút.",
+        "Amazon nhận định API giúp giảm bảo trì trong khi người dùng vẫn giữ toàn quyền kiểm soát trực tiếp từng nút qua SSH. Tiện ích yêu cầu cụm kích hoạt cấp phát liên tục cùng AMI (hình ảnh máy ảo) từ ngày 2 tháng 11 năm 2026, đồng thời Amazon khuyến nghị dùng AMI tùy chỉnh hoặc tập lệnh vòng đời cho phần mềm chưa được hỗ trợ."
+      ],
+      "same_event_coverage_ids": [
+        "cf01322e2c62c479ebbe"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Amazon SageMaker HyperPod",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Amazon ra mắt tiện ích mở rộng hỗ trợ quan sát và quản lý người dùng cho cụm HyperPod Slurm",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "amazon",
+          "url": "https://aws.amazon.com/blogs/machine-learning/introducing-managed-cluster-extensions-for-observability-and-user-management-in-amazon-sagemaker-hyperpod-slurm/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.05,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 8,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "Readers miss that HyperPod applies extensions to new and replacement nodes and reports per-node health.",
+            "fix": "Add these operational benefits from outlet:p013 and outlet:p015."
+          },
+          {
+            "question": "notable",
+            "problem": "“Prometheus” leaves the named destination less precise than the source.",
+            "fix": "Name Amazon Managed Service for Prometheus, as in outlet:p017."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "4405b53a20bf50931dd8987534a05ccc38dca7ee018d4dd0618dd7addf788003",
+        "scored_at": "2026-11-21T01:31:09.799603+00:00"
+      }
+    },
+    {
+      "id": "f1e8b4109d3f53c7f92e",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-20/hindlian-advisory-ceo-on-ai-anthropic-market-sell-off-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "3baaf84a557244894fbb"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "22abd629566b28f940f5",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.economist.com/science-and-technology/2026/11/20/ai-may-have-solved-the-most-important-problem-in-mathematics",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "6d5245e6bb9764e200a6",
+        "ead7604148c285e33ca2"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Artificial Intelligence",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "9fc284d7992a400ae08b",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-20/nvidia-staff-complained-about-huang-s-behavior-years-ago-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "77ab66680b31af059e9b",
+        "fa147265da434ef7fe40"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "a35bd27c3beac8024693",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "top",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/ai-artificial-intelligence/1010051/anthropic-riemann-hypothesis-millennium-prize-problem",
+      "key_points": [
+        "Nhà toán học Levent Alpöge thuộc Anthropic tuyên bố đã chứng minh giả thuyết Riemann, bài toán Thiên niên kỷ về phân phối số nguyên tố, với sự hỗ trợ của Claude. Tuyên bố giải quyết bài toán hơn 150 năm tuổi này được đưa ra ngay sau đợt chào bán cổ phiếu ra công chúng của Anthropic.",
+        "Alpöge cho biết ông cùng Claude đã hình thức hóa các luận điểm chứng minh mà không dùng các giả định. Tác giả cho biết phương pháp này dễ dàng mở rộng và giải quyết Giả thuyết Riemann Tổng quát.",
+        "Lời giải được trình bày bằng ngôn ngữ Lean và tự đăng trên trang cá nhân của Alpöge mà không có sự tham gia hay bình luận từ Anthropic. Trước đó vào tháng 8, Anthropic từng nhận định các kỹ thuật của Claude khó dẫn đến việc chứng minh giả thuyết Riemann.",
+        "Theo quy định của Viện Toán học Clay, lời giải phải được công bố, qua hai năm thẩm định và nhận sự thừa nhận rộng rãi của cộng đồng toán học toàn cầu trước khi được xét trao giải 1 triệu USD. The Verge cho biết kết quả của Alpöge hiện chưa được kiểm chứng độc lập và chưa được cơ quan này công nhận."
+      ],
+      "same_event_coverage_ids": [
+        "0cc4110902a0095a7989",
+        "d9134e2f71494c4a781d"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Anthropic",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Levent Alpöge",
+          "Robert Hart",
+          "Emma Roth"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nhà toán học của Anthropic tuyên bố giải được giả thuyết Riemann cùng Claude khi chưa thẩm định",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1010051/anthropic-riemann-hypothesis-millennium-prize-problem"
+        },
+        {
+          "id": "coverage1",
+          "role": "coverage",
+          "name": "bloomberg",
+          "url": "https://www.bloomberg.com/news/articles/2026-11-21/anthropic-researcher-claims-to-solve-riemann-problem-with-claude"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "Readers get the verification limit but miss why a verified result would matter.",
+            "fix": "Add the source’s conditional point that verification would mark a major AI achievement in mathematics (outlet:p019)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "0b3df2e656eec1226f9d5327540ecf75605d9dd194bc73dbe08b307f10287dee",
+        "scored_at": "2026-11-21T01:31:09.799674+00:00"
+      }
+    },
+    {
+      "id": "ece00bcfb8c230414d22",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare repository page for a Git command-line utility with no substantive release announcement or news coverage.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/marketzy/codex-cli-repo-workbench",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "0fc620b278786edd7f80"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "2a35e0810c72ba81dc7a",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare repository page for a local AI chat interface containing setup instructions and tip links, lacking a formal release announcement.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/han938/open-webui-private-ai-desk",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "1c6b75646eee90d258eb"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "1f4380b75835199dd885",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare repository page describing a CLI workspace tool for Claude Code agents without an announcement or news coverage.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/zavi2997-droid/claude-code-agent-workspace",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "f527273f3a1106ba801c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "a0694b0c7ca91d5ed3cd",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare repository README for OpenCode project management without independent reporting or release notes.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/wozniakalan323-bit/opencode-project-workbench",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "0ab9c28f778d43f3f820"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "e4d5a752ded424a8ae88",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare repository page for an AnythingLLM document chat desktop client with setup scripts and tip addresses, lacking news value.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/chase1225/anythingllm-verona-document-chat",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "fa8635f60241593c6cb1"
+      ],
+      "split_coverage_ids": []
     }
   ]
 }
