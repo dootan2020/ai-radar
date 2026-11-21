@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-21T01:45:46.859545+00:00",
-  "input_generated_at": "2026-11-21T00:46:55Z",
+  "generated_at": "2026-11-21T03:22:15.719766+00:00",
+  "input_generated_at": "2026-11-21T02:46:42Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -118126,6 +118126,376 @@
         "fa8635f60241593c6cb1"
       ],
       "split_coverage_ids": []
+    },
+    {
+      "id": "3cc812dde92fa5107ac5",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.scmp.com/tech/big-tech/article/3375253/ai-agents-are-getting-wallets-hong-kong-ready-them",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "52a4295cac1cfbd52c56"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Animoca Brands",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "region_locked:Hong Kong",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "08a33f491f4df4e7698e",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.youtube.com/watch?v=Ru0l6G5oq7U",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "3c2a6df2089f7b834008"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Paul Christiano",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Paul Christiano"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "4867bfdeb843196c6aa5",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/new-in-aws-quick-more-capable-flows-an-updated-web-experience-and-agents-that-work-together/",
+      "key_points": [
+        "Amazon cập nhật không gian làm việc AWS Quick, với ứng dụng web hiển thị việc cần chú ý và duy trì tác vụ khi người dùng đóng thẻ trình duyệt. Bản phát hành hỗ trợ tạo quy trình qua trò chuyện, điều phối nhiều tác nhân AI (phần mềm tự hành thực hiện tác vụ) và bổ sung tiếng Việt.",
+        "Theo Amazon, đợt phát hành giúp biến quy trình cá nhân thành quy trình chung và duy trì công việc khi nhân sự vắng mặt. Hãng cho biết trợ lý AI giúp từng cá nhân làm việc nhanh hơn nhưng lợi ích chỉ dừng lại ở một người, khiến công việc phải chờ đợi khi họ rời bàn làm việc.",
+        "Trong ví dụ mô phỏng của Amazon, sơ đồ hiển thị từng bước cùng các phép tính cố định và bước kiểm tra giúp kết quả luôn nhất quán. Quy trình so sánh số liệu từng vùng với ngân sách theo công thức cố định, tự động gắn cờ chênh lệch lớn và soạn dự thảo báo cáo cho người dùng duyệt.",
+        "Amazon cam kết dữ liệu lưu trong môi trường người dùng và không dùng để huấn luyện mô hình bên ngoài. Theo hãng, tính năng phân quyền và giới hạn thời lượng tác nhân theo nhóm chỉ áp dụng cho các gói Professional và Enterprise."
+      ],
+      "same_event_coverage_ids": [
+        "9b9c8bc64858f2d679c1"
+      ],
+      "split_coverage_ids": [],
+      "subject": "AWS Quick",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Amazon cập nhật AWS Quick: hỗ trợ tạo quy trình qua chat, nâng cấp web và điều phối đa tác nhân",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "amazon",
+          "url": "https://aws.amazon.com/blogs/machine-learning/new-in-aws-quick-more-capable-flows-an-updated-web-experience-and-agents-that-work-together/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.9,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 8,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "Readers are not told who decides what counts as a significant regional variance.",
+            "fix": "Say the flow flags regions using thresholds the manager set (outlet:p019)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "02a650a0aa07d7804d538584c4b7db16aad73d6513f8a81a7a981d6ca1aa7da6",
+        "scored_at": "2026-11-21T03:22:15.693869+00:00"
+      }
+    },
+    {
+      "id": "69ef8b8f01e3e4c2087c",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Casual social chatter on X describing a Friday afternoon easter egg added to the Gemini web model picker, lacking substantive reporting or release documentation.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://x.com/joshwoodward/status/2123943606906138868",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "aa9e777cab2504ffc0dd"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "81134a9df014d23caea5",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.marketscreener.com/news/us-sec-s-nvidia-probe-is-examining-potential-accounting-issues-sources-say-ce785ed3dd8ff627",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "0a8f3bacf02cb4cfeb91"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Nvidia",
+      "video_labels": {
+        "video_hook": "drama_company",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": true
+      }
+    },
+    {
+      "id": "266efb82a5bf90577942",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://signal.org/blog/protecting-your-privacy/",
+      "key_points": [
+        "Signal đang hạn chế các tác nhân AI (chương trình tự hành) trên hệ điều hành di động thu thập dữ liệu người dùng. Tổ chức này từng áp dụng cơ chế tương tự trên Windows 11 để ngăn Recall AI của Microsoft chụp lại tin nhắn.",
+        "Theo Signal, việc tác nhân AI cấp hệ điều hành quét màn hình đang làm suy yếu khả năng bảo đảm quyền riêng tư độc lập của ứng dụng. Đại diện ứng dụng giải thích dữ liệu nhạy cảm bị AI quét sẽ chuyển về máy chủ ngoài tầm kiểm soát của Signal.",
+        "Signal chặn chụp màn hình trên iOS 27 và ngăn trợ lý AI quét màn hình khi phát hiện hành vi này trên Android. Người dùng có thể tắt lớp bảo vệ trong cài đặt nhưng đối mặt nguy cơ lộ tin nhắn, trong khi Signal chưa thể chặn Siri AI trên macOS.",
+        "Signal thừa nhận biện pháp ngăn chặn vẫn chưa toàn diện do tác nhân AI vẫn có thể truy cập dữ liệu qua các tệp tin có sẵn trên thiết bị. Tổ chức này kêu gọi Apple, Google và Microsoft cung cấp tài liệu kỹ thuật cùng cơ chế cho phép ứng dụng từ chối việc AI truy cập dữ liệu."
+      ],
+      "same_event_coverage_ids": [
+        "1ba6980b8b4ae1dd601e",
+        "c5be541bea2769b2e868"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Signal",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Meredith Whittaker"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Signal chặn tác nhân AI trên iOS 27 và Android chụp màn hình để bảo vệ dữ liệu người dùng",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://signal.org/blog/protecting-your-privacy/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 7.95,
+        "answers": {
+          "what": 9,
+          "why": 6,
+          "notable": 8,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "dữ liệu nhạy cảm bị AI quét sẽ chuyển về máy chủ ngoài tầm kiểm soát của Signal",
+            "explanation": "The source says captured data becomes accessible to whatever local database or remote server the OS-level agent uses, not necessarily a server (outlet:p008)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "Readers are told captured data goes to a server in every case.",
+            "fix": "Say it can enter an agent's local database or remote server, both outside Signal's control (outlet:p008)."
+          },
+          {
+            "question": "meaning",
+            "problem": "Readers miss Signal's conclusion that the issue extends beyond its own app.",
+            "fix": "Add that Signal describes current OS-agent integration as a threat to application-level privacy across the ecosystem (outlet:p018)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "8d7bda2bfd0dd2e9f15ad8a7d7d91514930fad160c7474521375b6c26de3faa2",
+        "scored_at": "2026-11-21T03:22:15.693918+00:00"
+      }
+    },
+    {
+      "id": "ff772f090165aaaeca61",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.dragos.com/blog/ai-supply-chain-security-canary-tokens",
+      "key_points": [
+        "Tác giả HD Moore phát hiện kẻ tấn công đánh cắp dữ liệu từ ba nhà cung cấp trí tuệ nhân tạo (AI). Từ tháng 7 đến tháng 11 năm 2026, nhóm nghiên cứu gửi khoảng hai triệu câu lệnh chứa URL độc nhất và khóa mồi rồi theo dõi dữ liệu sau xử lý.",
+        "Tác giả cho biết nhà cung cấp thường bỏ qua cài đặt quyền riêng tư do cố tình hoặc do lỗi quy trình. Ngoài ra, chuyển tiếp qua nhiều bộ định tuyến (router: điều hướng yêu cầu) cũng rủi ro vì mỗi trạm đều có thể đọc toàn bộ câu lệnh.",
+        "Vụ xâm nhập lớn nhất làm lộ vài trăm khóa AWS khi kẻ tấn công sao chép yêu cầu ngay tại cổng tiếp nhận của nhà cung cấp. Ở trường hợp riêng, hai câu lệnh qua một người bán bị mở liên kết bí mật, trong khi câu lệnh cho cùng mô hình qua người bán khác không bị can thiệp.",
+        "Tác giả bài viết nhận định kết quả này phơi bày sự khác biệt căn bản giữa quảng cáo dịch vụ AI và thực tế xử lý dữ liệu. Đáng chú ý, tác giả chỉ ra rằng cài đặt quyền riêng tư không lưu dữ liệu vẫn vô hiệu khi kẻ tấn công đã ở bên trong hệ thống."
+      ],
+      "same_event_coverage_ids": [
+        "ad1cc384b541b50075b3"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Dragos",
+      "video_labels": {
+        "video_hook": "drama_company",
+        "named_people": [
+          "HD Moore"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Điều tra phát hiện kẻ tấn công đánh cắp dữ liệu từ ba nhà cung cấp AI và lấy hàng trăm khóa AWS",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://www.dragos.com/blog/ai-supply-chain-security-canary-tokens"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.95,
+        "answers": {
+          "what": 9,
+          "why": 8,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "Readers do not learn the likely consequence for ordinary customer requests alongside the planted prompts.",
+            "fix": "Add, with the source's uncertainty intact, that real customer requests processed alongside the bait were almost certainly copied too (outlet:p035)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "b337bd0d8b92adf63a991304f5d15c9f8078ebbb85060b24237ed13a2a83b893",
+        "scored_at": "2026-11-21T03:22:15.693945+00:00"
+      }
+    },
+    {
+      "id": "22c450ed8fe6b1286f66",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Daily financial market wrap-up of the Seoul KOSPI stock exchange, containing only passing incidental references to Anthropic and Nvidia.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://en.yna.co.kr/view/AEN20261119006552320",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "3b88ac3cb694ddc2f218",
+        "6435658ccdf9e95beaeb"
+      ],
+      "split_coverage_ids": [
+        "41d4d036eebae0431c74"
+      ]
     }
   ]
 }
