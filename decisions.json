@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-21T17:21:12.449724+00:00",
-  "input_generated_at": "2026-11-21T16:46:36Z",
+  "generated_at": "2026-11-21T19:24:52.130214+00:00",
+  "input_generated_at": "2026-11-21T18:46:50Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -118971,7 +118971,7 @@
         "Hãng Shortical vừa ra mắt phim ngắn “Inevitable” hoàn toàn bằng trí tuệ nhân tạo (AI), dùng gương mặt diễn viên Aki Avni tạo nhân vật kỹ thuật số. Bộ phim đánh dấu lần đầu công ty cấp phép hình ảnh trực tiếp từ nghệ sĩ cho nội dung AI.",
         "TechCrunch nhận định chi phí sản xuất phim AI thấp hơn đáng kể so với phim người đóng, với tiềm năng lợi nhuận cao hơn nếu thu hút được khán giả. Giám đốc điều hành Guy Shimoni cho biết công nghệ này giúp đội ngũ nhỏ dựng bối cảnh kỳ ảo vượt ngân sách đóng phim thông thường.",
         "Chương trình cấp phép gương mặt của Shortical vẫn ở giai đoạn đầu và chưa có hợp đồng nào được ký qua nền tảng, theo đại diện công ty. Đại diện này cho biết Avni nhận thù lao tương đương vai diễn thông thường, nhưng báo cáo từ Rest of World ghi nhận các hãng tại Trung Quốc chỉ trả 15 đến 700 USD cho mỗi gương mặt.",
-        "TechCrunch nhận xét các công ty đang thu hẹp quy mô và sản xuất nội dung không cần diễn viên thật, làm mất cơ hội tích lũy kinh nghiệm trường quay của nghệ sĩ trẻ."
+        "Shortical chưa công bố mức thù lao chung và ông Shimoni chỉ trả lời chung chung rằng việc chia bản quyền sẽ tùy từng trường hợp. Trong khi đó, chuyên gia tư vấn Jennifer Cooper hoài nghi về thị trường này khi nhận định nội dung AI đang bị áp đặt lên người xem hơn là xuất phát từ nhu cầu thực tế của khán giả."
       ],
       "same_event_coverage_ids": [
         "7c0b55dffb00b2ec3b98"
@@ -118985,7 +118985,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Shortical ra mắt phim AI dùng gương mặt diễn viên Aki Avni nhưng chưa ký được hợp đồng mới nào",
+      "editorial_headline_vi": "Shortical chiếu phim AI dùng gương mặt diễn viên Aki Avni nhưng chưa ký được hợp đồng cấp phép mới",
       "summary_sources": [
         {
           "id": "outlet",
@@ -119000,19 +119000,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.9,
+        "value": 9.5,
         "answers": {
-          "what": 9,
-          "why": 10,
-          "notable": 9,
-          "meaning": 7
+          "what": 10,
+          "why": 9,
+          "notable": 10,
+          "meaning": 8
         },
         "hard_errors": [],
         "findings": [
           {
             "question": "meaning",
-            "problem": "The reader gets the employment concern but misses the uncertainty around licensing and demand.",
-            "fix": "Add that Shortical has not disclosed a general payment figure, royalty terms are case by case, and a quoted industry observer doubts audience demand for much AI content (outlet:p020, outlet:p028)."
+            "problem": "Readers miss why some people in the industry distrust face licensing and AI production.",
+            "fix": "Add the source’s concerns about lost entry-level acting work and consent over likenesses, attributed and qualified as presented (outlet:p022–p025)."
           }
         ],
         "writer_boats": [
@@ -119020,8 +119020,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "474321586f085f311342b7ad8468410e0f8c10b9bc8ea1d701019b3a6924ff93",
-        "scored_at": "2026-11-21T17:21:12.424929+00:00"
+        "prose_sha256": "6b75f2ff1acc79f021a3a2abc6d3f5ba43f2c06b5141b4de3096269d3d508703",
+        "scored_at": "2026-11-21T19:24:52.125888+00:00"
       }
     },
     {
@@ -119040,10 +119040,10 @@
       "use_original_title": false,
       "source_url": "https://www.theverge.com/podcast/1038701/anthropic-ipo-ai-safety-openai-nvidia-structure",
       "key_points": [
-        "Phòng thí nghiệm trí tuệ nhân tạo (AI) Anthropic đứng sau Claude đã chính thức niêm yết trên sàn Nasdaq vào thứ Năm tuần trước. Theo The Verge, Anthropic trở thành phòng thí nghiệm AI đầu tiên phát hành cổ phiếu ra công chúng và đạt quy mô vốn hóa thuộc nhóm dẫn đầu thế giới.",
-        "Khi trở thành công ty đại chúng chịu trách nhiệm trước cổ đông, Anthropic đối mặt với các hóa đơn điện toán ước tính khoảng 900 tỷ USD trong những năm tới. Một số cựu nhân viên tiết lộ hội đồng tín thác quản trị của công ty do chính các nhà sáng lập chỉ định.",
-        "Về tài chính, tập đoàn Nvidia đã đồng ý mua 10 tỷ USD cổ phần phát hành riêng lẻ của Anthropic, tiếp nối cam kết tài trợ 10 tỷ USD vào năm ngoái. Ở chiều ngược lại, một số tiếng nói bất đồng nội bộ phản ánh quan điểm của công ty rằng không thể bảo đảm an toàn từ vị trí thứ hai.",
-        "The Verge nhận định Anthropic nhiều khả năng sẽ chứng kiến nhiều nỗ lực an toàn tốn kém bị gạt bỏ trước áp lực doanh thu. Nhiều cựu nhân viên cũng cho rằng ngành AI đang thiếu sự quản lý từ bên ngoài khi trao quyền tự quyết hoàn toàn cho ban lãnh đạo."
+        "Anthropic phát hành cổ phiếu ra công chúng trên sàn Nasdaq vào thứ Năm tuần trước, trở thành một trong những công ty giá trị nhất hành tinh. Theo The Verge, đơn vị phát triển mô hình Claude là phòng thí nghiệm trí tuệ nhân tạo đầu tiên lên sàn chứng khoán.",
+        "The Verge cho biết công ty phải gia tăng doanh thu để chi trả các hóa đơn điện toán ngày càng lớn, ước tính khoảng 900 tỷ USD trong những năm tới. Về tài chính, Nvidia đã đồng ý mua 10 tỷ USD cổ phần phát hành riêng lẻ của Anthropic, tiếp nối cam kết tài trợ 10 tỷ USD năm ngoái.",
+        "Một cựu nhân viên được người dẫn chương trình phỏng vấn cho biết hội đồng tín thác quản trị do chính các nhà sáng lập chỉ định để tránh gây bất đồng. Ở chiều hướng khác, một số tiếng nói bất đồng nội bộ phản ánh quan điểm công ty rằng không thể bảo đảm an toàn từ vị trí thứ hai.",
+        "The Verge nhận định áp lực tài chính buộc công ty phải đối mặt với những lựa chọn khó khăn để mua năng lực tính toán và bắt kịp đối thủ. Người tham gia thảo luận dự báo nhiều kế hoạch có thể bị gác lại và gợi ý rằng ngay cả một số nỗ lực an toàn tốn kém cũng có thể bị ảnh hưởng."
       ],
       "same_event_coverage_ids": [
         "9b7dbc0718260c82d16d"
@@ -119075,44 +119075,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.25,
+        "value": 10.0,
         "answers": {
           "what": 10,
           "why": 10,
           "notable": 10,
-          "meaning": 5
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "quote",
-            "summary_text": "Anthropic nhiều khả năng sẽ chứng kiến nhiều nỗ lực an toàn tốn kém bị gạt bỏ",
-            "explanation": "The speaker predicts many things may fall by the wayside and says expensive safety efforts might be among them; the source does not predict that many safety efforts will be dropped (outlet:p045)."
-          },
-          {
-            "kind": "role",
-            "summary_text": "Một số cựu nhân viên tiết lộ hội đồng tín thác quản trị của công ty do chính các nhà sáng lập chỉ định",
-            "explanation": "The source says the speaker talked to a couple of former employees, but attributes the observation about the trust to one of them (outlet:p074)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "meaning",
-            "problem": "A possible safety cut becomes a likely loss of many safety efforts.",
-            "fix": "Say the speaker expects financial pressure to force difficult choices and suggests that even some expensive safety efforts might be affected (outlet:p045)."
-          },
-          {
-            "question": "notable",
-            "problem": "The trust observation is attributed to multiple former employees.",
-            "fix": "Attribute it to one former employee interviewed by the speaker (outlet:p074)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "7a7bd3101e241f4304b0b473e80d8df3f0d521ad7288ade5666e780ec57bfc28",
-        "scored_at": "2026-11-21T17:16:25.241818+00:00"
+        "prose_sha256": "ba2f7d27e2b08ae454e6cd22efce63998187bb9aa31885f2906c836b174fec7a",
+        "scored_at": "2026-11-21T19:24:52.125938+00:00"
       }
     },
     {
@@ -119265,10 +119243,10 @@
       "use_original_title": false,
       "source_url": "https://github.com/w01fb0ss/PiBot",
       "key_points": [
-        "Dự án Pi Bot cung cấp nhóm trợ lý AI (agent - phần mềm tự hành) mã nguồn mở chạy cục bộ trên máy tính cá nhân. Phần mềm hỗ trợ macOS 13 Ventura trở lên, Windows 10, 11 và Linux 64-bit, kèm ứng dụng trên thiết bị Android.",
-        "Tài liệu dự án trên GitHub cho biết người dùng tạo từng bot với vai trò, mô hình, bộ nhớ riêng và có thể lập nhóm trò chuyện. Trong nhóm, bot điều phối lập kế hoạch và phân chia công việc cho thành viên sau khi người dùng phê duyệt.",
+        "Ứng dụng máy tính Pi Bot chạy nhóm trợ lý AI (agent - phần mềm tự hành) cục bộ trên thiết bị của người dùng. Tài liệu dự án cho biết phần mềm chạy trên macOS 13 Ventura trở lên, Windows 10, 11 và Linux 64-bit, kèm ứng dụng Android.",
+        "Tài liệu dự án cho biết người dùng tạo từng bot với tên gọi, vai trò, mô hình, bộ nhớ riêng và có thể lập nhóm trò chuyện. Trong nhóm, bot điều phối lập kế hoạch và phân chia công việc cho thành viên sau khi người dùng phê duyệt.",
         "Người dùng giao thư mục làm việc và duyệt từng thao tác rủi ro trước khi bot chạy lệnh hay sửa tệp. Mọi lệnh chạy trong môi trường cô lập (@anthropic-ai/sandbox-runtime), đồng thời nhật ký kiểm toán ghi lại các thao tác cùng dữ liệu gửi ra ngoài.",
-        "Dữ liệu trò chuyện, tệp và mã khóa lưu cục bộ trên máy tính, trong khi máy chủ Pi Bot không thu thập dữ liệu đo kiểm (telemetry). Ngoài nhà cung cấp mô hình do người dùng chọn, ứng dụng chỉ kết nối mạng khi kiểm tra cập nhật và bật các tính năng liên kết."
+        "Dữ liệu lưu cục bộ trên máy tính gồm hội thoại, tệp và mã khóa, trong khi máy chủ Pi Bot không thu thập dữ liệu đo kiểm. Ngoài nhà cung cấp mô hình được chọn, ứng dụng chỉ kết nối mạng khi kiểm tra cập nhật, tải trang web cùng lượt tìm kiếm của bot, và bật tính năng tùy chọn."
       ],
       "same_event_coverage_ids": [
         "a54fa47776a1a8e88d03"
@@ -119282,7 +119260,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Dự án mã nguồn mở Pi Bot ra mắt nhóm trợ lý AI hoạt động cục bộ và yêu cầu người dùng duyệt tác vụ",
+      "editorial_headline_vi": "Dự án Pi Bot cung cấp ứng dụng mã nguồn mở chạy nhóm trợ lý AI cục bộ trên máy tính với cơ chế phê duyệt",
       "summary_sources": [
         {
           "id": "outlet",
@@ -119295,44 +119273,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.4,
+        "value": 9.55,
         "answers": {
-          "what": 8,
+          "what": 10,
           "why": 10,
           "notable": 9,
-          "meaning": 6
+          "meaning": 9
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "ra mắt nhóm trợ lý AI",
-            "explanation": "The source describes Pi Bot and provides downloads, but does not report a launch event (outlet:p002–p006, outlet:p017–p018)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "Ngoài nhà cung cấp mô hình do người dùng chọn, ứng dụng chỉ kết nối mạng khi kiểm tra cập nhật và bật các tính năng liên kết",
-            "explanation": "The source also lists websites and searches used by bots, plus optional phone, runner, and connection features, as outbound connections (outlet:p016)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "meaning",
-            "problem": "The privacy description excludes network access for websites and searches used by bots.",
-            "fix": "Include those outbound connections alongside the chosen model provider, update checks, and enabled features (outlet:p016)."
-          },
-          {
-            "question": "what",
-            "problem": "The headline presents the project description as a new launch.",
-            "fix": "Describe Pi Bot as an available open-source desktop app without claiming a launch event (outlet:p002, outlet:p018)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "73c892bb310703cab378e09041fe17890f8afd2c1ba240ee8a99f80b26669dc6",
-        "scored_at": "2026-11-21T17:16:25.241877+00:00"
+        "prose_sha256": "d3e103fe94c00a44d52e7e1a5fb140b6b117c7e55b05992b819e60ec12a227a7",
+        "scored_at": "2026-11-21T19:24:52.125965+00:00"
       }
     },
     {
@@ -119365,6 +119321,95 @@
         "named_people": [],
         "availability": "unknown",
         "is_leak": false
+      }
+    },
+    {
+      "id": "3d9813d5a43ccb7756ad",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-21/california-nvidia-probe-covers-potential-criminal-law-violations",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "4da502aef506f10e19de"
+      ],
+      "split_coverage_ids": [
+        "0a8f3bacf02cb4cfeb91"
+      ]
+    },
+    {
+      "id": "f52216bdae320c5247f4",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/21/all-the-ai-agents-that-can-live-in-your-text-messages/",
+      "key_points": [
+        "Theo TechCrunch, ngày càng nhiều trợ lý AI (agent - phần mềm tự thực hiện tác vụ) có thể trao đổi trực tiếp qua tin nhắn thay vì tải ứng dụng riêng. Các công cụ này phục vụ từ nhu cầu cá nhân đến gia đình, du lịch và công việc.",
+        "Người dùng chỉ cần nhắn yêu cầu, hệ thống ghi nhớ ngữ cảnh, kết nối ứng dụng sẵn có và thay mặt họ xử lý công việc. Các tác vụ gồm lên lịch hẹn, tìm hiểu chuyến đi, gửi thư điện tử, mua sắm hoặc nhắc việc sau vài ngày.",
+        "Theo TechCrunch, Instinct là một trong những trợ lý AI thu hút nhiều sự chú ý nhất hiện nay khi được định giá 10 tỷ USD sau vòng gọi vốn 1 tỷ USD vào tháng 9 năm 2026. Ở các nhóm khác, Ask Proxy chạy qua SMS với giá 1 USD mỗi ngày, còn Folk cho dùng miễn phí và có gói Pro 8,33 USD một tháng.",
+        "Tính năng cấp địa chỉ thư điện tử riêng cho trợ lý xử lý công việc giúp người dùng không bị đầy hộp thư cá nhân. Tuy nhiên, tác giả bài viết trên TechCrunch lưu ý mức độ tự chủ này làm dấy lên lo ngại về quyền riêng tư và an ninh."
+      ],
+      "same_event_coverage_ids": [
+        "8f8967adc953244d674a"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Text-based AI agents",
+      "video_labels": {
+        "video_hook": "usable_now",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Instinct đạt định giá 10 tỷ USD giữa làn sóng trợ lý ảo AI hoạt động qua tin nhắn",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/21/all-the-ai-agents-that-can-live-in-your-text-messages/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "c1516c0f4504defb5fa829a892e5c654c605b5ec3112ba636ce1a8d85b243ec2",
+        "scored_at": "2026-11-21T19:12:52.224039+00:00"
       }
     }
   ]
