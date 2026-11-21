@@ -136,6 +136,8 @@ class Timeline(unittest.TestCase):
                       order=['RUN_STARTED', 'STATE_SNAPSHOT', 'TOOL_CALL_START', 'TEXT_MESSAGE_CONTENT', 'RUN_FINISHED'])
         cases = dict(counted=canh.timeline(SRC, counts, 26), names=canh.timeline(SRC),
                      narrated=canh.timeline(SRC, counts, 25),
+                     voiced=canh.timeline(SRC, counts, 25.25),
+                     short_counted=canh.timeline(SRC, counts, 22), long_counted=canh.timeline(SRC, counts, 30),
                      shortest=canh.timeline(SRC, counts, 18), longest=canh.timeline(SRC, counts, 34))
         result = subprocess.run(['node', str(HAL / 'scene3d' / 'timeline.test.mjs')], input=json.dumps(cases),
                                 capture_output=True, text=True, encoding='utf-8', timeout=30)
@@ -270,6 +272,17 @@ class Gates(unittest.TestCase):
             with self.assertRaises(canh.Refusal, msg=said) as cm:
                 canh.check_render(good_render(**over), d)
             self.assertIn(said, str(cm.exception))
+
+    def test_repeatability_keeps_the_four_level_boundary_for_the_voiced_clip(self):
+        d = canh.timeline(SRC, None, 25.25)
+        for difference in (2, 4, 5, 6):
+            render = good_render(frames=d['frames'],
+                                 determinism={'pixels': [{'f': 416, 'max_diff': difference, 'over_tol': int(difference > 4)}]})
+            if difference <= 4:
+                self.assertTrue(canh.check_render(render, d))
+            else:
+                with self.assertRaisesRegex(canh.Refusal, 'differ by more than 4 levels'):
+                    canh.check_render(render, d)
 
     def test_three_is_pinned_and_the_entry_point_says_it_is_built(self):
         self.assertEqual(canh.THREE_VERSION, "0.187.0")

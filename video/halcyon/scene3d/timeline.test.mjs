@@ -136,3 +136,29 @@ test('the narrated clip repeats exact frame times through the last README event'
     }
   }
 });
+
+test('fractional narration and the render matrix retain smooth lattice activity around the last arrival', () => {
+  assert.equal(cases.voiced.duration, 25.25);
+  assert.equal(cases.voiced.frames, 758);
+  const voiced = createTimeline(cases.voiced).sample(416 / 30);
+  assert.equal(voiced.currentEvent, 6);
+  assert.equal(voiced.status, 'Đã nhận xong');
+  for (const d of Object.values(cases)) {
+    const timeline = createTimeline(d), landing = d.run1.at(-1).t1;
+    const frame = Math.ceil(landing * d.scale * d.fps);
+    for (let f = frame - 12; f <= frame + 12; f++) {
+      const seconds = f / d.fps, t = timeline.sample(seconds).t;
+      // Sample every real node, including the bright wave front, on both sides
+      // of sub-frame time offsets. Arrival labels/counts may step; light must not.
+      for (let layer = 0; layer < 3; layer++) for (let x = 0; x < 9; x++) for (let z = 0; z < 6; z++) {
+        const px = (x - 4) * .66, pz = (z - 2.5) * .59;
+        const radius = Math.hypot(px - 1.1, pz - .5), requestRadius = Math.hypot(px + 1.25, pz - .6);
+        const activity = timeline.activity(t, layer, radius, requestRadius);
+        assert.ok(Number.isFinite(activity) && activity >= 0 && activity <= 1);
+        assert.ok(Math.abs(activity - timeline.activity(t + .00001, layer, radius, requestRadius)) < .0001);
+        timeline.sample(d.duration);
+        assert.equal(timeline.activity(timeline.sample(seconds).t, layer, radius, requestRadius), activity);
+      }
+    }
+  }
+});
