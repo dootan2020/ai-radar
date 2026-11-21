@@ -530,6 +530,53 @@ def paragraphs_from_silences(ffmpeg_stderr, duration, expected, min_gap=0.5):
     return [dict(start=round(edges[2 * i], 3), end=round(edges[2 * i + 1], 3)) for i in range(expected)]
 
 
+def paragraph_windows(durations, pause):
+    """[(start, end)] of every paragraph in the assembled wav, from the known lengths of the paragraph audio and the pause put between them.
+    The paragraphs are placed by construction, so a pause inside a paragraph can never be mistaken for the break between two."""
+    out, t = [], 0.0
+    for d in durations:
+        out.append((round(t, 4), round(t + d, 4)))
+        t += d + pause
+    return out
+
+
+def spans_from_windows(ffmpeg_stderr, windows):
+    """[{start, end}] per voice paragraph: inside its window, from where the speech starts to where it ends. `ffmpeg_stderr` is the output of
+    `silencedetect=noise=-35dB:d=0.12`; a silence touching an edge of the window is the lead-in or tail, a silence inside is part of the paragraph."""
+    starts = [float(x) for x in re.findall(r'silence_start: ([\d.]+)', ffmpeg_stderr)]
+    ends = [float(x) for x in re.findall(r'silence_end: ([\d.]+)', ffmpeg_stderr)]
+    if len(ends) < len(starts):
+        ends.append(float('inf'))    # a silence still open at the end of the file
+    quiet = list(zip(starts, ends))
+    tol = 0.05
+    spans = []
+    for a, b in windows:
+        s, e = a, b
+        for qa, qb in quiet:
+            if qa <= s + tol < qb:
+                s = min(qb, b)
+            if qa < e <= qb + tol and qa >= s:
+                e = qa
+        spans.append(dict(start=round(s, 3), end=round(max(e, s), 3)))
+    return spans
+
+
+def check_paragraph(voice_say, words, approved=(), number=1):
+    """One paragraph's own check, on the Whisper words of that paragraph's audio alone: the same rules as the whole script (a run of
+    GATE_RUN script words not heard, more than GATE_RATE of the paragraph's words not heard, GATE_RUN extra words in a row).
+    It decides whether this paragraph is made again; the check of the whole voice (`check_reading`) still decides whether the voice is accepted."""
+    rep = check_reading([voice_say], words, None, approved)
+    rep['problems'] = [re.sub(r'\bparagraph 1\b', f'paragraph {number}', p) for p in rep['problems']]
+    return rep
+
+
+def join_paragraph_words(per_paragraph, windows):
+    """The Whisper words of every paragraph (times from the start of its own audio) as one list with times in the assembled wav."""
+    out = []
+    for words, (a, _) in zip(per_paragraph, windows):
+        out.extend(dict(w, s=round(w['s'] + a, 3), e=round(w['e'] + a, 3)) for w in words)
+    return out
+
 def build_timing(wav_name, sample_rate, duration, loudness, pause, spans, words, say, show):
     """The timing file as the builder and halcyon_kich_ban.py read it (the format of the published giong-day-du-timing.json)."""
     return dict(file=wav_name, sample_rate=sample_rate, duration_s=round(duration, 2), loudness=loudness, pause_between_beats_s=pause,
