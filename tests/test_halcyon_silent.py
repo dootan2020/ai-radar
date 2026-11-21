@@ -305,6 +305,51 @@ class VoiceSilence(TmpCase):
         short["duration_s"] = 5.0
         self.assertTrue(any("timing says" in p for p in lang.check_result(timing, short, self.tmp / "v.wav", wav)))
 
+    def overrun_case(self, loud_in_pause):
+        """Gap 1.0-2.0 (silence goes in at 1.5). Whisper says word b ends at 1.3, past the measured end of the speech (1.0), into the pause."""
+        rate, quiet = 8000, bytes(2)
+        voice = (1000).to_bytes(2, "little", signed=True)
+        frames = voice * int(1.0 * rate) + quiet * int(1.0 * rate) + voice * int(2.5 * rate)
+        if loud_in_pause:    # real speech runs on past the cut, to 1.55 s
+            frames = voice * int(1.55 * rate) + quiet * int(0.45 * rate) + voice * int(2.5 * rate)
+        with wave.open(str(self.tmp / "v.wav"), "wb") as w:
+            w.setnchannels(1); w.setsampwidth(2); w.setframerate(rate)
+            w.writeframes(frames)
+        timing = small_timing()
+        timing["words_whisper_medium"][1]["e"] = 1.6        # runs past the middle of the gap, where the silence goes
+        (self.tmp / "t.json").write_text(json.dumps(timing), encoding="utf-8")
+        return timing
+
+    def test_a_word_end_that_overruns_into_measured_quiet_is_cut_at_the_silence(self):
+        # the failure of 21/11: "hình." ended 0.43 s after the speech did, and the silence was refused ("the word changed length ... heard inside the silence")
+        timing = self.overrun_case(loud_in_pause=False)
+        _, wav, new = lang.run(self.tmp / "t.json", self.tmp / "v.wav", [dict(before=1, dur=3.0)], self.tmp / "out")
+        self.assertEqual(new["silences"], [dict(a=1.5, b=4.5, key=None)])
+        self.assertEqual(new["words_whisper_medium"][1]["e"], 1.5)
+        self.assertEqual(new["word_ends_cut_at_silence"], [dict(index=1, w="b", was=1.6, now=1.5)])
+        self.assertEqual(lang.check_result(timing, new, self.tmp / "v.wav", wav), [])
+
+    def test_speech_energy_inside_the_silence_is_still_refused(self):
+        self.overrun_case(loud_in_pause=True)
+        with self.assertRaises(lang.Refusal) as cm:
+            lang.run(self.tmp / "t.json", self.tmp / "v.wav", [dict(before=1, dur=3.0)], self.tmp / "out")
+        self.assertIn("heard inside the silence", str(cm.exception))
+
+    def test_an_overrun_longer_than_allowed_is_still_refused(self):
+        self.overrun_case(loud_in_pause=False)
+        t = small_timing()
+        t["words_whisper_medium"][1]["e"] = 2.1             # 0.6 s past the cut
+        (self.tmp / "t.json").write_text(json.dumps(t), encoding="utf-8")
+        with self.assertRaises(lang.Refusal):
+            lang.run(self.tmp / "t.json", self.tmp / "v.wav", [dict(before=1, dur=3.0)], self.tmp / "out")
+
+    def test_a_planted_cut_over_loud_voice_is_caught_by_the_check(self):
+        timing = self.overrun_case(loud_in_pause=False)
+        _, wav, new = lang.run(self.tmp / "t.json", self.tmp / "v.wav", [dict(before=1, dur=3.0)], self.tmp / "out")
+        write_wav(self.tmp / "loud.wav", 4.5)               # the same claim made against a voice that is loud there
+        bad = lang.check_result(timing, new, self.tmp / "loud.wav", wav)
+        self.assertTrue(any("not quiet there" in p for p in bad), bad)
+
     def test_refusals(self):
         for inserts, word in (([dict(before=0, dur=3.0)], "between two"), ([dict(before=3, dur=3.0)], "between two"), ([dict(before=1, dur=0.1)], "between 0.5 and 120"),
                               ([dict(before=1, dur=3.0), dict(before=1, dur=3.0)], "same gap")):

@@ -16,6 +16,8 @@ from pathlib import Path
 
 NO_VOICE_DBFS = -60.0            # the loudest sample inside a silent span may not be above this
 EPS = 1e-9
+OVERRUN_S = 0.5               # Whisper's word end may run this far past the measured end of the speech, into the pause, and still be cut at the pause
+QUIET_DBFS = -45.0             # the loudest sample of the original voice in that overrun may not be above this: above it, speech really is there
 
 
 class Refusal(Exception):
@@ -81,6 +83,22 @@ def shift_timing(timing, marks):
     return out
 
 
+def clip_overruns(timing, params, frames, marks):
+    """Whisper word ends are known to overrun. A word that starts before a silence is put in but ends after it (by at most OVERRUN_S) is cut at the silence
+    when the ORIGINAL voice there is quiet (the energy, not Whisper, says the speech is over); where it is not quiet, or the overrun is longer, the word stays
+    as it is and the check refuses the silence. Returns (timing with those word ends cut, [dict(index, w, was, now)])."""
+    out = json.loads(json.dumps(timing))
+    clipped = []
+    for i, w in enumerate(out['words_whisper_medium']):
+        for m in marks:
+            if w['s'] < m['at'] - EPS and m['at'] + EPS < w['e'] <= m['at'] + OVERRUN_S:
+                if peak_of(params, frames, m['at'], w['e']) <= QUIET_DBFS:
+                    clipped.append(dict(index=i, w=w['w'], was=w['e'], now=round(m['at'], 3)))
+                    w['e'] = round(m['at'], 3)
+                break
+    return out, clipped
+
+
 def insert_silences(timing, wav_in, inserts, wav_out):
     """Write `wav_out` (the voice with the silences in) and return the new timing. Marks are rounded to whole samples so the timing and the wav agree to the sample."""
     inserts = check_inserts(timing, inserts)
@@ -98,12 +116,20 @@ def insert_silences(timing, wav_in, inserts, wav_out):
         marks.append(dict(at=at / rate, dur=n / rate, key=i.get('key')))
     parts.append(frames[pos * unit:])
     write_wav(wav_out, params, b''.join(parts))
-    return shift_timing(timing, marks)
+    timing, clipped = clip_overruns(timing, params, frames, marks)
+    new = shift_timing(timing, marks)
+    if clipped:
+        new['word_ends_cut_at_silence'] = clipped
+    return new
 
 
 def peak_dbfs(wav, a, b):
     """The loudest sample between a and b seconds, in dBFS (-200 for digital silence)."""
     params, frames = read_wav(wav)
+    return peak_of(params, frames, a, b)
+
+
+def peak_of(params, frames, a, b):
     s = array.array('h')
     s.frombytes(frames)
     ch = params.nchannels
@@ -135,7 +161,16 @@ def check_result(timing_in, timing_out, wav_in, wav_out):
         pos, cut = pos + keep, b
     if fo[cut * unit:] != fi[pos * unit:]:
         problems.append('the voice after the last silence is not the original voice')
-    for wi, wo in zip(timing_in['words_whisper_medium'], timing_out['words_whisper_medium']):
+    cut = {c['index']: c for c in timing_out.get('word_ends_cut_at_silence', [])}
+    for c in cut.values():
+        wi = timing_in['words_whisper_medium'][c['index']]
+        if round(wi['e'], 3) != c['was'] or not 0 < c['was'] - c['now'] <= OVERRUN_S + EPS:
+            problems.append(f'the word "{c["w"]}" is cut at a silence by more than the {OVERRUN_S} s a word end may overrun')
+        elif peak_dbfs(wav_in, c['now'], c['was']) > QUIET_DBFS:
+            problems.append(f'the word "{c["w"]}" is cut at a silence but the voice is not quiet there ({c["now"]}-{c["was"]} s): speech is heard')
+    for k, (wi, wo) in enumerate(zip(timing_in['words_whisper_medium'], timing_out['words_whisper_medium'])):
+        if k in cut:
+            continue
         if round(wo['e'] - wo['s'], 2) != round(wi['e'] - wi['s'], 2):
             problems.append(f'the word "{wi["w"]}" changed length')
             break
