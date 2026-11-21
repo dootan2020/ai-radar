@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-21T03:22:15.719766+00:00",
-  "input_generated_at": "2026-11-21T02:46:42Z",
+  "generated_at": "2026-11-21T05:02:58.787162+00:00",
+  "input_generated_at": "2026-11-21T04:46:55Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -118329,10 +118329,10 @@
       "use_original_title": false,
       "source_url": "https://signal.org/blog/protecting-your-privacy/",
       "key_points": [
-        "Signal đang hạn chế các tác nhân AI (chương trình tự hành) trên hệ điều hành di động thu thập dữ liệu người dùng. Tổ chức này từng áp dụng cơ chế tương tự trên Windows 11 để ngăn Recall AI của Microsoft chụp lại tin nhắn.",
-        "Theo Signal, việc tác nhân AI cấp hệ điều hành quét màn hình đang làm suy yếu khả năng bảo đảm quyền riêng tư độc lập của ứng dụng. Đại diện ứng dụng giải thích dữ liệu nhạy cảm bị AI quét sẽ chuyển về máy chủ ngoài tầm kiểm soát của Signal.",
-        "Signal chặn chụp màn hình trên iOS 27 và ngăn trợ lý AI quét màn hình khi phát hiện hành vi này trên Android. Người dùng có thể tắt lớp bảo vệ trong cài đặt nhưng đối mặt nguy cơ lộ tin nhắn, trong khi Signal chưa thể chặn Siri AI trên macOS.",
-        "Signal thừa nhận biện pháp ngăn chặn vẫn chưa toàn diện do tác nhân AI vẫn có thể truy cập dữ liệu qua các tệp tin có sẵn trên thiết bị. Tổ chức này kêu gọi Apple, Google và Microsoft cung cấp tài liệu kỹ thuật cùng cơ chế cho phép ứng dụng từ chối việc AI truy cập dữ liệu."
+        "Signal thông báo đang triển khai các biện pháp hạn chế tác nhân AI (chương trình tự hành) tích hợp trên hệ điều hành di động thu thập dữ liệu người dùng. Ứng dụng này từng chặn chụp màn hình trên Windows 11 để ngăn tính năng Recall AI của Microsoft tự động ghi lại tin nhắn.",
+        "Theo Signal, các tác nhân AI quét màn hình để lấy thông tin nhằm phục vụ trả lời câu hỏi và thực hiện mệnh lệnh của người dùng. Dữ liệu nhạy cảm sau đó sẽ lưu trữ ở cơ sở dữ liệu cục bộ hoặc máy chủ từ xa của AI, hoàn toàn nằm ngoài quyền kiểm soát của Signal.",
+        "Signal chặn chụp màn hình trên iOS 27 và ngăn trợ lý AI quét màn hình trên Android khi phát hiện hành vi này. Người dùng có thể tắt tính năng bảo vệ trong cài đặt để chụp màn hình, trong khi Signal cho biết hiện chưa thể triển khai giải pháp trên macOS.",
+        "Signal thừa nhận biện pháp chặn chụp màn hình chưa toàn diện vì không ngăn được AI truy cập dữ liệu qua hệ thống tệp tin trên thiết bị. Tổ chức này nhận định việc tích hợp AI vào hệ điều hành đang là mối đe dọa sinh tồn đối với quyền riêng tư ở tầng ứng dụng trên toàn hệ sinh thái."
       ],
       "same_event_coverage_ids": [
         "1ba6980b8b4ae1dd601e",
@@ -118349,7 +118349,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Signal chặn tác nhân AI trên iOS 27 và Android chụp màn hình để bảo vệ dữ liệu người dùng",
+      "editorial_headline_vi": "Signal chặn các tác nhân AI trên iOS 27 và Android quét màn hình nhằm bảo vệ dữ liệu người dùng",
       "summary_sources": [
         {
           "id": "outlet",
@@ -118364,30 +118364,29 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 7.95,
+        "value": 9.1,
         "answers": {
-          "what": 9,
-          "why": 6,
+          "what": 10,
+          "why": 10,
           "notable": 8,
           "meaning": 8
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "dữ liệu nhạy cảm bị AI quét sẽ chuyển về máy chủ ngoài tầm kiểm soát của Signal",
-            "explanation": "The source says captured data becomes accessible to whatever local database or remote server the OS-level agent uses, not necessarily a server (outlet:p008)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "why",
-            "problem": "Readers are told captured data goes to a server in every case.",
-            "fix": "Say it can enter an agent's local database or remote server, both outside Signal's control (outlet:p008)."
+            "question": "notable",
+            "problem": "Readers are told they can disable screenshot protection without being told the stated consequence.",
+            "fix": "Add that doing so may expose their and their contacts’ Signal content to AI agents and break Signal’s privacy guarantees (outlet:p010)."
+          },
+          {
+            "question": "notable",
+            "problem": "Readers learn that macOS lacks this protection but miss the available action.",
+            "fix": "Add Signal’s recommendation for macOS 27 users to place Signal in System Settings > Siri > Excluded Apps (outlet:p022)."
           },
           {
             "question": "meaning",
-            "problem": "Readers miss Signal's conclusion that the issue extends beyond its own app.",
-            "fix": "Add that Signal describes current OS-agent integration as a threat to application-level privacy across the ecosystem (outlet:p018)."
+            "problem": "Readers miss what Signal wants OS providers to change.",
+            "fix": "Mention its call for controls that let developers opt apps out of AI data access and for clearer documentation of how agents access and process data (outlet:p013–p015)."
           }
         ],
         "writer_boats": [
@@ -118395,8 +118394,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "8d7bda2bfd0dd2e9f15ad8a7d7d91514930fad160c7474521375b6c26de3faa2",
-        "scored_at": "2026-11-21T03:22:15.693918+00:00"
+        "prose_sha256": "28a5abe9b3a6ae0d15ca56217eaa5b95117ab3937e61ff26ed4de24fe83592b2",
+        "scored_at": "2026-11-21T05:02:58.783944+00:00"
       }
     },
     {
@@ -118496,6 +118495,25 @@
       "split_coverage_ids": [
         "41d4d036eebae0431c74"
       ]
+    },
+    {
+      "id": "a2cf4b39fc9d52317d80",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "intake",
+      "reason": "publication date is in the future",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://sakana.ai/applied-research-lab/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "df9b7e31bd3cc252f6a6"
+      ],
+      "split_coverage_ids": []
     }
   ]
 }
