@@ -3,9 +3,12 @@ and every gate that refuses a clip. Standard library only: nothing here needs Ch
 import hashlib
 import importlib.util
 import json
+import shutil
+import subprocess
 import sys
 import tempfile
 import unittest
+from unittest import mock
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -127,6 +130,17 @@ class Timeline(unittest.TestCase):
     def counts(self):
         return {"counts": DEMO, "source": "dojo", "date": "21/11/2026"}
 
+    @unittest.skipUnless(shutil.which('node'), 'Node is required for the production page timeline tests')
+    def test_the_page_samples_the_producer_timeline_without_a_browser(self):
+        counts = dict(self.counts(), counts=dict(DEMO, TOOL_CALL_ARGS=15, TEXT_MESSAGE_CONTENT=22),
+                      order=['RUN_STARTED', 'STATE_SNAPSHOT', 'TOOL_CALL_START', 'TEXT_MESSAGE_CONTENT', 'RUN_FINISHED'])
+        cases = dict(counted=canh.timeline(SRC, counts, 26), names=canh.timeline(SRC),
+                     narrated=canh.timeline(SRC, counts, 25),
+                     shortest=canh.timeline(SRC, counts, 18), longest=canh.timeline(SRC, counts, 34))
+        result = subprocess.run(['node', str(HAL / 'scene3d' / 'timeline.test.mjs')], input=json.dumps(cases),
+                                capture_output=True, text=True, encoding='utf-8', timeout=30)
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
     def test_act_three_is_the_pinned_run_in_order_and_each_text_bead_carries_its_delta(self):
         d = canh.timeline(SRC, self.counts())
         self.assertEqual([e["name"] for e in d["run1"]], SRC["events"])
@@ -189,9 +203,53 @@ class Timeline(unittest.TestCase):
             canh.check_timeline(d, SRC, self.counts())
 
 
+class ProducerPaths(unittest.TestCase):
+    def test_relative_job_and_output_survive_the_renderer_working_directory(self):
+        with tempfile.TemporaryDirectory(dir=ROOT, prefix='scene paths ') as d:
+            root = Path(d)
+            job = root / 'job.json'
+            job.write_text(json.dumps({'scene': {'name': 'giao-thuc'}}), encoding='utf-8')
+            out = root / 'render output'
+            dependencies = root / 'dependencies'
+            dependencies.mkdir()
+
+            def renderer(cmd, *, cwd, **kwargs):
+                self.assertEqual(cwd, dependencies)
+                paths = {flag: Path(cmd[cmd.index(flag) + 1]) for flag in ('--data', '--out')}
+                self.assertTrue(all(p.is_absolute() for p in paths.values()), paths)
+                self.assertEqual(paths['--out'], out)
+                self.assertEqual(json.loads(paths['--data'].read_text(encoding='utf-8'))['frames'], 660)
+                (paths['--out'] / 'render.err').write_bytes(b'')
+                (paths['--out'] / 'render.json').write_text(json.dumps(good_render()), encoding='utf-8')
+                return subprocess.CompletedProcess(cmd, 0, '', '')
+
+            with mock.patch.object(canh, 'node_dir', return_value=dependencies), \
+                 mock.patch.object(canh, 'three_build', return_value=dependencies / 'three'), \
+                 mock.patch.object(canh.subprocess, 'run', side_effect=renderer), \
+                 mock.patch.object(canh, 'determinism'), mock.patch.object(canh, 'check_encoded', return_value={}):
+                args = ['run', '--job', str(job.relative_to(ROOT)), '--out', str(out.relative_to(ROOT))]
+                self.assertEqual(canh.main(args, say=lambda _: None), 0)
+            self.assertTrue((out / 'render.err').exists())
+            self.assertEqual(json.loads((out / 'clip.json').read_text(encoding='utf-8'))['frames'], 660)
+
+
 class Gates(unittest.TestCase):
+    def test_a_clock_in_a_page_helper_is_refused_before_rendering(self):
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            for name in canh.PAGE_MODULES:
+                shutil.copy2(HAL / 'scene3d' / name, root / name)
+            (root / 'timeline.mjs').write_bytes(b'const now = Date.now();\n')
+            with mock.patch.object(canh, 'HERE', root), mock.patch.object(canh, 'render') as render:
+                with self.assertRaises(canh.Refusal) as cm:
+                    canh.run({'scene': {'name': 'giao-thuc'}}, root / 'out')
+                self.assertIn('timeline.mjs uses Date', str(cm.exception))
+                render.assert_not_called()
+
     def test_the_scene_source_reads_no_clock_and_no_randomness(self):
-        self.assertTrue(canh.check_scene_source((HAL / "scene3d" / "giao-thuc.js").read_text(encoding="utf-8")))
+        for name in canh.PAGE_MODULES:
+            self.assertTrue(canh.check_scene_source((HAL / "scene3d" / name).read_text(encoding="utf-8"), name))
+            self.assertIn(name, canh.SCENE_FILES)
         for bad in ("const t = Date.now();", "x = Math.random();", "requestAnimationFrame(f);", "performance.now()", "setTimeout(f, 1)"):
             with self.assertRaises(canh.Refusal):
                 canh.check_scene_source(bad)

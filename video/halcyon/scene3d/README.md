@@ -2,16 +2,34 @@
 
 A three.js scene (22 s by default), drawn frame by frame in headless Chrome and encoded on the GPU, that shows how AG-UI works: the app sends **one request** (`POST` with `RunAgentInput`), the agent answers with **one stream of typed events** over HTTP SSE, the app reacts to each event as it lands (the reply assembles chunk by chunk, a tool is called, the shared state fills), and the supported agent frameworks all speak **the same connection** (the app's tools and state must still match the agent's). Labels are short and Vietnamese; event names stay as they travel on the wire.
 
+The picture uses three exploded translucent glass plates in a slowly drifting three-quarter view: agent framework, the cyan AG-UI protocol, and app. Each plate has a node lattice, corner brackets and blueprint callouts. The request rises; typed event beads descend through the protocol socket and light the lattice. Twelve framework tiles flip while the protocol stays lit. The app card assembles the reply and reacts to demo snapshots. The stack is roughly 600 px wide, with fixed HTML label rows and an app card above the subtitle boundary.
+
 ## Entry point
 `video/halcyon/halcyon_canh.py run --job <job.json> --out <folder>` (step `canh:<ref>` of `halcyon_mot_lenh.py`, which runs it with `python -I -X utf8`). The file says `CLIP_PRODUCER = 1`. It writes `<folder>/clip.json` and `clip.mp4` (plus `data.json`, `render.json`, `render.err`, the determinism PNG pairs).
 
+Relative `--job` and `--out` paths resolve from the caller's working directory before use. The renderer receives absolute data/output paths even though Node runs from its dependency directory.
+
 Job fields: `scene` (`{"name": "giao-thuc", ...}`; another name is refused; optional `duration` in s, 18-34, default 22: the acts are authored on a 26 s base and played proportionally, so the clip fits the narration over it), optional `events_run` (a run's `chay.json`), optional `counts_demo` (a demo's `demo.json`).
+
+The script can set that length on its **source**, shared by all beats referring to the clip:
+
+```json
+"sources": {
+  "giao-thuc": {
+    "scene": {"name": "giao-thuc", "events_from": "thu", "counts_from": "dojo", "duration": 25}
+  }
+}
+```
+
+The beat remains `{"kind":"scene3d","scene3d":{"ref":"giao-thuc"}}`. Choose `duration` from the measured beat span in the assembled voice timing; 25 above is an example, not a new default or a measurement of a particular voice. `halcyon_mot_lenh.py` validates the optional number before work and passes it unchanged to the scene job. `halcyon_kich_ban.py` checks an explicitly requested length against the manifest (within one frame), refuses a voiced span that would hold its last frame for more than 0.05 s, and still refuses a clip whose end would be cut. Its refusal names the measured span and source to edit. Re-render `canh:<ref>` after changing the source. Scripts without `duration` retain their existing behavior. Scene module changes also invalidate the chain's producer cache.
 
 | file | what |
 |---|---|
 | `canh.py` | timeline (pure, tested), source proofs, gates, `clip.json` |
 | `canh.mjs` | Playwright + installed Chrome (GPU, ANGLE D3D11), serves the page from disk under `http://canh.local/`, aborts and counts every other request, `renderAt(t)` per frame, screenshots at final size, pipes PNGs to `h264_nvenc` |
 | `scene.html`, `giao-thuc.js` | the page and the scene: every pixel a function of `t` |
+| `timeline.mjs` | pure frame sampler of `data.json`: flights, arrivals, tallies, state reaction and tile turns |
+| `stage.mjs` | pinned WebGL setup, glass primitives, HTML label measurement and explicit transparency ordering |
 | `giao-thuc-nguon.json` | the facts the scene draws and where each comes from (pinned README commit, fence sha256, event list, frameworks) |
 
 ## Where the numbers come from
@@ -24,7 +42,7 @@ Job fields: `scene` (`{"name": "giao-thuc", ...}`; another name is refused; opti
 | gate | refuses when |
 |---|---|
 | proof of diagram | act 3 differs from the pinned list; act 4's beads or tallies differ from the demo counts; a run record ran another fence |
-| deterministic | `giao-thuc.js` names `Date`, `performance.now`, `Math.random`, `requestAnimationFrame`, `setTimeout` or `setInterval`; three frames drawn again at the end, in reverse order, differ from the pass by more than 4 levels (the GPU's own rounding measured 2) |
+| deterministic | any page module (`giao-thuc.js`, `stage.mjs`, `timeline.mjs`) names `Date`, `performance.now`, `Math.random`, `requestAnimationFrame`, `setTimeout` or `setInterval`; three frames drawn again at the end, in reverse order, differ from the pass by more than 4 levels (the GPU's own rounding measured 2) |
 | offline | any request leaves `http://canh.local/`; `three.module.js` / `three.core.js` differ from the sha256 pin of three@0.187.0 |
 | GPU | the WebGL renderer string is a software rasteriser (SwiftShader, llvmpipe) |
 | legible | a label under 28 px, outside the clip, below clip y 890 (the subtitle of thu-gon-r3-l2), right of clip x 800 below clip y 476 (TikTok's button column), or two solid labels overlapping; checked on every frame |
@@ -32,7 +50,23 @@ Job fields: `scene` (`{"name": "giao-thuc", ...}`; another name is refused; opti
 
 The clip is 886x976 at 30 fps (the builder's rate; it plays clips 1:1), 22 s (660 frames) unless the job says otherwise; the builder seats it in the FOOT window of thu-gon-r3-l2 (frame y 364-1340), on the same ink as its `bg`.
 
+`window.renderAt(t)`, `window.labels()`, `window.sceneInfo`, `window.sceneFonts` and `window.sceneReady` retain the producer contract. Finite times clamp to the clip endpoints; non-finite inputs throw. Every event has a fixed object identity created before the first frame. Animated transforms, colors, opacity and visibility are assigned from the current sample. Glass never writes depth; opaque lattice nodes have fixed conservative instancing bounds. Current world matrices are updated before callout projection and transparent draw ordering. Glass and tile outlines use merged thin triangle tubes, avoiding native GL line coverage along their silhouettes without extra draw calls per outline. These choices remove dependence on lazy geometry creation, cached animated bounds and incidental blend ties; they do not replace the reverse-seek pixel gate.
+
+## Verification
+
+Run from the repository root, without a browser:
+
+```powershell
+python -m unittest tests.test_halcyon_canh tests.test_halcyon_silent
+python -m unittest discover -s tests -p 'test_halcyon*.py'
+Get-ChildItem video/halcyon/scene3d -Recurse -File -Include *.js,*.mjs | ForEach-Object { node --check $_.FullName; if ($LASTEXITCODE -ne 0) { throw $_.FullName } }
+```
+
+The Python suite feeds production-generated timelines into `timeline.test.mjs` using Node. It covers all seven events, delta arrival, the 35/18/22 demo grouping, per-arrival counts, request direction, the protocol crossing, four framework turns, names-only mode and every-frame reverse/shuffled seeks across the duration range, including exact 30 fps samples around frame 412 and the last README arrival of a 25 s clip. Duration tests cover script validation, the emitted producer job, stale manifests, narration coverage, unchanged silent-beat checks and cache invalidation. A producer-boundary test covers relative job/output paths with a different Node working directory.
+
+The coordinator must still render through `halcyon_canh.py` with the real run/demo manifests. Only that render can establish font rectangles and overlaps on every frame, reverse-seek pixel differences, GPU performance, visual fidelity and encoded ground color. Offline unit tests do not certify those gates.
+
 ## Tooling (where three.js lives)
 playwright-core and three resolve from the chain's `video/` folder (`HALCYON_NODE_DIR` overrides it). `three` is a dependency of `video/package.json`, pinned at exactly 0.187.0 (MIT, no dependencies, no install scripts), so the chain's ordinary `npm install --ignore-scripts` in `video/` brings it, and it stays for other work (owner, 21/11/2026 04:44: "Giữ lại threejs cho các tác vụ khác"). The producer still checks the sha256 of `three.module.js` and `three.core.js` and refuses a different build. Fonts: Be Vietnam Pro (brand/fonts), Barlow Condensed and JetBrains Mono (video/halcyon/fonts). Chrome: the installed one (`CHROME_PATH` overrides).
 
-Measured 21/11/2026 on the RTX 2060: WebGL `ANGLE (NVIDIA, NVIDIA GeForce RTX 2060 Direct3D11)`, 660 frames in about 21 s (31 ms a frame), 9 files served, 0 aborted.
+The previous scene measured 21/11/2026 on the RTX 2060: WebGL `ANGLE (NVIDIA, NVIDIA GeForce RTX 2060 Direct3D11)`, 660 frames in about 21 s (31 ms a frame), 9 files served, 0 aborted. The exploded-layers scene adds two local module routes; its GPU timing needs a fresh measurement.

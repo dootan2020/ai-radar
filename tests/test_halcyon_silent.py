@@ -192,6 +192,31 @@ class SilentBeat(TmpCase):
 
 # ------------------------------------------------------------------ the three beat kinds
 class BeatKinds(TmpCase):
+    def test_explicit_scene_duration_matches_the_clip_and_the_voiced_span(self):
+        f = self.fx()
+        f.kb.setdefault('sources', {})['giao-thuc'] = {'scene': {'name': 'giao-thuc', 'duration': 25}}
+        f.clips['scene3d:giao-thuc'] = man_clip(f.tmp / 'scene.json', duration=25)
+        run = kbm.Run(f.kb, f.timing, f.manifest, f.tmp, f.timing_path, clips=f.clips)
+        beat = dict(spec={'kind': 'scene3d', 'scene3d': {'ref': 'giao-thuc'}}, a=10, b=35)
+        result = {}
+        run.clip_beat(beat, result, 'scene beat', False)
+        self.assertEqual(result['picture']['dur'], 25)
+        for length, span, said in ((22, 25, 'rerun canh:giao-thuc'), (25, 28, 'holding the last frame'), (25, 24, 'would be cut')):
+            man_clip(f.tmp / 'scene.json', duration=length)
+            beat['b'] = beat['a'] + span
+            with self.assertRaises(SystemExit) as cm:
+                run.clip_beat(beat, {}, 'scene beat', False)
+            self.assertIn(said, str(cm.exception))
+        # Silent beats still require their silence to match the full clip.
+        man_clip(f.tmp / 'scene.json', duration=25)
+        beat['b'] = 35
+        run.clip_beat(beat, result, 'scene beat', True)
+        self.assertFalse(result['captions'])
+        beat['b'] = 36
+        with self.assertRaises(SystemExit) as cm:
+            run.clip_beat(beat, {}, 'scene beat', True)
+        self.assertIn('silent beat lasts', str(cm.exception))
+
     def test_screen_and_scene3d_assemble_to_clip_pictures(self):
         for beat, key, kind in (({"kind": "screen", "screen": {"ref": "thu", "steps": [2, 3]}}, "screen:thu:2-3", "clip"),
                                 ({"kind": "scene3d", "scene3d": {"ref": "giao-thuc"}}, "scene3d:giao-thuc", "clip")):
@@ -481,6 +506,17 @@ def v3_script(silent_beat=None, extra_sources=None):
 
 
 class ScriptContract(unittest.TestCase):
+    def test_scene_duration_is_owned_by_the_source_and_validated_before_work(self):
+        for duration in (18, 25.03, 34):
+            kb = v3_script()
+            kb['sources']['giao-thuc']['scene']['duration'] = duration
+            self.assertEqual(ml.check_script(kb).scenes['giao-thuc']['scene']['duration'], duration)
+        for bad in (True, None, '25', 17.99, 34.01, float('nan'), float('inf')):
+            kb = v3_script()
+            kb['sources']['giao-thuc']['scene']['duration'] = bad
+            self.refused(kb, 'scene.duration', '18-34')
+        self.assertIsNone(kbm.scene_duration({}))
+
     def refused(self, kb, *words):
         with self.assertRaises(ml.Refusal) as cm:
             ml.check_script(kb)
@@ -544,6 +580,41 @@ class ScriptContract(unittest.TestCase):
 
 
 class Producers(unittest.TestCase):
+    def test_script_duration_reaches_the_scene_job_and_producer_timeline(self):
+        # Stop at the process boundary: the real job is written but Chrome must not run.
+        class JobCaptured(Exception):
+            pass
+        with tempfile.TemporaryDirectory() as d:
+            kb = v3_script()
+            kb['sources']['giao-thuc']['scene']['duration'] = 25.03
+            plan = ml.check_script(kb)
+            ctx = ml.Ctx(Path(d) / 's.json', Path(d) / 'run', plan, kb, {'gpu_python': sys.executable})
+            with mock.patch.object(ml, 'run_process', side_effect=JobCaptured):
+                with self.assertRaises(JobCaptured):
+                    ml.step_producer(ctx, 'scene', 'giao-thuc')
+            job = load(ctx.canh / 'giao-thuc' / 'job.json')
+            self.assertEqual(job['scene']['duration'], 25.03)
+            self.assertEqual(job['events_run'], str(ctx.chay / 'thu' / 'chay.json'))
+            self.assertEqual(job['counts_demo'], str(ctx.demo / 'dojo' / 'demo.json'))
+            producer = load_module('halcyon_duration_t', HAL / 'halcyon_canh.py').canh
+            data = producer.timeline(producer.load_sources(), duration=job['scene']['duration'])
+            self.assertEqual((data['duration'], data['frames']), (25.03, 751))
+            self.assertEqual(producer.DURATION_RANGE, (18, 34))
+
+    def test_scene_helpers_invalidate_the_producer_cache(self):
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            shutil.copy2(HAL / 'halcyon_canh.py', root / 'halcyon_canh.py')
+            producer = load_module('halcyon_cache_t', HAL / 'halcyon_canh.py').canh
+            (root / 'scene3d').mkdir()
+            for name in producer.SCENE_FILES:
+                shutil.copy2(HAL / 'scene3d' / name, root / 'scene3d' / name)
+            with mock.patch.object(ml, 'HERE', root):
+                before = ml.producer_tool_sha('scene')
+                helper = root / 'scene3d' / 'timeline.mjs'
+                helper.write_bytes(helper.read_bytes() + b'\n// source changed\n')
+                self.assertNotEqual(ml.producer_tool_sha('scene'), before)
+
     def test_the_table_names_three_producers_and_the_unbuilt_ones_are_missing(self):
         self.assertEqual({k: v["step"] for k, v in ml.PRODUCERS.items()}, {"run": "chay", "scene": "canh", "demo": "demo"})
         plan = ml.check_script(v3_script())
