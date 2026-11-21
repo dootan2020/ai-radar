@@ -1,0 +1,264 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-22",
+  "timezone": "Asia/Ho_Chi_Minh",
+  "window_start_at": "2026-11-20T23:00:00Z",
+  "cutoff_at": "2026-11-21T23:00:00Z",
+  "created_at": "2026-11-21T23:09:07Z",
+  "snapshot_generated_at": "2026-11-21T23:07:00Z",
+  "policy": {
+    "method": "daily-evidence-v3",
+    "max_stories": 5,
+    "window_hours": 24,
+    "cutoff_hour": 6,
+    "engagement_percentile_min": 0.8,
+    "publisher_coverage_excludes_forums": true,
+    "attention_requires_nonforum": true,
+    "forum_exception_percentile_min": 0.97,
+    "forum_exception_comments_min": 100,
+    "max_forum_only_stories": 1,
+    "score_measured_at": "2026-11-21T23:07:00Z",
+    "description": "Ưu tiên dấu hiệu công bố, số nhà xuất bản và tương tác đo được; sau đó theo điểm nóng và thời gian công bố"
+  },
+  "stories": [
+    {
+      "id": "24a3a35b947b3236755b",
+      "title": "Introducing managed cluster extensions for observability and user management in Amazon SageMaker HyperPod Slurm",
+      "title_vi": "Ra mắt mở rộng cluster được quản lý cho khả năng quan sát và quản lý người dùng trong Amazon SageMaker HyperPod Slurm",
+      "headline": "Introducing managed cluster extensions for observability and user management in Amazon SageMaker HyperPod Slurm",
+      "headline_vi": "Ra mắt mở rộng cluster được quản lý cho khả năng quan sát và quản lý người dùng trong Amazon SageMaker HyperPod Slurm",
+      "url": "https://aws.amazon.com/blogs/machine-learning/introducing-managed-cluster-extensions-for-observability-and-user-management-in-amazon-sagemaker-hyperpod-slurm/",
+      "published_at": "2026-11-20T23:07:03Z",
+      "kind": "product",
+      "time_basis": "published",
+      "editorial_headline_vi": "Amazon ra mắt tiện ích mở rộng hỗ trợ quan sát và quản lý người dùng cho cụm HyperPod Slurm",
+      "editorial_headline_verified": true,
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "cf01322e2c62c479ebbe",
+          "title": "Introducing managed cluster extensions for observability and user management in Amazon SageMaker HyperPod Slurm",
+          "title_vi": "Ra mắt mở rộng cluster được quản lý cho khả năng quan sát và quản lý người dùng trong Amazon SageMaker HyperPod Slurm",
+          "headline": "Introducing managed cluster extensions for observability and user management in Amazon SageMaker HyperPod Slurm",
+          "headline_vi": "Ra mắt mở rộng cluster được quản lý cho khả năng quan sát và quản lý người dùng trong Amazon SageMaker HyperPod Slurm",
+          "url": "https://aws.amazon.com/blogs/machine-learning/introducing-managed-cluster-extensions-for-observability-and-user-management-in-amazon-sagemaker-hyperpod-slurm/",
+          "published_at": "2026-11-20T23:07:03Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "aws-ml-blog",
+          "publisher": "amazon",
+          "entity": "amazon",
+          "group": "lab",
+          "observed_at": "2026-11-21T23:07:00Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [
+          {
+            "code": "primary_release",
+            "text": "Tiêu đề nguồn gốc có dấu hiệu công bố model hoặc sản phẩm",
+            "observation_ids": [
+              "cf01322e2c62c479ebbe"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "amazon"
+          ],
+          "age_hours_at_cutoff": 23.8825,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "f52216bdae320c5247f4",
+      "title": "Here are the top AI agents that can live in your text messages",
+      "title_vi": "Dưới đây là các agent AI hàng đầu có thể hiện diện ngay trong tin nhắn văn bản của bạn",
+      "headline": "Here are the top AI agents that can live in your text messages",
+      "headline_vi": "Dưới đây là các agent AI hàng đầu có thể hiện diện ngay trong tin nhắn văn bản của bạn",
+      "url": "https://techcrunch.com/2026/11/21/all-the-ai-agents-that-can-live-in-your-text-messages/",
+      "published_at": "2026-11-21T17:00:00Z",
+      "kind": "product",
+      "time_basis": "published",
+      "editorial_headline_vi": "Instinct đạt định giá 10 tỷ USD giữa làn sóng trợ lý ảo AI hoạt động qua tin nhắn",
+      "editorial_headline_verified": true,
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "8f8967adc953244d674a",
+          "title": "Here are the top AI agents that can live in your text messages",
+          "title_vi": "Dưới đây là các agent AI hàng đầu có thể hiện diện ngay trong tin nhắn văn bản của bạn",
+          "headline": "Here are the top AI agents that can live in your text messages",
+          "headline_vi": "Dưới đây là các agent AI hàng đầu có thể hiện diện ngay trong tin nhắn văn bản của bạn",
+          "url": "https://techcrunch.com/2026/11/21/all-the-ai-agents-that-can-live-in-your-text-messages/",
+          "published_at": "2026-11-21T17:00:00Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "techcrunch-ai",
+          "publisher": "techcrunch",
+          "entity": "techcrunch",
+          "group": "press",
+          "observed_at": "2026-11-21T23:07:00Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [],
+        "signals": {
+          "publishers": [
+            "techcrunch"
+          ],
+          "age_hours_at_cutoff": 6.0,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "f2e0e504895b9fb3da93",
+      "title": "Is selling an AI version of your face to this microdrama startup the future of Hollywood?",
+      "title_vi": "Việc bán một phiên bản AI của khuôn mặt của bạn cho một công ty khởi nghiệp microdrama này là tương lai của Hollywood?",
+      "headline": "Is selling an AI version of your face to this microdrama startup the future of Hollywood?",
+      "headline_vi": "Việc bán một phiên bản AI của khuôn mặt của bạn cho một công ty khởi nghiệp microdrama này là tương lai của Hollywood?",
+      "url": "https://techcrunch.com/2026/11/21/is-selling-an-ai-version-of-your-face-to-this-microdrama-startup-the-future-of-hollywood/",
+      "published_at": "2026-11-21T16:00:00Z",
+      "kind": "other",
+      "time_basis": "published",
+      "editorial_headline_vi": "Shortical chiếu phim AI dùng gương mặt diễn viên Aki Avni nhưng chưa ký được hợp đồng cấp phép mới",
+      "editorial_headline_verified": true,
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "7c0b55dffb00b2ec3b98",
+          "title": "Is selling an AI version of your face to this microdrama startup the future of Hollywood?",
+          "title_vi": "Việc bán một phiên bản AI của khuôn mặt của bạn cho một công ty khởi nghiệp microdrama này là tương lai của Hollywood?",
+          "headline": "Is selling an AI version of your face to this microdrama startup the future of Hollywood?",
+          "headline_vi": "Việc bán một phiên bản AI của khuôn mặt của bạn cho một công ty khởi nghiệp microdrama này là tương lai của Hollywood?",
+          "url": "https://techcrunch.com/2026/11/21/is-selling-an-ai-version-of-your-face-to-this-microdrama-startup-the-future-of-hollywood/",
+          "published_at": "2026-11-21T16:00:00Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "techcrunch-ai",
+          "publisher": "techcrunch",
+          "entity": "techcrunch",
+          "group": "press",
+          "observed_at": "2026-11-21T23:07:00Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [],
+        "signals": {
+          "publishers": [
+            "techcrunch"
+          ],
+          "age_hours_at_cutoff": 7.0,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "3298713995b153167b47",
+      "title": "Can Anthropic afford to put safety first?",
+      "title_vi": "Anthropic có đủ khả năng đặt an toàn lên đầu không?",
+      "headline": "Can Anthropic afford to put safety first?",
+      "headline_vi": "Anthropic có đủ khả năng đặt an toàn lên đầu không?",
+      "url": "https://www.theverge.com/podcast/1038701/anthropic-ipo-ai-safety-openai-nvidia-structure",
+      "published_at": "2026-11-21T15:00:00Z",
+      "kind": "other",
+      "time_basis": "published",
+      "editorial_headline_vi": "Anthropic lên sàn Nasdaq giữa áp lực chi phí điện toán 900 tỷ USD và cam kết an toàn",
+      "editorial_headline_verified": true,
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "9b7dbc0718260c82d16d",
+          "title": "Can Anthropic afford to put safety first?",
+          "title_vi": "Anthropic có đủ khả năng đặt an toàn lên đầu không?",
+          "headline": "Can Anthropic afford to put safety first?",
+          "headline_vi": "Anthropic có đủ khả năng đặt an toàn lên đầu không?",
+          "url": "https://www.theverge.com/podcast/1038701/anthropic-ipo-ai-safety-openai-nvidia-structure",
+          "published_at": "2026-11-21T15:00:00Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "verge-ai",
+          "publisher": "the-verge",
+          "entity": "the-verge",
+          "group": "press",
+          "observed_at": "2026-11-21T23:07:00Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [],
+        "signals": {
+          "publishers": [
+            "the-verge"
+          ],
+          "age_hours_at_cutoff": 8.0,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "3cc8dcd19aac45499d29",
+      "title": "(LEAD) Lee visits AI data center construction site in Ulsan",
+      "headline": "(LEAD) Lee visits AI data center construction site in Ulsan",
+      "url": "https://en.yna.co.kr/view/AEN20261121001051320",
+      "published_at": "2026-11-21T05:38:06Z",
+      "kind": "other",
+      "time_basis": "published",
+      "editorial_headline_vi": "Tổng thống Hàn Quốc Lee Jae Myung thị sát công trường trung tâm dữ liệu AI của SK Inc. tại Ulsan",
+      "editorial_headline_verified": true,
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "b16291a58cbccd2d6763",
+          "title": "(LEAD) Lee visits AI data center construction site in Ulsan",
+          "headline": "(LEAD) Lee visits AI data center construction site in Ulsan",
+          "url": "https://en.yna.co.kr/view/AEN20261121001051320",
+          "published_at": "2026-11-21T05:38:06Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "yonhap",
+          "publisher": "yonhap",
+          "entity": "yonhap",
+          "group": "press",
+          "observed_at": "2026-11-21T23:07:00Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [],
+        "signals": {
+          "publishers": [
+            "yonhap"
+          ],
+          "age_hours_at_cutoff": 17.365,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    }
+  ],
+  "source_health": {
+    "active_remote_sources": 77,
+    "successful_remote_sources": 77,
+    "failed_remote_sources": []
+  }
+}
