@@ -10,7 +10,7 @@ TikTok overlay, RGB -> YUV 4:2:0 BT.709) and NVENC (h264_nvenc). CUDA missing, N
 The look is the approved one of video #1/#2 (co-van-chinh-chu.md, co-van-bo-cuc-video-02.md); the drawing code is lifted from the video #2 builder."""
 import sys
 sys.dont_write_bytecode = True
-import difflib, importlib.util, json, math, re, shutil, subprocess, time, unicodedata
+import difflib, importlib.util, json, math, re, shutil, subprocess, tempfile, time, unicodedata
 from pathlib import Path
 import numpy as np
 import torch
@@ -163,19 +163,90 @@ def apply_skin_gpu(p, level, f):
     return p * (1 - A) + rgb * A
 
 
-def decode_nv12(webm, nframes, w=390, h=844):
-    """Frames 0..nframes-1 of a recording, decoded by NVDEC (hwaccel cuda) -> uint8 (n, w*h*3/2)."""
-    fb = w * h * 3 // 2
-    cmd = ['ffmpeg', '-v', 'error', '-hwaccel', 'cuda', '-hwaccel_output_format', 'cuda', '-i', str(webm),
-           '-vf', 'hwdownload,format=nv12', '-frames:v', str(nframes), '-f', 'rawvideo', '-pix_fmt', 'nv12', '-']
-    r = subprocess.run(cmd, capture_output=True)
-    if r.returncode != 0:
-        raise SystemExit('NVDEC decode failed: ' + r.stderr.decode('utf-8', 'replace')[-1500:])
-    n = len(r.stdout) // fb
+def stream_raw(cmd, total, sink, chunk=1 << 22):
+    """Run cmd and hand its stdout to sink(view, offset) in pieces of at most `chunk` bytes, reusing one scratch buffer; the first `total`
+    bytes only, anything extra is drained. A single subprocess.run(capture_output=True) grows a bytes buffer by doubling and then copies it
+    again, which needs several times the output size in commit charge; when that fails inside its reader thread ffmpeg blocks on a full pipe
+    and the caller waits forever. stderr goes to a temp file, so it can never fill a pipe and block ffmpeg; ffmpeg is killed if anything goes
+    wrong while reading. Returns (bytes delivered, exit code, stderr bytes)."""
+    scratch = bytearray(min(chunk, max(total, 1)))
+    mv = memoryview(scratch)
+    got = 0
+    with tempfile.TemporaryFile() as errf:
+        p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=errf)
+        try:
+            while got < total:
+                k = p.stdout.readinto(mv[:min(len(scratch), total - got)])
+                if not k:
+                    break
+                sink(mv[:k], got)
+                got += k
+            while p.stdout.read(chunk):  # drain anything extra so the exit code is the real one
+                pass
+            rc = p.wait()
+        finally:
+            if p.poll() is None:
+                p.kill()
+                p.wait()
+            p.stdout.close()
+        errf.seek(0)
+        err = errf.read()
+    return got, rc, err
+
+
+def read_raw_frames(cmd, total, chunk=1 << 22):
+    """stream_raw into one preallocated uint8 array of `total` bytes. Returns (array holding the bytes read, exit code, stderr bytes)."""
+    out = np.empty(total, np.uint8)
+
+    def sink(view, off):
+        out[off:off + len(view)] = np.frombuffer(view, np.uint8)
+    got, rc, err = stream_raw(cmd, total, sink, chunk)
+    return out[:got], rc, err
+
+
+def read_raw_frames_gpu(cmd, total, skip, chunk=1 << 22):
+    """stream_raw straight into a CUDA uint8 tensor of total - skip bytes, dropping the first `skip` bytes: no host copy of the clip is ever
+    held, which matters when Windows commit is short (the host array, the CUDA buffer and torch's own reserve are all charged to it).
+    Returns (tensor of the bytes kept, exit code, stderr bytes)."""
+    dev = torch.empty(total - skip, dtype=torch.uint8, device=DEV)
+
+    def sink(view, off):
+        a, b = max(off, skip), off + len(view)
+        if b > a:
+            dev[a - skip:b - skip].copy_(torch.frombuffer(view[a - off:], dtype=torch.uint8))
+    got, rc, err = stream_raw(cmd, total, sink, chunk)
+    return dev[:max(got - skip, 0)], rc, err
+
+
+def nv12_cmd(webm, nframes):
+    return ['ffmpeg', '-v', 'error', '-hwaccel', 'cuda', '-hwaccel_output_format', 'cuda', '-i', str(webm),
+            '-vf', 'hwdownload,format=nv12', '-frames:v', str(nframes), '-f', 'rawvideo', '-pix_fmt', 'nv12', '-']
+
+
+def check_decoded(webm, nframes, fb, got_bytes, rc, err):
+    if rc != 0:
+        raise SystemExit('NVDEC decode failed: ' + err.decode('utf-8', 'replace')[-1500:])
+    n = got_bytes // fb
     if n < nframes:
         raise SystemExit(f'decoded only {n} of {nframes} frames from {webm} (is it 390x844?)')
-    return np.frombuffer(r.stdout, np.uint8)[:nframes * fb].reshape(nframes, fb), cmd
 
+
+def decode_nv12(webm, nframes, w=390, h=844):
+    """Frames 0..nframes-1 of a recording, decoded by NVDEC (hwaccel cuda) -> uint8 (n, w*h*3/2) in host memory."""
+    fb = w * h * 3 // 2
+    cmd = nv12_cmd(webm, nframes)
+    got, rc, err = read_raw_frames(cmd, nframes * fb)
+    check_decoded(webm, nframes, fb, len(got), rc, err)
+    return got.reshape(nframes, fb), cmd
+
+
+def decode_nv12_gpu(webm, nframes, lo, w=390, h=844):
+    """Frames lo..nframes-1 as a CUDA uint8 tensor (nframes - lo, w*h*3/2), streamed from NVDEC without a host copy of the clip."""
+    fb = w * h * 3 // 2
+    cmd = nv12_cmd(webm, nframes)
+    dev, rc, err = read_raw_frames_gpu(cmd, nframes * fb, lo * fb)
+    check_decoded(webm, nframes, fb, len(dev) + lo * fb, rc, err)
+    return dev.view(nframes - lo, fb), cmd
 
 def nv12_to_rgb(buf, w=390, h=844):
     Y = buf[:w * h].view(h, w).float()
@@ -672,16 +743,14 @@ def build_beats(S, units):
         beats.append(b); byid[i] = b
     for clip, bl in nvid.items():
         need_n = max(int(math.floor((bb['src0'] + bb['sdur']) * SRC_FPS + 1e-6)) for bb in bl) + 1
-        t0 = time.time(); raw, cmd = decode_nv12(clip, need_n); print(f'NVDEC decoded {need_n} frames of {Path(clip).name} in {time.time() - t0:.2f} s', flush=True)
         lo = min(int(math.floor(bb['src0'] * SRC_FPS + 1e-6)) for bb in bl)
-        buf = torch.from_numpy(raw[lo:need_n].copy()).to(DEV)
+        t0 = time.time(); buf, cmd = decode_nv12_gpu(clip, need_n, lo); print(f'NVDEC decoded {need_n} frames of {Path(clip).name} in {time.time() - t0:.2f} s', flush=True)
         for bb in bl:
             bb['frames'] = buf; bb['lo'] = lo
     for (clip, cw, ch, sfps), bl in nclip.items():
         need_n = min(max(int(math.floor((bb['src0'] + bb['sdur']) * sfps + 1e-6)) for bb in bl) + 1, bl[0]['sframes'])
-        t0 = time.time(); raw, cmd = decode_nv12(clip, need_n, cw, ch); print(f'NVDEC decoded {need_n} frames of {Path(clip).name} ({cw}x{ch}) in {time.time() - t0:.2f} s', flush=True)
         lo = min(int(math.floor(bb['src0'] * sfps + 1e-6)) for bb in bl)
-        buf = torch.from_numpy(raw[lo:need_n].copy()).to(DEV)
+        t0 = time.time(); buf, cmd = decode_nv12_gpu(clip, need_n, lo, cw, ch); print(f'NVDEC decoded {need_n} frames of {Path(clip).name} ({cw}x{ch}) in {time.time() - t0:.2f} s', flush=True)
         for bb in bl:
             bb['frames'] = buf; bb['lo'] = lo
             ts = bb['stills_t'] or [bb['src0'] + bb['sdur'] / 2]        # a frame that is only the clip's background is refused: the producer drew nothing, or the span is past its content
