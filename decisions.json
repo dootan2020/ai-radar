@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-21T05:02:58.787162+00:00",
-  "input_generated_at": "2026-11-21T04:46:55Z",
+  "generated_at": "2026-11-21T09:22:39.223478+00:00",
+  "input_generated_at": "2026-11-21T08:47:06Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -118514,6 +118514,319 @@
         "df9b7e31bd3cc252f6a6"
       ],
       "split_coverage_ids": []
+    },
+    {
+      "id": "3cc8dcd19aac45499d29",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://en.yna.co.kr/view/AEN20261121001051320",
+      "key_points": [
+        "Tổng thống Lee Jae Myung đã đến thăm công trường xây dựng trung tâm dữ liệu AI do SK Inc. vận hành tại thành phố Ulsan. Chuyến đi diễn ra sau chuyến công du bốn ngày của ông tới Philippines và Trung Quốc.",
+        "Theo Yonhap, chuyến thăm nhằm kiểm tra tiến độ các đại dự án để biến ba vùng địa phương thành trung tâm công nghiệp tiên tiến.",
+        "Tại đây, ông Lee khẳng định trung tâm dữ liệu AI là nguồn cầu bán dẫn lớn và là hạ tầng then chốt cho AI vật lý (trí tuệ nhân tạo điều khiển thiết bị thực tế như robot hay xe tự lái).",
+        "Ông Lee kỳ vọng dự án tại Ulsan sẽ là chất xúc tác thu hút thêm đầu tư từ các công ty AI toàn cầu. Ông Lee cũng lưu ý chính phủ có kế hoạch hỗ trợ giải quyết tình trạng thiếu nhân công xây dựng cho những cơ sở này."
+      ],
+      "same_event_coverage_ids": [
+        "b16291a58cbccd2d6763"
+      ],
+      "split_coverage_ids": [],
+      "subject": "President Lee Jae Myung's visit to SK AI data center in Ulsan",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Lee Jae Myung"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Tổng thống Hàn Quốc Lee Jae Myung thị sát công trường trung tâm dữ liệu AI của SK Inc. tại Ulsan",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "yonhap",
+          "url": "https://en.yna.co.kr/view/AEN20261121001051320"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.5,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The reader misses the intended effect of the three projects on regional growth.",
+            "fix": "Add that Lee said they would play a crucial role in promoting balanced regional growth (outlet:p006)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "765c973b8e746e18dd9163ff6755232bb0d8ffbee00f48f59b6a262a9c3ae2c0",
+        "scored_at": "2026-11-21T09:17:49.588024+00:00"
+      }
+    },
+    {
+      "id": "8497bc1e7a354a4d6e3e",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "http://ricapar.net/ClawDOS/",
+      "key_points": [
+        "Tác giả giới thiệu ClawDOS, một tác nhân AI lập trình (phần mềm AI tự viết mã) chạy trên hệ điều hành DOS. Hệ thống hoạt động trên máy tính IBM PC XT với chip 8088 xung nhịp 4,77 MHz, RAM 640K và cạc CGA.",
+        "Tác giả cho biết đã tạo dự án nhằm giải trí và muốn thử thách giới hạn lập trình của AI trước các ràng buộc phần cứng cổ điển. Toàn bộ mã nguồn dự án đều do mô hình Claude viết, trừ phần ghi chú của tác giả.",
+        "Trong một thử nghiệm, ClawDOS tự đọc tài liệu hướng dẫn, viết mã Turbo C tìm số nguyên tố dưới 100 rồi biên dịch, liên kết và chạy tệp trong một lệnh gọi duy nhất.",
+        "Tác giả lưu ý máy vẫn cần máy tính cầu nối xử lý mã hóa TLS vì chip 8088 không thể đảm đương. Người dùng cần máy Mac hoặc Windows chạy Python 3 và khóa API Anthropic để dùng trực tiếp, nhưng hệ thống vẫn có chế độ giả lập chạy ngoại tuyến khi không có khóa."
+      ],
+      "same_event_coverage_ids": [
+        "396222efb3ff7315e6e9",
+        "f36d3990e43fd4df4743"
+      ],
+      "split_coverage_ids": [],
+      "subject": "ClawDOS AI coding agent for DOS",
+      "video_labels": {
+        "video_hook": "usable_now",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Tác giả công bố dự án ClawDOS cho phép AI lập trình trực tiếp trên máy tính cổ IBM PC XT chạy hệ điều hành DOS",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "http://ricapar.net/ClawDOS/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.1,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 8,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The demonstration loses the concrete measure of performance.",
+            "fix": "Add that the primes result appeared 64 seconds after Enter, including 26 seconds for compiling, linking and running (outlet:p014)."
+          },
+          {
+            "question": "meaning",
+            "problem": "Readers may miss that the DOS machine runs the harness itself.",
+            "fix": "State that the 8088 handles the harness and its tools while the bridge PC handles TLS (outlet:p010–p012)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "859269be92eccdfc5b9b8c018d67a5c3ab4b54b83b28ed0d7056850eae62da2e",
+        "scored_at": "2026-11-21T09:22:39.196992+00:00"
+      }
+    },
+    {
+      "id": "0a3ec8c0c75eae1b6231",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Executive lifestyle report concerning Anthropic CEO Dario Amodei vacationing at an Italian resort; executive personal travel is not substantive AI news, making AI purely incidental.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-20/anthropic-ceo-vacations-at-italian-resort-after-public-listing",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "f8953b10781f08ddb566"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "0d485e0dfc8d69ca8363",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theguardian.com/business/2026/nov/20/global-stock-markets-slump-anthropic-ipo-ai-sell-off",
+      "key_points": [
+        "Cổ phiếu Anthropic giảm 9% trong ngày giao dịch thứ hai xuống 88,30 USD, đánh mất phần lớn mức tăng từ đợt IPO kỷ lục. Chỉ số Nasdaq cũng xóa sạch mức tăng năm 2026 khi đợt IPO này không thể ngăn chặn đợt bán tháo cổ phiếu AI toàn cầu.",
+        "Chuyên gia Chris Beauchamp tại nền tảng IG nhận định Anthropic có thể hút cạn thanh khoản khi nhà đầu tư bán cổ phiếu khác để mua mã này.",
+        "Dù vậy, cổ phiếu Anthropic vẫn giữ mốc 88,30 USD, cao hơn giá chào sàn 83 USD sau khi từng tăng 17% ở ngày đầu.",
+        "Chuyên gia Daniela Hathorn tại Capital.com nhận định đợt IPO không đủ vượt qua lo ngại về định giá cao và lợi nhuận, dù nhu cầu đầu tư AI vẫn lớn. Bà cho biết tâm lý thị trường đã chuyển từ mua bắt đáy sang lo ngại đợt điều chỉnh sẽ còn tiếp diễn."
+      ],
+      "same_event_coverage_ids": [
+        "1af44d449ff08d15e7cc",
+        "8f47af9d84153a94cf85",
+        "d23e5690f6973c34a881"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Nasdaq AI market sell-off and Anthropic trading decline",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Cổ phiếu Anthropic giảm 9% và Nasdaq xóa sạch mức tăng năm 2026 giữa làn sóng bán tháo AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://www.theguardian.com/business/2026/nov/20/global-stock-markets-slump-anthropic-ipo-ai-sell-off"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.9,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 8,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The scale of the Nasdaq sell-off is missing.",
+            "fix": "Add its roughly $4tn loss in market value that week (outlet:p008)."
+          },
+          {
+            "question": "meaning",
+            "problem": "Readers see mainly an Anthropic and Nasdaq story, rather than the wider market decline.",
+            "fix": "Mention that Asian and European markets also fell, with the specific scope supported by outlet:p016–p020."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "0511dffff5d87b22110b6c3b78b74b587bee226f6d8c89e8620cb2db6cb337b1",
+        "scored_at": "2026-11-21T09:22:39.197038+00:00"
+      }
+    },
+    {
+      "id": "9b931da4b4b2d9ae5170",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://chevyclutchfoot.substack.com/p/thought-process-before-and-after",
+      "key_points": [
+        "Những người làm việc vì sự công nhận mất đi mục đích sống đầu tiên trước AI theo tác giả Chevy Clutchfoot, thay vì nhóm làm vì tiền bạc. Tác giả cho rằng nhóm người cống hiến vì năng lực không còn được xã hội công nhận theo cách họ mong muốn.",
+        "Việc ghi nhận công sức hoàn thành tốt công việc gần như bất khả thi là nguyên nhân khiến nhóm này đánh mất phương hướng. Theo tác giả, hầu như không ai còn tin bạn tự tay làm ra sản phẩm mà không dùng AI.",
+        "Xem viết phần mềm là thiên chức chứ không phải sở thích, tác giả tin vào việc đắm chìm lập trình 16 giờ mỗi ngày cho các dự án dài hạn. Dù hy vọng tìm được khán giả trân trọng sản phẩm, hiện ông chỉ làm vài giờ mỗi ngày rồi vào quán bar uống rượu.",
+        "Có thể một số ít người có tham vọng và năng lực vẫn sẽ tạo ra thứ không thể sao chép là khả năng tác giả để ngỏ, dù chưa chắc bản thân quay lại được con đường đó."
+      ],
+      "same_event_coverage_ids": [
+        "5a563b8c8c3977827011"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Chevy Clutchfoot's reflection on creativity and motivation before and after AI",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Chevy Clutchfoot"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Tác giả Chevy Clutchfoot: Nhóm làm việc vì sự công nhận mất đi mục đích sống đầu tiên trước AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://chevyclutchfoot.substack.com/p/thought-process-before-and-after"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "edbb3c903a1fd5bed9450ebb77b5a6bd7e8af82e9f9847150e655033cdd29e65",
+        "scored_at": "2026-11-21T09:22:39.197061+00:00"
+      }
     }
   ]
 }
