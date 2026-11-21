@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-21T11:04:37.983759+00:00",
-  "input_generated_at": "2026-11-21T10:46:47Z",
+  "generated_at": "2026-11-21T13:12:47.751677+00:00",
+  "input_generated_at": "2026-11-21T12:46:25Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -118884,6 +118884,70 @@
         "eecf490fed24f9b88c23"
       ],
       "split_coverage_ids": []
+    },
+    {
+      "id": "9121917f87f40b617f50",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://github.com/sous-labs/songe",
+      "key_points": [
+        "Theo tài liệu dự án, Songe là công cụ huấn luyện mô hình cục bộ bằng năng lực tính toán nhàn rỗi, tương thích với các tác tử (chương trình tự động hỗ trợ công việc) như opencode hay pi. Trong quá trình làm việc, hệ thống theo dõi kết quả công cụ, lỗi phát sinh và tin nhắn kế tiếp, bảo đảm không có dữ liệu nào rời khỏi máy tính.",
+        "Hệ thống vận hành qua hai cơ chế Quick Dream và Deep Dream, bổ sung tùy chọn cá nhân vào hướng dẫn trong vài phút hoặc huấn luyện bộ thích ứng adapter khi người dùng vắng mặt. Đối với mỗi bài học, mô hình tự soạn tình huống luyện tập theo công cụ của tác tử và hoàn toàn không huấn luyện trên hội thoại thực tế.",
+        "Theo tài liệu dự án, phiên bản mới chỉ được áp dụng nếu thể hiện tốt hơn rõ rệt, không làm thay đổi những gì đang hoạt động tốt, giữ câu trả lời lành mạnh và quay lại bản cũ bằng một cú nhấp chuột. Tiến trình chỉ chạy khi tác tử nhàn rỗi, bộ nhớ trống và pin ổn định, trong khi máy tính không có GPU vẫn ghi nhận nhưng không thể huấn luyện."
+      ],
+      "same_event_coverage_ids": [
+        "a3551ac50c4279e7b41d"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Songe",
+      "video_labels": {
+        "video_hook": "usable_now",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Songe cung cấp công cụ huấn luyện mô hình cục bộ khi máy nhàn rỗi và không gửi dữ liệu ra ngoài",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "github",
+          "url": "https://github.com/sous-labs/songe"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.8,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "8afbc3605090be0a42130dda621ecd7e9d05151fe59f292557b8d475e7433826",
+        "scored_at": "2026-11-21T13:12:47.732201+00:00"
+      }
     }
   ]
 }
