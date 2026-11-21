@@ -2,35 +2,40 @@
 <html lang="vi">
 <head>
 <meta charset="utf-8">
-<title>giao-thuc</title>
+<meta name="viewport" content="width=886, initial-scale=1">
+<title>AG-UI · Kiến trúc tách lớp</title>
 <style>
-  @font-face { font-family: 'BVP'; src: url('/fonts/BeVietnamPro-SemiBold.ttf'); font-weight: 600; }
-  @font-face { font-family: 'BVPM'; src: url('/fonts/BeVietnamPro-Medium.ttf'); font-weight: 500; }
-  @font-face { font-family: 'BarlowXB'; src: url('/fonts/BarlowCondensed-ExtraBold.ttf'); font-weight: 800; }
-  @font-face { font-family: 'Mono'; src: url('/fonts/JetBrainsMono-Medium.ttf'); font-weight: 500; }
-  html, body { margin: 0; padding: 0; background: #101828; overflow: hidden; }
-  #stage { position: relative; width: 886px; height: 976px; overflow: hidden; background: #101828; }
-  #gl { position: absolute; left: 0; top: 0; width: 886px; height: 976px; display: block; }
-  #ui { position: absolute; left: 0; top: 0; width: 886px; height: 976px; }
-  .lb { position: absolute; left: 0; top: 0; white-space: nowrap; will-change: transform, opacity; opacity: 0;
-        -webkit-font-smoothing: antialiased; text-rendering: geometricPrecision; font-kerning: normal; }
-  .head { font-family: 'BarlowXB'; font-size: 46px; line-height: 52px; letter-spacing: 0.5px; color: #fff; text-transform: uppercase; }
-  .head b { color: #F0446E; font-weight: 800; }
-  .name { font-family: 'BVP'; font-size: 32px; line-height: 40px; color: #fff; }
-  .sub { font-family: 'BVPM'; font-size: 28px; line-height: 36px; color: #FFE4EA; opacity: 0; }
-  .mono { font-family: 'Mono'; font-size: 29px; line-height: 38px; color: #fff; }
-  .mono.big { font-size: 31px; }
-  .dot { display: inline-block; width: 14px; height: 14px; border-radius: 7px; margin-right: 14px; vertical-align: 3px; }
-  .bubble { font-family: 'BVP'; font-size: 32px; line-height: 40px; padding: 10px 20px; border-radius: 22px; }
-  .user { background: #F0446E; color: #fff; }
-  .bot { background: #FFFFFF; color: #101828; min-width: 24px; }
-  .caret { display: inline-block; width: 3px; height: 30px; background: #F0446E; vertical-align: -4px; margin-left: 2px; }
-  .tag { font-family: 'BVP'; font-size: 28px; line-height: 34px; color: #101828; background: #FFE4EA; padding: 4px 14px; border-radius: 10px; }
-  .num { font-family: 'Mono'; font-size: 31px; line-height: 38px; color: #fff; text-align: right; display: inline-block; width: 72px; }
+@font-face{font-family:BVP;src:url('/fonts/BeVietnamPro-SemiBold.ttf');font-weight:600}
+@font-face{font-family:BVPM;src:url('/fonts/BeVietnamPro-Medium.ttf');font-weight:500}
+@font-face{font-family:BarlowXB;src:url('/fonts/BarlowCondensed-ExtraBold.ttf');font-weight:800}
+@font-face{font-family:Mono;src:url('/fonts/JetBrainsMono-Medium.ttf');font-weight:500}
+:root{--ink:#101828;--white:#f4f8ff;--muted:#c2cfdf;--cyan:#70e7ef;--coral:#ff6589;--pink:#ffc9d6;--amber:#f2a24d;--glass:rgba(16,24,40,.94);--small:28px;--body:32px;--reply:40px;--display:46px;--radius:14px}
+*{box-sizing:border-box}html,body{margin:0;background:var(--ink);overflow:hidden}
+#stage{position:relative;width:886px;height:976px;overflow:hidden;background:var(--ink);color:var(--white)}
+#gl,#ui,#leaders{position:absolute;inset:0;width:886px;height:976px;pointer-events:none}
+#ui{font-family:BVP;font-weight:600;-webkit-font-smoothing:antialiased}
+.lb{position:absolute;left:0;top:0;white-space:pre;opacity:0;line-height:1.25;transform-origin:0 0;font-size:var(--small)}
+.head{font:800 var(--display)/1.12 BarlowXB;letter-spacing:.3px}.head b{color:var(--coral)}
+.protocol{font:800 var(--display)/1.12 BarlowXB;color:var(--cyan)}
+.name{font-size:var(--body)}.mono{font:500 var(--small)/1.25 Mono}.small{font:500 var(--small)/1.25 BVPM;color:var(--muted)}
+.backing{background:var(--glass)}
+.event,.total{padding:4px 12px;background:var(--glass);border-radius:0 8px 8px 0}
+.event{border-left:3px solid var(--cyan)}.total{min-width:70px;text-align:right}
+.dark{color:#24334b}.tool{color:var(--amber)}.reply{font-size:var(--reply);color:var(--ink)}
+.state{padding:4px 10px;border-radius:8px}.state-bar{position:absolute;left:0;top:0;height:7px;border-radius:4px;background:var(--coral);opacity:0}
+#app{position:absolute;left:48px;top:730px;width:700px;height:150px;border-radius:var(--radius);background:#eaf1fa;border:1px solid #ffffff}
+#app-line{position:absolute;left:70px;top:786px;width:656px;height:1px;background:#b2c1d2}
+#status-light{position:absolute;left:708px;top:752px;width:12px;height:12px;border-radius:50%;background:var(--cyan)}
+#cursor{position:absolute;left:0;top:0;width:3px;height:38px;background:var(--coral);opacity:0}
+#fallback{position:absolute;left:48px;top:200px;max-width:700px;font:500 32px/1.6 BVPM}
 </style>
 </head>
 <body>
-<div id="stage"><canvas id="gl" width="886" height="976"></canvas><div id="ui"></div></div>
-<script type="module" src="/giao-thuc.js"></script>
+<main id="stage" aria-label="AG-UI: một yêu cầu, một luồng sự kiện"><canvas id="gl" width="886" height="976" aria-hidden="true"></canvas>
+<div id="fallback">AG-UI nối ứng dụng với trợ lý AI.<br>POST · RunAgentInput: Hi there!<br>Câu trả lời đến từng phần: Hello from AG-UI!</div>
+<svg id="leaders" viewBox="0 0 886 976" aria-hidden="true"></svg>
+<div id="ui"><div id="app"></div><div id="app-line"></div><div id="status-light"></div><div id="cursor"></div></div>
+</main>
+<script type="module" src="./giao-thuc.js"></script>
 </body>
 </html>

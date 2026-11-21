@@ -31,7 +31,8 @@ THREE_PIN = {'three.module.js': '104f56145899722094556490d787aae0617cc2fc3382f31
 FORBIDDEN = ('Date', 'performance.now', 'Math.random', 'requestAnimationFrame', 'setTimeout', 'setInterval')   # time may come only from renderAt(t)
 DET_TOL = 4                              # the GPU's own rounding (blending, MSAA resolve) moves a pixel by 1-2 levels between two draws of the same t; a scene that depends on more than t moves far more
 SOFTWARE_GL = ('swiftshader', 'llvmpipe', 'software', 'microsoft basic render')
-SCENE_FILES = ('canh.py', 'canh.mjs', 'giao-thuc.js', 'scene.html', 'giao-thuc-nguon.json')
+PAGE_MODULES = ('giao-thuc.js', 'stage.mjs', 'timeline.mjs')
+SCENE_FILES = ('canh.py', 'canh.mjs', *PAGE_MODULES, 'scene.html', 'giao-thuc-nguon.json')
 FONT_DIRS = (HAL / 'fonts', HAL.parent.parent / 'brand' / 'fonts')
 TZ = timezone(timedelta(hours=7))
 ACTS = [('intro', 0.0, 4.0, 'CÁCH <b>AG-UI</b> HOẠT ĐỘNG'), ('request', 4.0, 8.0, '<b>1</b> YÊU CẦU'),
@@ -378,12 +379,14 @@ def render(data, out, nd, build, say=print):
 
 
 def run(job, out, say=print, now=None):
-    out = Path(out); out.mkdir(parents=True, exist_ok=True)
+    # Node runs from its dependency directory, not the caller's working directory.
+    out = Path(out).resolve(); out.mkdir(parents=True, exist_ok=True)
     src = load_sources()
     scene = job.get('scene') or {}
     if scene.get('name', 'giao-thuc') != 'giao-thuc':
         raise Refusal(f'scene "{scene.get("name")}" is not built; this producer draws "giao-thuc"', 'name the scene giao-thuc')
-    check_scene_source((HERE / 'giao-thuc.js').read_text(encoding='utf-8'))
+    for name in PAGE_MODULES:
+        check_scene_source((HERE / name).read_text(encoding='utf-8'), name)
     run_proof = check_run(src, job['events_run']) if job.get('events_run') else None
     counts = counts_from_demo(job.get('counts_demo'))
     data = timeline(src, counts, scene.get('duration', job.get('duration')))
@@ -418,9 +421,11 @@ def main(argv=None, say=print):
     if not argv or argv[0] != 'run' or '--job' not in argv or '--out' not in argv:
         say('usage: halcyon_canh.py run --job <job.json> --out <folder>')
         return 2
-    job = json.loads(Path(argv[argv.index('--job') + 1]).read_text(encoding='utf-8'))
+    job_path = Path(argv[argv.index('--job') + 1]).resolve()
+    out = Path(argv[argv.index('--out') + 1]).resolve()
+    job = json.loads(job_path.read_text(encoding='utf-8'))
     try:
-        run(job, argv[argv.index('--out') + 1], say)
+        run(job, out, say)
     except Refusal as e:
         say(f'refused: {e}')
         if e.fix:

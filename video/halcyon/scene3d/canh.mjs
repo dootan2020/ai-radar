@@ -22,6 +22,8 @@ const say = (s) => { process.stdout.write(s + '\n'); };
 const files = {
   'index.html': [path.join(SCENE, 'scene.html'), 'text/html'],
   'giao-thuc.js': [path.join(SCENE, 'giao-thuc.js'), 'text/javascript'],
+  'stage.mjs': [path.join(SCENE, 'stage.mjs'), 'text/javascript'],
+  'timeline.mjs': [path.join(SCENE, 'timeline.mjs'), 'text/javascript'],
   'three.module.js': [path.join(THREE, 'three.module.js'), 'text/javascript'],
   'three.core.js': [path.join(THREE, 'three.core.js'), 'text/javascript'],
   'data.json': [DATA, 'application/json'],

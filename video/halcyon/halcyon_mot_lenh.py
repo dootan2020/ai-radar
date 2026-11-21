@@ -31,7 +31,7 @@ CLIP_PRODUCER_MARK = re.compile(r'^CLIP_PRODUCER\s*=', re.M)
 SOURCE_KEYS = ('urls', 'hco', 'follow', 'occurrence', 'open', 'source', 'date', 'locale', 'ua', 'max_rows')
 REPO_SOURCE_KEYS = ('repo', 'branch')   # a source is a page to capture (`urls`), a GitHub repository to record (`repo`) or commands to run (`run`), never two of them
 RUN_SOURCE_KEYS = ('run',)
-SCENE_SOURCE_KEYS = ('name', 'events_from', 'counts_from')
+SCENE_SOURCE_KEYS = ('name', 'events_from', 'counts_from', 'duration')
 DEMO_SOURCE_KEYS = ('entry', 'page', 'say', 'expect')
 
 # The producers of moving pictures, registered up front so that the pull request that builds one only writes its own tool (MOT-LENH.md, "Moving pictures").
@@ -184,6 +184,10 @@ def check_scene_source(ref, s, sources):
         raise Refusal(S, f'{where}.scene has unknown key(s) {", ".join(extra)}', f'allowed keys: {", ".join(SCENE_SOURCE_KEYS)}')
     if not (isinstance(sc.get('name'), str) and re.fullmatch(r'[\w.-]+', sc['name'])):
         raise Refusal(S, f'{where}.scene.name is missing or not a name', 'write the name of the scene the producer draws: letters, digits, dot, dash and underscore only')
+    try:
+        kich_ban_module().scene_duration(sc)
+    except ValueError as e:
+        raise Refusal(S, f'{where}: {e}', 'set scene.duration to the measured narration span, within 18-34 seconds') from e
     for key, need_key in (('events_from', 'run'), ('counts_from', 'demo')):
         if key in sc:
             other = sources.get(sc[key]) if isinstance(sc[key], str) else None
@@ -948,6 +952,17 @@ def producer_refusal(p, ref, code, so, se):
     return Refusal(f'{p["step"]}:{ref}', reason, fix or 'run the same command again later; if it stops the same way twice, the message names the cause')
 
 
+def producer_tool_sha(name):
+    """Scene changes invalidate the chain cache even when its thin entry point is unchanged."""
+    entry = HERE / PRODUCERS[name]['tool']
+    if not entry.exists():
+        return '-'
+    digest = dict(entry=sha_file(entry))
+    if name == 'scene':
+        digest['scene'] = load_module('halcyon_canh_hash', entry).canh.tool_sha()
+    return sha_json(digest)
+
+
 def step_producer(ctx, name, ref):
     """canh / demo: run the producer tool (`run --job <job.json> --out <folder>`), then check the manifests it promised."""
     p = PRODUCERS[name]
@@ -1372,7 +1387,7 @@ def real_steps(ctx):
         P = PRODUCERS[name]
         for ref, e in plans.items():
             steps.append(Step(f'{P["step"]}:{ref}', lambda c, n=name, r=ref: step_producer(c, n, r),
-                              inputs=lambda c, n=name, r=ref, e=e: dict(source=e[PRODUCERS[n]['source']], tool=(sha_file(HERE / PRODUCERS[n]['tool']) if (HERE / PRODUCERS[n]['tool']).exists() else '-'),
+                              inputs=lambda c, n=name, r=ref, e=e: dict(source=e[PRODUCERS[n]['source']], tool=producer_tool_sha(n),
                                                                         upstream=sorted(i for i in ((e[PRODUCERS[n]['source']].get('events_from'), e[PRODUCERS[n]['source']].get('counts_from')) if n == 'scene' else ()) if i)),
                               outputs=lambda c, r=ref: [clip_manifest_path(c, i) for i in c.plan.clips.values() if i['ref'] == r and i['kind'] != 'screen'],
                               valid=lambda c, r=ref: all(clip_age_ok(c, i) for i in c.plan.clips.values() if i['ref'] == r and i['kind'] != 'screen'),

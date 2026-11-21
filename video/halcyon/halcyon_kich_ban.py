@@ -290,6 +290,16 @@ def is_num(v):
     return isinstance(v, (int, float)) and not isinstance(v, bool)
 
 
+def scene_duration(scene):
+    """An optional script-owned scene length, in the producer's readable 18–34 s range."""
+    if 'duration' not in scene:
+        return None
+    value = scene['duration']
+    if not is_num(value) or not 18 <= value <= 34:
+        raise ValueError(f'scene.duration {value!r} must be a number in 18-34 seconds')
+    return float(value)
+
+
 def parse_clip_beat(sp):
     """A screen, scene3d or demo beat -> ({kind, ref, steps, key, from, to, rect}, None), or (None, (reason, fix)). No files are read.
 
@@ -646,6 +656,17 @@ class Run:
             pic = dict(kind='clip', manifest=rel(mpath), start=0.0, dur=man['duration'])
             chip = sp.get('chip') or (f'Chạy thật: {man["date"]}' if info['kind'] == 'screen' else f'{self.kb.get("chip_prefix", "Ảnh chụp")}: {man["source"]}, {man["date"]}')
         have = bt['b'] - bt['a']
+        if info['kind'] == 'scene3d':
+            scene = self.kb.get('sources', {}).get(info['ref'], {}).get('scene', {})
+            try:
+                requested = scene_duration(scene)
+            except ValueError as e:
+                fail(f'{where}: {e}')
+            if requested is not None:
+                if abs(length - requested) > 1 / man['fps'] + 1e-6:
+                    fail(f'{where}: scene.duration asks for {requested:.2f} s but the clip lasts {length:.2f} s; rerun canh:{info["ref"]}')
+                if not silent and have > length + CLIP_TOL:
+                    fail(f'{where}: the voice gives the scene {have:.2f} s but its clip lasts {length:.2f} s; set sources.{info["ref"]}.scene.duration to {have:.2f} and rerun canh:{info["ref"]} to avoid holding the last frame')
         if silent and abs(have - length) > CLIP_TOL:
             fail(f'{where}: the silent beat lasts {have:.2f} s but its picture lasts {length:.2f} s; the silence is made as long as the picture, so the timing file or the clip changed after the `lang` step')
         if not silent and length > have + CLIP_TOL:
