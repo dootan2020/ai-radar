@@ -35,6 +35,7 @@ def load_spec(path, fps, default_layout):
     out = need(d, 'out', 'spec')
     S['out_clean'] = base / need(out, 'clean', 'spec.out'); S['out_tt'] = base / need(out, 'tiktok', 'spec.out')
     S['beats'] = need(d, 'beats', 'spec')
+    S['silences'] = d.get('silences', [])           # [{a, b}]: the spans with no voice and no subtitle (silent paragraphs)
     S['layout'] = d.get('layout', default_layout)   # layout preset in ve_halcyon.LAYOUTS: A (default), hien-tai (the earlier layout, for comparison)
     S['mesh_motion'] = d.get('mesh_motion', True)     # true = the default preset (nhe), a preset name (rat-nhe, nhe), {"amplitude": [lo, hi], "period": [lo, hi]}, false = the mesh stays at its home positions
     S['pattern'] = d.get('pattern')                      # field pattern in ve_halcyon.PATTERNS: mang-no-ron (default, white neural mesh), cham (the dot grid)
@@ -116,6 +117,16 @@ def plan_clip(man, pic, win, frame_w, wmax, x_min, where):
     if w > wmax or x_at < x_min:
         raise SystemExit(f'safe frame: {where}: the clip is {w} px wide, the picture column holds {wmax} px (x {x_min}-{x_min + wmax}); a clip is never scaled')
     return dict(x_at=x_at, y_at=y_at, src0=src0, sdur=sdur, sfps=float(man['fps']), sframes=man['frames'])
+
+
+def end_units_at_silences(units, silences):
+    """A caption unit ends where the voice ends, not where the next unit starts: a unit that would last through a silent span is cut at the span's start `a`,
+    so the plan never holds a subtitle inside a silence. A unit that starts inside a span is a fault of the spec and is left for the witness to refuse."""
+    for u in units:
+        for sp in silences:
+            if u['s'] < sp['a'] - 1e-6 < u['e'] and u['e'] > sp['a'] + 1e-6:
+                u['e'] = sp['a']
+    return units
 
 
 def beat_captions(sp, where):

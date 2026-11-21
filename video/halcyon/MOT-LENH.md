@@ -74,7 +74,7 @@ Manifest fields: KICH-BAN.md 8 (a clip manifest also carries `min_text_px`, `sti
 
 Whisper word ends overrun: a word that starts before a silence but ends up to 0.5 s after the cut is cut at the silence when the original voice there is quiet (at most -45 dBFS), and is listed in `word_ends_cut_at_silence` in the timing file; a longer overrun, or speech energy there, still refuses the step.
 
-**Second witness (`kiem-anh`).** Inside every silent span: no caption unit in the builder's plan (`video-plan.json` `units`), no word heard in the timing file, the voice file quieter than -60 dBFS; every span has a beat with `captions: false` at the same times and every such beat a span. (Until the builder's `captions: false` lands, the plan's last caption before a silence still lasts until the next one starts, and this step says so.)
+**Second witness (`kiem-anh`).** Inside every silent span: no caption unit in the builder's plan (`video-plan.json` `units`), no word heard in the timing file, the voice file quieter than -60 dBFS; every span has a beat with `captions: false` at the same times and every such beat a span. The builder ends the last caption unit before a span at the span's start (`halcyon_spec.end_units_at_silences`), so the plan it writes is truthful; a unit or word that really falls inside a span is still refused.
 
 **Pack.** `tom-tat.md` lists the silent spans and the moving pictures with their manifests, and says what the machine cannot know: whether the music lift sounds right, and that typed commands in a screen clip are drawn at a fixed rate (the output and its times are the real ones). `luu-tru.json` archives the manifests and the voice with its silences.
 

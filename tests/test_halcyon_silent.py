@@ -659,6 +659,18 @@ class SilentWitness(unittest.TestCase):
         self.assertEqual(len(bad), 1)
         self.assertIn('"STUCK"', bad[0])
 
+    def test_the_corrected_plan_passes_and_a_unit_inside_the_span_still_fails(self):
+        import importlib.util
+        s = importlib.util.spec_from_file_location("halcyon_spec_for_silent", Path(__file__).resolve().parent.parent / "video" / "halcyon" / "halcyon_spec.py")
+        hs = importlib.util.module_from_spec(s); s.loader.exec_module(hs)
+        stuck = dict(units=[dict(s=4.0, e=16.0, T="STUCK", wstart=[4.0]), dict(s=16.0, e=18.0, T="Y", wstart=[16.0])])
+        self.assertTrue(ml.silent_problems(self.SPEC, stuck, self.TIMING))
+        hs.end_units_at_silences(stuck["units"], self.SPEC["silences"])
+        self.assertEqual(ml.silent_problems(self.SPEC, stuck, self.TIMING), [])
+        planted = dict(units=[dict(s=12.0, e=14.0, T="PLANTED", wstart=[12.0])])           # a caption that really starts inside the span is not cut away
+        hs.end_units_at_silences(planted["units"], self.SPEC["silences"])
+        self.assertTrue(any('"PLANTED"' in p for p in ml.silent_problems(self.SPEC, planted, self.TIMING)))
+
     def test_a_heard_word_a_missing_flag_and_a_stray_flag_are_found(self):
         t = dict(words_whisper_medium=[dict(w="oops", s=12.0, e=12.4)])
         self.assertIn('the word "oops"', ml.silent_problems(self.SPEC, self.PLAN, t)[0])
