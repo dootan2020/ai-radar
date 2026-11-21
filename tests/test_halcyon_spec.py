@@ -126,6 +126,33 @@ class BeatCaptions(unittest.TestCase):
                 hs.beat_captions({'captions': v}, 'beats[1]')
 
 
+class EndUnitsAtSilences(unittest.TestCase):
+    SIL = [dict(a=10.0, b=16.0)]
+
+    def units(self):
+        return [dict(s=4.0, e=9.0, T='A'), dict(s=9.0, e=16.0, T='LAST BEFORE'), dict(s=16.0, e=18.0, T='AFTER')]
+
+    def test_the_last_unit_before_a_span_ends_at_its_start(self):
+        u = hs.end_units_at_silences(self.units(), self.SIL)
+        self.assertEqual([(x['s'], x['e']) for x in u], [(4.0, 9.0), (9.0, 10.0), (16.0, 18.0)])
+
+    def test_no_silences_changes_nothing(self):
+        self.assertEqual(hs.end_units_at_silences(self.units(), []), self.units())
+
+    def test_a_unit_ending_before_or_at_the_start_is_left_alone(self):
+        u = [dict(s=4.0, e=10.0, T='A'), dict(s=16.0, e=18.0, T='B')]
+        self.assertEqual(hs.end_units_at_silences(u, self.SIL), [dict(s=4.0, e=10.0, T='A'), dict(s=16.0, e=18.0, T='B')])
+
+    def test_a_unit_starting_inside_a_span_is_not_hidden(self):
+        u = hs.end_units_at_silences([dict(s=12.0, e=18.0, T='INSIDE')], self.SIL)
+        self.assertEqual(u[0]['e'], 18.0)
+
+    def test_spec_carries_silences_and_builder_applies_them(self):
+        self.assertIn("S['silences'] = d.get('silences', [])", Path(hs.__file__).read_text(encoding='utf-8'))
+        src = (Path(__file__).resolve().parent.parent / 'video' / 'halcyon' / 'dung-video-gpu.py').read_text(encoding='utf-8')
+        self.assertIn("spec_mod.end_units_at_silences(units, S['silences'])", src)
+
+
 class BuilderWiring(unittest.TestCase):
     """The builder needs a GPU, so these read its source: the pieces this change adds are hooked in where they must be."""
     src = (Path(__file__).resolve().parent.parent / 'video' / 'halcyon' / 'dung-video-gpu.py').read_text(encoding='utf-8')

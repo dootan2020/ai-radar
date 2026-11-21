@@ -392,6 +392,7 @@ def build_units(S):
                 i += 1
             continue
         i += 1
+    spec_mod.end_units_at_silences(units, S['silences'])       # after the joins: a unit before a silent span ends at the span's start, not at the next unit's
     return units, notes
 
 
