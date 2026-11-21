@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-21T09:22:39.223478+00:00",
-  "input_generated_at": "2026-11-21T08:47:06Z",
+  "generated_at": "2026-11-21T11:04:37.983759+00:00",
+  "input_generated_at": "2026-11-21T10:46:47Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -118827,6 +118827,63 @@
         "prose_sha256": "edbb3c903a1fd5bed9450ebb77b5a6bd7e8af82e9f9847150e655033cdd29e65",
         "scored_at": "2026-11-21T09:22:39.197061+00:00"
       }
+    },
+    {
+      "id": "c9df2f888445d10b710f",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-21/china-plans-to-strengthen-ai-token-standards-in-computing-push",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "4b63b329099ed0cf5c54"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "83561edd977e7d1d6dc3",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-21/how-ai-is-reshaping-china-s-industrial-policy-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "d593f08270f0f1543843"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "af5b3f0c286ee91951e1",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The report focuses on Taiwan stock market short-selling restrictions and government intervention, with AI mentioned only in passing as market context.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-21/taiwan-bans-short-sales-of-stocks-in-new-move-to-calm-markets",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "eecf490fed24f9b88c23"
+      ],
+      "split_coverage_ids": []
     }
   ]
 }
