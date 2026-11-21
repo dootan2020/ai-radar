@@ -23,7 +23,7 @@ TZ = timezone(timedelta(hours=7))   # Asia/Bangkok
 FPS = 30
 CAPTURE_MAX_AGE_S = 6 * 3600        # a capture older than this is taken again; at render time it is refused
 VOICE_PROFILE = 'vhn-giong-tin-ai'
-DEADLINES = dict(may=60, giong=20 * 60, anh=5 * 60, dung=10 * 60, nhac=5 * 60, canh=10 * 60, demo=5 * 60)   # seconds; captures: 60 s per attempt, see chup_deadline
+DEADLINES = dict(may=60, giong=45 * 60, anh=5 * 60, dung=10 * 60, nhac=5 * 60, canh=10 * 60, demo=5 * 60)   # seconds; captures: 60 s per attempt, see chup_deadline
 CLIP_KINDS = ('screen', 'scene3d', 'demo')   # moving-picture beats; halcyon_kich_ban.py owns their contract
 BEAT_KINDS = ('capture', 'repo', 'terminal') + CLIP_KINDS + ('number', 'chart', 'list', 'end')
 LIFT_ENV = 'HALCYON_LIFT_DB'                 # optional: the music lift in silent spans, in dB (tron-nhac.py's default is 12)

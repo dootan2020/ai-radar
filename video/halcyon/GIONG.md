@@ -17,15 +17,18 @@ Also needed: `ffmpeg` and `ffprobe` on `PATH`; the voice model and Whisper mediu
 
 ## Steps
 1. `loi-doc-tts.txt` (the voice text: the `say` paragraphs with the default readings below applied, one blank line between) and `loi-hien-thi.txt`.
-2. Synthesis, `video/scripts/omnivoice_tts.py synthesize --split-paragraphs --pause-ms 300 --speed 0.93 --offline` (one chunk per paragraph, `fix_omnivoice` inside). Deadline 20 minutes, then the process tree is killed and the log tail printed.
-3. ffmpeg: `highpass=f=70`, compressor, `loudnorm I=-15 TP=-1.5 LRA=4`, 48 kHz mono. Refuses outside -16..-14 LUFS or a peak above -1 dBTP.
-4. Whisper medium (CPU int8, Vietnamese, word times) on the FINAL wav. Deadline 10 minutes.
-5. The voice paragraphs measured on the final wav: silences over 0.5 s (`silencedetect=-35dB:d=0.12`) separate them; `beats` hold the speech start and end of each. Refuses when the count is not the script's.
-6. The gate (below).
-7. The timing file (`file`, `sample_rate`, `duration_s`, `loudness`, `pause_between_beats_s`, `beats`, `words_whisper_medium`) and the listen list.
+2. **Each paragraph is made and checked by itself** (`doan/para-NN-aK.wav` = paragraph NN, take K):
+   - Round 1 synthesises every paragraph (`video/scripts/omnivoice_tts.py synthesize --split-paragraphs --paragraphs-dir doan --only <numbers>`, one model session, `fix_omnivoice` on each paragraph's file). Deadline 20 minutes per round, then the process tree is killed and the log tail printed.
+   - The paragraphs as they stand are joined with the 0.3 s pause (stdlib `wave`) and mastered (step 3's chain), the mastered voice is cut at the paragraph edges the lengths of the files give, and Whisper medium (CPU int8, Vietnamese, word times, no text carried from one paragraph into the next) hears each cut alone. Deadline 10 minutes per round.
+   - Each new paragraph goes through its own check (`check_paragraph`: the gate's three word rules below on that paragraph alone: a run of 4 or more words not heard, more than 10 % of the paragraph not heard, 4 or more extra words in a row). A paragraph that fails is made again, and only that one; the ones that passed are kept. Up to 3 takes per paragraph (`MAX_ATTEMPTS`); a paragraph still failing keeps its best take and the check of the whole voice (step 5) decides. The log prints `paragraph N, attempt K: ok | MAKE AGAIN: <why>`.
+3. The kept paragraphs joined and mastered once more, ffmpeg: `highpass=f=70`, compressor, `loudnorm I=-15 TP=-1.5 LRA=4`, 48 kHz mono. Refuses outside -16..-14 LUFS or a peak above -1 dBTP.
+4. The voice paragraphs on the final wav are placed by construction (the length of each paragraph's file plus the pause), so a pause of 0.5 s or more inside a paragraph is never read as a paragraph break; `beats` hold the speech start and end of each (`silencedetect=-35dB:d=0.12` at its two edges). The Whisper words of each paragraph are moved to their place in the final wav.
+5. The gate over the whole voice (below), unchanged in meaning.
+6. The timing file (`file`, `sample_rate`, `duration_s`, `loudness`, `pause_between_beats_s`, `beats`, `words_whisper_medium`) and the listen list. `giong-ket-qua.json` also carries `paragraph_attempts` (takes per paragraph, the take used, the problems left).
 
-Measured on video 05 (7 paragraphs, 27.5 s of voice, CPU): synthesis 227 s and 277 s in two runs, mastering 1-2 s, Whisper 23 s, the rest under 0.1 s: about 4-5 minutes.
+Why: one Whisper pass over 2.5 minutes skipped a stretch of 14 s although speech was there (82 of 552 words "not heard"), and a 0.5 s pause at a full stop inside a paragraph was counted as a paragraph break; either one refused the whole voice and every try was a new 12-minute synthesis of every paragraph (eight tries in a row on 21/11). A real defect (the voice said extra words or stumbled on a name) is found by the same rules, now on the paragraph that has it, and only that paragraph is made again.
 
+Measured on video 05 (7 paragraphs, 27.5 s of voice, CPU), before this change: synthesis 227 s and 277 s in two runs, mastering 1-2 s, Whisper 23 s, the rest under 0.1 s: about 4-5 minutes. The `giong` step's deadline in `mot-lenh.py` is 45 minutes (three takes of every paragraph at most).
 ## Default readings (`PRONUNCIATIONS` in `halcyon_giong.py`)
 The voice says some written words differently from how they are spelled. One table, applied to the voice text only (what is synthesised, what the gate expects, `text_spoken` in the timing file). The subtitle (`show`), cards and post text keep the written word.
 
@@ -56,7 +59,7 @@ Compares the script's voice text (`say` with the default readings applied) with 
 - a run of 4 or more script words is not heard,
 - more than 10 % of the script words are not heard,
 - the voice said 4 or more extra words in a row (a loop or a stutter; this rule is an addition to the design note's two),
-- the voice has not as many paragraphs as the script.
+- the voice has not as many paragraphs as the script (the paragraphs are placed by construction now, so this cannot be a pause; it stays as a safeguard).
 
 Each message names the words, the paragraph with its time span, and the time in the track, for example `5 script words in a row were not heard, paragraph 2 (4.58-8.29 s), near 5.9 s: "tạm thời cũng bị giữ"; heard there: "..."`. Whisper can prove a word was said, not that it was said well; the gate does not replace the owner's ear.
 

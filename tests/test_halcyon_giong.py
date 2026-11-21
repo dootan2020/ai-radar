@@ -127,6 +127,117 @@ class Refusals(unittest.TestCase):
         self.assertIn("bảy mươi hai", [r["say"] for r in rep["residual"]])
 
 
+def local(words):
+    """The words of one paragraph with times from the start of that paragraph's own audio, as Whisper gives them for a cut paragraph."""
+    t0 = words[0]["s"] - 0.2
+    return [dict(w, s=round(w["s"] - t0, 3), e=round(w["e"] - t0, 3)) for w in words]
+
+
+class PerParagraph(unittest.TestCase):
+    """The voice is checked paragraph by paragraph, so a paragraph that failed is made again by itself; the check of the whole voice stays."""
+
+    def setUp(self):
+        self.kb, self.t, self.say = video("05")
+        self.paras = [local(paragraph_words(self.t, i)) for i in range(len(self.say))]
+
+    def check(self, i, words):
+        return g.check_paragraph(self.say[i], words, APPROVED, i + 1)
+
+    def test_every_published_paragraph_passes_by_itself(self):
+        for vid in VIDEOS:
+            kb, t, say = video(vid)
+            for i in range(len(say)):
+                rep = g.check_paragraph(say[i], local(paragraph_words(t, i)), APPROVED, i + 1)
+                self.assertEqual(rep["problems"], [], (vid, i + 1))
+
+    def test_a_sentence_removed_fails_that_paragraph_only(self):
+        p2 = self.paras[1]
+        i = [w["w"] for w in p2].index("tạm")
+        broken = p2[:i] + p2[i + 5:]
+        rep = self.check(1, broken)
+        self.assertIn("5 script words in a row were not heard, paragraph 2", " ".join(rep["problems"]))
+        self.assertIn("tạm thời cũng bị giữ", " ".join(rep["problems"]))
+        self.assertEqual([self.check(k, self.paras[k])["problems"] for k in range(len(self.say)) if k != 1], [[]] * (len(self.say) - 1))
+
+    def test_a_long_stretch_whisper_did_not_write_fails_the_paragraph(self):
+        # the real failure of 21/11: speech there, nothing written for the stretch (57 words); the paragraph is made again, not the whole voice
+        rep = self.check(4, self.paras[4][:3])
+        self.assertTrue(rep["problems"])
+        self.assertIn("were not heard", " ".join(rep["problems"]))
+
+    def test_extra_words_fail_the_paragraph(self):
+        extra = [dict(w="dịa", s=30.0 + i, e=30.4 + i) for i in range(4)]
+        rep = self.check(2, self.paras[2] + extra)
+        self.assertIn("said 4 words in a row that are not in the script", " ".join(rep["problems"]))
+
+    def test_a_wrong_name_or_number_fails_the_paragraph(self):
+        words = [dict(w, w="27") if w["w"] == "72" else w for w in self.paras[1]]
+        rep = self.check(1, words)
+        self.assertIn("bảy mươi hai", [r["say"] for r in rep["residual"]])
+        words = [dict(w, w="xxx") if i % 4 == 0 else w for i, w in enumerate(self.paras[4])]
+        self.assertIn("more than the 10% allowed", " ".join(self.check(4, words)["problems"]))
+
+    def test_the_whole_voice_check_still_refuses_what_a_paragraph_kept(self):
+        # a paragraph that never passed keeps its best take; the gate over the whole voice then refuses it, as before
+        windows = g.paragraph_windows([b["end"] - b["start"] for b in self.t["beats"]], 0.3)
+        broken = list(self.paras)
+        broken[1] = broken[1][:2]
+        words = g.join_paragraph_words(broken, windows)
+        spans = g.spans_from_windows("", windows)
+        rep = g.check_reading(self.say, words, spans, APPROVED)
+        self.assertTrue(any("in a row were not heard, paragraph 2" in p for p in rep["problems"]), rep["problems"])
+        clean = g.check_reading(self.say, g.join_paragraph_words(self.paras, windows), spans, APPROVED)
+        self.assertEqual(clean["problems"], [])
+
+    def test_paragraph_times_are_placed_in_the_voice(self):
+        windows = g.paragraph_windows([2.0, 3.0, 1.5], 0.3)
+        self.assertEqual(windows, [(0.0, 2.0), (2.3, 5.3), (5.6, 7.1)])
+        joined = g.join_paragraph_words([[dict(w="a", s=0.1, e=0.4)], [dict(w="b", s=0.5, e=0.9)], [dict(w="c", s=0.0, e=0.2)]], windows)
+        self.assertEqual([(w["w"], w["s"], w["e"]) for w in joined], [("a", 0.1, 0.4), ("b", 2.8, 3.2), ("c", 5.6, 5.8)])
+
+    def test_a_pause_inside_a_paragraph_is_not_a_paragraph_break(self):
+        # the failure of 21/11 (twice): "found 11 paragraphs, the script has 10" when the voice paused 0.6 s at a full stop inside a paragraph
+        windows = [(0.0, 8.0), (8.3, 15.0), (15.3, 20.0)]
+        err = "\n".join(["[silencedetect @ 0x1] silence_start: 0",
+                         "[silencedetect @ 0x1] silence_end: 0.21 | silence_duration: 0.21",
+                         "[silencedetect @ 0x1] silence_start: 4.2", "[silencedetect @ 0x1] silence_end: 4.9 | silence_duration: 0.7",
+                         "[silencedetect @ 0x1] silence_start: 7.8", "[silencedetect @ 0x1] silence_end: 8.45 | silence_duration: 0.65",
+                         "[silencedetect @ 0x1] silence_start: 14.7", "[silencedetect @ 0x1] silence_end: 15.45 | silence_duration: 0.75",
+                         "[silencedetect @ 0x1] silence_start: 19.8"])
+        spans = g.spans_from_windows(err, windows)
+        self.assertEqual(spans, [dict(start=0.21, end=7.8), dict(start=8.45, end=14.7), dict(start=15.45, end=19.8)])
+        # the old reading of the same output counted the pause at 4.2 s as a break and refused the voice
+        with self.assertRaises(SystemExit):
+            g.paragraphs_from_silences(err, 20.0, 3)
+
+    def test_the_paragraph_files_are_joined_with_the_pause(self):
+        import tempfile
+        import wave
+        lam = load_module("lam_giong", "video/halcyon/lam-giong.py")
+        with tempfile.TemporaryDirectory() as d:
+            files = []
+            for k, seconds in enumerate((0.5, 0.25)):
+                f = Path(d) / f"p{k}.wav"
+                with wave.open(str(f), "wb") as w:
+                    w.setnchannels(1)
+                    w.setsampwidth(2)
+                    w.setframerate(8000)
+                    w.writeframes(b"\x01\x00" * round(8000 * seconds))
+                files.append(f)
+            out = Path(d) / "all.wav"
+            self.assertEqual(lam.join_paragraphs(files, 0.3, out), [0.5, 0.25])
+            with wave.open(str(out), "rb") as w:
+                self.assertEqual(w.getnframes() / 8000, 0.5 + 0.3 + 0.25)
+            other = Path(d) / "other.wav"
+            with wave.open(str(other), "wb") as w:
+                w.setnchannels(1)
+                w.setsampwidth(2)
+                w.setframerate(16000)
+                w.writeframes(b"\x00\x00" * 10)
+            with self.assertRaises(SystemExit):
+                lam.join_paragraphs([files[0], other], 0.3, out)
+
+
 class Folding(unittest.TestCase):
     def say(self, text, heard, approved=()):
         words = [dict(w=w, s=i * 0.3, e=i * 0.3 + 0.25) for i, w in enumerate(heard.split())]

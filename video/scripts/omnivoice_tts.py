@@ -419,6 +419,21 @@ def status(args: argparse.Namespace) -> int:
     return 0
 
 
+def write_paragraph_file(sf: Any, args: argparse.Namespace, audio: Any, sample_rate: int, number: int) -> float:
+    """--paragraphs-dir: one WAV per paragraph (para-NN.wav, and para-NN_corrected.wav after the Fix OmniVoice pass), so the caller can check
+    each paragraph by itself and make again only the ones that failed. Returns the paragraph's length in seconds."""
+    import numpy as np
+
+    samples = np.asarray(audio, dtype=np.float32).reshape(-1)
+    directory = args.paragraphs_dir.expanduser().resolve()
+    directory.mkdir(parents=True, exist_ok=True)
+    path = directory / f"para-{number:02d}.wav"
+    sf.write(path, samples, sample_rate)
+    if not args.skip_fix_omnivoice:
+        run_fix_omnivoice(path, None, None, getattr(args, "fix_script", None))
+    return round(float(len(samples)) / sample_rate, 4)
+
+
 def synthesize(args: argparse.Namespace) -> int:
     import soundfile as sf
     import torch
@@ -490,8 +505,18 @@ def synthesize(args: argparse.Namespace) -> int:
     chunks = [text]
     if args.split_paragraphs:
         chunks = [chunk.strip() for chunk in re.split(r"\n\s*\n", text) if chunk.strip()]
+    only = None
+    if args.only:
+        only = sorted({int(x) for x in args.only.split(",") if x.strip()})
+        if not args.paragraphs_dir:
+            raise SystemExit("--only needs --paragraphs-dir.")
+        if not args.split_paragraphs or any(i < 1 or i > len(chunks) for i in only):
+            raise SystemExit(f"--only takes paragraph numbers 1..{len(chunks)} and needs --split-paragraphs.")
     rendered_chunks = []
+    paragraph_seconds: dict[str, float] = {}
     for index, chunk in enumerate(chunks):
+        if only is not None and index + 1 not in only:
+            continue
         print(
             f"Generating chunk {index + 1}/{len(chunks)} ({len(chunk)} chars)...",
             file=sys.stderr,
@@ -500,6 +525,21 @@ def synthesize(args: argparse.Namespace) -> int:
         if not audio:
             raise RuntimeError(f"OmniVoice returned no audio for chunk {index + 1}.")
         rendered_chunks.append(audio[0])
+        if args.paragraphs_dir:
+            paragraph_seconds[str(index + 1)] = write_paragraph_file(
+                sf, args, audio[0], model.sampling_rate, index + 1
+            )
+
+    if args.paragraphs_dir:
+        numbers = only or list(range(1, len(chunks) + 1))
+        print(json.dumps({
+            "paragraphs_dir": str(args.paragraphs_dir.expanduser().resolve()),
+            "paragraphs": numbers,
+            "sample_rate": model.sampling_rate,
+            "device": device,
+            "chunk_durations": paragraph_seconds,
+        }))
+        return 0
 
     chunk_gain_db = [0.0 for _ in rendered_chunks]
     if args.normalize_chunk_levels and len(rendered_chunks) > 1:
@@ -717,6 +757,18 @@ def build_parser() -> argparse.ArgumentParser:
         type=int,
         default=260,
         help="Silence inserted between paragraph chunks when --split-paragraphs is used.",
+    )
+    synth.add_argument(
+        "--paragraphs-dir",
+        type=Path,
+        help=(
+            "With --split-paragraphs: write one WAV per paragraph (para-NN.wav and its Fix OmniVoice "
+            "para-NN_corrected.wav) into this folder and stop, without joining them."
+        ),
+    )
+    synth.add_argument(
+        "--only",
+        help="With --paragraphs-dir: comma-separated paragraph numbers (1-based) to generate; the others are skipped.",
     )
     synth.add_argument(
         "--normalize-chunk-levels",
