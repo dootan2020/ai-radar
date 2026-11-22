@@ -1,0 +1,287 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-23",
+  "timezone": "Asia/Ho_Chi_Minh",
+  "window_start_at": "2026-11-21T23:00:00Z",
+  "cutoff_at": "2026-11-22T23:00:00Z",
+  "created_at": "2026-11-22T23:08:36Z",
+  "snapshot_generated_at": "2026-11-22T23:06:45Z",
+  "policy": {
+    "method": "daily-evidence-v3",
+    "max_stories": 5,
+    "window_hours": 24,
+    "cutoff_hour": 6,
+    "engagement_percentile_min": 0.8,
+    "publisher_coverage_excludes_forums": true,
+    "attention_requires_nonforum": true,
+    "forum_exception_percentile_min": 0.97,
+    "forum_exception_comments_min": 100,
+    "max_forum_only_stories": 1,
+    "score_measured_at": "2026-11-22T23:06:45Z",
+    "description": "Ưu tiên dấu hiệu công bố, số nhà xuất bản và tương tác đo được; sau đó theo điểm nóng và thời gian công bố"
+  },
+  "stories": [
+    {
+      "id": "1a10f1676d46fc01a909",
+      "title": "Perplexity and Intelligence",
+      "headline": "Perplexity and Intelligence",
+      "url": "https://openai.com/index/perplexity-and-intelligence",
+      "published_at": "2026-11-22T00:00:00Z",
+      "kind": "product",
+      "time_basis": "published",
+      "editorial_headline_vi": "OpenAI công khai tiến trình tiền huấn luyện và đề xuất giới hạn phát triển AI dựa trên độ hỗn loạn",
+      "editorial_headline_verified": true,
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "d011382c72adb649a61e",
+          "title": "Perplexity and Intelligence",
+          "headline": "Perplexity and Intelligence",
+          "url": "https://openai.com/index/perplexity-and-intelligence/",
+          "published_at": "2026-11-22T17:06:27Z",
+          "kind": "forum",
+          "time_basis": "published",
+          "source": "hn-front",
+          "publisher": "hacker-news",
+          "entity": "hacker-news",
+          "group": "forum",
+          "observed_at": "2026-11-22T23:06:45Z",
+          "discussion_url": "https://news.ycombinator.com/item?id=50601525",
+          "metrics": {
+            "points": 428,
+            "comments": 292
+          }
+        },
+        {
+          "id": "5e99a1d7e410bf29840a",
+          "title": "Perplexity and Intelligence",
+          "headline": "Perplexity and Intelligence",
+          "url": "https://openai.com/index/perplexity-and-intelligence",
+          "published_at": "2026-11-22T00:00:00Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "openai-news",
+          "publisher": "openai",
+          "entity": "openai",
+          "group": "lab",
+          "observed_at": "2026-11-22T23:06:45Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [],
+        "signals": {
+          "publishers": [
+            "openai"
+          ],
+          "age_hours_at_cutoff": 23.0,
+          "hot_score": 57.225,
+          "engagement_percentile": 0.78125
+        }
+      }
+    },
+    {
+      "id": "47b2738e2872fd88c166",
+      "title": "Why data centers are at the center of the Big Tech backlash",
+      "title_vi": "Tại sao các trung tâm dữ liệu là trung tâm của phản ứng Big Tech",
+      "headline": "Why data centers are at the center of the Big Tech backlash",
+      "headline_vi": "Tại sao các trung tâm dữ liệu là trung tâm của phản ứng Big Tech",
+      "url": "https://techcrunch.com/2026/11/22/why-data-centers-are-at-the-center-of-the-big-tech-backlash/",
+      "published_at": "2026-11-22T18:08:43Z",
+      "kind": "other",
+      "time_basis": "published",
+      "editorial_headline_vi": "Ron DeSantis và Bernie Sanders cùng phản đối trung tâm dữ liệu khi làn sóng phản đối lan rộng tại Mỹ",
+      "editorial_headline_verified": true,
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "afcb96a5a3d3a6f95e5b",
+          "title": "Why data centers are at the center of the Big Tech backlash",
+          "title_vi": "Tại sao các trung tâm dữ liệu là trung tâm của phản ứng Big Tech",
+          "headline": "Why data centers are at the center of the Big Tech backlash",
+          "headline_vi": "Tại sao các trung tâm dữ liệu là trung tâm của phản ứng Big Tech",
+          "url": "https://techcrunch.com/2026/11/22/why-data-centers-are-at-the-center-of-the-big-tech-backlash/",
+          "published_at": "2026-11-22T18:08:43Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "techcrunch-ai",
+          "publisher": "techcrunch",
+          "entity": "techcrunch",
+          "group": "press",
+          "observed_at": "2026-11-22T23:06:45Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [],
+        "signals": {
+          "publishers": [
+            "techcrunch"
+          ],
+          "age_hours_at_cutoff": 4.8547,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "28c764e2cf8a36efd027",
+      "title": "Binding of Isaac developer removes AI music from Repentance Plus",
+      "title_vi": "Binding of Isaac developer loại bỏ âm nhạc AI từ Repentance Plus",
+      "headline": "Binding of Isaac developer removes AI music from Repentance Plus",
+      "headline_vi": "Binding of Isaac developer loại bỏ âm nhạc AI từ Repentance Plus",
+      "url": "https://www.theverge.com/games/1039770/binding-of-isaac-ai-music",
+      "published_at": "2026-11-22T17:25:20Z",
+      "kind": "other",
+      "time_basis": "published",
+      "editorial_headline_vi": "Nhà phát triển The Binding of Isaac gỡ nhạc AI sau khi bị bão đánh giá tiêu cực trên Steam",
+      "editorial_headline_verified": true,
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "3cf3d2aafb7a5e85b22a",
+          "title": "Binding of Isaac developer removes AI music from Repentance Plus",
+          "title_vi": "Binding of Isaac developer loại bỏ âm nhạc AI từ Repentance Plus",
+          "headline": "Binding of Isaac developer removes AI music from Repentance Plus",
+          "headline_vi": "Binding of Isaac developer loại bỏ âm nhạc AI từ Repentance Plus",
+          "url": "https://www.theverge.com/games/1039770/binding-of-isaac-ai-music",
+          "published_at": "2026-11-22T17:25:20Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "verge-ai",
+          "publisher": "the-verge",
+          "entity": "the-verge",
+          "group": "press",
+          "observed_at": "2026-11-22T23:06:45Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [],
+        "signals": {
+          "publishers": [
+            "the-verge"
+          ],
+          "age_hours_at_cutoff": 5.5778,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "6b55ef71c32ff32b2089",
+      "title": "Banks Have Had It Up to Here With Your AI Agent",
+      "title_vi": "Các ngân hàng đã có nó đến đây với agent AI của bạn",
+      "headline": "Banks Have Had It Up to Here With Your AI Agent",
+      "headline_vi": "Các ngân hàng đã có nó đến đây với agent AI của bạn",
+      "url": "https://www.wired.com/story/banks-are-cracking-down-on-ai-agents/",
+      "published_at": "2026-11-22T11:00:00Z",
+      "kind": "product",
+      "time_basis": "published",
+      "editorial_headline_vi": "Wells Fargo và loạt ngân hàng Mỹ siết điều khoản, buộc người dùng tự chịu rủi ro khi dùng tác tử AI",
+      "editorial_headline_verified": true,
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "bf0b607443605e9739a9",
+          "title": "Banks Have Had It Up to Here With Your AI Agent",
+          "title_vi": "Các ngân hàng đã có nó đến đây với agent AI của bạn",
+          "headline": "Banks Have Had It Up to Here With Your AI Agent",
+          "headline_vi": "Các ngân hàng đã có nó đến đây với agent AI của bạn",
+          "url": "https://www.wired.com/story/banks-are-cracking-down-on-ai-agents/",
+          "published_at": "2026-11-22T11:00:00Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "wired-ai",
+          "publisher": "wired",
+          "entity": "wired",
+          "group": "press",
+          "observed_at": "2026-11-22T23:06:45Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [],
+        "signals": {
+          "publishers": [
+            "wired"
+          ],
+          "age_hours_at_cutoff": 12.0,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "428691e8a93a3f34524f",
+      "title": "(LEAD) Education minister resigns over college exam chaos amid AI cheating fears",
+      "headline": "(LEAD) Education minister resigns over college exam chaos amid AI cheating fears",
+      "url": "https://en.yna.co.kr/view/AEN20261122001051315",
+      "published_at": "2026-11-22T06:05:31Z",
+      "kind": "other",
+      "time_basis": "published",
+      "editorial_headline_vi": "Bộ trưởng Giáo dục Hàn Quốc từ chức sau vụ đổi quy chế thi đại học để chống gian lận AI",
+      "editorial_headline_verified": true,
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "6dfebd68217cba1115b0",
+          "title": "(2nd LD) Education minister resigns over college exam chaos amid AI cheating fears",
+          "headline": "(2nd LD) Education minister resigns over college exam chaos amid AI cheating fears",
+          "url": "https://en.yna.co.kr/view/AEN20261122001052315",
+          "published_at": "2026-11-22T11:17:23Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "yonhap",
+          "publisher": "yonhap",
+          "entity": "yonhap",
+          "group": "press",
+          "observed_at": "2026-11-22T23:06:45Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "d9ab281f3b15f1b27d0a",
+          "title": "(LEAD) Education minister resigns over college exam chaos amid AI cheating fears",
+          "headline": "(LEAD) Education minister resigns over college exam chaos amid AI cheating fears",
+          "url": "https://en.yna.co.kr/view/AEN20261122001051315",
+          "published_at": "2026-11-22T06:05:31Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "yonhap",
+          "publisher": "yonhap",
+          "entity": "yonhap",
+          "group": "press",
+          "observed_at": "2026-11-22T23:06:45Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [],
+        "signals": {
+          "publishers": [
+            "yonhap"
+          ],
+          "age_hours_at_cutoff": 16.9081,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    }
+  ],
+  "source_health": {
+    "active_remote_sources": 77,
+    "successful_remote_sources": 77,
+    "failed_remote_sources": []
+  }
+}
