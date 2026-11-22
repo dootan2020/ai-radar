@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-22T03:09:38.413706+00:00",
-  "input_generated_at": "2026-11-22T02:46:42Z",
+  "generated_at": "2026-11-22T05:26:57.015473+00:00",
+  "input_generated_at": "2026-11-22T04:46:33Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -119711,6 +119711,317 @@
       "key_points": [],
       "same_event_coverage_ids": [
         "3b724bec5c240b01c657"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "2c0535525d1a04c270cc",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "too few verified claims for summary; no verified summary for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "too few verified claims for summary",
+        "no verified summary for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://en.yna.co.kr/view/AEN20261122000800315",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "58f6685f97fc1a9fa796",
+        "603310877c2660ff31b6"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Education minister offers resignation over AI exam cheating chaos",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "c32d9453cb971965d791",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-22/australia-spy-chief-warns-of-data-center-ai-risks-age-reports",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "ca8646762fba173d463e"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "26c5ca669b141704712f",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://openrouter.ai/blog/announcements/data-processing-incidents-on-inference-providers/",
+      "key_points": [
+        "OpenRouter thông báo đã loại bỏ ba nhà cung cấp suy luận dựa trên kết quả điều tra và thông báo tới khách hàng bị ảnh hưởng.",
+        "Theo OpenRouter, động thái diễn ra sau khi các nhà nghiên cứu báo cáo một số đối tác bị xâm phạm dữ liệu hoặc không duy trì chính sách dữ liệu.",
+        "Công ty đã rút 125 điểm cuối khỏi tư cách không lưu trữ dữ liệu (ZDR), gồm các bên bị cảnh báo và điểm cuối gỡ để phòng ngừa. Các sự cố được đối tác công bố gồm thông báo quyền riêng tư của Novita và vụ rò rỉ câu lệnh tại Together.",
+        "OpenRouter cho biết các phát hiện không cho thấy bất kỳ vụ xâm phạm hay truy cập trái phép nào vào OpenRouter. Công ty đang triển khai kiểm tra liên tục và yêu cầu xác thực phù hợp trước khi khôi phục tư cách ZDR."
+      ],
+      "same_event_coverage_ids": [
+        "aba9515f3f1e4ee761ce"
+      ],
+      "split_coverage_ids": [],
+      "subject": "OpenRouter data processing incidents and inference provider enforcement",
+      "video_labels": {
+        "video_hook": "drama_company",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "OpenRouter loại ba đối tác và hủy tư cách không lưu trữ dữ liệu của 125 điểm cuối",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://openrouter.ai/blog/announcements/data-processing-incidents-on-inference-providers/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.65,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "khách hàng bị ảnh hưởng",
+            "explanation": "OpenRouter says it notified all potentially affected customers, without establishing that every notified customer was affected (outlet:p010)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "Readers are told the notified customers were affected.",
+            "fix": "Say they were potentially affected, as OpenRouter does (outlet:p010)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "435acddd00134459dd65be00654c733987e48fea40d9789ea4ef2f638b7216d5",
+        "scored_at": "2026-11-22T05:26:56.993908+00:00"
+      }
+    },
+    {
+      "id": "9b3998d4b9b4980bb89b",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.noemamag.com/the-mythology-of-conscious-ai/",
+      "key_points": [
+        "Theo tác giả bài viết trên Noema, mô phỏng não bộ chỉ tạo ra ý thức nếu ý thức thuần túy là tính toán, một giả định mà tác giả cho là khó xảy ra. Bài viết cũng dẫn ý kiến của David Chalmers rằng máy móc có ý thức có thể sắp xuất hiện, trong khi Geoffrey Hinton tin rằng chúng đã tồn tại.",
+        "Tác giả giải thích rằng các mô phỏng tính toán thường thiếu sức mạnh nhân quả và các đặc tính nội tại của đối tượng thực. Tác giả cũng thừa nhận ẩn dụ coi tâm trí là phần mềm và não bộ là phần cứng rất hiệu quả và có ảnh hưởng lớn nhưng vẫn có những giới hạn.",
+        "Để làm rõ, bài viết chỉ ra việc mô phỏng hệ tiêu hóa không thực sự tiêu hóa bất cứ thứ gì. Tương tự, mô phỏng một cơn bão không làm ướt vật thể và mô phỏng sinh vật sống không tạo ra sự sống.",
+        "Tác giả cảnh báo nguy cơ trao quyền không cần thiết cho AI, đồng thời lưu ý việc đối xử với thực thể giống có ý thức như vô tri sẽ gây hại tâm lý cho con người. Ngoài ra, bài viết nhấn mạnh giới khoa học chưa có sự đồng thuận hay thử nghiệm dứt khoát nào để xác định liệu AI có ý thức."
+      ],
+      "same_event_coverage_ids": [
+        "40d4bd2ca48e350233bf",
+        "fc756965e90460642779"
+      ],
+      "split_coverage_ids": [],
+      "subject": "The mythology of conscious AI",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Anil Seth"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Tác giả Noema: Mô phỏng não bộ chỉ tạo ra ý thức nếu ý thức là tính toán, điều khó xảy ra",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://www.noemamag.com/the-mythology-of-conscious-ai/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.65,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "aef22ec4ecba2ddab36636b14ba453250de347a8dfabd71edaa115d21ef3f4fe",
+        "scored_at": "2026-11-22T05:26:56.993952+00:00"
+      }
+    },
+    {
+      "id": "968bcc8016d019ea8fc8",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare GitHub repository page with promotional text and no news or substantive release announcement.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/GuzmanJacqueline93/copy-ai-pro-win",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "2f3cca8e71cc9d9459eb"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "ac5799bafb4ea5bce326",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare GitHub repository page with promotional text and no news or substantive release announcement.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/Juanlabs1989/descript-pro-win",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b07d28c0f0770830f596"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "59b0b01445662eb23a8d",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare GitHub repository page with promotional text and no news or substantive release announcement.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/Cloudcode04/runway-ml-pro-win",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b9e6d650b99167ca5711"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "889a5cacf1cf8ae88319",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare GitHub repository page with promotional text and no news or substantive release announcement.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/Morriswawan05/elevenlabs-pro-win",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "302283df8f42ea57b05c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "0c692b4555777f077022",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare GitHub repository page with promotional text and no news or substantive release announcement.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/debugdigital677/descript-pro-win",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "4d61bd5bed3537871985"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "040bf8c9ba9a8039ddb9",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare GitHub repository page with promotional text and no news or substantive release announcement.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/JieFedorov81/runway-ml-pro-win",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "32a540a051f20d67c8bc"
       ],
       "split_coverage_ids": []
     }
