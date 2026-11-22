@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-22T11:25:25.398904+00:00",
-  "input_generated_at": "2026-11-22T10:46:51Z",
+  "generated_at": "2026-11-22T13:29:14.094160+00:00",
+  "input_generated_at": "2026-11-22T12:47:05Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -120264,10 +120264,10 @@
       "use_original_title": false,
       "source_url": "https://betterdatacenterproject.com/2026/11/16/how-ai-is-powered-a-breakdown-of-byop-and-grid-power/",
       "key_points": [
-        "Better Data Center Project cho biết các trung tâm dữ liệu đã ký hợp đồng của Anthropic tại Mỹ sẽ dùng chủ yếu nhiên liệu hóa thạch trong ngắn hạn. Đến năm 2028, khoảng 87% điện năng của công ty tại đây được ước tính đến từ khí đốt và 11% từ than đá.",
-        "Báo cáo giải thích do thiếu cam kết năng lượng tái tạo mới, phụ tải bổ sung trên lưới sẽ do các nguồn hóa thạch biên đáp ứng. Nhu cầu này sẽ do khí đốt mới tại chỗ, khí đốt mới trên lưới, cùng khí đốt, than đá và điện hạt nhân hiện hữu đảm nhận.",
-        "Cụ thể, Anthropic dùng cơ sở Colossus 2 của SpaceX, nơi nhận phần lớn điện từ tuabin tạm chưa cấp phép và đa số thiếu công nghệ khử xúc tác chọn lọc (xử lý khí thải SCR). Báo cáo ước tính Anthropic sẽ dùng tới 600 MW điện tại đây vào cuối năm 2026, dù công ty từng cam kết đối tác cấp điện phải có giấy phép và kiểm soát phát thải.",
-        "Về tác động, lượng phát thải CO2 của Anthropic có thể đạt 17–38 triệu tấn vào năm 2028, với kịch bản trung bình là 32 triệu tấn. Dù kịch bản trung bình có thể vượt phát thải điện bang California năm 2024, báo cáo lưu ý điều này không ám chỉ Anthropic xả thải lớn nhất do các đối thủ cũng tăng phát thải."
+        "Better Data Center Project cho biết các trung tâm dữ liệu của Anthropic tại Mỹ sẽ dùng chủ yếu nhiên liệu hóa thạch trong ngắn hạn. Đến năm 2028, ước tính 87% điện năng của hãng tại đây sẽ đến từ khí đốt và 11% từ than đá.",
+        "Báo cáo giải thích việc thiếu cam kết năng lượng tái tạo mới khiến phụ tải tăng thêm trên lưới sẽ do nguồn hóa thạch biên đáp ứng. Nhu cầu này dự kiến được đáp ứng từ khí đốt tại chỗ cùng khí đốt, than đá và điện hạt nhân trên lưới.",
+        "Cụ thể, báo cáo ước tính theo kịch bản trung bình, Anthropic sẽ phát thải 32 triệu tấn CO2 tương đương vào năm 2028 trong khoảng dự báo 17–38 triệu tấn. Tại cơ sở Colossus 2 của SpaceX, Anthropic dùng nguồn điện chủ yếu từ tuabin tạm chưa cấp phép và đa số không trang bị công nghệ khử xúc tác chọn lọc (SCR).",
+        "Về ý nghĩa, Better Data Center Project nhận định lượng phát thải này có thể vượt phát thải Phạm vi 2 năm 2025 của Meta, Microsoft và Google gộp lại. Dù vậy, tổ chức này lưu ý so sánh trên không nhằm khẳng định Anthropic phát thải lớn nhất vì phát thải của các hãng khác cũng sẽ tăng."
       ],
       "same_event_coverage_ids": [
         "16c7c3889a8f3ae7f7a9"
@@ -120281,7 +120281,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Báo cáo ước tính 87% điện năng các trung tâm dữ liệu đã ký hợp đồng của Anthropic tại Mỹ đến từ khí đốt năm 2028",
+      "editorial_headline_vi": "Báo cáo ước tính 87% điện năng các trung tâm dữ liệu của Anthropic tại Mỹ sẽ đến từ khí đốt năm 2028",
       "summary_sources": [
         {
           "id": "outlet",
@@ -120296,40 +120296,24 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.25,
+        "value": 9.35,
         "answers": {
-          "what": 10,
+          "what": 9,
           "why": 10,
-          "notable": 9,
-          "meaning": 7
+          "notable": 10,
+          "meaning": 8
         },
-        "hard_errors": [
-          {
-            "kind": "quote",
-            "summary_text": "công ty từng cam kết đối tác cấp điện phải có giấy phép",
-            "explanation": "Anthropic said it follows the air permitting process and requires the plants powering its data centers to do the same. The cited statement does not say every power-supplying partner must already hold a permit (outlet:p027)."
-          },
-          {
-            "kind": "quote",
-            "summary_text": "điều này không ám chỉ Anthropic xả thải lớn nhất",
-            "explanation": "The source limits this caution to a comparison of Anthropic’s projected 2028 emissions with Meta, Microsoft and Google’s 2025 emissions; it does not make an unrestricted claim about being the largest emitter (outlet:p020, outlet:p038)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "meaning",
-            "problem": "The caution sounds unrestricted and follows the California comparison.",
-            "fix": "Tie it specifically to the comparison with Meta, Microsoft and Google’s 2025 emissions, and say it does not establish that Anthropic will be the largest emitter among tech companies (outlet:p020, outlet:p038)."
+            "question": "what",
+            "problem": "Readers may take the 87% and 11% estimates as covering every Anthropic data center in the U.S.",
+            "fix": "Specify that the estimates concern Anthropic’s currently contracted U.S. data centers (outlet:p014)."
           },
           {
             "question": "meaning",
-            "problem": "The emissions projection sounds like a firm total for Anthropic.",
-            "fix": "Specify that it concerns power use at the studied sites and that the 17–38 million-ton range reflects uncertainty in average power use, including cooling and utilization (outlet:p017)."
-          },
-          {
-            "question": "notable",
-            "problem": "The attributed permitting commitment is stronger than Anthropic’s stated wording.",
-            "fix": "Say Anthropic stated it follows the air permitting process and requires the power plants to do the same, while also requiring emissions controls including SCR (outlet:p027)."
+            "problem": "The comparison with Meta, Microsoft and Google lacks its accounting conditions.",
+            "fix": "Say their 2025 Scope 2 figures are location-based and before renewable-energy offsets (outlet:p020)."
           }
         ],
         "writer_boats": [
@@ -120337,8 +120321,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "94f4707482743ac99803507a7cde08c3362f1956823fb2ae91fda3cdc35ad67c",
-        "scored_at": "2026-11-22T11:13:32.798682+00:00"
+        "prose_sha256": "06092a687639cbf393603fbe393744c9eb2685d02f7bb7afd64e20e26794623d",
+        "scored_at": "2026-11-22T13:29:14.084780+00:00"
       }
     },
     {
@@ -120376,6 +120360,143 @@
         "availability": "unknown",
         "is_leak": false
       }
+    },
+    {
+      "id": "660b0b3743a08e805829",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.bloodinthemachine.com/p/ai-is-becoming-a-disaster-for-the",
+      "key_points": [
+        "Anthropic's initial public offering netted the company over $81 billion on its first day of trading, valuing the company between $1.3 trillion and $1.7 trillion.",
+        "An analysis cited in the article indicates Anthropic's upcoming data center projects could emit nearly 20 megatons of CO2-equivalent per year.",
+        "Anthropic has increasingly relied on fossil-fuel-powered infrastructure, including natural gas and xAI's Colossus data center in Memphis, to supply its compute needs."
+      ],
+      "same_event_coverage_ids": [
+        "0fc814827bcb64ac7eb2"
+      ],
+      "split_coverage_ids": [],
+      "subject": "AI climate impact and Anthropic carbon emissions",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Brian Merchant"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "6b55ef71c32ff32b2089",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.wired.com/story/banks-are-cracking-down-on-ai-agents/",
+      "key_points": [
+        "Ngân hàng Wells Fargo cập nhật thỏa thuận dịch vụ cảnh báo người dùng tự chịu mọi rủi ro khi dùng tác tử AI (công cụ tự động thao tác trực tuyến thay con người). Các ngân hàng siết chính sách dù tỷ lệ giao dịch trực tuyến qua công cụ tự động này hiện còn rất nhỏ.",
+        "Các ngân hàng lo ngại rủi ro bảo mật và việc tự động rút tiền gây thiệt hại cho chủ tài khoản, theo chuyên gia Sucharita Kodali của Forrester. Bà cho biết ngân hàng có bản chất né tránh rủi ro nên chủ động phòng ngừa, dù đa số sự cố hiện chỉ là trường hợp cá biệt.",
+        "JPMorgan Chase cấm tác tử bên thứ ba đăng nhập bằng tài khoản người dùng, còn Bank of America cảnh báo khách không chia sẻ thông tin truy cập. Trái lại, American Express thông báo một số lỗi đặt nhầm hàng có thể được hoàn tiền trong tương lai nếu người bán từ chối bồi hoàn.",
+        "Các ngân hàng vừa chặn tác tử bên ngoài vừa phát triển công cụ riêng, theo Giáo sư Luca Cian tại Đại học Virginia. Tạp chí Wired đánh giá các nhà băng đã dứt khoát rằng mọi rủi ro từ bot sẽ do khách hàng chịu trách nhiệm."
+      ],
+      "same_event_coverage_ids": [
+        "bf0b607443605e9739a9"
+      ],
+      "split_coverage_ids": [],
+      "subject": "US banks and Wells Fargo restrictions on AI agents",
+      "video_labels": {
+        "video_hook": "drama_company",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Wells Fargo và các ngân hàng Mỹ siết điều khoản, buộc khách hàng tự chịu rủi ro khi dùng tác tử AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "wired",
+          "url": "https://www.wired.com/story/banks-are-cracking-down-on-ai-agents/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.9,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 8,
+          "meaning": 9
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "nếu người bán từ chối bồi hoàn",
+            "explanation": "The source says reimbursement may be available if the customer cannot get their money back from the original retailer; it does not require or report an explicit refusal by the retailer (outlet:p013)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The American Express condition is narrowed to a retailer refusing reimbursement.",
+            "fix": "Say some agent mistakes may qualify for future reimbursement if the customer cannot recover the money from the original retailer (outlet:p013)."
+          },
+          {
+            "question": "what",
+            "problem": "The reader cannot tell when Wells Fargo’s updated terms take effect.",
+            "fix": "Add that the terms are set to take effect on Tuesday (outlet:p001)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "22fb8ac62660bb49083b6311bb1d1608b864533d1c221fc98815fd0148edeae7",
+        "scored_at": "2026-11-22T13:19:08.393021+00:00"
+      }
+    },
+    {
+      "id": "48435cfc749a851e2648",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "An arXiv benchmark paper submitted on June 12, 2026 re-posted on November 22, 2026 with no new reporting, commentary, or review, representing stale resurfacing.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://arxiv.org/abs/2606.14068",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c2b400a8c48a19350433"
+      ],
+      "split_coverage_ids": []
     }
   ]
 }
