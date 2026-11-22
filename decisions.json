@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-22T07:27:23.923959+00:00",
-  "input_generated_at": "2026-11-22T06:47:55Z",
+  "generated_at": "2026-11-22T09:10:39.628699+00:00",
+  "input_generated_at": "2026-11-22T08:46:48Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -120114,10 +120114,10 @@
       "use_original_title": true,
       "source_url": "https://analyticsindiamag.com/ai-features/from-raye-to-coldplay-how-ai-scalpers-are-pricing-you-out-of-concert-tickets",
       "key_points": [
-        "Phe vé dùng hàng nghìn danh tính số quét vé và chỉnh giá chênh lệch, liên tục theo dõi nhu cầu bán lại và lượng ghế trống. Theo Analytics India Magazine, nạn gom vé siêu tốc gây lo ngại thất thoát doanh thu, buộc các nền tảng tăng cường phòng thủ.",
-        "Hệ thống bán vé vốn thiết kế theo tương tác người trong khi các hệ thống tự động chạy ở tốc độ và quy mô khác biệt, theo chuyên gia Anuj Gupta. Dù vậy, ông Aniket Chaudhary từ sàn Reticket cho biết phe vé ở Ấn Độ phần lớn vẫn dùng tập lệnh cũ chứ chưa cần AI.",
-        "Bot phe vé tạo hàng trăm nghìn lượt đăng ký giả tại buổi diễn của ca sĩ Raye ở London, nơi có 1,8 triệu lượt đăng ký cho 5.000 chỗ. Đợt diễn Coldplay tại Ấn Độ cũng có gần 13 triệu người tranh 150.000 vé khiến lượng lớn vé bị bot gom bán lại giá cao.",
-        "Tồn tại khoảng trống giữa xác thực sở hữu và hiệu lực vé khi vào cửa, do sàn bán lại không thể luôn giám sát vé trên nền tảng gốc. Theo Analytics India Magazine, nền tảng gốc có thể hỗ trợ bằng cách báo vé đã quét hoặc cấp vé mới để vô hiệu hóa bản của người bán."
+        "Phe vé dùng hàng nghìn danh tính số tạo tự động để quét nhu cầu bán lại và điều chỉnh giá chênh lệch. Tại đợt diễn của Coldplay ở Ấn Độ, gần 13 triệu người tranh 150.000 vé và lượng lớn vé bị bot gom bán lại với giá chênh lệch cao.",
+        "Theo chuyên gia Anuj Gupta từ KiteFishAI, hệ thống bán vé vốn thiết kế theo tương tác người trong khi hệ thống tự động hoạt động ở tốc độ và quy mô khác biệt. Dù vậy, ông Aniket Chaudhary từ sàn Reticket lưu ý phe vé Ấn Độ phần lớn vẫn dùng tập lệnh cũ chứ chưa cần AI.",
+        "Đợt đăng ký hòa nhạc của ca sĩ Raye thu hút 1,8 triệu lượt đăng ký cho 5.000 chỗ ngồi tại Hội trường Royal Albert. Theo ca sĩ Raye, bot AI đã tạo hàng trăm nghìn lượt đăng ký giả khiến đội ngũ của cô phải rà soát thủ công.",
+        "Theo Analytics India Magazine, thách thức tiếp theo có thể đến từ các tác tử AI (phần mềm tự động thay con người) mua vé hộ khách hàng khi hệ thống phải phân biệt giao dịch hợp lệ với hành vi gom vé. Chuyên gia Anuj Gupta cho rằng nền tảng không nên coi mọi tự động hóa là độc hại mà cần phân biệt dựa trên danh tính và hành vi giao dịch."
       ],
       "same_event_coverage_ids": [
         "fc6ecf59a32af9df4a71"
@@ -120133,7 +120133,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Phe vé dùng hàng nghìn danh tính số gom vé hòa nhạc, tạo hàng trăm nghìn lượt đăng ký giả",
+      "editorial_headline_vi": "Phe vé dùng hàng nghìn danh tính số tạo tự động để gom vé và điều chỉnh giá chênh lệch",
       "summary_sources": [
         {
           "id": "outlet",
@@ -120146,35 +120146,24 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 7.2,
+        "value": 8.35,
         "answers": {
-          "what": 9,
-          "why": 3,
-          "notable": 8,
-          "meaning": 7
+          "what": 8,
+          "why": 9,
+          "notable": 10,
+          "meaning": 5
         },
-        "hard_errors": [
-          {
-            "kind": "cause",
-            "summary_text": "gần 13 triệu người tranh 150.000 vé khiến lượng lớn vé bị bot gom bán lại giá cao",
-            "explanation": "The source reports the high demand and attributes the marked-up resale listings to bot-driven scalping, but does not say the demand caused the scalping (outlet:p007)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "why",
-            "problem": "The Coldplay sentence makes high demand the stated cause of bot scalping.",
-            "fix": "Report the demand and the bot-driven resale listings without asserting that one caused the other (outlet:p007)."
-          },
-          {
-            "question": "notable",
-            "problem": "Readers miss the article’s warning that scams involving genuine tickets are generally more common than AI-made fakes.",
-            "fix": "Add that comparison and connect it to the need to verify continuing ownership and validity (outlet:p017–p018, outlet:p024)."
+            "question": "meaning",
+            "problem": "Readers miss the article’s stated bigger risk: more scams involve someone holding a genuine ticket than an AI-made fake.",
+            "fix": "Add that distinction and explain why a screenshot or PDF cannot prove the seller still owns or can transfer the ticket (outlet:p017-p018)."
           },
           {
             "question": "meaning",
-            "problem": "Readers get specific resale safeguards but miss the source’s wider conclusion about verifiable tickets and legitimate AI-assisted purchases.",
-            "fix": "Briefly explain the proposed issuer-verifiable ticket credentials and the need to distinguish authorized customer agents from bulk-buying automation (outlet:p021, outlet:p029–p032)."
+            "problem": "Readers do not learn how the article proposes to address resale fraud.",
+            "fix": "Explain that Reticket verifies booking details from the issuer and that original ticketing platforms could notify resale marketplaces of transfers or scans, or reissue tickets to buyers (outlet:p019, outlet:p024-p026)."
           }
         ],
         "writer_boats": [
@@ -120182,8 +120171,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "173e2bfa40c98a2397ba312d50f06db288a5613b2fcfeea62fe50af751da9dc2",
-        "scored_at": "2026-11-22T07:23:42.276064+00:00"
+        "prose_sha256": "66954161eea65437ccea468ef9d591142a7893b435dd4e0f8c24af1ad0cd0553",
+        "scored_at": "2026-11-22T09:10:39.624701+00:00"
       }
     },
     {
@@ -120223,6 +120212,36 @@
         "8440c84328257bc6a3e0"
       ],
       "split_coverage_ids": []
+    },
+    {
+      "id": "2ce4c67d0048ffa219c3",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://pandaily.com/zoellent-gr-sac-gated-residual-controller-frozen-vla",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "0fc64af678619a7f5bd3"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Zoellent AI Lab",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      }
     }
   ]
 }
