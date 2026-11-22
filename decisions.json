@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-22T09:10:39.628699+00:00",
-  "input_generated_at": "2026-11-22T08:46:48Z",
+  "generated_at": "2026-11-22T11:25:25.398904+00:00",
+  "input_generated_at": "2026-11-22T10:46:51Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -120114,10 +120114,10 @@
       "use_original_title": true,
       "source_url": "https://analyticsindiamag.com/ai-features/from-raye-to-coldplay-how-ai-scalpers-are-pricing-you-out-of-concert-tickets",
       "key_points": [
-        "Phe vé dùng hàng nghìn danh tính số tạo tự động để quét nhu cầu bán lại và điều chỉnh giá chênh lệch. Tại đợt diễn của Coldplay ở Ấn Độ, gần 13 triệu người tranh 150.000 vé và lượng lớn vé bị bot gom bán lại với giá chênh lệch cao.",
-        "Theo chuyên gia Anuj Gupta từ KiteFishAI, hệ thống bán vé vốn thiết kế theo tương tác người trong khi hệ thống tự động hoạt động ở tốc độ và quy mô khác biệt. Dù vậy, ông Aniket Chaudhary từ sàn Reticket lưu ý phe vé Ấn Độ phần lớn vẫn dùng tập lệnh cũ chứ chưa cần AI.",
-        "Đợt đăng ký hòa nhạc của ca sĩ Raye thu hút 1,8 triệu lượt đăng ký cho 5.000 chỗ ngồi tại Hội trường Royal Albert. Theo ca sĩ Raye, bot AI đã tạo hàng trăm nghìn lượt đăng ký giả khiến đội ngũ của cô phải rà soát thủ công.",
-        "Theo Analytics India Magazine, thách thức tiếp theo có thể đến từ các tác tử AI (phần mềm tự động thay con người) mua vé hộ khách hàng khi hệ thống phải phân biệt giao dịch hợp lệ với hành vi gom vé. Chuyên gia Anuj Gupta cho rằng nền tảng không nên coi mọi tự động hóa là độc hại mà cần phân biệt dựa trên danh tính và hành vi giao dịch."
+        "Theo Analytics India Magazine, phe vé dùng hàng nghìn danh tính số được tạo tự động để liên tục quét nhu cầu bán lại và điều chỉnh giá chênh lệch. Tình trạng này làm dấy lên lo ngại thất thoát doanh thu ở thị trường hòa nhạc 20.000 crore rupee của Ấn Độ.",
+        "Giám đốc KiteFishAI Anuj Gupta nhận định hệ thống bán vé vốn thiết kế theo tương tác người trong khi hệ thống tự động hoạt động ở tốc độ và quy mô khác biệt.",
+        "Tại Ấn Độ, gần 13 triệu người tranh 150.000 vé xem Coldplay trên BookMyShow trước khi lượng lớn vé bị bot gom để bán chênh lệch trên Viagogo và Gigsberg. Tại Anh, đợt đăng ký xem ca sĩ Raye thu hút 1,8 triệu lượt cho 5.000 chỗ và Raye cho biết phe vé dùng bot tạo hàng trăm nghìn lượt đăng ký giả.",
+        "Theo Analytics India Magazine, khoảng trống giữa xác thực quyền sở hữu khi bán lại và bảo đảm vé còn hợp lệ khi vào cửa khiến sàn không thể chắc chắn người bán còn giữ vé. Tác giả bài viết nhận định các nền tảng sẽ phải phân biệt giao dịch hợp lệ do trợ lý trí tuệ nhân tạo mua hộ với hoạt động tự động gom vé số lượng lớn."
       ],
       "same_event_coverage_ids": [
         "fc6ecf59a32af9df4a71"
@@ -120133,7 +120133,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Phe vé dùng hàng nghìn danh tính số tạo tự động để gom vé và điều chỉnh giá chênh lệch",
+      "editorial_headline_vi": "Phe vé dùng danh tính số tự động gom vé hòa nhạc, thách thức kiểm soát vé thật khi bán lại",
       "summary_sources": [
         {
           "id": "outlet",
@@ -120148,22 +120148,27 @@
         "version": "cham-4-cau-1",
         "value": 8.35,
         "answers": {
-          "what": 8,
-          "why": 9,
-          "notable": 10,
-          "meaning": 5
+          "what": 9,
+          "why": 8,
+          "notable": 8,
+          "meaning": 8
         },
         "hard_errors": [],
         "findings": [
           {
-            "question": "meaning",
-            "problem": "Readers miss the article’s stated bigger risk: more scams involve someone holding a genuine ticket than an AI-made fake.",
-            "fix": "Add that distinction and explain why a screenshot or PDF cannot prove the seller still owns or can transfer the ticket (outlet:p017-p018)."
+            "question": "why",
+            "problem": "Readers miss the source’s caution that much ticket scalping in India still uses conventional scripts and multiple accounts; automated activity alone does not establish AI involvement.",
+            "fix": "Add that distinction and attribute it to the cited sources (outlet:p008–p012, outlet:p015)."
           },
           {
             "question": "meaning",
-            "problem": "Readers do not learn how the article proposes to address resale fraud.",
-            "fix": "Explain that Reticket verifies booking details from the issuer and that original ticketing platforms could notify resale marketplaces of transfers or scans, or reissue tickets to buyers (outlet:p019, outlet:p024-p026)."
+            "problem": "The account of resale risk omits the article’s sharper point: scams more often involve someone holding a genuine ticket than an AI-made fake.",
+            "fix": "State that comparison and explain that a screenshot or PDF cannot prove continuing ownership or transfer rights (outlet:p017–p018)."
+          },
+          {
+            "question": "notable",
+            "problem": "Readers get no concrete example of how the resale validity problem is being addressed.",
+            "fix": "Briefly describe Reticket’s issuer-backed booking verification and single-listing lock, or the proposed issuer notifications and ticket reissuance (outlet:p019, outlet:p026)."
           }
         ],
         "writer_boats": [
@@ -120171,8 +120176,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "66954161eea65437ccea468ef9d591142a7893b435dd4e0f8c24af1ad0cd0553",
-        "scored_at": "2026-11-22T09:10:39.624701+00:00"
+        "prose_sha256": "f5bcea35f4f4f33f9cc4b87eb4cfdfe37a15fbd7883c5dd754abc0c4210dc370",
+        "scored_at": "2026-11-22T11:25:25.395268+00:00"
       }
     },
     {
@@ -120239,6 +120244,135 @@
       "video_labels": {
         "video_hook": "launch",
         "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "d7e78f94bca2cb94b491",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://betterdatacenterproject.com/2026/11/16/how-ai-is-powered-a-breakdown-of-byop-and-grid-power/",
+      "key_points": [
+        "Better Data Center Project cho biết các trung tâm dữ liệu đã ký hợp đồng của Anthropic tại Mỹ sẽ dùng chủ yếu nhiên liệu hóa thạch trong ngắn hạn. Đến năm 2028, khoảng 87% điện năng của công ty tại đây được ước tính đến từ khí đốt và 11% từ than đá.",
+        "Báo cáo giải thích do thiếu cam kết năng lượng tái tạo mới, phụ tải bổ sung trên lưới sẽ do các nguồn hóa thạch biên đáp ứng. Nhu cầu này sẽ do khí đốt mới tại chỗ, khí đốt mới trên lưới, cùng khí đốt, than đá và điện hạt nhân hiện hữu đảm nhận.",
+        "Cụ thể, Anthropic dùng cơ sở Colossus 2 của SpaceX, nơi nhận phần lớn điện từ tuabin tạm chưa cấp phép và đa số thiếu công nghệ khử xúc tác chọn lọc (xử lý khí thải SCR). Báo cáo ước tính Anthropic sẽ dùng tới 600 MW điện tại đây vào cuối năm 2026, dù công ty từng cam kết đối tác cấp điện phải có giấy phép và kiểm soát phát thải.",
+        "Về tác động, lượng phát thải CO2 của Anthropic có thể đạt 17–38 triệu tấn vào năm 2028, với kịch bản trung bình là 32 triệu tấn. Dù kịch bản trung bình có thể vượt phát thải điện bang California năm 2024, báo cáo lưu ý điều này không ám chỉ Anthropic xả thải lớn nhất do các đối thủ cũng tăng phát thải."
+      ],
+      "same_event_coverage_ids": [
+        "16c7c3889a8f3ae7f7a9"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Anthropic AI data center power consumption and emissions",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Báo cáo ước tính 87% điện năng các trung tâm dữ liệu đã ký hợp đồng của Anthropic tại Mỹ đến từ khí đốt năm 2028",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://betterdatacenterproject.com/2026/11/16/how-ai-is-powered-a-breakdown-of-byop-and-grid-power/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.25,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 7
+        },
+        "hard_errors": [
+          {
+            "kind": "quote",
+            "summary_text": "công ty từng cam kết đối tác cấp điện phải có giấy phép",
+            "explanation": "Anthropic said it follows the air permitting process and requires the plants powering its data centers to do the same. The cited statement does not say every power-supplying partner must already hold a permit (outlet:p027)."
+          },
+          {
+            "kind": "quote",
+            "summary_text": "điều này không ám chỉ Anthropic xả thải lớn nhất",
+            "explanation": "The source limits this caution to a comparison of Anthropic’s projected 2028 emissions with Meta, Microsoft and Google’s 2025 emissions; it does not make an unrestricted claim about being the largest emitter (outlet:p020, outlet:p038)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The caution sounds unrestricted and follows the California comparison.",
+            "fix": "Tie it specifically to the comparison with Meta, Microsoft and Google’s 2025 emissions, and say it does not establish that Anthropic will be the largest emitter among tech companies (outlet:p020, outlet:p038)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The emissions projection sounds like a firm total for Anthropic.",
+            "fix": "Specify that it concerns power use at the studied sites and that the 17–38 million-ton range reflects uncertainty in average power use, including cooling and utilization (outlet:p017)."
+          },
+          {
+            "question": "notable",
+            "problem": "The attributed permitting commitment is stronger than Anthropic’s stated wording.",
+            "fix": "Say Anthropic stated it follows the air permitting process and requires the power plants to do the same, while also requiring emissions controls including SCR (outlet:p027)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "94f4707482743ac99803507a7cde08c3362f1956823fb2ae91fda3cdc35ad67c",
+        "scored_at": "2026-11-22T11:13:32.798682+00:00"
+      }
+    },
+    {
+      "id": "63369a8a01b756dce61a",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.bridgewater.com/research-and-insights/current-efforts-arent-enough-to-slow-the-ai-cyber-virus",
+      "key_points": [
+        "AI is enabling attackers to exploit software vulnerabilities faster than defenders can patch them.",
+        "Bridgewater warns that major disruptions like recent Microsoft outages and financial firm vishing campaigns may become more frequent as AI cyber exploit capabilities expand."
+      ],
+      "same_event_coverage_ids": [
+        "eb436bfe0f0247edd307"
+      ],
+      "split_coverage_ids": [],
+      "subject": "AI-accelerated cybersecurity exploits and market risks",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Hudson Attar",
+          "Arham Habib"
+        ],
         "availability": "unknown",
         "is_leak": false
       }
