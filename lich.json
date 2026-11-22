@@ -1,0 +1,151 @@
+{
+ "days": [
+  {
+   "date": "2026-11-15",
+   "file": "2026-11-15.avif",
+   "family": "projected-polytope",
+   "w": 2560,
+   "h": 1440
+  },
+  {
+   "date": "2026-11-16",
+   "file": "2026-11-16.avif",
+   "family": "silicon-die",
+   "w": 2560,
+   "h": 1440
+  },
+  {
+   "date": "2026-11-17",
+   "file": "2026-11-17.avif",
+   "family": "neural-constellation",
+   "w": 2560,
+   "h": 1440
+  },
+  {
+   "date": "2026-11-18",
+   "file": "2026-11-18.avif",
+   "family": "voxel-terrain",
+   "w": 2560,
+   "h": 1440
+  },
+  {
+   "date": "2026-11-19",
+   "file": "2026-11-19.avif",
+   "family": "fibre-optics",
+   "w": 2560,
+   "h": 1440
+  },
+  {
+   "date": "2026-11-20",
+   "file": "2026-11-20.avif",
+   "family": "orbital-horizon",
+   "w": 2560,
+   "h": 1440
+  },
+  {
+   "date": "2026-11-21",
+   "file": "2026-11-21.avif",
+   "family": "data-centre",
+   "w": 2560,
+   "h": 1440
+  },
+  {
+   "date": "2026-11-22",
+   "file": "2026-11-22.avif",
+   "family": "projected-polytope",
+   "w": 2560,
+   "h": 1440
+  },
+  {
+   "date": "2026-11-23",
+   "file": "2026-11-23.avif",
+   "family": "silicon-die",
+   "w": 2560,
+   "h": 1440
+  },
+  {
+   "date": "2026-11-24",
+   "file": "2026-11-24.avif",
+   "family": "neural-constellation",
+   "w": 2560,
+   "h": 1440
+  },
+  {
+   "date": "2026-11-25",
+   "file": "2026-11-25.avif",
+   "family": "voxel-terrain",
+   "w": 2560,
+   "h": 1440
+  },
+  {
+   "date": "2026-11-26",
+   "file": "2026-11-26.avif",
+   "family": "fibre-optics",
+   "w": 2560,
+   "h": 1440
+  },
+  {
+   "date": "2026-11-27",
+   "file": "2026-11-27.avif",
+   "family": "orbital-horizon",
+   "w": 2560,
+   "h": 1440
+  },
+  {
+   "date": "2026-11-28",
+   "file": "2026-11-28.avif",
+   "family": "data-centre",
+   "w": 2560,
+   "h": 1440
+  },
+  {
+   "date": "2026-11-29",
+   "file": "2026-11-29.avif",
+   "family": "projected-polytope",
+   "w": 2560,
+   "h": 1440
+  },
+  {
+   "date": "2026-11-30",
+   "file": "2026-11-30.avif",
+   "family": "silicon-die",
+   "w": 2560,
+   "h": 1440
+  },
+  {
+   "date": "2026-12-01",
+   "file": "2026-12-01.avif",
+   "family": "neural-constellation",
+   "w": 2560,
+   "h": 1440
+  },
+  {
+   "date": "2026-12-02",
+   "file": "2026-12-02.avif",
+   "family": "voxel-terrain",
+   "w": 2560,
+   "h": 1440
+  },
+  {
+   "date": "2026-12-03",
+   "file": "2026-12-03.avif",
+   "family": "fibre-optics",
+   "w": 2560,
+   "h": 1440
+  },
+  {
+   "date": "2026-12-04",
+   "file": "2026-12-04.avif",
+   "family": "orbital-horizon",
+   "w": 2560,
+   "h": 1440
+  },
+  {
+   "date": "2026-12-05",
+   "file": "2026-12-05.avif",
+   "family": "data-centre",
+   "w": 2560,
+   "h": 1440
+  }
+ ]
+}
