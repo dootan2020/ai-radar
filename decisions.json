@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-22T13:29:14.094160+00:00",
-  "input_generated_at": "2026-11-22T12:47:05Z",
+  "generated_at": "2026-11-22T15:17:37.049731+00:00",
+  "input_generated_at": "2026-11-22T14:46:19Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -120414,10 +120414,10 @@
       "use_original_title": false,
       "source_url": "https://www.wired.com/story/banks-are-cracking-down-on-ai-agents/",
       "key_points": [
-        "Ngân hàng Wells Fargo cập nhật thỏa thuận dịch vụ cảnh báo người dùng tự chịu mọi rủi ro khi dùng tác tử AI (công cụ tự động thao tác trực tuyến thay con người). Các ngân hàng siết chính sách dù tỷ lệ giao dịch trực tuyến qua công cụ tự động này hiện còn rất nhỏ.",
-        "Các ngân hàng lo ngại rủi ro bảo mật và việc tự động rút tiền gây thiệt hại cho chủ tài khoản, theo chuyên gia Sucharita Kodali của Forrester. Bà cho biết ngân hàng có bản chất né tránh rủi ro nên chủ động phòng ngừa, dù đa số sự cố hiện chỉ là trường hợp cá biệt.",
-        "JPMorgan Chase cấm tác tử bên thứ ba đăng nhập bằng tài khoản người dùng, còn Bank of America cảnh báo khách không chia sẻ thông tin truy cập. Trái lại, American Express thông báo một số lỗi đặt nhầm hàng có thể được hoàn tiền trong tương lai nếu người bán từ chối bồi hoàn.",
-        "Các ngân hàng vừa chặn tác tử bên ngoài vừa phát triển công cụ riêng, theo Giáo sư Luca Cian tại Đại học Virginia. Tạp chí Wired đánh giá các nhà băng đã dứt khoát rằng mọi rủi ro từ bot sẽ do khách hàng chịu trách nhiệm."
+        "Từ thứ Ba, Wells Fargo áp dụng thỏa thuận mới cảnh báo khách hàng tự chịu mọi rủi ro khi dùng tác tử AI (công cụ tự động thao tác trực tuyến thay con người). Các ngân hàng Mỹ siết chính sách dù giao dịch qua công cụ này hiện chiếm tỷ lệ rất nhỏ.",
+        "Theo chuyên gia Sucharita Kodali của Forrester, ngân hàng vốn né tránh rủi ro nên chủ động phòng ngừa nguy cơ bảo mật và tự động rút tiền gây thiệt hại. Bà cho rằng việc phòng ngừa là hợp lý dù phần lớn sự cố về tác tử hiện chỉ là trường hợp cá biệt.",
+        "Cuối tháng 10, JPMorgan Chase cấm tác tử bên thứ ba đăng nhập bằng tài khoản người dùng, còn Bank of America cảnh báo khách không chia sẻ thông tin truy cập. Trái lại, American Express thông báo một số lỗi đặt hàng có thể được bồi hoàn trong tương lai nếu khách không thể lấy lại tiền từ người bán ban đầu.",
+        "Theo Giáo sư Luca Cian tại Đại học Virginia, các ngân hàng đang vừa chặn tác tử bên ngoài vừa tự phát triển công cụ riêng. Tạp chí Wired nhận định dù tác tử AI phổ biến hay dần biến mất, các ngân hàng đã dứt khoát rằng người dùng phải tự chịu trách nhiệm về bot của mình."
       ],
       "same_event_coverage_ids": [
         "bf0b607443605e9739a9"
@@ -120431,7 +120431,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Wells Fargo và các ngân hàng Mỹ siết điều khoản, buộc khách hàng tự chịu rủi ro khi dùng tác tử AI",
+      "editorial_headline_vi": "Wells Fargo và loạt ngân hàng Mỹ siết điều khoản, buộc người dùng tự chịu rủi ro khi dùng tác tử AI",
       "summary_sources": [
         {
           "id": "outlet",
@@ -120444,39 +120444,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.9,
+        "value": 9.65,
         "answers": {
           "what": 9,
           "why": 10,
-          "notable": 8,
-          "meaning": 9
+          "notable": 10,
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "nếu người bán từ chối bồi hoàn",
-            "explanation": "The source says reimbursement may be available if the customer cannot get their money back from the original retailer; it does not require or report an explicit refusal by the retailer (outlet:p013)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "notable",
-            "problem": "The American Express condition is narrowed to a retailer refusing reimbursement.",
-            "fix": "Say some agent mistakes may qualify for future reimbursement if the customer cannot recover the money from the original retailer (outlet:p013)."
-          },
-          {
-            "question": "what",
-            "problem": "The reader cannot tell when Wells Fargo’s updated terms take effect.",
-            "fix": "Add that the terms are set to take effect on Tuesday (outlet:p001)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "22fb8ac62660bb49083b6311bb1d1608b864533d1c221fc98815fd0148edeae7",
-        "scored_at": "2026-11-22T13:19:08.393021+00:00"
+        "prose_sha256": "8f11b9607182e2048dffe7624df205bb7143211784b688d236fa4879d511da9d",
+        "scored_at": "2026-11-22T15:17:37.036590+00:00"
       }
     },
     {
@@ -120497,6 +120480,269 @@
         "c2b400a8c48a19350433"
       ],
       "split_coverage_ids": []
+    },
+    {
+      "id": "9e90f9c0947157e7e7e9",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Show HN pitch and product landing page with sales copy, demo video, and credit top-up pricing without independent reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/gulivan/worker755",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "cf428fac51a7282f2467"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "6d06064c405a80c4321d",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.scmp.com/tech/tech-trends/article/3375374/tencent-touts-latest-ai-model-hy4s-performance-independent-safety-assessment",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "e525dac073824eb816e6"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Tencent",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "6a7b72805e5c8405c9e7",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The report focuses on tech infrastructure outages and disaster prepping, with AI mentioned only incidentally as one contributing factor.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-22/tech-outages-fuel-a-new-prepping-boom-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "bd6006feb69973e63d77"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "d0f627371e89b1a37b63",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-22/governors-call-for-federal-ai-rules-without-sidelining-states",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "d68292b05952b1158d17"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "855d31a636b15ee64b8f",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.noahpinion.blog/p/ai-people-are-very-very-very-very",
+      "key_points": [
+        "Theo tác giả Noah Smith, Anthropic phát hành cổ phiếu lần đầu ra công chúng (IPO) với mức định giá 1,5 nghìn tỷ USD, lớn thứ hai trong lịch sử sau SpaceX. Giá cổ phiếu đã giảm vào ngày tiếp theo, đưa mức định giá xuống còn 1,175 nghìn tỷ USD.",
+        "Cơ cấu phân bổ cổ phần dựa trên tính toán của Andrew Benson ở kịch bản định giá ban đầu 2 nghìn tỷ USD, gồm 331 tỷ USD quyền chọn và cổ phiếu thưởng cho 5.300 nhân viên. Tác giả Noah Smith chỉ ra định giá thực tế hiện bằng khoảng 80% mức trên, nên quy mô tài sản của nhân viên cần điều chỉnh giảm tương ứng.",
+        "Theo mô hình này, vài trăm nhân viên sở hữu hàng trăm triệu USD trong khi hàng nghìn người khác có hàng chục triệu USD. Khoảng 940 nhân viên tuyển trước cuối năm 2024 sở hữu tài sản trung bình từ chín chữ số USD trở lên.",
+        "Tác giả Noah Smith nhận định quy mô tài sản có thể tăng hơn gấp đôi nếu Anthropic đạt giá trị tương đương Google hay Microsoft. Ông cho rằng đây có thể trở thành sự kiện tạo ra của cải lớn nhất lịch sử Mỹ nếu nền kinh tế cùng tỷ trọng AI tăng trưởng mạnh mẽ."
+      ],
+      "same_event_coverage_ids": [
+        "7ec47e87a624ec085658"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Anthropic",
+      "video_labels": {
+        "video_hook": "money_jobs",
+        "named_people": [
+          "Noah Smith",
+          "Andrew Benson",
+          "Ben Mann"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Anthropic IPO định giá 1,5 nghìn tỷ USD, tạo hàng trăm cá nhân có trăm triệu USD nhưng cổ phiếu sớm giảm giá",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://www.noahpinion.blog/p/ai-people-are-very-very-very-very"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.2,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 10,
+          "meaning": 6
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The reader misses the article’s closing concern about the social consequences of concentrated AI wealth.",
+            "fix": "Add that Smith questions whether wealth accruing mainly to AI workers could increase inequality and create tensions among U.S. elites (outlet:p035)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "dd1484dbc5e80af629584f770d26788c8761103fc47dfe21cc3f515a0acfb520",
+        "scored_at": "2026-11-22T15:13:36.768472+00:00"
+      }
+    },
+    {
+      "id": "fcaacad1b12c6a50d13d",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-21/wall-street-asks-what-can-save-ai-trade-after-anthropic-wipeout",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "1afc87798d403a92c41b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "daed9b3b89e235e62fce",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.wired.com/story/jensen-huangs-lying-alarmed-nvidia-board-ahead-of-his-resignation/",
+      "key_points": [
+        "Theo tạp chí WIRED, Jensen Huang đã rời ghế lãnh đạo Nvidia giữa các cáo buộc quan hệ ngoài luồng, gồm nghi vấn liên quan tới nhân viên tình báo Trung Quốc. Dù đại diện của Huang khẳng định ông tự nguyện từ chức, Bộ Ngoại giao Trung Quốc đã bác bỏ cáo buộc người phụ nữ tên Alice Huang là gián điệp.",
+        "Hai nguồn tin thân cận cho biết hội đồng quản trị hành động chủ yếu vì sự thiếu trung thực và những lời nói dối kéo dài cả năm của Huang. Chủ tịch Harvey Jones nhấn mạnh hành vi cá nhân và sự thiếu trung thực của cựu lãnh đạo này đã vi phạm quy tắc ứng xử của công ty.",
+        "Theo các nguồn tin, khi bị hội đồng quản trị chất vấn vào tháng 10 năm 2025 sau bài báo về công ty Megaspeed, Huang đã phủ nhận mọi quan hệ không phù hợp với Alice Huang.",
+        "Tạp chí WIRED nhận định nếu Alice Huang thực sự làm việc cho tình báo nước ngoài, vụ bê bối sẽ trở thành cuộc khủng hoảng an ninh và quản trị tiềm tàng. Nhiều cơ quan chính phủ Mỹ hiện đã yêu cầu điều tra việc chip Nvidia lọt sang Trung Quốc, bên cạnh các vụ kiện mà công ty đối mặt từ cổ đông."
+      ],
+      "same_event_coverage_ids": [
+        "06039cd7a4b62a073ed6"
+      ],
+      "split_coverage_ids": [
+        "a4bd66e25960c81097bd"
+      ],
+      "subject": "Jensen Huang",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Jensen Huang",
+          "Alice Huang"
+        ],
+        "availability": "global",
+        "is_leak": true
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Jensen Huang rời Nvidia do nói dối hội đồng quản trị suốt một năm về mối quan hệ cá nhân",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "wired",
+          "url": "https://www.wired.com/story/jensen-huangs-lying-alarmed-nvidia-board-ahead-of-his-resignation/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.25,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 8,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The account gives Huang’s earlier denial without the later admission that made the contradiction clear.",
+            "fix": "Add that Huang admitted the affair on November 8, while the board could not then establish whether Alice Huang was an intelligence operative (outlet:p002, outlet:p004)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The government inquiries sound like an investigation of how chips entered China generally.",
+            "fix": "Specify that agencies called for investigations into what Huang may have known about Nvidia chips getting into China (outlet:p012)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "9ce2a31d09a50f7de5ca386e1b60c1aacf5b79ced71f63847ee46b3bdb67ec5e",
+        "scored_at": "2026-11-22T15:08:27.384058+00:00"
+      }
     }
   ]
 }
