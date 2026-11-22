@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-22T21:06:02.521285+00:00",
-  "input_generated_at": "2026-11-22T20:46:53Z",
+  "generated_at": "2026-11-22T23:32:10.533225+00:00",
+  "input_generated_at": "2026-11-22T22:46:42Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -121019,6 +121019,440 @@
       "key_points": [],
       "same_event_coverage_ids": [
         "1806750cb6d8e79aa0b5"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "7348ebe505c44a2b9a21",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/22/2026/bessent-warns-on-fed-hike-as-ai-bubble-fears-mount",
+      "key_points": [
+        "US Treasury Secretary Scott Bessent warned that the Federal Reserve risks hurting the economy by overtightening policy amid concerns of a bursting AI bubble.",
+        "Traders pared back expectations of a half-point rate hike on Dec. 9 after Anthropic's record-setting IPO and tech earnings failed to lift sentiment.",
+        "Investors voiced concerns that the Fed may overtighten into an economic slowdown just as AI investment and tech earnings reach their peak."
+      ],
+      "same_event_coverage_ids": [
+        "54adbbc4d95c618f4737"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Scott Bessent warning on Fed rate hikes and AI bubble fears",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Scott Bessent"
+        ],
+        "availability": "global",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "37f5594c2e695ca15637",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/22/2026/claude-helps-topple-riemann-problem",
+      "key_points": [
+        "Hai nhóm độc lập cho biết đã xác minh lời giải Giả thuyết Riemann nhờ Claude do một nhà toán học tại Anthropic thực hiện, theo Semafor.",
+        "Bài toán liên quan đến quy luật phân bố số nguyên tố trên đường tới vô hạn, theo mô tả của Semafor về Giả thuyết Riemann. Sự kiện này diễn ra ngay sau khi OpenAI công bố hơn 300 chứng minh toán học được phát triển dưới sự giám sát của con người.",
+        "Đột phá này là cột mốc lịch sử nếu được kiểm tra xác nhận đầy đủ, theo một người từng đoạt huy chương Fields nhận định trên Nature rằng lời giải nhiều khả năng chính xác. Một giáo sư toán học chia sẻ trên The New York Times rằng đây là điều đáng chú ý có thể xuất hiện nhiều hơn trong tương lai, tựa như kỵ sĩ tài giỏi cưỡi ngựa nhanh."
+      ],
+      "same_event_coverage_ids": [
+        "48352debb7033987b7f8"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Claude-assisted proof of the Riemann Hypothesis",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Hai nhóm độc lập cho biết đã xác minh lời giải Giả thuyết Riemann gần 170 năm tuổi nhờ Claude",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/22/2026/claude-helps-topple-riemann-problem"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "fe53e0da0f85eb80a0bd10cbfa60b83f1267a9baec36dbcfc363e100a82d4be5",
+        "scored_at": "2026-11-22T23:32:10.511831+00:00"
+      }
+    },
+    {
+      "id": "2dcec649dae9b9a82764",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/22/2026/us-spy-chief-calls-nvidia-chips-jewels",
+      "key_points": [
+        "Giám đốc tình báo Mỹ điều tra nghi vấn điệp viên Trung Quốc liên hệ với cựu CEO Jensen Huang của Nvidia, theo xác nhận của ông Jay Clayton vào Chủ nhật.",
+        "Cơ quan tình báo Trung Quốc hỗ trợ thu thập chip để thúc đẩy đổi mới trong nước, theo The New York Times đưa tin về việc hỗ trợ các công ty đại lục tìm kiếm chip tiên tiến.",
+        "Chip Nvidia là báu vật mà mọi người đều muốn, theo ông Jay Clayton nhấn mạnh trên chương trình This Week của đài ABC.",
+        "Biện pháp kiểm soát xuất khẩu của Mỹ thúc đẩy Trung Quốc tự tái lập chuỗi cung ứng bán dẫn toàn cầu, theo chuyên gia Kyle Chan của Brookings đánh giá trên Bloomberg, dù các phòng thí nghiệm Trung Quốc trong ngắn hạn vẫn muốn dùng chip Nvidia."
+      ],
+      "same_event_coverage_ids": [
+        "5dc4a4641652a8c073de"
+      ],
+      "split_coverage_ids": [],
+      "subject": "US intelligence investigation into alleged Chinese spy linked to Jensen Huang",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Jay Clayton",
+          "Jensen Huang",
+          "Kyle Chan"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Mỹ điều tra nghi vấn điệp viên Trung Quốc liên quan cựu CEO Nvidia giữa lúc kiểm soát chip leo thang",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/22/2026/us-spy-chief-calls-nvidia-chips-jewels"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.65,
+        "answers": {
+          "what": 8,
+          "why": 9,
+          "notable": 9,
+          "meaning": 9
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "giữa lúc kiểm soát chip leo thang",
+            "explanation": "The source says scrutiny of Beijing’s efforts to secure American chips intensified; it does not say chip controls intensified (outlet:p001)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "Giám đốc tình báo Mỹ điều tra",
+            "explanation": "Clayton said Washington was probing the allegation; the source does not say he personally conducted the investigation (outlet:p001)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The headline substitutes intensifying chip controls for intensifying scrutiny of Beijing’s chip-acquisition efforts.",
+            "fix": "Describe the increased scrutiny stated in the source (outlet:p001)."
+          },
+          {
+            "question": "what",
+            "problem": "The first paragraph makes Clayton the investigator.",
+            "fix": "Say Clayton reported that Washington was investigating (outlet:p001)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "33849c06462af1fcaec7d771e1221508344ea2dabd9a21058545c3c0f07ed7eb",
+        "scored_at": "2026-11-22T23:27:02.510207+00:00"
+      }
+    },
+    {
+      "id": "04234d71640079a60304",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/22/2026/us-china-eye-joint-guardrails-on-ai",
+      "key_points": [
+        "Tổng thống Donald Trump tuyên bố Mỹ sẽ cùng Trung Quốc xây dựng rào chắn AI chung vào thứ Sáu, dù trước đây ông từng cảnh báo việc kiểm soát có thể bóp nghẹt sáng tạo.",
+        "Làn sóng phản đối công nghệ khiến đảng Cộng hòa thất bại lịch sử trong bầu cử giữa kỳ, theo Semafor nhận định.",
+        "Các cuộc biểu tình phản đối xây dựng trung tâm dữ liệu lan rộng khắp châu Âu, Nhật Bản và Ấn Độ, cùng lúc OpenAI siết chặt quyền truy cập mô hình đối với Trung Quốc.",
+        "Tác động thực tế của AI mất nhiều thời gian hơn dự kiến để xuất hiện, theo Trưởng văn phòng San Francisco của Semafor đánh giá khi các rào cản công nghệ ngày một lớn."
+      ],
+      "same_event_coverage_ids": [
+        "f4b5b6fbda3e93999bea"
+      ],
+      "split_coverage_ids": [],
+      "subject": "US-China joint guardrails on AI",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Donald Trump"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Tổng thống Donald Trump tuyên bố Mỹ sẽ cùng Trung Quốc xây dựng rào chắn an toàn cho AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/22/2026/us-china-eye-joint-guardrails-on-ai"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 7.8,
+        "answers": {
+          "what": 10,
+          "why": 5,
+          "notable": 8,
+          "meaning": 6
+        },
+        "hard_errors": [
+          {
+            "kind": "cause",
+            "summary_text": "Làn sóng phản đối công nghệ khiến đảng Cộng hòa thất bại lịch sử",
+            "explanation": "The source says the backlash helped drive a historic rebuke; it does not identify it as the sole cause (outlet:p001)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "lan rộng khắp châu Âu, Nhật Bản và Ấn Độ",
+            "explanation": "The source says protests were spreading to Europe, Japan, and India, not throughout those places (outlet:p002)."
+          },
+          {
+            "kind": "quote",
+            "summary_text": "Tác động thực tế của AI mất nhiều thời gian hơn dự kiến để xuất hiện",
+            "explanation": "The attributed conclusion is tentative: it is increasingly looking as though real-world impacts will take longer than initially expected (outlet:p003)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The reader receives a stronger causal claim about the election than the source makes.",
+            "fix": "Say the anti-tech backlash contributed to the historic rebuke (outlet:p001)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The slower arrival of AI’s effects is presented too firmly.",
+            "fix": "Preserve the bureau chief’s tentative wording (outlet:p003)."
+          },
+          {
+            "question": "notable",
+            "problem": "The protest coverage sounds more geographically extensive than reported.",
+            "fix": "Say protests spread to Europe, Japan, and India (outlet:p002)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "b486789a49a67210e19e98cc75ab11a7ab5c3a2aa17e2014fa370fce71a0e24d",
+        "scored_at": "2026-11-22T23:27:02.510240+00:00"
+      }
+    },
+    {
+      "id": "afed8caf80467291512d",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/features/2026-11-22/trump-s-ai-chip-crackdown-on-china-after-nvidia-crisis-squeezes-southeast-asia",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "bfd1174f22f56f2f0673"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "a9f7ae49b5fbd4f4edc3",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The card is a beginner tutorial and how-to guide for installing and running local AI models on personal hardware.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.gpupartner.com/blog/beginners-guide-local-ai-inkling-qwen-unsloth",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "8ca7969b0cbe3bd5ff00",
+        "a6a609cc770d0872ad11"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "883b69d3f986860bffa5",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/22/openais-chief-scientist-has-thoughts-on-how-to-limit-ai-development/",
+      "key_points": [
+        "Nhà khoa học trưởng OpenAI Jakub Pachocki đề xuất đặt giới hạn phát triển AI dựa trên perplexity (thước đo độ hỗn loạn khi dự đoán từ tiếp theo), theo TechCrunch. Đề xuất này xuất hiện sau khi CEO Dario Amodei của Anthropic công bố kế hoạch điều tiết tốc độ mô hình biên giới nhằm thiết lập tiêu chuẩn an toàn chung.",
+        "Các bài đánh giá chuẩn về năng lực ứng dụng nhanh chóng lỗi thời khi công nghệ tiến bộ, theo lập luận của ông Pachocki. Ngược lại, chỉ số perplexity đo lường khả năng dự đoán từ tiếp theo trung bình vẫn giữ nguyên giá trị thông tin, trong đó điểm số càng thấp biểu thị dự đoán càng chính xác.",
+        "Ông Pachocki ghi nhận các năng lực mang tính chuyển đổi trong an ninh mạng và toán học xuất hiện khi mức loss giảm xuống dưới 0,8.",
+        "Nhà khoa học trưởng OpenAI đề xuất các công ty AI có thể dùng perplexity làm chuẩn chung để cam kết không vượt ngưỡng nhất định. Cam kết đề xuất này sẽ được áp dụng cho đến khi năng lực hiểu và giám sát hành vi AI đạt được cột mốc cụ thể, theo quan điểm của ông Pachocki."
+      ],
+      "same_event_coverage_ids": [
+        "1806750cb6d8e79aa0b5",
+        "4af98a44bf16e9091aa2"
+      ],
+      "split_coverage_ids": [],
+      "subject": "OpenAI Chief Scientist proposal on AI development limits",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Jakub Pachocki",
+          "Dario Amodei",
+          "Sam Altman",
+          "Elon Musk"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nhà khoa học trưởng OpenAI đề xuất dùng perplexity để đặt giới hạn chung cho phát triển AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/22/openais-chief-scientist-has-thoughts-on-how-to-limit-ai-development/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.2,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 8,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "thước đo độ hỗn loạn khi dự đoán từ tiếp theo",
+            "explanation": "The source defines perplexity as measuring how well a model predicts the next token on average, not as a measure of chaos (outlet:p010). The later Vietnamese paragraph gives the accurate definition."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The opening parenthetical gives readers an inaccurate definition of perplexity.",
+            "fix": "Describe it as a measure of average next-token prediction quality, where lower perplexity means better predictions (outlet:p010)."
+          },
+          {
+            "question": "why",
+            "problem": "The Vietnamese leaves out why limits on AI development had become a prominent topic.",
+            "fix": "If adding that context, attribute the concern about catastrophic or existential risks to Anthropic’s IPO filing, as the source does (outlet:p007)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "aa48d3b41741509761ea825752c315f19fe315735cc96eead9492e20c58cca29",
+        "scored_at": "2026-11-22T23:32:10.511883+00:00"
+      }
+    },
+    {
+      "id": "605bc9329fe9f2491a08",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Academic course website, syllabus, and registration form for a Harvard University graduate seminar, containing no news reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://boazbk.github.io/mltheoryseminar/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "717252d7b076f9c5aafb",
+        "e48553390599d591c03c"
       ],
       "split_coverage_ids": []
     }
