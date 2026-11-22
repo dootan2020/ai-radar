@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-22T19:22:51.464007+00:00",
-  "input_generated_at": "2026-11-22T18:46:58Z",
+  "generated_at": "2026-11-22T21:06:02.521285+00:00",
+  "input_generated_at": "2026-11-22T20:46:53Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -120798,10 +120798,10 @@
       "use_original_title": false,
       "source_url": "https://techcrunch.com/2026/11/22/why-data-centers-are-at-the-center-of-the-big-tech-backlash/",
       "key_points": [
-        "Theo phóng viên Anthony Ha của TechCrunch, làn sóng phản đối trung tâm dữ liệu đang lan rộng ở cả hai đảng tại Mỹ. Hai chính trị gia có quan điểm đối lập là Ron DeSantis và Bernie Sanders đều lên tiếng phản đối các cơ sở này.",
-        "Tác giả cuốn sách Hyperscale giải thích trung tâm dữ liệu gây bức xúc vì đây là công trình hữu hình thay vì dịch vụ trừu tượng. Người này cho biết thêm vấn đề tiêu thụ nước mang tính cục bộ khi nhiều cơ sở đặt tại các địa phương chịu áp lực lớn về nguồn nước.",
-        "Tại The Dalles thuộc bang Oregon, Google từng tiêu thụ 29% nguồn nước của thành phố cho trung tâm dữ liệu của hãng. Con số này chỉ được công khai khoảng một năm sau khi một nhà báo hỏi về lượng nước và bị kiện do Google muốn giữ bí mật.",
-        "Dù Microsoft, Amazon và OpenAI cam kết ngừng dùng thỏa thuận bảo mật, tác giả cuốn sách nhận định việc này không tạo khác biệt lớn dù giúp người dân dễ tiếp cận thông tin hơn. Tác giả cũng đánh giá quy mô xây dựng hiện nay về cơ bản là không bền vững khi các lợi ích của AI tạo sinh chưa xuất hiện."
+        "Theo phóng viên Anthony Ha của TechCrunch, làn sóng phản đối trung tâm dữ liệu đang lan rộng ở cả hai đảng tại Mỹ. Hai chính trị gia có quan điểm đối lập là Ron DeSantis và Bernie Sanders đều lên tiếng phản đối các trung tâm dữ liệu.",
+        "Tác giả cuốn sách Hyperscale giải thích trung tâm dữ liệu gây phản đối vì đây là công trình hữu hình thay vì dịch vụ trừu tượng. Tác giả cho biết làn sóng phản đối tăng do tốc độ mở rộng siêu lớn, áp lực nước cục bộ và việc nhiều người chưa thấy lợi ích từ AI tạo sinh.",
+        "Tại The Dalles thuộc bang Oregon, Google từng tiêu thụ 29% nguồn nước của thành phố cho trung tâm dữ liệu của hãng. Lượng nước này chỉ được công khai khoảng một năm sau khi một nhà báo hỏi số liệu và bị kiện do Google muốn giữ bí mật.",
+        "Dù Microsoft, Amazon và OpenAI đã thảo luận cam kết ngừng dùng thỏa thuận bảo mật trong đàm phán với chính quyền địa phương, tác giả nhận định việc này không tạo khác biệt lớn. Tác giả cũng đánh giá quy mô xây dựng hiện nay về cơ bản là không bền vững khi nhiều lợi ích hứa hẹn của AI tạo sinh dường như chưa thành hiện thực."
       ],
       "same_event_coverage_ids": [
         "afcb96a5a3d3a6f95e5b"
@@ -120817,7 +120817,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Làn sóng phản đối trung tâm dữ liệu lan rộng tại Mỹ do sức ép lên nguồn nước địa phương",
+      "editorial_headline_vi": "Ron DeSantis và Bernie Sanders cùng phản đối trung tâm dữ liệu khi làn sóng phản đối lan rộng tại Mỹ",
       "summary_sources": [
         {
           "id": "outlet",
@@ -120832,40 +120832,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.8,
+        "value": 9.15,
         "answers": {
           "what": 9,
-          "why": 8,
+          "why": 9,
           "notable": 10,
-          "meaning": 7
+          "meaning": 8
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "Microsoft, Amazon và OpenAI cam kết ngừng dùng thỏa thuận bảo mật",
-            "explanation": "The reported commitment concerns NDAs in negotiations with local governments, not an unrestricted end to their use of NDAs (outlet:p035)."
-          },
-          {
-            "kind": "quote",
-            "summary_text": "các lợi ích của AI tạo sinh chưa xuất hiện",
-            "explanation": "The interviewee says many promised benefits do not appear to have materialized and that many people are not seeing benefits, rather than saying no benefits have appeared (outlet:p027, outlet:p052)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "why",
-            "problem": "The headline makes local water pressure seem to explain the whole backlash.",
-            "fix": "Keep water as one concern alongside the tangible local impact, rapid hyperscale expansion, and limited perceived AI benefits (outlet:p030, outlet:p045, outlet:p051–p052)."
-          },
-          {
             "question": "meaning",
-            "problem": "The NDA sentence suggests a blanket commitment.",
-            "fix": "Specify that the companies discussed ending NDAs in negotiations with local governments (outlet:p035)."
-          },
-          {
-            "question": "meaning",
-            "problem": "The closing sentence states the absence of AI benefits more firmly than the interviewee does.",
-            "fix": "Say that many promised benefits do not appear to have materialized, or that many people are not seeing them (outlet:p027, outlet:p052)."
+            "problem": "The headline and opening can leave readers thinking the interviewee objects to data centers in general.",
+            "fix": "Clarify that the interviewee identifies the size and pace of hyperscale expansion as the central problem, while saying data centers are not inherently the issue (outlet:p049, outlet:p051)."
           }
         ],
         "writer_boats": [
@@ -120873,8 +120852,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "e304696c7b88b1bf0dad79b1ca7be766b1721c44f08cb07be5ee0c558181681b",
-        "scored_at": "2026-11-22T19:22:51.446557+00:00"
+        "prose_sha256": "e2613f990bc085da5a132fb906514e48d783563a02a836f6e4a1618b0d94d0d0",
+        "scored_at": "2026-11-22T21:06:02.517721+00:00"
       }
     },
     {
@@ -121023,6 +121002,25 @@
         "prose_sha256": "7ee5a944c9ce52ab11b21fc73296192e19c8c4ec0e2653e4e6b2cde53b840870",
         "scored_at": "2026-11-22T19:18:02.439352+00:00"
       }
+    },
+    {
+      "id": "462bf07cf835c8a4d4e8",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-22/openai-chief-scientist-urges-industry-limits-on-ai-development",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "1806750cb6d8e79aa0b5"
+      ],
+      "split_coverage_ids": []
     }
   ]
 }
