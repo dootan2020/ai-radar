@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-22T17:06:49.957206+00:00",
-  "input_generated_at": "2026-11-22T16:46:10Z",
+  "generated_at": "2026-11-22T19:22:51.464007+00:00",
+  "input_generated_at": "2026-11-22T18:46:58Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -120781,6 +120781,248 @@
         "520f2ee6be20f77c5c6a"
       ],
       "split_coverage_ids": []
+    },
+    {
+      "id": "47b2738e2872fd88c166",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/22/why-data-centers-are-at-the-center-of-the-big-tech-backlash/",
+      "key_points": [
+        "Theo phóng viên Anthony Ha của TechCrunch, làn sóng phản đối trung tâm dữ liệu đang lan rộng ở cả hai đảng tại Mỹ. Hai chính trị gia có quan điểm đối lập là Ron DeSantis và Bernie Sanders đều lên tiếng phản đối các cơ sở này.",
+        "Tác giả cuốn sách Hyperscale giải thích trung tâm dữ liệu gây bức xúc vì đây là công trình hữu hình thay vì dịch vụ trừu tượng. Người này cho biết thêm vấn đề tiêu thụ nước mang tính cục bộ khi nhiều cơ sở đặt tại các địa phương chịu áp lực lớn về nguồn nước.",
+        "Tại The Dalles thuộc bang Oregon, Google từng tiêu thụ 29% nguồn nước của thành phố cho trung tâm dữ liệu của hãng. Con số này chỉ được công khai khoảng một năm sau khi một nhà báo hỏi về lượng nước và bị kiện do Google muốn giữ bí mật.",
+        "Dù Microsoft, Amazon và OpenAI cam kết ngừng dùng thỏa thuận bảo mật, tác giả cuốn sách nhận định việc này không tạo khác biệt lớn dù giúp người dân dễ tiếp cận thông tin hơn. Tác giả cũng đánh giá quy mô xây dựng hiện nay về cơ bản là không bền vững khi các lợi ích của AI tạo sinh chưa xuất hiện."
+      ],
+      "same_event_coverage_ids": [
+        "afcb96a5a3d3a6f95e5b"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Paris Marx on data centers, generative AI, and Big Tech backlash",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Paris Marx"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Làn sóng phản đối trung tâm dữ liệu lan rộng tại Mỹ do sức ép lên nguồn nước địa phương",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/22/why-data-centers-are-at-the-center-of-the-big-tech-backlash/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.8,
+        "answers": {
+          "what": 9,
+          "why": 8,
+          "notable": 10,
+          "meaning": 7
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "Microsoft, Amazon và OpenAI cam kết ngừng dùng thỏa thuận bảo mật",
+            "explanation": "The reported commitment concerns NDAs in negotiations with local governments, not an unrestricted end to their use of NDAs (outlet:p035)."
+          },
+          {
+            "kind": "quote",
+            "summary_text": "các lợi ích của AI tạo sinh chưa xuất hiện",
+            "explanation": "The interviewee says many promised benefits do not appear to have materialized and that many people are not seeing benefits, rather than saying no benefits have appeared (outlet:p027, outlet:p052)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The headline makes local water pressure seem to explain the whole backlash.",
+            "fix": "Keep water as one concern alongside the tangible local impact, rapid hyperscale expansion, and limited perceived AI benefits (outlet:p030, outlet:p045, outlet:p051–p052)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The NDA sentence suggests a blanket commitment.",
+            "fix": "Specify that the companies discussed ending NDAs in negotiations with local governments (outlet:p035)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The closing sentence states the absence of AI benefits more firmly than the interviewee does.",
+            "fix": "Say that many promised benefits do not appear to have materialized, or that many people are not seeing them (outlet:p027, outlet:p052)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "e304696c7b88b1bf0dad79b1ca7be766b1721c44f08cb07be5ee0c558181681b",
+        "scored_at": "2026-11-22T19:22:51.446557+00:00"
+      }
+    },
+    {
+      "id": "28c764e2cf8a36efd027",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/games/1039770/binding-of-isaac-ai-music",
+      "key_points": [
+        "Studio Nicalis đã gỡ các tệp nhạc AI khỏi The Binding of Isaac: Repentance Plus ngay sau khi bị phát hiện. Nhà sáng tạo Edmund McMillen xin lỗi trên X và khẳng định ông không hề hay biết.",
+        "Tựa game bị bão đánh giá tiêu cực trên Steam sau khi lộ việc dùng nhạc AI. Căng thẳng tăng thêm do Nicalis dường như không công khai việc dùng AI theo quy định của Valve.",
+        "Người dùng Reddit ShweetsStuff phát hiện sự việc trong phân đoạn nhại Grand Theft Auto. Các tệp âm thanh trong game chứa siêu dữ liệu của Suno trỏ về nền tảng này.",
+        "Đánh giá của trò chơi trên Steam vẫn chưa phục hồi và ở mức cực kỳ tiêu cực. Tuy vậy, người dùng trên X dường như vẫn thông cảm cho McMillen, có thể vì ông từng chỉ trích AI trong phát triển game là tẻ nhạt."
+      ],
+      "same_event_coverage_ids": [
+        "3cf3d2aafb7a5e85b22a"
+      ],
+      "split_coverage_ids": [],
+      "subject": "The Binding of Isaac removes Suno AI music amid Steam review bombing",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Edmund McMillen"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nhà phát triển The Binding of Isaac gỡ nhạc AI sau khi bị bão đánh giá tiêu cực trên Steam",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/games/1039770/binding-of-isaac-ai-music"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "da249d615f737f4b716485d8ccda0acc00d72880fb82b12f84021c9715295ad9",
+        "scored_at": "2026-11-22T19:22:51.446602+00:00"
+      }
+    },
+    {
+      "id": "1a10f1676d46fc01a909",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://openai.com/index/perplexity-and-intelligence",
+      "key_points": [
+        "Theo quan điểm của Giám đốc khoa học OpenAI Jakub Pachocki, ông đề xuất thiết lập độ hỗn loạn làm thước đo an toàn chung giữa các nhà phát triển. OpenAI đã công khai tiến trình tiền huấn luyện theo độ hỗn loạn (thước đo dự đoán từ tiếp theo trung bình) bắt đầu từ GPT-3.5.",
+        "Lý do công khai là tính cấp bách của việc thiết lập các biện pháp an toàn chung trong toàn ngành, điều Pachocki thấy quan trọng hơn lo ngại lộ vị thế.",
+        "Minh chứng là sự xuất hiện các năng lực đột phá khi tổn thất xuống dưới 0,8 trong an ninh mạng và toán học.",
+        "Tác giả đề xuất thiết lập giới hạn phát triển đầu tiên trong toàn ngành theo độ hỗn loạn mà các bên cam kết không vượt qua trước khi đạt mốc kiểm soát an toàn cụ thể. Tuy vậy, Pachocki thừa nhận suy luận chuỗi ý nghĩ (suy luận từng bước) tăng vọt năng lực nhưng không giảm độ hỗn loạn, và dữ liệu đánh giá giữa các nơi cũng khác nhau."
+      ],
+      "same_event_coverage_ids": [
+        "5e99a1d7e410bf29840a",
+        "d011382c72adb649a61e"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Jakub Pachocki on perplexity as an AI progress and safety metric",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Jakub Pachocki"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "OpenAI công khai tiến trình tiền huấn luyện và đề xuất giới hạn phát triển AI dựa trên độ hỗn loạn",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "openai",
+          "url": "https://openai.com/index/perplexity-and-intelligence"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.75,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 8,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "Readers may think Pachocki proposes a threshold based only on perplexity.",
+            "fix": "State that the proposed limits would use perplexity and other measurements, and would remain until concrete progress in understanding and monitoring AI behavior (outlet:p014)."
+          },
+          {
+            "question": "notable",
+            "problem": "The summary omits the range where Pachocki expects further capabilities while stressing that their nature is unknown.",
+            "fix": "If space allows, add his expectation of unspecified transformative capabilities around 0.68–0.7 log-perplexity, clearly as a forecast (outlet:p014)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "7ee5a944c9ce52ab11b21fc73296192e19c8c4ec0e2653e4e6b2cde53b840870",
+        "scored_at": "2026-11-22T19:18:02.439352+00:00"
+      }
     }
   ]
 }
