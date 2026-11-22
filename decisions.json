@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-22T15:17:37.049731+00:00",
-  "input_generated_at": "2026-11-22T14:46:19Z",
+  "generated_at": "2026-11-22T17:06:49.957206+00:00",
+  "input_generated_at": "2026-11-22T16:46:10Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -120586,10 +120586,10 @@
       "use_original_title": false,
       "source_url": "https://www.noahpinion.blog/p/ai-people-are-very-very-very-very",
       "key_points": [
-        "Theo tác giả Noah Smith, Anthropic phát hành cổ phiếu lần đầu ra công chúng (IPO) với mức định giá 1,5 nghìn tỷ USD, lớn thứ hai trong lịch sử sau SpaceX. Giá cổ phiếu đã giảm vào ngày tiếp theo, đưa mức định giá xuống còn 1,175 nghìn tỷ USD.",
-        "Cơ cấu phân bổ cổ phần dựa trên tính toán của Andrew Benson ở kịch bản định giá ban đầu 2 nghìn tỷ USD, gồm 331 tỷ USD quyền chọn và cổ phiếu thưởng cho 5.300 nhân viên. Tác giả Noah Smith chỉ ra định giá thực tế hiện bằng khoảng 80% mức trên, nên quy mô tài sản của nhân viên cần điều chỉnh giảm tương ứng.",
-        "Theo mô hình này, vài trăm nhân viên sở hữu hàng trăm triệu USD trong khi hàng nghìn người khác có hàng chục triệu USD. Khoảng 940 nhân viên tuyển trước cuối năm 2024 sở hữu tài sản trung bình từ chín chữ số USD trở lên.",
-        "Tác giả Noah Smith nhận định quy mô tài sản có thể tăng hơn gấp đôi nếu Anthropic đạt giá trị tương đương Google hay Microsoft. Ông cho rằng đây có thể trở thành sự kiện tạo ra của cải lớn nhất lịch sử Mỹ nếu nền kinh tế cùng tỷ trọng AI tăng trưởng mạnh mẽ."
+        "Theo tác giả Noah Smith, Anthropic phát hành cổ phiếu lần đầu ra công chúng với mức định giá 1,5 nghìn tỷ USD, lớn thứ hai lịch sử sau SpaceX. Giá cổ phiếu sau đó giảm vào ngày tiếp theo, đưa mức định giá của công ty xuống còn 1,175 nghìn tỷ USD.",
+        "Theo tính toán của Andrew Benson ở kịch bản định giá ban đầu 2 nghìn tỷ USD, quỹ quyền chọn và cổ phiếu thưởng cho 5.300 nhân viên đạt 331 tỷ USD. Tác giả Noah Smith lưu ý định giá thực tế hiện bằng khoảng 80% mức trên, đồng nghĩa quy mô tài sản của nhân sự cần điều chỉnh giảm tương ứng.",
+        "Khoảng 940 nhân viên tuyển trước cuối năm 2024 sở hữu tài sản trung bình chín chữ số USD theo tổng hợp của tác giả Noah Smith. Ông nhấn mạnh việc hàng trăm nhân viên cùng đạt tài sản hàng trăm triệu USD sau vài năm làm việc là điều chưa từng có tiền lệ.",
+        "Tác giả Noah Smith bày tỏ lo ngại căng thẳng giữa giới tinh hoa và bất bình đẳng gia tăng nếu chỉ giới AI giàu lên trong tương lai. Ông đặt câu hỏi về tác động xã hội đối với nước Mỹ nếu khoảng cách giàu nghèo tiếp tục bị nới rộng thêm."
       ],
       "same_event_coverage_ids": [
         "7ec47e87a624ec085658"
@@ -120624,15 +120624,15 @@
         "answers": {
           "what": 10,
           "why": 9,
-          "notable": 10,
-          "meaning": 6
+          "notable": 8,
+          "meaning": 10
         },
         "hard_errors": [],
         "findings": [
           {
-            "question": "meaning",
-            "problem": "The reader misses the article’s closing concern about the social consequences of concentrated AI wealth.",
-            "fix": "Add that Smith questions whether wealth accruing mainly to AI workers could increase inequality and create tensions among U.S. elites (outlet:p035)."
+            "question": "notable",
+            "problem": "The sentence about roughly 940 earlier hires can read as a statement of their current holdings, although the estimate is introduced under a $2 trillion valuation scenario.",
+            "fix": "Attach the $2 trillion condition to that estimate, then note that the author says to scale the figures down at the lower valuation (outlet:p013–p015)."
           }
         ],
         "writer_boats": [
@@ -120640,8 +120640,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "dd1484dbc5e80af629584f770d26788c8761103fc47dfe21cc3f515a0acfb520",
-        "scored_at": "2026-11-22T15:13:36.768472+00:00"
+        "prose_sha256": "cd61c2b3446b88b5d0eab2eecb6193682ba6f88f35bc8ebddbef4aced5ed8e1b",
+        "scored_at": "2026-11-22T17:06:49.953033+00:00"
       }
     },
     {
@@ -120743,6 +120743,44 @@
         "prose_sha256": "9ce2a31d09a50f7de5ca386e1b60c1aacf5b79ced71f63847ee46b3bdb67ec5e",
         "scored_at": "2026-11-22T15:08:27.384058+00:00"
       }
+    },
+    {
+      "id": "c40a6089f7db15fd991e",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-22/how-ai-is-accelerating-cyberattacks-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "7232fe4e86bff4d81b34"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "64e294cd2e041ee0f867",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/newsletters/2026-11-22/apple-s-ai-agent-war-early-2027-product-plans-and-iphone-duo-face-unlock-review",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "520f2ee6be20f77c5c6a"
+      ],
+      "split_coverage_ids": []
     }
   ]
 }
