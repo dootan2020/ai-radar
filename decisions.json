@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-21T23:15:37.863253+00:00",
-  "input_generated_at": "2026-11-21T22:46:25Z",
+  "generated_at": "2026-11-22T01:18:14.306788+00:00",
+  "input_generated_at": "2026-11-22T00:46:16Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -119508,9 +119508,10 @@
       "use_original_title": false,
       "source_url": "https://techcrunch.com/2026/11/21/a-tale-of-two-nvidias/",
       "key_points": [
-        "Nvidia báo cáo doanh thu tăng vọt nhưng khẳng định không có kế hoạch đưa cựu CEO Jensen Huang quay lại, theo podcast Equity của TechCrunch. Dù ban lãnh đạo hiện tại trấn an các nhà đầu tư về tình hình kinh doanh, giá cổ phiếu của hãng chip AI này vẫn liên tục sụt giảm trên sàn chứng khoán.",
-        "Làn sóng đòi đưa Jensen Huang trở lại đang xuất hiện cùng bản kiến nghị từ tỷ phú Elon Musk và giới công nghệ, trong khi chính ông Huang tuyên bố sẵn sàng tái xuất. Cùng thời điểm, quyền CEO Colette Kress thông báo Nvidia dừng bán chip H200 sang Trung Quốc và chặn hoàn toàn việc truy cập từ xa qua các trung tâm dữ liệu tại Malaysia.",
-        "Hội đồng quản trị duy trì quyền kiểm soát là nhận định của biên tập viên Kirsten Korosec trên TechCrunch, khi ban giám đốc không chấp nhận nhượng bộ trước sức ép từ các tỷ phú bên ngoài. Bà Korosec đánh giá kịch bản ông Huang trở lại là khó xảy ra, giữa lúc cuộc điều tra việc bán chip sang Trung Quốc vẫn chưa có bức tranh đầy đủ."
+        "Nvidia báo cáo doanh thu tăng vọt nhưng tuyên bố không có kế hoạch đưa Jensen Huang trở lại. Dù ban lãnh đạo cố trấn an nhà đầu tư, giá cổ phiếu vẫn giảm giữa lúc Elon Musk thúc đẩy kiến nghị đưa ông Huang quay lại.",
+        "Theo Anthony Ha trên TechCrunch, phe ủng hộ cựu CEO có thể cho rằng quý vừa qua là thời thuận lợi cuối cùng dưới quyền ông Huang và chưa rõ Nvidia sẽ ra sao khi thiếu ông. Trong khi đó, Kirsten Korosec nhận định hội đồng quản trị muốn giữ quyền kiểm soát thay vì bị ép buộc bởi những người như Elon Musk.",
+        "Quyền CEO Colette Kress thông báo Nvidia dừng bán chip H200 sang Trung Quốc, đồng thời tuyến truy cập từ xa qua các nước như Malaysia cũng bị đóng lại. Giới chỉ trích ước tính 20% kinh doanh của Nvidia đến từ Trung Quốc gián tiếp qua Đông Á hoặc Đông Nam Á chứ không hiện trong báo cáo tài chính.",
+        "Anthony Ha nhận định việc cắt doanh số gián tiếp này có thể giáng đòn đáng kể vào lợi nhuận nếu Nvidia thực sự kiên quyết thực hiện. Về nhân sự, các biên tập viên TechCrunch lưu ý việc từ chối đưa Jensen Huang trở lại chỉ là lập trường công khai hiện tại và có thể thay đổi tùy theo áp lực."
       ],
       "same_event_coverage_ids": [
         "637b9c9477a3645c4ed0"
@@ -119529,7 +119530,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Nvidia đạt doanh thu tăng vọt nhưng bác bỏ yêu cầu đưa Jensen Huang trở lại giữa áp lực từ Elon Musk",
+      "editorial_headline_vi": "Nvidia dừng bán chip H200 sang Trung Quốc và bác bỏ kiến nghị đưa cựu CEO Jensen Huang trở lại",
       "summary_sources": [
         {
           "id": "outlet",
@@ -119542,65 +119543,40 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 6.5,
+        "value": 8.85,
         "answers": {
-          "what": 9,
-          "why": 4,
-          "notable": 5,
-          "meaning": 7
+          "what": 10,
+          "why": 8,
+          "notable": 8,
+          "meaning": 9
         },
         "hard_errors": [
           {
             "kind": "fact",
-            "summary_text": "vẫn liên tục sụt giảm",
-            "explanation": "The source refers to a falling stock price but does not establish a continuous decline (outlet:p009)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "chặn hoàn toàn việc truy cập từ xa qua các trung tâm dữ liệu tại Malaysia",
-            "explanation": "The source says remote access via data centers outside China, including in countries like Malaysia, has been shut down amid discussion of tighter US restrictions. It does not say Nvidia completely blocked all such access through Malaysian data centers (outlet:p011–p013)."
+            "summary_text": "chứ không hiện trong báo cáo tài chính",
+            "explanation": "The source says these are not directly identifiable as sales to Chinese companies in Nvidia’s financials, because the direct sales are to companies elsewhere; it does not say the revenue is absent from the financial statements (outlet:p016)."
           },
           {
             "kind": "role",
-            "summary_text": "biên tập viên Kirsten Korosec",
-            "explanation": "The supplied source identifies Kirsten Korosec as a podcast participant but does not give her the title of editor (outlet:p008, outlet:p025)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "ban giám đốc không chấp nhận nhượng bộ trước sức ép từ các tỷ phú bên ngoài",
-            "explanation": "Kirsten speculates that the board wants to appear in control and does not want to be forced into a decision by someone like Musk; she does not report a definitive refusal to yield by management (outlet:p025)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "cuộc điều tra việc bán chip sang Trung Quốc",
-            "explanation": "The source describes an investigation into how much and who knew about chips allegedly being sold secretly to China. The Vietnamese drops the allegation qualifier (outlet:p025)."
+            "summary_text": "các biên tập viên TechCrunch",
+            "explanation": "The source identifies Kirsten Korosec, Tim De Chant, and Anthony Ha as participants in the Equity podcast discussion, but does not identify all of them as editors (outlet:p008, outlet:p032)."
           }
         ],
         "findings": [
           {
             "question": "notable",
-            "problem": "The reader may believe Nvidia itself completely blocked remote access through Malaysian data centers.",
-            "fix": "Distinguish Nvidia's H200 sales decision from the tightening of remote-access restrictions, and describe Malaysia as one example rather than the full scope (outlet:p011–p013)."
+            "problem": "Readers may believe the indirect China revenue is missing from Nvidia’s financial statements.",
+            "fix": "Say it is not shown directly as China sales because the chips are sold to companies elsewhere in Asia (outlet:p015–p016)."
           },
           {
             "question": "why",
-            "problem": "The reader does not learn why some people want Huang back.",
-            "fix": "Add their concern that the strong quarter was his last and that Nvidia's future performance without him is uncertain (outlet:p020)."
-          },
-          {
-            "question": "notable",
-            "problem": "The reader misses the scale and uncertainty of Nvidia's possible indirect China exposure.",
-            "fix": "Attribute the 20% estimate to critics and explain that it concerns eventual use by Chinese companies, rather than direct sales shown in Nvidia's financials (outlet:p015–p016)."
+            "problem": "The account omits the Trump administration’s role in tightening restrictions on remote access.",
+            "fix": "Add that the H200 announcement coincided with discussion of closing routes through data centers outside China, while avoiding a definitive claim about Nvidia’s own motive (outlet:p011–p012)."
           },
           {
             "question": "meaning",
-            "problem": "The board's intentions and the chip-sales allegation read as settled facts.",
-            "fix": "Keep Kirsten's assessment explicitly speculative and retain the allegation qualifier and unresolved state of the investigation (outlet:p025)."
-          },
-          {
-            "question": "meaning",
-            "problem": "The reader misses the potential business consequence of ending indirect China access.",
-            "fix": "State that the speakers see a potentially significant hit to Nvidia's bottom line if the company follows through, while treating that effect as uncertain (outlet:p016)."
+            "problem": "Calling all the speakers TechCrunch editors assigns roles the source does not establish.",
+            "fix": "Refer to them as participants in TechCrunch’s Equity podcast, or attribute the particular views to the named speakers (outlet:p008, outlet:p020–p025)."
           }
         ],
         "writer_boats": [
@@ -119608,8 +119584,77 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "edeacb1481bd99336750485b4dc7f0755b4d7ddc570a6562ae07bd0091b0c132",
-        "scored_at": "2026-11-21T23:10:40.888809+00:00"
+        "prose_sha256": "4ac81c3b1a866f0b10b67c64c8224f9b6bcd67f684a145555af8037c19998a13",
+        "scored_at": "2026-11-22T01:18:14.270793+00:00"
+      }
+    },
+    {
+      "id": "aaa55aaf598950923826",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The post discusses Muru, a Python ASGI/WSGI web application server written in Rust. AI is only mentioned incidentally as an assistance tool used by the developer during its creation rather than being the primary subject of the software.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://simonwillison.net/2026/Nov/21/muru/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "ada00b439930591b5e70"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "414bab6a17e87f2938da",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "This is a product homepage and sales landing page featuring promotional marketing copy and calls to action ('Get a free key', 'See the product') without independent reporting or a substantive release announcement.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.pandex.io",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "1877d9c8f7e21afcb32a",
+        "aee4731e46e0d05e8d76"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "a8d6861ce66d34fcfabe",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.phoronix.com/news/Libreboot-Drops-AI-Policy",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "fe2f5f10f55df38c6160"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Libreboot drops anti-AI policy",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
       }
     }
   ]
