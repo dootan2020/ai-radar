@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-22T01:18:14.306788+00:00",
-  "input_generated_at": "2026-11-22T00:46:16Z",
+  "generated_at": "2026-11-22T03:09:38.413706+00:00",
+  "input_generated_at": "2026-11-22T02:46:42Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -119508,10 +119508,10 @@
       "use_original_title": false,
       "source_url": "https://techcrunch.com/2026/11/21/a-tale-of-two-nvidias/",
       "key_points": [
-        "Nvidia báo cáo doanh thu tăng vọt nhưng tuyên bố không có kế hoạch đưa Jensen Huang trở lại. Dù ban lãnh đạo cố trấn an nhà đầu tư, giá cổ phiếu vẫn giảm giữa lúc Elon Musk thúc đẩy kiến nghị đưa ông Huang quay lại.",
-        "Theo Anthony Ha trên TechCrunch, phe ủng hộ cựu CEO có thể cho rằng quý vừa qua là thời thuận lợi cuối cùng dưới quyền ông Huang và chưa rõ Nvidia sẽ ra sao khi thiếu ông. Trong khi đó, Kirsten Korosec nhận định hội đồng quản trị muốn giữ quyền kiểm soát thay vì bị ép buộc bởi những người như Elon Musk.",
-        "Quyền CEO Colette Kress thông báo Nvidia dừng bán chip H200 sang Trung Quốc, đồng thời tuyến truy cập từ xa qua các nước như Malaysia cũng bị đóng lại. Giới chỉ trích ước tính 20% kinh doanh của Nvidia đến từ Trung Quốc gián tiếp qua Đông Á hoặc Đông Nam Á chứ không hiện trong báo cáo tài chính.",
-        "Anthony Ha nhận định việc cắt doanh số gián tiếp này có thể giáng đòn đáng kể vào lợi nhuận nếu Nvidia thực sự kiên quyết thực hiện. Về nhân sự, các biên tập viên TechCrunch lưu ý việc từ chối đưa Jensen Huang trở lại chỉ là lập trường công khai hiện tại và có thể thay đổi tùy theo áp lực."
+        "Nvidia báo cáo doanh thu tăng vọt nhưng khẳng định không có kế hoạch đưa cựu CEO Jensen Huang trở lại. Dù ban lãnh đạo cố gắng trấn an nhà đầu tư, giá cổ phiếu vẫn sụt giảm khi Elon Musk cùng nhiều lãnh đạo công nghệ lưu hành kiến nghị kêu gọi ông Huang quay lại.",
+        "Theo quyền CEO Colette Kress, Nvidia dừng bán dòng chip H200 sang Trung Quốc trùng thời điểm chính quyền Tổng thống Trump thảo luận việc siết chặt quyền truy cập từ xa. Tuyến đường các công ty tại Trung Quốc truy cập chip từ xa qua các trung tâm dữ liệu bên ngoài như Malaysia cũng bị đóng lại.",
+        "Giới chỉ trích ước tính 20% hoạt động kinh doanh của Nvidia đến từ Trung Quốc, dù khoản này không hiển thị trực tiếp là doanh số bán cho Trung Quốc trong báo cáo tài chính do chip được bán sang nơi khác ở châu Á. Họ cho biết nhiều con chip bán sang Malaysia cùng các khu vực Đông Á hoặc Đông Nam Á cuối cùng vẫn do các công ty tại Trung Quốc sử dụng.",
+        "Anthony Ha nhận định việc đóng tuyến bán hàng gián tiếp này có thể giáng đòn đáng kể vào lợi nhuận nếu Nvidia thực sự kiên quyết thực hiện. Về nhân sự, Anthony Ha cho rằng việc từ chối đưa Jensen Huang trở lại chỉ là lập trường ở thời điểm hiện tại và có thể thay đổi tùy thuộc vào các áp lực."
       ],
       "same_event_coverage_ids": [
         "637b9c9477a3645c4ed0"
@@ -119530,7 +119530,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Nvidia dừng bán chip H200 sang Trung Quốc và bác bỏ kiến nghị đưa cựu CEO Jensen Huang trở lại",
+      "editorial_headline_vi": "Nvidia dừng bán chip H200 sang Trung Quốc và bác bỏ kế hoạch đưa Jensen Huang trở lại",
       "summary_sources": [
         {
           "id": "outlet",
@@ -119543,49 +119543,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.85,
+        "value": 9.8,
         "answers": {
           "what": 10,
-          "why": 8,
-          "notable": 8,
-          "meaning": 9
+          "why": 9,
+          "notable": 10,
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "chứ không hiện trong báo cáo tài chính",
-            "explanation": "The source says these are not directly identifiable as sales to Chinese companies in Nvidia’s financials, because the direct sales are to companies elsewhere; it does not say the revenue is absent from the financial statements (outlet:p016)."
-          },
-          {
-            "kind": "role",
-            "summary_text": "các biên tập viên TechCrunch",
-            "explanation": "The source identifies Kirsten Korosec, Tim De Chant, and Anthony Ha as participants in the Equity podcast discussion, but does not identify all of them as editors (outlet:p008, outlet:p032)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "notable",
-            "problem": "Readers may believe the indirect China revenue is missing from Nvidia’s financial statements.",
-            "fix": "Say it is not shown directly as China sales because the chips are sold to companies elsewhere in Asia (outlet:p015–p016)."
-          },
-          {
-            "question": "why",
-            "problem": "The account omits the Trump administration’s role in tightening restrictions on remote access.",
-            "fix": "Add that the H200 announcement coincided with discussion of closing routes through data centers outside China, while avoiding a definitive claim about Nvidia’s own motive (outlet:p011–p012)."
-          },
-          {
-            "question": "meaning",
-            "problem": "Calling all the speakers TechCrunch editors assigns roles the source does not establish.",
-            "fix": "Refer to them as participants in TechCrunch’s Equity podcast, or attribute the particular views to the named speakers (outlet:p008, outlet:p020–p025)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "4ac81c3b1a866f0b10b67c64c8224f9b6bcd67f684a145555af8037c19998a13",
-        "scored_at": "2026-11-22T01:18:14.270793+00:00"
+        "prose_sha256": "dc5dfaa83e7c6e2a02e1f1c1ef08fb50f5e67a9f974a66ab1934287471f26334",
+        "scored_at": "2026-11-22T03:09:38.403639+00:00"
       }
     },
     {
@@ -119656,6 +119629,90 @@
         "availability": "global",
         "is_leak": false
       }
+    },
+    {
+      "id": "7cedfd958b6d7a17aac2",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/meta-ads-is-now-available-in-aws-quick/",
+      "key_points": [
+        "AWS Quick bổ sung trình kết nối AI cho Meta ads theo thông báo từ Amazon, hỗ trợ tạo, quản lý và phân tích chiến dịch bằng ngôn ngữ tự nhiên. Tính năng này mở quyền truy cập máy chủ Giao thức bối cảnh mô hình (Model Context Protocol - MCP) trong khi vẫn duy trì kết nối mạng quản trị Meta.",
+        "Theo Amazon, công cụ AI này hỗ trợ trích xuất dữ liệu quảng cáo, lập danh mục sản phẩm cùng các quy trình tự động. Quick kết hợp dữ liệu quảng cáo Meta với dữ liệu nội bộ và bên thứ ba thành các bảng điều khiển cùng bản trình chiếu.",
+        "Câu lệnh mẫu chuyển kết quả cũ thành bộ slide tám trang hoặc bảng theo dõi hai nhóm quảng cáo được Amazon minh họa trong video hướng dẫn. Người dùng cài đặt trình kết nối từ mục Tùy chỉnh trong Quick, đăng nhập Facebook và cấp quyền cho các Trang hoặc tài khoản Instagram.",
+        "Trình kết nối giúp xử lý thông tin trực tiếp trên quảng cáo mà không cần chuyển đổi công cụ làm chậm tiến độ, theo Tina Sang, Trưởng bộ phận tiếp thị tại fal. Dù vậy, Amazon lưu ý hệ thống bắt buộc phải xin phép người dùng trước khi tạo chiến dịch, đổi ngân sách hoặc thực hiện thao tác ghi."
+      ],
+      "same_event_coverage_ids": [
+        "543080165e4dd3a3a1dd"
+      ],
+      "split_coverage_ids": [],
+      "subject": "AWS Quick",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "AWS Quick bổ sung trình kết nối AI cho phép quản lý chiến dịch Meta ads bằng ngôn ngữ tự nhiên",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "amazon",
+          "url": "https://aws.amazon.com/blogs/machine-learning/meta-ads-is-now-available-in-aws-quick/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.85,
+        "answers": {
+          "what": 10,
+          "why": 8,
+          "notable": 8,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "48493b7c288e0a6090a7a43692853842d2fcaba287629c08ed521ee7d9e3b603",
+        "scored_at": "2026-11-22T03:06:09.413890+00:00"
+      }
+    },
+    {
+      "id": "9296b00328f22eb46cd4",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The report focuses on third-quarter dividend payout ratios and shareholder return policies of semiconductor manufacturers, with only an incidental, passing reference to AI.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://en.yna.co.kr/view/AEN20261122000400320",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "3b724bec5c240b01c657"
+      ],
+      "split_coverage_ids": []
     }
   ]
 }
