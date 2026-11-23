@@ -4,6 +4,9 @@ kind = "paid-api"
 cost_class = "paid"
 priority = 100
 monthly_cap_usd = 20
-runner = "disabled-until-budget-adapter"
+boat = "gemini-api"
+runner = "gemini-api"
+max_concurrent_calls = 1
+max_batch_chars = 20000
 [detect]
 env_key = "GEMINI_API_KEY"

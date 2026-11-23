@@ -21,6 +21,7 @@ from .newsroom import (DEFAULT_CALL_TIMEOUT_SECONDS, DEFAULT_DESK_BUDGET_SECONDS
                        DEFAULT_SCORER_BUDGET_SECONDS, DEFAULT_WRITER_BUDGET_SECONDS, Articles, _score_prose,
                        _write_json, _writer, run, writer_window_hours, written_fields)
 from .registry import load_registry, providers
+from .gemini_api import NewsroomRunner
 from .runner import CLIRunner
 from .scoring import review_request, scorer_packet
 
@@ -120,7 +121,8 @@ def _lanes_available(tools, discovery):
     editors = [tool for tool in providers("bien-tap", tools, discovery)
                if tool.get("runner") == "batch-cli" and tool.get("cost_class") == "subscription"]
     checkers = [tool for tool in providers("kiem-chung", tools, discovery)
-                if tool.get("runner") == "batch-cli" and tool.get("cost_class") == "subscription"]
+                if (tool.get("runner") == "batch-cli" and tool.get("cost_class") == "subscription")
+                or tool.get("runner") == "gemini-api"]
     return any(editor.get("boat") != checker.get("boat") for editor in editors for checker in checkers)
 
 
@@ -403,16 +405,22 @@ def cycle(*, snapshot_url=SNAPSHOT_URL, snapshot_fetcher=None, decisions_path=DE
                                  tools=tools if tools is not None else load_registry(), rescore_limit=rescore_limit())
         _write_json(job_dir / "status.json", {"started_at": started.isoformat(), "considered_count": len(recent), "new_count": len(new),
                                               "writer_retry_count": len(retries), "state": "running"})
-        fresh, writer_used, retried = [], 0.0, None
+        fresh, writer_used, retried, paid_budget_error = [], 0.0, None, None
         if new or retries:
-            tools = [tool for tool in (tools if tools is not None else load_registry())
-                     if tool.get("cost_class") != "paid"]
+            tools = tools if tools is not None else load_registry()
             discovery = discovery if discovery is not None else discover_raw()
-            runner = runner or CLIRunner()
+            runner = runner or NewsroomRunner(job_dir / "gemini-paid-ledger.json")
+            if isinstance(runner, NewsroomRunner):
+                subscription_pair = _lanes_available(tools, {**discovery, "paid_ready": False})
+                discovery = {**discovery, "paid_ready": False}
+                if new and not subscription_pair:
+                    discovery["paid_ready"] = runner.start(discovery, tools)
         if not new:
             state = "no_new_stories"
         elif not _lanes_available(tools, discovery):
             state = "dry_lane"
+            if isinstance(runner, NewsroomRunner):
+                paid_budget_error = runner.finish()
         else:
             state = "decided"
             with tempfile.TemporaryDirectory() as temp:
@@ -420,10 +428,14 @@ def cycle(*, snapshot_url=SNAPSHOT_URL, snapshot_fetcher=None, decisions_path=DE
                 corpus_path = Path(temp) / "corpus.json"
                 _write_json(input_path, {"generated_at": snapshot.get("generated_at"), "stories": new})
                 _write_json(corpus_path, snapshot)
-                job_status = run(input_path, job_dir / "job", tools, discovery, runner,
-                                 articles=articles, corpus_path=corpus_path,
-                                 desk_budget_seconds=desk_budget_seconds, writer_budget_seconds=writer_budget_seconds,
-                                 run_budget_seconds=run_budget_seconds, call_timeout_seconds=call_timeout_seconds)
+                try:
+                    job_status = run(input_path, job_dir / "job", tools, discovery, runner,
+                                     articles=articles, corpus_path=corpus_path,
+                                     desk_budget_seconds=desk_budget_seconds, writer_budget_seconds=writer_budget_seconds,
+                                     run_budget_seconds=run_budget_seconds, call_timeout_seconds=call_timeout_seconds)
+                finally:
+                    if isinstance(runner, NewsroomRunner):
+                        paid_budget_error = runner.finish()
                 fresh = json.loads((job_dir / "job" / "quyet-dinh.json").read_text(encoding="utf-8"))["decisions"]
             if {row["id"] for row in fresh} != {row["id"] for row in new}:
                 raise ValueError("newsroom did not decide every new story")
@@ -441,6 +453,8 @@ def cycle(*, snapshot_url=SNAPSHOT_URL, snapshot_fetcher=None, decisions_path=DE
                   "decided_count": len(fresh), "total_decisions": len(old) + len(fresh)}
         if retried is not None:
             status["writer_retry"] = retried
+        if paid_budget_error is not None:
+            status["paid_budget_error"] = paid_budget_error
         if state != "dry_lane":
             value = {"schema_version": 1, "generated_at": datetime.now(timezone.utc).isoformat(),
                      "input_generated_at": snapshot.get("generated_at"), "decisions": old + fresh}

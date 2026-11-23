@@ -471,7 +471,8 @@ def _agent_desk(desk, payload, instruction, capability, tools, discovery, runner
     """
     cap = DEFAULT_CALL_TIMEOUT_SECONDS if call_timeout is None else call_timeout
     candidates = [tool for tool in providers(capability, tools, discovery, boat_exclude=boat_exclude, desk=desk)
-                  if tool.get("runner") == "batch-cli"]
+                  if tool.get("runner") == "batch-cli" or (desk in {"checker", "editor"}
+                                                           and tool.get("runner") == "gemini-api")]
     if not candidates:
         raise RunnerError(f"no configured batch CLI for {desk} on an eligible boat")
     output, batches = {}, []
@@ -484,8 +485,9 @@ def _agent_desk(desk, payload, instruction, capability, tools, discovery, runner
     batch_number = max((int(path.stem.removeprefix(f"{desk}-")) for path in existing_raw), default=0)
 
     def limit(index):
-        return (min(ARGUMENT_BATCH_CHARS, ARGUMENT_COMMAND_CHARS - len(instruction))
-                if candidates[index].get("prompt_transport") == "argument" else MAX_BATCH_CHARS)
+        configured = candidates[index].get("max_batch_chars", MAX_BATCH_CHARS)
+        return (min(configured, ARGUMENT_BATCH_CHARS, ARGUMENT_COMMAND_CHARS - len(instruction))
+                if candidates[index].get("prompt_transport") == "argument" else configured)
 
     def send(batch, sink, index=0):
         for part in _batches(batch, limit(index), batch_size):
