@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-22T23:32:10.533225+00:00",
-  "input_generated_at": "2026-11-22T22:46:42Z",
+  "generated_at": "2026-11-23T01:29:06.196248+00:00",
+  "input_generated_at": "2026-11-23T00:46:37Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -121136,10 +121136,10 @@
       "use_original_title": false,
       "source_url": "https://www.semafor.com/article/11/22/2026/us-spy-chief-calls-nvidia-chips-jewels",
       "key_points": [
-        "Giám đốc tình báo Mỹ điều tra nghi vấn điệp viên Trung Quốc liên hệ với cựu CEO Jensen Huang của Nvidia, theo xác nhận của ông Jay Clayton vào Chủ nhật.",
-        "Cơ quan tình báo Trung Quốc hỗ trợ thu thập chip để thúc đẩy đổi mới trong nước, theo The New York Times đưa tin về việc hỗ trợ các công ty đại lục tìm kiếm chip tiên tiến.",
-        "Chip Nvidia là báu vật mà mọi người đều muốn, theo ông Jay Clayton nhấn mạnh trên chương trình This Week của đài ABC.",
-        "Biện pháp kiểm soát xuất khẩu của Mỹ thúc đẩy Trung Quốc tự tái lập chuỗi cung ứng bán dẫn toàn cầu, theo chuyên gia Kyle Chan của Brookings đánh giá trên Bloomberg, dù các phòng thí nghiệm Trung Quốc trong ngắn hạn vẫn muốn dùng chip Nvidia."
+        "Chính quyền Washington đang điều tra nghi vấn điệp viên Trung Quốc liên quan đến cựu CEO Jensen Huang của Nvidia, theo Giám đốc tình báo Mỹ Jay Clayton cho biết vào Chủ nhật. Cuộc điều tra diễn ra trong bối cảnh các nỗ lực thu thập chip Mỹ của Bắc Kinh bị tăng cường giám sát.",
+        "Thúc đẩy đổi mới chip trong nước được hỗ trợ khi cơ quan tình báo Trung Quốc giúp các công ty đại lục thu thập chip tiên tiến, theo The New York Times.",
+        "Chip của Nvidia là báu vật mà mọi người đều muốn sở hữu, theo ông Jay Clayton nhấn mạnh trên chương trình This Week của đài ABC.",
+        "Biện pháp kiểm soát xuất khẩu của Mỹ đang thúc đẩy Bắc Kinh nỗ lực tái lập toàn bộ chuỗi cung ứng bán dẫn toàn cầu, theo chuyên gia Kyle Chan của Viện Brookings chia sẻ trên Bloomberg, dù các phòng thí nghiệm AI Trung Quốc trong ngắn hạn vẫn muốn tiếp tục sử dụng chip Nvidia."
       ],
       "same_event_coverage_ids": [
         "5dc4a4641652a8c073de"
@@ -121157,7 +121157,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Mỹ điều tra nghi vấn điệp viên Trung Quốc liên quan cựu CEO Nvidia giữa lúc kiểm soát chip leo thang",
+      "editorial_headline_vi": "Mỹ điều tra nghi vấn điệp viên Trung Quốc liên quan cựu CEO Nvidia khi nỗ lực gom chip bị giám sát chặt chẽ",
       "summary_sources": [
         {
           "id": "outlet",
@@ -121170,35 +121170,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.65,
+        "value": 9.7,
         "answers": {
-          "what": 8,
-          "why": 9,
-          "notable": 9,
-          "meaning": 9
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 8
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "giữa lúc kiểm soát chip leo thang",
-            "explanation": "The source says scrutiny of Beijing’s efforts to secure American chips intensified; it does not say chip controls intensified (outlet:p001)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "Giám đốc tình báo Mỹ điều tra",
-            "explanation": "Clayton said Washington was probing the allegation; the source does not say he personally conducted the investigation (outlet:p001)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "what",
-            "problem": "The headline substitutes intensifying chip controls for intensifying scrutiny of Beijing’s chip-acquisition efforts.",
-            "fix": "Describe the increased scrutiny stated in the source (outlet:p001)."
-          },
-          {
-            "question": "what",
-            "problem": "The first paragraph makes Clayton the investigator.",
-            "fix": "Say Clayton reported that Washington was investigating (outlet:p001)."
+            "question": "meaning",
+            "problem": "Readers miss why Chan considered Beijing’s supply chain ambition especially striking.",
+            "fix": "Add his qualification that he did not think any country had replicated the entire global semiconductor supply chain before (outlet:p003)."
           }
         ],
         "writer_boats": [
@@ -121206,8 +121190,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "33849c06462af1fcaec7d771e1221508344ea2dabd9a21058545c3c0f07ed7eb",
-        "scored_at": "2026-11-22T23:27:02.510207+00:00"
+        "prose_sha256": "9c4424aa6bad1786e2069de25200425efac26df2a474658c8a3f6d0cc60fa7ff",
+        "scored_at": "2026-11-23T01:26:56.742012+00:00"
       }
     },
     {
@@ -121227,10 +121211,10 @@
       "use_original_title": false,
       "source_url": "https://www.semafor.com/article/11/22/2026/us-china-eye-joint-guardrails-on-ai",
       "key_points": [
-        "Tổng thống Donald Trump tuyên bố Mỹ sẽ cùng Trung Quốc xây dựng rào chắn AI chung vào thứ Sáu, dù trước đây ông từng cảnh báo việc kiểm soát có thể bóp nghẹt sáng tạo.",
-        "Làn sóng phản đối công nghệ khiến đảng Cộng hòa thất bại lịch sử trong bầu cử giữa kỳ, theo Semafor nhận định.",
-        "Các cuộc biểu tình phản đối xây dựng trung tâm dữ liệu lan rộng khắp châu Âu, Nhật Bản và Ấn Độ, cùng lúc OpenAI siết chặt quyền truy cập mô hình đối với Trung Quốc.",
-        "Tác động thực tế của AI mất nhiều thời gian hơn dự kiến để xuất hiện, theo Trưởng văn phòng San Francisco của Semafor đánh giá khi các rào cản công nghệ ngày một lớn."
+        "Tổng thống Donald Trump tuyên bố vào thứ Sáu rằng Mỹ sẽ cùng Trung Quốc phát triển các rào chắn chung cho AI. Động thái này xuất hiện sau khi ông từng cảnh báo các quy định kiểm soát có thể bóp nghẹt đổi mới sáng tạo.",
+        "Làn sóng phản đối công nghệ đã góp phần tạo nên thất bại lịch sử của phe Cộng hòa trong kỳ bầu cử giữa kỳ, theo Semafor.",
+        "Các cuộc biểu tình phản đối xây dựng trung tâm dữ liệu đang lan sang châu Âu, Nhật Bản và Ấn Độ, theo Semafor. Đồng thời, OpenAI cũng siết chặt quyền truy cập các mô hình đối với người dùng Trung Quốc.",
+        "Khi rào cản công nghệ gia tăng, tác động thực tế của AI ngày càng có vẻ sẽ mất nhiều thời gian hơn dự kiến ban đầu để xuất hiện, theo Trưởng văn phòng San Francisco của Semafor."
       ],
       "same_event_coverage_ids": [
         "f4b5b6fbda3e93999bea"
@@ -121246,7 +121230,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Tổng thống Donald Trump tuyên bố Mỹ sẽ cùng Trung Quốc xây dựng rào chắn an toàn cho AI",
+      "editorial_headline_vi": "Tổng thống Donald Trump tuyên bố Mỹ sẽ cùng Trung Quốc phát triển rào chắn an toàn chung cho AI",
       "summary_sources": [
         {
           "id": "outlet",
@@ -121259,45 +121243,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 7.8,
+        "value": 9.4,
         "answers": {
           "what": 10,
-          "why": 5,
+          "why": 10,
           "notable": 8,
-          "meaning": 6
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "cause",
-            "summary_text": "Làn sóng phản đối công nghệ khiến đảng Cộng hòa thất bại lịch sử",
-            "explanation": "The source says the backlash helped drive a historic rebuke; it does not identify it as the sole cause (outlet:p001)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "lan rộng khắp châu Âu, Nhật Bản và Ấn Độ",
-            "explanation": "The source says protests were spreading to Europe, Japan, and India, not throughout those places (outlet:p002)."
-          },
-          {
-            "kind": "quote",
-            "summary_text": "Tác động thực tế của AI mất nhiều thời gian hơn dự kiến để xuất hiện",
-            "explanation": "The attributed conclusion is tentative: it is increasingly looking as though real-world impacts will take longer than initially expected (outlet:p003)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "why",
-            "problem": "The reader receives a stronger causal claim about the election than the source makes.",
-            "fix": "Say the anti-tech backlash contributed to the historic rebuke (outlet:p001)."
-          },
-          {
-            "question": "meaning",
-            "problem": "The slower arrival of AI’s effects is presented too firmly.",
-            "fix": "Preserve the bureau chief’s tentative wording (outlet:p003)."
-          },
-          {
             "question": "notable",
-            "problem": "The protest coverage sounds more geographically extensive than reported.",
-            "fix": "Say protests spread to Europe, Japan, and India (outlet:p002)."
+            "problem": "Readers do not learn that harsher US export controls were expected to slow China’s AI development.",
+            "fix": "Include that expectation alongside OpenAI’s tighter model access (outlet:p003)."
           }
         ],
         "writer_boats": [
@@ -121305,8 +121263,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "b486789a49a67210e19e98cc75ab11a7ab5c3a2aa17e2014fa370fce71a0e24d",
-        "scored_at": "2026-11-22T23:27:02.510240+00:00"
+        "prose_sha256": "310da1b1d122e60089e12506aebc58911fb3eec9eb65fc5db553b3f7b5de9b7e",
+        "scored_at": "2026-11-23T01:26:56.742054+00:00"
       }
     },
     {
@@ -121365,10 +121323,10 @@
       "use_original_title": false,
       "source_url": "https://techcrunch.com/2026/11/22/openais-chief-scientist-has-thoughts-on-how-to-limit-ai-development/",
       "key_points": [
-        "Nhà khoa học trưởng OpenAI Jakub Pachocki đề xuất đặt giới hạn phát triển AI dựa trên perplexity (thước đo độ hỗn loạn khi dự đoán từ tiếp theo), theo TechCrunch. Đề xuất này xuất hiện sau khi CEO Dario Amodei của Anthropic công bố kế hoạch điều tiết tốc độ mô hình biên giới nhằm thiết lập tiêu chuẩn an toàn chung.",
-        "Các bài đánh giá chuẩn về năng lực ứng dụng nhanh chóng lỗi thời khi công nghệ tiến bộ, theo lập luận của ông Pachocki. Ngược lại, chỉ số perplexity đo lường khả năng dự đoán từ tiếp theo trung bình vẫn giữ nguyên giá trị thông tin, trong đó điểm số càng thấp biểu thị dự đoán càng chính xác.",
-        "Ông Pachocki ghi nhận các năng lực mang tính chuyển đổi trong an ninh mạng và toán học xuất hiện khi mức loss giảm xuống dưới 0,8.",
-        "Nhà khoa học trưởng OpenAI đề xuất các công ty AI có thể dùng perplexity làm chuẩn chung để cam kết không vượt ngưỡng nhất định. Cam kết đề xuất này sẽ được áp dụng cho đến khi năng lực hiểu và giám sát hành vi AI đạt được cột mốc cụ thể, theo quan điểm của ông Pachocki."
+        "Nhà khoa học trưởng Jakub Pachocki của OpenAI đề xuất dùng perplexity làm thước đo để thiết lập giới hạn cho phát triển AI. Đề xuất này xuất hiện sau khi CEO Dario Amodei của Anthropic công bố kế hoạch điều tiết tốc độ phát triển mô hình biên giới.",
+        "Theo ông Pachocki, các bài kiểm chuẩn năng lực nhanh chóng lỗi thời, trong khi perplexity vẫn duy trì giá trị cung cấp thông tin. Chỉ số perplexity đo lường mức độ dự đoán token tiếp theo trung bình của mô hình, với điểm số càng thấp thể hiện dự đoán càng tốt.",
+        "Khi mức tổn thất hạ xuống dưới 0,8, các năng lực chuyển đổi đã xuất hiện trong những lĩnh vực như an ninh mạng và toán học.",
+        "Theo ông Pachocki, perplexity có thể làm chuẩn chung để các hãng AI cùng thiết lập các giới hạn kiểm soát. Các công ty sẽ cam kết không vượt ngưỡng nhất định cho đến khi năng lực thấu hiểu và giám sát hành vi AI đạt cột mốc cụ thể."
       ],
       "same_event_coverage_ids": [
         "1806750cb6d8e79aa0b5",
@@ -121388,7 +121346,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Nhà khoa học trưởng OpenAI đề xuất dùng perplexity để đặt giới hạn chung cho phát triển AI",
+      "editorial_headline_vi": "Nhà khoa học trưởng OpenAI đề xuất dùng perplexity làm thước đo đặt giới hạn cho phát triển AI",
       "summary_sources": [
         {
           "id": "outlet",
@@ -121401,39 +121359,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.2,
+        "value": 10.0,
         "answers": {
           "what": 10,
-          "why": 9,
-          "notable": 8,
+          "why": 10,
+          "notable": 10,
           "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "thước đo độ hỗn loạn khi dự đoán từ tiếp theo",
-            "explanation": "The source defines perplexity as measuring how well a model predicts the next token on average, not as a measure of chaos (outlet:p010). The later Vietnamese paragraph gives the accurate definition."
-          }
-        ],
-        "findings": [
-          {
-            "question": "notable",
-            "problem": "The opening parenthetical gives readers an inaccurate definition of perplexity.",
-            "fix": "Describe it as a measure of average next-token prediction quality, where lower perplexity means better predictions (outlet:p010)."
-          },
-          {
-            "question": "why",
-            "problem": "The Vietnamese leaves out why limits on AI development had become a prominent topic.",
-            "fix": "If adding that context, attribute the concern about catastrophic or existential risks to Anthropic’s IPO filing, as the source does (outlet:p007)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "aa48d3b41741509761ea825752c315f19fe315735cc96eead9492e20c58cca29",
-        "scored_at": "2026-11-22T23:32:10.511883+00:00"
+        "prose_sha256": "311c751d19c3d147a008ebe62358360cc878df095e598bd8983909e4bca0bef6",
+        "scored_at": "2026-11-23T01:29:06.185919+00:00"
       }
     },
     {
@@ -121455,6 +121396,351 @@
         "e48553390599d591c03c"
       ],
       "split_coverage_ids": []
+    },
+    {
+      "id": "f7eef83db55256b1af17",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-23/ai-investment-adding-to-inflation-jain-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "a20be7af22479b3cf7fe"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "692e3facae723ed87fff",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://en.yna.co.kr/view/AEN20261123001651320",
+      "key_points": [
+        "Thị trường chứng khoán Hàn Quốc giảm hơn 2% khi mở cửa vào sáng thứ Hai do giới đầu tư bán tháo các cổ phiếu công nghệ lớn. Sau khi mở cửa giảm 2,77%, chỉ số KOSPI tính đến 9 giờ 15 phút sáng đã giảm 129,7 điểm, tức 2,66%, xuống còn 2.740,26 điểm.",
+        "Theo Yonhap, lo ngại hạn chế xuất khẩu chip và đà giảm của Phố Wall đè nặng lên tâm lý thị trường, sau các báo cáo rằng AMD và Nvidia có thể gặp rủi ro kinh doanh tại Trung Quốc.",
+        "Cổ phiếu Samsung Electronics và SK hynix giảm sâu khi mã đầu ngành Samsung Electronics giảm 3,39%, đối thủ SK hynix mất 2,34% và hãng xe Hyundai Motor giảm 3,73%.",
+        "Áp lực bán đè nặng thị trường bất chấp đợt IPO của Anthropic, khi Yonhap cho biết sự kiện niêm yết thành công của công ty khởi nghiệp AI này vẫn không thể xoa dịu tâm lý giới đầu tư."
+      ],
+      "same_event_coverage_ids": [
+        "87fe053bcc880ca96184"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Seoul stock market opening drop driven by AI tech selloff",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Chứng khoán Hàn Quốc giảm hơn 2% khi mở cửa do lo ngại về ngành AI và hạn chế xuất khẩu chip",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "yonhap",
+          "url": "https://en.yna.co.kr/view/AEN20261123001651320"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.65,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "beb8ecb1cac6ad669b33b0e8f9f5e9bcd341f7fe0a9fd053b16c6e52da25631c",
+        "scored_at": "2026-11-23T01:14:50.757166+00:00"
+      }
+    },
+    {
+      "id": "abff12aa4aaca2e41233",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://en.yna.co.kr/view/AEN20261123001500320",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "6de5e9480cb37bab70c9",
+        "832fd2bf90778798011b"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Seoul shares sharp opening drop amid AI fears",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "36fce04b839fe07d0231",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://0rwx.com/",
+      "key_points": [
+        "Tác giả bài viết đề xuất mô hình gắn nhãn 0rwx gồm bốn cấp độ để giới chuyên môn thảo luận rõ ràng về trí tuệ nhân tạo.",
+        "Theo tác giả, cộng đồng cần ngôn ngữ mới về các mô hình ngôn ngữ lớn để quá trình trao đổi chuyên môn trở nên rõ ràng.",
+        "Mô hình bắt đầu từ cấp độ zero khi AI không có quyền đọc hay ghi vào tác phẩm của người dùng. Hệ thống tiếp nối bằng cấp độ read cho phép AI chỉ đọc, write với quyền đọc lẫn ghi, và execute khi người dùng không còn khả năng đọc hiểu tác phẩm do AI tạo ra.",
+        "Tác giả kỳ vọng mô hình sẽ giúp thảo luận công việc ít phán xét và bớt nhầm lẫn hơn. Tác giả nhấn mạnh ranh giới giữa bốn cấp độ không nhất thiết nằm ở công cụ sử dụng mà ở năng lực giám sát kết quả tạo ra."
+      ],
+      "same_event_coverage_ids": [
+        "debe68f92110a1295f25"
+      ],
+      "split_coverage_ids": [],
+      "subject": "0rwx permission-based framework for classifying AI usage",
+      "video_labels": {
+        "video_hook": "usable_now",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Mô hình 0rwx phân loại bốn cấp độ dùng AI dựa trên quyền truy cập và khả năng giám sát",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://0rwx.com/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "01cd4a8b6054ae317e4d3a62c2308f90aa5dc71bb8fc997debc9afc55d270b44",
+        "scored_at": "2026-11-23T01:18:54.604462+00:00"
+      }
+    },
+    {
+      "id": "f45ec8210280caf84d75",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-22/ant-group-bets-on-simplexity-to-thrive-in-china-s-humanoid-race",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "05a7eee62ca14c7e7786"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "7435df697c669a75d307",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://github.com/mjwsolo/localcode",
+      "key_points": [
+        "LocalCode là công cụ lập trình tự chủ bằng mô hình cục bộ trên máy Mac dành cho các nhà phát triển. Để vận hành, phần mềm yêu cầu thiết bị Mac dùng chip Apple Silicon chạy macOS 13 trở lên, bộ nhớ hợp nhất từ 16 GB và Python 3.10 trở lên.",
+        "Theo tác giả dự án, AI cá nhân mạnh mẽ cần vận hành cục bộ để phục vụ mọi người trên bất kỳ thiết bị nào và ở mọi nơi. Tác giả khẳng định việc triển khai mô hình trực tiếp trên máy chính là bước đi đầu tiên của LocalCode.",
+        "Phần mềm tự chạy lệnh trong dự án và hỏi trước khi can thiệp bên ngoài, bao gồm các bài kiểm thử, bản dựng, lệnh Git và lệnh shell. Người dùng có thể lựa chọn 12 mô hình cùng 169 tùy chọn lượng tử hóa cho lập trình, tiếp nhận hình ảnh và đưa ra quyết định.",
+        "Tài liệu dự án nêu rõ phần mềm suy luận cục bộ nhưng dùng mạng cho ba tính năng gồm tải mô hình, công cụ web_search cùng web_fetch và máy chủ MCP bổ sung."
+      ],
+      "same_event_coverage_ids": [
+        "6733964597be1bea14bd"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Localcode open-source agentic coding tool release",
+      "video_labels": {
+        "video_hook": "usable_now",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "LocalCode hỗ trợ lập trình tự chủ bằng mô hình AI cục bộ trên máy Mac dùng chip Apple Silicon",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://github.com/mjwsolo/localcode"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "9d0c6b708368c9f3b4513013f847f20a99aa47ea583e0672a43f74fbc365630e",
+        "scored_at": "2026-11-23T01:18:54.604503+00:00"
+      }
+    },
+    {
+      "id": "2c57b9b7bfe83955db0d",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://cacm.acm.org/blogcacm/what-happened-in-fall-2026-ai-and-p-vs-np",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "3f20f5b970b83c2a49e7"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Analysis of AI developments and the P versus NP problem in Fall 2026",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "71ff2ee8bf23be9b6db7",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The post focuses on cross-browser CSS styling for HTML select elements, with Claude Fable 5.2 mentioned only incidentally as the assistant used to generate the test page.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://simonwillison.net/2026/Nov/22/select-styling/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "362f0e9c0f12cd8986e3"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "05b98d0bd8dc90195039",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://x.com/btibor91/status/2124526478381678847",
+      "key_points": [
+        "OpenAI launched GPT-6.2 Astra and GPT-6.2 Sol in ChatGPT Work, Codex, and the API.",
+        "GPT-6.2 Astra is priced 20 percent lower than GPT-6 Astra."
+      ],
+      "same_event_coverage_ids": [
+        "398c2fb36fae6009d47c"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Weekly overview of OpenAI and Anthropic releases and developments",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      }
     }
   ]
 }
