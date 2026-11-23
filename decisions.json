@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-23T09:18:17.145690+00:00",
-  "input_generated_at": "2026-11-23T08:46:23Z",
+  "generated_at": "2026-11-23T11:20:46.465177+00:00",
+  "input_generated_at": "2026-11-23T10:46:48Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -122595,6 +122595,340 @@
         "scorer_provider": "codex",
         "prose_sha256": "e856ec9f997ff75cc26d506c14516f4e4fae863cd32f8ffcf3f489f2370a0b8f",
         "scored_at": "2026-11-23T09:13:35.944997+00:00"
+      }
+    },
+    {
+      "id": "55029fec76c9daa9d9b4",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://analyticsindiamag.com/ai-news/sarvam-defends-hosting-chinese-ai-models-releases-upgraded-105b-model",
+      "key_points": [
+        "Sarvam AI co-founder Pratyush Kumar responded to criticism on X regarding the hosting of foreign and Chinese open-weight models on its Token Factory platform.",
+        "Sarvam's Token Factory allows developers to access open-weight models from Chinese firms such as DeepSeek, Moonshot AI, Z.ai, and Alibaba via Indian infrastructure.",
+        "RunAnywhere co-founder and CEO Sanchit Monga criticized Sarvam on X, arguing that using subsidized capital and compute on foreign models was not shipping frontier research from India.",
+        "Kumar defended Sarvam's strategy, clarifying how computing resources under the Indian government's IndiaAI Mission were utilized."
+      ],
+      "same_event_coverage_ids": [
+        "8c9f40b85080540ebefa"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Sarvam AI",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Pratyush Kumar",
+          "Sanchit Monga"
+        ],
+        "availability": "global",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "1ba4fb01926d60c5daa5",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/23/2026/ai-disrupting-entry-level-work-report-finds",
+      "key_points": [
+        "Theo báo cáo chia sẻ trước với Semafor, AI đang định hình lại kinh tế Mỹ, kìm hãm việc làm văn phòng và khiến người trẻ khó tìm việc khởi điểm hơn.",
+        "Báo cáo này do tổ chức RAISE US và Viện Burning Glass thực hiện dựa trên phân tích số liệu việc làm.",
+        "Kết quả cho thấy các ngành văn phòng hụt 1,5 triệu việc làm so với quỹ đạo trước đại dịch. Tại các ngành dùng nhiều AI, cơ hội đầu sự nghiệp giảm trung bình 3-8% giai đoạn 2021-2026, còn nhóm việc làm kỹ năng trung bình thuộc khối văn phòng và hành chính giảm 780.000 vị trí giai đoạn 2023-2025.",
+        "Bà Gina Raimondo nhận định phân tích này là hồi chuông cảnh tỉnh các nhà lãnh đạo cần hành động ngay để chuẩn bị cho người lao động chuyển đổi sang nền kinh tế AI."
+      ],
+      "same_event_coverage_ids": [
+        "ededc1ee5f9a8f6a806c"
+      ],
+      "split_coverage_ids": [],
+      "subject": "AI impact on entry-level jobs",
+      "video_labels": {
+        "video_hook": "money_jobs",
+        "named_people": [
+          "Gina Raimondo",
+          "Eric Holcomb"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Báo cáo Mỹ: Ngành dùng nhiều AI giảm trung bình 3-8% cơ hội đầu sự nghiệp, khối văn phòng hụt 1,5 triệu việc",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/23/2026/ai-disrupting-entry-level-work-report-finds"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "f99b1bb3747a532813c30ac0af3230db6f881a937d24c48e8e057b9ed7e8a4c8",
+        "scored_at": "2026-11-23T11:20:46.436073+00:00"
+      }
+    },
+    {
+      "id": "2a575022e3fbd3e0bfc8",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/23/2026/schiff-plans-no-ai-bailouts-resolution",
+      "key_points": [
+        "Theo nguồn tin từ Semafor, Thượng nghị sĩ Adam Schiff chuẩn bị đề xuất nghị quyết làm rõ Quốc hội không được giải cứu các tập đoàn và nhà đầu tư giàu có đặt cược đầu cơ vào AI nếu ngành này suy thoái.",
+        "Semafor nhận định bước đi này phản ánh việc Đảng Dân chủ tin rằng thông điệp nhắm vào tài chính bấp bênh của AI sẽ thu hút cử tri lo ngại quyền lực doanh nghiệp.",
+        "Trước đó tại Hạ viện, hai nghị sĩ Greg Casar và Maxine Waters đã đề xuất nghị quyết tương tự vào tháng trước, còn ông Schiff khẳng định trên Wall Street Journal rằng giới tỷ phú không nên mong đợi được giải cứu như khủng hoảng nhà đất năm 2008.",
+        "Nghị quyết nêu rõ Quốc hội không giải cứu các khoản đầu cơ nếu ngành AI suy yếu, khi việc cứu trợ gây phương hại tới các gia đình lao động."
+      ],
+      "same_event_coverage_ids": [
+        "4f1fdbe57dbe729c86a0"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Adam Schiff",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Adam Schiff",
+          "Greg Casar",
+          "Maxine Waters",
+          "Alexandria Ocasio-Cortez"
+        ],
+        "availability": "global",
+        "is_leak": true
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nghị sĩ Adam Schiff chuẩn bị đề xuất không giải cứu giới đầu cơ AI gây thiệt hại cho các gia đình lao động",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/23/2026/schiff-plans-no-ai-bailouts-resolution"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.4,
+        "answers": {
+          "what": 9,
+          "why": 9,
+          "notable": 8,
+          "meaning": 7
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "giới đầu cơ AI gây thiệt hại cho các gia đình lao động",
+            "explanation": "The source does not say AI speculators have harmed working families. It says a future bailout of corporations and wealthy investors should not come at working families’ expense (outlet:p001)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The headline turns a concern about who would pay for a possible bailout into a claim that AI speculators have already harmed working families.",
+            "fix": "Tie the potential harm to a bailout if the AI industry falters, as in outlet:p001."
+          },
+          {
+            "question": "notable",
+            "problem": "Readers miss what makes Schiff’s planned move distinct in the Senate.",
+            "fix": "State that he would be the first senator to introduce such a resolution, while similar House action already exists (outlet:p002–p003)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "bfecd703774865b660ad8e510db4f25fdc63f17e7bcbcecfdd0e91f687dbfa88",
+        "scored_at": "2026-11-23T11:20:46.436121+00:00"
+      }
+    },
+    {
+      "id": "f8ad7234680a401f6cdf",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The report covers general US equity-index and Treasury futures market movements, mentioning AI only in passing regarding a previous selloff.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-23/futures-rally-following-ai-selloff-havens-decline",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "d3ca6bbea11dd1ce577d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "0cfdab106ebc8dcd32aa",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-23/what-a-town-of-vibecoders-says-about-the-chinese-economy-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "d5c44e59f4d5738e227c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "fce8f8db1996d931bf13",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-23/nvidia-backed-ai-company-firmus-mulls-1-5-billion-bond-offering",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "1f32c64080ee79ddfe65"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "ea2e79c343be00eab517",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://analyticsindiamag.com/ai-startups/bolna-builds-its-own-speech-model-to-catch-what-voice-ai-misses",
+      "key_points": [
+        "Tại sự kiện Symphony ở Bengaluru, Bolna AI đã ra mắt Syl, mô hình nhận dạng giọng nói tự động (ASR - hệ thống chuyển đổi lời nói thành văn bản) chuyên xử lý các câu trả lời ngắn trong cuộc gọi. Đây là bước chuyển của công ty sang việc tự phát triển mô hình để giải quyết khó khăn khi triển khai cho khách hàng.",
+        "Theo Analytics India Magazine, các phát ngôn ngắn cùng tạp âm thường khiến thuật toán nhận diện sai hoặc để trống bản ghi âm ở khoảng một phần mười số câu trả lời ngắn.",
+        "Trên tập cuộc gọi thực tế độc lập, Bolna cho biết Syl phiên âm chính xác 93% câu trả lời có-hoặc-không gồm một từ với độ trễ trung vị 250 mili giây. Bolna cũng tuyên bố mô hình rẻ hơn 10 lần so với giải pháp hàng đầu hiện nay dù chưa công bố giá, và giúp giảm 31% số lần tác tử (chương trình AI tự động) yêu cầu người gọi nhắc lại.",
+        "Dù Syl cải thiện độ chính xác cho tiếng Anh và tiếng Hindi, Giám đốc công nghệ Prateek Sachan thừa nhận mô hình không thể tối ưu trong mọi tình huống và Bolna sẽ tiếp tục kết hợp các mô hình bên ngoài để đáp ứng từng nhu cầu."
+      ],
+      "same_event_coverage_ids": [
+        "5fc934a80788bb479aee"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Bolna AI",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Bolna AI ra mắt Syl giúp phiên âm chính xác 93% câu trả lời có-không một từ trong cuộc gọi",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "analytics-india-magazine",
+          "url": "https://analyticsindiamag.com/ai-startups/bolna-builds-its-own-speech-model-to-catch-what-voice-ai-misses"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.2,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 9,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "để trống bản ghi âm",
+            "explanation": "The source says roughly one in ten short replies previously produced empty transcriptions, not empty audio recordings (outlet:p004)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "Syl cải thiện độ chính xác cho tiếng Anh và tiếng Hindi",
+            "explanation": "The source says the initial model is intended for English and Hindi use cases; it does not report a measured accuracy improvement separately for those languages (outlet:p009)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The Vietnamese says recordings were left empty, which misidentifies the failure Syl addresses.",
+            "fix": "Say the transcription was empty for about one in ten short replies (outlet:p004)."
+          },
+          {
+            "question": "meaning",
+            "problem": "Readers may believe Bolna demonstrated improved accuracy for both English and Hindi specifically.",
+            "fix": "Describe English and Hindi as the model’s initial intended use cases; keep the reported 93% result tied to held-out production calls (outlet:p004, outlet:p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "bc9a08d3d99915d238c52a5251d1f7d1a82e7a48129e227731f82aee4e4da7e1",
+        "scored_at": "2026-11-23T11:20:46.436153+00:00"
       }
     }
   ]
