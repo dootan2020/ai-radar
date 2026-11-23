@@ -14,6 +14,13 @@ comparison, failures and first-run verification.
 Newsroom story reviews score each Vietnamese summary against the ten-item
 [story scorecard](bang-cham-ban-tin.md) (pass at 9/10) instead of a feel score. Every newsroom desk (reporter, editor, checker, writer) tries Antigravity (`agy`) first and falls back to Codex only when `agy` is unavailable; the lane order lives in `[desk_priority]` of `phong-bao/cong-cu/agy.toml`.
 
+The checker and scoring desks must read on a different boat from the editor and writer. When neither `agy` nor the
+capped Gemini API runner (`phong-bao/cong-cu/gemini-api.toml`) can take them, the cycle may run them on Codex under a
+model different from every writer and editor model, until `CODEX_CHECKER_EXPIRES_AT` in `phong_bao/newsroom.py`
+(2026-11-28 16:00 +07). Each story checked or scored this way carries a same-boat checker or scorer marker in
+`degradation_reasons`, the cycle status counts them (`same_boat_checker_count`, `same_boat_scorer_count`), and the
+score records the exception; re-check those stories once `agy` is back.
+
 ## When the page looks old
 
 1. Compare the served `data/radar.json` timestamp with the latest successful

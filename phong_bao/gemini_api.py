@@ -1,4 +1,4 @@
-"""Capped Gemini API fallback for the newsroom's independent checker desk."""
+"""Capped Gemini API fallback for the newsroom's independent checking and scoring desks."""
 
 from __future__ import annotations
 
@@ -54,7 +54,7 @@ class NewsroomRunner(CLIRunner):
     def run(self, desk, rows, provider, instruction, *, timeout=600):
         if provider.get("runner") != "gemini-api":
             return super().run(desk, rows, provider, instruction, timeout=timeout)
-        if (not self.ready or self.unsafe_usage or desk not in {"checker", "editor"}
+        if (not self.ready or self.unsafe_usage or desk not in {"checker", "editor", "scorer"}
                 or not os.environ.get("GEMINI_API_KEY")):
             raise RunnerError("Gemini API unavailable")
 

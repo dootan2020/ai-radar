@@ -17,7 +17,9 @@ from radar.items import instant
 from radar.newsroom_decisions import SCORER_VERSION, answers_pass, prose_digest, score_passed, weighted_score
 
 from .discovery import discover_raw
-from .newsroom import (DEFAULT_CALL_TIMEOUT_SECONDS, DEFAULT_DESK_BUDGET_SECONDS, DEFAULT_RUN_BUDGET_SECONDS,
+from .newsroom import (CODEX_CHECKER_EXPIRES_AT, SAME_BOAT_CHECKER_MARKER, SAME_BOAT_SCORER_MARKER,
+                       _codex_checker_profile,
+                       DEFAULT_CALL_TIMEOUT_SECONDS, DEFAULT_DESK_BUDGET_SECONDS, DEFAULT_RUN_BUDGET_SECONDS,
                        DEFAULT_SCORER_BUDGET_SECONDS, DEFAULT_WRITER_BUDGET_SECONDS, Articles, _score_prose,
                        _write_json, _writer, run, writer_window_hours, written_fields)
 from .registry import load_registry, providers
@@ -270,6 +272,7 @@ def writer_retries(old, stories, cycles_dir, now, *, current=None, limit=WRITER_
             if sid in prose and score_attempts[sid] < SCORE_ATTEMPTS:
                 boats, sources = prose[sid]
                 scores.append({"id": sid, "mode": "score", "published": published, "writer_boats": sorted(boats),
+                               "writer_models": row.get("writer_models", []),
                                "packet": scorer_packet(sid, sources, row["editorial_headline_vi"], row["key_points"])})
             elif reasons is not None:
                 reasons[sid] = "score attempts used" if score_attempts[sid] >= SCORE_ATTEMPTS else "no stored writer row or source paragraphs"
@@ -296,6 +299,7 @@ def writer_retries(old, stories, cycles_dir, now, *, current=None, limit=WRITER_
             candidate.update(mode="rewrite", review=review_request(row["score"], row["editorial_headline_vi"],
                                                                     row["key_points"]),
                              prior_boats=list(row["score"]["writer_boats"]))
+            candidate["prior_models"] = row.get("writer_models", [])
         writes.append(candidate)
     newest = lambda row: (row["published"], row["id"])  # noqa: E731
     writes.sort(key=newest, reverse=True)
@@ -326,6 +330,7 @@ def _retry_writer(candidates, decisions, job_dir, tools, discovery, runner, arti
                                 call_timeout=call_timeout,
                                 reviews={row["id"]: row["review"] for row in writes if row["mode"] == "rewrite"},
                                 prior_boats={row["id"]: row["prior_boats"] for row in writes if row["mode"] == "rewrite"},
+                                prior_models={row["id"]: row["prior_models"] for row in writes if row["mode"] == "rewrite"},
                                 scorer_budget_seconds=scorer_budget_seconds, run_deadline=run_deadline)
     # Only the first writer pass decides whether a story reached a model; later passes record their own desk.
     cut = {sid for row in usage if "desk" not in row and row.get("event") in {"budget_exhausted", "writer_unavailable"}
@@ -333,11 +338,18 @@ def _retry_writer(candidates, decisions, job_dir, tools, discovery, runner, arti
     sent = [sid for sid in ids if sid not in cut and "writer_sources" in output.get(sid, {})]
     by_id = {row["id"]: row for row in decisions}
     written = []
+    same_boat_scored = set()
     for sid in ids:
         row, prose = by_id.get(sid), output.get(sid)
         if (row and row.get("decision") == "publish" and row.get("summary") in {"claims", "written"}
                 and prose and prose["written"]):
             row.update(written_fields(prose))
+            reasons = row.setdefault("degradation_reasons", [])
+            if SAME_BOAT_SCORER_MARKER in reasons:
+                reasons.remove(SAME_BOAT_SCORER_MARKER)
+            if isinstance(row.get("score"), dict) and row["score"].get("same_boat_exception"):
+                reasons.append(SAME_BOAT_SCORER_MARKER)
+                same_boat_scored.add(sid)
             written.append(sid)
     score_ids, scored, verdicts = [row["id"] for row in scores], [], {}
     if scores:
@@ -346,6 +358,7 @@ def _retry_writer(candidates, decisions, job_dir, tools, discovery, runner, arti
             score_deadline = min(score_deadline, run_deadline)
         verdicts, events = _score_prose({row["id"]: row["packet"] for row in scores},
                                         {row["id"]: row["writer_boats"] for row in scores}, tools, discovery, runner,
+                                        writer_models={row["id"]: row["writer_models"] for row in scores},
                                         raw_dir=retry_dir / "raw", deadline=score_deadline, call_timeout=call_timeout,
                                         record_as="rescorer")
         usage.extend(events)
@@ -357,6 +370,12 @@ def _retry_writer(candidates, decisions, job_dir, tools, discovery, runner, arti
             row = by_id.get(sid)
             if row is not None and result["score"] is not None:
                 row["score"] = result["score"]
+                reasons = row.setdefault("degradation_reasons", [])
+                if SAME_BOAT_SCORER_MARKER in reasons:
+                    reasons.remove(SAME_BOAT_SCORER_MARKER)
+                if result["score"].get("same_boat_exception"):
+                    reasons.append(SAME_BOAT_SCORER_MARKER)
+                    same_boat_scored.add(sid)
     passed = [sid for sid in ids + score_ids if score_passed(by_id.get(sid))]
     result = {"candidates": ids, "cycles": {row["id"]: row["cycle"] for row in writes},
               "modes": {row["id"]: row["mode"] for row in candidates}, "sent": sent,
@@ -367,8 +386,12 @@ def _retry_writer(candidates, decisions, job_dir, tools, discovery, runner, arti
     if output:
         _write_json(retry_dir / "writer.json", output)
     _write_json(retry_dir / "status.json", result)
-    return {"candidates": len(ids), "sent": len(sent), "budget_cut": len(result["budget_cut"]), "written": len(written),
-            "score_candidates": len(score_ids), "scored": len(scored), "passed": len(passed)}
+    summary = {"candidates": len(ids), "sent": len(sent), "budget_cut": len(result["budget_cut"]),
+               "written": len(written), "score_candidates": len(score_ids), "scored": len(scored),
+               "passed": len(passed)}
+    if same_boat_scored:
+        summary["same_boat_scorer_count"] = len(same_boat_scored)
+    return summary
 
 
 def cycle(*, snapshot_url=SNAPSHOT_URL, snapshot_fetcher=None, decisions_path=DECISIONS_PATH, cycles_dir=CYCLES_DIR,
@@ -415,9 +438,14 @@ def cycle(*, snapshot_url=SNAPSHOT_URL, snapshot_fetcher=None, decisions_path=DE
                 discovery = {**discovery, "paid_ready": False}
                 if new and not subscription_pair:
                     discovery["paid_ready"] = runner.start(discovery, tools)
+        codex_checker_exception = bool((new or retries) and started < CODEX_CHECKER_EXPIRES_AT
+                                       and not _lanes_available(tools, discovery)
+                                       and _codex_checker_profile(tools, discovery))
+        if new or retries:
+            discovery = {**discovery, "codex_checker_exception": codex_checker_exception}
         if not new:
             state = "no_new_stories"
-        elif not _lanes_available(tools, discovery):
+        elif not _lanes_available(tools, discovery) and not codex_checker_exception:
             state = "dry_lane"
             if isinstance(runner, NewsroomRunner):
                 paid_budget_error = runner.finish()
@@ -451,6 +479,13 @@ def cycle(*, snapshot_url=SNAPSHOT_URL, snapshot_fetcher=None, decisions_path=DE
                 retried = {"candidates": len(retries), "error": str(error)[:300]}
         status = {"started_at": started.isoformat(), "state": state, "considered_count": len(recent), "new_count": len(new),
                   "decided_count": len(fresh), "total_decisions": len(old) + len(fresh)}
+        same_boat_count = sum(SAME_BOAT_CHECKER_MARKER in row.get("degradation_reasons", []) for row in fresh)
+        if same_boat_count:
+            status["same_boat_checker_count"] = same_boat_count
+        same_boat_scorer_count = (sum(SAME_BOAT_SCORER_MARKER in row.get("degradation_reasons", []) for row in fresh)
+                                  + (retried or {}).get("same_boat_scorer_count", 0))
+        if same_boat_scorer_count:
+            status["same_boat_scorer_count"] = same_boat_scorer_count
         if retried is not None:
             status["writer_retry"] = retried
         if paid_budget_error is not None:

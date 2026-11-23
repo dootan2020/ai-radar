@@ -145,6 +145,24 @@ class ScoringGateTests(unittest.TestCase):
         self.assertFalse(score_passed({**scored(desk_row("old")), "score": {**scored(desk_row("old"))["score"],
                                                                               "version": "cham-0"}}))
 
+    def test_recorded_same_boat_score_requires_distinct_models_and_survives_expiry(self):
+        row = scored(desk_row("temporary"), writer="codex", scorer="codex")
+        self.assertFalse(score_passed(row))
+        row["score"].update(same_boat_exception="codex-different-model", scorer_model="gpt-6-astra",
+                            writer_models=["gpt-6-sol"])
+        self.assertTrue(score_passed(row))
+        self.assertEqual(len(apply_decisions(payload_with(["temporary"]), {"decisions": [row]})["stories"]), 1)
+        # A stored grant remains valid on later site builds; no current-time check belongs here.
+        with patch.object(newsroom_decisions, "datetime") as clock:
+            clock.now.return_value = datetime(2026, 12, 1, tzinfo=timezone.utc)
+            self.assertTrue(score_passed(row))
+        for change in ({"scorer_model": "gpt-6-sol"}, {"writer_models": []},
+                       {"scorer_provider": "other"},
+                       {"same_boat_exception": "unexpected"}):
+            rejected = deepcopy(row)
+            rejected["score"].update(change)
+            self.assertFalse(score_passed(rejected), change)
+
     def test_one_question_below_the_floor_fails_however_high_the_total(self):
         # The 06/11 18:00 Cainiao story: the scorer found its cause missing, and the weighted total still passed.
         cainiao = {"what": 10, "why": 6, "notable": 10, "meaning": 9}

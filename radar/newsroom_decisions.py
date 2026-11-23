@@ -91,16 +91,25 @@ def answers_pass(answers, hard_errors):
 
 
 def score_passed(row):
-    """True only for desk prose whose current headline and paragraphs a scorer on another boat passed."""
+    """True for scored prose, including a recorded temporary different-model Codex reading."""
     score = row.get("score") if isinstance(row, dict) else None
     if not isinstance(score, dict) or score.get("version") != SCORER_VERSION:
         return False
     value = weighted_score(score.get("answers"))
     writers, scorer = score.get("writer_boats"), score.get("scorer_boat")
+    independent = isinstance(scorer, str) and scorer and scorer not in writers if isinstance(writers, list) else False
+    writer_models = score.get("writer_models")
+    same_boat = (scorer == "codex" and score.get("scorer_provider") == "codex"
+                 and isinstance(writers, list) and scorer in writers
+                 and score.get("same_boat_exception") == "codex-different-model"
+                 and isinstance(score.get("scorer_model"), str) and bool(score["scorer_model"])
+                 and isinstance(writer_models, list) and bool(writer_models)
+                 and all(isinstance(model, str) and model for model in writer_models)
+                 and score["scorer_model"] not in writer_models)
     return bool(value is not None and score.get("value") == value
                 and answers_pass(score["answers"], score.get("hard_errors"))
                 and isinstance(writers, list) and writers and all(isinstance(boat, str) and boat for boat in writers)
-                and isinstance(scorer, str) and scorer and scorer not in writers
+                and (independent or same_boat)
                 and isinstance(row.get("key_points"), list)
                 and score.get("prose_sha256") == prose_digest(row.get("editorial_headline_vi"), row["key_points"]))
 

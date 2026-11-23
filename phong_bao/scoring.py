@@ -3,8 +3,8 @@
 It sees what the writer saw (the source paragraphs) and what a reader would see (the Vietnamese headline and
 paragraphs), answers the captain's four questions from both, and lists every hard error. The overall score is
 computed here from the four question scores with the captain's weights, never taken from the model, and
-radar.newsroom_decisions recomputes it on every site build. Anything other than a complete, well-formed verdict
-from a boat that wrote none of the prose leaves the story unscored, which hides it.
+radar.newsroom_decisions recomputes it on every site build. A complete, well-formed verdict normally comes from
+another boat; a temporary different-model Codex exception is recorded on its score. Other results stay unscored.
 """
 
 from __future__ import annotations
@@ -93,7 +93,7 @@ def parse_reply(reply):
     return answers, hard, notes
 
 
-def verdict(packet, reply, writer_boats, *, now=None):
+def verdict(packet, reply, writer_boats, *, now=None, same_boat_model=None, writer_models=None):
     """The scoring desk's verdict on one packet.
 
     Returns {"state": "passed" | "failed" | "unscored", "reason", "score"}: score is the block stored on the
@@ -106,7 +106,11 @@ def verdict(packet, reply, writer_boats, *, now=None):
         return {"state": "unscored", "reason": "scorer_model_failure", "score": None}
     if reply.get("id") != packet["id"]:
         return {"state": "unscored", "reason": "scorer_invalid", "score": None}
-    if not isinstance(reply.get("boat"), str) or reply["boat"] in boats:
+    same_boat = (same_boat_model is not None and reply.get("boat") == "codex" and "codex" in boats
+                 and reply.get("model") == same_boat_model and isinstance(writer_models, (list, set, tuple))
+                 and bool(writer_models) and all(isinstance(model, str) and model for model in writer_models)
+                 and same_boat_model not in writer_models)
+    if not isinstance(reply.get("boat"), str) or (reply["boat"] in boats and not same_boat):
         return {"state": "unscored", "reason": "scorer_same_boat", "score": None}
     parsed = parse_reply(reply)
     if parsed is None:
@@ -118,6 +122,9 @@ def verdict(packet, reply, writer_boats, *, now=None):
              "scorer_provider": reply.get("provider"),
              "prose_sha256": prose_digest(packet["headline_vi"], packet["paragraphs_vi"]),
              "scored_at": (now or datetime.now(timezone.utc)).isoformat()}
+    if same_boat:
+        score.update(same_boat_exception="codex-different-model", scorer_model=same_boat_model,
+                     writer_models=sorted(set(writer_models)))
     if answers_pass(answers, hard):
         return {"state": "passed", "reason": f"score {value:g}", "score": score}
     if hard:
