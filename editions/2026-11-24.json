@@ -1,0 +1,334 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-24",
+  "timezone": "Asia/Ho_Chi_Minh",
+  "window_start_at": "2026-11-22T23:00:00Z",
+  "cutoff_at": "2026-11-23T23:00:00Z",
+  "created_at": "2026-11-23T23:08:49Z",
+  "snapshot_generated_at": "2026-11-23T23:06:55Z",
+  "policy": {
+    "method": "daily-evidence-v3",
+    "max_stories": 5,
+    "window_hours": 24,
+    "cutoff_hour": 6,
+    "engagement_percentile_min": 0.8,
+    "publisher_coverage_excludes_forums": true,
+    "attention_requires_nonforum": true,
+    "forum_exception_percentile_min": 0.97,
+    "forum_exception_comments_min": 100,
+    "max_forum_only_stories": 1,
+    "score_measured_at": "2026-11-23T23:06:55Z",
+    "description": "Ưu tiên dấu hiệu công bố, số nhà xuất bản và tương tác đo được; sau đó theo điểm nóng và thời gian công bố"
+  },
+  "stories": [
+    {
+      "id": "29c9de3a1f8674ad7ebd",
+      "title": "Trump endorses Jensen Huang’s return to Nvidia, says US has no evidence of wrongdoing",
+      "title_vi": "Trump ủng hộ việc Jensen Huang trở lại Nvidia, nói rằng Mỹ không có bằng chứng về hành vi sai trái",
+      "headline": "Trump endorses Jensen Huang’s return to Nvidia, says US has no evidence of wrongdoing",
+      "headline_vi": "Trump ủng hộ việc Jensen Huang trở lại Nvidia, nói rằng Mỹ không có bằng chứng về hành vi sai trái",
+      "url": "https://techcrunch.com/2026/11/23/trump-endorses-jensen-huangs-return-to-nvidia-says-us-has-no-evidence-of-wrongdoing/",
+      "published_at": "2026-11-23T15:04:01Z",
+      "kind": "other",
+      "time_basis": "published",
+      "editorial_headline_vi": "Bộ trưởng Tài chính và Tổng thống Mỹ để ngỏ việc Jensen Huang trở lại Nvidia",
+      "editorial_headline_verified": true,
+      "source_count": 2,
+      "coverage": [
+        {
+          "id": "519173bb6871f529d21a",
+          "title": "Emily Kilcrease on Jensen Huang’s Return to Nvidia",
+          "title_vi": "Emily Kilcrease về việc Jensen Huang trở lại Nvidia",
+          "headline": "Emily Kilcrease on Jensen Huang’s Return to Nvidia",
+          "headline_vi": "Emily Kilcrease về việc Jensen Huang trở lại Nvidia",
+          "url": "https://www.bloomberg.com/news/videos/2026-11-23/emily-kilcrease-on-jensen-huang-s-return-to-nvidia-video",
+          "published_at": "2026-11-23T22:32:40Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "bloomberg-tech",
+          "publisher": "bloomberg",
+          "entity": "bloomberg",
+          "group": "press",
+          "observed_at": "2026-11-23T23:06:55Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "6405e64e5dbc629edd41",
+          "title": "Stocks rally in moments leading up to Jensen Huang’s return as Nvidia CEO",
+          "title_vi": "Các cổ phiếu tăng trưởng trong những khoảnh khắc dẫn đến sự trở lại của Jensen Huang làm CEO Nvidia",
+          "headline": "Stocks rally in moments leading up to Jensen Huang’s return as Nvidia CEO",
+          "headline_vi": "Các cổ phiếu tăng trưởng trong những khoảnh khắc dẫn đến sự trở lại của Jensen Huang làm CEO Nvidia",
+          "url": "https://www.bloomberg.com/news/videos/2026-11-23/bloomberg-surveillance-11-23-2026-video",
+          "published_at": "2026-11-23T16:34:49Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "bloomberg-tech",
+          "publisher": "bloomberg",
+          "entity": "bloomberg",
+          "group": "press",
+          "observed_at": "2026-11-23T18:46:40Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "71f64b3c19a16e455eb9",
+          "title": "Trump endorses Jensen Huang’s return to Nvidia, says US has no evidence of wrongdoing",
+          "title_vi": "Trump ủng hộ việc Jensen Huang trở lại Nvidia, nói rằng Mỹ không có bằng chứng về hành vi sai trái",
+          "headline": "Trump endorses Jensen Huang’s return to Nvidia, says US has no evidence of wrongdoing",
+          "headline_vi": "Trump ủng hộ việc Jensen Huang trở lại Nvidia, nói rằng Mỹ không có bằng chứng về hành vi sai trái",
+          "url": "https://techcrunch.com/2026/11/23/trump-endorses-jensen-huangs-return-to-nvidia-says-us-has-no-evidence-of-wrongdoing/",
+          "published_at": "2026-11-23T15:04:01Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "techcrunch-ai",
+          "publisher": "techcrunch",
+          "entity": "techcrunch",
+          "group": "press",
+          "observed_at": "2026-11-23T23:06:55Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "2 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "bloomberg",
+              "techcrunch"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "bloomberg",
+            "techcrunch"
+          ],
+          "age_hours_at_cutoff": 7.9331,
+          "hot_score": 52.438,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "ec8c1f3da5e42ccd7c0b",
+      "title": "Washington leaves door open for Huang's Nvidia return",
+      "title_vi": "Washington để cánh cửa mở cho sự trở lại của Nvidia của Huang",
+      "headline": "Washington leaves door open for Huang's Nvidia return",
+      "headline_vi": "Washington để cánh cửa mở cho sự trở lại của Nvidia của Huang",
+      "url": "https://www.semafor.com/article/11/23/2026/nvidia-scandal-fallout-widens-with-white-house-in-contrast-to-growing-hawkishness",
+      "published_at": "2026-11-23T12:05:06Z",
+      "kind": "other",
+      "time_basis": "published",
+      "editorial_headline_vi": "Chính quyền Mỹ để ngỏ khả năng cựu CEO Jensen Huang trở lại lãnh đạo Nvidia",
+      "editorial_headline_verified": true,
+      "source_count": 2,
+      "coverage": [
+        {
+          "id": "0109fbdc61f8ac1900e8",
+          "title": "Huang’s Nvidia return is a bad precedent",
+          "title_vi": "Sự trở lại của Huang với Nvidia là một tiền lệ xấu",
+          "headline": "Huang’s Nvidia return is a bad precedent",
+          "headline_vi": "Sự trở lại của Huang với Nvidia là một tiền lệ xấu",
+          "url": "https://www.bloomberg.com/news/videos/2026-11-23/opinion-huang-s-nvidia-return-is-a-bad-precedent-video",
+          "published_at": "2026-11-23T18:11:19Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "bloomberg-tech",
+          "publisher": "bloomberg",
+          "entity": "bloomberg",
+          "group": "press",
+          "observed_at": "2026-11-23T23:06:55Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "96a5bc03f1636770ba1a",
+          "title": "Washington leaves door open for Huang's Nvidia return",
+          "title_vi": "Washington để cánh cửa mở cho sự trở lại của Nvidia của Huang",
+          "headline": "Washington leaves door open for Huang's Nvidia return",
+          "headline_vi": "Washington để cánh cửa mở cho sự trở lại của Nvidia của Huang",
+          "url": "https://www.semafor.com/article/11/23/2026/nvidia-scandal-fallout-widens-with-white-house-in-contrast-to-growing-hawkishness",
+          "published_at": "2026-11-23T12:05:06Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "semafor",
+          "publisher": "semafor",
+          "entity": "semafor",
+          "group": "press",
+          "observed_at": "2026-11-23T23:06:55Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "2 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "bloomberg",
+              "semafor"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "bloomberg",
+            "semafor"
+          ],
+          "age_hours_at_cutoff": 10.915,
+          "hot_score": 50.285,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "25f33d1df44504de388c",
+      "title": "Google Search’s AI Mode can now tap into Drive and Wallet for more personalized responses",
+      "title_vi": "Chế độ AI của Google Search giờ đây có thể truy cập vào Drive và Wallet để nhận được các câu trả lời cá nhân hơn",
+      "headline": "Google Search’s AI Mode can now tap into Drive and Wallet for more personalized responses",
+      "headline_vi": "Chế độ AI của Google Search giờ đây có thể truy cập vào Drive và Wallet để nhận được các câu trả lời cá nhân hơn",
+      "url": "https://techcrunch.com/2026/11/23/google-searchs-ai-mode-can-now-tap-into-drive-and-wallet-for-more-personalized-responses/",
+      "published_at": "2026-11-23T19:14:46Z",
+      "kind": "product",
+      "time_basis": "published",
+      "editorial_headline_vi": "Google tích hợp Drive và Wallet vào Search AI Mode nhằm tăng cá nhân hóa phản hồi",
+      "editorial_headline_verified": true,
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "6415a132f99f160d6422",
+          "title": "Google Search’s AI Mode can now tap into Drive and Wallet for more personalized responses",
+          "title_vi": "Chế độ AI của Google Search giờ đây có thể truy cập vào Drive và Wallet để nhận được các câu trả lời cá nhân hơn",
+          "headline": "Google Search’s AI Mode can now tap into Drive and Wallet for more personalized responses",
+          "headline_vi": "Chế độ AI của Google Search giờ đây có thể truy cập vào Drive và Wallet để nhận được các câu trả lời cá nhân hơn",
+          "url": "https://techcrunch.com/2026/11/23/google-searchs-ai-mode-can-now-tap-into-drive-and-wallet-for-more-personalized-responses/",
+          "published_at": "2026-11-23T19:14:46Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "techcrunch-ai",
+          "publisher": "techcrunch",
+          "entity": "techcrunch",
+          "group": "press",
+          "observed_at": "2026-11-23T23:06:55Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [],
+        "signals": {
+          "publishers": [
+            "techcrunch"
+          ],
+          "age_hours_at_cutoff": 3.7539,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "4f5fe20de68e9dfdec37",
+      "title": "A more tailored Google Search that’s uniquely yours",
+      "title_vi": "Một tìm kiếm Google được thiết kế riêng cho bạn",
+      "headline": "A more tailored Google Search that’s uniquely yours",
+      "headline_vi": "Một tìm kiếm Google được thiết kế riêng cho bạn",
+      "url": "https://blog.google/products-and-platforms/products/search/google-search-personal-intelligence-apps/",
+      "published_at": "2026-11-23T17:00:00Z",
+      "kind": "other",
+      "time_basis": "published",
+      "editorial_headline_vi": "Google cho phép người dùng kết nối Google Wallet vào tính năng tìm kiếm AI Mode",
+      "editorial_headline_verified": true,
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "a2c36434bcd165835dae",
+          "title": "A more tailored Google Search that’s uniquely yours",
+          "title_vi": "Một tìm kiếm Google được thiết kế riêng cho bạn",
+          "headline": "A more tailored Google Search that’s uniquely yours",
+          "headline_vi": "Một tìm kiếm Google được thiết kế riêng cho bạn",
+          "url": "https://blog.google/products-and-platforms/products/search/google-search-personal-intelligence-apps/",
+          "published_at": "2026-11-23T17:00:00Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "google-ai",
+          "publisher": "google",
+          "entity": "google",
+          "group": "lab",
+          "observed_at": "2026-11-23T23:06:55Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [],
+        "signals": {
+          "publishers": [
+            "google"
+          ],
+          "age_hours_at_cutoff": 6.0,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "1df5254b8cb8117a9235",
+      "title": "Nvidia (NVDA) Stock Surges on Huang Comeback After Trump Weighs In: Live Updates",
+      "title_vi": "Nvidia (NVDA) cổ phiếu tăng lên trên Huang Comeback sau khi Trump cân nhắc: Live Updates",
+      "headline": "Nvidia (NVDA) Stock Surges on Huang Comeback After Trump Weighs In: Live Updates",
+      "headline_vi": "Nvidia (NVDA) cổ phiếu tăng lên trên Huang Comeback sau khi Trump cân nhắc: Live Updates",
+      "url": "https://www.bloomberg.com/news/live-blog/2026-11-23/nvidia-reinstates-jensen-huang-as-ceo-live-updates",
+      "published_at": "2026-11-23T14:14:49Z",
+      "kind": "other",
+      "time_basis": "published",
+      "editorial_headline_vi": "Cổ phiếu Nvidia tăng vọt hơn 30% và thêm 1 nghìn tỷ USD vốn hóa sau khi Jensen Huang trở lại",
+      "editorial_headline_verified": true,
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "63ad88d2f8cb7eba2f89",
+          "title": "Nvidia (NVDA) Stock Surges on Huang Comeback After Trump Weighs In: Live Updates",
+          "title_vi": "Nvidia (NVDA) cổ phiếu tăng lên trên Huang Comeback sau khi Trump cân nhắc: Live Updates",
+          "headline": "Nvidia (NVDA) Stock Surges on Huang Comeback After Trump Weighs In: Live Updates",
+          "headline_vi": "Nvidia (NVDA) cổ phiếu tăng lên trên Huang Comeback sau khi Trump cân nhắc: Live Updates",
+          "url": "https://www.bloomberg.com/news/live-blog/2026-11-23/nvidia-reinstates-jensen-huang-as-ceo-live-updates",
+          "published_at": "2026-11-23T14:14:49Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "bloomberg-tech",
+          "publisher": "bloomberg",
+          "entity": "bloomberg",
+          "group": "press",
+          "observed_at": "2026-11-23T17:06:52Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [],
+        "signals": {
+          "publishers": [
+            "bloomberg"
+          ],
+          "age_hours_at_cutoff": 8.7531,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    }
+  ],
+  "source_health": {
+    "active_remote_sources": 77,
+    "successful_remote_sources": 77,
+    "failed_remote_sources": []
+  }
+}
