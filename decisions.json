@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-23T07:04:59.973385+00:00",
-  "input_generated_at": "2026-11-23T06:46:27Z",
+  "generated_at": "2026-11-23T09:18:17.145690+00:00",
+  "input_generated_at": "2026-11-23T08:46:23Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -122327,6 +122327,275 @@
         "3aca3f77b9bc8dc9502b"
       ],
       "split_coverage_ids": []
+    },
+    {
+      "id": "97438f1295fc1d8d6a37",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://pandaily.com/zhipu-glm-5-4-coding-plan-vision-support",
+      "key_points": [
+        "Zhipu AI đã đưa mô hình GLM-5.4 vào gói thuê bao lập trình Coding Plan với hỗ trợ thị giác, theo tin từ IT Home ngày 23 tháng 11. Doanh nghiệp tự mô tả mô hình có năng lực lập trình mạnh hơn, dù nhãn 1M trên giao diện chưa được xác thực độ dài ngữ cảnh gốc.",
+        "Theo thông báo, hạn mức dùng GLM-5.4 được nâng lên 1,5 lần cho thuê bao V2, V3 và nhóm khi chọn định danh glm-5.4. Tuy nhiên, thông báo không kèm bảng tín dụng mới và không rõ cả hai giới hạn năm giờ và hàng tuần có cùng tăng hay không.",
+        "Pandaily nhận định thay đổi này mới dừng ở quyền truy cập thuê bao lập trình, chưa phải bản phát hành giao diện lập trình ứng dụng (API) hay trọng số. Thông báo cũng không có báo cáo kỹ thuật hay kết quả đo điểm chuẩn giải thích kiến trúc hoặc lượng hóa mức cải tiến."
+      ],
+      "same_event_coverage_ids": [
+        "6e8b23cd70c22a1a7520"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Zhipu AI",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Zhipu AI đưa mô hình GLM-5.4 vào gói Coding Plan và tăng 1,5 lần hạn mức sử dụng",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "pandaily",
+          "url": "https://pandaily.com/zhipu-glm-5-4-coding-plan-vision-support"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.85,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "be4648ef0fb35e55dd90c4098e138e368223c1695a02623c647c9b6f1ab1e420",
+        "scored_at": "2026-11-23T09:13:35.944663+00:00"
+      }
+    },
+    {
+      "id": "397e1c1ae18bb4527c65",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-23/china-s-next-ai-deals-clouded-by-selloff-after-anthropic-ipo",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "6e6f160c4c1fe88dd814"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "af843c6f88df14e04915",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://technode.com/2026/11/23/minimax-publishes-ai-discovered-cryptographic-attacks-with-papers-and-code/",
+      "key_points": [
+        "MiniMax công bố nghiên cứu cho thấy mô hình trí tuệ nhân tạo (AI) nội bộ giúp tìm ra các đòn tấn công nhắm vào hệ mật mã thử nghiệm. Theo TechNode, hãng thông báo sự việc vào Chủ nhật, sau khi phát hành bài báo kỹ thuật kèm mã nguồn vào ngày 20 tháng 11.",
+        "Trong thử thách TII McEliece, MiniMax báo cáo khôi phục 94 khóa riêng tư, gồm 55 trường hợp chưa có giải pháp công bố trước đó, nhanh hơn tới 43.400 lần so với các triển khai hiện có. Phát hiện còn gồm đòn tấn công vào các sơ đồ chữ ký chọn lọc và phiên bản giảm vòng của thuật toán mã khối ARADI.",
+        "TechNode ghi nhận công trình chỉ liên quan đến thiết kế cụ thể, ứng viên thi đấu lịch sử cùng tham số thách thức, không thiết lập đòn tấn công vào các chuẩn như AES, RSA hay SHA-256. MiniMax cho biết phát hiện chủ yếu từ mô hình nội bộ và được đội ngũ nghiên cứu của hãng tổ chức, xác thực."
+      ],
+      "same_event_coverage_ids": [
+        "f82dfb7fbcd3ba1efaaf"
+      ],
+      "split_coverage_ids": [],
+      "subject": "MiniMax",
+      "video_labels": {
+        "video_hook": "usable_now",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "MiniMax dùng AI tìm đòn tấn công mật mã thử nghiệm và khôi phục 94 khóa riêng tư",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "technode",
+          "url": "https://technode.com/2026/11/23/minimax-publishes-ai-discovered-cryptographic-attacks-with-papers-and-code/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "45c4c2c41e7459c14d29bf88528bcd1d2ec49ea85f1d35ccec4b1fd9e1251bf3",
+        "scored_at": "2026-11-23T09:18:17.101805+00:00"
+      }
+    },
+    {
+      "id": "af3454cffe13041ef9ea",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://technode.com/2026/11/23/ant-group-unveils-ai-health-ring-and-wristband-under-afu-brand/",
+      "key_points": [
+        "Ant Group ra mắt nhẫn và vòng tay thông minh thuộc dịch vụ y tế AI Afu vào thứ Hai, mở rộng dịch vụ quản lý sức khỏe sang phần cứng đeo. Tại hội nghị của Afu, thiết bị được công bố với tính năng theo dõi giấc ngủ, nhịp tim, nhịp thở, oxy máu cùng báo cáo từ AI.",
+        "Vòng tay Fuhuan có bản kèm màn hình hoặc không màn hình, trong khi nhẫn Fujie mang sắc trắng bạc tối giản. Ant Group nhấn mạnh thời lượng pin dài, đồng thời Afu khẳng định sẵn sàng hợp tác cùng các đối tác.",
+        "Theo TechNode, thiết bị giúp Afu thu thập số đo liên tục bên cạnh hội thoại, mở rộng vai trò sang theo dõi biến đổi sức khỏe theo thời gian. Tuy nhiên, Ant Group chưa công bố thông số pin chi tiết, giá bán lẻ hay thời điểm phát hành chính thức."
+      ],
+      "same_event_coverage_ids": [
+        "925b35c1a6db0baeeb79"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Ant Group",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Ant Group ra mắt vòng tay và nhẫn sức khỏe AI Afu nhưng chưa công bố giá bán",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "technode",
+          "url": "https://technode.com/2026/11/23/ant-group-unveils-ai-health-ring-and-wristband-under-afu-brand/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "da21cd53aff49aba91a305fbcbf06e70dcb1facac6497742d6103fc546a1948d",
+        "scored_at": "2026-11-23T09:13:35.944971+00:00"
+      }
+    },
+    {
+      "id": "8fd323d599233a8e4566",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://technode.com/2026/11/23/zhipu-rolls-out-glm-5-4-with-vision-and-million-token-context/",
+      "key_points": [
+        "Zhipu đưa mô hình GLM-5.4 vào gói thuê bao lập trình Coding Plan với hỗ trợ thị giác và cải tiến năng lực lập trình.",
+        "Thuê bao các gói V2, V3 và nhóm được tăng 50% hạn mức dùng GLM-5.4 khi đặt tên mô hình là glm-5.4. Nhân viên vận hành Zhipu cho biết công ty đã mở rộng quy mô mô hình và cách tiếp cận Loop Transformer trong ba tháng qua.",
+        "TechNode nhận định đợt mở rộng này đưa mô hình mới trực tiếp vào sản phẩm thuê bao cho giới lập trình của Zhipu. Tuy nhiên, doanh nghiệp chưa công bố tài liệu kỹ thuật chi tiết về kiến trúc, số lượng tham số hay điểm chuẩn."
+      ],
+      "same_event_coverage_ids": [
+        "36a160d7ad5b4008b56c"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Zhipu AI",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Zhipu đưa mô hình GLM-5.4 vào gói Coding Plan và tăng 50% hạn mức sử dụng",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "technode",
+          "url": "https://technode.com/2026/11/23/zhipu-rolls-out-glm-5-4-with-vision-and-million-token-context/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "e856ec9f997ff75cc26d506c14516f4e4fae863cd32f8ffcf3f489f2370a0b8f",
+        "scored_at": "2026-11-23T09:13:35.944997+00:00"
+      }
     }
   ]
 }
