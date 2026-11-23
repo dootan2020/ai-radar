@@ -144,10 +144,11 @@ class CycleTests(unittest.TestCase):
             with cycle_lock(lock):
                 with self.assertRaisesRegex(RuntimeError, "already running"):
                     cycle(**args)
-            status = cycle(**args, now=datetime(2026, 10, 27, 8, tzinfo=timezone.utc))
+            status = cycle(**{**args, "since_hours": 10000},
+                           now=datetime(2026, 11, 28, 9, tzinfo=timezone.utc))
             self.assertEqual((status["state"], status["decided_count"]), ("dry_lane", 0))
             self.assertFalse((base / "decisions.json").exists())
-            self.assertEqual(json.loads((base / "cycles" / "20261027T080000Z" / "status.json").read_bytes())["state"],
+            self.assertEqual(json.loads((base / "cycles" / "20261128T090000Z" / "status.json").read_bytes())["state"],
                              "dry_lane")
 
 

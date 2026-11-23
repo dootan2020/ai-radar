@@ -142,7 +142,7 @@ class WriterRetryTests(unittest.TestCase):
         self.assertTrue(after["editorial_headline_vi"])
         # The earlier publication decision is kept as it was; only prose fields are added.
         prose_fields = {"summary", "written_by", "key_points", "editorial_headline_vi", "summary_sources",
-                        "summary_limitations", "key_points_prompt_version", "score"}
+                        "summary_limitations", "key_points_prompt_version", "score", "writer_models"}
         self.assertEqual({key: value for key, value in after.items() if key not in prose_fields},
                          {key: value for key, value in before.items() if key not in prose_fields})
         record = self.cycles / stamp(LATER) / "viet-bu"

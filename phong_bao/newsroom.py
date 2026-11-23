@@ -49,6 +49,55 @@ from .search import (READABLE_PER_STORY, RUNNERS as SEARCH_RUNNERS, SearchBudget
                      search as same_event_search, split_trusted, trusted_publishers)
 
 DESKS = ("intake", "reporter", "editor", "checker", "writer", "chief")
+CODEX_CHECKER_MODEL = "gpt-6-astra"
+CODEX_CHECKER_EXPIRES_AT = datetime(2026, 11, 28, 9, tzinfo=timezone.utc)
+SAME_BOAT_CHECKER_MARKER = f"same-boat checker: codex ({CODEX_CHECKER_MODEL})"
+SAME_BOAT_SCORER_MARKER = f"same-boat scorer: codex ({CODEX_CHECKER_MODEL})"
+
+
+def _codex_checker_profile(tools, discovery):
+    """Return a separate checker model only when no independent checker is eligible."""
+    if providers("kiem-chung", tools, discovery, boat_exclude={"codex"}, desk="checker"):
+        return None
+    codex = next((tool for tool in providers("bien-tap", tools, discovery, desk="editor")
+                  if tool.get("boat") == "codex" and tool.get("runner") == "batch-cli"), None)
+    if not codex or "kiem-chung" not in codex["capabilities"]:
+        return None
+    argv = codex.get("argv", [])
+    if "--model" not in argv:
+        return None
+    index = argv.index("--model") + 1
+    if index >= len(argv) or not isinstance(argv[index], str) or argv[index] == CODEX_CHECKER_MODEL:
+        return None
+    checker_argv = list(argv)
+    checker_argv[index] = CODEX_CHECKER_MODEL
+    return {**codex, "argv": checker_argv, "model": CODEX_CHECKER_MODEL}
+
+
+def _codex_scorer_profile(tools, discovery, excluded, writer_models):
+    """Grant the same-boat scorer only while no independent scorer can read the prose."""
+    if (not discovery.get("codex_checker_exception")
+            or datetime.now(timezone.utc) >= CODEX_CHECKER_EXPIRES_AT or "codex" not in excluded
+            or not isinstance(writer_models, (list, set, tuple)) or not writer_models
+            or not all(isinstance(model, str) and model for model in writer_models)
+            or CODEX_CHECKER_MODEL in writer_models):
+        return None
+    if any(tool.get("runner") in {"batch-cli", "gemini-api"}
+           for tool in providers("kiem-chung", tools, discovery, boat_exclude=excluded, desk="scorer")):
+        return None
+    codex = next((tool for tool in providers("bien-tap", tools, discovery, desk="writer")
+                  if tool.get("boat") == "codex" and tool.get("runner") == "batch-cli"), None)
+    if not codex or "kiem-chung" not in codex["capabilities"]:
+        return None
+    argv = codex.get("argv", [])
+    if "--model" not in argv:
+        return None
+    index = argv.index("--model") + 1
+    if index >= len(argv):
+        return None
+    scorer_argv = list(argv)
+    scorer_argv[index] = CODEX_CHECKER_MODEL
+    return {**codex, "argv": scorer_argv, "model": CODEX_CHECKER_MODEL}
 # The writer ("Người viết") only drafts stories published within this many hours
 # of the snapshot; older stories are never backfilled. Set
 # PHONG_BAO_WRITER_WINDOW_HOURS to change it, or to 0 to turn the writer off.
@@ -442,15 +491,23 @@ class _Sink:
         for row in part:
             self.output[row["id"]] = {"id": row["id"], "model_failure": True, "provider": None, "boat": None}
 
-    def event(self, event, part, provider, error=None):
+    def event(self, event, part, provider, error=None, *, attempted=False):
         entry = {"event": event, "provider": provider["id"], "ids": [row["id"] for row in part]}
+        if attempted:
+            entry["attempted"] = True
         if error is not None:
             entry["error"] = str(error)
         self.records.append((entry, entry))
 
     def success(self, provider, result):
+        argv = provider.get("argv", [])
+        model = provider.get("model")
+        if "--model" in argv and argv.index("--model") + 1 < len(argv):
+            model = argv[argv.index("--model") + 1]
         for row in result.rows:
             self.output[row["id"]] = {**row, "provider": provider["id"], "boat": provider.get("boat")}
+            if model:
+                self.output[row["id"]]["model"] = model
         self.records.append(({"provider": provider["id"], **result.usage},
                              {"provider": provider["id"], "stories": result.rows}))
 
@@ -471,7 +528,7 @@ def _agent_desk(desk, payload, instruction, capability, tools, discovery, runner
     """
     cap = DEFAULT_CALL_TIMEOUT_SECONDS if call_timeout is None else call_timeout
     candidates = [tool for tool in providers(capability, tools, discovery, boat_exclude=boat_exclude, desk=desk)
-                  if tool.get("runner") == "batch-cli" or (desk in {"checker", "editor"}
+                  if tool.get("runner") == "batch-cli" or (desk in {"checker", "editor", "scorer"}
                                                            and tool.get("runner") == "gemini-api")]
     if not candidates:
         raise RunnerError(f"no configured batch CLI for {desk} on an eligible boat")
@@ -525,7 +582,7 @@ def _agent_desk(desk, payload, instruction, capability, tools, discovery, runner
         if index + 1 == len(candidates):
             if out_of_time:
                 sink.fail(part)
-                sink.event("budget_exhausted", part, provider, error)
+                sink.event("budget_exhausted", part, provider, error, attempted=True)
             elif len(part) > 1 and not timed_out:
                 sink.event("split", part, provider, error)
                 middle = len(part) // 2
@@ -794,22 +851,43 @@ def _checker(stories, intake, reporter, editor, tools, discovery, runner, raw_di
                 {"id": story["id"], "title": story["title"], "claims": editor[story["id"]]["claims"],
                  "source_url": reporter[story["id"]]["selected_url"],
                  "cited_paragraphs": cited_paragraphs(reporter[story["id"]]["source_text"], story["title"], editor[story["id"]]["claims"])})
-    replies, usage = {}, []
+    replies, usage, same_boat_ids, same_boat_profiles = {}, [], set(), {}
+
+    def note_same_boat(replies, events):
+        same_boat_ids.update(sid for sid, row in replies.items() if row.get("provider") == "codex")
+        same_boat_ids.update(sid for event in events if event.get("provider") == "codex"
+                             and (event.get("event") != "budget_exhausted" or event.get("attempted"))
+                             for sid in event.get("ids", []))
+
     for boat, payload in payload_by_boat.items():
-        group_replies, group_usage = _agent_desk("checker", payload, CHECKER_PROMPT, "kiem-chung", tools, discovery, runner,
-                                                 boat_exclude={boat}, raw_dir=raw_dir, require_success=False, deadline=deadline, call_timeout=call_timeout)
+        same_boat_profile = (_codex_checker_profile(tools, discovery)
+                             if boat == "codex" and discovery.get("codex_checker_exception") else None)
+        same_boat_profiles[boat] = same_boat_profile
+        checker_tools = [same_boat_profile] if same_boat_profile else tools
+        excluded = () if same_boat_profile else {boat}
+        group_replies, group_usage = _agent_desk("checker", payload, CHECKER_PROMPT, "kiem-chung", checker_tools, discovery, runner,
+                                                 boat_exclude=excluded, raw_dir=raw_dir, require_success=False, deadline=deadline, call_timeout=call_timeout)
+        if same_boat_profile:
+            note_same_boat(group_replies, group_usage)
         replies.update(group_replies)
         usage.extend(group_usage)
+
     def invalid_reply(row, boat):
-        return not validate_checker_reply(row, boat)
+        distinct_model = (row is not None and row.get("id") in same_boat_ids
+                          and row.get("model") == CODEX_CHECKER_MODEL)
+        return not validate_checker_reply(row, None if distinct_model else boat)
 
     for boat, payload in payload_by_boat.items():
         retry_payload = [item for item in payload if invalid_reply(replies.get(item["id"]), boat)
                          and not (replies.get(item["id"]) or {}).get("model_failure")]
         if retry_payload:
-            retry, retry_usage = _agent_desk("checker", retry_payload, CHECKER_PROMPT, "kiem-chung", tools,
-                                             discovery, runner, boat_exclude={boat}, raw_dir=raw_dir,
+            same_boat_profile = same_boat_profiles[boat]
+            retry, retry_usage = _agent_desk("checker", retry_payload, CHECKER_PROMPT, "kiem-chung",
+                                             [same_boat_profile] if same_boat_profile else tools,
+                                             discovery, runner, boat_exclude=() if same_boat_profile else {boat}, raw_dir=raw_dir,
                                              require_success=False, deadline=deadline, call_timeout=call_timeout)
+            if same_boat_profile:
+                note_same_boat(retry, retry_usage)
             replies.update(retry)
             usage.extend(retry_usage)
     budget_exhausted = any(row.get("event") == "budget_exhausted" for row in usage)
@@ -849,6 +927,8 @@ def _checker(stories, intake, reporter, editor, tools, discovery, runner, raw_di
                            "checker_invalid" if invalid else reason, "invalid_response": invalid,
                            "skip_reason": skip_reason,
                            "provider": row.get("provider") if row else None, "boat": row.get("boat") if row else None}
+        if story["id"] in same_boat_ids:
+            out_row["same_boat_checker"] = True
         validate_checker_output(out_row)
         output[story["id"]] = out_row
     return output, usage
@@ -1288,14 +1368,15 @@ def _published_prose(output, inputs):
 
 
 def _writer(stories, intake, reporter, editor, articles, tools, discovery, runner, now, raw_dir=None, deadline=None,
-            call_timeout=None, *, reviews=None, prior_boats=None, scorer_budget_seconds=DEFAULT_SCORER_BUDGET_SECONDS,
+            call_timeout=None, *, reviews=None, prior_boats=None, prior_models=None,
+            scorer_budget_seconds=DEFAULT_SCORER_BUDGET_SECONDS,
             run_deadline=None):
     """Draft 3-4 short Vietnamese paragraphs for recent publishable stories, then have them scored.
 
     reviews maps a story ID to a scoring desk's review of an earlier draft (scoring.review_request); that story is
     written again with it, and prior_boats names the boats that wrote that draft: the rewrite may keep their words,
-    so its scorer must be none of them. Every prose that passes the sentence checks goes to the scoring desk (_score_prose) on a
-    boat that wrote none of it; a story that fails gets one rewrite with the scorer's findings while the writer
+    so its scorer normally avoids them. Every prose that passes the sentence checks goes to the scoring desk
+    (_score_prose); a story that fails gets one rewrite with the scorer's findings while the writer
     deadline allows, and that rewrite is scored again. Only prose whose verdict passed is shown on the site.
     """
     reviews = reviews or {}
@@ -1378,7 +1459,7 @@ def _writer(stories, intake, reporter, editor, articles, tools, discovery, runne
                     edit_reasons[sid] = "editor_unavailable"
                     usage.append({"desk": "editor-source", "event": "editor_unavailable",
                                   "error": str(error)[:300], "ids": [sid]})
-    results, rewrites, paths, sheet_errors, rewrite_boats = {}, {}, {}, {}, {}
+    results, rewrites, paths, sheet_errors, rewrite_boats, rewrite_models = {}, {}, {}, {}, {}, {}
     if not edit_sources:
         # Each draft is checked twice: with the sheet rules, and with the checks main ran without a sheet. The
         # sheet may only trim or improve prose; a story main would have written is never lost to it.
@@ -1415,6 +1496,7 @@ def _writer(stories, intake, reporter, editor, articles, tools, discovery, runne
                 answer = rewritten.get(sid)
                 if isinstance(answer, dict):
                     rewrite_boats[sid] = answer.get("boat")
+                    rewrite_models[sid] = answer.get("model")
                 merged = _merged_rewrite(replies[sid], answer, roles,
                                          new_sheet=sheeted[sid][2] == "sheet_invalid")
                 if merged is None:
@@ -1479,16 +1561,21 @@ def _writer(stories, intake, reporter, editor, articles, tools, discovery, runne
                 "editor_input_limit", "editor_unavailable", "writer_model_failure"})
         # Every boat whose words are in the prose: the scorer must be none of them.
         boats = set()
+        models = set()
         if valid:
             boats.add(reply.get("boat") if isinstance(reply, dict) else None)
+            models.add(reply.get("model") if isinstance(reply, dict) else None)
             if edit_sources:
                 boats.add(edited_replies[sid].get("boat"))
+                models.add(edited_replies[sid].get("model"))
             elif str(paths.get(sid)).endswith("_after_rewrite"):
                 boats.add(rewrite_boats.get(sid))
+                models.add(rewrite_models.get(sid))
             if sid in reviews:
                 boats |= set((prior_boats or {}).get(sid) or ())
+                models |= set((prior_models or {}).get(sid) or ())
         finals[sid] = {"valid": valid, "dropped": dropped, "error": error, "inputs": publication_inputs,
-                       "invalid_response": invalid_response, "boats": boats}
+                       "invalid_response": invalid_response, "boats": boats, "models": models}
     verdicts, score_rewrites = _scoring_stage(finals, inputs_by_id, evidence_by_id, tools, discovery, runner, usage,
                                               raw_dir=raw_dir, deadline=deadline, call_timeout=call_timeout,
                                               scorer_budget_seconds=scorer_budget_seconds, run_deadline=run_deadline,
@@ -1537,7 +1624,8 @@ def _writer(stories, intake, reporter, editor, articles, tools, discovery, runne
             # score is the verdict block the chief copies to the decision (None: unscored, so hidden).
             result = verdicts[sid]
             out_row.update(score=result["score"], score_state=result["state"], score_reason=result["reason"],
-                           writer_boats=sorted(boat for boat in final_row["boats"] if isinstance(boat, str)))
+                           writer_boats=sorted(boat for boat in final_row["boats"] if isinstance(boat, str)),
+                           writer_models=sorted(model for model in final_row["models"] if isinstance(model, str)))
         if sid in score_rewrites:
             out_row["score_rewrite"] = score_rewrites[sid]
         validate_writer_output(out_row)
@@ -1545,9 +1633,9 @@ def _writer(stories, intake, reporter, editor, articles, tools, discovery, runne
     return output, usage
 
 
-def _score_prose(packets, boats, tools, discovery, runner, *, raw_dir=None, deadline=None, call_timeout=None,
-                 record_as="scorer"):
-    """Verdicts for scorer packets (ID -> packet), each read on a boat outside boats[ID]; returns (verdicts, events).
+def _score_prose(packets, boats, tools, discovery, runner, *, writer_models=None, raw_dir=None, deadline=None,
+                 call_timeout=None, record_as="scorer"):
+    """Verdicts for scorer packets (ID -> packet); returns (verdicts, events).
 
     Stories that share the same writer boats share calls. No eligible lane, a refused or failed call, a timeout,
     the budget running out or an invalid reply all leave the story unscored, and an unscored story is hidden.
@@ -1556,12 +1644,21 @@ def _score_prose(packets, boats, tools, discovery, runner, *, raw_dir=None, dead
     for sid in packets:
         groups.setdefault(tuple(sorted(boat for boat in boats[sid] if isinstance(boat, str) and boat)), []).append(sid)
     verdicts, events = {}, []
+    writer_models = writer_models or {}
     for excluded, sids in groups.items():
         replies = {}
-        if excluded:
+        independent = [tool for tool in providers("kiem-chung", tools, discovery, boat_exclude=excluded, desk="scorer")
+                       if tool.get("runner") in {"batch-cli", "gemini-api"}]
+        profiles = ({sid: _codex_scorer_profile(tools, discovery, excluded, writer_models.get(sid)) for sid in sids}
+                    if not independent else {})
+        eligible = [sid for sid, profile in profiles.items() if profile]
+        scorer_profile = profiles[eligible[0]] if eligible else None
+        if excluded and (independent or scorer_profile):
             try:
-                replies, batches = _agent_desk("scorer", [packets[sid] for sid in sids], SCORER_PROMPT, "kiem-chung",
-                                               tools, discovery, runner, boat_exclude=excluded, raw_dir=raw_dir,
+                call_ids = sids if independent else eligible
+                replies, batches = _agent_desk("scorer", [packets[sid] for sid in call_ids], SCORER_PROMPT, "kiem-chung",
+                                               tools if independent else [scorer_profile], discovery, runner,
+                                               boat_exclude=excluded if independent else (), raw_dir=raw_dir,
                                                require_success=False, deadline=deadline, call_timeout=call_timeout,
                                                record_as=record_as, batch_size=SCORER_BATCH_SIZE)
                 events.extend({"desk": record_as, **event} for event in batches)
@@ -1569,8 +1666,12 @@ def _score_prose(packets, boats, tools, discovery, runner, *, raw_dir=None, dead
                 # An admission stop or a missing lane must not cost the cycle its writing: the story stays unscored.
                 events.append({"desk": record_as, "event": "scorer_unavailable", "error": str(error)[:300],
                                "ids": sids})
+        elif excluded:
+            events.append({"desk": record_as, "event": "scorer_unavailable", "ids": sids})
         for sid in sids:
-            verdicts[sid] = verdict(packets[sid], replies.get(sid), excluded)
+            verdicts[sid] = verdict(packets[sid], replies.get(sid), excluded,
+                                    same_boat_model=scorer_profile["model"] if scorer_profile and sid in eligible else None,
+                                    writer_models=writer_models.get(sid))
     return verdicts, events
 
 
@@ -1594,6 +1695,7 @@ def _scoring_stage(finals, inputs_by_id, evidence_by_id, tools, discovery, runne
 
     verdicts, events = _score_prose({sid: packet(sid, row) for sid, row in written.items()},
                                     {sid: row["boats"] for sid, row in written.items()}, tools, discovery, runner,
+                                    writer_models={sid: row["models"] for sid, row in written.items()},
                                     raw_dir=raw_dir, deadline=score_deadline, call_timeout=call_timeout)
     usage.extend(events)
     failed = [sid for sid, result in verdicts.items() if result["state"] == "failed" and sid in inputs_by_id]
@@ -1624,10 +1726,12 @@ def _scoring_stage(finals, inputs_by_id, evidence_by_id, tools, discovery, runne
             # The rewrite was told to keep what the review did not fault, so the failed draft's boats still have
             # words in it: the next reading must be on none of them either.
             revised[sid] = {"valid": checked[0], "dropped": checked[1], "error": None, "inputs": inputs_by_id[sid],
-                            "invalid_response": False, "boats": written[sid]["boats"] | {answer.get("boat")}}
+                            "invalid_response": False, "boats": written[sid]["boats"] | {answer.get("boat")},
+                            "models": written[sid]["models"] | {answer.get("model")}}
     if revised:
         again, events = _score_prose({sid: packet(sid, row) for sid, row in revised.items()},
                                      {sid: row["boats"] for sid, row in revised.items()}, tools, discovery, runner,
+                                     writer_models={sid: row["models"] for sid, row in revised.items()},
                                      raw_dir=raw_dir, deadline=score_deadline, call_timeout=call_timeout,
                                      record_as="rescorer")
         usage.extend(events)
@@ -1646,7 +1750,8 @@ def written_fields(written):
     return {"summary": "written", "written_by": DESK_SUMMARY_SOURCE, "key_points": written["key_points"],
             "editorial_headline_vi": written["editorial_headline_vi"], "summary_sources": written["summary_sources"],
             "summary_limitations": written["summary_limitations"],
-            "key_points_prompt_version": written["key_points_prompt_version"], "score": written.get("score")}
+            "key_points_prompt_version": written["key_points_prompt_version"], "score": written.get("score"),
+            "writer_models": written.get("writer_models", [])}
 
 
 def _chief(stories, intake, reporter, editor, checker, now, writer=None):
@@ -1704,14 +1809,20 @@ def _chief(stories, intake, reporter, editor, checker, now, writer=None):
             tier = "standard"
             tier_capped = True
             degradations.append("top tier needs four to eight verified key points")
-        written = writer.get(sid)
+        scored_row = writer.get(sid)
+        same_boat_score = (isinstance(scored_row, dict) and isinstance(scored_row.get("score"), dict)
+                           and scored_row["score"].get("same_boat_exception") == "codex-different-model")
+        written = scored_row
         written = written if not gate and validate_writer_output(written) and written["written"] else None
         out_row = {"id": sid, "decision": "hold" if gate else "publish",
                        "content_kind": editor[sid].get("content_kind", "event_news"),
                        "analysis_kind": editor[sid].get("analysis_kind"),
                        "round": gate[0] if gate else "chief", "reason": gate[1] if gate else "; ".join(degradations) if degradations else "news and claims checked",
                        "importance_tier": tier, "tier_capped": tier_capped,
-                       "summary": summary if not gate else "none", "degradation_reasons": degradations if not gate else [],
+                        "summary": summary if not gate else "none",
+                        "degradation_reasons": (degradations if not gate else []) +
+                        ([SAME_BOAT_CHECKER_MARKER] if checker[sid].get("same_boat_checker") else []) +
+                        ([SAME_BOAT_SCORER_MARKER] if same_boat_score else []),
                        "use_original_title": use_original_title,
                        "source_url": reporter[sid]["selected_url"] or story.get("url"),
                        "key_points": supported if not gate and summary != "none" else [],

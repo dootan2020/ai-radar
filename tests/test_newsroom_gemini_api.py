@@ -74,12 +74,14 @@ class GeminiNewsroomTests(unittest.TestCase):
                            articles=FixtureArticles(fixture("articles.json")), since_hours=200,
                            now=datetime(2026, 10, 27, 7, tzinfo=timezone.utc))
             self.assertEqual(status["state"], "decided")
+            self.assertNotIn("same_boat_checker_count", status)
             job = base / "cycles" / "20261027T070000Z" / "job"
             editor = json.loads((job / "editor.json").read_text(encoding="utf-8"))
             checker = json.loads((job / "checker.json").read_text(encoding="utf-8"))
             checked = [row for row in checker.values() if row["provider"] == "gemini-api"]
             self.assertTrue(checked)
             self.assertTrue(all(editor[row["id"]]["boat"] == "codex" for row in checked))
+            self.assertTrue(all("same_boat_checker" not in row for row in checked))
             decisions = json.loads((base / "decisions.json").read_text(encoding="utf-8"))["decisions"]
             self.assertTrue(any(row["decision"] == "publish" for row in decisions))
 
@@ -88,7 +90,7 @@ class GeminiNewsroomTests(unittest.TestCase):
                      "paid_ready": True, "key_names": ["GEMINI_API_KEY"]}
         with tempfile.TemporaryDirectory() as directory:
             base = Path(directory)
-            cycle(snapshot_fetcher=lambda: fixture("snapshot.json"),
+            status = cycle(snapshot_fetcher=lambda: fixture("snapshot.json"),
                   decisions_path=base / "decisions.json", cycles_dir=base / "cycles",
                   discovery=discovery, tools=self.tools, runner=FixtureRunner(fixture("responses.json")),
                   articles=FixtureArticles(fixture("articles.json")), since_hours=200,
@@ -100,6 +102,8 @@ class GeminiNewsroomTests(unittest.TestCase):
             self.assertTrue(checked)
             self.assertTrue(all(editor[row["id"]]["boat"] == "agy" and row["provider"] == "codex"
                                 for row in checked))
+            self.assertNotIn("same_boat_checker_count", status)
+            self.assertTrue(all("same_boat_checker" not in row for row in checked))
 
     def test_missing_or_exhausted_shared_ledger_disables_paid_checker(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -127,16 +131,19 @@ class GeminiNewsroomTests(unittest.TestCase):
                     {"text": json.dumps({"stories": [{"id": row["id"], "verified": True} for row in rows]})}]}}],
                     "usageMetadata": {"totalTokenCount": 100, "promptTokenCount": 70,
                                       "candidatesTokenCount": 30}}
-            with patch("phong_bao.gemini_api.gemini_paid_budget.reserve", side_effect=[(None, "a"), (None, "b")]) as reserve, \
+            with patch("phong_bao.gemini_api.gemini_paid_budget.reserve", side_effect=[(None, "a"), (None, "b"), (None, "c")]) as reserve, \
                     patch("phong_bao.gemini_api.gemini_paid_budget.settle") as settle, \
                     patch("phong_bao.gemini_api.summary_gemini.transport", side_effect=response):
                 for sid in ("first", "second"):
                     result = runner.run("checker", [{"id": sid}], self.profile, "Check evidence")
                     self.assertEqual(result.rows[0]["id"], sid)
                     self.assertEqual(result.usage["source"], "gemini_api")
-                self.assertEqual(reserve.call_count, 2)
+                result = runner.run("scorer", [{"id": "third"}], self.profile, "Score prose")
+                self.assertEqual(result.rows[0]["id"], "third")
+                self.assertEqual(reserve.call_count, 3)
                 self.assertTrue(all(call.kwargs["consumer"] == "summary" for call in reserve.call_args_list))
-                self.assertEqual([call.args[1:] for call in settle.call_args_list], [("a", 100), ("b", 100)])
+                self.assertEqual([call.args[1:] for call in settle.call_args_list],
+                                 [("a", 100), ("b", 100), ("c", 100)])
 
     def test_malformed_api_batch_is_a_provider_failure_without_secret_text(self):
         self.discovery.update(key_names=["GEMINI_API_KEY"], paid_ready=True)
