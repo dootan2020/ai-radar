@@ -5,6 +5,7 @@ from datetime import date
 from pathlib import Path
 
 from radar.common import iso_date, web_url
+from radar.huong_dan import without_guides
 from radar.items import instant
 
 STALE_AFTER_SECONDS = 3 * 3600
@@ -187,13 +188,20 @@ def rejection_reason(payload):
 
 def load_published(path, now):
     """Load prior publication evidence without expiring or retimestamping it."""
+    path = Path(path)
     try:
-        payload = json.loads(Path(path).read_text(encoding="utf-8"))
+        payload = without_guides(json.loads(path.read_text(encoding="utf-8")))
         reason, _ = rejection_reason(payload)
-        if reason or instant(payload["generated_at"]) > instant(now):
+        if reason:
+            print(f"::error title=Prior snapshot rejected::{path}: {reason}")
+            return None
+        if instant(payload["generated_at"]) > instant(now):
+            print(f"::error title=Prior snapshot rejected::{path}: snapshot is future-dated")
             return None
         return payload
-    except (OSError, ValueError, TypeError):
+    except (OSError, ValueError, TypeError) as error:
+        if path.exists():
+            print(f"::error title=Prior snapshot rejected::{path}: {error}")
         return None
 
 
