@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 
 from radar.items import instant, measured
+from radar.huong_dan import without_guides
 from radar.ranking import METRICS
 
 MAX_AGE_SECONDS = 48 * 3600
@@ -15,6 +16,7 @@ MIN_MEASUREMENT_RETENTION = 0.5
 
 def _inspect(payload, now):
     """Return active source statuses and measured identities, or reject schema."""
+    payload = without_guides(payload)
     if not isinstance(payload, dict) or payload.get("schema_version") != 2:
         raise ValueError("incompatible snapshot schema")
     stamp, now = instant(payload.get("generated_at")), instant(now)
@@ -94,7 +96,7 @@ def promotion_reason(payload, previous, now):
 def load_baseline(path, now):
     """A bad cache cannot prevent collection or introduce a fabricated baseline."""
     try:
-        payload = json.loads(Path(path).read_text(encoding="utf-8"))
+        payload = without_guides(json.loads(Path(path).read_text(encoding="utf-8")))
         if promotion_reason(payload, None, now) is not None:
             return None
         if instant(payload["generated_at"]) >= instant(now):

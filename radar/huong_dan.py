@@ -88,8 +88,19 @@ def withdrawn_ids(path=WITHDRAWN_FILE):
 def is_guide(story):
     """The only thing that lets a story skip the scoring desk: the guide kind and source, set with "approved" by the loader
     after it checked the owner's approval, and an ID the owner has not withdrawn."""
+    return _guide_identity(story) and story.get("id") not in withdrawn_ids()
+
+
+def _guide_identity(story):
     return bool(isinstance(story, dict) and story.get("kind") == KIND and story.get("source_id") == SOURCE_ID
-                and story.get("approved") is True and story.get("id") not in withdrawn_ids())
+                and story.get("approved") is True)
+
+
+def without_guides(payload):
+    """Remove injected guides from evidence without changing the published snapshot."""
+    if not isinstance(payload, dict) or not isinstance(payload.get("stories"), list):
+        return payload
+    return {**payload, "stories": [story for story in payload["stories"] if not _guide_identity(story)]}
 
 
 def _check_block(index, block):

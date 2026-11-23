@@ -14,6 +14,8 @@ from unittest.mock import patch
 
 import build
 from radar.publication import SECTIONS, assess_publication, load_published
+from radar.retention import retain_stories
+from radar.huong_dan import load_guides
 
 NOW = datetime(2026, 10, 3, 12, tzinfo=timezone.utc)
 
@@ -178,7 +180,10 @@ class PublicationPolicyTests(unittest.TestCase):
             path = Path(directory) / "published.json"
             self.assertIsNone(load_published(path, NOW))
             path.write_bytes(b"not json")
-            self.assertIsNone(load_published(path, NOW))
+            output = io.StringIO()
+            with redirect_stdout(output):
+                self.assertIsNone(load_published(path, NOW))
+            self.assertIn("::error title=Prior snapshot rejected::", output.getvalue())
             old = snapshot(NOW - timedelta(days=7))
             path.write_bytes(json.dumps(old).encode())
             self.assertEqual(load_published(path, NOW), old)
@@ -188,8 +193,66 @@ class PublicationPolicyTests(unittest.TestCase):
             self.assertIsNone(load_published(path, NOW))
             self.assertEqual(path.read_bytes(), before)
 
+    def test_unknown_source_in_ordinary_story_rejects_prior(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "published.json"
+            payload = snapshot(NOW - timedelta(minutes=20))
+            payload["stories"][0]["coverage"][0]["source"] = "unknown-source"
+            path.write_text(json.dumps(payload), encoding="utf-8", newline="\n")
+            output = io.StringIO()
+            with redirect_stdout(output):
+                self.assertIsNone(load_published(path, NOW))
+            self.assertIn("::error title=Prior snapshot rejected::", output.getvalue())
+            self.assertIn("invalid observation source", output.getvalue())
+
 
 class PublicationBuildTests(unittest.TestCase):
+    def test_next_build_carries_stories_while_guide_stays_live_once(self):
+        first = datetime(2026, 11, 20, 12, tzinfo=timezone.utc)
+        second = first + timedelta(minutes=20)
+        fixture_dir = Path(__file__).resolve().parent / "fixtures" / "huong-dan"
+        guide_id = "hd-thu-nghiem-fixture"
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory) / "radar.json"
+            cache = Path(directory) / "published.json"
+            baseline = Path(directory) / "baseline.json"
+            env = {"RADAR_OUTPUT": str(output), "RADAR_PUBLISHED_SNAPSHOT": str(cache),
+                   "RADAR_BASELINE": str(baseline), "RADAR_PUBLISH_STATUS": str(Path(directory) / "status.json"),
+                   "RADAR_SITEMAP": str(Path(directory) / "sitemap.xml")}
+
+            def collect(*, published, **kwargs):
+                at = clock.now.return_value
+                payload = snapshot(at)
+                if published is not None:
+                    payload["stories"][0]["id"] = "fresh"
+                    payload["stories"][0]["coverage"][0]["id"] = "fresh-item"
+                    payload["stories"][0]["url"] = "https://example.org/fresh"
+                    payload["stories"][0]["coverage"][0]["url"] = "https://example.org/fresh"
+                    payload["stories"] = retain_stories(payload["stories"], published, at)
+                    payload["sections"]["today"] = [story["id"] for story in payload["stories"]]
+                return payload
+
+            with patch.dict(os.environ, env, clear=True), patch.object(build, "datetime") as clock, \
+                    patch.object(build, "build_v2", side_effect=collect) as collector, \
+                    patch.object(build, "load_guides", side_effect=lambda _path, now: load_guides(fixture_dir, now)), \
+                    redirect_stdout(io.StringIO()):
+                clock.now.return_value = first
+                self.assertEqual(build.main(), 0)
+                self.assertEqual([story["id"] for story in json.loads(cache.read_text())["stories"]],
+                                 ["story", guide_id])
+                clock.now.return_value = second
+                self.assertEqual(build.main(), 0)
+
+            prior = collector.call_args.kwargs["published"]
+            self.assertIsNotNone(prior)
+            self.assertEqual([story["id"] for story in prior["stories"]], ["story"])
+            written = json.loads(cache.read_text())
+            self.assertEqual([story["id"] for story in written["stories"]].count(guide_id), 1)
+            self.assertEqual({story["id"] for story in written["stories"]}, {"fresh", "story", guide_id})
+            self.assertTrue(next(story for story in written["stories"] if story["id"] == "story")["carried"])
+            self.assertEqual({story["id"] for story in json.loads(baseline.read_text())["stories"]},
+                             {"fresh", "story", guide_id})
+
     def run_build(self, directory, payload, error=None):
         paths = {key: Path(directory) / name for key, name in (
             ("RADAR_OUTPUT", "radar.json"), ("RADAR_BASELINE", "baseline.json"),
