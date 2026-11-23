@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-23T01:29:06.196248+00:00",
-  "input_generated_at": "2026-11-23T00:46:37Z",
+  "generated_at": "2026-11-23T03:27:29.994073+00:00",
+  "input_generated_at": "2026-11-23T02:46:29Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -121741,6 +121741,285 @@
         "availability": "global",
         "is_leak": false
       }
+    },
+    {
+      "id": "62d2fe62977390c6aa15",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://en.yna.co.kr/view/AEN20261123004400320",
+      "key_points": [
+        "Chỉ số KOSPI giảm 4,33%, tương đương 210,63 điểm, xuống 4.659,33 điểm vào lúc 11 giờ 20 sáng. Theo Yonhap, đà giảm nới rộng khi đợt lao dốc công nghệ toàn cầu trở nên gay gắt hơn.",
+        "Theo Yonhap, sự sụt giảm diễn ra sau khi chứng khoán Mỹ lao dốc vào thứ Sáu do lo ngại về các khoản đầu tư lớn vào hạ tầng trí tuệ nhân tạo (AI).",
+        "Cổ phiếu chip dẫn đầu đà giảm tại Seoul khi Samsung Electronics mất 4,72% và đối thủ SK hynix sụt 4,13%. Bên cạnh đó, LG Energy Solution giảm 3,26% và Samsung Biologics trượt 5,61%.",
+        "Theo Yonhap, áp lực gia tăng khi khối ngoại, vốn mua ròng đầu phiên, đã chuyển sang bán ròng và xả cổ phiếu chip lớn."
+      ],
+      "same_event_coverage_ids": [
+        "9ab62478efdd59cc4175"
+      ],
+      "split_coverage_ids": [],
+      "subject": "South Korean chipmakers and KOSPI",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Chỉ số KOSPI giảm 4,33% vào cuối sáng khi khối ngoại bán ròng các cổ phiếu chip lớn",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "yonhap",
+          "url": "https://en.yna.co.kr/view/AEN20261123004400320"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "824d48fecc0493023de72f9d8aa5798a463c715b1fa41402e138bd4157e79e27",
+        "scored_at": "2026-11-23T03:27:29.950888+00:00"
+      }
+    },
+    {
+      "id": "a234789a1663b104b3a0",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://pandaily.com/shanghai-ai-lab-vitamin-c-flow-battery-additive-plant-use",
+      "key_points": [
+        "Theo báo Jiefang Daily, Phòng thí nghiệm AI Thượng Hải cho biết công thức chất điện phân dùng vitamin C do AI hỗ trợ đã được triển khai tại các nhà máy lưu trữ năng lượng ở Hà Nam và Quảng Đông. Tác nhân AI (chương trình tự hành tìm vật liệu) trên nền tảng Intern InkStone đã đề xuất phụ gia này sau khi sàng lọc hàng trăm nghìn chất, trước khi nhóm nghiên cứu kiểm chứng thực nghiệm.",
+        "Các nhà nghiên cứu nhắm tới pin dòng chảy sắt-crom nhằm tìm phụ gia giúp mở rộng phạm vi vận hành hiệu suất cao, tăng mật độ năng lượng và giảm chi phí lưu trữ. Nhóm nghiên cứu đã lặp lại các vòng phân tích AI và thử nghiệm thực nghiệm để tối ưu hóa nồng độ vitamin C cùng tỷ lệ sắt-crom, thay vì chỉ dùng riêng lẻ vitamin C.",
+        "Đánh giá tổng thể ghi nhận dung lượng trạm lưu trữ tăng 5%, hiệu suất năng lượng cụm pin tăng 3,5% và chi phí hạ 20%.",
+        "Theo Pandaily, kết quả gắn với công thức và quy trình tối ưu hóa chứ không phải riêng vitamin C hay chứng minh cho mọi loại pin."
+      ],
+      "same_event_coverage_ids": [
+        "e20300e175bc95212576"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Shanghai AI Laboratory",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Phòng thí nghiệm AI Thượng Hải đưa phụ gia vitamin C do AI tìm kiếm vào nhà máy lưu trữ năng lượng",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "pandaily",
+          "url": "https://pandaily.com/shanghai-ai-lab-vitamin-c-flow-battery-additive-plant-use"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.3,
+        "answers": {
+          "what": 10,
+          "why": 8,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "Readers may treat the reported performance figures as established across plants.",
+            "fix": "Add that the source provides no complete independent test protocol or cost-accounting breakdown and cautions against generalizing the figures to every plant (outlet:p007)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "6ade75cbd4a3a71a7891d515be50203aa9bef21ea80137b9b42abf8718b08f26",
+        "scored_at": "2026-11-23T03:21:33.449527+00:00"
+      }
+    },
+    {
+      "id": "24d3a2b8edd04e8337a4",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The article focuses on China's domestic memory chipmakers catching up to industry leaders; the AI boom is only mentioned in passing as background context.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.scmp.com/tech/big-tech/article/3375363/chinas-memory-chipmakers-are-catching-industry-leaders-what-happens-when-they-do",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "e2a9c1ab36579ffe880c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "875efdab1707b0f75108",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/ai-artificial-intelligence/1039745/dario-amodei-video-games-ai-joblessness",
+      "key_points": [
+        "A Wall Street Journal profile reported that Anthropic CEO Dario Amodei suggested immersive video games could pacify the masses facing AI-induced joblessness.",
+        "The anecdote was based on widely circulated internal Slack debates between Amodei and Anthropic employees.",
+        "The report was published following Anthropic's record-breaking initial public offering."
+      ],
+      "same_event_coverage_ids": [
+        "636200447bf2bf419b65"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Dario Amodei",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Dario Amodei",
+          "Daniela Amodei",
+          "Terrence O'Brien"
+        ],
+        "availability": "unknown",
+        "is_leak": true
+      }
+    },
+    {
+      "id": "50eaee9a341397954900",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/22/how-notable-capital-gic-and-baillie-gifford-bet-big-on-anthropic-before-its-ipo/",
+      "key_points": [
+        "Vào thứ Tư, Anthropic đã huy động 81,3 tỷ USD trong đợt phát hành cổ phiếu lần đầu ra công chúng (IPO) lớn nhất lịch sử, đạt định giá khoảng 1,5 nghìn tỷ USD trước ngày giao dịch. Thương vụ đem lại mức sinh lời trên giấy tờ ước tính khoảng 15 lần cho quỹ Notable Capital.",
+        "Theo các nhà đầu tư nói với TechCrunch, Baillie Gifford rót vốn nhờ Anthropic thực thi nhất quán, doanh thu và biên lợi nhuận gộp tốt, còn quỹ GIC nhận thấy mô hình thúc đẩy doanh nghiệp ứng dụng. Đồng thời, Notable Capital đầu tư khi nhận thấy lập trình viên dùng Claude 70% thời gian, cùng niềm tin rằng công việc trọng yếu đòi hỏi mô hình nguồn đóng của Mỹ.",
+        "Theo nguồn tin thân cận, quỹ đầu tư quốc gia GIC của Singapore đã rót hơn 4,5 tỷ USD qua ba vòng để sở hữu khoảng 1% cổ phần sau IPO. Baillie Gifford cũng đầu tư 1,5 tỷ USD, trong khi Notable Capital từng chi 10% phần quỹ tại Mỹ vào vòng Series E ở định giá 61,5 tỷ USD.",
+        "Theo TechCrunch, đợt IPO mang lại khoản lãi lớn trên giấy tờ cho các nhà quản lý đầu tư và hàng chục tổ chức từng rót vốn ở định giá tưởng như trên trời. Thắng lợi này mở rộng sang cả các nhà đầu tư giai đoạn muộn truyền thống, những bên vốn hiếm khi đạt tỷ suất sinh lời ở quy mô quỹ mạo hiểm."
+      ],
+      "same_event_coverage_ids": [
+        "b24e93858e696d93aab3"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Anthropic venture investment",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Hans Tung",
+          "Glenn Solomon",
+          "Dan Cahana",
+          "Marina Temkin"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Anthropic huy động 81,3 tỷ USD trong đợt IPO lớn nhất lịch sử, mang lại khoản lãi đậm trên giấy tờ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/22/how-notable-capital-gic-and-baillie-gifford-bet-big-on-anthropic-before-its-ipo/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.45,
+        "answers": {
+          "what": 9,
+          "why": 9,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "eda884f48d0319c46ae742c0d1cb455e213ad78734eb25c4fb3f27c03ffebfa3",
+        "scored_at": "2026-11-23T03:27:29.950942+00:00"
+      }
+    },
+    {
+      "id": "bd31c8f29710b59502bc",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-23/emerging-market-stocks-set-to-erase-2026-gains-on-ai-selloff",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c68603d4455509270f83"
+      ],
+      "split_coverage_ids": []
     }
   ]
 }
