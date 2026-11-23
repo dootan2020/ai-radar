@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-23T11:20:46.465177+00:00",
-  "input_generated_at": "2026-11-23T10:46:48Z",
+  "generated_at": "2026-11-23T13:37:54.128260+00:00",
+  "input_generated_at": "2026-11-23T12:46:46Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -122716,10 +122716,10 @@
       "use_original_title": false,
       "source_url": "https://www.semafor.com/article/11/23/2026/schiff-plans-no-ai-bailouts-resolution",
       "key_points": [
-        "Theo nguồn tin từ Semafor, Thượng nghị sĩ Adam Schiff chuẩn bị đề xuất nghị quyết làm rõ Quốc hội không được giải cứu các tập đoàn và nhà đầu tư giàu có đặt cược đầu cơ vào AI nếu ngành này suy thoái.",
-        "Semafor nhận định bước đi này phản ánh việc Đảng Dân chủ tin rằng thông điệp nhắm vào tài chính bấp bênh của AI sẽ thu hút cử tri lo ngại quyền lực doanh nghiệp.",
-        "Trước đó tại Hạ viện, hai nghị sĩ Greg Casar và Maxine Waters đã đề xuất nghị quyết tương tự vào tháng trước, còn ông Schiff khẳng định trên Wall Street Journal rằng giới tỷ phú không nên mong đợi được giải cứu như khủng hoảng nhà đất năm 2008.",
-        "Nghị quyết nêu rõ Quốc hội không giải cứu các khoản đầu cơ nếu ngành AI suy yếu, khi việc cứu trợ gây phương hại tới các gia đình lao động."
+        "Theo nguồn tin từ Semafor, Thượng nghị sĩ Adam Schiff chuẩn bị đề xuất nghị quyết làm rõ Quốc hội không giải cứu ngành AI khi cơ quan này nhóm họp lại.",
+        "Theo Semafor, Đảng Dân chủ tin thông điệp về tình hình tài chính bấp bênh của các công ty AI sẽ gây tiếng vang với cử tri lo ngại AI và quyền lực doanh nghiệp.",
+        "Ông Schiff sẽ là thượng nghị sĩ đầu tiên đưa ra nghị quyết như vậy, tiếp nối văn bản tương tự do hai hạ nghị sĩ Greg Casar và Maxine Waters đề xuất vào tháng trước.",
+        "Nghị quyết khẳng định không giải cứu các khoản đầu cơ AI bằng chi phí của gia đình lao động nếu ngành suy thoái. Trước đó trên Wall Street Journal, ông Schiff nhấn mạnh giới tỷ phú không nên chờ đợi cứu trợ như khủng hoảng năm 2008."
       ],
       "same_event_coverage_ids": [
         "4f1fdbe57dbe729c86a0"
@@ -122738,7 +122738,7 @@
         "is_leak": true
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Nghị sĩ Adam Schiff chuẩn bị đề xuất không giải cứu giới đầu cơ AI gây thiệt hại cho các gia đình lao động",
+      "editorial_headline_vi": "Thượng nghị sĩ Adam Schiff chuẩn bị đề xuất nghị quyết không giải cứu giới đầu cơ nếu ngành AI suy thoái",
       "summary_sources": [
         {
           "id": "outlet",
@@ -122749,42 +122749,7 @@
       ],
       "summary_limitations": [],
       "key_points_prompt_version": "summary-vi-7-bullets",
-      "score": {
-        "version": "cham-4-cau-1",
-        "value": 8.4,
-        "answers": {
-          "what": 9,
-          "why": 9,
-          "notable": 8,
-          "meaning": 7
-        },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "giới đầu cơ AI gây thiệt hại cho các gia đình lao động",
-            "explanation": "The source does not say AI speculators have harmed working families. It says a future bailout of corporations and wealthy investors should not come at working families’ expense (outlet:p001)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "meaning",
-            "problem": "The headline turns a concern about who would pay for a possible bailout into a claim that AI speculators have already harmed working families.",
-            "fix": "Tie the potential harm to a bailout if the AI industry falters, as in outlet:p001."
-          },
-          {
-            "question": "notable",
-            "problem": "Readers miss what makes Schiff’s planned move distinct in the Senate.",
-            "fix": "State that he would be the first senator to introduce such a resolution, while similar House action already exists (outlet:p002–p003)."
-          }
-        ],
-        "writer_boats": [
-          "agy"
-        ],
-        "scorer_boat": "codex",
-        "scorer_provider": "codex",
-        "prose_sha256": "bfecd703774865b660ad8e510db4f25fdc63f17e7bcbcecfdd0e91f687dbfa88",
-        "scored_at": "2026-11-23T11:20:46.436121+00:00"
-      }
+      "score": null
     },
     {
       "id": "f8ad7234680a401f6cdf",
@@ -122861,10 +122826,10 @@
       "use_original_title": false,
       "source_url": "https://analyticsindiamag.com/ai-startups/bolna-builds-its-own-speech-model-to-catch-what-voice-ai-misses",
       "key_points": [
-        "Tại sự kiện Symphony ở Bengaluru, Bolna AI đã ra mắt Syl, mô hình nhận dạng giọng nói tự động (ASR - hệ thống chuyển đổi lời nói thành văn bản) chuyên xử lý các câu trả lời ngắn trong cuộc gọi. Đây là bước chuyển của công ty sang việc tự phát triển mô hình để giải quyết khó khăn khi triển khai cho khách hàng.",
-        "Theo Analytics India Magazine, các phát ngôn ngắn cùng tạp âm thường khiến thuật toán nhận diện sai hoặc để trống bản ghi âm ở khoảng một phần mười số câu trả lời ngắn.",
-        "Trên tập cuộc gọi thực tế độc lập, Bolna cho biết Syl phiên âm chính xác 93% câu trả lời có-hoặc-không gồm một từ với độ trễ trung vị 250 mili giây. Bolna cũng tuyên bố mô hình rẻ hơn 10 lần so với giải pháp hàng đầu hiện nay dù chưa công bố giá, và giúp giảm 31% số lần tác tử (chương trình AI tự động) yêu cầu người gọi nhắc lại.",
-        "Dù Syl cải thiện độ chính xác cho tiếng Anh và tiếng Hindi, Giám đốc công nghệ Prateek Sachan thừa nhận mô hình không thể tối ưu trong mọi tình huống và Bolna sẽ tiếp tục kết hợp các mô hình bên ngoài để đáp ứng từng nhu cầu."
+        "Bolna AI ra mắt mô hình nhận dạng giọng nói tự động (ASR - chuyển lời nói thành văn bản) Syl tại sự kiện Symphony ở Bengaluru để xử lý các phản hồi ngắn trong cuộc gọi. Bước đi này đánh dấu sự chuyển dịch chiến lược sang tự phát triển mô hình nhằm giải quyết các vấn đề khi triển khai cho khách hàng.",
+        "Theo Analytics India Magazine, các phản hồi ngắn trong cuộc gọi có tạp âm rất dễ bị bỏ sót hoặc phiên âm sai. Bolna cho biết hơn 4 triệu cuộc gọi mỗi tháng chứa phản hồi ngắn, và trước đây khoảng một phần mười số này trả về bản phiên âm trống.",
+        "Mô hình Syl phiên âm chính xác 93% câu trả lời có-không một từ với độ trễ trung vị 250 mili giây trong thử nghiệm trên các cuộc gọi thực tế được giữ lại. Khi thử nghiệm trên một tác tử (AI đàm thoại) chưa từng huấn luyện với mô hình này, Bolna tuyên bố số lần tác tử yêu cầu nhắc lại đã giảm 31%.",
+        "Bolna không kỳ vọng mô hình riêng sẽ thay thế toàn bộ mô hình bên ngoài, và Giám đốc công nghệ Prateek Sachan nhận định Syl không thể tối ưu trong mọi tình huống. Mô hình ban đầu chỉ phục vụ tiếng Anh và tiếng Hindi, trước khi công ty dự kiến mở rộng sang tiếng Tamil."
       ],
       "same_event_coverage_ids": [
         "5fc934a80788bb479aee"
@@ -122878,7 +122843,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Bolna AI ra mắt Syl giúp phiên âm chính xác 93% câu trả lời có-không một từ trong cuộc gọi",
+      "editorial_headline_vi": "Mô hình giọng nói Syl của Bolna đạt độ chính xác 93% với câu trả lời một từ trong thử nghiệm cuộc gọi",
       "summary_sources": [
         {
           "id": "outlet",
@@ -122891,35 +122856,35 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.2,
+        "value": 9.4,
         "answers": {
           "what": 10,
-          "why": 9,
-          "notable": 9,
-          "meaning": 8
+          "why": 10,
+          "notable": 8,
+          "meaning": 10
         },
         "hard_errors": [
           {
             "kind": "fact",
-            "summary_text": "để trống bản ghi âm",
-            "explanation": "The source says roughly one in ten short replies previously produced empty transcriptions, not empty audio recordings (outlet:p004)."
+            "summary_text": "đạt độ chính xác 93% với câu trả lời một từ trong thử nghiệm cuộc gọi",
+            "explanation": "The 93% result applies specifically to one-word yes-or-no replies in tests on held-out production calls, not to one-word replies generally (outlet:p004). The body supplies the missing condition."
           },
           {
-            "kind": "fact",
-            "summary_text": "Syl cải thiện độ chính xác cho tiếng Anh và tiếng Hindi",
-            "explanation": "The source says the initial model is intended for English and Hindi use cases; it does not report a measured accuracy improvement separately for those languages (outlet:p009)."
+            "kind": "number",
+            "summary_text": "khoảng một phần mười số này trả về bản phiên âm trống",
+            "explanation": "Here, “số này” refers back to calls. The source says around one in ten short replies, rather than one in ten calls containing such replies, previously returned empty transcriptions (outlet:p004)."
           }
         ],
         "findings": [
           {
-            "question": "why",
-            "problem": "The Vietnamese says recordings were left empty, which misidentifies the failure Syl addresses.",
-            "fix": "Say the transcription was empty for about one in ten short replies (outlet:p004)."
+            "question": "notable",
+            "problem": "The headline makes the 93% accuracy result sound applicable to all one-word replies.",
+            "fix": "Specify one-word yes-or-no replies and, if space permits, that the test used held-out production calls (outlet:p004)."
           },
           {
-            "question": "meaning",
-            "problem": "Readers may believe Bolna demonstrated improved accuracy for both English and Hindi specifically.",
-            "fix": "Describe English and Hindi as the model’s initial intended use cases; keep the reported 93% result tied to held-out production calls (outlet:p004, outlet:p009)."
+            "question": "notable",
+            "problem": "The one-in-ten figure is attached to calls rather than short replies.",
+            "fix": "State that around one in ten short replies previously returned an empty transcription (outlet:p004)."
           }
         ],
         "writer_boats": [
@@ -122927,8 +122892,706 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "bc9a08d3d99915d238c52a5251d1f7d1a82e7a48129e227731f82aee4e4da7e1",
-        "scored_at": "2026-11-23T11:20:46.436153+00:00"
+        "prose_sha256": "5e8e6d5703e792caccb73046f0aef0ae9ac5752bbdd6efe05e4921820a5873b5",
+        "scored_at": "2026-11-23T13:37:54.101649+00:00"
+      }
+    },
+    {
+      "id": "e8a76c9b41744f51ad25",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The article presents Haleon’s own account of its AI transformation through a company keynote.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://analyticsindiamag.com/ai-highlights/haleon-puts-people-and-judgement-at-heart-of-data-ai-transformation-at-cypher-2026",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "376571b840342c7aedcb"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "6f8044b608f43adcf590",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The reported event is an executive contract extension; the card does not make AI its main subject.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-23/arm-ceo-extends-contract-through-2033-after-nvidia-approach",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "8f9aaa2a1f9ef06f5970"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "03a5fb98f9bab83368ad",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/23/2026/ais-infrastructure-buildout-is-remaking-global-economics",
+      "key_points": [
+        "Semafor cho biết làn sóng xây dựng hạ tầng trí tuệ nhân tạo (AI - công nghệ mô phỏng trí tuệ) đang tái định hình kinh tế toàn cầu, với chi tiêu vốn năm nay vượt 1,5 lần GDP của Bỉ.",
+        "Theo Semafor, mức chi tiêu khổng lồ này đã dẫn đến tình trạng thiếu hụt chip nhớ trên toàn cầu.",
+        "Một chuyên gia kinh tế UBS chia sẻ trên The Wall Street Journal rằng các khách sạn gần trung tâm dữ liệu tăng doanh thu, còn nhà sản xuất xe trượt tuyết bán được thêm hàng cho các nhà thầu.",
+        "Một viện chính sách Mỹ cảnh báo tình trạng thiếu hụt chip nhớ khó được giải quyết hoàn toàn trước năm 2030. Dù vậy, theo The Information, SoftBank coi đây là cơ hội sinh lời và đã tìm hiểu việc tài trợ mua lại hãng SK Hynix với giá 1 nghìn tỷ USD."
+      ],
+      "same_event_coverage_ids": [
+        "8617dcba6c2d211091c7"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Economic effects of AI infrastructure spending",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Chi tiêu hạ tầng AI gây thiếu hụt chip nhớ toàn cầu và khó khắc phục trước năm 2030",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/23/2026/ais-infrastructure-buildout-is-remaking-global-economics"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "fb83953daa29603a3d39263589c129d990bf7610bf0e451eaf41ac50bf20de22",
+        "scored_at": "2026-11-23T13:28:38.538382+00:00"
+      }
+    },
+    {
+      "id": "688df81eb28150df0daa",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/newsletters/2026-11-23/anthropic-may-find-its-ipo-was-the-easy-part",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "1ea9af68c5e1e0c20a12"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "1aec0bf9df219348b517",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/23/2026/uk-starts-major-ai-breast-cancer-trial",
+      "key_points": [
+        "Dịch vụ Y tế Quốc gia của Anh đã triển khai chương trình mà họ mô tả là đợt thử nghiệm lớn nhất thế giới về việc dùng trí tuệ nhân tạo (AI - công nghệ mô phỏng trí tuệ) hỗ trợ tầm soát ung thư vú.",
+        "Theo Semafor, đây là nỗ lực tham vọng nhất trong các hoạt động nhằm thúc đẩy ứng dụng công nghệ để nâng cao chất lượng chăm sóc y tế.",
+        "Lãnh đạo trong ngành dự báo AI sẽ được dùng để tìm cách chữa ung thư trong một đời người. Tiến trình này quan trọng với bệnh nhân và cả giới công nghệ, lĩnh vực đang chịu chỉ trích về tác động tới lạm phát và việc làm.",
+        "Tuy nhiên, ngành dược phẩm vẫn tỏ ra hoài nghi khi CEO của Novartis cho biết hiểu biết về cơ thể người còn quá ít để việc phát triển diễn ra nhanh chóng."
+      ],
+      "same_event_coverage_ids": [
+        "7e2ba58fedd45b955d4f"
+      ],
+      "split_coverage_ids": [],
+      "subject": "UK AI breast cancer screening trial",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "region_locked:UK",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Dịch vụ Y tế Quốc gia Anh thử nghiệm AI tầm soát ung thư vú quy mô lớn nhất thế giới",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/23/2026/uk-starts-major-ai-breast-cancer-trial"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "e01bd130ebb2c0af0e72d063ef02822925e39399f0398557dd7efeb83dffa13d",
+        "scored_at": "2026-11-23T13:24:12.559349+00:00"
+      }
+    },
+    {
+      "id": "4841929a54b0fc8336f3",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.scmp.com/economy/china-economy/article/3375495/steel-style-chinas-flagship-ai-factories-move-beyond-heavy-industry",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "59f96e17f30174b91dcc"
+      ],
+      "split_coverage_ids": [],
+      "subject": "AI adoption in Chinese factories",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "ca4be03c96c0ede11a8c",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "This is an invitation to submit questions for a future livestream, not the discussion itself.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.wired.com/story/livestream-will-anyone-keep-us-safe-from-ai/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "fd430787d6e86ca6379a"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "c3079baa07ae12d88dd7",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The card is a laptop review; local AI capability is a feature of the device being reviewed.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://arstechnica.com/reviews/2026/11/review-the-asus-proart-p16-offers-a-glimpse-of-a-future-powered-by-local-ai/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "5d209d465db11a9a131a"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "1eb901a95aa698f084c3",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-23/the-pulse-with-francine-lacqua-11-23-2026-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "ae7a6780f43fc00dadaa"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "7d2351122c5e77897db0",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-23/bret-taylor-s-sierra-finalizing-more-than-1-75-billion-round",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "efdacea9fe79661e36b0"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "d9211cf0f256ec5c45da",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/newsletters/2026-11-23/jensen-huang-affair-aftermath-could-push-china-further-behind-us-in-ai-race",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b5f4e8b31d59fb581858"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "38300f79a0313805248e",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.semafor.com/article/11/23/2026/citis-jane-fraser-on-the-reset-for-an-ai-market-priced-to-perfection",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "bbc75dd1a655c979e7a5"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Jane Fraser on the AI investment market",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Jane Fraser",
+          "Liz Hoffman"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "d5c48cb241b99395f55c",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://analyticsindiamag.com/ai-news/mattersai-raises-12-million-pre-series-a-to-boost-data-security-platform-and-us-expansion",
+      "key_points": [
+        "Startup an ninh mạng Matters.AI đã huy động được 12 triệu USD trong vòng tiền Series A do Tanglin Venture Partners dẫn đầu.",
+        "Theo Matters.AI, công ty dùng nguồn vốn để đầu tư nghiên cứu phát triển, nhằm ngăn chặn các tác tử trí tuệ nhân tạo (AI agent - phần mềm tự thực hiện tác vụ) lạm dụng dữ liệu nhạy cảm, đồng thời xây dựng đội ngũ bán hàng tại Bắc Mỹ.",
+        "Nền tảng của hãng hiện dùng AI để theo dõi đường đi và gắn cờ hoạt động rủi ro từ cả nhân viên lẫn tác tử AI.",
+        "Analytics India Magazine nhận định việc cấp quyền cho AI truy cập dữ liệu đang tạo thêm rủi ro, nhất là khi doanh nghiệp bị hạn chế khả năng giám sát luồng chia sẻ."
+      ],
+      "same_event_coverage_ids": [
+        "6c43bcf39b84e71b8026"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Matters.AI funding round",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Startup an ninh mạng Matters.AI huy động 12 triệu USD để kiểm soát rủi ro dữ liệu từ AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "analytics-india-magazine",
+          "url": "https://analyticsindiamag.com/ai-news/mattersai-raises-12-million-pre-series-a-to-boost-data-security-platform-and-us-expansion"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.9,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 8,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The reader sees data tracing but misses the platform’s reach across enterprise systems and its aim to combine separate security functions.",
+            "fix": "Add its coverage of cloud and local systems, applications, endpoints and browsers, and its stated consolidation goal (outlet:p004, outlet:p008)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "d5249e9a59ab5239adeaa227075744b711610f2c5fb169aa7a29d176a356ac30",
+        "scored_at": "2026-11-23T13:24:12.559473+00:00"
+      }
+    },
+    {
+      "id": "b8d5d146fdfa0582f48a",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://analyticsindiamag.com/ai-news/lt-technology-services-launches-ai-toolchain-for-software-defined-vehicles",
+      "key_points": [
+        "Công ty L&T Technology Services (LTTS) đã ra mắt chuỗi công cụ kỹ thuật SDVault.ai ứng dụng trí tuệ nhân tạo (AI - công nghệ mô phỏng trí tuệ), sử dụng hơn 250 tác tử AI trên 12 lĩnh vực.",
+        "Theo Analytics India Magazine, chuỗi công cụ được thiết kế nhằm hỗ trợ phát triển và xác thực các dòng xe định nghĩa bằng phần mềm, khi các công ty dịch vụ ngày càng đẩy mạnh dùng AI.",
+        "Trong các thử nghiệm ban đầu, dù LTTS không tiết lộ số lượng hay đối tác, một số quy trình như phân loại phiếu đã giảm thời gian xử lý từ bốn giờ xuống còn khoảng 10 phút. Nền tảng này cũng cho thấy tiềm năng giúp đội ngũ kỹ sư đảm đương thêm 30% đến 40% khối lượng công việc.",
+        "Tuy vậy, CEO của LTTS Amit Chadha khẳng định trong các tác vụ an toàn then chốt, chỉ riêng AI là không đủ mà kỹ sư bắt buộc phải nắm quyền kiểm soát."
+      ],
+      "same_event_coverage_ids": [
+        "ff2d813321dc7c5ea44c"
+      ],
+      "split_coverage_ids": [],
+      "subject": "SDVault.ai launch",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "LTTS ra mắt chuỗi công cụ SDVault.ai hỗ trợ phát triển xe định nghĩa bằng phần mềm",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "analytics-india-magazine",
+          "url": "https://analyticsindiamag.com/ai-news/lt-technology-services-launches-ai-toolchain-for-software-defined-vehicles"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.9,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 8,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The pilot performance figures read as independently established results.",
+            "fix": "Attribute the preliminary figures directly to LTTS, which reported them without disclosing the number of pilots or identifying customers (outlet:p006)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "ed30a75558b15f0f9cd3eca332ee4316d8567dc9caf684ef5a2cd07064209bb4",
+        "scored_at": "2026-11-23T13:24:12.559545+00:00"
+      }
+    },
+    {
+      "id": "599ec3a9c12f02c6cc12",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.theverge.com/ai-artificial-intelligence/1039874/walmart-agent-gateway-meta-muse-black-friday",
+      "key_points": [
+        "Theo The Verge, Walmart sẽ triển khai cổng Agent Gateway vào ngày 24 tháng 11 sau khi lùi lịch 24 giờ, cho phép tác tử AI (phần mềm tự hành thực hiện tác vụ) Muse của Meta thay mặt khách hàng tìm và mua các ưu đãi dịp Black Friday.",
+        "Theo Walmart, cổng kết nối này giúp các tác tử AI tìm sản phẩm phù hợp cho người dùng mà không chia sẻ dữ liệu lịch sử mua sắm cá nhân.",
+        "Người dùng thiết lập tính năng Agent Profiles trong tài khoản Walmart để đặt hạn mức chi tiêu, phê duyệt đơn hàng và theo dõi lịch sử mua của Muse. Khách hàng hoàn tất thanh toán ngay trong cuộc hội thoại với cùng mức giá niêm yết trên trang web.",
+        "Bước đi này diễn ra khi các đối thủ trực tuyến như Amazon và eBay đã chặn tác tử AI duyệt nền tảng của họ. Walmart khẳng định việc hỗ trợ Muse mới chỉ là bước khởi đầu và các trải nghiệm mua sắm cho những ứng dụng khác sắp ra mắt."
+      ],
+      "same_event_coverage_ids": [
+        "a5f7be62e986465edd7f"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Walmart Agent Gateway rollout with Meta Muse",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Walmart mở cổng Agent Gateway cho phép tác tử AI Muse của Meta mua sắm dịp Black Friday",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1039874/walmart-agent-gateway-meta-muse-black-friday"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.85,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "3c5e6408cc0899fd1742a360798e2fd2b5ae1482bc327e2f179bb1aeee9cc62a",
+        "scored_at": "2026-11-23T13:28:38.538544+00:00"
+      }
+    },
+    {
+      "id": "124d236cdc3ee71239d3",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.wired.com/story/states-sue-spacex-over-grok-deepfakes/",
+      "key_points": [
+        "The attorneys general of Oregon and Virginia are filing separate lawsuits against SpaceX and X Corp.",
+        "The suits allege the companies misled users about AI tool safety and their efforts to stop child sexual abuse material and nonconsensual intimate imagery."
+      ],
+      "same_event_coverage_ids": [
+        "5ebee633640e2cf6062a"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Oregon and Virginia lawsuits over Grok",
+      "video_labels": {
+        "video_hook": "drama_company",
+        "named_people": [
+          "Elon Musk"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "ef0e349b17607470b522",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.phoronix.com/news/LiberNT",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "5a8cf70d7a61c254a5b7"
+      ],
+      "split_coverage_ids": [],
+      "subject": "LiberNT ReactOS fork",
+      "video_labels": {
+        "video_hook": "usable_now",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "b501a9820be909583a01",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.semafor.com/article/11/22/2026/us-spy-chief-calls-nvidia-chips-jewels",
+      "key_points": [
+        "Giám đốc tình báo Mỹ Jay Clayton cho biết Washington đang điều tra một nghi phạm gián điệp Trung Quốc bị cáo buộc có liên hệ với cựu CEO của công ty Nvidia là ông Jensen Huang, giữa lúc việc giám sát nỗ lực thu thập chip Mỹ của Bắc Kinh ngày càng gia tăng.",
+        "Ông Clayton gọi chip Nvidia là báu vật mà ai cũng muốn, dù các phòng thí nghiệm AI Trung Quốc vẫn muốn sử dụng chúng trong ngắn hạn.",
+        "Chuyên gia Kyle Chan tại Viện Brookings đánh giá các hạn chế xuất khẩu từ Mỹ đang thúc đẩy Bắc Kinh nỗ lực tự sao chép toàn bộ chuỗi cung ứng bán dẫn toàn cầu, một điều chưa từng có tiền lệ."
+      ],
+      "same_event_coverage_ids": [
+        "5dc4a4641652a8c073de"
+      ],
+      "split_coverage_ids": [
+        "ab24891b8dd74919d367"
+      ],
+      "subject": "Nvidia",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Jay Clayton",
+          "Jensen Huang",
+          "Kyle Chan"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Mỹ điều tra nghi án gián điệp Trung Quốc liên quan cựu CEO Nvidia giữa làn sóng kiểm soát chip",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/22/2026/us-spy-chief-calls-nvidia-chips-jewels"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.35,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 6,
+          "meaning": 7
+        },
+        "hard_errors": [
+          {
+            "kind": "quote",
+            "summary_text": "một điều chưa từng có tiền lệ",
+            "explanation": "Kyle Chan said he did not think any country had done this before. The Vietnamese removes that qualification and states the claim as settled fact (outlet:p003)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "Readers miss the reported involvement of China’s spy agency in helping mainland companies obtain advanced chips.",
+            "fix": "Add the New York Times report with attribution (outlet:p002)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The Vietnamese makes the claim that the effort is unprecedented more certain than the expert did.",
+            "fix": "Attribute it to Kyle Chan and retain his uncertainty that he does not think any country has done it before (outlet:p003)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "5dc8e32b9c07b0456d8d7c6408e7902771701f2535d5563d1ef3ae83b3232cd6",
+        "scored_at": "2026-11-23T13:24:12.559672+00:00"
       }
     }
   ]
