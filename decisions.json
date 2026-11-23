@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-23T03:27:29.994073+00:00",
-  "input_generated_at": "2026-11-23T02:46:29Z",
+  "generated_at": "2026-11-23T05:11:32.276105+00:00",
+  "input_generated_at": "2026-11-23T04:47:07Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -122018,6 +122018,206 @@
       "key_points": [],
       "same_event_coverage_ids": [
         "c68603d4455509270f83"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "f5f823f085efeb804294",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.scmp.com/tech/tech-war/article/3375427/us-treasury-secretary-leaves-door-open-jensen-huangs-return-nvidia",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c66b0aeb99f4e7f2135b"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Nvidia leadership and Scott Bessent remarks",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Scott Bessent",
+          "Jensen Huang"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "2ff89b3fb1175109c98d",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://technode.com/2026/11/23/do-you-really-need-an-ai-wearable-to-remember-every-moment/",
+      "key_points": [
+        "Theo TechNode, camera AI đeo người Looki L1 ghi lại sinh hoạt hằng ngày thành các bản tóm tắt và câu chuyện hình ảnh. Looki là một trong những công ty khởi nghiệp thử nghiệm thiết bị đeo để ghi lại các khoảnh khắc đời thường.",
+        "TechNode giải thích xu hướng này xuất hiện do ký ức con người mang tính chọn lọc và các khoảnh khắc nhỏ dễ biến mất trước khi nhận ra ý nghĩa. Trang tin nhận định thiết bị số có thể ghi lại nhiều hơn những gì con người có thể nhớ.",
+        "Trong thử nghiệm thực tế, thiết bị phân tích dinh dưỡng bữa trưa và đề xuất điều chỉnh chế độ ăn sau khi theo dõi Elton Jones của Tom's Guide. Dù Jones thấy hữu ích, TechNode lưu ý trải nghiệm này đặt ra câu hỏi về độ chính xác khi camera chỉ dựa vào hình ảnh để đánh giá thói quen ăn uống.",
+        "TechNode đánh giá rằng bản ghi đầy đủ hơn chưa chắc mang lại cuộc sống trọn vẹn hơn, đồng thời đặt câu hỏi liệu có cần AI nhớ mọi thứ hay quên lãng là một phần của con người. Trang tin nhận định các biện pháp bảo mật chưa giải quyết sự đồng thuận ở không gian chung và Looki chuyển trách nhiệm xin phép sang người dùng."
+      ],
+      "same_event_coverage_ids": [
+        "0eddbbb7eee4ba8c4a31"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Wearable AI cameras and digital memory capture",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Mack Ashworth"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Camera AI đeo người Looki L1 ghi lại sinh hoạt nhưng đặt ra câu hỏi về quyền riêng tư công cộng",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "technode",
+          "url": "https://technode.com/2026/11/23/do-you-really-need-an-ai-wearable-to-remember-every-moment/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.0,
+        "answers": {
+          "what": 8,
+          "why": 10,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The reader does not learn that reviewers found the daily recaps inconsistent.",
+            "fix": "Add that some recap videos gave a useful overview while others were too short to offer much to revisit (outlet:p005)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The consent concern is stated generally, without explaining its effect on bystanders.",
+            "fix": "Explain that people nearby may not know they are being recorded and have little control over whether their image or conversations enter a private archive (outlet:p011)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "1374c43fdac04ca8eb6188a99350942f0003e543e9f05fe62001fceacb93cc2e",
+        "scored_at": "2026-11-23T05:11:32.254165+00:00"
+      }
+    },
+    {
+      "id": "65b4c4c7a04fab078c5d",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.scmp.com/business/markets/article/3375424/new-19-month-low-hong-kong-stocks-plunge-ai-sell-spreads-asia",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "464a7f3f3fddab3ba6ab"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Hang Seng Tech Index AI sell-off",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "f387c92336a16eccf90b",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-23/ing-s-sareen-asia-ai-chip-demand-unlikely-to-crash-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "13a3092cc2d9a0b611a2"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "5cb9cb2122b24b1fd13e",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-23/us-ai-chip-curbs-test-southeast-asia-data-center-boom-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "d20c7be7b3e096099768"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "e46228942499aea7f569",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-23/how-to-find-value-as-the-ai-trade-unravels-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "bf4466ac36a92ae65770"
       ],
       "split_coverage_ids": []
     }
