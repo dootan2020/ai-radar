@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-23T05:11:32.276105+00:00",
-  "input_generated_at": "2026-11-23T04:47:07Z",
+  "generated_at": "2026-11-23T07:04:59.973385+00:00",
+  "input_generated_at": "2026-11-23T06:46:27Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -122218,6 +122218,113 @@
       "key_points": [],
       "same_event_coverage_ids": [
         "bf4466ac36a92ae65770"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "3a938227f137373e7ce2",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-23/how-trump-s-ai-chip-crackdown-may-hit-southeast-asia-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "6cd49ca746c17a3d7083"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "7f7e8d0f678c5d3c9b98",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://en.yna.co.kr/view/AEN20261123006500320",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "a6e4d12ffb2b36aa331f",
+        "f0cd029a4dae96e2afff"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Seoul stock market plunge on AI jitters",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "70946a413a363b2e28a2",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-23/what-s-next-for-ai-trade-asia-tech-stocks-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "5fcb99cfd142a87f67ea"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "232b84ea5fabefc2b16a",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-23/defense-ai-startup-agon-raises-70-million-series-a-from-vcs-ex-sequoia-boss",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "26b42a038c8b8e1ced77"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "700fec912ee0000ad018",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The main subject is the broader UK macroeconomic outlook; AI adoption is only mentioned in passing as one of several factors for optimism.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-23/the-bull-case-for-britain-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "3aca3f77b9bc8dc9502b"
       ],
       "split_coverage_ids": []
     }
