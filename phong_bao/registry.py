@@ -69,6 +69,8 @@ def available(tool, discovery):
     method, name = next(iter(tool["detect"].items()))
     if name not in discovery.get({"command": "commands", "mcp_server": "mcp_servers", "env_key": "key_names", "file": "files"}[method], []):
         return False
+    if tool["kind"] == "paid-api" and not discovery.get("paid_ready", False):
+        return False
     status = fuel_status(tool, discovery)
     # Claude shares the coordinator's pool, so use it only when measured below
     # reserve. Codex and Gemini have separate pools; unknown fuel does not prove

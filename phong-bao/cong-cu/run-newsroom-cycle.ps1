@@ -65,6 +65,19 @@ $repo = (Resolve-Path -LiteralPath (Join-Path $PSScriptRoot '..\..')).Path
 $python = (Get-Command python.exe -ErrorAction Stop).Source
 $remote = (& git -C $repo remote get-url origin)
 if ($LASTEXITCODE -ne 0 -or -not $remote) { throw 'Cannot resolve origin remote.' }
+$env:RADAR_GEMINI_PAID_REMOTE = $remote
+$keyPath = Join-Path ([Environment]::GetFolderPath('UserProfile')) '.halcyon-gemini-key'
+try {
+    if (Test-Path -LiteralPath $keyPath -PathType Leaf) {
+        $keyValue = [IO.File]::ReadAllText($keyPath).Trim()
+        if ($keyValue) { $env:GEMINI_API_KEY = $keyValue }
+    }
+} catch {
+    Remove-Item Env:GEMINI_API_KEY -ErrorAction SilentlyContinue
+    Write-Warning 'Gemini key file unavailable; paid checker disabled.'
+} finally {
+    Remove-Variable keyValue -ErrorAction SilentlyContinue
+}
 
 $temporaryRoot = [IO.Path]::GetFullPath([IO.Path]::GetTempPath())
 $clone = Join-Path $temporaryRoot ("newsroom-decisions-{0}" -f [guid]::NewGuid().ToString('N'))
