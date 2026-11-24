@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-24T21:47:00.173875+00:00",
-  "input_generated_at": "2026-11-24T20:47:07Z",
+  "generated_at": "2026-11-24T23:41:23.509569+00:00",
+  "input_generated_at": "2026-11-24T22:46:47Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -135820,9 +135820,10 @@
       "use_original_title": false,
       "source_url": "https://simonwillison.net/2026/Nov/24/astra-historical-mystery/",
       "key_points": [
-        "Mô hình GPT-6.2 Astra xác định tác giả cuốn sổ phác thảo năm 1808 vô danh tại Thư viện Beinecke chỉ sau 22 phút với gợi ý tối thiểu, theo giáo sư Mark Humphries.",
-        "Astra tìm ra nguồn tư liệu ít người biết trong kho lưu trữ giấy và dự đoán tài liệu này chứng minh được giả thuyết. Hệ thống tìm thấy nhật ký về chuyến thăm của tử tước de Chabot và đề xuất kiểm tra tập du ký tại Đại học Bang Cleveland.",
-        "Khủng hoảng niềm tin của giới sử học sẽ bớt trầm trọng hơn so với toán học theo đánh giá của giáo sư Humphries. Theo ông, ngành này liên tục tái diễn giải quá khứ và tính nhân văn vẫn là yêu cầu bắt buộc của văn học lịch sử."
+        "GPT-6.2 Astra tự xác định tác giả cuốn sổ phác thảo năm 1808 tại Thư viện Beinecke sau 22 phút với gợi ý tối thiểu, theo giáo sư Mark Humphries.",
+        "Theo Simon Willison, Astra thấy nhật ký nhắc chuyến thăm của tử tước de Chabot năm ngày trước mốc ghi bên sông trong cuốn sổ. Tập du ký của Chabot tại Đại học Bang Cleveland do hệ thống gợi ý đã chứng minh đúng giả thuyết, theo giáo sư Humphries.",
+        "Nguồn tư liệu này tự thân là phát hiện lớn có ý nghĩa quan trọng với giới sử học Canada và thương mại lông thú, theo giáo sư Humphries.",
+        "Ông nhận định các sử gia liên tục tái diễn giải quá khứ và tính nhân văn phần nào là yêu cầu của văn học lịch sử."
       ],
       "same_event_coverage_ids": [
         "096fba8235b01d38f4e9"
@@ -135839,7 +135840,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "GPT-6.2 Astra chỉ mất 22 phút để xác định tác giả cuốn sổ phác thảo năm 1808 tại Thư viện Beinecke",
+      "editorial_headline_vi": "GPT-6.2 Astra tự tìm tác giả cuốn sổ phác thảo năm 1808 tại Thư viện Beinecke sau 22 phút với gợi ý tối thiểu",
       "summary_sources": [
         {
           "id": "outlet",
@@ -135852,30 +135853,24 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 7.85,
+        "value": 9.35,
         "answers": {
-          "what": 10,
-          "why": 6,
-          "notable": 7,
-          "meaning": 7
+          "what": 9,
+          "why": 10,
+          "notable": 10,
+          "meaning": 8
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "tìm thấy nhật ký về chuyến thăm của tử tước de Chabot",
-            "explanation": "Astra found a diary reference to Chabot's visit. Chabot's travel journal was a separate source it suggested examining (outlet:p005)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "why",
-            "problem": "Readers do not learn the evidence that connected Chabot to the sketchbook or that the proposed source confirmed the hypothesis.",
-            "fix": "Include the diary reference five days before a sketchbook date at a nearby river, and state that the subsequent source proved the hypothesis (outlet:p003, outlet:p005)."
+            "question": "what",
+            "problem": "The reader must infer who created the sketchbook.",
+            "fix": "State directly that the evidence identified the vicomte de Chabot as its creator (outlet:p005)."
           },
           {
-            "question": "notable",
-            "problem": "The Vietnamese misses why the archival discovery matters beyond identifying an author.",
-            "fix": "Add that the newly found source is itself significant to Canadian and fur-trade historians (outlet:p003)."
+            "question": "meaning",
+            "problem": "The summary leaves out Humphries’s forecast about how historians may respond to agentic systems.",
+            "fix": "Add that he anticipates a crisis of confidence next spring or summer, likely milder than the one he expects for mathematics (outlet:p007)."
           }
         ],
         "writer_boats": [
@@ -135883,8 +135878,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "f7d77bfece471eb1f23360877af1c52a26fc66158911d262570c731633ee0f0f",
-        "scored_at": "2026-11-24T19:32:16.904201+00:00"
+        "prose_sha256": "1cfb10760e02a96ce0a9de607bfd55943768eb618f161ad250b07c290b4c0f1e",
+        "scored_at": "2026-11-24T23:41:23.485972+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
@@ -136981,6 +136976,847 @@
         "8e9990e0c8b8bfab59a3"
       ],
       "split_coverage_ids": []
+    },
+    {
+      "id": "165f895b26a05d965533",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-24/ai-pullback-raises-the-cost-of-data-center-financing-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b3bd703fa30fa72f4027"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "80156518ab0f8c341fd1",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The commentary primarily focuses on macroeconomic equities and Federal Reserve policy, mentioning AI only in passing.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-24/defensive-assets-are-springing-to-life-emily-roland-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "dc00775ee14114dc527d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "8d4342f12f36aa96b8e1",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/24/2026/anthropic-shares-plunge-as-ai-trade-wobbles",
+      "key_points": [
+        "Theo Semafor, cổ phiếu Anthropic giảm hơn 6% xuống dưới giá IPO (chào bán cổ phiếu lần đầu) 83 USD vào ngày thứ Ba lần đầu tiên.",
+        "Semafor cho biết nỗi lo ngại về AI quay lại khi đợt lạc quan hạ nhiệt xung quanh việc ông Jensen Huang trở lại làm CEO Nvidia.",
+        "Phóng viên Carmen Reinicke của Bloomberg chỉ ra đợt giảm giá này đã xóa sạch lợi nhuận của nhà đầu tư mua vào tuần trước trong đợt ra mắt kỷ lục.",
+        "Một nhà phân tích chia sẻ với Financial Times rằng đà phục hồi có thể bị hạn chế vì các điều kiện nền tảng không đổi của làn sóng AI. Semafor cũng nhận định sự trở lại của ông Huang khó có thể giải quyết triệt để tâm lý tiêu cực gần đây."
+      ],
+      "same_event_coverage_ids": [
+        "7069cbc3d38f2069bda2",
+        "b379a90e2061fa3b12fd"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Anthropic share price drop",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Jensen Huang"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Cổ phiếu Anthropic lần đầu giảm xuống dưới giá IPO 83 USD khi sự lạc quan về Nvidia hạ nhiệt",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/24/2026/anthropic-shares-plunge-as-ai-trade-wobbles"
+        },
+        {
+          "id": "coverage1",
+          "role": "coverage",
+          "name": "bloomberg",
+          "url": "https://www.bloomberg.com/news/videos/2026-11-24/anthropic-shares-fall-below-ipo-price-of-83-video"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.6,
+        "answers": {
+          "what": 10,
+          "why": 8,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "65f599bef58d592bf88c04966da9a8dd94564455f917cc057dc5bba35fb378f5",
+        "scored_at": "2026-11-24T23:23:50.485402+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "8829fadd271a2e776164",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.governor.ny.gov/news/consumers-begin-their-holiday-shopping-season-governor-hochul-signs-five-year-ban-ai-chatbot",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "7f59d30cca044da8e66e"
+      ],
+      "split_coverage_ids": [],
+      "subject": "New York five-year ban on AI toys",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Kathy Hochul"
+        ],
+        "availability": "region_locked:New York",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "171b94fafc685f0bbe01",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/24/in-all-hands-meeting-jensen-huang-thanks-white-house-and-says-hes-in-therapy/",
+      "key_points": [
+        "Ông Jensen Huang đã tổ chức cuộc họp toàn thể đầu tiên của Nvidia vào hôm thứ Ba kể từ khi được phục chức làm CEO (giám đốc điều hành) vào hôm thứ Hai. Theo kênh CNBC, ông Huang mang giọng điệu hối lỗi và nói trước toàn thể nhân viên rằng bản thân đã làm tổn thương tất cả mọi người.",
+        "TechCrunch giải thích cuộc họp diễn ra vì nhà sáng lập Nvidia muốn nhân viên biết ông đã thay đổi sau biến cố khiến cuộc sống cá nhân sụp đổ rồi dần hồi phục.",
+        "Tại cuộc họp, vị CEO thừa nhận vi phạm quy tắc ứng xử do chính mình phần lớn đặt ra, đồng thời cho biết đang trị liệu tâm lý và biết ơn vì có cơ hội thứ hai. Báo The Wall Street Journal đưa tin ông Huang cảm ơn chính quyền vì cung cấp cho Nvidia quyền tiếp cận nhanh chóng thông tin tình báo, điều ông cho biết đã giúp hội đồng quản trị xác định rủi ro an ninh quốc gia ở mức thấp khi phục chức cho mình.",
+        "Theo TechCrunch, ông Huang có thể sẽ cần sự hỗ trợ từ chính quyền khi đối mặt làn sóng giám sát sắp tới từ quốc hội do đảng Dân chủ dẫn dắt. Vị CEO dự kiến phải điều trần công khai trước Ủy ban Ngân hàng Thượng viện vào tuần tới, cùng nhiều phiên điều trần kín của Hạ viện."
+      ],
+      "same_event_coverage_ids": [
+        "def0e974777afb764082",
+        "fc2242fbbac087ef2f21"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Jensen Huang Nvidia all-hands meeting",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Jensen Huang"
+        ],
+        "availability": "global",
+        "is_leak": true
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "CEO Nvidia thừa nhận vi phạm quy tắc, chia sẻ đang trị liệu tâm lý và cảm ơn Nhà Trắng",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/24/in-all-hands-meeting-jensen-huang-thanks-white-house-and-says-hes-in-therapy/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "Readers do not learn whether Huang’s admission changes Nvidia’s code of conduct.",
+            "fix": "Add that Huang said the code remains in effect and that mitigating circumstances matter when someone violates it (outlet:p010)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "ea325594f6d2f79b924e3cf302a69818f027cf485237ed5e1a8ce9550d82185c",
+        "scored_at": "2026-11-24T23:28:41.935017+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "35ca35b2f979b8845200",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.youtube.com/watch?v=Em6tbhj9o6A",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "e313854cc8fe4b9f068e"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Recursive self-improvement in AI",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Cindy Wu"
+        ],
+        "availability": "global",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "86266e890e18a6d47c92",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/24/even-the-best-ai-agents-struggle-with-everyday-life/",
+      "key_points": [
+        "Theo bài kiểm tra ShellBench (bộ tiêu chuẩn đánh giá tác vụ thường nhật), các mô hình AI tiên tiến nhất đã thất bại hơn một phần ba số lần thử nghiệm khi thực hiện việc hàng ngày. Trên tất cả mô hình được thử nghiệm, 15,7% lượt chạy đã vi phạm ít nhất một yêu cầu về an toàn.",
+        "Bộ tiêu chuẩn này được xây dựng từ hơn 10 triệu lượt tương tác thực tế ẩn danh để đánh giá tác tử AI (trợ lý trí tuệ nhân tạo tự hành).",
+        "Về kết quả so sánh, mô hình Muse Wonder Full của Meta đạt tỷ lệ hoàn thành tác vụ 56% trong khung điều khiển Pi nhưng chỉ đạt 38,1% trong Claude Code. Trong khi đó, mô hình Muse Wonder 1.0 của Meta đạt tỷ lệ thành công trung bình 39,7% trên cả năm khung điều khiển được thử nghiệm.",
+        "TechCrunch lưu ý kết quả này có thể không đại diện cho trải nghiệm người dùng thực tế do mô hình chưa được đánh giá trong khung phần mềm gốc của Muse, Dots hay Claude Duet. Dù vậy, trang tin nhận định luôn có rủi ro là trợ lý tự hành sẽ gây thêm rắc rối trong quá trình thực hiện một yêu cầu thông thường."
+      ],
+      "same_event_coverage_ids": [
+        "45384273a6255080e2ef"
+      ],
+      "split_coverage_ids": [],
+      "subject": "ShellBench AI agent benchmark release",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Thử nghiệm ShellBench cho thấy mô hình AI hàng đầu thất bại hơn một phần ba tác vụ đời sống",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/24/even-the-best-ai-agents-struggle-with-everyday-life/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.4,
+        "answers": {
+          "what": 10,
+          "why": 2,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "Readers see the failure rates without the source’s explanation of what makes everyday tasks difficult.",
+            "fix": "Explain that agents must sort through unreliable personal data, outdated information, and phishing attempts while deciding what is relevant and private (outlet:p011)."
+          },
+          {
+            "question": "notable",
+            "problem": "The harness comparison does not show the source’s separate finding that repeated identical tasks produced inconsistent results.",
+            "fix": "Add that the highest-scoring model completed all three identical runs less than half the time (outlet:p012)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "4992bd2ee4551958de031710a1ca3213f83998f13baec195e1eda83fef6cdcab",
+        "scored_at": "2026-11-24T23:28:41.935066+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "5edc970ed59b587c1ee8",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/24/walmart-teams-up-with-meta-to-bring-black-friday-deals-to-ai-agent-muse/",
+      "key_points": [
+        "Theo TechCrunch, Walmart hợp tác với Meta cho phép người dùng mua sắm ưu đãi Black Friday qua tác tử AI Muse (phần mềm trí tuệ nhân tạo tự động thực hiện tác vụ). Khách hàng có thể yêu cầu trợ lý Muse tìm kiếm sản phẩm, so sánh giá cả và đặt mua mà không cần trực tiếp duyệt qua trang web của Walmart.",
+        "Trải nghiệm này vận hành trên hệ thống Agent Gateway của Walmart, hỗ trợ các trợ lý AI bên ngoài kết nối thẳng vào cửa hàng trực tuyến của hãng. Cổng kết nối ra mắt từ tháng 10 và Walmart dự tính mở rộng thêm cho nhiều nhà phát triển cùng các nền tảng AI khác.",
+        "Đầu tiên, người dùng đăng nhập tài khoản Walmart trên Muse để mua sắm và yêu cầu trợ lý tìm ưu đãi hay lập giỏ hàng. Walmart cho biết hãng thiết lập cơ chế bảo vệ quyền riêng tư, khi Muse không được xem lịch sử mua sắm cá nhân và người mua có quyền duyệt trước đơn hàng.",
+        "TechCrunch nhận định sự kiện thể hiện khác biệt chiến lược giữa Walmart và Amazon về mua sắm AI, khi Amazon chủ động ngăn chặn các tác tử bên thứ ba thực hiện giao dịch cho khách."
+      ],
+      "same_event_coverage_ids": [
+        "5f08af041a807cb35829",
+        "a5f7be62e986465edd7f"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Walmart and Meta Muse AI shopping partnership",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Walmart hợp tác cùng Meta cho phép khách hàng mua sắm ưu đãi Black Friday qua tác tử AI Muse",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/24/walmart-teams-up-with-meta-to-bring-black-friday-deals-to-ai-agent-muse/"
+        },
+        {
+          "id": "coverage1",
+          "role": "coverage",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1039874/walmart-agent-gateway-meta-muse-black-friday"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "4e1e802832d70a872dcbe9e7b21495c61a668a4710157566929be123511b9fb8",
+        "scored_at": "2026-11-24T23:23:50.485542+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "e98a659da7c28359fa74",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-24/dell-ups-annual-sales-forecast-again-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "dbf4dd234ef7a326d71f"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "d634ae3a89fe094caa02",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-24/paul-krugman-weighs-in-on-ai-boom-and-nvidia-s-huang-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "8f533697247c8d0450a3"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "977f9f016cc6ca5bd411",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/24/maple-raises-5-3m-to-build-ai-products-that-protect-your-data-even-from-itself/",
+      "key_points": [
+        "Theo TechCrunch, startup Maple vừa huy động 5,3 triệu USD vòng hạt giống do EPIC Ventures dẫn đầu nhằm phát triển ứng dụng AI bảo vệ dữ liệu người dùng. Số tiền này sẽ dùng để phát triển tác tử AI (phần mềm tự động thao tác) đám mây có thể chạy ngầm khi máy tính tắt.",
+        "Tổng giám đốc Mark Suman cho biết công ty muốn tạo ra giải pháp AI bảo mật có thể kiểm chứng được, cho phép người dùng tự kiểm tra mã nguồn và máy chủ.",
+        "Ông Suman giải thích dữ liệu được mã hóa trên thiết bị bằng mật khẩu riêng của người dùng trước khi gửi vào TEE (môi trường thực thi tin cậy với phần cứng mã hóa) để xử lý. Hệ thống sẽ mã hóa lại kết quả trước khi gửi trả, khiến Maple không thể đọc dữ liệu thô của khách hàng.",
+        "TechCrunch nhận định Maple đang nỗ lực xây dựng mô hình AI không thể tiếp cận dữ liệu người dùng ngay từ đầu. Dù tuyên bố tăng trưởng 60 lần trong ba tháng qua, Maple từ chối công bố lượng khách hàng đăng ký thực tế."
+      ],
+      "same_event_coverage_ids": [
+        "86041290ff39223b797f"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Maple $5.3M funding round",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Mark Suman"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Startup Maple huy động 5,3 triệu USD phát triển ứng dụng AI bảo vệ dữ liệu người dùng",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/24/maple-raises-5-3m-to-build-ai-products-that-protect-your-data-even-from-itself/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.45,
+        "answers": {
+          "what": 10,
+          "why": 8,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "d1bf9ce950e436de1887441d633233919c0ce9e47aec6e33cef0d4fb88ffaefe",
+        "scored_at": "2026-11-24T23:23:50.485564+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "c60c9df5caea902a1baa",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-24/economy-shouldn-t-depend-on-nvidia-s-huang-krugman-says-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "a695a579781b43fe91c6"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "876a9401cf7de5589816",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-24/dell-ups-annual-sales-forecast-again-on-rising-ai-server-demand",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "a3011735ec36e1317edf"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "a790f04ba0eb55a39b06",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.youtube.com/watch?v=K42jlW-THdo",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b8f032013ae5018761d9"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Paul Christiano on accelerating AI progress",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Paul Christiano"
+        ],
+        "availability": "global",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "f13f50765ddb35d9b0c1",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Founder product pitch and demo on Hacker News without independent reporting or a substantive software release.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://news.ycombinator.com/item?id=50634426",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b9578f9be2b4d11af4f8"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "ac64a3fde082e22a8cc6",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Casual forum discussion thread on Hacker News sharing personal impressions without reporting or news substance.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://news.ycombinator.com/item?id=50633601",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "6d15bb66b164a0433d17"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "739ddba092d44fb2b482",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/tech/1041571/jensen-huang-all-hands-nvidia-apology",
+      "key_points": [
+        "Nvidia CEO Jensen Huang apologized to staff during an all-hands meeting following his reinstatement.",
+        "Huang denied claims that President Donald Trump was directly involved in his reinstatement, calling them completely untrue.",
+        "Huang asserted that politics did not play a role at Nvidia, describing it as the most apolitical company."
+      ],
+      "same_event_coverage_ids": [
+        "5766bad39bf535138761",
+        "dc64c9cac23487150863"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Nvidia",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Jensen Huang",
+          "Donald Trump",
+          "Marisa Kabas"
+        ],
+        "availability": "unknown",
+        "is_leak": true
+      }
+    },
+    {
+      "id": "ac2f786b30f6d45772c4",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://openai.com/index/gpt-6-models-demonstrate-intrinsic-protein-design-capabilities",
+      "key_points": [
+        "OpenAI công bố dòng mô hình GPT-6 có khả năng tự thiết kế cấu trúc và chuỗi protein bằng suy luận cùng mã lập trình mà không cần mô hình chuyên biệt. Mô hình nội bộ của hãng đạt hiệu năng tương đương hoặc vượt trội các công cụ chuyên dụng trên nhiều tác vụ.",
+        "Theo OpenAI, hệ thống vận dụng kiến thức toán học, vật lý, hóa học và sinh học khi suy luận cấu trúc phân tử. Nhà nghiên cứu định hướng thiết kế thông qua câu lệnh văn bản mô tả vị trí gắn kết.",
+        "35 mẫu thiết kế gắn kết thành công với protein mục tiêu trên 322 protein thử nghiệm ở phòng lab, đạt tỷ lệ 10,9%. Thử nghiệm cùng Onava ghi nhận phản ứng trên 5 đích sinh học, gồm 5 mẫu gắn với PD-L1 và 18 mẫu với IL-17A.",
+        "OpenAI lưu ý kết quả chưa khẳng định khả năng tạo protein độc lập hoàn toàn do vẫn dựa vào các mô hình chuyên biệt như Boltz-2, OpenDDE và ESMFold2 để lọc ứng viên. Hãng cũng nhận định phản ứng gắn kết mới là bước đầu, chưa đủ xác thực độ ổn định, hoạt tính sinh học hay tính an toàn trị liệu."
+      ],
+      "same_event_coverage_ids": [
+        "4b19a180e8cfc60a79b6",
+        "8d43fd51d044a3b9ab0f"
+      ],
+      "split_coverage_ids": [],
+      "subject": "OpenAI",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "35 mẫu protein do GPT-6 tự thiết kế đạt phản ứng gắn kết mục tiêu trong thử nghiệm của OpenAI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "openai",
+          "url": "https://openai.com/index/gpt-6-models-demonstrate-intrinsic-protein-design-capabilities"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.7,
+        "answers": {
+          "what": 8,
+          "why": 7,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "35 mẫu protein do GPT-6 tự thiết kế",
+            "explanation": "The lab-tested proteins were based on GPT-6.2 designs; specialized models also helped supply sequences and select candidates. The source does not establish that GPT-6 produced those proteins independently end to end (outlet:p009, outlet:p076)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "hệ thống vận dụng kiến thức toán học, vật lý, hóa học và sinh học",
+            "explanation": "OpenAI says the models' written reasoning and code suggest they draw on this knowledge; it does not present that mechanism as established (outlet:p010)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The headline implies the 35 lab-tested proteins were designed entirely by GPT-6.",
+            "fix": "Describe them as proteins based on GPT-6.2 designs that tested positive for binding, and retain the specialized-model qualification (outlet:p009, outlet:p027, outlet:p076)."
+          },
+          {
+            "question": "why",
+            "problem": "The account of how the models reason removes OpenAI's uncertainty.",
+            "fix": "Say their reasoning and code suggest use of mathematical, physical, chemical, and biological knowledge (outlet:p010)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "3de1e16d5f247e31ae81b0804cd6fa0d22fd466a7e252f90b94f9a873e1f2da0",
+        "scored_at": "2026-11-24T23:23:50.485588+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "2001d309ea8f126bfee1",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/ai-artificial-intelligence/1040652/jensen-huang-nvidia-trump-reinstated",
+      "key_points": [
+        "Jensen Huang được phục chức CEO Nvidia sau khi ông Donald Trump tuyên bố đã can thiệp trực tiếp và gián tiếp vào hội đồng quản trị. Theo The Verge, quyết định này đi ngược lại tuyên bố trước đó của ban lãnh đạo Nvidia rằng họ không có ý định phục chức cho ông.",
+        "Cần bảo vệ những người kiệt xuất là lý do ông Donald Trump đưa ra, khẳng định nước Mỹ không có đủ người tài như Jensen Huang. Hội đồng quản trị Nvidia tuyên bố tự tin quyết định này không gây rủi ro an ninh sau khi nhận ý kiến từ chính phủ Mỹ.",
+        "Giao dịch hợp đồng tương lai NASDAQ-100 tạm ngừng sau khi đà tăng vọt chạm giới hạn ngắt mạch vì biến động giá theo The Verge. Ông Donald Trump cũng tuyên bố trên đài CNBC rằng chính ông là người đã tạo nên thỏa thuận phục chức này.",
+        "Nvidia sẽ tuyển giám đốc tuân thủ mới để giám sát việc tuân thủ trên toàn công ty theo thông báo từ hội đồng quản trị. Tuy nhiên, Chủ tịch Ủy ban Tình báo Thượng viện Tom Cotton nhấn mạnh tranh cãi với Nvidia chỉ là phần nổi của tảng băng chìm và chưa thể khép lại."
+      ],
+      "same_event_coverage_ids": [
+        "9a91beb7e1962a518eb9",
+        "b1c72c52936b6a23b8f7",
+        "d8634db5e2b8e08be516"
+      ],
+      "split_coverage_ids": [
+        "8f52a27d2b09359fb067"
+      ],
+      "subject": "Nvidia",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Jensen Huang",
+          "Donald Trump",
+          "Stephen A. Smith",
+          "Tim Cook"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Jensen Huang trở lại làm CEO Nvidia sau can thiệp của ông Trump nhưng vẫn bị Quốc hội điều tra",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1040652/jensen-huang-nvidia-trump-reinstated"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.15,
+        "answers": {
+          "what": 9,
+          "why": 9,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "Readers may not realize that Nvidia’s own investigation continues despite the reinstatement.",
+            "fix": "Add the board’s statement that its independent investigation concerning Huang and foreign intelligence would proceed to completion with his cooperation (outlet:p038)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "c6f06008d7888f0680dead0ac5e62c90c5880aef8450f126b957d115cda5649e",
+        "scored_at": "2026-11-24T23:28:41.935151+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
     }
   ]
 }
