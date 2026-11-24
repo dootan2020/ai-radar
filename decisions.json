@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-23T21:25:57.926314+00:00",
-  "input_generated_at": "2026-11-23T19:46:37Z",
+  "generated_at": "2026-11-24T00:11:38.069328+00:00",
+  "input_generated_at": "2026-11-23T22:46:42Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -123737,10 +123737,10 @@
       "use_original_title": false,
       "source_url": "https://www.theverge.com/gadgets/1040357/nothing-ear-note-earbuds-ai-recording",
       "key_points": [
-        "Nothing chuẩn bị ra mắt Ear Note vào ngày 8 tháng 12, mẫu tai nghe kèm hộp sạc có micro giúp ghi âm và phiên âm hội thoại bằng AI. Giám đốc điều hành Carl Pei đã trình diễn thiết bị trước Bloomberg nhưng cho biết công ty chưa chốt giá bán.",
-        "Về lý do thiết kế, ông Carl Pei chia sẻ trên mạng xã hội X rằng thay vì bắt người dùng mang đồ mới, hãng muốn biến vật dụng quen thuộc trở nên thông minh.",
-        "Theo Bloomberg, Ear Note sẽ hỗ trợ tương tác với nhiều trợ lý AI (tác tử phần mềm tự hành), gồm hệ thống giọng nói cơ bản của Nothing để trò chuyện hai chiều. Thiết bị còn trang bị nút Talk trên hộp sạc để ghi âm và đi kèm ứng dụng quản lý tóm tắt.",
-        "Ông Carl Pei nhận định đây là bước đầu xây dựng tầng ngữ cảnh phần cứng cho AI, dù báo cáo cho biết Nothing đã hoãn kế hoạch làm kính và đồng hồ thông minh."
+        "Nothing đang chuẩn bị ra mắt tai nghe Ear Note tích hợp AI vào ngày 8 tháng 12 tới. Giám đốc điều hành Carl Pei đã trình diễn sản phẩm trước Bloomberg nhưng cho biết công ty chưa chốt giá bán.",
+        "Về lý do thiết kế, ông Carl Pei chia sẻ trên mạng xã hội X rằng thay vì bắt người dùng mang đồ mới, hãng muốn biến vật dụng quen thuộc họ đã tin dùng trở nên thông minh.",
+        "Ear Note có thể ghi âm và phiên âm hội thoại qua tai nghe cùng hộp sạc có gắn micro, đi kèm ứng dụng quản lý bản ghi âm, văn bản phiên âm và phần tóm tắt do AI tạo. Theo Bloomberg, thiết bị hỗ trợ đàm thoại với các tác tử AI (hệ thống phần mềm AI tương tác) và có nút Talk trên hộp sạc để tự ghi âm.",
+        "Ông Carl Pei nhận định thiết bị này mở đầu cho việc xây dựng tầng ngữ cảnh phần cứng cho AI. Tuy nhiên, báo cáo cũng lưu ý kế hoạch làm kính và đồng hồ thông minh AI của Nothing đã bị hoãn."
       ],
       "same_event_coverage_ids": [
         "083006df4d5ec5fcd7e3",
@@ -123757,7 +123757,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Nothing ra mắt tai nghe Ear Note tích hợp AI ghi âm và phiên âm từ hộp sạc",
+      "editorial_headline_vi": "Nothing chuẩn bị ra mắt tai nghe Ear Note tích hợp AI ghi âm vào ngày 8 tháng 12",
       "summary_sources": [
         {
           "id": "outlet",
@@ -123770,49 +123770,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 7.8,
+        "value": 10.0,
         "answers": {
-          "what": 6,
-          "why": 9,
-          "notable": 8,
+          "what": 10,
+          "why": 10,
+          "notable": 10,
           "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "Nothing ra mắt tai nghe Ear Note",
-            "explanation": "Ear Note was upcoming, with a launch planned for December 8; the source does not say it had launched (outlet:p015)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "tác tử phần mềm tự hành",
-            "explanation": "The source says the earbuds will support interactions with various AI agents, but does not describe those agents as autonomous (outlet:p017)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "what",
-            "problem": "The headline tells the reader Ear Note has launched, contradicting the planned launch described in the body.",
-            "fix": "Say Nothing is preparing to launch Ear Note on December 8 (outlet:p015)."
-          },
-          {
-            "question": "notable",
-            "problem": "The reader may think recording depends on the case microphone.",
-            "fix": "Specify that microphones in both the earbuds and charging case can record audio (outlet:p015)."
-          },
-          {
-            "question": "notable",
-            "problem": "The app’s role is reduced to managing summaries.",
-            "fix": "Say it manages recordings, transcriptions and AI-generated summaries (outlet:p015)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "f6c686a22b5c082d89695d530fc687219391351a9c355fdafb4163732962e196",
-        "scored_at": "2026-11-23T21:25:57.836259+00:00"
+        "prose_sha256": "6917d1655d900e84fbbf7e12e63e072b768bec58096ecf925b4e8c9f7d2cba21",
+        "scored_at": "2026-11-24T00:11:38.040423+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
@@ -123853,10 +123826,10 @@
       "use_original_title": false,
       "source_url": "https://www.semafor.com/article/11/23/2026/some-irony-in-anthropic-payday-to-the-gulf",
       "key_points": [
-        "Các nhà đầu tư vùng Vịnh chuẩn bị thu về hàng chục tỷ USD từ đợt IPO (phát hành cổ phiếu lần đầu ra công chúng) kỷ lục của Anthropic. Theo tổ chức Global SWF, tổng số cổ phần của họ ước đạt 100 tỷ USD sau khi giá cổ phiếu chốt ở mức 83 USD.",
-        "Về nguyên nhân tiếp nhận dòng tiền, CEO Dario Amodei từng thừa nhận công ty sẽ khó giữ vị thế công nghệ dẫn đầu nếu thiếu vốn từ vùng Vịnh.",
-        "Theo Bloomberg, quỹ MGX của Abu Dhabi đạt mức lãi chưa thực hiện khoảng 20 tỷ USD, trong khi tỷ phú Hussain Sajwani sở hữu cổ phần cá nhân ước tính 3 tỷ USD.",
-        "Semafor nhận định khoản lời tỷ USD trái ngược với sự dè dặt ban đầu của CEO Dario Amodei khi chuẩn bị nhận tiền từ khu vực này hơn một năm trước."
+        "Một số nhà đầu tư lớn nhất vùng Vịnh có thể thu lợi hàng tỷ USD từ đợt IPO (phát hành cổ phiếu lần đầu) của Anthropic. Theo đơn vị theo dõi Global SWF, tổng số cổ phần của nhóm này ước đạt 100 tỷ USD với giá cổ phiếu 83 USD.",
+        "Giải thích lý do nhận vốn, CEO Dario Amodei từng nhận định Anthropic sẽ khó giữ vị thế công nghệ dẫn đầu hơn đáng kể nếu thiếu nguồn tài chính từ vùng Vịnh.",
+        "Theo Bloomberg, đơn vị MGX của Abu Dhabi ghi nhận khoản lãi chưa thực hiện khoảng 20 tỷ USD.",
+        "Semafor nhận định mức sinh lời tiềm năng này mang tính trớ trêu, sau khi CEO Dario Amodei từng bày tỏ sự dè dặt lúc chuẩn bị nhận tiền hơn một năm trước."
       ],
       "same_event_coverage_ids": [
         "8a12abfb46be880677a2"
@@ -123874,7 +123847,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Nhà đầu tư vùng Vịnh nắm cổ phần 100 tỷ USD trong đợt IPO kỷ lục của Anthropic",
+      "editorial_headline_vi": "Nhà đầu tư vùng Vịnh có thể lãi lớn khi cổ phần tại Anthropic ước đạt 100 tỷ USD",
       "summary_sources": [
         {
           "id": "outlet",
@@ -123887,39 +123860,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.3,
+        "value": 9.5,
         "answers": {
-          "what": 7,
-          "why": 9,
+          "what": 9,
+          "why": 10,
           "notable": 10,
-          "meaning": 7
+          "meaning": 9
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "chuẩn bị thu về hàng chục tỷ USD",
-            "explanation": "The source describes potential gains and specifically calls MGX’s roughly $20 billion gain unrealized; it does not report an imminent cash payout (outlet:p001–p002)."
-          },
-          {
-            "kind": "role",
-            "summary_text": "quỹ MGX",
-            "explanation": "The supplied source identifies MGX as Abu Dhabi’s MGX but does not identify it as a fund (outlet:p002)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "what",
-            "problem": "The opening can make the reader believe the investors are about to receive cash from their holdings.",
-            "fix": "Describe the gains as potential, and retain the source’s explicit 'unrealized' condition for MGX (outlet:p001–p002)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "feedff39c69625624d97cb58f632f0c5c7694978388b530867d1aed1918a539d",
-        "scored_at": "2026-11-23T21:25:57.836484+00:00"
+        "prose_sha256": "4abbd7da5dc046c6791d678170095f3e4ce95fddba6cf2ac2c1de8c96293e70c",
+        "scored_at": "2026-11-24T00:11:38.040478+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
@@ -123942,10 +123898,10 @@
       "use_original_title": false,
       "source_url": "https://www.404media.co/google-wants-to-make-a-24-7-ai-tv-channel-youll-be-the-main-character/",
       "key_points": [
-        "Google đã nộp bằng sáng chế kênh truyền hình AI biến người dùng thành nhân vật chính trong các chương trình được cá nhân hóa. Bằng sáng chế này được trang tin chuyên theo dõi công nghệ Patentlyze phát hiện đầu tiên trước khi chia sẻ lại.",
-        "Tài liệu mô tả hệ thống vận hành qua việc thu thập dữ liệu nhân khẩu học, lịch sử xem video cùng hồ sơ cá nhân và cung cấp cho mô hình trí tuệ nhân tạo tạo sinh video. Kênh phát sóng liên kết với máy chủ tiếp thị, tự động chèn các mẩu quảng cáo tùy biến vào luồng nội dung.",
-        "Bằng sáng chế đưa ra ví dụ về các bộ phim hài lãng mạn, phiêu lưu khoa học viễn tưởng hay hành động có người xem thủ vai chính. Một ví dụ khác mô tả khán giả xem bóng gậy sẽ thấy video trận chung kết thế giới với hình ảnh chính mình đứng cổ vũ trên khán đài.",
-        "Tác giả trên 404 Media cảnh báo nguy cơ cô lập khi mỗi người sống trong thực tại riêng và xem nội dung tùy biến, khiến trải nghiệm truyền thông chung biến mất. Dù vậy, bài báo lưu ý các tập đoàn công nghệ thường xuyên nộp bằng sáng chế mà không đưa vào sản phẩm thực tế."
+        "Google đã nộp bằng sáng chế kênh truyền hình AI cá nhân hóa có người dùng đóng vai chính trong các chương trình. Hồ sơ này do trang tin Patentlyze phát hiện đầu tiên trước khi chia sẻ lại cho 404 Media.",
+        "Theo tài liệu, hệ thống My Channel tạo nội dung AI dựa trên dữ liệu nhân khẩu học cùng lịch sử xem video. Kênh này kết nối với máy chủ quảng cáo và tự động chèn quảng cáo tùy biến vào video.",
+        "Bằng sáng chế đưa ra ví dụ về các chương trình AI cho người xem đóng vai chính như hài kịch, lãng mạn hay phiêu lưu khoa học viễn tưởng. Tài liệu cũng gợi ý người xem bóng gậy có thể nhận video kết hợp yếu tố Cricket World Cup và phong độ cầu thủ, với hình ảnh người xem có lẽ đang cổ vũ trên khán đài.",
+        "Theo 404 Media, các tác phẩm truyền thông lớn có tính kết nối sẽ khó sản xuất hơn và ít xuất hiện hơn trong thế giới nơi mỗi người xem nội dung tùy biến riêng."
       ],
       "same_event_coverage_ids": [
         "ea2a953e18b62f5919df"
@@ -123972,40 +123928,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 7.15,
+        "value": 9.2,
         "answers": {
           "what": 9,
-          "why": 8,
-          "notable": 5,
-          "meaning": 6
+          "why": 10,
+          "notable": 10,
+          "meaning": 7
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "video trận chung kết thế giới",
-            "explanation": "The patent’s hypothetical video might incorporate elements of the Cricket World Cup and a player’s recent performance; it does not specify a final match (outlet:p005)."
-          },
-          {
-            "kind": "quote",
-            "summary_text": "sẽ thấy video trận chung kết thế giới với hình ảnh chính mình đứng cổ vũ trên khán đài",
-            "explanation": "The source says a viewer might be served a similar video and perhaps could be cheering in the stands; the Vietnamese presents that possibility as a definite result (outlet:p005)."
-          },
-          {
-            "kind": "quote",
-            "summary_text": "khiến trải nghiệm truyền thông chung biến mất",
-            "explanation": "The author says big, unifying media would become harder to make and few and far between, not that shared media experiences would disappear (outlet:p011)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "notable",
-            "problem": "The cricket example adds a final match and turns a hypothetical outcome into a certainty.",
-            "fix": "Describe a possible video using Cricket World Cup elements, in which the viewer might appear cheering in the stands (outlet:p005)."
-          },
-          {
             "question": "meaning",
-            "problem": "The reader is told shared media would vanish.",
-            "fix": "Say the author expects major shared media to become harder to make and less common (outlet:p011)."
+            "problem": "A reader may mistake the detailed patent proposal for a product Google will release.",
+            "fix": "Add that companies often file patents without making products from them, and that ‘My Channel’ is a system the patent imagines (outlet:p002)."
           }
         ],
         "writer_boats": [
@@ -124013,8 +123948,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "d8dd1a08b399f4a6e7fa060aff0454cfdc0671dc5ff3e2134e5bf876095dd3bd",
-        "scored_at": "2026-11-23T21:25:57.836516+00:00"
+        "prose_sha256": "ee59225226349757912dd6583e301e0daf0325b0ddfebbeeb9cdf7c2359dbbc9",
+        "scored_at": "2026-11-24T00:11:38.040508+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
@@ -124039,10 +123974,10 @@
       "use_original_title": true,
       "source_url": "https://claude.com/resources/articles/zero-data-retention-with-enterprise-frontier-safeguards",
       "key_points": [
-        "Anthropic mở thử nghiệm công khai (public beta) hệ thống Enterprise Frontier Safeguards (EFS), cho phép doanh nghiệp dùng AI mà không bị lưu giữ dữ liệu. Theo Anthropic, cả hãng lẫn nhà cung cấp đám mây đều không giữ dữ liệu khi chuyển về bộ lưu trữ do khách hàng kiểm soát.",
-        "Để ngăn chặn nguy cơ này, hệ thống an toàn tự động sẽ phân tích dữ liệu lưu tại chính hạ tầng của khách hàng.",
-        "Hơn 100 khách hàng doanh nghiệp đã thử nghiệm giải pháp ở bản beta riêng tư, bao gồm các tập đoàn lớn như Bridgewater, Salesforce và Stripe. Đại diện Stripe cho biết tính năng này giúp họ giữ nhật ký trò chuyện ngay trên môi trường đám mây AWS của Stripe.",
-        "Hãng tin Bloomberg nhận định đây là bước ngoặt so với chính sách lưu trữ dữ liệu trước đây của công ty nhằm giảm thiểu nguy cơ tấn công mạng. Kỹ sư Omar Santos của Cisco đánh giá việc tự chủ dữ liệu mà vẫn giữ an toàn là then chốt để các tổ chức bảo mật ứng dụng AI."
+        "Anthropic mở thử nghiệm công khai hệ thống EFS (Enterprise Frontier Safeguards), giúp phát hiện lạm dụng tinh vi mà không lưu giữ dữ liệu doanh nghiệp. Theo Anthropic, cả hãng lẫn đối tác đám mây đều không giữ dữ liệu khi đã chuyển về bộ lưu trữ do khách hàng kiểm soát.",
+        "Để ngăn chặn, hệ thống an toàn tự động sẽ phân tích mẫu lạm dụng trên dữ liệu lưu hoàn toàn tại hạ tầng của khách hàng.",
+        "Anthropic cho biết Bridgewater, Salesforce và Stripe đã đánh giá EFS trong bản thử nghiệm riêng tư, sau khi hãng cùng phát triển giải pháp với hơn 100 khách hàng. Khi phát hiện rủi ro, hệ thống tạo hồ sơ an toàn cho khách hàng xem xét mà không đính kèm dữ liệu đầu vào hay đầu ra.",
+        "Bloomberg nhận định đây là bước ngoặt so với chính sách lưu trữ dữ liệu trước đó của Anthropic nhằm giảm nguy cơ tấn công mạng. Kỹ sư Omar Santos của Cisco đánh giá việc tự chủ dữ liệu mà vẫn giữ an toàn là then chốt để các tổ chức bảo mật ứng dụng AI."
       ],
       "same_event_coverage_ids": [
         "2e147e12439d3805b312"
@@ -124058,7 +123993,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Anthropic mở thử nghiệm EFS cho phép doanh nghiệp dùng AI mà không bị lưu lại dữ liệu",
+      "editorial_headline_vi": "Anthropic mở thử nghiệm EFS, cho phép doanh nghiệp dùng AI tiên tiến mà không bị lưu giữ dữ liệu",
       "summary_sources": [
         {
           "id": "outlet",
@@ -124079,35 +124014,25 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 7.45,
+        "value": 8.45,
         "answers": {
-          "what": 9,
-          "why": 5,
-          "notable": 7,
-          "meaning": 8
+          "what": 10,
+          "why": 3,
+          "notable": 10,
+          "meaning": 9
         },
         "hard_errors": [
           {
-            "kind": "fact",
-            "summary_text": "Hơn 100 khách hàng doanh nghiệp đã thử nghiệm giải pháp ở bản beta riêng tư",
-            "explanation": "Anthropic says it developed EFS further with over 100 customers; it identifies Bridgewater, Salesforce and Stripe as enterprises evaluating the private beta. It does not say all 100 tested that beta (outlet:p002)."
+            "kind": "cause",
+            "summary_text": "Để ngăn chặn",
+            "explanation": "The source says automated monitoring is used to detect patterns of misuse across requests; it does not say EFS itself prevents or stops attacks. The reason for this layer is that individual requests in a sophisticated attack can look harmless (outlet:p028–p030)."
           }
         ],
         "findings": [
           {
             "question": "why",
-            "problem": "Readers do not learn why EFS needs monitoring across requests.",
-            "fix": "Explain that individual-request classifiers can miss sophisticated attacks spread across multiple queries (outlet:p028–p030)."
-          },
-          {
-            "question": "notable",
-            "problem": "The account turns participation by over 100 customers into a claim that all tested the private beta.",
-            "fix": "Say Anthropic developed EFS with over 100 customers, while Bridgewater, Salesforce and Stripe evaluated the private beta (outlet:p002)."
-          },
-          {
-            "question": "notable",
-            "problem": "Readers miss the concrete result of a detected risk.",
-            "fix": "Mention that monitoring creates a customer-reviewable Safety Case that excludes inputs and outputs (outlet:p031)."
+            "problem": "The reader misses why the extra safety layer is needed and may believe it stops attacks outright.",
+            "fix": "Explain that attacks can span multiple harmless-looking requests, so EFS monitors across requests to detect misuse patterns (outlet:p028–p030)."
           }
         ],
         "writer_boats": [
@@ -124115,8 +124040,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "56f0000715708e295e65f19af0193a0a4ea4459e85f29e751e380e6f7951cc99",
-        "scored_at": "2026-11-23T21:25:57.836544+00:00"
+        "prose_sha256": "700dd3641fa5a557d4891b3dd9338ff6df0cfc87730bc1610e372391b8a6821c",
+        "scored_at": "2026-11-24T00:11:38.040548+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
@@ -124313,10 +124238,10 @@
       "use_original_title": false,
       "source_url": "https://nvidianews.nvidia.com/news/nvidia-board-reinstates-jensen-huang-as-president-ceo-and-board-director",
       "key_points": [
-        "Nvidia thông báo phục chức Tổng giám đốc và thành viên hội đồng quản trị cho Jensen Huang với hiệu lực ngay lập tức. Chủ tịch Hội đồng quản trị Harvey Jones đánh giá việc phục chức mang lại lợi ích tốt nhất cho cổ đông, còn bà Colette Kress quay lại làm Giám đốc tài chính.",
-        "Lý do phục chức là hội đồng quản trị hài lòng về sự thẳng thắn và năng lực lãnh đạo của ông Huang sau nhiều cuộc thảo luận. Họ cũng tin tưởng việc này không gây rủi ro an ninh quốc gia sau khi nhận ý kiến từ chính phủ Mỹ.",
-        "Hội đồng quản trị Nvidia khẳng định cuộc điều tra độc lập về việc ông Huang là mục tiêu của tình báo nước ngoài vẫn tiếp tục diễn ra. Trong khi đó, Bloomberg đưa tin việc ông Huang quay lại nhận được sự thúc đẩy đặc biệt từ Tổng thống Trump để giúp dọn đường.",
-        "Nvidia siết chặt quản trị bằng ủy ban an ninh xuất khẩu và chức danh Giám đốc tuân thủ mới, trong đó ủy ban gồm toàn bộ giám đốc độc lập. Đồng thời, Nvidia khẳng định tiếp tục hợp tác với các cuộc điều tra và yêu cầu làm rõ đang diễn ra từ chính phủ."
+        "Nvidia thông báo phục chức Tổng giám đốc và thành viên hội đồng quản trị cho Jensen Huang với hiệu lực ngay lập tức. Chủ tịch Hội đồng quản trị Harvey Jones đánh giá quyết định này mang lại lợi ích tốt nhất cho cổ đông, đồng thời cảm ơn bà Colette Kress đã hoàn thành xuất sắc vai trò CEO lâm thời trong khi tiếp tục trọng trách Giám đốc tài chính.",
+        "Theo Nvidia, hội đồng quản trị đồng thuận bỏ phiếu phục chức sau các cuộc thảo luận giúp họ hài lòng về sự thẳng thắn cùng năng lực lãnh đạo của ông Huang. Trong khi đó, hãng tin Bloomberg cho biết việc ông Huang quay lại nhận được sự thúc đẩy đặc biệt từ Tổng thống Trump giúp dọn đường.",
+        "Để giám sát tuân thủ thương mại và rủi ro an ninh quốc gia, hội đồng quản trị Nvidia đã lập Ủy ban An ninh Quốc gia và Kiểm soát Xuất khẩu, đồng thời tìm kiếm một Giám đốc tuân thủ mới. Hội đồng quản trị Nvidia cũng khẳng định cuộc điều tra độc lập về việc ông Huang từng là mục tiêu của tình báo nước ngoài vẫn tiếp tục diễn ra đến khi có kết luận.",
+        "Theo Nvidia, hội đồng quản trị tin tưởng việc phục chức không gây rủi ro an ninh quốc gia dựa trên ý kiến từ các cấp cao của chính phủ Mỹ."
       ],
       "same_event_coverage_ids": [
         "d8634db5e2b8e08be516"
@@ -124356,35 +124281,30 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.6,
+        "value": 9.2,
         "answers": {
           "what": 9,
           "why": 10,
-          "notable": 7,
+          "notable": 9,
           "meaning": 9
         },
         "hard_errors": [
           {
             "kind": "fact",
-            "summary_text": "bà Colette Kress quay lại làm Giám đốc tài chính",
-            "explanation": "Kress continued her CFO responsibilities while serving as interim CEO; the source does not say she returned to a CFO role she had left (outlet:p002)."
-          },
-          {
-            "kind": "role",
-            "summary_text": "ủy ban an ninh xuất khẩu",
-            "explanation": "The committee is the National Security and Export Control Committee, covering national-security risks and export-control compliance, rather than export security alone (outlet:p005)."
+            "summary_text": "về việc ông Huang từng là mục tiêu của tình báo nước ngoài",
+            "explanation": "The source says the investigation followed recent reporting that Huang had been targeted; it does not establish the targeting as fact (outlet:p004)."
           }
         ],
         "findings": [
           {
-            "question": "what",
-            "problem": "The wording implies Kress had stopped being CFO.",
-            "fix": "Say she served as interim CEO while continuing her CFO duties (outlet:p002)."
+            "question": "notable",
+            "problem": "The investigation’s premise reads as a confirmed event.",
+            "fix": "Say it concerns reports that Huang was targeted by a foreign intelligence effort (outlet:p004)."
           },
           {
-            "question": "notable",
-            "problem": "The committee’s scope is misstated.",
-            "fix": "Identify it as the National Security and Export Control Committee and say Nvidia has begun searching for a Chief Compliance Officer (outlet:p005)."
+            "question": "what",
+            "problem": "The reinstatement omits Huang’s president title.",
+            "fix": "Include that he was reinstated as president as well as CEO and board member (outlet:p001)."
           }
         ],
         "writer_boats": [
@@ -124392,8 +124312,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "8031dfe67dc0b0689b1641986c931f1d7d508fa810ae6a8c50f44a61392ce426",
-        "scored_at": "2026-11-23T21:25:57.836592+00:00"
+        "prose_sha256": "354f0140430140632ab5b8d21c6cc2d15cddead594cf30105b36a0ca9adefd18",
+        "scored_at": "2026-11-24T00:11:38.040580+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
@@ -124509,10 +124429,10 @@
       "use_original_title": false,
       "source_url": "https://www.greptile.com/blog/trex-computer-use",
       "key_points": [
-        "Greptile thử nghiệm kết hợp ảnh chụp màn hình và cây trợ năng trên bảy mô hình cho tác nhân (agent, phần mềm tự hành) TREX. Đánh giá diễn ra trên 172 tác vụ của bộ đo chuẩn (benchmark, bài kiểm tra đánh giá năng lực) OSWorld với một lượt thử, giới hạn 50 bước và nỗ lực suy luận thấp.",
-        "Theo Greptile, cây trợ năng cung cấp sẵn vị trí nút bấm giúp mô hình không phải tự xác định điểm ảnh trên màn hình. Bổ sung việc bấm theo mã định danh giúp khung điều khiển tự bấm trực tiếp, tránh lệch vài điểm ảnh gây bấm trượt khi mô hình tự xuất tọa độ.",
-        "Cây trợ năng và thao tác bấm theo định danh giúp tăng hơn gấp ba điểm số của GPT-5.2 từ mức 15,8% khi chỉ xem ảnh chụp lên 52,8% tỷ lệ hoàn thành tác vụ. Trái lại, mô hình mạnh nhất là GPT-6.1 Sol hầu như không thay đổi khi đạt 82,7% lúc bấm bằng tọa độ và 82,1% theo mã định danh.",
-        "Tác giả kết luận cây trợ năng chỉ phát huy tác dụng với các mô hình yếu hơn chứ không cải thiện mô hình mạnh, khi ba mô hình dẫn đầu không đổi. Theo Greptile, không có mô hình mạnh nào thay đổi có ý nghĩa thống kê, dù cây trợ năng vẫn hữu ích với các mô hình yếu."
+        "Greptile thử nghiệm kết hợp ảnh chụp màn hình và cây trợ năng trên bảy mô hình cho tác nhân (agent, phần mềm tự hành) TREX. Thử nghiệm dùng 172 tác vụ của bộ đo chuẩn (benchmark, bài kiểm tra đánh giá năng lực) OSWorld với một lượt thử, giới hạn 50 bước và mức suy luận thấp.",
+        "Theo Greptile, cây trợ năng hiển thị sẵn vị trí nút bấm giúp mô hình không phải tự xác định điểm ảnh. Thao tác bấm theo định danh giúp khung điều khiển bấm trực tiếp, tránh lệch vài điểm ảnh gây trượt mục tiêu khi mô hình tự xuất tọa độ.",
+        "Kết hợp cây trợ năng và bấm theo định danh giúp tăng hơn gấp ba điểm của GPT-5.2 từ mức 15,8% khi chỉ xem ảnh chụp lên 52,8% tỷ lệ hoàn thành tác vụ OSWorld, trong khi riêng cây trợ năng đạt 36,2%. Trái lại, mô hình mạnh nhất GPT-6.1 Sol gần như không đổi khi đạt 83,8% với ảnh chụp, 82,7% khi thêm cây trợ năng và 82,1% theo định danh.",
+        "Greptile kết luận cây trợ năng chỉ đáng bổ sung khi dùng mô hình yếu, vì cả hai cải tiến không tạo khác biệt cho ba mô hình dẫn đầu. Theo Greptile, không mô hình mạnh nào thay đổi có ý nghĩa thống kê khi bổ sung cây trợ năng."
       ],
       "same_event_coverage_ids": [
         "6bb25a9cf25971626c69"
@@ -124529,7 +124449,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Cây trợ năng giúp tăng gấp ba điểm số AI yếu trên OSWorld nhưng không cải thiện các mô hình mạnh",
+      "editorial_headline_vi": "Cây trợ năng cùng bấm định danh giúp tăng hơn gấp ba điểm GPT-5.2 trên OSWorld nhưng không đổi ở mô hình mạnh",
       "summary_sources": [
         {
           "id": "outlet",
@@ -124544,25 +124464,25 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.5,
+        "value": 9.05,
         "answers": {
           "what": 9,
           "why": 10,
           "notable": 10,
-          "meaning": 9
+          "meaning": 6
         },
         "hard_errors": [
           {
-            "kind": "fact",
-            "summary_text": "Cây trợ năng giúp tăng gấp ba điểm số AI yếu",
-            "explanation": "The more-than-threefold gain cited in the source is specifically GPT-5.2's result with both the accessibility tree and ID clicks, compared with screenshots alone. The tree by itself raised its score from 15.8% to 36.2% (outlet:p062, outlet:p100)."
+            "kind": "quote",
+            "summary_text": "cây trợ năng chỉ đáng bổ sung khi dùng mô hình yếu",
+            "explanation": "The source says the tree is still worth adding if building on weaker models. Its finding of no meaningful gain for the strongest models is limited to this experiment; it does not make a universal 'only worth adding' recommendation (outlet:p102–p103)."
           }
         ],
         "findings": [
           {
-            "question": "what",
-            "problem": "The headline credits the tree alone with the combined gain.",
-            "fix": "Say that the tree together with ID clicks more than tripled GPT-5.2's score; the tree alone raised it to 36.2% (outlet:p062, outlet:p100)."
+            "question": "meaning",
+            "problem": "The conclusion rules out adding an accessibility tree for stronger models beyond the tested setting.",
+            "fix": "State that it helped weaker models in these OSWorld tests, while the three strongest models showed no meaningful improvement; retain the source’s conditional recommendation (outlet:p102–p103)."
           }
         ],
         "writer_boats": [
@@ -124570,8 +124490,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "b3fd8f10a6f3f5e9a8b07db38859667169b7dd34d57a58facf990bcb5adc7807",
-        "scored_at": "2026-11-23T21:25:57.836641+00:00"
+        "prose_sha256": "d6b9c59bd5a6eb56f89852823db8a56f173a020763caf497c63ea1e42d8e7424",
+        "scored_at": "2026-11-24T00:11:38.040607+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
@@ -124593,10 +124513,10 @@
       "use_original_title": false,
       "source_url": "https://techcrunch.com/2026/11/23/amazon-snaps-up-decarts-ai-optimization-tech-for-7-5b-as-it-prepares-to-sell-trainium-chips/",
       "key_points": [
-        "Amazon chi 7,5 tỷ USD thâu tóm công nghệ và đội ngũ của Decart theo Bloomberg, qua thỏa thuận mua lại phần lớn công ty này. Decart nổi tiếng với các mô hình thế giới thời gian thực như Oasis 3 và công cụ tạo video AI.",
-        "TechCrunch nhận định công nghệ của Decart có thể giúp khách hàng chạy tác vụ trên chip Amazon dễ hơn thay vì chọn Nvidia. Phó chủ tịch Peter DeSantis của Amazon cho biết tính toán hiệu quả hơn sẽ mang lại huấn luyện và suy luận tốt hơn với chi phí thấp hơn.",
-        "Amazon tiếp quản công nghệ tối ưu hóa DOS cùng đội ngũ sáng lập và kỹ sư của Decart theo bài đăng blog của hãng. Phần mềm DOS giúp các mô hình AI chạy hiệu quả trên phần cứng của Nvidia, Amazon và Google.",
-        "Thương vụ mở đường cho Amazon bán chip Trainium ra thị trường để cạnh tranh với Nvidia sau thời gian chỉ dùng nội bộ. TechCrunch nhận định đây là nỗ lực cạnh tranh trực tiếp với Nvidia, hãng vốn giữ vị thế tiêu chuẩn vàng hiện nay."
+        "Amazon đã đồng ý mua lại một phần đáng kể của công ty khởi nghiệp Decart từ Israel. Theo Bloomberg, tập đoàn công nghệ này đang chi 7,5 tỷ USD cho thỏa thuận mua lại.",
+        "Theo TechCrunch, Decart sở hữu bộ phần mềm tối ưu hóa DOS (Decart Optimization Stack) hỗ trợ mô hình trí tuệ nhân tạo vận hành hiệu quả trên phần cứng của Nvidia, Amazon và Google.",
+        "Amazon thông báo trên blog rằng công ty sẽ mua lại công nghệ đứng sau DOS cùng đội ngũ sáng lập và các kỹ sư của Decart. Ông Peter DeSantis tại Amazon nhận định tính toán hiệu quả hơn sẽ mang lại khả năng huấn luyện và suy luận tốt hơn với chi phí thấp hơn.",
+        "TechCrunch nhận định công nghệ Decart có thể giúp khách hàng chạy tác vụ trên chip Amazon thuận tiện hơn thay vì chọn Nvidia vốn là tiêu chuẩn vàng. Thỏa thuận diễn ra khi Amazon chuẩn bị bán chip Trainium cho khách hàng như một đối thủ cạnh tranh với Nvidia sau thời gian chỉ dùng nội bộ."
       ],
       "same_event_coverage_ids": [
         "d19119fcec723e5ec407"
@@ -124612,7 +124532,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Bloomberg: Amazon chi 7,5 tỷ USD mua công nghệ Decart để mở bán chip Trainium đối đầu Nvidia",
+      "editorial_headline_vi": "Theo Bloomberg, Amazon đạt thỏa thuận 7,5 tỷ USD mua một phần startup Decart khi chuẩn bị bán chip Trainium",
       "summary_sources": [
         {
           "id": "outlet",
@@ -124625,69 +124545,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 7.05,
+        "value": 9.65,
         "answers": {
-          "what": 6,
-          "why": 6,
-          "notable": 9,
-          "meaning": 7
+          "what": 9,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "cause",
-            "summary_text": "để mở bán chip Trainium",
-            "explanation": "The source says Amazon is already preparing to sell Trainium and that Decart's technology could make customer workloads easier to run on it. It does not state that Amazon bought the technology in order to begin selling the chips (outlet:p012)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "phần lớn công ty này",
-            "explanation": "The source calls the portion being acquired 'a good chunk' of Decart; it does not establish that it is most of the company (outlet:p007)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "Amazon chi 7,5 tỷ USD thâu tóm công nghệ và đội ngũ của Decart",
-            "explanation": "The source reports an agreement to acquire, with the price attributed to Bloomberg. It does not report that the transaction has completed (outlet:p007–p010)."
-          },
-          {
-            "kind": "role",
-            "summary_text": "thâu tóm công nghệ và đội ngũ của Decart theo Bloomberg",
-            "explanation": "The source attributes the $7.5 billion price to Bloomberg, but attributes the details about DOS technology and the teams to Amazon's blog post (outlet:p008, outlet:p010)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "Amazon tiếp quản công nghệ tối ưu hóa DOS cùng đội ngũ sáng lập và kỹ sư",
-            "explanation": "The source says Amazon will acquire these assets and people as part of the agreed deal; it does not say the transfer has happened (outlet:p010)."
-          },
-          {
-            "kind": "cause",
-            "summary_text": "Thương vụ mở đường cho Amazon bán chip Trainium ra thị trường",
-            "explanation": "The source says Amazon was already preparing to sell Trainium. It presents Decart's technology as a possible aid to customer adoption, not as the step that makes sales possible (outlet:p012)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "what",
-            "problem": "The reader is told that Amazon has completed a takeover of most of Decart.",
-            "fix": "Describe an agreement to acquire a substantial portion, without claiming a majority or completed transfer (outlet:p007–p010)."
-          },
-          {
-            "question": "why",
-            "problem": "The headline and conclusion make the acquisition a prerequisite for launching Trainium sales.",
-            "fix": "Say Amazon is preparing to sell Trainium and Decart's technology could make adoption easier for customers (outlet:p012)."
-          },
-          {
-            "question": "what",
-            "problem": "Bloomberg is credited with the asset and team details.",
-            "fix": "Attribute the price to Bloomberg and the DOS and team details to Amazon's blog post (outlet:p008, outlet:p010)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "5eae325686639b26f3865bf8b2c476678f4bee0995fc50596a2c43a69fe56203",
-        "scored_at": "2026-11-23T21:25:57.836667+00:00"
+        "prose_sha256": "937f66ee027216416b1767495fd090e39773cf3b8f690ced8ab5886e81a77335",
+        "scored_at": "2026-11-24T00:11:38.040629+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
@@ -125065,10 +124938,10 @@
       "use_original_title": false,
       "source_url": "https://mathbabe.org/2026/11/23/buckle-up-the-ai-bubble-is-popping/",
       "key_points": [
-        "Trong bài viết trên blog cá nhân, tác giả Cathy O'Neil nhận định đợt IPO (chào bán cổ phiếu lần đầu ra công chúng) của Anthropic đánh dấu đỉnh điểm của bong bóng trí tuệ nhân tạo trước khi bước vào suy thoái.",
-        "Theo tác giả, cuộc khủng hoảng xảy ra do người dân bắt đầu phản đối các trung tâm dữ liệu vì tiếng ồn, ô nhiễm và tình trạng tranh chấp cấp phép lưới điện cũng như nguồn nước.",
-        "Bà tính toán mức tăng trưởng năng lực tính toán trong 5 năm tới sẽ thấp hơn kỳ vọng của thị trường, với mức chênh lệch bằng khoảng một nửa quy mô dự kiến ban đầu.",
-        "Tác giả cảnh báo nguy cơ vỡ nợ hàng loạt sẽ xảy ra khi các khoản vay đầu tiên mất khả năng thanh toán, khiến hệ thống tài chính xoay vòng của ngành này sụp đổ hoàn toàn."
+        "Tác giả Cathy O'Neil nhận định đợt IPO (chào bán cổ phiếu lần đầu ra công chúng) của Anthropic là đỉnh điểm của bong bóng AI trước khi thị trường bước vào hỗn loạn và suy thoái. Bà cho rằng việc Tổng thống Trump can thiệp để Nvidia phục chức cho Jensen Huang sẽ không giải quyết được vấn đề.",
+        "Theo tác giả, nguyên nhân là làn sóng người dân phản đối và ngăn cản xây dựng các trung tâm dữ liệu vì lo ngại tiếng ồn, ô nhiễm và tranh chấp điện nước. Bà cho rằng các nhà sáng lập AI thiếu hiểu biết chính trị nên không lường trước được phản ứng từ công chúng.",
+        "Mức tăng trưởng năng lực tính toán dự kiến trong 5 năm tới nhỏ hơn kỳ vọng của thị trường, với chênh lệch bằng khoảng một nửa quy mô kỳ vọng đó. Bà lưu ý nếu còn làm việc tại quỹ phòng hộ (hedge fund), bà sẽ phân tích các thỏa thuận tài chính xoay vòng để ước tính tốc độ tăng trưởng này.",
+        "Tác giả cảnh báo sự nghi ngờ về khả năng trả nợ có thể lan rộng và làm tháo dỡ mạng lưới tài chính xoay vòng khi các khoản vay đầu tiên vỡ nợ, hoặc thậm chí sớm hơn khi doanh nghiệp bị yêu cầu chứng minh khả năng chi trả."
       ],
       "same_event_coverage_ids": [
         "9ef3b2def78ca74f024c",
@@ -125087,7 +124960,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Chuyên gia Cathy O'Neil nhận định bong bóng AI bắt đầu vỡ do các trung tâm dữ liệu bị phản đối",
+      "editorial_headline_vi": "Tác giả Cathy O'Neil dự báo làn sóng phản đối trung tâm dữ liệu sẽ đẩy bong bóng AI vào hỗn loạn và suy thoái",
       "summary_sources": [
         {
           "id": "outlet",
@@ -125100,54 +124973,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 7.95,
+        "value": 9.8,
         "answers": {
-          "what": 9,
-          "why": 6,
+          "what": 10,
+          "why": 9,
           "notable": 10,
-          "meaning": 4
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "role",
-            "summary_text": "Chuyên gia Cathy O'Neil",
-            "explanation": "The source identifies O'Neil as the author and says she formerly worked at a hedge fund; it does not give her the title of expert (outlet:p010, outlet:p013)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "cuộc khủng hoảng xảy ra",
-            "explanation": "O'Neil forecasts future chaos, debt problems and an eventual recession; she does not report that this crisis has already occurred (outlet:p011, outlet:p016)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "Bà tính toán",
-            "explanation": "O'Neil gives an estimate of the gap but describes the market calculation as something she would do if she still worked at a hedge fund; the source does not report a completed calculation (outlet:p013–p015)."
-          },
-          {
-            "kind": "quote",
-            "summary_text": "nguy cơ vỡ nợ hàng loạt sẽ xảy ra khi các khoản vay đầu tiên mất khả năng thanh toán, khiến hệ thống tài chính xoay vòng của ngành này sụp đổ hoàn toàn",
-            "explanation": "The source predicts that defaults on the first few loans, or doubts about repayment even before defaults, would put other debts in doubt and cause circular financing to unwind. It does not specifically predict mass defaults or a complete collapse (outlet:p016)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "meaning",
-            "problem": "The reader is told that mass defaults and total collapse will occur.",
-            "fix": "Describe O'Neil's forecast that repayment doubts could spread through debt and circular financing could unwind, potentially even before the first defaults (outlet:p016)."
-          },
-          {
-            "question": "why",
-            "problem": "The reader may think the predicted crisis has already happened.",
-            "fix": "Keep the slowdown in data center construction and its financial consequences framed as O'Neil's argument and forecast (outlet:p011–p016)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "1cdd2b29c10ca63addeccfa8c41c699d039cc8d3acf2eb94f092c3c60dfecf89",
-        "scored_at": "2026-11-23T21:25:57.836739+00:00"
+        "prose_sha256": "e163f1b7f9b62ced2d74353a5ccc74cee1aa3877daa04cf345fea227fb380e82",
+        "scored_at": "2026-11-24T00:11:38.040654+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
@@ -125226,10 +125067,10 @@
       "use_original_title": false,
       "source_url": "https://www.semafor.com/article/11/23/2026/jensen-huang-reinstated-as-nvidia-ceo",
       "key_points": [
-        "Theo Semafor, ông Jensen Huang được phục chức Tổng giám đốc điều hành (CEO) Nvidia sau khi Tổng thống Donald Trump can thiệp vào cuộc họp hội đồng quản trị để vận động đưa ông trở lại. Phó Tổng thống JD Vance cùng các thành viên chính quyền cũng can thiệp, trong khi Nvidia xác nhận quyết định dựa trên ý kiến đóng góp từ Nhà Trắng.",
-        "Theo trang tin Semafor, áp lực phục chức xuất phát từ đợt bán tháo cổ phiếu khiến chỉ số S&P 500 rơi vào vùng điều chỉnh do lo ngại rủi ro ngành AI. Đồng thời, chính quyền Trump coi ông Huang là nhân tố bảo vệ các mô hình mã nguồn mở trước sự áp đảo của các nhà phát triển mô hình đóng.",
-        "Giám đốc truyền thông Nhà Trắng Steven Cheung xác nhận Tổng thống Trump đã can thiệp toàn diện để bảo vệ các nhân tài. Ngay trong ngày thứ Hai, cổ phiếu Nvidia đã bật tăng 30%, ghi nhận mức tăng lớn nhất trong hơn hai thập kỷ và vực dậy toàn bộ thị trường.",
-        "Semafor nhận định việc ông Huang quay lại chắc chắn sẽ thúc đẩy Quốc hội Mỹ điều tra hành vi của ông cùng hoạt động vận động chống kiểm soát xuất khẩu của Nvidia. Thượng nghị sĩ Elizabeth Warren gọi quyết định phục chức này là liều lĩnh, đồng thời hoài nghi nhận định của Bộ Tư pháp rằng vụ bê bối không đe dọa an ninh quốc gia."
+        "Nvidia đã phục chức Tổng giám đốc điều hành cho ông Jensen Huang sau khi Tổng thống Donald Trump can thiệp vào cuộc họp hội đồng quản trị để vận động đưa ông trở lại. Công ty cho biết quyết định được đưa ra dựa trên ý kiến từ Nhà Trắng rằng chính quyền cảm thấy an tâm dù ông vướng bê bối đời tư.",
+        "Theo nguồn tin thân cận chia sẻ với Semafor, lập luận thuyết phục ông Trump và ông Vance là vai trò bảo vệ các mô hình mã nguồn mở của ông Huang. Bên cạnh đó, áp lực phục chức cũng gia tăng do đợt bán tháo cổ phiếu công nghệ khiến chỉ số S&P 500 rơi vào vùng điều chỉnh.",
+        "Cổ phiếu Nvidia tăng 30% sau quyết định phục chức, ghi nhận mức tăng lớn nhất trong hơn hai thập kỷ và nâng đỡ toàn bộ thị trường.",
+        "Semafor nhận định việc ông Huang quay lại chắc chắn sẽ làm gia tăng các lời kêu gọi lưỡng đảng yêu cầu Quốc hội điều tra, trong khi nhiều nghị sĩ Cộng hòa hoài nghi nhận định của Bộ Tư pháp về rủi ro an ninh. Thượng nghị sĩ Elizabeth Warren chỉ trích quyết định phục chức là liều lĩnh và hối thúc thông qua luật kiểm soát xuất khẩu."
       ],
       "same_event_coverage_ids": [
         "06df0f7aac90d657af0b"
@@ -125248,7 +125089,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Nvidia phục chức CEO Jensen Huang sau khi Tổng thống Trump trực tiếp can thiệp vào hội đồng quản trị",
+      "editorial_headline_vi": "Nvidia phục chức Tổng giám đốc Jensen Huang sau khi Tổng thống Donald Trump trực tiếp vận động hội đồng quản trị",
       "summary_sources": [
         {
           "id": "outlet",
@@ -125261,45 +125102,29 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 7.85,
+        "value": 9.3,
         "answers": {
           "what": 10,
-          "why": 3,
+          "why": 8,
           "notable": 10,
-          "meaning": 5
+          "meaning": 8
         },
-        "hard_errors": [
-          {
-            "kind": "cause",
-            "summary_text": "áp lực phục chức xuất phát từ đợt bán tháo cổ phiếu",
-            "explanation": "The sell-off heightened the pressure; the source does not say the pressure originated there (outlet:p006–p007)."
-          },
-          {
-            "kind": "quote",
-            "summary_text": "chắc chắn sẽ thúc đẩy Quốc hội Mỹ điều tra",
-            "explanation": "Semafor says the return will amplify calls for Congress to investigate, not that it will cause Congress itself to investigate (outlet:p019)."
-          },
-          {
-            "kind": "role",
-            "summary_text": "Thượng nghị sĩ Elizabeth Warren gọi quyết định phục chức này là liều lĩnh, đồng thời hoài nghi nhận định của Bộ Tư pháp rằng vụ bê bối không đe dọa an ninh quốc gia",
-            "explanation": "Warren called the reinstatement reckless and urged export-control legislation. The skepticism about the Justice Department's national security assessment is attributed to Republicans, including Sen. John Curtis (outlet:p020–p023)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
             "question": "meaning",
-            "problem": "The reader attributes the Justice Department criticism to Warren.",
-            "fix": "Attribute that skepticism to Republican lawmakers and keep Warren's criticism to her stated objections (outlet:p020–p023)."
-          },
-          {
-            "question": "meaning",
-            "problem": "The reader expects a congressional investigation rather than stronger calls for one.",
-            "fix": "Say Huang's return will intensify bipartisan calls for Congress to investigate (outlet:p019)."
+            "problem": "Readers miss the source’s broader conclusion about direct government involvement in a private company.",
+            "fix": "Add Semafor’s stated implication about the US government’s role in private enterprise (outlet:p002)."
           },
           {
             "question": "why",
-            "problem": "The sell-off is presented as the origin of the reinstatement pressure.",
-            "fix": "Say the sell-off increased pressure, while the open-source argument appealed to Trump and Vance according to a person familiar with the matter (outlet:p006–p007)."
+            "problem": "Readers get only half of the argument that reportedly persuaded Trump and Vance.",
+            "fix": "Explain that Huang’s support for open-source models was presented as a check on closed model makers such as Anthropic and OpenAI (outlet:p006)."
+          },
+          {
+            "question": "meaning",
+            "problem": "Calling the matter a personal scandal obscures why lawmakers raised national security questions.",
+            "fix": "Include the source’s allegation that the affair involved an alleged Chinese spy, with that qualification intact (outlet:p004, outlet:p020)."
           }
         ],
         "writer_boats": [
@@ -125307,8 +125132,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "b34300393804fe69c102d71ed798d16e0369e96c2a2c8967af823e61276ff261",
-        "scored_at": "2026-11-23T21:25:57.837007+00:00"
+        "prose_sha256": "9f97280662777241f4700ab6194a638864e325a4669048a217448fbc297f6bec",
+        "scored_at": "2026-11-24T00:11:38.040681+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
@@ -125349,10 +125174,10 @@
       "use_original_title": false,
       "source_url": "https://www.wired.com/story/jensens-back-stocks-up-what-the-hell-sure/",
       "key_points": [
-        "Cổ phiếu Nvidia tăng hơn 30% khi ông Jensen Huang trở lại làm giám đốc điều hành theo thông báo phục chức từ hội đồng quản trị. Quyết định này được đưa ra bất chấp việc trước đó ban lãnh đạo từng khẳng định không có ý định đưa ông quay lại vì các cáo buộc thiếu trung thực.",
-        "Theo trang tin Semafor, sự trở lại của ông Huang diễn ra sau khi Tổng thống Donald Trump trực tiếp gọi điện vào cuộc họp của hội đồng quản trị Nvidia để vận động hành lang. Ông Trump cho biết hội đồng quản trị đã đồng thuận trước lập luận của ông do thị trường chứng khoán giảm điểm và giới đầu tư thiếu niềm tin vào CEO lâm thời.",
-        "Theo tạp chí WIRED, mức vốn hóa của Nvidia đã tăng hơn 1 nghìn tỷ USD, đưa công ty vào vị thế có thể phá kỷ lục về mức tăng giá trị thị trường trong một ngày của Microsoft thêm hàng trăm tỷ USD.",
-        "WIRED nhận định tình trạng xáo trộn vừa qua đã gióng lên cảnh báo về rủi ro khi thị trường chứng khoán bị chi phối bởi một cá nhân tại một doanh nghiệp. Ngoài ra, việc các cơ quan chính phủ tiếp tục điều tra ông Huang làm dấy lên câu hỏi về trách nhiệm giải trình khi ông nhận được sự hậu thuẫn từ chính quyền Trump."
+        "Cổ phiếu Nvidia tăng hơn 30% khi ông Jensen Huang được phục chức làm tổng giám đốc theo thông báo từ hội đồng quản trị. Động thái diễn ra dù chủ tịch Harvey Jones từng tuyên bố không đưa ông trở lại, và WIRED đưa tin ban lãnh đạo lo ngại ông thiếu trung thực.",
+        "Hội đồng quản trị đưa ông Huang trở lại với sự hỗ trợ từ chính phủ Mỹ, sau khi Tổng thống Donald Trump gọi điện vận động theo tin từ Semafor. Ông Trump nói với The New York Times rằng ban lãnh đạo đồng thuận vì thị trường giảm điểm và thiếu niềm tin vào CEO lâm thời.",
+        "Giá trị vốn hóa của Nvidia tăng hơn 1 nghìn tỷ USD, có triển vọng phá kỷ lục tăng một ngày của Microsoft thêm hàng trăm tỷ USD. Đợt tăng này đảo ngược mức sụt gần 2,2 nghìn tỷ USD trong tháng qua sau khi ông Huang rời đi vào ngày 12 tháng 11.",
+        "Biến động tại Nvidia cảnh báo rủi ro khi thị trường phụ thuộc lớn vào một cá nhân, theo WIRED khi đà sa sút của hãng khiến Nasdaq giảm 10% tuần trước. Tạp chí này cũng đặt câu hỏi về trách nhiệm giải trình của ông Huang khi được chính quyền Trump ủng hộ dù đang bị điều tra."
       ],
       "same_event_coverage_ids": [
         "f1e3a1479a005ad5e92e"
@@ -125371,7 +125196,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Cổ phiếu Nvidia tăng hơn 30% khi ông Jensen Huang trở lại chức vụ tổng giám đốc điều hành",
+      "editorial_headline_vi": "Cổ phiếu Nvidia tăng hơn 30% khi ông Jensen Huang được phục chức làm tổng giám đốc điều hành",
       "summary_sources": [
         {
           "id": "outlet",
@@ -125384,25 +125209,50 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.45,
+        "value": 7.5,
         "answers": {
           "what": 10,
-          "why": 3,
-          "notable": 10,
-          "meaning": 9
+          "why": 5,
+          "notable": 6,
+          "meaning": 8
         },
         "hard_errors": [
           {
+            "kind": "quote",
+            "summary_text": "ban lãnh đạo đồng thuận vì thị trường giảm điểm và thiếu niềm tin vào CEO lâm thời",
+            "explanation": "Trump said he believed the market dip helped persuade the board; he suggested investors, not the board, lacked confidence in interim CEO Colette Kress. The source presents this as Trump’s view, not an established account of the board’s reasoning (outlet:p009)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "Đợt tăng này đảo ngược mức sụt gần 2,2 nghìn tỷ USD trong tháng qua",
+            "explanation": "The source says Nvidia gained more than $1 trillion in value after nearly $2.2 trillion had been erased. It does not say the gain reversed that loss (outlet:p002–p003)."
+          },
+          {
             "kind": "cause",
-            "summary_text": "ban lãnh đạo từng khẳng định không có ý định đưa ông quay lại vì các cáo buộc thiếu trung thực",
-            "explanation": "The board chair said the board did not intend to reinstate Huang, and WIRED separately reported that directors were alarmed by his lack of candor and lying. The source does not explicitly give those allegations as the reason for the chair's statement (outlet:p004)."
+            "summary_text": "đà sa sút của hãng khiến Nasdaq giảm 10% tuần trước",
+            "explanation": "The source says Nvidia’s struggles contributed in part to the Nasdaq Composite’s 10% decline, not that they caused the entire decline (outlet:p007)."
           }
         ],
         "findings": [
           {
+            "question": "notable",
+            "problem": "Readers may believe the share rally recovered the full preceding loss.",
+            "fix": "State the more than $1 trillion gain and nearly $2.2 trillion prior loss separately, without saying one reversed the other (outlet:p002–p003)."
+          },
+          {
             "question": "why",
-            "problem": "The reader is given an unconfirmed reason for the board's earlier stance.",
-            "fix": "State the earlier refusal and WIRED's report about the board's concerns separately, without asserting a causal link (outlet:p004)."
+            "problem": "The account shifts alleged lack of confidence in the interim CEO from investors to the board and treats Trump’s belief as fact.",
+            "fix": "Attribute the explanation to Trump and identify investors as the group he suggested lacked confidence (outlet:p009)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The Nasdaq sentence overstates Nvidia’s role in the decline.",
+            "fix": "Say Nvidia’s struggles contributed in part to the 10% drop (outlet:p007)."
+          },
+          {
+            "question": "why",
+            "problem": "Readers miss that Trump said his larger consideration was long term.",
+            "fix": "Include that qualification when describing his stated reason for backing Huang (outlet:p008, outlet:p011–p012)."
           }
         ],
         "writer_boats": [
@@ -125410,8 +125260,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "54e8ebfed9e930c282cbea8234a82b9910bae369a2de146e7a4d450b9135f1e5",
-        "scored_at": "2026-11-23T21:25:57.837032+00:00"
+        "prose_sha256": "4fedc04ea88b534283355f25a4cbcf774d98866e8e79235d02180449eff8942b",
+        "scored_at": "2026-11-24T00:11:38.040708+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
@@ -127264,6 +127114,1689 @@
         "scorer_provider": "codex",
         "prose_sha256": "52875898eb10c08a4f1fa1f78b1bce79fc261bf02b2175c3c7b64162fa0d0861",
         "scored_at": "2026-11-23T21:25:57.837390+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "8e2b8c3dd9714c1e7ad1",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-23/katy-kaminsky-reacts-to-nvda-surge-after-huang-returns-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "d714afd12e69b1960a8b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "f6c759ba45701b62859a",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-23/stocks-take-off-after-nvidia-reinstates-jensen-huang-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b8e577211d7f16234592"
+      ],
+      "split_coverage_ids": [
+        "bb33df988506faaa1ea1",
+        "ec6cb60571f772536fef"
+      ]
+    },
+    {
+      "id": "648875099e4bb324c479",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Reports a $44B cybersecurity acquisition between CrowdStrike and Zscaler where AI hacking concerns are only mentioned in passing as background context.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.semafor.com/article/11/23/2026/crowdstrike-to-buy-zscaler-for-44b-in-cyber-mega-merger",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "45a7f76ca4b4e32cbca6"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "034f52f081cbdc0d012d",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "top tier needs four to eight verified key points",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "top tier needs four to eight verified key points"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/23/2026/wall-street-rallies-on-nvidia-ceo-huangs-return",
+      "key_points": [
+        "Cổ phiếu Nvidia tăng hơn 30% vào thứ Hai sau khi Jensen Huang trở lại làm giám đốc điều hành (CEO). Mức tăng kỷ lục trong hai thập kỷ này đã nâng đỡ các chỉ số chứng khoán Mỹ sau đợt bán tháo công nghệ.",
+        "Một nhà phân tích nhận định Huang là biểu tượng bùng nổ trí tuệ nhân tạo (AI) và có thể xoay chuyển tâm lý toàn ngành.",
+        "Trước đó, cổ phiếu hãng từng giảm hơn 62% từ đỉnh khi Huang rời đi hai tuần trước, dấy lên lo ngại vỡ bong bóng AI.",
+        "Một nhà đầu tư nhận định sự trở lại của Huang báo hiệu giao dịch AI được nối lại. Dù vậy, các nhà phân tích khác cảnh báo sự giám sát đối với Nvidia và nỗi lo kéo dài về xây dựng AI vẫn còn."
+      ],
+      "same_event_coverage_ids": [
+        "2e4fa0947542dc659c4d",
+        "d7f8d886ef6d568c58de"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Nvidia",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Jensen Huang",
+          "Brendan Ruberry"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Cổ phiếu Nvidia tăng hơn 30% khi Jensen Huang trở lại ghế CEO, vực dậy Phố Wall",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/23/2026/wall-street-rallies-on-nvidia-ceo-huangs-return"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "bc04dd1f98a7c16bd14d531898a0357719234558a61b88b8a95f4d98776231c5",
+        "scored_at": "2026-11-23T23:54:23.552054+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "e44bc399f3393c6c00e4",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-23/belton-this-volatility-isn-t-healthy-for-the-market-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "443f4096e03578b5693b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "4ce697c6dbd75e8a8795",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/ai-artificial-intelligence/1040819/welcome-to-elite-impunity-jensen-huang",
+      "key_points": [
+        "Tác giả Elizabeth Lopatto trên The Verge cho rằng Jensen Huang trở lại làm giám đốc điều hành (CEO) Nvidia nhờ sự can thiệp của Donald Trump và JD Vance. Sự tái xuất ngày 23 tháng 11 diễn ra sau khi Huang từ chức hôm 12 tháng 11 giữa các cáo buộc ngoại tình và nghi vấn an ninh.",
+        "Tác giả cho rằng các lãnh đạo công nghệ ủng hộ Huang nhằm bảo vệ vị thế đứng trên pháp luật của chính họ.",
+        "Để minh họa, bài viết nêu việc Tổng thống Mỹ đã gọi điện vào cuộc họp hội đồng quản trị Nvidia yêu cầu phục chức cho Huang.",
+        "Theo góc nhìn của Lopatto, sự việc thể hiện đặc quyền miễn trừ của giới tinh hoa, nơi người đủ giàu và thế lực được dung thứ. Dù vậy, bài viết lưu ý cựu công tố viên Joon Kim đang tiến hành điều tra độc lập về các cáo buộc sai phạm của Huang."
+      ],
+      "same_event_coverage_ids": [
+        "54b13a7201a2ad02aadb"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Jensen Huang",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Jensen Huang",
+          "Donald Trump",
+          "JD Vance",
+          "Elizabeth Lopatto"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "The Verge: Jensen Huang trở lại ghế CEO Nvidia nhờ sự can thiệp của Donald Trump và giới tỷ phú",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1040819/welcome-to-elite-impunity-jensen-huang"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.75,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 8,
+          "meaning": 7
+        },
+        "hard_errors": [
+          {
+            "kind": "quote",
+            "summary_text": "Dù vậy, bài viết lưu ý cựu công tố viên Joon Kim đang tiến hành điều tra độc lập",
+            "explanation": "The source describes the inquiry as a quoted “thorough and independent investigation” conducted on Nvidia’s board’s behalf, then closes with skepticism about accountability. The Vietnamese presents independence as an unqualified counterpoint (outlet:p046)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The final sentence makes the investigation sound like a reassuring exception to Lopatto’s argument.",
+            "fix": "Attribute the description of the investigation to Nvidia’s board and retain Lopatto’s skepticism about its outcome (outlet:p046)."
+          },
+          {
+            "question": "notable",
+            "problem": "The reader misses how abruptly the board’s stated position changed.",
+            "fix": "Add that the board chair said on November 17 that Nvidia did not intend to reinstate Huang, before his November 23 return (outlet:p033)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "8fe5dcf451ea053eef0cbc3c02178312c30c98532119f91499ec5e2d17e4ab3e",
+        "scored_at": "2026-11-23T23:54:23.552098+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "53c2c35b368eb5172919",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/23/2026/commerce-to-add-megaspeed-to-trade-blacklist",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "64b6925607fb06fb4bd7"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Megaspeed",
+      "video_labels": {
+        "video_hook": "drama_company",
+        "named_people": [
+          "Jensen Huang",
+          "Donald Trump"
+        ],
+        "availability": "global",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "876aad68c91f878f76e7",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/23/supertake-raises-20m-to-let-ai-agents-turn-your-market-predictions-into-stock-portfolios/",
+      "key_points": [
+        "Supertake gọi vốn 20 triệu USD vòng hạt giống do quỹ Adjacent dẫn đầu, cùng sự tham gia của Coinbase Ventures và Union Square Ventures. Nền tảng này hỗ trợ người dùng chuyển ý tưởng cá nhân thành danh mục đầu tư thực tế qua các tác nhân AI (AI trading agent).",
+        "Người dùng mô tả nhận định thị trường bằng ngôn ngữ tự nhiên thông thường, sau đó AI đối thoại qua lại và thiết lập danh mục đầu tư kết nối Coinbase hoặc Robinhood. Hệ thống kết hợp mô hình AI tiên tiến với phần mềm độc quyền có nhiệm vụ định hướng và giới hạn thao tác của AI.",
+        "Danh mục cổ phiếu dược phẩm và mỹ phẩm theo xu hướng ngoại hình là ví dụ tiêu biểu trên bảng xếp hạng của nền tảng. Hiện tại, dịch vụ mới dừng lại ở việc chọn cổ phiếu và chưa mở rộng sang phái sinh hay bán khống.",
+        "TechCrunch nhận định việc giao cho AI trực tiếp quản lý tài sản thực tế đòi hỏi mức độ tin cậy mới từ phía người dùng. Quyền truy cập Supertake hiện vẫn phải qua danh sách chờ trong giai đoạn thử nghiệm beta."
+      ],
+      "same_event_coverage_ids": [
+        "8d453dc7e08fe7824667"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Supertake",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Sarah Perez",
+          "Nico Wittenborn",
+          "Nat Friedman",
+          "Guillermo Rauch",
+          "Nikita Bier",
+          "Scott Belsky",
+          "Nemil Dalal",
+          "Michael Mignano"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Supertake gọi vốn hạt giống 20 triệu USD cho dịch vụ dùng AI biến nhận định thị trường thành danh mục cổ phiếu",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/23/supertake-raises-20m-to-let-ai-agents-turn-your-market-predictions-into-stock-portfolios/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.0,
+        "answers": {
+          "what": 10,
+          "why": 8,
+          "notable": 9,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The reader learns that trust matters but not how Supertake says it limits AI control.",
+            "fix": "Mention a concrete safeguard, such as requiring explicit consent for deposits or withdrawals or keeping brokerage credentials from agents (outlet:p025)."
+          },
+          {
+            "question": "why",
+            "problem": "The reason for the funding is thin.",
+            "fix": "State that Supertake plans to use the new funding to expand its team and business (outlet:p007, outlet:p029)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "2596eeb67c123c605655444ea41519d6b70ad0492bffd20e05f61970bd08b870",
+        "scored_at": "2026-11-23T23:40:16.562431+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "affb554213303069d7fa",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/23/elon-musk-and-others-rejoice-as-jensen-huang-is-reinstated-at-nvidia-amid-scandal/",
+      "key_points": [
+        "Jensen Huang được phục chức tổng giám đốc kiêm chủ tịch Nvidia vào sáng thứ Hai. Việc phục chức diễn ra bất chấp ông vướng vào ba vụ bê bối tình ái, gồm một vụ việc với người bị cáo buộc là gián điệp Trung Quốc.",
+        "Trước đó, cổ phiếu Nvidia từng lao dốc do phản ứng trước việc ông Huang bị phế truất. Trong khi đó, vụ ngoại tình với người bị cáo buộc là gián điệp Trung Quốc đã châm ngòi cho các cuộc điều tra của Quốc hội Mỹ về an ninh quốc gia.",
+        "Liên quan đến các cuộc điều tra, ông Huang dự kiến sẽ điều trần kín trước ba ủy ban của Hạ viện Mỹ. Elon Musk ủng hộ việc phục chức trên mạng xã hội X, trong khi một số quan chức đắc cử hoài nghi tuyên bố của Tổng thống Donald Trump rằng sự trở lại này không đe dọa an ninh quốc gia.",
+        "Thượng nghị sĩ Pete Ricketts nhấn mạnh quyết định của Nvidia không miễn trừ trách nhiệm điều trần trước Quốc hội của ông Huang, hay việc giải trình về lo ngại an ninh và lượng chip thất thoát. Theo TechCrunch, ông Huang vẫn dự kiến sẽ điều trần công khai trước Ủy ban Ngân hàng Thượng viện vào ngày 3 tháng 12."
+      ],
+      "same_event_coverage_ids": [
+        "d6e0838761073864fdec"
+      ],
+      "split_coverage_ids": [
+        "dc97c3c0af0f7e0b1d15"
+      ],
+      "subject": "Jensen Huang",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Elon Musk",
+          "Jensen Huang",
+          "Sam Altman",
+          "Amanda Silberling"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Jensen Huang được phục chức CEO Nvidia giữa bê bối tình ái và điều tra an ninh quốc gia",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/23/elon-musk-and-others-rejoice-as-jensen-huang-is-reinstated-at-nvidia-amid-scandal/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.0,
+        "answers": {
+          "what": 8,
+          "why": 8,
+          "notable": 8,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "role",
+            "summary_text": "chủ tịch Nvidia",
+            "explanation": "The source says Huang was reinstated as CEO and president, not as Nvidia’s board chair (outlet:p006)."
+          },
+          {
+            "kind": "quote",
+            "summary_text": "lượng chip thất thoát",
+            "explanation": "Senator Ricketts referred to “unaccounted-for chips.” That does not establish that the chips were lost (outlet:p029)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The headline and opening center the reinstatement, leaving the article’s focus on technology leaders’ reactions thin.",
+            "fix": "Bring the broader support into the opening, including Musk and other leaders named in the source (outlet:p006, outlet:p016, outlet:p020)."
+          },
+          {
+            "question": "what",
+            "problem": "The Vietnamese gives Huang the title of board chair.",
+            "fix": "Use the source’s title, CEO and president (outlet:p006)."
+          },
+          {
+            "question": "meaning",
+            "problem": "“Lost chips” states more than the senator’s concern establishes.",
+            "fix": "Describe the chips as unaccounted for (outlet:p029)."
+          },
+          {
+            "question": "notable",
+            "problem": "The scale of organized support is absent.",
+            "fix": "Mention the open letter with 200,000 signatories if space allows (outlet:p020)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "a3cdc5c0031e44a4a0e92cb78e5958796d64ce8b1acf24151b57e05004b0f4b2",
+        "scored_at": "2026-11-23T23:54:23.552130+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "32a4092b48ccec82b7e6",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://github.com/Karimk899/free-llm-router",
+      "key_points": [
+        "Dự án FreeLlmRouter phát hành bản dựng 64-bit cho Windows của công cụ định tuyến yêu cầu đến nhà cung cấp mô hình ngôn ngữ lớn (LLM) miễn phí. Bản v0.1.0 được phân phối dưới dạng gói di động nén sẵn không đòi hỏi biên dịch mã.",
+        "Hệ thống vận hành qua đường ống đệm vòng giới hạn và quản lý trạng thái JSON nguyên tử. Bộ theo dõi tự động áp dụng thiết lập trong tệp config/settings.json mà không cần khởi động lại.",
+        "Người dùng khởi chạy tệp FreeLlmRouter_Setup_x64.exe cùng thư mục cấu hình config/settings.json. Trước đó, người dùng Windows 10 hoặc 11 tải gói v0.1.0 và giải nén bằng mã truy cập 2026.",
+        "Dự án cho biết phần mềm vận hành qua cấu hình JSON nạp lại trực tiếp và tiêu tốn tối thiểu tài nguyên."
+      ],
+      "same_event_coverage_ids": [
+        "10311a5e29168ca5183a"
+      ],
+      "split_coverage_ids": [],
+      "subject": "FreeLlmRouter",
+      "video_labels": {
+        "video_hook": "usable_now",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "FreeLlmRouter ra mắt bản dựng 64-bit cho Windows định tuyến yêu cầu đến các nhà cung cấp AI miễn phí",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "github",
+          "url": "https://github.com/Karimk899/free-llm-router"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.0,
+        "answers": {
+          "what": 8,
+          "why": 10,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "Readers miss automatic fallback, a feature named in the source’s description.",
+            "fix": "Add that the router automatically falls back between providers (outlet:p001–p002)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "6a53c9c1509da666e37dc4741e1e5f948916cb0c010fb95c69bacc89985d7ccc",
+        "scored_at": "2026-11-23T23:40:16.562494+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "b0689cf87ab570a441c8",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://openai.com/index/introducing-shirudo",
+      "key_points": [
+        "OpenAI và Cisco ra mắt Shirudo, môi trường thực thi (runtime) mã nguồn mở giúp bảo vệ các hệ thống Linux đang chạy trong khi triển khai bản vá. Dự án kết hợp nghiên cứu AI của OpenAI cùng chuyên môn hạ tầng và bảo mật từ Cisco.",
+        "Theo OpenAI, việc thử nghiệm và triển khai bản vá mất nhiều ngày hoặc tuần. Doanh nghiệp giải thích việc bảo vệ dịch vụ gặp khó vì đòn tấn công và yêu cầu hợp lệ dùng chung thao tác Linux, nếu chặn hoàn toàn sẽ khiến dịch vụ ngừng hoạt động.",
+        "Trong một thử nghiệm có kiểm soát, lá chắn bảo vệ đã chặn đòn khai thác Java4Shell trên dịch vụ Elasticsearch đang chạy mà không cần khởi động lại. Nhóm phát triển dùng Codex của OpenAI tạo lá chắn gắn kiểm tra đầu vào vào bộ giải mã Base64 của Java, từ chối dữ liệu độc hại trong khi Elasticsearch vẫn chạy.",
+        "OpenAI nhận định Shirudo là bước đầu hướng tới hạ tầng tự thích ứng với mối đe dọa mới mà vẫn bảo đảm độ tin cậy. Dù vậy, doanh nghiệp lưu ý việc thử nghiệm và triển khai bản vá hoàn chỉnh vẫn có thể mất nhiều ngày hoặc tuần."
+      ],
+      "same_event_coverage_ids": [
+        "2462ba3451ea5cbdc553"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Shirudo",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "OpenAI và Cisco ra mắt Shirudo bảo vệ hệ thống Linux đang chạy, thử nghiệm chặn đòn Java4Shell",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "openai",
+          "url": "https://openai.com/index/introducing-shirudo"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.3,
+        "answers": {
+          "what": 10,
+          "why": 8,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "việc thử nghiệm và triển khai bản vá mất nhiều ngày hoặc tuần",
+            "explanation": "The source says testing and deploying a patch can take days or weeks, not that it necessarily does (outlet:p008)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "nếu chặn hoàn toàn sẽ khiến dịch vụ ngừng hoạt động",
+            "explanation": "The source says blocking the shared Linux operation could take the service offline, not that it certainly would (outlet:p008)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The reader gets two possibilities as certainties.",
+            "fix": "Preserve “can take days or weeks” and “could take the service offline” (outlet:p008)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The reader misses how Shirudo is meant to protect legitimate traffic and who decides to deploy a shield.",
+            "fix": "Explain that teams test a shield against both vulnerable behavior and legitimate requests, then deploy it after operator approval (outlet:p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "42324b6f7fc1e0c2df840311114296090991425ec62c62f9a23d049ef604465c",
+        "scored_at": "2026-11-23T23:54:23.552158+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "9b671830d10aeec9c755",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-23/hpe-gives-forecast-that-falls-short-of-most-optimistic-estimates",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "a6406452223613d45342"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "b6aa410db677fb565921",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/science/1040497/ai-data-centers-electricity-un-climate-summit",
+      "key_points": [
+        "Theo The Verge, đàm phán khí hậu toàn cầu COP31 tại Thổ Nhĩ Kỳ đã sụp đổ do không tập hợp đủ ủng hộ để thông qua thỏa thuận chung. Hội nghị bế tắc khi mục tiêu điện hóa toàn cầu vấp phải nhu cầu điện tăng vọt từ các trung tâm dữ liệu AI.",
+        "The Verge cho biết EU, Anh và các nước dễ bị tổn thương bác bỏ thỏa thuận vì cho rằng văn kiện quá yếu khi bỏ qua nhiên liệu hóa thạch. Mỹ cũng vắng mặt sau khi chính quyền Trump rút khỏi hiệp định Paris, dù là tâm điểm xây dựng trung tâm dữ liệu.",
+        "Thỏa thuận nâng tỷ trọng điện toàn cầu từ 20% lên 35% vào năm 2035 chỉ dừng lại ở cam kết tự nguyện của khoảng 80 quốc gia. Meta cho biết lượng phát thải tăng 45% so với cùng kỳ năm trước và đang đánh giá lại lộ trình phát thải ròng bằng không khi tập trung vào AI.",
+        "Bruce Douglas từ Liên minh Năng lượng Tái tạo Toàn cầu nhận định nhu cầu điện từ trung tâm dữ liệu là rủi ro khí hậu lớn khi nguồn cung chưa bền vững. The Verge phản ánh nhiều tổ chức môi trường gọi đây là kỳ COP tệ nhất do các nước chỉ đưa ra cam kết tự nguyện."
+      ],
+      "same_event_coverage_ids": [
+        "411abd5d906111a1842d"
+      ],
+      "split_coverage_ids": [],
+      "subject": "AI Data Centers",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Justine Calma"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Đàm phán khí hậu COP31 sụp đổ do bế tắc trước nhu cầu điện tăng vọt của các trung tâm dữ liệu AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/science/1040497/ai-data-centers-electricity-un-climate-summit"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 6.35,
+        "answers": {
+          "what": 6,
+          "why": 4,
+          "notable": 8,
+          "meaning": 7
+        },
+        "hard_errors": [
+          {
+            "kind": "cause",
+            "summary_text": "sụp đổ do bế tắc trước nhu cầu điện tăng vọt của các trung tâm dữ liệu AI",
+            "explanation": "AI data center demand complicated electrification, but the source attributes the pact’s failure to insufficient support for a deal rejected as too weak, particularly on fossil fuels (outlet:p023, outlet:p025)."
+          },
+          {
+            "kind": "cause",
+            "summary_text": "Hội nghị bế tắc khi mục tiêu điện hóa toàn cầu vấp phải nhu cầu điện tăng vọt từ các trung tâm dữ liệu AI",
+            "explanation": "The source describes electricity demand as a challenge discussed at COP31, not as the cause of the negotiating impasse (outlet:p023, outlet:p025)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "các nước chỉ đưa ra cam kết tự nguyện",
+            "explanation": "The source limits this statement to commitments on AI and electrification, rather than all commitments made by countries (outlet:p026)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The reader is led to believe AI electricity demand caused the negotiations to collapse.",
+            "fix": "State that the pact failed to gain support because several parties considered it too weak, including its omission of fossil fuels; describe data center demand as a separate challenge to electrification (outlet:p023, outlet:p025)."
+          },
+          {
+            "question": "notable",
+            "problem": "The failed pact and the pledge signed by about 80 nations read as one agreement.",
+            "fix": "Distinguish the failed negotiated pact from the voluntary pledge on electricity’s share of energy use (outlet:p023, outlet:p025, outlet:p035)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The voluntary-only outcome is stated as applying to countries’ commitments generally.",
+            "fix": "Specify that the source describes voluntary commitments on AI and electrification (outlet:p026)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "6671b64bf3a42cd52f183b1de86460816cf8b2d81953e285be9b113dd8de355a",
+        "scored_at": "2026-11-23T23:54:23.552183+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "a1b4e25d9b6fb66f2817",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-23/us-to-blacklist-megaspeed-the-firm-at-center-of-nvidia-scandal",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "079fec326c618ea09503",
+        "09534a3de2fcd81b673f"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "ffb22b95144bf03011f9",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/23/2026/huangs-return-scrambles-congress-oversight-plans",
+      "key_points": [
+        "Theo Semafor, kế hoạch giám sát của Quốc hội Mỹ đang được thúc đẩy mạnh sau khi ông Jensen Huang được phục chức CEO Nvidia, xoay quanh kết luận của chính quyền Trump rằng không có rủi ro an ninh. Sự can thiệp của Tổng thống Donald Trump vào quyết định này cũng gây căng thẳng trong chính nội bộ đảng Cộng hòa.",
+        "Hội đồng quản trị Nvidia dẫn ý kiến tham vấn từ giới chức cấp cao chính phủ Mỹ để tin rằng việc phục chức không gây rủi ro an ninh.",
+        "Thượng nghị sĩ Tim Scott thông báo ông Huang sẽ điều trần công khai vào ngày 3 tháng 12 trước Ủy ban Ngân hàng Thượng viện. Thượng nghị sĩ Pete Ricketts cho rằng hành vi của ông Huang không đáng phục chức và yêu cầu Nvidia giải trình về số chip chưa kiểm kê.",
+        "Semafor nhận định kế hoạch điều trần tạo ra nguy cơ đối đầu trực diện với chính quyền Trump trong kỳ họp quốc hội vịt què. Lãnh đạo lưỡng đảng tại Quốc hội cũng nghiêng về phương án dùng dự luật quốc phòng sắp tới để lấp lỗ hổng xuất khẩu chip sang Trung Quốc."
+      ],
+      "same_event_coverage_ids": [
+        "21dcaa9d5dc530979c1f"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Jensen Huang",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Jensen Huang",
+          "Donald Trump",
+          "Todd Blanche"
+        ],
+        "availability": "unknown",
+        "is_leak": true
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Quốc hội Mỹ đẩy mạnh giám sát và lên lịch điều trần sau khi CEO Nvidia được phục chức",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/23/2026/huangs-return-scrambles-congress-oversight-plans"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.85,
+        "answers": {
+          "what": 9,
+          "why": 9,
+          "notable": 9,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The security conclusion may appear settled because the Vietnamese omits ongoing Justice Department investigations.",
+            "fix": "Add that those investigations could affect the no-risk assessment attributed to Attorney General Todd Blanche (outlet:p005)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "56b2cd26e5f978a68df6fa56db0582604f2f2cb243390dc698593edd44d17ca6",
+        "scored_at": "2026-11-23T23:40:16.562560+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "e92ad780424dae18760c",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.theatlantic.com/newsletters/2026/11/jensen-huang-ai-apology-nvidia/689366/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "966500419b1d2e279d49"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Jensen Huang",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Jensen Huang"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "9922dff918cb8505afe8",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "podcast",
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://techcrunch.com/2026/11/23/nvidia-reverses-course-and-brings-jensen-huang-back-as-ceo/",
+      "key_points": [
+        "Hội đồng quản trị Nvidia thông báo phục hồi chức vụ CEO kiêm chủ tịch công ty cho ông Jensen Huang, chưa đầy hai tuần sau khi ông từ chức. Trước đó, ông Huang từ chức sau khi thừa nhận có ít nhất hai mối quan hệ ngoài hôn nhân, gồm một phụ nữ bị chính phủ Mỹ nghi là gián điệp Trung Quốc.",
+        "Hội đồng quản trị Nvidia cho biết đã tham vấn quan chức cấp cao chính phủ Mỹ và xác định ông Huang không gây rủi ro an ninh quốc gia. Nvidia cho biết quyết định đồng thuận được đưa ra sau chuỗi thảo luận, khi hội đồng quản trị hài lòng về sự thẳng thắn và năng lực lãnh đạo của ông.",
+        "Theo TechCrunch, cổ phiếu Nvidia mở cửa tăng 30% và đạt mức giá 159,95 USD vào sáng thứ Hai. Tổng thống Donald Trump công khai ủng hộ quyết định, còn các lãnh đạo như Elon Musk và Garry Tan ký đơn kiến nghị kêu gọi phục chức cho ông.",
+        "TechCrunch đánh giá đây là màn tái xuất ngoạn mục của một lãnh đạo có tầm ảnh hưởng lớn, sau khi sự ra đi đột ngột của ông từng dấy lên nghi vấn về an ninh quốc gia và tương lai Nvidia. Chủ tịch Harvey C. Jones khẳng định việc đưa ông Huang trở lại đem lại lợi ích tốt nhất cho cổ đông, nhân viên, đối tác và khách hàng của Nvidia."
+      ],
+      "same_event_coverage_ids": [
+        "3e2be7560b21474e2b46"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Jensen Huang",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Sarah Holder",
+          "Joe Weisenthal",
+          "Michael Shepard",
+          "Donald Trump",
+          "Jensen Huang"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nvidia phục hồi chức vụ CEO kiêm chủ tịch công ty cho ông Jensen Huang chưa đầy hai tuần sau khi từ chức",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch.com",
+          "url": "https://techcrunch.com/2026/11/23/nvidia-reverses-course-and-brings-jensen-huang-back-as-ceo/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "18c5a360c6636975c21ec10a1cb6a2b79c483a5f7bb25d65909def1c062c1ae4",
+        "scored_at": "2026-11-23T23:54:23.552206+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "243bed400ddd18152b67",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-23/-jensen-trade-is-ai-trade-says-patrick-mchenry-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "25700e92244fecd3cfd3"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "2267662cadeb0596031f",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.cnbc.com/2026/11/23/nvidia-jensen-huang-congress-trump.html",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "81950b87cb8e86b0ea74"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Jensen Huang",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Jensen Huang"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "b8312c649fd1660540af",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Product release and technical benchmark post for cuDSS 1.0, a sparse linear solver for mechanical simulations with no direct AI focus.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://developer.nvidia.com/blog/accelerating-direct-sparse-solvers-for-computational-engineering-with-nvidia-cudss-1-0/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "af46f2a3b331ad507d42"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "ba7fe03235f718d9453a",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/tech/1040428/nvidia-jensen-huang-ceo-return",
+      "key_points": [
+        "Hội đồng quản trị Nvidia phục chức CEO cho Jensen Huang vào ngày thứ Hai, chưa đầy hai tuần sau khi ông từ chức vì các bê bối tình ái. Trước đó, giá cổ phiếu Nvidia đã lao dốc mạnh và ban lãnh đạo từng tuyên bố dứt khoát không có ý định đưa ông trở lại.",
+        "Theo The Verge, sự trở lại này bắt nguồn từ chiến dịch gây sức ép của các đồng minh công nghệ cùng Tổng thống Donald Trump. Hội đồng quản trị Nvidia cho biết họ đã nhận ý kiến từ cấp cao chính phủ Mỹ và xác định việc phục chức không gây rủi ro an ninh quốc gia.",
+        "Phát ngôn viên Nhà Trắng khẳng định Tổng thống can thiệp toàn diện, còn ông Trump cho biết Bộ Tư pháp không tìm thấy bằng chứng Huang phạm pháp. Nhiều lãnh đạo công nghệ cũng công khai ủng hộ, như Elon Musk ví việc loại bỏ Huang giống như đuổi Michael Jordan khỏi đội bóng đang thắng.",
+        "The Verge nhận định việc phục chức này khiến làn sóng giám sát mới từ cơ quan quản lý và giới lập pháp chỉ mới bắt đầu. Thượng nghị sĩ Elizabeth Warren gọi quyết định của Nvidia là liều lĩnh, trong khi các cuộc điều tra của Ủy ban Chứng khoán và Bộ Tư pháp vẫn tiếp diễn."
+      ],
+      "same_event_coverage_ids": [
+        "c3affa6362c1e1849cd6"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Jensen Huang",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Jensen Huang",
+          "Emma Roth"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nvidia phục chức CEO cho Jensen Huang sau sức ép từ Donald Trump nhưng đối mặt làn sóng giám sát mới",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/tech/1040428/nvidia-jensen-huang-ceo-return"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.4,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "Readers cannot tell which organization or conduct each investigation concerns.",
+            "fix": "Specify the board’s investigation into Huang, the SEC’s examination of Nvidia’s accounting, and the Justice Department’s investigation of Megaspeed (outlet:p042)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "5756bd5ea5292f341f0dd9cd511ed443458e86365e6f208a545c8e97f5c23bbb",
+        "scored_at": "2026-11-23T23:40:16.562604+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "7a6320ba757542fe09a0",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/23/nvidia-reverses-course-and-brings-jensen-huang-back-as-ceo/",
+      "key_points": [
+        "Hội đồng quản trị Nvidia phục chức CEO cho Jensen Huang theo thông báo hôm thứ Hai, chưa đầy hai tuần sau khi ông từ chức sau khi thừa nhận quan hệ ngoài hôn nhân với người bị chính phủ Mỹ nghi là gián điệp Trung Quốc. Quyết định này đảo ngược lập trường trước đó của ban lãnh đạo, khi họ từng tuyên bố không có ý định phục chức và đã tìm kiếm người thay thế.",
+        "Theo Nvidia, hội đồng quản trị đồng thuận đưa Huang trở lại sau khi hài lòng về sự thẳng thắn và năng lực lãnh đạo của ông. Công ty cũng cho biết đã tham vấn quan chức cấp cao chính phủ Mỹ trước khi xác định việc phục chức không gây rủi ro an ninh quốc gia.",
+        "Cổ phiếu Nvidia tăng vọt 30% ngay khi mở cửa phiên giao dịch, trong khi Tổng thống Donald Trump ca ngợi đây là quyết định đúng đắn. Trước đó, hàng loạt lãnh đạo công nghệ như Elon Musk hay Garry Tan cũng đã ký kiến nghị kêu gọi đưa Huang quay lại vị trí.",
+        "TechCrunch nhận định đây là màn tái xuất phi thường sau những nghi vấn về an ninh quốc gia và tương lai của nhà sản xuất chip hàng đầu. Chủ tịch Harvey C. Jones khẳng định việc phục chức này mang lại lợi ích cao nhất cho toàn thể cổ đông, nhân viên và khách hàng."
+      ],
+      "same_event_coverage_ids": [
+        "bf13d8100f250a10ac85"
+      ],
+      "split_coverage_ids": [
+        "f09023ad98272fa69946"
+      ],
+      "subject": "Nvidia",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Jensen Huang",
+          "Donald Trump",
+          "Kirsten Korosec"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nvidia phục chức cho Jensen Huang khiến cổ phiếu tăng vọt 30% sau khi chính phủ Mỹ xác nhận an toàn",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch.com",
+          "url": "https://techcrunch.com/2026/11/23/nvidia-reverses-course-and-brings-jensen-huang-back-as-ceo/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.05,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 10,
+          "meaning": 6
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "chính phủ Mỹ xác nhận an toàn",
+            "explanation": "The source says Nvidia’s board consulted senior US officials and then determined Huang posed no national security risk. It does not report a US government confirmation of safety (outlet:p007)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The headline attributes the national security conclusion to the US government.",
+            "fix": "Attribute the conclusion to Nvidia’s board and say it followed consultation with senior US officials (outlet:p007)."
+          },
+          {
+            "question": "what",
+            "problem": "The account mentions only one affair, leaving out the source’s stated number.",
+            "fix": "Say Huang admitted at least two extramarital affairs, one involving the woman suspected by the US government of being a Chinese spy (outlet:p006)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "febead89d54254239b402042effc6906b8d39dabf8ed5c0c9d8667e202b2a667",
+        "scored_at": "2026-11-23T23:40:16.562815+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "bf2b853553a4f5010e2d",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.wired.com/story/states-sue-spacex-over-grok-deepfakes/",
+      "key_points": [
+        "The attorneys general of Oregon and Virginia are suing SpaceX and X Corp over alleged consumer protection violations regarding Grok AI safety.",
+        "The lawsuits allege SpaceX failed to implement adequate safeguards to prevent Grok from generating nonconsensual sexualized imagery and CSAM.",
+        "Complaints were filed in Virginia's Richmond circuit court and Oregon's Multnomah County circuit court."
+      ],
+      "same_event_coverage_ids": [
+        "5ebee633640e2cf6062a",
+        "a6cc905f329dcaf2b6d5",
+        "c5646c8de5e16ab94aee"
+      ],
+      "split_coverage_ids": [],
+      "subject": "SpaceX",
+      "video_labels": {
+        "video_hook": "drama_company",
+        "named_people": [
+          "Elon Musk"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "1259b534687dd8b31711",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Promotional customer story published on OpenAI's business portal detailing Richpanel's adoption of GPT models.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://openai.com/business/customer-stories/richpanel-ai-customer-support",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b4a3f47c37ea5f2b95fb"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "d70157d1228f26a021a1",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.scmp.com/tech/tech-war/article/3375427/us-treasury-secretary-leaves-door-open-jensen-huangs-return-nvidia",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c66b0aeb99f4e7f2135b"
+      ],
+      "split_coverage_ids": [
+        "30f4fa30a9f4a9db73ba",
+        "90894395aac0dff78add"
+      ],
+      "subject": "Scott Bessent",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Scott Bessent",
+          "Jensen Huang"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "b5129d6fc89af52dbb22",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "top",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://claude.com/resources/articles/introducing-claude-ship",
+      "key_points": [
+        "Anthropic ra mắt Claude Ship ở bản thử nghiệm beta với khả năng rà soát, sửa lỗi và quyết định gộp các pull request (yêu cầu gộp mã) theo chính sách của nhóm. Công cụ kết hợp Code Review cùng hai tác tử AI (agent, chương trình tự vận hành) mới là PR Steward và Claude Approvals trên GitHub cho tài khoản Claude Team và Enterprise.",
+        "Theo Anthropic, nhóm phát triển muốn quy trình sau pull request diễn ra nhanh như tốc độ viết mã của AI. Lý do là nhiều lập trình viên hiện xây dựng phần mềm bằng tác tử và Claude đang tự viết phần lớn mã cho đội ngũ Claude Code.",
+        "Lập trình viên có thể thử nghiệm lệnh /ship trong Claude Code trên các pull request riêng khi một thay đổi đã sẵn sàng. Khi đó, Claude sẽ đẩy mã, mở yêu cầu gộp, rà soát và xử lý phản hồi cùng các kiểm thử thất bại, dù việc được gộp phụ thuộc vào quyền hạn của lập trình viên và quy tắc nhánh.",
+        "Theo Anthropic, Claude có thể tự phê duyệt các thay đổi thông thường nếu chính sách cho phép, hoặc yêu cầu con người ký duyệt trong các tình huống nhất định. Tính năng này có thể làm tăng chi phí do tính theo token và không áp dụng cho tổ chức dùng cấu hình không lưu giữ dữ liệu, cấu hình HIPAA hoặc khóa mã hóa do khách hàng quản lý."
+      ],
+      "same_event_coverage_ids": [
+        "13c587685a34e08195f5",
+        "1c02f96bcf429378fea5",
+        "b4ae7d4f8fc2f0e8c310"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Anthropic",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Anthropic ra mắt thử nghiệm Claude Ship cho phép AI rà soát, sửa lỗi và tự duyệt pull request",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "anthropic",
+          "url": "https://claude.com/resources/articles/introducing-claude-ship"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.3,
+        "answers": {
+          "what": 8,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "“Quyết định gộp” may suggest Claude Ship performs the merge itself.",
+            "fix": "Say it decides whether a pull request is ready for approval or merging under team policy; merging remains subject to developer permissions and branch rules (outlet:p003, outlet:p009, outlet:p012)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "10398b992ee71fcc6327d29373b0219189b99c5cd6837b915b7653625a6841b8",
+        "scored_at": "2026-11-23T23:54:23.552229+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "36fb5b1c7a9ff4c850f9",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "survey",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.anthropic.com/research/working-with-ai",
+      "key_points": [
+        "Hai phần ba số doanh nghiệp giảm tuyển dụng do AI (trí tuệ nhân tạo), theo báo cáo của Anthropic. Nhóm tác giả cho biết việc sa thải trực tiếp rất hiếm khi chỉ có hai nơi xóa bỏ vị trí, và 10 công ty thậm chí tuyển thêm người.",
+        "Một phần ba đợt giảm tuyển dụng do doanh nghiệp thu hẹp bộ phận qua giảm biên chế tự nhiên mà không tuyển bù. Tuy nhiên, nhóm nghiên cứu cho biết phần lớn xuất phát từ việc các công ty từ bỏ nhu cầu tuyển dụng để mở rộng quy mô.",
+        "Chín công ty cắt giảm các nhà thầu thuê ngoài ở các mảng lập trình, chăm sóc khách hàng, pháp lý và vận hành. Một công ty tài chính đã giảm hơn 100 nhà thầu nước ngoài, trong khi một hãng phần mềm tiết kiệm toàn bộ chi phí pháp lý nhờ AI.",
+        "Rào cản khai thác AI chủ yếu phát sinh từ nội bộ tổ chức trong quá trình tiếp nhận công nghệ, theo nhóm tác giả. Báo cáo nhấn mạnh việc kiểm duyệt sản phẩm của AI rất khó khăn khi khối lượng lớn làm quá tải sự chú ý của con người."
+      ],
+      "same_event_coverage_ids": [
+        "743c761386cba4ea346f"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Anthropic",
+      "video_labels": {
+        "video_hook": "money_jobs",
+        "named_people": [
+          "Nathan Wilmers",
+          "Maxim Massenkoff",
+          "Peter McCrory"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Báo cáo Anthropic: Hai phần ba doanh nghiệp giảm tuyển dụng do AI, việc sa thải trực tiếp rất hiếm",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "anthropic",
+          "url": "https://www.anthropic.com/research/working-with-ai"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 7.45,
+        "answers": {
+          "what": 5,
+          "why": 9,
+          "notable": 9,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "Hai phần ba số doanh nghiệp giảm tuyển dụng do AI",
+            "explanation": "The finding concerns people at two-thirds of the companies the researchers spoke to; the supplied source does not establish that proportion for businesses generally (outlet:p033)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "việc sa thải trực tiếp rất hiếm khi chỉ có hai nơi xóa bỏ vị trí",
+            "explanation": "Only two companies reported AI automation fully eliminating a position and causing job loss. Separately, people at five companies described pushing out employees who would not adopt AI (outlet:p032–p033)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The headline and opening turn an interview-sample finding into a claim about all businesses.",
+            "fix": "Qualify the figure as applying to companies the researchers interviewed (outlet:p033)."
+          },
+          {
+            "question": "what",
+            "problem": "The account of rare job loss conflates automation eliminating a position with other direct terminations.",
+            "fix": "Separate the two reported findings: five companies pushed out AI-resistant employees, while two reported automation eliminating a position and causing job loss (outlet:p032–p033)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "0ea4dd1c15b2d3cbefd3a36e9d377a11cc312b1dd0a7630676bfc52d58072ff8",
+        "scored_at": "2026-11-23T23:54:23.552251+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "1dca5df4b44d8aa728c7",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Vendor marketing resource and enterprise guide from Claude.com promoting Claude Code adoption without independent reporting or a new product release.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://claude.com/resources/articles/enterprise-guide-to-securing-coding-agents",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "835caf502a80f46c6e3e"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "abeb5b02b55f0cfc74a7",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.semafor.com/article/11/22/2026/us-spy-chief-calls-nvidia-chips-jewels",
+      "key_points": [
+        "Mỹ đang điều tra nghi can gián điệp Trung Quốc liên quan đến Jensen Huang, cựu CEO của Nvidia, theo xác nhận từ Giám đốc tình báo Jay Clayton. Theo Bloomberg, ông Huang vừa được phục chức CEO sau khi phải rời công ty vì các cáo buộc quan hệ với nghi can này.",
+        "Theo The New York Times, việc thúc đẩy đổi mới bán dẫn nội địa của Trung Quốc được cơ quan tình báo nước này hỗ trợ bằng cách giúp các công ty đại lục thu thập chip tiên tiến.",
+        "Nêu bật giá trị dòng chip này, ông Clayton khẳng định chip Nvidia là viên ngọc quý mà mọi bên đều thèm muốn.",
+        "Chuyên gia Kyle Chan từ Viện Brookings nhận định kiểm soát xuất khẩu của Mỹ đã thúc đẩy Trung Quốc nỗ lực tái tạo chuỗi cung ứng bán dẫn toàn cầu. Dù vậy, ông Chan cho biết các phòng thí nghiệm AI Trung Quốc trong ngắn hạn vẫn muốn tiếp tục dùng chip Nvidia."
+      ],
+      "same_event_coverage_ids": [
+        "5dc4a4641652a8c073de"
+      ],
+      "split_coverage_ids": [
+        "60e5d7125f83f6b64763",
+        "ab24891b8dd74919d367",
+        "ae7c134856da39fe48ae",
+        "b1c72c52936b6a23b8f7"
+      ],
+      "subject": "Jensen Huang",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Jay Clayton",
+          "Jensen Huang",
+          "Kyle Chan"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Mỹ điều tra nghi vấn điệp viên liên quan Jensen Huang giữa lúc ông trở lại ghế CEO Nvidia",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/22/2026/us-spy-chief-calls-nvidia-chips-jewels"
+        },
+        {
+          "id": "coverage1",
+          "role": "coverage",
+          "name": "bloomberg",
+          "url": "https://www.bloomberg.com/news/videos/2026-11-23/huang-tells-staff-he-will-be-better-ceo-second-time-video"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.3,
+        "answers": {
+          "what": 9,
+          "why": 9,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "phải rời công ty",
+            "explanation": "The supplied coverage says Huang was ousted or resigned as CEO; it does not say he left Nvidia as a company (coverage1:p002; coverage2:p002)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "Readers may believe Huang left Nvidia altogether.",
+            "fix": "Say that he left the CEO post and was later reinstated (coverage1:p002; coverage2:p002)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "63749aa08422fa96ec8b364a7e089ef1fc5bca77ac9bf986b2f9d9215773d8e4",
+        "scored_at": "2026-11-23T23:40:16.562898+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "dbae24b8fb85e2e50e62",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Hacker News discussion thread with informal forum chatter rather than news reporting, analysis, or an announcement.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://news.ycombinator.com/item?id=50602128",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "ca8d60aceeb223e515d9"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "e40aa22c1989450a6a43",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://en.yna.co.kr/view/AEN20261122001052315",
+      "key_points": [
+        "Bộ trưởng Giáo dục Hàn Quốc Choi Kyo-jin đã từ chức sau khi Tổng thống Lee Jae Myung chấp thuận đơn xin thôi việc của ông vào Chủ nhật. Trong thông cáo chính thức, ông Choi nhận trách nhiệm sâu sắc và thừa nhận không thể tránh khỏi chỉ trích vì bộ đã không chuẩn bị trước cho kỳ thi.",
+        "Quyết định từ chức bắt nguồn từ sự hỗn loạn do thay đổi quy chế thi vào phút chót nhằm ngăn gian lận bằng AI trong kỳ thi đại học quốc gia. Động thái siết chặt diễn ra sau khi thủ khoa kỳ thi kế toán thuế năm nay thừa nhận gian lận bằng camera siêu nhỏ và AI tạo sinh.",
+        "Các biện pháp bất ngờ gồm quy định thí sinh chỉ được mang bút chì vào phòng thi và dán nhãn che cúc áo để chặn camera giấu kín. Nhà chức trách còn phát ba cảnh báo khẩn cấp tới điện thoại toàn quốc trong giờ thi, phát hiện 111 trường hợp nghi vấn sử dụng thiết bị điện tử.",
+        "Quy định vội vã này bị thí sinh và giáo viên chỉ trích vì làm gia tăng căng thẳng trong kỳ thi đại học vốn có tính chất quyết định sự nghiệp. Tại Hàn Quốc, kỳ thi đại học là sự kiện bước ngoặt có thể định đoạt triển vọng nghề nghiệp tương lai."
+      ],
+      "same_event_coverage_ids": [
+        "6dfebd68217cba1115b0",
+        "d9ab281f3b15f1b27d0a"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Choi Kyo-jin",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Choi Kyo-jin",
+          "Lee Jae Myung",
+          "Kang Yu-jung"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Hàn Quốc: Bộ trưởng Giáo dục từ chức sau sự cố đổi quy chế thi đại học để chống gian lận AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "yonhap",
+          "url": "https://en.yna.co.kr/view/AEN20261122001052315"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.4,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "Putting the alerts beside the 111 suspected cases may imply that the alerts produced that count.",
+            "fix": "Present the alerts and the ministry’s case count as separate reported facts; the source does not link them causally (outlet:p010–p011)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The account omits what the president ordered after accepting the resignation.",
+            "fix": "Add that Lee instructed the prime minister to take responsibility for follow-up measures after the exam (outlet:p007)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "4530e74e16516353f864cb22b88404a62bd84d3db4f97d927227dbb759dd8c86",
+        "scored_at": "2026-11-23T23:40:16.562921+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
