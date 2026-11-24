@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-24T05:32:04.534661+00:00",
-  "input_generated_at": "2026-11-24T04:46:34Z",
+  "generated_at": "2026-11-24T07:50:46.695874+00:00",
+  "input_generated_at": "2026-11-24T06:46:41Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -129484,10 +129484,10 @@
       "use_original_title": false,
       "source_url": "https://www.rnz.co.nz/news/world/2757034/the-ai-bubble-hasn-t-burst-but-it-has-significantly-deflated",
       "key_points": [
-        "Theo bài phân tích của Ian Verrender trên ABC News, bong bóng đầu tư trí tuệ nhân tạo (AI) đã xì hơi nghiêm trọng trong một tháng rưỡi qua. Đợt sụt giảm chứng khoán toàn cầu sáu tuần qua đã giáng đòn mạnh vào cơn sốt đầu tư từng thúc đẩy công nghệ này.",
-        "Tác giả cho biết cổ phiếu Nvidia trượt dốc do lo ngại doanh thu tương lai không đạt kỳ vọng và sẽ đến muộn hơn dự kiến. Trong khi đó, bê bối đời tư và nghi vấn gián điệp của Giám đốc điều hành Jensen Huang chỉ chịu một phần trách nhiệm cho đà lao dốc.",
+        "Theo bài phân tích của Ian Verrender trên ABC News, bong bóng đầu tư trí tuệ nhân tạo (AI) đã xì hơi nghiêm trọng trong một tháng rưỡi qua. Đợt sụt giảm chứng khoán sáu tuần qua đã giáng đòn mạnh vào làn sóng bùng nổ đầu tư từng thúc đẩy công nghệ này.",
+        "Tác giả cho biết cổ phiếu trượt giá do lo ngại doanh thu tương lai không đạt kỳ vọng và đến muộn hơn dự kiến. Bên cạnh đó, các rắc rối đời tư và nghi vấn gián điệp của Giám đốc điều hành Jensen Huang chỉ chịu một phần trách nhiệm.",
         "Cụ thể, sàn Nasdaq tại New York đã giảm hơn 18% từ đỉnh ngày 6 tháng 10, xóa sạch mọi mức tăng của năm nay. Cổ phiếu Nvidia cũng từng mất 40% giá trị trước khi phục hồi nhờ việc phục chức ông Jensen Huang.",
-        "Theo tác giả bài viết, giải pháp tài chính lâu dài đòi hỏi cắt giảm chi tiêu và tăng thuế, nếu không áp lực nợ công sẽ tiếp tục gia tăng. Dù đà sụt giảm chứng khoán tạm thời chặn đà tăng lãi suất và mang lại thời gian quý giá cho các chính phủ thu xếp tài chính, lạm phát gia tăng do xung đột khiến dư địa cắt giảm lãi suất rất hạn chế."
+        "Tác giả nhận định đợt suy thoái AI không thảm khốc như khủng hoảng nợ công, và biến động thị trường tạm thời tạo dư địa giúp các chính phủ thu xếp tài chính. Dù vậy, lãi suất khó có khả năng tăng cao hơn khi khủng hoảng diễn ra nhưng dư địa cắt giảm rất hạn chế do lạm phát leo thang."
       ],
       "same_event_coverage_ids": [
         "765f9cd7e9c008d82a95"
@@ -129519,30 +129519,35 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.4,
+        "value": 8.55,
         "answers": {
-          "what": 10,
-          "why": 10,
+          "what": 9,
+          "why": 6,
           "notable": 10,
-          "meaning": 6
+          "meaning": 8
         },
         "hard_errors": [
           {
-            "kind": "quote",
-            "summary_text": "đà sụt giảm chứng khoán tạm thời chặn đà tăng lãi suất",
-            "explanation": "This makes the halt in rate rises definite. The source says rates are unlikely to rise while the stock market turmoil plays out, and that Wall Street's weakness is likely to stop further US rate-hike discussions (outlet:p023, outlet:p036)."
+            "kind": "cause",
+            "summary_text": "cổ phiếu trượt giá do lo ngại doanh thu tương lai không đạt kỳ vọng và đến muộn hơn dự kiến",
+            "explanation": "The source gives this revenue concern as a reason specifically for Nvidia's slide, not for the broader stock market decline (outlet:p012)."
           }
         ],
         "findings": [
           {
-            "question": "meaning",
-            "problem": "Readers miss the author's central comparison: the AI stock decline could help avert a more serious sovereign debt crisis.",
-            "fix": "Add that the author considers an AI meltdown painful but less catastrophic than a sovereign debt crisis, and says the market decline gives governments breathing room (outlet:p025–p029, outlet:p036)."
+            "question": "why",
+            "problem": "The stated reason for Nvidia's decline reads as a reason for falling stocks generally.",
+            "fix": "Name Nvidia in this sentence and limit the revenue concern to its decline (outlet:p012)."
           },
           {
             "question": "meaning",
-            "problem": "Readers are told the market decline has stopped interest-rate increases, with more certainty than the source provides.",
-            "fix": "Say rates are unlikely to rise while the turmoil continues, preserving the source's qualification (outlet:p036, outlet:p045)."
+            "problem": "Readers learn that governments have breathing room but not that the source considers it temporary and calls for spending cuts and tax increases as a lasting response.",
+            "fix": "Add the source's limit on that relief and its stated longer-term remedy (outlet:p036-p039)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The summary leaves out the article's direct consequence for Australian readers.",
+            "fix": "Mention the expected pressure on Australian retirement savings and the local market (outlet:p054-p061)."
           }
         ],
         "writer_boats": [
@@ -129550,8 +129555,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "914682a6ac903a45e6db22845b88d9d8a1147aaffdbc7707c1bb7d53935f8e08",
-        "scored_at": "2026-11-24T05:32:04.526115+00:00"
+        "prose_sha256": "1868cd6b41a173b05f2589a9e816032347e61b9e3556a4f57915aa19c56757d7",
+        "scored_at": "2026-11-24T07:46:59.229967+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
@@ -129752,6 +129757,1625 @@
         "76c44d76bd07758e869a"
       ],
       "split_coverage_ids": []
+    },
+    {
+      "id": "5686d14a6b1eae8d5415",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://analyticsindiamag.com/ai-features/how-will-ai-change-jobs-in-india-the-skills-roles-and-workers-at-risk",
+      "key_points": [
+        "Theo Analytics India Magazine, lực lượng lao động Ấn Độ đang dịch chuyển khi áp dụng AI (trí tuệ nhân tạo) để tăng năng suất và tự động hóa vận hành. Báo cáo của Đại học Ashoka chỉ ra các công việc nhận thức trình độ cao cũng nằm trong nhóm chịu rủi ro phơi nhiễm lớn trước AI.",
+        "Cố vấn Kinh tế trưởng V Anantha Nageswaran giải thích việc đào tạo nhân viên sơ cấp ngày càng trở thành một khoản chi phí khi các tác tử AI (hệ thống AI tự hành) có thể làm việc lặp lại giá rẻ. Báo cáo của Viện Quản lý Great Lakes ước tính 197 triệu lao động Ấn Độ làm các việc lặp lại cao mà tự động hóa có thể dần đảm nhận phần lớn nhiệm vụ.",
+        "Khảo sát của ICRIER trên 651 công ty IT tại 10 thành phố ghi nhận 65% doanh nghiệp giảm tuyển dụng sau khi áp dụng AI, chủ yếu ở cấp độ mới vào nghề. Tuy nhiên, nhóm nghiên cứu lưu ý đà giảm này không chỉ do riêng AI và chưa ghi nhận bằng chứng mất việc quy mô lớn.",
+        "Analytics India Magazine nhận định mức độ AI tạo cơ hội hay gây áp lực việc làm sẽ phụ thuộc một phần vào việc người lao động tiếp cận đào tạo kỹ năng mới."
+      ],
+      "same_event_coverage_ids": [
+        "1c16f69579ec4d2f0bab"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Impact of AI on jobs and workforce in India",
+      "video_labels": {
+        "video_hook": "money_jobs",
+        "named_people": [
+          "NS Parthasarathy"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Khảo sát 651 công ty IT Ấn Độ ghi nhận 65% giảm tuyển dụng sau khi đưa AI vào vận hành",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "analytics-india-magazine",
+          "url": "https://analyticsindiamag.com/ai-features/how-will-ai-change-jobs-in-india-the-skills-roles-and-workers-at-risk"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.15,
+        "answers": {
+          "what": 8,
+          "why": 10,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "Readers see the employment pressure but miss the other major direction of the shift.",
+            "fix": "Add that demand is growing for people who build, deploy, manage, and use AI in existing jobs (outlet:p016–p020)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The reference to highly skilled jobs being exposed could leave readers unsure whether exposure means those jobs will disappear.",
+            "fix": "Clarify that the source says exposure may change tasks and required skills, but does not necessarily mean job loss (outlet:p005)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "8ca84429668fe9cf507e6bc34f2e267687b249de9f3b21547718b8da81840b95",
+        "scored_at": "2026-11-24T07:43:03.800787+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "aaf760a4c6853c723231",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-24/us-blacklists-megaspeed-after-nvidia-spying-scandal-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "94a69391ecc9b2f6004f"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "105b2b45fdc03169add7",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://technode.com/2026/11/24/bytedance-opens-invitation-only-beta-for-xiaodou-personal-ai-assistant/",
+      "key_points": [
+        "Theo TechNode, nhóm Doubao của ByteDance đã mở đợt thử nghiệm cho trợ lý AI cá nhân (trí tuệ nhân tạo cá nhân) Xiaodou vào thứ Ba.",
+        "Theo TechNode, đợt phát hành tạo môi trường riêng thử nghiệm tác tử cá nhân (AI tự chủ xử lý tác vụ) trước khi mở rộng tới người dùng Doubao.",
+        "Phiên bản thử nghiệm này yêu cầu mã mời và cấp lượt dùng miễn phí cho người tham gia. Ứng dụng được định vị là trợ lý có thể chủ động hỗ trợ người dùng hoàn thành công việc, thay vì chỉ cung cấp dịch vụ AI trò chuyện.",
+        "Dù vậy, thông báo chưa có lịch trình mở quyền truy cập không giới hạn hoặc chuyển từng tính năng vào ứng dụng chính."
+      ],
+      "same_event_coverage_ids": [
+        "0a36750f5d6366c4231f"
+      ],
+      "split_coverage_ids": [],
+      "subject": "ByteDance beta launch of Xiaodou personal AI assistant",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "ByteDance mở đợt thử nghiệm giới hạn qua mã mời cho trợ lý AI cá nhân Xiaodou",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "technode",
+          "url": "https://technode.com/2026/11/24/bytedance-opens-invitation-only-beta-for-xiaodou-personal-ai-assistant/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.8,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "f7b42904c99dd3d7e6717aa05690bb79f25846b69d766095a10ab9e6c1158414",
+        "scored_at": "2026-11-24T07:32:45.649486+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "f27696a092f594bd6755",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://technode.com/2026/11/24/zhihu-discloses-indirect-investment-in-deepseek-through-fund/",
+      "key_points": [
+        "Theo TechNode, nền tảng Zhihu đã tự nguyện công bố khoản đầu tư gián tiếp vào DeepSeek thông qua một quỹ đầu tư tư nhân vào thứ Hai. Cụ thể, quỹ hợp danh Tianjin Lisi Xingshen đã mua lại lượng cổ phần ở mức tỷ lệ một chữ số phần trăm thấp tại DeepSeek.",
+        "Zhihu cho biết khoản đầu tư nhằm tiếp cận cơ hội đầu tư AI và công nghệ, đồng thời giúp công ty hiểu sâu mô hình kinh doanh cũng như sản phẩm AI.",
+        "Theo cơ cấu đầu tư, Zhihu nắm dưới 30% quyền lợi trong quỹ hợp danh, trong khi cổ phần tại DeepSeek thuộc về cấu trúc đầu tư của quỹ.",
+        "Dù vậy, TechNode chỉ ra Zhihu chưa công bố số tiền đầu tư và tỷ lệ sở hữu thực tế của mình tại DeepSeek."
+      ],
+      "same_event_coverage_ids": [
+        "c3ee54da0e60d3e48ac8"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Zhihu indirect investment in DeepSeek via equity fund",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nền tảng Zhihu đầu tư gián tiếp vào DeepSeek qua quỹ tư nhân nhưng không nêu số vốn",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "technode",
+          "url": "https://technode.com/2026/11/24/zhihu-discloses-indirect-investment-in-deepseek-through-fund/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "949ff31709611be6ec67c4ecef4c6d7779045505787d61f933c44b8e27134107",
+        "scored_at": "2026-11-24T07:32:45.649522+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "7b9e1527ad48bc879bf0",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://about.fb.com/news/2026/11/introducing-muse-in-the-uk-a-personal-ai-agent-you-control/",
+      "key_points": [
+        "Meta phát hành tác tử AI (phần mềm tự thực hiện tác vụ) cá nhân Muse tại Anh cho người từ 18 tuổi trở lên trên iOS, Android, web và WhatsApp. Theo công bố ngày 23 tháng 11 năm 2026, phần mềm được dùng miễn phí kèm gói thuê bao tùy chọn.",
+        "Hệ thống chạy trên mô hình Muse Spark từ Meta Superintelligence Labs, tự chuyển yêu cầu thành kế hoạch và xử lý tác vụ trên các trang web liên kết. Mỗi tài khoản có máy tính ảo riêng trên đám mây lưu thông tin đăng nhập, không chia sẻ dữ liệu hội thoại với hệ thống quảng cáo Meta.",
+        "Muse hỏi ý kiến trước khi gửi email hoặc mua sắm, đồng thời không thể thấy mật khẩu hay chi tiết thẻ ngân hàng. Meta liên kết Muse với các đối tác Anh gồm Marks & Spencer, ASOS và hỗ trợ thanh toán qua Link của Stripe.",
+        "Meta nhận định siêu trí tuệ cá nhân là công nghệ mang tính biến đổi lớn, trong đó Muse là bước đi đầu tiên đảm nhận công việc thay con người. Người dùng kiểm soát các quyền truy cập và phê duyệt hành động quan trọng, trong khi Muse có thể tiếp tục xử lý công việc sau khi đóng ứng dụng."
+      ],
+      "same_event_coverage_ids": [
+        "16c93f6b14f845a55cd2"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Meta launch of Muse personal AI agent in the UK",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "region_locked:UK",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Meta ra mắt tác tử AI cá nhân Muse tại Anh cho người từ 18 tuổi, yêu cầu người dùng phê duyệt khi mua sắm",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "meta",
+          "url": "https://about.fb.com/news/2026/11/introducing-muse-in-the-uk-a-personal-ai-agent-you-control/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "12c6d62ff8ea0890deff6df4a8a908c5979b24b4ded0df75e7192f014eee3636",
+        "scored_at": "2026-11-24T07:43:03.800885+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "274c534e24c73c84251d",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.scmp.com/tech/tech-trends/article/3375563/north-korea-unveils-first-ai-chatbot-it-wont-answer-uncultured-questions",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "fb7484060be03c9f4084"
+      ],
+      "split_coverage_ids": [],
+      "subject": "North Korea unveiling of domestic AI chatbot Fountain of Wisdom",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "region_locked:North Korea",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "00b157b41f1fc84a3aeb",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://about.fb.com/news/2026/11/muse-now-available-in-the-uk-muse-does-the-work-you-stay-in-control/",
+      "key_points": [
+        "Meta cung cấp tác tử AI (phần mềm AI tự thực hiện tác vụ) cá nhân Muse cho người trưởng thành tại Anh. Ứng dụng hỗ trợ các công việc như theo dõi hoàn tiền, gia hạn bảo hiểm xe hay nắm bắt lịch học ở trường.",
+        "Meta giải thích việc giao nhiệm vụ cho AI là hành động của sự tin tưởng, nên hãng thiết kế để người dùng giữ quyền kiểm soát ở mọi bước. Trước các thao tác như gửi email hay mua đồ, hệ thống sẽ hiển thị dự định và chờ người dùng đồng ý.",
+        "Về bảo mật, Muse bỏ qua mã xác thực một lần khi kết nối email, đồng thời mật khẩu được lưu trong kho an toàn để mô hình AI không nhìn thấy. Theo Meta, mua sắm luôn cần phê duyệt mỗi lần, và một tác tử an ninh riêng biệt sẽ kiểm tra các hành động theo quyền hạn được cấp.",
+        "Người dùng kiểm soát cài đặt cải thiện AI khi tùy chọn này bật mặc định ban đầu và có thể tắt trong mục Kiểm soát dữ liệu. Meta cho biết hội thoại không bị chia sẻ với hệ thống quảng cáo, đồng thời hãng đã làm việc trên tinh thần xây dựng với các cơ quan quản lý phù hợp."
+      ],
+      "same_event_coverage_ids": [
+        "cd4bd514511cbde17b0f"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Meta launch and privacy controls of Muse AI agent in the UK",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "region_locked:UK",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Meta phát hành tác tử AI Muse tại Anh cho người trưởng thành với cơ chế kiểm soát dữ liệu",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "meta",
+          "url": "https://about.fb.com/news/2026/11/muse-now-available-in-the-uk-muse-does-the-work-you-stay-in-control/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.85,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "Readers are told they control connections but do not learn that some existing Meta accounts may connect automatically.",
+            "fix": "Add that Facebook, Instagram, and Threads connect automatically when the user signs up with an existing Meta account and those accounts share an Accounts Center (outlet:p018)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "d1bb99db8050f7c97a9dadae8d5f5480abce31cae3cb55dc77e376da6a3d80fd",
+        "scored_at": "2026-11-24T07:43:03.800919+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "3d43831b12dd31fa874e",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Code repository landing page and setup guide without independent reporting or formal news release.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/francoisokada/llm-key-pool",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b6b79a174ef485a1faa5"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "7fbee8b7af95d0d39481",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Code repository README and setup documentation without independent news reporting or formal announcement.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/TegevoXi39/ccu-tool",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "2c215c973cbadd35a89d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "8c85e699d820f14b836e",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-24/rajan-warns-ai-boom-faces-a-reckoning-on-returns-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c2226718b27fbc29c7a9"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "709e3045a0d1f2a97397",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "First-party engineering post detailing an internal company implementation case study of using AI to approve pull requests.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.reddit.com/r/RedditEng/comments/1y3wbkw/we_let_ai_approve_prs_at_reddit_heres_what/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "aae911100dce8d9fe312"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "e145553ff1cec470268f",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/gadgets/1040357/nothing-ear-note-earbuds-ai-recording",
+      "key_points": [
+        "Nothing chuẩn bị ra mắt mẫu tai nghe AI Ear Note cùng hộp sạc tích hợp micro có khả năng ghi âm và chuyển đổi hội thoại thành văn bản. Thiết bị đi kèm ứng dụng di động để quản lý bản ghi âm, văn bản chép lời và các bản tóm tắt do AI tạo.",
+        "Về lý do phát triển, CEO Carl Pei giải thích công ty chọn tận dụng thiết bị người dùng vốn đã đeo và tin tưởng để làm cho nó trở nên thông minh, thay vì yêu cầu họ mang thêm sản phẩm mới.",
+        "Theo Bloomberg, tai nghe hỗ trợ tương tác với các tác tử AI (hệ thống phần mềm tự hành) qua giọng nói, bao gồm hệ thống điều khiển cơ bản do Nothing phát triển để đối thoại qua lại. CEO Carl Pei đã trình diễn thiết bị với Bloomberg nhưng cho biết công ty vẫn chưa chốt giá trước ngày ra mắt dự kiến 8 tháng 12.",
+        "Theo Carl Pei, Ear Note là sản phẩm đầu tiên xây dựng lớp bối cảnh phần cứng cho AI của công ty. Dù vậy, báo cáo cũng lưu ý các kế hoạch theo tin đồn về đồng hồ thông minh và kính thông minh AI của Nothing hiện đã bị trì hoãn."
+      ],
+      "same_event_coverage_ids": [
+        "083006df4d5ec5fcd7e3",
+        "8f49a6fcaddf86487633",
+        "f40ac76df51917e86014"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Nothing preview of Ear Note AI recording earbuds",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Carl Pei"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nothing giới thiệu tai nghe AI Ear Note ghi âm hội thoại trước ngày ra mắt 8 tháng 12",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/gadgets/1040357/nothing-ear-note-earbuds-ai-recording"
+        },
+        {
+          "id": "coverage1",
+          "role": "coverage",
+          "name": "technode",
+          "url": "https://technode.com/2026/11/24/nothing-previews-ear-note-ai-earbuds-that-record-calls-and-meetings/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.85,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "599a56fb54d6fee35c19313aa69ae30cc9900bccee98ddaafad5e9e8cd53eced",
+        "scored_at": "2026-11-24T07:43:03.800944+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "59c0f36d0aeb3c3d6fbc",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://micjm.com/blog/lowering-perplexity-without-scaling/",
+      "key_points": [
+        "Theo tác giả bài viết trên micjm, OpenAI vừa công bố biểu đồ độ rối giảm dần và nhận định đây là thước đo trí tuệ phổ quát.",
+        "Tác giả chỉ ra độ rối (thước đo xác suất dự đoán từ tiếp theo) vô nghĩa nếu thiếu ngữ cảnh, trong khi số liệu của OpenAI chỉ đo trên một tập mã nguồn cố định.",
+        "Dẫn lại nghiên cứu trên mô hình 160M, tác giả chỉ ra khi dữ liệu chứa 75% mã nguồn, độ rối đối với văn bản phi mã nguồn lại tăng mạnh.",
+        "Tác giả kết luận kết quả này chỉ chứng minh mô hình giỏi viết mã hơn, do đó OpenAI cần bổ sung nhiều điều kiện giới hạn cho tuyên bố của mình."
+      ],
+      "same_event_coverage_ids": [
+        "d0299bc9a5f034de4bb5"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Critique of OpenAI perplexity claims and training mix",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Tác giả trên micjm phản bác tuyên bố độ rối là thước đo trí tuệ phổ quát của OpenAI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://micjm.com/blog/lowering-perplexity-without-scaling/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 7.85,
+        "answers": {
+          "what": 8,
+          "why": 8,
+          "notable": 9,
+          "meaning": 5
+        },
+        "hard_errors": [
+          {
+            "kind": "name",
+            "summary_text": "trên micjm",
+            "explanation": "The supplied source does not identify micjm as the author's site or publisher (outlet:p001–p003)."
+          },
+          {
+            "kind": "name",
+            "summary_text": "trên micjm",
+            "explanation": "The repeated site attribution is not established by the supplied source (outlet:p001–p003)."
+          },
+          {
+            "kind": "quote",
+            "summary_text": "kết quả này chỉ chứng minh mô hình giỏi viết mã hơn",
+            "explanation": "The author says the code-heavy model is almost certainly smarter at code and that the chart does measure something; the example does not prove that code skill is the only result (outlet:p013)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "Readers get a claim of proof where the author makes a qualified inference.",
+            "fix": "Say the code-heavy model is almost certainly better at code, while the chart needs qualifications before supporting a general-intelligence claim (outlet:p013–p014)."
+          },
+          {
+            "question": "what",
+            "problem": "The story assigns the author to an unsupported site.",
+            "fix": "Remove “trên micjm” unless a supplied source establishes that attribution (outlet:p001–p003)."
+          },
+          {
+            "question": "why",
+            "problem": "The specific alternative explanation for the falling code perplexity is missing.",
+            "fix": "Add that a larger proportion of code in training could produce the observed drop (outlet:p005–p006)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "e8d1ecc332cc94c051ad57d8b42ce74a948fbe61b317cc1296e41d660a219475",
+        "scored_at": "2026-11-24T07:32:45.649673+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "e788af612dc5f79c209f",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.31048",
+      "key_points": [
+        "Nhóm tác giả đề xuất phương pháp Hindsight Twins (HinT) giúp mô hình tạo ảnh từ văn bản tự học từ lỗi sai bằng cách chỉ chưng cất độ lệch vận tốc giữa bản sửa dự định và lỗi quan sát, neo theo câu lệnh gốc. Trong phương pháp này, HinT đồng thời căn chỉnh trạng thái biểu diễn từ bên ngoài vị trí sửa để tránh lan truyền xáo trộn sang các từ khác trong bộ mã hóa văn bản.",
+        "Theo nhóm nghiên cứu, các phương pháp tự chưng cất trước đây khó cải thiện độ căn chỉnh vì tiếp nhận toàn bộ câu lệnh viết lại từ bộ đánh giá, kéo theo các chi tiết thừa như ánh sáng hay phong cảnh. Việc viết lại toàn cảnh khiến chi tiết bổ sung lấn át phần cần sửa, làm mô hình tiếp thu luôn cả sai lệch ngoài ý muốn.",
+        "Thử nghiệm trên Qwen-Image-2512, SD3.5-M và FLUX.2-klein cho thấy mức tăng độ căn chỉnh của HinT đạt hoặc vượt các phương pháp tự chưng cất trước đây.",
+        "Kỹ thuật này tiếp tục cải thiện qua 12 vòng tự huấn luyện trong khi các mô hình đối chiếu suy giảm dần. Dù vậy, nhóm tác giả chỉ ra giới hạn là tỷ lệ sai lệch do bộ đánh giá đưa vào ở HinT chỉ được giữ ở mức tương đương mô hình gốc chứ không triệt tiêu hoàn toàn."
+      ],
+      "same_event_coverage_ids": [
+        "17489d1f7fa4ba4ec28c"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Hindsight Twins",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Jiaze Li",
+          "Jingyang Chen",
+          "Wenhao Zhao",
+          "Haoran Xu",
+          "Zhenlong Yuan",
+          "Dianmo Sheng",
+          "Yuanxing Zhang"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Kỹ thuật HinT giúp mô hình tạo ảnh tự sửa lỗi và duy trì cải thiện qua 12 vòng huấn luyện",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.31048"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "f092139a4df285dfc46c14f5cafc75a50e8cea5dc289442414d0483c28b1f039",
+        "scored_at": "2026-11-24T07:43:03.800966+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "d9f1e789445d8355195b",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.29897",
+      "key_points": [
+        "Real-time controllable motion generation is essential for interactive animation and humanoid robotics responding to dynamic instructions.",
+        "Bounded attention caches limit access to distant history in existing autoregressive diffusion models, while repeated denoising introduces inference overhead.",
+        "Motion Mamba 2.0 introduces a Mamba-based root-body diffusion architecture integrating local attention, resumable recurrent states, and persistent content memory."
+      ],
+      "same_event_coverage_ids": [
+        "471000b18693bc9f8e74"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Motion Mamba 2.0",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Yue Huang",
+          "Tianshan Zhang",
+          "Zeyu Zhang",
+          "Jayeon Kang",
+          "Akide Liu",
+          "Sungjoon Choi",
+          "Dacheng Tao",
+          "Hao Tang"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "d75121b87a67e4b4d94a",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.30637",
+      "key_points": [
+        "Nhóm tác giả Hiroaki Honda giới thiệu bộ chuẩn (hệ thống đánh giá tiêu chuẩn) mô phỏng SWEEP-Bench để đo năng lực thích ứng tốc độ của chính sách robot.",
+        "Theo các tác giả, robot cần thích ứng tốc độ nhưng các bộ chuẩn hiện nay hiếm khi đo lường điều này qua nhiều tác vụ. Nghiên cứu tinh chỉnh 8 mô hình hành động để so sánh việc chỉ dùng khung hình hiện tại với việc bổ sung hai khung hình quá khứ.",
+        "Thử nghiệm cho thấy sáu mô hình chỉ đạt tỷ lệ thành công cao nhất ở tốc độ trung bình vì có xu hướng hành động theo tốc độ bình quân. Việc thêm khung hình quá khứ giúp tăng tỷ lệ thành công từ 10 đến 40 điểm phần trăm ở 3 mô hình.",
+        "Nhóm tác giả kết luận thử nghiệm mô phỏng này chỉ ra rằng khung hình quá khứ chỉ hỗ trợ những chính sách có thể giải mã tuyến tính tốc độ tốt nhất."
+      ],
+      "same_event_coverage_ids": [
+        "361e91d812df9bc3b6da"
+      ],
+      "split_coverage_ids": [],
+      "subject": "SWEEP-Bench",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Hiroaki Honda",
+          "Koya Sakamoto",
+          "Shu Morikuni",
+          "Yusuke Iwasawa",
+          "Taiki Miyanishi"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "SWEEP-Bench phát hiện 6 mô hình robot mô phỏng chỉ xử lý tốt theo tốc độ bình quân",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.30637"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.05,
+        "answers": {
+          "what": 8,
+          "why": 9,
+          "notable": 8,
+          "meaning": 7
+        },
+        "hard_errors": [
+          {
+            "kind": "quote",
+            "summary_text": "chỉ xử lý tốt theo tốc độ bình quân",
+            "explanation": "The source says six models’ success rates peak at intermediate belt speeds and that their failures indicate a tendency to act for the average demonstration speed. It does not say they can perform well only at that speed (outlet:p009)."
+          },
+          {
+            "kind": "quote",
+            "summary_text": "kết luận thử nghiệm mô phỏng này chỉ ra rằng khung hình quá khứ chỉ hỗ trợ",
+            "explanation": "The source presents the restriction on which policies benefit from past frames as a suggestion, not a demonstrated categorical conclusion (outlet:p009)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The headline makes the six models’ speed limitation categorical.",
+            "fix": "Say their success rates peaked at intermediate speeds and their failures suggest actions suited to the average demonstration speed (outlet:p009)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The conclusion states the past-frame finding more firmly than the authors do.",
+            "fix": "Attribute it as the authors’ suggestion, and note that supplying actual speed improved four models while image-estimated speed retained most of the gain (outlet:p009)."
+          },
+          {
+            "question": "notable",
+            "problem": "The reader cannot see the range of tasks and speeds behind the result.",
+            "fix": "Add that the benchmark covers 80 tasks in 16 categories at 13 belt speeds (outlet:p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "179a9fe38c324580836c471897f20f2733d9d597656f67b0b055ad8cfa66a764",
+        "scored_at": "2026-11-24T07:32:45.649749+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "c170eb95096886767171",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.30573",
+      "key_points": [
+        "Nhóm tác giả ZiAn Wang giới thiệu PersistWorld truyền khung hình camera vào trạng thái thế giới 3D cố định để dự đoán độ chiếm chỗ 4D (dự báo không gian 3D trước vài giây). Theo nhóm nghiên cứu, mô hình ghi mỗi khung hình một lần thay vì dựng lại từ các khung hình cũ.",
+        "Nhóm tác giả cho biết các mô hình dùng camera hiện nay thất bại ở phần không gian không đổi vì không giữ được những gì đã thấy khi xe chạy. Do đó, nhóm biến những gì mô hình đã quan sát thành trạng thái lưu trữ của hệ thống.",
+        "Mức tăng đạt từ 18 đến 24 điểm khi thời gian dự báo kéo dài tới 8 s.",
+        "Nhóm nghiên cứu cho biết trạng thái thế giới được học đầu-cuối với dự báo để bộ tiến hóa ước tính tại mọi thời điểm dọc quỹ đạo xe. Tuy vậy, kết quả cải thiện độ chính xác và tốc độ này mới được ghi nhận trên tập dữ liệu chuẩn Occ3D-nuScenes."
+      ],
+      "same_event_coverage_ids": [
+        "12942b47faaff8cff94d"
+      ],
+      "split_coverage_ids": [],
+      "subject": "PersistWorld",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "ZiAn Wang",
+          "Tianyi Wang",
+          "Zhihao Chen",
+          "Manni Cui",
+          "Junkai Chen",
+          "ZhiJin Chen",
+          "Ruiqi Liu",
+          "Junfei Wu",
+          "Huanyu Zhang",
+          "Shu Wu"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "PersistWorld tăng đến 24 điểm IoU dự báo độ chiếm chỗ 4D trên tập chuẩn Occ3D-nuScenes",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.30573"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.1,
+        "answers": {
+          "what": 8,
+          "why": 10,
+          "notable": 7,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "“Trạng thái thế giới 3D cố định” could make a reader think the stored world state does not change.",
+            "fix": "Describe it as a persistent 3D state anchored in the scene; the source says an evolver predicts that state at queried times (outlet:p009)."
+          },
+          {
+            "question": "notable",
+            "problem": "The performance result lacks its comparator and the reported speed magnitude.",
+            "fix": "Specify that IoU improved over the best camera-based world model by 19 points at 1–3 seconds and 18–24 points up to 8 seconds, while running more than twice as fast (outlet:p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "3790165ae317a8d55de1f8a63e1fd3dcae1f24353c0e3db407b9bc32cd42ffd1",
+        "scored_at": "2026-11-24T07:32:45.649772+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "b24333cc89f9425e4c7b",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://claude.com/resources/articles/zero-data-retention-with-enterprise-frontier-safeguards",
+      "key_points": [
+        "Anthropic mở thử nghiệm công khai tính năng Enterprise Frontier Safeguards (EFS) tương thích chính sách không lưu giữ dữ liệu (ZDR) cho khách hàng doanh nghiệp. Theo công ty, tính năng này giúp phát hiện hành vi lạm dụng tinh vi mà không để bên nào lưu trữ dữ liệu doanh nghiệp.",
+        "Anthropic giải thích tấn công tinh vi thường diễn ra qua nhiều truy vấn nên từng yêu cầu đơn lẻ trông có vẻ vô hại trước các bộ lọc truyền thống.",
+        "Với EFS, hệ thống giám sát tự động phân tích dữ liệu trực tiếp trên hạ tầng do khách hàng kiểm soát thay vì lưu về Anthropic. Trưởng bộ phận bảo mật Matthew Kemelhar tại Stripe xác nhận giải pháp giúp công ty lưu nhật ký hội thoại an toàn trên môi trường AWS của Stripe.",
+        "Theo Anthropic, dữ liệu người dùng chỉ phục vụ giám sát tự động, không nhân viên nào được đọc và không bao giờ dùng huấn luyện mô hình. Khi phát hiện nguy cơ, hồ sơ an toàn (Safety Case) gửi tới khách hàng cũng được giới hạn không chứa nội dung dữ liệu đầu vào hay đầu ra."
+      ],
+      "same_event_coverage_ids": [
+        "23143ae1b68a45112114",
+        "81297f9f957aac804e07"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Anthropic",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Noopur Davis"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Anthropic mở thử nghiệm công khai EFS giúp bảo vệ mô hình AI mà không lưu dữ liệu",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "anthropic",
+          "url": "https://claude.com/resources/articles/zero-data-retention-with-enterprise-frontier-safeguards"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 6.95,
+        "answers": {
+          "what": 6,
+          "why": 10,
+          "notable": 7,
+          "meaning": 5
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "bảo vệ mô hình AI",
+            "explanation": "The source describes safeguards against sophisticated misuse when businesses use frontier models; it does not describe protecting the models themselves (outlet:p001, outlet:p026, outlet:p030)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "không để bên nào lưu trữ dữ liệu doanh nghiệp",
+            "explanation": "Customers bring their own storage and retain their own data. The zero-retention promise applies to Anthropic and cloud providers keeping copies after delivery to customer-controlled storage (outlet:p034–p035)."
+          },
+          {
+            "kind": "quote",
+            "summary_text": "xác nhận giải pháp giúp công ty lưu nhật ký hội thoại an toàn trên môi trường AWS của Stripe",
+            "explanation": "Matthew Kemelhar says EFS *will enable* Stripe to retain conversation logs in Stripe’s AWS environment, with access and review governed by Stripe’s security controls; he does not report an already established result (outlet:p005–p006)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "không nhân viên nào được đọc",
+            "explanation": "The source excludes Anthropic and cloud-provider personnel from accessing inputs and outputs. It does not exclude authorized customer personnel, whose access policies the customer configures (outlet:p035–p036)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The reader may believe enterprise data is stored nowhere.",
+            "fix": "State that customers store inputs and outputs in storage they control, while Anthropic and cloud providers do not retain copies (outlet:p034–p035)."
+          },
+          {
+            "question": "what",
+            "problem": "The headline describes protection of AI models rather than detection of misuse.",
+            "fix": "Describe EFS as cross-request safety monitoring for enterprise use of frontier models (outlet:p001, outlet:p028–p030)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The personnel-access claim is broader than the source’s guarantee.",
+            "fix": "Limit it to Anthropic and cloud-provider personnel, and note that customers set their own access policies (outlet:p035–p036)."
+          },
+          {
+            "question": "notable",
+            "problem": "The summary omits how a customer can inspect a flagged case.",
+            "fix": "Add that Safety Cases can be read from customer cloud storage or through an API and contain no inputs or outputs (outlet:p031)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "dfff65f45b7579f4436fdf4b97fd680cca9cb2cd9e85e00708fb480636483a88",
+        "scored_at": "2026-11-24T07:32:45.649812+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "9a49d3beba62948eb6ce",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.30989",
+      "key_points": [
+        "Nhóm tác giả công bố chuẩn đánh giá (bộ công cụ đo lường tiêu chuẩn) WorldLeague nhằm so sánh các hệ thống AI trên 60 nhiệm vụ robot mô phỏng. Các tác giả Xinyang Zhou, Qi Li và Xinchao Wang đo lường tiến độ đạt mục tiêu vật lý của từng nhiệm vụ dựa trên quỹ đạo của robot.",
+        "Theo nhóm nghiên cứu, cần kiểm tra hệ thống AI qua các nhiệm vụ kết hợp nhiều năng lực gồm nhận thức, trí nhớ, lập kế hoạch và hành động để xác định khả năng đạt mục tiêu tự chủ. Nhằm tránh việc giới hạn hệ thống so sánh, WorldLeague để mô hình ngôn ngữ - thị giác (VLM) chọn mục tiêu chuyển động, còn các mô hình hành động sử dụng cơ chế điều khiển gốc.",
+        "Trong 13 hệ thống AI đại diện, Claude Fable 5.2 đạt điểm tương tác cao nhất với điểm số tương tác trung bình (Interactive Score, đo lường tiến độ hướng tới mục tiêu) là 28,58 trên 100 và hoàn thành 13 trên 60 mục tiêu.",
+        "Các tác giả nhận định WorldLeague tạo cơ sở chung so sánh mức độ tự chủ của AI trên 60 nhiệm vụ mô phỏng từ tiến độ từng phần đến khi hoàn thành mục tiêu."
+      ],
+      "same_event_coverage_ids": [
+        "5dde7ffa3a0427db82f3"
+      ],
+      "split_coverage_ids": [],
+      "subject": "WorldLeague",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Xinyang Zhou",
+          "Qi Li",
+          "Xinchao Wang"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Claude Fable 5.2 đạt điểm tương tác cao nhất trong chuẩn đánh giá robot mô phỏng WorldLeague",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.30989"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.55,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The reader misses the result showing why correct final answers alone do not establish physical success.",
+            "fix": "Add that VLMs received an Interactive Score of zero in 71.8% of episodes where they answered every final question correctly (outlet:p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "390b7f95f952061dc7c4b346d442e2557551f2d4c1f906a871f412dc8b5c2604",
+        "scored_at": "2026-11-24T07:32:45.649837+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "8879ae0e381f80aceb6e",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.27689",
+      "key_points": [
+        "Nhóm tác giả gồm Zhenxuan Fan và các cộng sự đề xuất khung hai tác tử (hệ thống phần mềm tự hành) Embodied-Harness nhằm nâng cao khả năng thao tác robot mà không cần cập nhật tham số mô hình. Trong khung này, tác tử thực thi tương tác qua giao diện điều khiển robot, còn tác tử phản tư chuyển chứng cứ thực thi thành hướng dẫn vận hành có thể tái sử dụng.",
+        "Theo nhóm nghiên cứu, các tác tử VLM còn hạn chế về bộ nhớ và khả năng tái sử dụng kinh nghiệm cũng như việc quy kết lỗi chưa chắc chắn. Họ xây dựng kiến trúc bộ nhớ phân cấp cùng cơ chế phản tư dựa trên bằng chứng quan sát để liên tục tinh chỉnh hướng dẫn vận hành qua các lần thử.",
+        "Phương pháp đạt tỷ lệ thành công cao trên các bộ chuẩn đánh giá với tỷ lệ thành công đo được là 82,4% trên RoboTwin 2.0, 76,7% trên RoboSPA và 94,4% trên RMBench khi kiểm tra khả năng suy luận và lập kế hoạch. Khi đánh giá trên robot thực tế, hệ thống đạt tỷ lệ thành công trung bình 96,7% nhưng mới chỉ được thử nghiệm qua ba nhiệm vụ thao tác.",
+        "Nhóm tác giả nhận định các kết quả này cho thấy tiềm năng cải thiện thao tác robot qua tự hoàn thiện khung thực thi từ kinh nghiệm mà không cần điều chỉnh tham số mô hình."
+      ],
+      "same_event_coverage_ids": [
+        "fcd9b4374e15f495879e"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Embodied-Harness",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Zhenxuan Fan",
+          "Zhuoya Wang",
+          "Yuqian Yuan",
+          "Wenqiao Zhang",
+          "Juncheng Li",
+          "Jun Xiao",
+          "Siliang Tang",
+          "Yueting Zhuang"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Embodied-Harness đạt tỷ lệ thành công 96,7% khi thao tác robot thực tế mà không cần cập nhật tham số",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.27689"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "6596d1f13c766ee29cd4b9d48a3a51df3fa96547bcd3c13e2e14b39b5534d76f",
+        "scored_at": "2026-11-24T07:32:45.649894+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "8741cbe082d49539188d",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.30581",
+      "key_points": [
+        "Depth-recurrent models increase effective depth by repeatedly executing a shared stack of neural network blocks.",
+        "Loop-PP restructures execution timetables and communication schedules to support cyclic layouts in depth-recurrent model scaling."
+      ],
+      "same_event_coverage_ids": [
+        "404dcd5ce475a8f7892f"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Loop-PP",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Yunjia Xi",
+          "Jiarui Qin",
+          "Di Yin",
+          "Xing Sun"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "69dac68e2c4f5ccc092c",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.27494",
+      "key_points": [
+        "Nhóm tác giả công bố mô hình nhận dạng ký tự đa nhiệm Typhoon OCR 2 (OCR - công nghệ nhận dạng chữ từ hình ảnh), hỗ trợ trích xuất thông tin và phân tích tài liệu toàn trang. Phiên bản này gồm kích thước 2B và 0.8B tham số, có thể phân tích cấu trúc tài liệu bằng tiếng Thái, tiếng Anh và tiếng Trung.",
+        "Theo nhóm nghiên cứu, người dùng thực tế cần trích xuất thông tin cụ thể hoặc giữ nguyên cấu trúc trang tài liệu thay vì chỉ đọc văn bản như bản 1.5. Mô hình được tinh chỉnh trên dữ liệu tiếng Thái chọn lọc và áp dụng tối ưu hóa chính sách GRPO với phần thưởng tác vụ.",
+        "Mô hình đạt điểm cao nhất trong các mô hình mở được đánh giá trên chuẩn tiếng Thái, với 80,7 điểm trên Thai MDPBench và 59,91 điểm trên ThaiOCRBench. Bản 2B đồng thời bám sát mô hình gốc ở bài kiểm tra tiếng Anh olmOCR-bench (84,7 so với 84,4) và OmniDocBench đa ngữ (90,97 so với 91,03).",
+        "Thuật toán GRPO giúp giảm trang bị lặp nhưng cải thiện chưa chắc chắn về thống kê trên bản 0.8B ở thử nghiệm MDPBench. Tỷ lệ trang lặp ở bản 2B giảm từ 3,2% xuống 0,7%, trong khi bản 0.8B chỉ đạt mức tăng nhỏ và chưa chắc chắn về mặt thống kê."
+      ],
+      "same_event_coverage_ids": [
+        "a42490e82f54dcd6aabd"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Typhoon OCR 2",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Surapon Nonesung",
+          "Natapong Nitarach",
+          "Sittipong Sripaisarnmongkol",
+          "Kunat Pipatanakul",
+          "Warit Sirichotedumrong"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Typhoon OCR 2 dẫn đầu các mô hình mở trên chuẩn tiếng Thái khi hỗ trợ bóc tách toàn trang",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.27494"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.1,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 8,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "Readers cannot see how much the Thai benchmark scores improved over Typhoon OCR 1.5.",
+            "fix": "Add the source comparisons: 80.7 versus 68.9 on MDPBench and 59.91 versus 40.45 on ThaiOCRBench (outlet:p009)."
+          },
+          {
+            "question": "meaning",
+            "problem": "Readers miss that they can obtain the released work.",
+            "fix": "Mention the released model weights, Python package, and evaluation suite (outlet:p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "e9a6d6b2f07c6d81f880b7e666ed1cb7c52be661f0eacf74412ee6ad96d2bbc2",
+        "scored_at": "2026-11-24T07:32:45.649936+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "659a95e36da3d95dcfcd",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.30771",
+      "key_points": [
+        "Nhóm tác giả giới thiệu GameDojo, bộ đo chuẩn (công cụ chuẩn hóa đánh giá hiệu năng) gồm 120 màn đấu trùm qua 20 trò chơi. Họ sử dụng tác tử lập trình để tái tạo môi trường và viết mã điều khiển màn chơi, thu được tập GameDojo-Data với 600 giờ quỹ đạo chơi game.",
+        "Các tác giả giải thích việc nghiên cứu trí tuệ tương tác đòi hỏi các nhiệm vụ đa dạng và đầy thách thức trong điều kiện có kiểm soát. Theo nhóm nghiên cứu, các thử nghiệm cho thấy những mô hình hàng đầu vẫn đối mặt thách thức lớn, đặc biệt là ở khả năng tương tác thời gian thực.",
+        "Đáng chú ý, huấn luyện trên GameDojo-Data giúp mô hình GameDojo-4B đạt hiệu năng nhóm đầu cùng khả năng xử lý thời gian thực mạnh nhất. Thực nghiệm còn cho thấy việc đồng huấn luyện giúp cải thiện từng nhiệm vụ riêng lẻ và chính sách đã học có thể chuyển giao qua lại giữa các con trùm.",
+        "Nhóm tác giả kết luận rằng các kết quả này xác lập GameDojo thành một bộ đo chuẩn tương tác giá trị nhưng vẫn đầy thách thức cho cộng đồng nghiên cứu AI."
+      ],
+      "same_event_coverage_ids": [
+        "06c4de14e05dcfe64a78"
+      ],
+      "split_coverage_ids": [],
+      "subject": "GameDojo",
+      "video_labels": null,
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nhóm nghiên cứu: Huấn luyện trên 600 giờ chơi game giúp GameDojo-4B đạt hiệu năng nhóm đầu ở 120 màn đấu trùm",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.30771"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.8,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "fbc0a6b284c03e1fc04b081a86b3c3d0b90f283ac9a7ac6705a23eb1477d6fa8",
+        "scored_at": "2026-11-24T07:32:45.649967+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "6040cdc4547c558cbe5a",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.30813",
+      "key_points": [
+        "Nhóm tác giả giới thiệu bộ đo chuẩn HIVE-Bench (bài thử nghiệm tiêu chuẩn) cho robot hai tay, dùng một chính sách khớp dòng (flow-matching) chung trên 24 nhiệm vụ góc nhìn thứ nhất. Họ đánh giá 20 bộ mã hóa thuộc bảy họ mô hình qua thích ứng, chia sẻ nhiệm vụ và biến thiên quy mô.",
+        "Theo nhóm tác giả, phần lớn phép so sánh hiện nay vẫn chấm điểm một vector gộp từ ảnh góc nhìn thứ ba. Trong khi đó, chính sách robot hai tay lại đọc các token mảng (patch token - mảnh ảnh nhỏ) dày đặc từ camera gắn trên robot.",
+        "Thực nghiệm cho thấy gom trung bình mỗi góc nhìn thành một token làm mất phần lớn thành công, dù chính sách dùng chung giữ được phần lớn thành công của các chính sách riêng biệt với một phần nhỏ lượt cập nhật. Theo nhóm nghiên cứu, phép đọc động học nghịch đảo đối với chuyển động chỉ định là một trong những phép đo mạnh nhất trước khi huấn luyện chính sách, nhưng nhận diện, độ sâu và đối ứng điểm ảnh không chuyển giao đáng tin cậy.",
+        "Nhóm tác giả kết luận rằng không chỉ số thống kê nào đủ ổn định để thay thế chạy thử nghiệm thực tế trước khi triển khai. Họ lưu ý thêm rằng việc tinh chỉnh có thể cải thiện phép đọc hành động ngay cả khi các phép đo khác biến thiên theo chiều ngược lại."
+      ],
+      "same_event_coverage_ids": [
+        "e5b890989386e25546d0"
+      ],
+      "split_coverage_ids": [],
+      "subject": "HIVE-Bench",
+      "video_labels": null,
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nghiên cứu: Gom góc nhìn thành một token làm mất phần lớn thành công điều khiển robot hai tay",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.30813"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The reader misses a result about adaptation across the tested encoder-policy pairs.",
+            "fix": "Add that adaptation helped every pair the authors tested (outlet:p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "4ab9c56ae49e72f8cf74815368d85ca89b6d43e9b806fc6d7ac9ae13d5511c00",
+        "scored_at": "2026-11-24T07:43:03.800992+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "48ae08447475fd9d163c",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.30013",
+      "key_points": [
+        "Nhóm tác giả Bohan Zeng đề xuất khung Agentic Motion Framework cho việc gán xương (rigging - gắn khung xương chuyển động) và tạo chuyển động trên đa dạng mô hình 3D. Trong hệ thống, một agent (tác tử AI tự thực hiện tác vụ) viết chương trình tham số nhỏ gọn, rồi bộ thực thi tất định tiến hành giải động học (kinematic solving) cùng hiệu chỉnh hình học.",
+        "Nhóm nghiên cứu giải thích các chuẩn đánh giá hiện có chủ yếu chỉ bao quát khung xương người hoặc động vật thông thường với câu lệnh đơn giản. Nhóm giới thiệu chuẩn DivDynBench đánh giá trên sáu nhóm hình thái với ràng buộc đa giai đoạn, đồng thời dùng mô hình ngôn ngữ lớn so sánh ba phương pháp tạo chuyển động.",
+        "Theo nhóm tác giả, việc kiểm soát tham số nhỏ gọn giúp giảm chi phí tạo chuyển động đồng thời tăng độ tin cậy gán xương và độ chính xác kiểm soát. Nhóm nhận định kết quả này cung cấp chỉ dẫn thực tế cho việc triển khai tạo chuyển động 3D phức tạp, dựa trên phân tích chi phí và khả năng thích ứng đa hình thái."
+      ],
+      "same_event_coverage_ids": [
+        "7fbc515ba901bf8906ad"
+      ],
+      "split_coverage_ids": [],
+      "subject": "3AGameFactory-Motion and DivDynBench",
+      "video_labels": null,
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Khung Agentic Motion giúp giảm chi phí và nâng độ tin cậy tạo chuyển động 3D phức tạp",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.30013"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.05,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 8,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "Readers do not learn what makes the benchmark's instructions demanding.",
+            "fix": "Name its explicit timing, angle, repetition, and trajectory constraints (outlet:p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "6c3ce903eb464679b65b9d57880926cadfc13cf21218ce9868983b74a7b32447",
+        "scored_at": "2026-11-24T07:32:45.650019+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "17e65504dc67205ede83",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.31115",
+      "key_points": [
+        "Nhóm tác giả Yanzhe Chen giới thiệu chuẩn RUIBench và bộ RUIKit để nghiên cứu ảnh hưởng của giao diện sử dụng robot đối với tác tử AI (agent). Bộ chuẩn gồm 30 tác vụ thao tác qua năm nhóm thử nghiệm, cùng 13 giao diện kết hợp giữa sáu mức trừu tượng hóa hành động và hai dạng tương tác.",
+        "Nhóm nghiên cứu giải thích việc chuyển hóa năng lực suy luận của mô hình nền tảng thành hành động robot đáng tin cậy vẫn còn nhiều thách thức. Theo các tác giả, giao diện là yếu tố cốt lõi vì trực tiếp quyết định cách tác tử diễn đạt và thực thi thao tác vật lý.",
+        "Trong mô phỏng, thay đổi giao diện giúp nâng tỷ lệ thành công của tác tử tiên tiến từ 45% lên 81%. Với mô hình 4B (4 tỷ tham số) tinh chỉnh, tỷ lệ thành công khi thay đổi giao diện cũng tăng từ 13% lên 47%.",
+        "Nhóm tác giả kết luận thiết kế giao diện robot là yếu tố then chốt cho độ tin cậy của tác tử hiện thân khi giúp giảm bớt quyết định thừa. Tuy nhiên, nhóm cảnh báo khoảng trống xác minh khi tác tử thường tự nhận thành công dù thực tế thất bại, đòi hỏi kiểm chứng ở cấp độ tác vụ."
+      ],
+      "same_event_coverage_ids": [
+        "b90221d629bd578ac2dc"
+      ],
+      "split_coverage_ids": [],
+      "subject": "RUIBench and RUIKit",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Yanzhe Chen",
+          "Zhijun Cao",
+          "Zechen Bai",
+          "Wenzheng Zeng",
+          "Kevin Yuchen Ma",
+          "Yiqi Lin",
+          "Guoqiang Liang",
+          "Xiaokang Liu",
+          "Ke Sun",
+          "Kevin Qinghong Lin",
+          "Mike Zheng Shou"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Thay đổi giao diện RUI giúp tăng tỷ lệ thành công của tác tử robot từ 45% lên 81% trong mô phỏng",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.31115"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.85,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The account of effective interfaces mentions fewer decisions but omits the accompanying condition.",
+            "fix": "Add that they must preserve essential feedback (outlet:p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "d842d3fee11d50090ac0f83da904cc377572aa097573d07c76ffd354ed27e16a",
+        "scored_at": "2026-11-24T07:32:45.650041+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
     }
   ]
 }
