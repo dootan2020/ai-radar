@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-24T03:43:21.982394+00:00",
-  "input_generated_at": "2026-11-24T02:47:02Z",
+  "generated_at": "2026-11-24T05:32:04.534661+00:00",
+  "input_generated_at": "2026-11-24T04:46:34Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -122827,8 +122827,8 @@
       "source_url": "https://analyticsindiamag.com/ai-startups/bolna-builds-its-own-speech-model-to-catch-what-voice-ai-misses",
       "key_points": [
         "Bolna AI ra mắt mô hình nhận dạng giọng nói tự động (ASR - chuyển lời nói thành văn bản) Syl tại sự kiện Symphony ở Bengaluru để xử lý các phản hồi ngắn trong cuộc gọi. Bước đi này đánh dấu sự chuyển dịch chiến lược sang tự phát triển mô hình nhằm giải quyết các vấn đề khi triển khai cho khách hàng.",
-        "Theo Analytics India Magazine, các phản hồi ngắn trong cuộc gọi có tạp âm rất dễ bị bỏ sót hoặc phiên âm sai. Bolna cho biết hơn 4 triệu cuộc gọi mỗi tháng chứa phản hồi ngắn, và trước đây khoảng một phần mười số này trả về bản phiên âm trống.",
-        "Mô hình Syl phiên âm chính xác 93% câu trả lời có-không một từ với độ trễ trung vị 250 mili giây trong thử nghiệm trên các cuộc gọi thực tế được giữ lại. Khi thử nghiệm trên một tác tử (AI đàm thoại) chưa từng huấn luyện với mô hình này, Bolna tuyên bố số lần tác tử yêu cầu nhắc lại đã giảm 31%.",
+        "Theo Analytics India Magazine, các phản hồi ngắn trong cuộc gọi dễ bị bỏ sót hoặc phiên âm sai do tạp âm. Bolna cho biết hơn 4 triệu cuộc gọi mỗi tháng chứa phản hồi ngắn, và khoảng một phần mười phản hồi ngắn trước đây trả về bản phiên âm trống.",
+        "Mô hình Syl phiên âm chính xác 93% câu trả lời có-không một từ trong thử nghiệm trên các cuộc gọi thực tế được giữ lại, với độ trễ trung vị 250 mili giây. Khi thử nghiệm trên tác tử (AI đàm thoại) chưa từng huấn luyện với mô hình, Bolna tuyên bố số lần tác tử yêu cầu nhắc lại giảm 31% và người gọi lặp lại giảm 47%.",
         "Bolna không kỳ vọng mô hình riêng sẽ thay thế toàn bộ mô hình bên ngoài, và Giám đốc công nghệ Prateek Sachan nhận định Syl không thể tối ưu trong mọi tình huống. Mô hình ban đầu chỉ phục vụ tiếng Anh và tiếng Hindi, trước khi công ty dự kiến mở rộng sang tiếng Tamil."
       ],
       "same_event_coverage_ids": [
@@ -122843,7 +122843,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Mô hình giọng nói Syl của Bolna đạt độ chính xác 93% với câu trả lời một từ trong thử nghiệm cuộc gọi",
+      "editorial_headline_vi": "Mô hình Syl của Bolna đạt độ chính xác 93% với câu trả lời có-không một từ trong thử nghiệm cuộc gọi thực tế",
       "summary_sources": [
         {
           "id": "outlet",
@@ -122856,45 +122856,26 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.4,
+        "value": 9.6,
         "answers": {
           "what": 10,
-          "why": 10,
-          "notable": 8,
+          "why": 8,
+          "notable": 10,
           "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "đạt độ chính xác 93% với câu trả lời một từ trong thử nghiệm cuộc gọi",
-            "explanation": "The 93% result applies specifically to one-word yes-or-no replies in tests on held-out production calls, not to one-word replies generally (outlet:p004). The body supplies the missing condition."
-          },
-          {
-            "kind": "number",
-            "summary_text": "khoảng một phần mười số này trả về bản phiên âm trống",
-            "explanation": "Here, “số này” refers back to calls. The source says around one in ten short replies, rather than one in ten calls containing such replies, previously returned empty transcriptions (outlet:p004)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "notable",
-            "problem": "The headline makes the 93% accuracy result sound applicable to all one-word replies.",
-            "fix": "Specify one-word yes-or-no replies and, if space permits, that the test used held-out production calls (outlet:p004)."
-          },
-          {
-            "question": "notable",
-            "problem": "The one-in-ten figure is attached to calls rather than short replies.",
-            "fix": "State that around one in ten short replies previously returned an empty transcription (outlet:p004)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "5e8e6d5703e792caccb73046f0aef0ae9ac5752bbdd6efe05e4921820a5873b5",
-        "scored_at": "2026-11-23T13:37:54.101649+00:00"
-      }
+        "prose_sha256": "a379e65155b5168e9393ec6fc6192d2ce1d0f948566d61d93da56ee1b39c82d3",
+        "scored_at": "2026-11-24T05:28:21.807860+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
     },
     {
       "id": "e8a76c9b41744f51ad25",
@@ -126626,10 +126607,10 @@
       "use_original_title": false,
       "source_url": "https://claude.com/resources/articles/zero-data-retention-with-enterprise-frontier-safeguards",
       "key_points": [
-        "Anthropic mở thử nghiệm công khai tính năng Enterprise Frontier Safeguards (EFS), giám sát an toàn mà không lưu giữ dữ liệu doanh nghiệp. Theo Anthropic, cả hãng lẫn các nhà cung cấp đám mây đều không giữ lại dữ liệu khách hàng.",
-        "Ngăn chặn các cuộc tấn công tinh vi qua nhiều truy vấn đòi hỏi lớp phòng thủ thứ hai mang tên giám sát an toàn tự động, theo Anthropic. Lớp bảo vệ này tìm kiếm các mẫu lạm dụng qua nhiều truy vấn và chỉ phân tích dữ liệu lưu hoàn toàn trên hạ tầng do khách hàng kiểm soát.",
-        "Hơn 100 khách hàng doanh nghiệp gồm Bridgewater, Salesforce và Stripe đã tham gia thử nghiệm nội bộ tính năng này.",
-        "Thúc đẩy ứng dụng AI tiên tiến tại các tổ chức chú trọng bảo mật như Cisco đòi hỏi sự cân bằng giữa việc kiểm soát dữ liệu và duy trì an toàn mô hình, theo Omar Santos. Theo Anthropic, hệ thống có thể giúp phát hiện hành vi cố ý lạm dụng gây hại nghiêm trọng như các chiến dịch tấn công không gian mạng."
+        "Anthropic thông báo mở thử nghiệm công khai tính năng Enterprise Frontier Safeguards (EFS) cho khách hàng doanh nghiệp. Tính năng này phát hiện hành vi lạm dụng tinh vi mà không lưu giữ dữ liệu (zero data retention - ZDR), khi cả Anthropic lẫn nhà cung cấp đám mây đều không giữ dữ liệu doanh nghiệp.",
+        "Theo Anthropic, hãng dùng lớp giám sát an toàn tự động để phát hiện các mẫu lạm dụng qua nhiều truy vấn, do từng yêu cầu riêng lẻ có thể trông vô hại. Hệ thống này chỉ phân tích dữ liệu lưu trên hạ tầng do chính khách hàng kiểm soát.",
+        "Các doanh nghiệp gồm Bridgewater, Salesforce và Stripe đã đánh giá EFS trong thử nghiệm giới hạn (private beta), bên cạnh việc Anthropic phát triển tính năng cùng hơn 100 khách hàng. Tại Stripe, nhật ký hội thoại sẽ lưu trong môi trường AWS riêng dưới sự kiểm soát nội bộ, theo Trưởng bộ phận An ninh Matthew Kemelhar.",
+        "EFS giúp các tổ chức chú trọng bảo mật mở rộng ứng dụng AI mà vẫn kiểm soát dữ liệu, theo đánh giá của kỹ sư Omar Santos tại Cisco về thế cân bằng then chốt khi không từ bỏ an toàn mô hình tiên tiến."
       ],
       "same_event_coverage_ids": [
         "23143ae1b68a45112114"
@@ -126645,7 +126626,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Anthropic thử nghiệm công khai EFS: Giám sát an toàn AI mà không lưu giữ dữ liệu",
+      "editorial_headline_vi": "Anthropic mở thử nghiệm công khai EFS: Giám sát an toàn AI mà không lưu giữ dữ liệu doanh nghiệp",
       "summary_sources": [
         {
           "id": "outlet",
@@ -126660,35 +126641,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.4,
+        "value": 9.25,
         "answers": {
           "what": 10,
-          "why": 8,
-          "notable": 7,
-          "meaning": 8
+          "why": 10,
+          "notable": 8,
+          "meaning": 9
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "Ngăn chặn các cuộc tấn công tinh vi qua nhiều truy vấn",
-            "explanation": "Anthropic says the second layer detects patterns of misuse across requests; it does not claim this monitoring prevents the attacks (outlet:p028-p030)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "Hơn 100 khách hàng doanh nghiệp gồm Bridgewater, Salesforce và Stripe đã tham gia thử nghiệm nội bộ tính năng này",
-            "explanation": "Anthropic says it developed EFS with over 100 customers, while Bridgewater, Salesforce and Stripe evaluated it in private beta. It does not say all 100-plus customers joined that beta (outlet:p002)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "why",
-            "problem": "The reader may believe EFS prevents sophisticated attacks.",
-            "fix": "Describe it as detecting misuse patterns across multiple requests (outlet:p028-p030)."
-          },
-          {
             "question": "notable",
-            "problem": "The reader is told that all 100-plus customers participated in the private beta.",
-            "fix": "Separate development with over 100 customers from the named companies’ private-beta evaluations (outlet:p002)."
+            "problem": "Readers do not learn what the monitoring gives a customer when it flags a risk.",
+            "fix": "Explain that it creates a Safety Case for customer review through cloud storage or an API, without including inputs and outputs (outlet:p031)."
           }
         ],
         "writer_boats": [
@@ -126696,8 +126661,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "b0228216e55aae75b84f3a08340d833558730d42e829a476aa20b1d497f80ef7",
-        "scored_at": "2026-11-23T21:25:57.837353+00:00"
+        "prose_sha256": "f30adc33d667a810ed80fe266e98eba774acce33288686542b9a8517718d9e10",
+        "scored_at": "2026-11-24T05:28:21.807890+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
@@ -128232,10 +128197,10 @@
       "use_original_title": false,
       "source_url": "https://www.anthropic.com/research/working-with-ai",
       "key_points": [
-        "Hai phần ba số doanh nghiệp giảm tuyển dụng do AI (trí tuệ nhân tạo), theo báo cáo của Anthropic. Nhóm tác giả cho biết việc sa thải trực tiếp rất hiếm khi chỉ có hai nơi xóa bỏ vị trí, và 10 công ty thậm chí tuyển thêm người.",
-        "Một phần ba đợt giảm tuyển dụng do doanh nghiệp thu hẹp bộ phận qua giảm biên chế tự nhiên mà không tuyển bù. Tuy nhiên, nhóm nghiên cứu cho biết phần lớn xuất phát từ việc các công ty từ bỏ nhu cầu tuyển dụng để mở rộng quy mô.",
-        "Chín công ty cắt giảm các nhà thầu thuê ngoài ở các mảng lập trình, chăm sóc khách hàng, pháp lý và vận hành. Một công ty tài chính đã giảm hơn 100 nhà thầu nước ngoài, trong khi một hãng phần mềm tiết kiệm toàn bộ chi phí pháp lý nhờ AI.",
-        "Rào cản khai thác AI chủ yếu phát sinh từ nội bộ tổ chức trong quá trình tiếp nhận công nghệ, theo nhóm tác giả. Báo cáo nhấn mạnh việc kiểm duyệt sản phẩm của AI rất khó khăn khi khối lượng lớn làm quá tải sự chú ý của con người."
+        "Nhân sự tại hai phần ba số công ty được phỏng vấn báo cáo giảm tuyển dụng vì AI (trí tuệ nhân tạo), theo báo cáo của Anthropic. Nhóm tác giả cho biết việc sa thải rất hiếm, khi năm công ty cho thôi việc người không chịu dùng AI và chỉ hai nơi xóa bỏ vị trí vì tự động hóa.",
+        "Nhóm nghiên cứu cho biết phần lớn đợt giảm tuyển dụng xuất phát từ việc các công ty từ bỏ nhu cầu tuyển dụng để mở rộng quy mô. Một phần ba còn lại do doanh nghiệp thu hẹp bộ phận bằng cách không tuyển bù khi nhân sự giảm tự nhiên.",
+        "Báo cáo ghi nhận chín công ty mô tả việc cắt giảm các nhà thầu thuê ngoài về lập trình, chăm sóc khách hàng, pháp lý và vận hành. Một công ty tài chính đã giảm hơn 100 nhà thầu nước ngoài, trong khi một hãng phần mềm tiết kiệm toàn bộ phí pháp lý nhờ AI.",
+        "Nhóm tác giả nhận định phần lớn rào cản dường như xuất phát từ quá trình tiếp nhận AI trong nội bộ tổ chức. Báo cáo nhấn mạnh việc kiểm duyệt kết quả từ AI liên tục gặp khó khi khối lượng lớn làm quá tải sự chú ý của con người."
       ],
       "same_event_coverage_ids": [
         "743c761386cba4ea346f"
@@ -128253,7 +128218,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Báo cáo Anthropic: Hai phần ba doanh nghiệp giảm tuyển dụng do AI, việc sa thải trực tiếp rất hiếm",
+      "editorial_headline_vi": "Báo cáo Anthropic: Giảm tuyển dụng ở hai phần ba số công ty được phỏng vấn do AI",
       "summary_sources": [
         {
           "id": "outlet",
@@ -128268,44 +128233,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 7.45,
+        "value": 10.0,
         "answers": {
-          "what": 5,
-          "why": 9,
-          "notable": 9,
-          "meaning": 8
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "Hai phần ba số doanh nghiệp giảm tuyển dụng do AI",
-            "explanation": "The finding concerns people at two-thirds of the companies the researchers spoke to; the supplied source does not establish that proportion for businesses generally (outlet:p033)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "việc sa thải trực tiếp rất hiếm khi chỉ có hai nơi xóa bỏ vị trí",
-            "explanation": "Only two companies reported AI automation fully eliminating a position and causing job loss. Separately, people at five companies described pushing out employees who would not adopt AI (outlet:p032–p033)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "what",
-            "problem": "The headline and opening turn an interview-sample finding into a claim about all businesses.",
-            "fix": "Qualify the figure as applying to companies the researchers interviewed (outlet:p033)."
-          },
-          {
-            "question": "what",
-            "problem": "The account of rare job loss conflates automation eliminating a position with other direct terminations.",
-            "fix": "Separate the two reported findings: five companies pushed out AI-resistant employees, while two reported automation eliminating a position and causing job loss (outlet:p032–p033)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "0ea4dd1c15b2d3cbefd3a36e9d377a11cc312b1dd0a7630676bfc52d58072ff8",
-        "scored_at": "2026-11-23T23:54:23.552251+00:00"
+        "prose_sha256": "27df5a81893f82b04a5dbc577bf272c87ac5e393cc122b4b0985e4ade3043fe8",
+        "scored_at": "2026-11-24T05:28:21.807913+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
@@ -129541,10 +129484,10 @@
       "use_original_title": false,
       "source_url": "https://www.rnz.co.nz/news/world/2757034/the-ai-bubble-hasn-t-burst-but-it-has-significantly-deflated",
       "key_points": [
-        "Theo bài phân tích của Ian Verrender trên ABC News, bong bóng chứng khoán trí tuệ nhân tạo (AI) đã xì hơi nghiêm trọng trong hơn một tháng qua. Đợt sụt giảm thị trường sáu tuần qua đã giáng đòn mạnh vào cơn sốt đầu tư thúc đẩy AI.",
-        "Tác giả cho biết nguyên nhân chính là nỗi lo ngại doanh thu tương lai của ngành chip AI sẽ không đạt kỳ vọng và đến muộn hơn dự kiến. Theo tác giả, bê bối đời tư của Giám đốc điều hành Jensen Huang chỉ chịu một phần trách nhiệm cho đà lao dốc.",
-        "Sàn Nasdaq tại New York đã lao dốc hơn 18% từ đỉnh ngày 6 tháng 10, xóa sạch mức tăng trưởng cả năm. Cổ phiếu Nvidia cũng từng mất 40% giá trị so với đỉnh trước khi phục hồi nhờ việc phục chức ông Huang.",
-        "Phóng viên Ian Verrender nhận định thị trường chao đảo khiến lãi suất khó tăng cao hơn, giúp các chính phủ có thêm thời gian xử lý nợ công. Dù vậy, tác giả nhấn mạnh một giải pháp lâu dài vẫn bắt buộc phải bao gồm cắt giảm mạnh chi tiêu cùng những đợt tăng thuế đau đớn."
+        "Theo bài phân tích của Ian Verrender trên ABC News, bong bóng đầu tư trí tuệ nhân tạo (AI) đã xì hơi nghiêm trọng trong một tháng rưỡi qua. Đợt sụt giảm chứng khoán toàn cầu sáu tuần qua đã giáng đòn mạnh vào cơn sốt đầu tư từng thúc đẩy công nghệ này.",
+        "Tác giả cho biết cổ phiếu Nvidia trượt dốc do lo ngại doanh thu tương lai không đạt kỳ vọng và sẽ đến muộn hơn dự kiến. Trong khi đó, bê bối đời tư và nghi vấn gián điệp của Giám đốc điều hành Jensen Huang chỉ chịu một phần trách nhiệm cho đà lao dốc.",
+        "Cụ thể, sàn Nasdaq tại New York đã giảm hơn 18% từ đỉnh ngày 6 tháng 10, xóa sạch mọi mức tăng của năm nay. Cổ phiếu Nvidia cũng từng mất 40% giá trị trước khi phục hồi nhờ việc phục chức ông Jensen Huang.",
+        "Theo tác giả bài viết, giải pháp tài chính lâu dài đòi hỏi cắt giảm chi tiêu và tăng thuế, nếu không áp lực nợ công sẽ tiếp tục gia tăng. Dù đà sụt giảm chứng khoán tạm thời chặn đà tăng lãi suất và mang lại thời gian quý giá cho các chính phủ thu xếp tài chính, lạm phát gia tăng do xung đột khiến dư địa cắt giảm lãi suất rất hạn chế."
       ],
       "same_event_coverage_ids": [
         "765f9cd7e9c008d82a95"
@@ -129561,7 +129504,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Bong bóng cổ phiếu AI xì hơi mạnh khi Nasdaq giảm hơn 18% và Nvidia từng mất 40% giá trị",
+      "editorial_headline_vi": "Sàn Nasdaq giảm hơn 18% và Nvidia từng mất 40% giá trị khi bong bóng AI xì hơi mạnh",
       "summary_sources": [
         {
           "id": "outlet",
@@ -129576,35 +129519,30 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.55,
+        "value": 9.4,
         "answers": {
           "what": 10,
-          "why": 5,
+          "why": 10,
           "notable": 10,
-          "meaning": 7
+          "meaning": 6
         },
         "hard_errors": [
           {
-            "kind": "cause",
-            "summary_text": "nguyên nhân chính là nỗi lo ngại doanh thu tương lai của ngành chip AI sẽ không đạt kỳ vọng và đến muộn hơn dự kiến",
-            "explanation": "The source identifies this revenue concern as a reason Nvidia was falling before Huang’s scandal. It does not identify it as the main cause of the broader AI stock decline or extend the claim to the AI chip industry (outlet:p010–p012)."
+            "kind": "quote",
+            "summary_text": "đà sụt giảm chứng khoán tạm thời chặn đà tăng lãi suất",
+            "explanation": "This makes the halt in rate rises definite. The source says rates are unlikely to rise while the stock market turmoil plays out, and that Wall Street's weakness is likely to stop further US rate-hike discussions (outlet:p023, outlet:p036)."
           }
         ],
         "findings": [
           {
-            "question": "why",
-            "problem": "The reader is given an unsupported single main cause for the whole AI stock decline.",
-            "fix": "Limit the revenue-expectations point to Nvidia’s earlier decline, as the source does (outlet:p010–p012)."
+            "question": "meaning",
+            "problem": "Readers miss the author's central comparison: the AI stock decline could help avert a more serious sovereign debt crisis.",
+            "fix": "Add that the author considers an AI meltdown painful but less catastrophic than a sovereign debt crisis, and says the market decline gives governments breathing room (outlet:p025–p029, outlet:p036)."
           },
           {
             "question": "meaning",
-            "problem": "The reader misses the central comparison with a potentially more damaging sovereign-debt crisis.",
-            "fix": "Explain Verrender’s argument that lower bond yields and reduced pressure for rate hikes give governments breathing room while a sovereign-debt crisis would be more severe (outlet:p025–p037)."
-          },
-          {
-            "question": "meaning",
-            "problem": "The reader may assume central banks have ample room to cut rates.",
-            "fix": "Add the source’s limit: rising inflation makes further rate hikes unlikely but leaves only limited capacity for cuts (outlet:p044–p045)."
+            "problem": "Readers are told the market decline has stopped interest-rate increases, with more certainty than the source provides.",
+            "fix": "Say rates are unlikely to rise while the turmoil continues, preserving the source's qualification (outlet:p036, outlet:p045)."
           }
         ],
         "writer_boats": [
@@ -129612,8 +129550,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "39d63c2c8137284e4176c93526769f7dd48c82150ac7c92ff6dbad72e7e66776",
-        "scored_at": "2026-11-24T03:11:28.752086+00:00"
+        "prose_sha256": "914682a6ac903a45e6db22845b88d9d8a1147aaffdbc7707c1bb7d53935f8e08",
+        "scored_at": "2026-11-24T05:32:04.526115+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
@@ -129667,6 +129605,151 @@
       "same_event_coverage_ids": [
         "6de5e9480cb37bab70c9",
         "832fd2bf90778798011b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "f159f04f737edff27a79",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-24/fujitsu-cto-on-ai-focus-outlook-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "5da80611cc991a45cafc"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "e38bde2e06a60e0075d5",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Show HN promotional pitch and product landing page demo without independent reporting or substantive release documentation.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://juncts.com/app?demo=1&utm_source=hackernews&utm_medium=launch&utm_campaign=launch-nov26",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "d787cc047ff55e2101ed"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "0f779e7fa16290655eb2",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Project page for a user interface domain-specific language where AI is only referenced incidentally as a code-generation method.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://davidtemkin.github.io/declarelang/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "7d79b93d98441f4997cd",
+        "fc5af569c3040859ef33"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "2fcf24a88bb84c3a5be0",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://github.com/SodovaFo7/claude-code-unlimited",
+      "key_points": [
+        "Dự án Claude Code Unlimited trên GitHub giới thiệu công cụ luân chuyển phiên cho Claude Code CLI trên Windows 10 và Windows 11 bản 64-bit. Bản phát hành cung cấp gói chạy sẵn tự động phát hiện hạn mức mà không cần biên dịch.",
+        "Lớp vỏ bọc giám sát luồng dữ liệu của Claude Code và nhận diện thông báo chạm hạn mức trong thời gian thực. Hệ thống lưu điểm kiểm tra phiên vào tệp JSON ở ~/.config/ccu/ rồi luân chuyển sang phiên mới tại chỗ.",
+        "Người dùng giải nén gói cài đặt bằng mã 2026 rồi chạy tệp ClaudeCodeUnlimited_Setup_x64.exe nhưng phải giữ tệp config/settings.json cùng thư mục. Tệp cấu hình mặc định quản lý tối đa 4 phiên và nhận diện các chuỗi thông báo gồm \"usage limit reached\", \"weekly limit\" hoặc \"try again later\".",
+        "Tài liệu dự án khẳng định công cụ mang lại hạn mức mới trong khi giữ nguyên ngữ cảnh và hỗ trợ nạp lại cấu hình trực tiếp. Bản dựng được mô tả này được thiết kế cho Windows 10 và Windows 11 bản 64-bit mà không phụ thuộc phần mềm ngoài."
+      ],
+      "same_event_coverage_ids": [
+        "1539bace129d382e2705"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Claude Code Unlimited",
+      "video_labels": {
+        "video_hook": "usable_now",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Dự án Claude Code Unlimited giới thiệu công cụ luân chuyển phiên cho Claude Code CLI trên Windows 64-bit",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "github",
+          "url": "https://github.com/SodovaFo7/claude-code-unlimited"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "7ed7c613e4897995908123d2d87dba14d4656f13bf581d5c7424f2020be62ce5",
+        "scored_at": "2026-11-24T05:14:45.447096+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "d2f98570ba045778b064",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare Hugging Face model repository card without any announcement, summary, or independent coverage.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://huggingface.co/inclusionAI/Ling-3.2-air",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "76c44d76bd07758e869a"
       ],
       "split_coverage_ids": []
     }
