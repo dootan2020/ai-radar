@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-24T19:56:05.401061+00:00",
-  "input_generated_at": "2026-11-24T18:46:36Z",
+  "generated_at": "2026-11-24T21:47:00.173875+00:00",
+  "input_generated_at": "2026-11-24T20:47:07Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -134556,10 +134556,10 @@
       "use_original_title": false,
       "source_url": "https://techcrunch.com/2026/11/24/why-a-crusoe-investor-is-betting-on-solar-and-batteries-to-power-future-ai-data-centers/",
       "key_points": [
-        "Theo phân tích từ quỹ G2 Venture Partners (G2VP), các nhà phát triển trung tâm dữ liệu AI (trí tuệ nhân tạo) nên kết hợp điện mặt trời với hệ thống lưu trữ năng lượng để đẩy nhanh tiến độ. Quỹ đầu tư này ước tính quy mô vốn đổ vào các trung tâm dữ liệu sẽ vượt 4 nghìn tỷ USD cho đến cuối thập kỷ.",
-        "Đối tác Brook Porter giải thích rằng khí đốt bị giới hạn công suất toàn cầu ở mức 60 đến 70 gigawatt mỗi năm, trong khi điện mặt trời đã vượt một terawatt. Cả điện mặt trời và công nghệ lưu trữ dài hạn đều dựa trên các mô-đun nhỏ có thể sản xuất quy mô lớn theo định luật Wright để giảm chi phí.",
-        "Theo TechCrunch, các sản phẩm lưu trữ dài hạn mới giảm mạnh chi phí mỗi megawatt-giờ, tiêu biểu là giải pháp từ Form Energy và Antora Energy. Thế hệ này giúp khắc phục điểm yếu của pin lithium-ion, vốn quá đắt để cạnh tranh với nhiên liệu hóa thạch cho nguồn điện suốt ngày đêm.",
-        "Theo ông Porter, mô hình ngoài lưới điện giúp rút ngắn thời gian triển khai nhờ tránh các hạn chế về giấy phép đấu nối hay khí thải. Dù công nghệ có thể cần vài năm nữa mới phổ biến, ông Porter nhận định nhà phát triển nên bắt đầu cân nhắc chúng ngay từ bây giờ."
+        "Theo phân tích từ quỹ G2 Venture Partners (G2VP), các trung tâm dữ liệu AI (trí tuệ nhân tạo) nên kết hợp điện mặt trời với hệ thống lưu trữ năng lượng. Quỹ G2VP ước tính tổng vốn đầu tư vào trung tâm dữ liệu sẽ vượt 4 nghìn tỷ USD cho đến cuối thập kỷ này.",
+        "Ông Porter cho biết điện mặt trời và lưu trữ dài hạn đều dựa trên công nghệ mô-đun nhỏ có thể sản xuất quy mô lớn để khai thác định luật Wright.",
+        "Đối với làn sóng tiếp theo, G2VP nhận thấy hai hướng đi gồm các cơ sở nhỏ nối lưới tự phát điện và những trung tâm lớn dùng điện mặt trời kèm lưu trữ dài hạn. Dù pin lithium-ion quá đắt đỏ để cạnh tranh với nhiên liệu hóa thạch suốt ngày đêm, các sản phẩm lưu trữ mới từ Form Energy và Antora Energy đã hạ đáng kể chi phí mỗi megawatt-giờ.",
+        "Ông Porter nhận định các công nghệ này có thể còn vài năm nữa mới được các nhà phát triển trung tâm dữ liệu đón nhận rộng rãi, dù họ nên tính đến ngay từ bây giờ. Theo ông Porter, mô hình ngoài lưới điện giúp vượt qua hạn chế cấp phép tiếp cận lưới điện và rút ngắn đáng kể thời gian đưa dự án vào vận hành."
       ],
       "same_event_coverage_ids": [
         "cfe323763e43ab11370c"
@@ -134575,7 +134575,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "G2VP đề xuất kết hợp điện mặt trời và hệ thống lưu trữ để cấp điện cho trung tâm dữ liệu AI",
+      "editorial_headline_vi": "G2VP đề xuất dùng điện mặt trời và hệ thống lưu trữ giúp trung tâm dữ liệu AI vận hành ngoài lưới điện",
       "summary_sources": [
         {
           "id": "outlet",
@@ -134588,25 +134588,35 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.85,
+        "value": 9.0,
         "answers": {
-          "what": 9,
-          "why": 9,
-          "notable": 9,
-          "meaning": 8
+          "what": 10,
+          "why": 8,
+          "notable": 8,
+          "meaning": 10
         },
         "hard_errors": [
           {
             "kind": "fact",
-            "summary_text": "Thế hệ này giúp khắc phục điểm yếu của pin lithium-ion",
-            "explanation": "The source says new long-duration storage products have significantly reduced cost per megawatt-hour. It does not say they have resolved the cost gap that makes lithium-ion batteries too expensive for round-the-clock power (outlet:p015)."
+            "summary_text": "điện mặt trời và lưu trữ dài hạn đều dựa trên công nghệ mô-đun nhỏ",
+            "explanation": "The source says solar and most forms of long-duration storage use small, modular technologies; it does not extend that claim to all forms (outlet:p011)."
           }
         ],
         "findings": [
           {
-            "question": "meaning",
-            "problem": "The reader may believe the new storage products have already solved the round-the-clock cost problem.",
-            "fix": "Say their cost per megawatt-hour has fallen significantly, without claiming they have reached cost parity with fossil fuels (outlet:p015)."
+            "question": "why",
+            "problem": "Readers do not learn that rapidly growing electricity demand is the problem prompting G2VP’s proposal.",
+            "fix": "Add the demand and supply-chain context (outlet:p006-p009)."
+          },
+          {
+            "question": "notable",
+            "problem": "The capacity comparison supporting Porter’s scale argument is missing.",
+            "fix": "Include his comparison of roughly 60–70 gigawatts of annual natural-gas capacity with more than a terawatt of solar capacity (outlet:p010)."
+          },
+          {
+            "question": "why",
+            "problem": "The Vietnamese applies the modular-technology claim to all long-duration storage.",
+            "fix": "Qualify it as applying to most forms of long-duration storage (outlet:p011)."
           }
         ],
         "writer_boats": [
@@ -134614,8 +134624,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "d77c1576dde4364e8eee14a4776ac809a08983aa85b16399e01859a500a4b31f",
-        "scored_at": "2026-11-24T19:56:05.391050+00:00"
+        "prose_sha256": "319db6fc048acb12284f0453d696ab4bb4baae3dd29737a4af0221cc5e1c5c01",
+        "scored_at": "2026-11-24T21:47:00.158123+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
@@ -134702,10 +134712,10 @@
       "use_original_title": false,
       "source_url": "https://techcrunch.com/2026/11/24/pinterest-will-now-let-parents-limit-the-ai-generated-content-their-teens-see/",
       "key_points": [
-        "Pinterest vừa mở rộng tính năng kiểm soát phụ huynh, cho phép cha mẹ giới hạn lượng nội dung do AI (trí tuệ nhân tạo) tạo ra hiển thị với con cái. Theo TechCrunch, đây là một trong những mạng xã hội lớn đầu tiên trao quyền kiểm soát nguồn cấp dữ liệu AI cho phụ huynh.",
-        "Nhiều phụ huynh lo ngại nội dung AI gây hại cho trẻ em để trục lợi giữa lúc các nền tảng thiếu công cụ kiểm soát bảng tin. Vào tháng 4, nhóm Fairplay cùng hơn 200 chuyên gia đã gửi thư yêu cầu YouTube cấm đề xuất video AI cho người dưới 18 tuổi.",
-        "TechCrunch nhận định các nền tảng khác chỉ giới hạn tính năng AI cụ thể, như việc Snap thêm tùy chọn phụ huynh giúp ngăn chatbot phản hồi thanh thiếu niên. Bên cạnh đó, Meta tạm dừng quyền tiếp cận nhân vật AI cho trẻ vị thành niên, còn WhatsApp cho chỉnh mức dùng Meta AI.",
-        "Theo TechCrunch, trao công cụ cho phụ huynh là bước khởi đầu tốt để người dùng tự quyết định trải nghiệm trên ứng dụng. Tuy vậy, TechCrunch ghi nhận nội dung AI vẫn lọt vào bảng tin ngay cả khi người dùng đã kích hoạt chế độ hạn chế áp dụng từ năm 2025."
+        "Pinterest vừa mở rộng tính năng kiểm soát của phụ huynh, cho phép cha mẹ giới hạn lượng nội dung do AI (trí tuệ nhân tạo) tạo ra hiển thị với con cái. Theo TechCrunch, đây là một trong những mạng xã hội lớn đầu tiên trao quyền kiểm soát nguồn cấp dữ liệu AI cho phụ huynh.",
+        "Nhiều phụ huynh cho rằng nội dung AI tràn ngập bảng tin đang gây tổn hại cho sức khỏe của trẻ em vì mục tiêu lợi nhuận của nền tảng. Hồi tháng 4, nhóm Fairplay cùng hơn 200 tổ chức đã gửi thư yêu cầu YouTube cấm đề xuất video AI cho người dưới 18 tuổi.",
+        "Các nền tảng khác chủ yếu hạn chế tính năng riêng lẻ, như Snap bổ sung cài đặt kiểm soát giúp phụ huynh ngăn chatbot AI trả lời thanh thiếu niên hay Meta tạm dừng các nhân vật AI. Tương tự, WhatsApp hiện cho phép phụ huynh điều chỉnh mức độ thanh thiếu niên tiếp cận Meta AI khi tạo nội dung hoặc nhận câu trả lời.",
+        "TechCrunch nhận định việc trao công cụ cho cha mẹ là bước khởi đầu tốt để người dùng tự quyết định trải nghiệm trên ứng dụng. Tuy nhiên, ấn phẩm này chỉ ra rằng nội dung AI vẫn có thể lọt vào bảng tin ngay cả khi cài đặt hạn chế năm 2025 đang bật."
       ],
       "same_event_coverage_ids": [
         "e36d41443db125f35ed0"
@@ -134719,7 +134729,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Pinterest bổ sung tính năng cho phép phụ huynh giới hạn nội dung do AI tạo ra trên bảng tin",
+      "editorial_headline_vi": "Pinterest bổ sung tính năng cho phép phụ huynh giới hạn nội dung do AI tạo ra hiển thị cho con cái",
       "summary_sources": [
         {
           "id": "outlet",
@@ -134732,9 +134742,9 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.4,
+        "value": 9.05,
         "answers": {
-          "what": 10,
+          "what": 9,
           "why": 10,
           "notable": 8,
           "meaning": 10
@@ -134742,15 +134752,25 @@
         "hard_errors": [
           {
             "kind": "number",
-            "summary_text": "hơn 200 chuyên gia",
-            "explanation": "The letter was signed by more than 200 organizations and experts combined, not more than 200 experts alone (outlet:p012)."
+            "summary_text": "hơn 200 tổ chức",
+            "explanation": "The source says the letter was signed by over 200 organizations and experts combined, not over 200 organizations (outlet:p012)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "Meta tạm dừng các nhân vật AI",
+            "explanation": "Meta paused teens’ access to existing AI characters globally; the source does not say it paused the characters altogether (outlet:p009)."
           }
         ],
         "findings": [
           {
             "question": "notable",
-            "problem": "The reader gets the wrong composition of the Fairplay letter’s signatories.",
-            "fix": "Describe them as more than 200 organizations and experts (outlet:p012)."
+            "problem": "Readers could believe Meta suspended its AI characters for everyone.",
+            "fix": "Specify that Meta paused teens’ access to existing AI characters (outlet:p009)."
+          },
+          {
+            "question": "why",
+            "problem": "The letter’s support is misstated as more than 200 organizations.",
+            "fix": "Say it was signed by more than 200 organizations and experts (outlet:p012)."
           }
         ],
         "writer_boats": [
@@ -134758,8 +134778,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "e187e9b8524ea03b4446e46c448cc2e630c1c02cd917e5f86fc9a76b6050b970",
-        "scored_at": "2026-11-24T19:56:05.391094+00:00"
+        "prose_sha256": "92a9bec2695c7aad580b4809baa141ac5aefa25fc7ea205fe74e9080c3dcf319",
+        "scored_at": "2026-11-24T21:47:00.158151+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
@@ -135323,10 +135343,10 @@
       "use_original_title": false,
       "source_url": "https://techcrunch.com/2026/11/24/uk-warns-ai-driven-cyberattacks-are-exposing-years-of-weak-security/",
       "key_points": [
-        "Theo cơ quan an ninh mạng Anh, các vụ tấn công mạng do AI điều khiển gia tăng rõ rệt khi tin tặc dùng công cụ tự động xâm nhập hệ thống. NCSC cho biết từ tháng 9 nhiều vụ tấn công bằng công cụ tự động đã gây gián đoạn tại các tổ chức.",
-        "Theo NCSC, các cuộc tấn công bắt nguồn từ những điểm yếu chưa khắc phục do nợ kỹ thuật nhiều năm, thay vì lỗ hổng bộ nhớ mới hay lỗ hổng chưa vá. NCSC lưu ý rằng dù lỗ hổng không mới, tốc độ công cụ AI thực hiện các vụ tấn công đơn giản đã thay đổi.",
-        "Cụ thể, NCSC cho biết các công cụ tự hành (phần mềm AI tự thực hiện tác vụ) thường dò mật khẩu yếu và lạm dụng điểm cuối API để truy cập dữ liệu trên hệ thống mở. Cơ quan này cảnh báo AI giúp tìm và khai thác nhanh hơn, khiến điểm yếu tồn tại nhiều năm có thể bị phát hiện trong vài phút.",
-        "Theo NCSC, AI không làm các biện pháp bảo mật hiện hành lỗi thời mà việc xây dựng nền tảng vững chắc chưa bao giờ quan trọng hơn thế. Thông điệp từ London nhấn mạnh nhiều cuộc tấn công có thể phòng ngừa được bằng các biện pháp bảo vệ cơ bản và quy chuẩn tốt nhất."
+        "Theo cơ quan an ninh mạng Anh, các vụ tấn công mạng do AI điều khiển gia tăng rõ rệt khi tin tặc dùng công cụ tự động xâm nhập hệ thống. NCSC cho biết từ tháng 9, nhiều sự cố do công cụ tự động đã gây xâm nhập và gián đoạn hoạt động tại các tổ chức.",
+        "Theo NCSC, những điểm yếu bị khai thác thường là kết quả từ nhiều năm tích tụ nợ kỹ thuật, chứ không phải lỗ hổng mới. NCSC lưu ý rằng dù lỗ hổng không mới, tốc độ công cụ AI thực hiện các vụ tấn công đơn giản đã thay đổi.",
+        "Cụ thể, NCSC cho biết các công cụ tự hành (AI tự thực hiện tác vụ) thường dò mật khẩu yếu hoặc lạm dụng điểm cuối API để truy cập dữ liệu. NCSC cảnh báo AI giúp tìm và khai thác nhanh hơn, khiến điểm yếu tồn tại nhiều năm có thể bị phát hiện chỉ trong vài phút.",
+        "Theo NCSC, AI không làm các biện pháp bảo mật hiện hành lỗi thời, mà việc xây dựng nền tảng vững chắc chưa bao giờ quan trọng hơn thế. Thông điệp từ London nhấn mạnh nhiều cuộc tấn công có thể phòng ngừa bằng các biện pháp bảo vệ cơ bản và quy chuẩn tốt nhất."
       ],
       "same_event_coverage_ids": [
         "4d0387ac39c1c7d6c970"
@@ -135340,7 +135360,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Anh cảnh báo tấn công mạng do AI điều khiển tăng rõ rệt khi tin tặc khai thác điểm yếu từ nợ kỹ thuật tồn đọng",
+      "editorial_headline_vi": "Anh cảnh báo tấn công mạng do AI tăng rõ rệt, khai thác các điểm yếu thường do nợ kỹ thuật tích tụ",
       "summary_sources": [
         {
           "id": "outlet",
@@ -135353,34 +135373,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.4,
+        "value": 10.0,
         "answers": {
           "what": 10,
-          "why": 7,
+          "why": 10,
           "notable": 10,
           "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "quote",
-            "summary_text": "các cuộc tấn công bắt nguồn từ những điểm yếu chưa khắc phục do nợ kỹ thuật nhiều năm",
-            "explanation": "NCSC says the weaknesses being exploited are often the result of years of technical debt, not that all the attacks stem from such debt (outlet:p011)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "why",
-            "problem": "The reader is given technical debt as a categorical explanation.",
-            "fix": "Say the exploited weaknesses often result from years of technical debt, preserving NCSC’s qualification (outlet:p011)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "3d0e9a4ed65f70a56663d95fa36239a624c8f986fea1fbecaeee33cb9f427b75",
-        "scored_at": "2026-11-24T19:40:10.791881+00:00"
+        "prose_sha256": "c07357c88158fe0ae86d28d952b2aa8f4196122d93577c85472419f6ea01836b",
+        "scored_at": "2026-11-24T21:41:15.756892+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
@@ -135718,10 +135726,10 @@
       "use_original_title": false,
       "source_url": "https://developer.nvidia.com/blog/whats-new-for-game-developers-ai-animation-and-rtx-tools/",
       "key_points": [
-        "NVIDIA công bố các bản cập nhật phát triển đồ họa, hoạt họa và AI cục bộ cho các công cụ trò chơi vào tháng 11 năm 2026. Bộ công cụ In-Game Inferencing SDK 1.8 bổ sung hỗ trợ nền tảng RTX Spark cùng các chương trình suy luận cập nhật llama.cpp và whisper.cpp.",
-        "Bộ công cụ In-Game Inferencing SDK hỗ trợ nhiều chương trình suy luận trên phần cứng GPU và CPU, tạo giao diện chung vận hành AI cục bộ cùng đồ họa trò chơi. Bản nâng cấp mở rộng tính năng nhận dạng giọng nói tự động qua mô hình Parakeet và tích hợp giao diện lập trình ưu tiên của Vulkan.",
-        "Chuyên viên hoạt họa có thể tạo chuyển động nhân vật bằng câu lệnh văn bản và tư thế đích tại các khung hình cụ thể trong công cụ Sequencer của bản Unreal Engine 5.9 Preview. Mô hình AI Kimodo tạo chuyển động bám theo đường cong dẫn hướng và các ràng buộc do nhóm kỹ thuật thiết lập trên dòng thời gian.",
-        "Gaijin Entertainment nhận định công nghệ DLSS 5 nâng cao độ chân thực và độ tương phản vi mô chưa từng đạt được khi đưa vào War Thunder. Hãng game điều chỉnh quy trình xử lý màu, đánh giá hình ảnh trong không gian sRGB trước hậu kỳ rồi ánh xạ về HDR, đồng thời đo kiểm chất lượng và hiệu năng riêng biệt giữa không chiến, lục chiến và hải chiến."
+        "NVIDIA tích hợp mô hình AI Kimodo vào Unreal Engine 5.9 Preview và ra mắt các công cụ đồ họa RTX Dynamic Illumination 3.2 cùng Real-Time BVH Viewer 1.0. Bộ công cụ In-Game Inferencing SDK 1.8 cũng được nâng cấp để hỗ trợ nền tảng RTX Spark và mô hình nhận dạng giọng nói Parakeet.",
+        "Để tăng độ chân thực mà vẫn bảo toàn bản sắc của War Thunder, Gaijin Entertainment tích hợp DLSS 5 và tinh chỉnh công nghệ nhằm giữ nguyên phù hiệu cùng vết mòn bề mặt. Nhóm phát triển giải thích họ phải điều chỉnh quy trình màu để đánh giá DLSS 5 trong sRGB trước hậu kỳ rồi mới ánh xạ về HDR.",
+        "Chuyên viên hoạt họa có thể dùng Kimodo để tạo và định hướng chuyển động nhân vật trong Sequencer thông qua câu lệnh văn bản, đường dẫn spline và các tư thế đích.",
+        "NVIDIA nhận định các bản cập nhật này giúp các đội ngũ đưa năng lực đồ họa, hoạt họa và AI cục bộ vào engine trong khi cân bằng giữa chất lượng hình ảnh, hiệu năng và ý đồ sáng tạo."
       ],
       "same_event_coverage_ids": [
         "62d2512f327bb4605a37"
@@ -135737,7 +135745,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "NVIDIA thử nghiệm mô hình hoạt họa Kimodo và Gaijin tích hợp DLSS 5 vào War Thunder",
+      "editorial_headline_vi": "Mô hình AI Kimodo tích hợp vào Unreal Engine 5.9 Preview cùng loạt công cụ RTX của NVIDIA",
       "summary_sources": [
         {
           "id": "outlet",
@@ -135752,45 +135760,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 7.1,
+        "value": 9.0,
         "answers": {
-          "what": 7,
-          "why": 6,
-          "notable": 8,
-          "meaning": 7
+          "what": 8,
+          "why": 10,
+          "notable": 9,
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "NVIDIA thử nghiệm mô hình hoạt họa Kimodo",
-            "explanation": "The source says Kimodo was integrated as the first model in Unreal Engine 5.9 Preview’s guided animation framework; it does not report that NVIDIA tested the model (outlet:p038–p040)."
-          },
-          {
-            "kind": "role",
-            "summary_text": "các ràng buộc do nhóm kỹ thuật thiết lập",
-            "explanation": "The source identifies animators as the people who can supply the text prompt, spline path, and target poses; it does not assign these controls specifically to an engineering team (outlet:p041)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
             "question": "what",
-            "problem": "The headline turns Kimodo’s integration into an NVIDIA test.",
-            "fix": "State that Kimodo is the first AI motion model integrated into Unreal Engine 5.9 Preview’s guided animation framework (outlet:p038–p040)."
-          },
-          {
-            "question": "what",
-            "problem": "The reader misses that the post also covers lighting and graphics-tool updates.",
-            "fix": "Mention RTX Dynamic Illumination 3.2, RTX Path Tracing 1.9, or the BVH Viewer as part of the roundup (outlet:p019–p021, outlet:p053–p062)."
-          },
-          {
-            "question": "why",
-            "problem": "Gaijin’s reason for tuning DLSS 5 is unclear.",
-            "fix": "Explain that it sought improved realism while preserving War Thunder’s established visual identity (outlet:p035–p036)."
-          },
-          {
-            "question": "notable",
-            "problem": "The animation controls are credited to an engineering team.",
-            "fix": "Say animators set the prompts, paths, and target poses (outlet:p041)."
+            "problem": "The roundup appears narrower than the source because RTX Path Tracing 1.9 and the Nsight updates are absent.",
+            "fix": "Mention the RTX Path Tracing 1.9 improvements and Nsight developer tools updates (outlet:p021, outlet:p032-p033)."
           }
         ],
         "writer_boats": [
@@ -135798,8 +135780,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "9f7691e728a1e5b7385e584f96f06e4f4fc782999272ef61852ea20af4f1b7b3",
-        "scored_at": "2026-11-24T19:40:10.791945+00:00"
+        "prose_sha256": "540c8f198c6534afda77c8fd81e5373a685f8830af50567cc50d8380d0f61230",
+        "scored_at": "2026-11-24T21:47:00.158053+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
@@ -136021,9 +136003,9 @@
       "source_url": "https://www.theverge.com/tech/1041222/jensen-huang-nvidia-scandal-deepfakes",
       "key_points": [
         "Theo The Verge, hàng trăm video deepfake AI chế giễu Jensen Huang lan truyền trên mạng sau bê bối tình ái khiến ông từ chức tại Nvidia. Nvidia sau đó thông báo phục chức tổng giám đốc cho ông sau các cuộc thảo luận và ý kiến từ quan chức cấp cao chính phủ Mỹ.",
-        "Một nhà sáng tạo giải thích họ đưa tin thời sự vào video vì biết nội dung này sẽ thu hút tương tác. The Verge nhận định các video này không nhằm gây hại mà là meme châm biếm, và trong nhiều trường hợp phụ thuộc lớn vào chip xử lý đồ họa của Nvidia.",
-        "Trang của một tác giả ở Melbourne đạt gần 100 triệu lượt xem cho các phiên bản meme ghép nhiều người nổi tiếng, gồm video ghép Huang đạt gần 6 triệu lượt xem. Người này cho biết đã chi \"hàng nghìn\" cho video AI nhưng chưa kiếm được tiền, ngoại trừ một lần được tặng 3 USD trên một video Reel.",
-        "The Verge kết luận hậu quả từ bê bối đối với Huang chỉ là tạm thời khi ông được phục chức, kể cả sự bẽ bàng từ các meme AI. Theo bài viết, sự việc rốt cuộc chỉ mang lại thêm nhiều quyền lực hơn cho Nvidia và Jensen Huang."
+        "The Verge nhận định các video này không nhất thiết nhằm gây hại hay lừa dối người xem, mà là meme châm biếm vụ bê bối. Một nhà sáng tạo giải thích ông đưa những sự việc trên tin tức vào nội dung AI vì biết sẽ thu hút sự chú ý, dù công nghệ tạo video này trong nhiều trường hợp phụ thuộc lớn vào GPU của Nvidia.",
+        "Trang của một tác giả ở Melbourne đạt gần 100 triệu lượt xem cho các meme ghép người nổi tiếng, gồm video ghép Huang đạt gần 6 triệu lượt xem. Người này cho biết đã chi \"hàng nghìn\" cho video AI nhưng chưa kiếm được tiền, ngoại trừ một lần được tặng 3 USD trên một video Reel.",
+        "The Verge nhận định sự việc có thể cho thấy người dùng vẫn tương tác nếu chủ đề thịnh hành, dù nội dung theo công thức rác AI (AI slop). Tác giả kết luận hậu quả bê bối với Huang chỉ là tạm thời và rốt cuộc chỉ mang lại thêm quyền lực cho Nvidia cùng vị tổng giám đốc này."
       ],
       "same_event_coverage_ids": [
         "46c3b0137b25b0a48255"
@@ -136056,39 +136038,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.15,
+        "value": 9.65,
         "answers": {
           "what": 9,
-          "why": 9,
+          "why": 10,
           "notable": 10,
-          "meaning": 8
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "quote",
-            "summary_text": "The Verge nhận định các video này không nhằm gây hại",
-            "explanation": "The source says the videos are not necessarily intended to harm or mislead, leaving room for differing intent; the Vietnamese makes that assessment categorical (outlet:p026)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "why",
-            "problem": "The reader is told categorically that the deepfakes are harmless in intent.",
-            "fix": "Preserve the source’s qualification: they are not necessarily intended to harm or mislead (outlet:p026)."
-          },
-          {
-            "question": "meaning",
-            "problem": "The broader point about why these AI memes spread is absent.",
-            "fix": "Add the article’s observation that people engage with AI memes about trending subjects even when the format resembles widely criticized AI content (outlet:p033)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "d87c5d5387e259e8be2b86f0bb528a0dcfa51f39276e1884fe4ac62f0c0217a2",
-        "scored_at": "2026-11-24T19:40:10.791993+00:00"
+        "prose_sha256": "aecfd1d83e5a5746ffcb2ea0661cd8bb5d74a9b23b2dd84818fac78316ef0d81",
+        "scored_at": "2026-11-24T21:47:00.158093+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
@@ -136384,6 +136349,638 @@
       "writer_models": [
         "gemini-3.8-flash-high"
       ]
+    },
+    {
+      "id": "ea655aef5669054dfec3",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://arstechnica.com/ai/2026/11/whats-going-on-with-the-riemann-hypothesis/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "048ad224eb0f648d99ce"
+      ],
+      "split_coverage_ids": [],
+      "subject": "AI-assisted proof of the Riemann hypothesis",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "6f39a28988fc38b7182d",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-24/openai-staffer-charged-with-planting-bug-released-on-bond",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "99da4a05cd7eec1391fc"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "4b623d6ccfc58268f31e",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-24/huang-to-testify-publicly-before-senators-dec-3-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "abc3a9920d8b7167fe32"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "555529a69b5d605cd299",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/tech/1041571/jensen-huang-all-hands-nvidia-apology",
+      "key_points": [
+        "Ông Jensen Huang, Giám đốc điều hành của Nvidia, đã xin lỗi nhân viên và phủ nhận thông tin Nhà Trắng cùng giới công nghệ can thiệp giúp ông lấy lại chức vụ. Theo The Verge, ông Huang khẳng định việc Tổng thống Donald Trump can thiệp trực tiếp vào quyết định phục chức của ông là hoàn toàn không đúng sự thật.",
+        "Ông Huang giải thích rằng hội đồng quản trị Nvidia đã đánh giá lại toàn bộ tình hình khi nhận được bảo đảm từ chính phủ rằng ông không đe dọa an ninh quốc gia. Ông cũng tuyên bố bản thân không hề đứng trên luật pháp hay quy tắc ứng xử của công ty để được quay trở lại.",
+        "Tuyên bố này trái ngược với Nhà Trắng, nơi khẳng định ông Trump đã tham gia toàn diện vào việc đưa ông Huang trở lại sau khi ông từ chức vào ngày 12 tháng 11. Sự trở lại của ông Huang nhận được sự ủng hộ từ các lãnh đạo công nghệ như Elon Musk, dù ông thừa nhận đã vi phạm quy tắc ứng xử nội bộ.",
+        "Ông Huang dự kiến phải điều trần trước Quốc hội vào ngày 1 tháng 12 để trả lời chất vấn của các nghị sĩ Đảng Dân chủ về an ninh quốc gia và sự can thiệp của ông Trump. Đồng thời, theo Reuters, hãng Nvidia vẫn đang phải đối mặt với một cuộc điều tra riêng biệt liên quan đến các hoạt động kế toán."
+      ],
+      "same_event_coverage_ids": [
+        "dc64c9cac23487150863"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Jensen Huang all-hands address on his return to Nvidia",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Jensen Huang",
+          "Donald Trump",
+          "Emma Roth",
+          "Marisa Kabas"
+        ],
+        "availability": "unknown",
+        "is_leak": true
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Jensen Huang bác bỏ thông tin Tổng thống Donald Trump can thiệp để phục chức CEO Nvidia",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/tech/1041571/jensen-huang-all-hands-nvidia-apology"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.0,
+        "answers": {
+          "what": 10,
+          "why": 8,
+          "notable": 9,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "Readers are not told what preceded Huang’s resignation.",
+            "fix": "Add that he resigned after reports of affairs with an alleged Chinese spy and two employees (outlet:p021)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The account leaves out Nvidia’s separate internal inquiry.",
+            "fix": "Mention the internal investigation into reports that Huang was targeted by a Chinese spy plot (outlet:p022)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "14a39f68c900818ec16861026226234d15bb6cf05c90cb8fbf97b1350acbf549",
+        "scored_at": "2026-11-24T21:21:09.527574+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "55e2044b7b9eea2101da",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Personal engineering blog post walking through optimizations and lessons learned porting code to TorchTPU.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://andlukyane.com/blog/cayley-graphs-and-torchtpu",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "f80bad26e8eaf4570528"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "607dd4f1d62bc9deeb03",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-24/trump-s-nvidia-push-is-crony-capitalism-says-killin-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b1ab0d7dca3e8c8a66d1"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "84e1309d18f8c037ad80",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://protocolis.co/paper/",
+      "key_points": [
+        "Nhóm tác giả thử nghiệm trình biên dịch Protocolis cho tác nhân web đối đầu các công cụ phổ biến ở ba kích cỡ mô hình và ba độ dài tác vụ. Thử nghiệm này được thực hiện khi tắt bộ nhớ và khả năng tự học của hệ thống.",
+        "Trình biên dịch chuyển điều khiển web thành thao tác có định kiểu rồi đọc lại trang mà không cần suy luận mô hình hay mã riêng.",
+        "Chế độ mặc định hoàn thành 76% tác vụ dài so với 46% của phương án tốt nhất, đạt 80 trên 105 bài thử nghiệm dài mà mọi hệ thống cùng thực hiện. Phương án rẻ nhất trên cùng mô hình có chi phí đắt gấp 1,9 đến 26 lần cho mỗi tác vụ hoàn tất.",
+        "Theo nhóm tác giả, hệ thống đạt độ ổn định cao nhất trong mọi điều kiện khi không bao giờ hoàn thành dưới 55%, trong khi các phương án khác đều giảm xuống 28% hoặc thấp hơn. Mọi kết quả đều ghi nhận ở lượt truy cập đầu tiên, vốn là điều kiện kém thuận lợi nhất cho thiết kế."
+      ],
+      "same_event_coverage_ids": [
+        "35bb6361be2ac908cc1c",
+        "8cfd8275ac71714fea25"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Protocolis solid-state web execution compiler paper release",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Trình biên dịch Protocolis đạt tỷ lệ hoàn thành 76% tác vụ dài khi thử nghiệm với tác nhân AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://protocolis.co/paper/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.45,
+        "answers": {
+          "what": 10,
+          "why": 8,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The reader learns how Protocolis operates but may miss the repeated language-model page reading that motivated the design.",
+            "fix": "State that ordinary web agents use a model at each step to identify actions and verify results, while Protocolis removes both reads (outlet:p005)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "36214f9415995e8b7abe1f696eadee12ed1aff9c153bbf8b3140f766fbe234e7",
+        "scored_at": "2026-11-24T21:27:33.870213+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "ba014dbc9f6dab53bb29",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-24/coreweave-bonds-hit-all-time-lows-erasing-nvidia-fueled-gains",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "fff0ecf0f5a961f9d7a7"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "f8198597ae6cfba9f5dd",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://github.com/openai/math/tree/main/preprints/VP-and-VNP-are-different-November-23-2026",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "7fd6e80be178d77094b8"
+      ],
+      "split_coverage_ids": [],
+      "subject": "OpenAI preprint on VP ≠ VNP complexity proof",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "9d8ef44660a0fb71a30f",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "User-submitted Hacker News discussion post seeking help on distillation policy warnings without journalistic reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://news.ycombinator.com/item?id=50630809",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "886fccea9d384a95dcd3"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "ae3d83d813a6043f390c",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://github.com/hatchet-dev/brickie",
+      "key_points": [
+        "Brickie là công cụ beta cho phép vận hành môi trường sandbox bền vững trên đám mây hoặc cụm Kubernetes riêng của người dùng. Hệ thống được xây dựng trên agent-sandbox kết hợp cơ chế chụp và khôi phục trạng thái qua bộ lưu trữ đối tượng.",
+        "Theo tài liệu dự án, mỗi phiên làm việc là một vùng chứa hoạt động trên Kubernetes với các môi trường thực thi gồm Kata, gVisor và AWS Nitro. Mọi lượt gọi thay đổi không gian làm việc đều tạo ra bản chụp trạng thái, hỗ trợ phân nhánh phiên mới hoặc tiếp tục phiên cũ.",
+        "Mỗi lượt thao tác tạo bản chụp bất biến lưu trên bộ lưu trữ đối tượng gắn theo mã định danh, khác với agent-sandbox lưu trạng thái qua ổ đĩa cố định buộc phải khởi động nguội. Toàn bộ mã nguồn cũng chạy trực tiếp trên Docker mà không cần cụm Kubernetes khi phát triển cục bộ.",
+        "Tài liệu dự án lưu ý công cụ đang ở giai đoạn thử nghiệm beta trước bản 1.0, nên các cờ tham số và giá trị cấu hình có thể thay đổi. Trong vận hành, mỗi lượt gọi là một tác vụ Hatchet có thể quan sát, cho phép phát lại từ bản chụp mà không chạy lệnh hai lần."
+      ],
+      "same_event_coverage_ids": [
+        "db71ae3eedca4be0c965"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Open-source release of Brickie sandboxing tool",
+      "video_labels": {
+        "video_hook": "usable_now",
+        "named_people": [
+          "Alexander"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Công cụ beta Brickie cho phép chạy môi trường sandbox bền vững trên cụm Kubernetes riêng",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://github.com/hatchet-dev/brickie"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.55,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "4a41f0c56c124197458a3100819cc208135edbf82d66d093bd8620e53b3ef4d1",
+        "scored_at": "2026-11-24T21:27:33.870257+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "30185d82469ab679825f",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.scmp.com/tech/big-tech/article/3375630/why-anthropic-could-be-biggest-loser-jensen-huangs-return-nvidia",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "125c3ab8ca3bdc05849b"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Impact of Jensen Huang's Nvidia return on Anthropic valuation",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Jensen Huang"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "7758c04a629331bf9638",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://openai.com/index/searching-for-distant-planets-with-astra",
+      "key_points": [
+        "Theo OpenAI ngày 24 tháng 11 năm 2026, hai nhà thiên văn nghiệp dư nhờ giới chuyên môn đánh giá độc lập sau khi dùng Codex và Astra tìm thấy các ứng viên ngoại hành tinh từ dữ liệu công khai. Kevin Bond đã liên hệ với Viện SETI, còn Ethan Byrd gửi ứng viên của mình tới nhóm nghiên cứu sứ mệnh TESS của NASA.",
+        "Theo OpenAI, hành tinh chắn một lượng nhỏ ánh sáng sao khi di chuyển qua phía trước ngôi sao chủ theo góc nhìn từ Trái Đất. Hiện tượng quá cảnh này tạo vết sụt giảm độ sáng định kỳ trên biểu đồ ánh sáng, giúp các nhà thiên văn nhận biết dấu hiệu hành tinh.",
+        "Nhà thiên văn học tại Viện SETI đã tìm kiếm độc lập và phát hiện hai tín hiệu tương tự từ dữ liệu Kepler do Kevin Bond phân tích. Ethan Byrd dùng Astra rà soát 19 triệu ngôi sao, tìm ra 49 ứng viên và gửi một trong những ứng viên sáng giá nhất tới sứ mệnh TESS.",
+        "Theo ông Vishal Gajjar tại Viện SETI, quy trình này giúp nhà khoa học công dân phát hiện các ứng viên mà tìm kiếm truyền thống có thể đã bỏ sót. Dù vậy, OpenAI cho biết việc xác nhận bản chất gây ra tín hiệu có thể mất nhiều tháng hoặc nhiều năm."
+      ],
+      "same_event_coverage_ids": [
+        "235c86da95594ec68bb1"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Amateur astronomers finding exoplanet candidates with Astra and Codex",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Hai nhà thiên văn nghiệp dư dùng Codex và Astra tìm thấy các ứng viên ngoại hành tinh",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "openai",
+          "url": "https://openai.com/index/searching-for-distant-planets-with-astra"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.5,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "A reader may not understand why independent detection of the same signals does not confirm planets.",
+            "fix": "Add that eclipsing stars or telescope effects can also produce apparent dips, so further analysis is needed (outlet:p027–p028)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "2328f56d5e1eb5600951068e937b05658b949fdc271fb23fa85f4f5c26fd9adf",
+        "scored_at": "2026-11-24T21:27:33.870284+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "b3db646d86cce70fafc8",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://claude.com/resources/articles/install-as-app",
+      "key_points": [
+        "Anthropic bắt đầu thử nghiệm tính năng \"Install as app\" trên Claude cho Mac và Windows, cho phép biến artifact thành ứng dụng máy tính. Người dùng có thể cài đặt trực tiếp qua tài khoản Claude mà không cần đóng gói, ký số hay tạo khóa API riêng.",
+        "Theo Anthropic, tính năng xuất phát từ việc người dùng xem artifact là công cụ làm việc hằng ngày cần mở riêng và gửi thông báo khi cần chú ý. Ứng dụng sau khi cài đặt có thể tích hợp bộ kết nối và tự động cập nhật khi artifact gốc được chỉnh sửa.",
+        "Khi cài đặt, ứng dụng nhận biểu tượng riêng và mở trong cửa sổ độc lập thay vì trong Claude. Nhân viên Anthropic đã tạo các phần mềm mẫu như trình sửa ảnh Linnet, quản lý tệp Phosphor, xếp thư mục Sift, dòng lệnh Tern và đo hiệu năng Vitals.",
+        "Anthropic cho biết công cụ giúp đơn giản hóa việc xây dựng và duy trì ứng dụng, dù các yêu cầu mà ứng dụng gửi tới Claude vẫn tính vào giới hạn gói tài khoản. Do hãng không duyệt ứng dụng trước khi cài, người dùng chỉ nên cấp toàn quyền cho phần mềm tin cậy, và các tổ chức sẵn sàng HIPAA cùng mô hình triển khai lai chưa thể sử dụng."
+      ],
+      "same_event_coverage_ids": [
+        "b9f1e1f3f7cffca911a5"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Claude desktop 'Install as app' feature launch",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Anthropic thử nghiệm tính năng biến artifact thành ứng dụng máy tính trên Mac và Windows",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "anthropic",
+          "url": "https://claude.com/resources/articles/install-as-app"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The warning to grant full access only to trusted apps lacks the consequence of that permission.",
+            "fix": "Explain that full computer access can let an app run programs and read, change, or delete files without asking each time (outlet:p019–p021)."
+          },
+          {
+            "question": "meaning",
+            "problem": "Readers are not told that an installed app requires an active Claude sign-in and internet connection to open.",
+            "fix": "Add the online and signed-in requirement if describing who can use the feature (outlet:p024)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "e6869df069fba6d6211516643746c123bb466ad35a26c8b8663a3e21f77b9273",
+        "scored_at": "2026-11-24T21:27:33.870309+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "89a905d5eae9fa3ef5a8",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Vendor marketing customer story showcasing iFood's commercial adoption of OpenAI APIs across internal repositories.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://openai.com/business/customer-stories/ifood",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "a99c95e7dfad8036bd3d",
+        "eee4176b308e84198f44"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "7e14b56be67443085907",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Vendor customer story promoting small business adoption of ChatGPT and custom dots for operations.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://openai.com/business/customer-stories/intentful-dots",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "8e9990e0c8b8bfab59a3"
+      ],
+      "split_coverage_ids": []
     }
   ]
 }
