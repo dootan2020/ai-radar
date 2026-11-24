@@ -1,0 +1,549 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-25",
+  "timezone": "Asia/Ho_Chi_Minh",
+  "window_start_at": "2026-11-23T23:00:00Z",
+  "cutoff_at": "2026-11-24T23:00:00Z",
+  "created_at": "2026-11-24T23:07:55Z",
+  "snapshot_generated_at": "2026-11-24T23:06:22Z",
+  "policy": {
+    "method": "daily-evidence-v3",
+    "max_stories": 5,
+    "window_hours": 24,
+    "cutoff_hour": 6,
+    "engagement_percentile_min": 0.8,
+    "publisher_coverage_excludes_forums": true,
+    "attention_requires_nonforum": true,
+    "forum_exception_percentile_min": 0.97,
+    "forum_exception_comments_min": 100,
+    "max_forum_only_stories": 1,
+    "score_measured_at": "2026-11-24T23:06:22Z",
+    "description": "Ưu tiên dấu hiệu công bố, số nhà xuất bản và tương tác đo được; sau đó theo điểm nóng và thời gian công bố"
+  },
+  "stories": [
+    {
+      "id": "7b9e1527ad48bc879bf0",
+      "title": "Introducing Muse in the UK: A Personal AI Agent You Control",
+      "title_vi": "Ra mắt Muse ở Anh: Một agent AI cá nhân bạn kiểm soát",
+      "headline": "Introducing Muse in the UK: A Personal AI Agent You Control",
+      "headline_vi": "Ra mắt Muse ở Anh: Một agent AI cá nhân bạn kiểm soát",
+      "url": "https://about.fb.com/news/2026/11/introducing-muse-in-the-uk-a-personal-ai-agent-you-control/",
+      "published_at": "2026-11-24T06:00:40Z",
+      "kind": "product",
+      "time_basis": "published",
+      "editorial_headline_vi": "Meta ra mắt tác tử AI cá nhân Muse tại Anh cho người từ 18 tuổi, yêu cầu người dùng phê duyệt khi mua sắm",
+      "editorial_headline_verified": true,
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "16c93f6b14f845a55cd2",
+          "title": "Introducing Muse in the UK: A Personal AI Agent You Control",
+          "title_vi": "Ra mắt Muse ở Anh: Một agent AI cá nhân bạn kiểm soát",
+          "headline": "Introducing Muse in the UK: A Personal AI Agent You Control",
+          "headline_vi": "Ra mắt Muse ở Anh: Một agent AI cá nhân bạn kiểm soát",
+          "url": "https://about.fb.com/news/2026/11/introducing-muse-in-the-uk-a-personal-ai-agent-you-control/",
+          "published_at": "2026-11-24T06:00:40Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "meta-newsroom",
+          "publisher": "meta",
+          "entity": "meta",
+          "group": "lab",
+          "observed_at": "2026-11-24T23:06:22Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [
+          {
+            "code": "primary_release",
+            "text": "Tiêu đề nguồn gốc có dấu hiệu công bố model hoặc sản phẩm",
+            "observation_ids": [
+              "16c93f6b14f845a55cd2"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "meta"
+          ],
+          "age_hours_at_cutoff": 16.9889,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "00b157b41f1fc84a3aeb",
+      "title": "Muse Now Available in the UK: Muse Does the Work, You Stay in Control",
+      "title_vi": "Muse hiện có tại Anh: Muse làm việc, bạn giữ kiểm soát",
+      "headline": "Muse Now Available in the UK: Muse Does the Work, You Stay in Control",
+      "headline_vi": "Muse hiện có tại Anh: Muse làm việc, bạn giữ kiểm soát",
+      "url": "https://about.fb.com/news/2026/11/muse-now-available-in-the-uk-muse-does-the-work-you-stay-in-control/",
+      "published_at": "2026-11-24T06:00:04Z",
+      "kind": "product",
+      "time_basis": "published",
+      "editorial_headline_vi": "Meta phát hành tác tử AI Muse tại Anh cho người trưởng thành với cơ chế kiểm soát dữ liệu",
+      "editorial_headline_verified": true,
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "cd4bd514511cbde17b0f",
+          "title": "Muse Now Available in the UK: Muse Does the Work, You Stay in Control",
+          "title_vi": "Muse hiện có tại Anh: Muse làm việc, bạn giữ kiểm soát",
+          "headline": "Muse Now Available in the UK: Muse Does the Work, You Stay in Control",
+          "headline_vi": "Muse hiện có tại Anh: Muse làm việc, bạn giữ kiểm soát",
+          "url": "https://about.fb.com/news/2026/11/muse-now-available-in-the-uk-muse-does-the-work-you-stay-in-control/",
+          "published_at": "2026-11-24T06:00:04Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "meta-newsroom",
+          "publisher": "meta",
+          "entity": "meta",
+          "group": "lab",
+          "observed_at": "2026-11-24T23:06:22Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [
+          {
+            "code": "primary_release",
+            "text": "Tiêu đề nguồn gốc có dấu hiệu công bố model hoặc sản phẩm",
+            "observation_ids": [
+              "cd4bd514511cbde17b0f"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "meta"
+          ],
+          "age_hours_at_cutoff": 16.9989,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "7992bf690613aecdb581",
+      "title": "Anthropic shares fall below IPO price, a worrying sign for AI startups",
+      "title_vi": "Anthropic Dips dưới giá IPO trong Sharp Tech Reversal",
+      "headline": "Anthropic shares fall below IPO price, a worrying sign for AI startups",
+      "headline_vi": "Anthropic Dips dưới giá IPO trong Sharp Tech Reversal",
+      "url": "https://techcrunch.com/2026/11/24/anthropic-shares-fall-below-ipo-price-a-worrying-sign-for-ai-startups/",
+      "published_at": "2026-11-24T18:30:42Z",
+      "kind": "other",
+      "time_basis": "published",
+      "editorial_headline_vi": "Cổ phiếu Anthropic rơi xuống 76 USD sau chưa đầy một tuần IPO, gây lo ngại cho các startup AI",
+      "editorial_headline_verified": true,
+      "source_count": 3,
+      "coverage": [
+        {
+          "id": "4c3fa3dd383751649282",
+          "title": "Anthropic Dips Below IPO Price in Sharp Tech Reversal",
+          "title_vi": "Anthropic Dips dưới giá IPO trong Sharp Tech Reversal",
+          "headline": "Anthropic Dips Below IPO Price in Sharp Tech Reversal",
+          "headline_vi": "Anthropic Dips dưới giá IPO trong Sharp Tech Reversal",
+          "url": "https://www.bloomberg.com/news/videos/2026-11-24/anthropic-dips-below-ipo-price-in-sharp-tech-reversal-video",
+          "published_at": "2026-11-24T17:28:36Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "bloomberg-tech",
+          "publisher": "bloomberg",
+          "entity": "bloomberg",
+          "group": "press",
+          "observed_at": "2026-11-24T21:07:04Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "b379a90e2061fa3b12fd",
+          "title": "Anthropic Shares Fall Below IPO Price of $83",
+          "title_vi": "Các cổ phiếu Anthropic giảm xuống dưới giá IPO 83 USD",
+          "headline": "Anthropic Shares Fall Below IPO Price of $83",
+          "headline_vi": "Các cổ phiếu Anthropic giảm xuống dưới giá IPO 83 USD",
+          "url": "https://www.bloomberg.com/news/videos/2026-11-24/anthropic-shares-fall-below-ipo-price-of-83-video",
+          "published_at": "2026-11-24T15:55:00Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "bloomberg-tech",
+          "publisher": "bloomberg",
+          "entity": "bloomberg",
+          "group": "press",
+          "observed_at": "2026-11-24T19:46:17Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "5d7e2e1f5259fb1cbf87",
+          "title": "Anthropic breaks below $83 IPO price",
+          "title_vi": "Anthropic phá vỡ dưới giá IPO $ 83",
+          "headline": "Anthropic breaks below $83 IPO price",
+          "headline_vi": "Anthropic phá vỡ dưới giá IPO $ 83",
+          "url": "https://www.bloomberg.com/news/articles/2026-11-24/anthropic-breaks-below-83-ipo-price-in-premarket-trading",
+          "published_at": "2026-11-24T13:23:47Z",
+          "kind": "forum",
+          "time_basis": "published",
+          "source": "hn-front",
+          "publisher": "hacker-news",
+          "entity": "hacker-news",
+          "group": "forum",
+          "observed_at": "2026-11-24T22:46:47Z",
+          "discussion_url": "https://news.ycombinator.com/item?id=50627836",
+          "metrics": {
+            "points": 288,
+            "comments": 579
+          }
+        },
+        {
+          "id": "a7f8072b82afbf7ae87c",
+          "title": "Anthropic falls below $83 IPO price in Swift reversal after record listing",
+          "title_vi": "Anthropic giảm xuống dưới 83 đô la giá IPO trong sự đảo ngược Swift sau khi đăng ký danh sách kỷ lục",
+          "headline": "Anthropic falls below $83 IPO price in Swift reversal after record listing",
+          "headline_vi": "Anthropic giảm xuống dưới 83 đô la giá IPO trong sự đảo ngược Swift sau khi đăng ký danh sách kỷ lục",
+          "url": "https://www.reuters.com/business/anthropic-breaks-below-83-ipo-price-debut-rally-unravels-2026-11-24/",
+          "published_at": "2026-11-24T15:15:50Z",
+          "kind": "forum",
+          "time_basis": "published",
+          "source": "hn-front",
+          "publisher": "hacker-news",
+          "entity": "hacker-news",
+          "group": "forum",
+          "observed_at": "2026-11-24T15:49:30Z",
+          "discussion_url": "https://news.ycombinator.com/item?id=50629413",
+          "metrics": {
+            "points": 12,
+            "comments": 1
+          }
+        },
+        {
+          "id": "b6d6c94108fbee087200",
+          "title": "Anthropic is below its IPO price",
+          "title_vi": "Anthropic thấp hơn giá IPO của mình",
+          "headline": "Anthropic is below its IPO price",
+          "headline_vi": "Anthropic thấp hơn giá IPO của mình",
+          "url": "https://www.msn.com/en-us/money/top-stocks/anthropic-stock-sinks-below-ipo-price-why-that-s-happened-so-fast/ar-AA2i7rqa",
+          "published_at": "2026-11-24T14:41:15Z",
+          "kind": "forum",
+          "time_basis": "published",
+          "source": "hn-front",
+          "publisher": "hacker-news",
+          "entity": "hacker-news",
+          "group": "forum",
+          "observed_at": "2026-11-24T16:06:52Z",
+          "discussion_url": "https://news.ycombinator.com/item?id=50628932",
+          "metrics": {
+            "points": 90,
+            "comments": 84
+          }
+        },
+        {
+          "id": "7069cbc3d38f2069bda2",
+          "title": "Anthropic shares plunge as AI trade wobbles",
+          "headline": "Anthropic shares plunge as AI trade wobbles",
+          "url": "https://www.semafor.com/article/11/24/2026/anthropic-shares-plunge-as-ai-trade-wobbles",
+          "published_at": "2026-11-24T22:17:36Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "semafor",
+          "publisher": "semafor",
+          "entity": "semafor",
+          "group": "press",
+          "observed_at": "2026-11-24T23:06:22Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "46ae9d3b6fd56f9d3560",
+          "title": "Anthropic shares fall below IPO price, a worrying sign for AI startups",
+          "title_vi": "Anthropic Dips dưới giá IPO trong Sharp Tech Reversal",
+          "headline": "Anthropic shares fall below IPO price, a worrying sign for AI startups",
+          "headline_vi": "Anthropic Dips dưới giá IPO trong Sharp Tech Reversal",
+          "url": "https://techcrunch.com/2026/11/24/anthropic-shares-fall-below-ipo-price-a-worrying-sign-for-ai-startups/",
+          "published_at": "2026-11-24T18:30:42Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "techcrunch-ai",
+          "publisher": "techcrunch",
+          "entity": "techcrunch",
+          "group": "press",
+          "observed_at": "2026-11-24T23:06:22Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "3 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "bloomberg",
+              "semafor",
+              "techcrunch"
+            ]
+          },
+          {
+            "code": "measured_attention",
+            "text": "Tương tác thuộc nhóm 20% cao nhất trong nguồn đo, có nguồn ngoài diễn đàn",
+            "percentile": 0.8253968253968254,
+            "measurement": {
+              "source": "hn-front",
+              "metric": "points",
+              "value": 288,
+              "observed_at": "2026-11-24T22:46:47Z",
+              "velocity_per_hour": null,
+              "previous_observed_at": null,
+              "previous_value": null
+            }
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "bloomberg",
+            "semafor",
+            "techcrunch"
+          ],
+          "age_hours_at_cutoff": 4.4883,
+          "hot_score": 86.056,
+          "engagement_percentile": 0.8253968253968254
+        }
+      }
+    },
+    {
+      "id": "3d9795e0b578488bd9a1",
+      "title": "Tidal to ban and remove millions of AI-generated tracks as AI slop inundates music streaming",
+      "title_vi": "Tideal sẽ cấm và loại bỏ hàng triệu bài hát được tạo ra bởi AI khi sự sụt giảm của AI tràn ngập dòng nhạc",
+      "headline": "Tidal to ban and remove millions of AI-generated tracks as AI slop inundates music streaming",
+      "headline_vi": "Tideal sẽ cấm và loại bỏ hàng triệu bài hát được tạo ra bởi AI khi sự sụt giảm của AI tràn ngập dòng nhạc",
+      "url": "https://techcrunch.com/2026/11/24/tidal-to-ban-and-remove-millions-of-ai-generated-tracks-as-ai-slop-inundates-music-streaming/",
+      "published_at": "2026-11-24T16:46:00Z",
+      "kind": "other",
+      "time_basis": "published",
+      "editorial_headline_vi": "Tidal sẽ cấm nhạc tạo hoàn toàn bằng AI và xóa hơn 29 triệu bài hát khỏi hệ thống vào cuối năm",
+      "editorial_headline_verified": true,
+      "source_count": 3,
+      "coverage": [
+        {
+          "id": "a1c4addc45aece592edc",
+          "title": "Tidal announces ban on AI-generated music; 27 million tracks will be deleted",
+          "title_vi": "Tidal thông báo cấm âm nhạc được tạo ra bởi AI; 27 triệu bài hát sẽ bị xóa",
+          "headline": "Tidal announces ban on AI-generated music; 27 million tracks will be deleted",
+          "headline_vi": "Tidal thông báo cấm âm nhạc được tạo ra bởi AI; 27 triệu bài hát sẽ bị xóa",
+          "url": "https://arstechnica.com/ai/2026/11/tidal-will-ban-fully-ai-generated-music-on-december-9/",
+          "published_at": "2026-11-24T17:34:34Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "ars-ai",
+          "publisher": "ars-technica",
+          "entity": "ars-technica",
+          "group": "press",
+          "observed_at": "2026-11-24T23:06:22Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "579ca4dcbfa89b214e7e",
+          "title": "Tidal bans AI-generated music",
+          "title_vi": "Tideal cấm âm nhạc được tạo ra bởi AI",
+          "headline": "Tidal bans AI-generated music",
+          "headline_vi": "Tideal cấm âm nhạc được tạo ra bởi AI",
+          "url": "https://variety.com/2026/music/news/tidal-bans-ai-generated-music-1236956924/",
+          "published_at": "2026-11-24T16:12:38Z",
+          "kind": "forum",
+          "time_basis": "published",
+          "source": "hn-ai",
+          "publisher": "hacker-news",
+          "entity": "hacker-news",
+          "group": "forum",
+          "observed_at": "2026-11-24T23:06:22Z",
+          "discussion_url": "https://news.ycombinator.com/item?id=50630309",
+          "metrics": {
+            "points": 310,
+            "comments": 297
+          }
+        },
+        {
+          "id": "017cd4d8d6f85158ff5d",
+          "title": "Tidal bans AI-generated music",
+          "title_vi": "Tideal cấm âm nhạc được tạo ra bởi AI",
+          "headline": "Tidal bans AI-generated music",
+          "headline_vi": "Tideal cấm âm nhạc được tạo ra bởi AI",
+          "url": "https://variety.com/2026/music/news/tidal-bans-ai-generated-music-1236956924/",
+          "published_at": "2026-11-24T16:12:38Z",
+          "kind": "forum",
+          "time_basis": "published",
+          "source": "hn-front",
+          "publisher": "hacker-news",
+          "entity": "hacker-news",
+          "group": "forum",
+          "observed_at": "2026-11-24T18:46:36Z",
+          "discussion_url": "https://news.ycombinator.com/item?id=50630309",
+          "metrics": {
+            "points": 271,
+            "comments": 228
+          }
+        },
+        {
+          "id": "8640b7022efa7b1bdfe4",
+          "title": "Tidal to ban and remove millions of AI-generated tracks as AI slop inundates music streaming",
+          "title_vi": "Tideal sẽ cấm và loại bỏ hàng triệu bài hát được tạo ra bởi AI khi sự sụt giảm của AI tràn ngập dòng nhạc",
+          "headline": "Tidal to ban and remove millions of AI-generated tracks as AI slop inundates music streaming",
+          "headline_vi": "Tideal sẽ cấm và loại bỏ hàng triệu bài hát được tạo ra bởi AI khi sự sụt giảm của AI tràn ngập dòng nhạc",
+          "url": "https://techcrunch.com/2026/11/24/tidal-to-ban-and-remove-millions-of-ai-generated-tracks-as-ai-slop-inundates-music-streaming/",
+          "published_at": "2026-11-24T16:46:00Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "techcrunch-ai",
+          "publisher": "techcrunch",
+          "entity": "techcrunch",
+          "group": "press",
+          "observed_at": "2026-11-24T23:06:22Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "14b5d7c81b2c450ca314",
+          "title": "Tidal will start banning AI-generated music next month",
+          "title_vi": "Tidal sẽ bắt đầu cấm âm nhạc do AI tạo ra vào tháng tới.",
+          "headline": "Tidal will start banning AI-generated music next month",
+          "headline_vi": "Tidal sẽ bắt đầu cấm âm nhạc do AI tạo ra vào tháng tới.",
+          "url": "https://www.theverge.com/entertainment/1041362/tidal-ai-music-ban",
+          "published_at": "2026-11-24T17:17:09Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "verge-ai",
+          "publisher": "the-verge",
+          "entity": "the-verge",
+          "group": "press",
+          "observed_at": "2026-11-24T23:06:22Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "3 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "ars-technica",
+              "techcrunch",
+              "the-verge"
+            ]
+          },
+          {
+            "code": "measured_attention",
+            "text": "Tương tác thuộc nhóm 20% cao nhất trong nguồn đo, có nguồn ngoài diễn đàn",
+            "percentile": 0.9223300970873787,
+            "measurement": {
+              "source": "hn-ai",
+              "metric": "points",
+              "value": 310,
+              "observed_at": "2026-11-24T23:06:22Z",
+              "velocity_per_hour": null,
+              "previous_observed_at": null,
+              "previous_value": null
+            }
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "ars-technica",
+            "techcrunch",
+            "the-verge"
+          ],
+          "age_hours_at_cutoff": 6.2333,
+          "hot_score": 79.227,
+          "engagement_percentile": 0.9223300970873787
+        }
+      }
+    },
+    {
+      "id": "739ddba092d44fb2b482",
+      "title": "Huang Apologizes to Nvidia Staff, Says He’s in Daily Therapy",
+      "title_vi": "Huang xin lỗi nhân viên của Nvidia, nói rằng anh ấy đang được điều trị hàng ngày",
+      "headline": "Huang Apologizes to Nvidia Staff, Says He’s in Daily Therapy",
+      "headline_vi": "Huang xin lỗi nhân viên của Nvidia, nói rằng anh ấy đang được điều trị hàng ngày",
+      "url": "https://www.bloomberg.com/news/articles/2026-11-24/nvidia-s-huang-to-host-all-hands-meeting-a-day-after-his-return",
+      "published_at": "2026-11-24T17:11:17Z",
+      "kind": "other",
+      "time_basis": "published",
+      "editorial_headline_vi": "Jensen Huang bác bỏ thông tin Tổng thống Donald Trump can thiệp để phục chức CEO Nvidia",
+      "editorial_headline_verified": true,
+      "source_count": 2,
+      "coverage": [
+        {
+          "id": "5766bad39bf535138761",
+          "title": "Huang Apologizes to Nvidia Staff, Says He’s in Daily Therapy",
+          "title_vi": "Huang xin lỗi nhân viên của Nvidia, nói rằng anh ấy đang được điều trị hàng ngày",
+          "headline": "Huang Apologizes to Nvidia Staff, Says He’s in Daily Therapy",
+          "headline_vi": "Huang xin lỗi nhân viên của Nvidia, nói rằng anh ấy đang được điều trị hàng ngày",
+          "url": "https://www.bloomberg.com/news/articles/2026-11-24/nvidia-s-huang-to-host-all-hands-meeting-a-day-after-his-return",
+          "published_at": "2026-11-24T17:11:17Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "bloomberg-tech",
+          "publisher": "bloomberg",
+          "entity": "bloomberg",
+          "group": "press",
+          "observed_at": "2026-11-24T23:06:22Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "dc64c9cac23487150863",
+          "title": "Jensen Huang reportedly tells Nvidia staff it’s ‘not true’ Trump got him rehired",
+          "title_vi": "Jensen Huang được cho là nói với nhân viên Nvidia rằng 'không đúng' Trump đã thuê lại anh ta",
+          "headline": "Jensen Huang reportedly tells Nvidia staff it’s ‘not true’ Trump got him rehired",
+          "headline_vi": "Jensen Huang được cho là nói với nhân viên Nvidia rằng 'không đúng' Trump đã thuê lại anh ta",
+          "url": "https://www.theverge.com/tech/1041571/jensen-huang-all-hands-nvidia-apology",
+          "published_at": "2026-11-24T20:02:03Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "verge-ai",
+          "publisher": "the-verge",
+          "entity": "the-verge",
+          "group": "press",
+          "observed_at": "2026-11-24T23:06:22Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "2 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "bloomberg",
+              "the-verge"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "bloomberg",
+            "the-verge"
+          ],
+          "age_hours_at_cutoff": 5.8119,
+          "hot_score": 48.543,
+          "engagement_percentile": null
+        }
+      }
+    }
+  ],
+  "source_health": {
+    "active_remote_sources": 77,
+    "successful_remote_sources": 77,
+    "failed_remote_sources": []
+  }
+}
