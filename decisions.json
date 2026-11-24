@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-24T13:51:18.030674+00:00",
-  "input_generated_at": "2026-11-24T12:47:08Z",
+  "generated_at": "2026-11-24T15:31:20.554915+00:00",
+  "input_generated_at": "2026-11-24T14:46:17Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -133025,10 +133025,10 @@
       "use_original_title": false,
       "source_url": "https://linch.substack.com/p/ai-is-already-massively-speeding",
       "key_points": [
-        "Tổ chức METR phát hiện năng lực AI tăng tốc gấp hai lần trong năm 2026 so với một năm rưỡi trước đó, dựa trên dữ liệu từ các hệ thống nội bộ của Anthropic.",
-        "Tổ chức METR tin rằng tốc độ nghiên cứu tăng lên do dùng chính AI là nguyên nhân dẫn đến gần như toàn bộ sự bứt phá này, theo bằng chứng che bớt từ Anthropic.",
-        "Nhà nghiên cứu Ajeya Cotra của METR ước tính tốc độ nghiên cứu AI tăng khoảng mười lần, trong khi khảo sát nhân viên Anthropic ghi nhận mức tăng mười hai lần. Cotra nhận định mức độ này khó có thể đạt được ngay cả khi tuyển dụng mọi nhân sự đủ tiêu chuẩn trên thế giới.",
-        "Tác giả bài viết lưu ý báo cáo của METR chỉ xác lập độ tin cậy cao trên các tác vụ dễ định nghĩa, trong khi chưa rõ liệu năng lực ở các tác vụ khó định nghĩa có tăng tốc tương tự hay không. Dù vậy, theo tác giả bài viết, các phép ngoại suy hợp lý cho thấy AI siêu phàm vẫn có thể xuất hiện sớm nhất vào năm 2028 hoặc 2029."
+        "Tổ chức nghiên cứu METR phát hiện tiến độ phát triển năng lực AI tăng tốc gấp đôi trong năm 2026 so với một năm rưỡi trước đó. Theo tác giả bài viết, METR xác định kết quả này dựa trên bằng chứng thu thập từ các hệ thống nội bộ của công ty Anthropic.",
+        "METR tin rằng đà tăng tốc tiến độ AI gần như hoàn toàn do việc dùng AI giúp đẩy nhanh nghiên cứu, theo bằng chứng che bớt từ Anthropic. Tác giả bài viết giải thích trợ lý AI chỉ trực tiếp thúc đẩy phần việc nghiên cứu, chứ không tự cung cấp thêm chip tính toán hay dữ liệu cho Anthropic.",
+        "Nhà nghiên cứu Ajeya Cotra của METR ước tính tốc độ nghiên cứu tăng khoảng 10 lần, tương tự mức 12 lần do nhân viên Anthropic tự báo cáo qua khảo sát. Chuyên gia Cotra nhận định mức bứt phá này khó đạt được kể cả khi thuê mọi nhân sự đủ tiêu chuẩn trên thế giới vì nghiên cứu rất khó làm song song.",
+        "Tác giả bài viết nhận định các phép ngoại suy hợp lý cho thấy AI siêu việt có thể xuất hiện vào năm 2028 hoặc 2029 nếu đà tăng tốc tiếp diễn. Dù vậy, tác giả lưu ý một giới hạn lớn là báo cáo METR chỉ tạo niềm tin vững chắc ở các tác vụ dễ định nghĩa, và chưa rõ năng lực ở các tác vụ khó định nghĩa có tăng tương tự hay không."
       ],
       "same_event_coverage_ids": [
         "c9c3c53022fc8eb072bc"
@@ -133042,7 +133042,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "METR ghi nhận năng lực AI tăng tốc gấp 2 lần năm 2026 chủ yếu nhờ dùng chính AI nghiên cứu",
+      "editorial_headline_vi": "METR phát hiện tiến độ phát triển năng lực AI tăng tốc gấp đôi năm 2026 và tin do dùng AI nghiên cứu",
       "summary_sources": [
         {
           "id": "outlet",
@@ -133057,29 +133057,30 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.7,
+        "value": 8.9,
         "answers": {
-          "what": 8,
+          "what": 9,
           "why": 10,
           "notable": 10,
-          "meaning": 6
+          "meaning": 5
         },
-        "hard_errors": [],
+        "hard_errors": [
+          {
+            "kind": "quote",
+            "summary_text": "nếu đà tăng tốc tiếp diễn",
+            "explanation": "The author says 2028 or 2029 is possible even if the twofold acceleration is a one-time jump, rather than only if acceleration continues (outlet:p007). Further speedups underpin the separate possibility of 2027 (outlet:p008)."
+          }
+        ],
         "findings": [
           {
             "question": "meaning",
-            "problem": "The 2028–2029 forecast loses its condition, and the reader misses the author's more urgent scenario.",
-            "fix": "Say that the author considers 2028 or 2029 possible even if the twofold acceleration is a one-time jump, and considers 2027 increasingly plausible if research keeps accelerating (outlet:p007–p008)."
+            "problem": "The reader is given the wrong condition for the 2028–2029 projection.",
+            "fix": "Say the author considers those dates possible even if the acceleration is a one-time jump (outlet:p007)."
           },
           {
             "question": "meaning",
-            "problem": "The reader misses the article's stated policy conclusion.",
-            "fix": "Attribute to the author the recommendation that governments urgently study the risks and consider pacing or pausing frontier AI progress (outlet:p011)."
-          },
-          {
-            "question": "what",
-            "problem": "The finding is presented without the author's central interpretation.",
-            "fix": "Attribute to the author the claim that AI research is already in the early-to-middle stages of recursive self-improvement (outlet:p001)."
+            "problem": "The reader misses the article’s main recommendation to policymakers.",
+            "fix": "Add that the author urges governments to understand the risks quickly and consider pausing or pacing frontier AI progress (outlet:p011)."
           }
         ],
         "writer_boats": [
@@ -133087,8 +133088,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "bd85d749ad7c914e6e7ccad72c295803147ae1fac87a1ea7d453c9eb03d0b69f",
-        "scored_at": "2026-11-24T13:46:12.455409+00:00"
+        "prose_sha256": "ad56d474f3bf25fbdea8bbdb0b6cae0372283ac5acf582c392530d43733955f5",
+        "scored_at": "2026-11-24T15:31:20.531449+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
@@ -133382,10 +133383,10 @@
       "use_original_title": false,
       "source_url": "https://www.semafor.com/article/11/24/2026/uae-launches-ai-assistant-to-track-childrens-learning",
       "key_points": [
-        "Từ tháng 3, phụ huynh trường công lập UAE có thể hỏi trợ lý AI Mira lý do con tụt hậu và cách khắc phục, theo Bộ trưởng Giáo dục Sarah Al Amiri. Hệ thống sẽ áp dụng tại hơn 530 trường công lập với khoảng 280.000 học sinh, còn các trường tư thục không bắt buộc tham gia.",
-        "Theo Semafor, công cụ này thuộc sáng kiến chính phủ nhằm tinh giản dịch vụ bằng trí tuệ nhân tạo tự chủ (agentic AI - AI tự hành). Bà Al Amiri cho biết Mira dùng hồ sơ đánh giá và quan sát lớp học để phát hiện sớm khó khăn của học sinh.",
-        "Bà Al Amiri nêu ví dụ phụ huynh có con yếu môn toán có thể hỏi để nhận hướng dẫn trọng tâm về chủ đề cần ôn tập.",
-        "Dù đẩy mạnh AI, Bộ Giáo dục UAE quyết định bỏ thiết bị điện tử ở lớp sáu đối với bốn môn cốt lõi năm nay. Bà Al Amiri giải thích học sinh tuổi này dễ thu hẹp khoảng cách nhất nên các em quay lại học với sách và bút."
+        "Từ tháng 3, phụ huynh trường công UAE có thể hỏi trợ lý AI Mira lý do con tụt hậu và cách khắc phục, theo Bộ trưởng Giáo dục Sarah Al Amiri. Công cụ này cũng giúp kiểm tra điểm số và sắp xếp lịch họp với giáo viên.",
+        "Theo Semafor, Mira thuộc sáng kiến chính phủ nhằm tinh giản dịch vụ bằng trí tuệ nhân tạo tự chủ (agentic AI - AI tự hành). Bà Al Amiri cho biết công cụ dùng dữ liệu trường học để phát hiện sớm khó khăn của học sinh.",
+        "Hệ thống sẽ áp dụng tại hơn 530 trường công cho khoảng 280.000 học sinh, trong khi các trường tư thục không bắt buộc tham gia. Chẳng hạn, phụ huynh có con yếu môn toán có thể hỏi để nhận hướng dẫn trọng tâm vào chủ đề cần ôn tập.",
+        "Dù đẩy mạnh AI, Bộ Giáo dục quyết định bỏ thiết bị điện tử ở lớp sáu với bốn môn cốt lõi để học sinh quay lại sách bút. Bà Al Amiri giải thích học sinh tuổi này dễ thu hẹp khoảng cách đọc, viết và toán nhất."
       ],
       "same_event_coverage_ids": [
         "16d0f916bd123b122176"
@@ -133401,7 +133402,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "UAE ra mắt trợ lý AI Mira giải thích vì sao học sinh tụt hậu và cách khắc phục tại 530 trường công",
+      "editorial_headline_vi": "UAE triển khai trợ lý AI Mira tại hơn 530 trường công lập để giúp phụ huynh theo dõi học tập",
       "summary_sources": [
         {
           "id": "outlet",
@@ -133414,25 +133415,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.55,
+        "value": 9.05,
         "answers": {
-          "what": 10,
+          "what": 9,
           "why": 10,
           "notable": 9,
-          "meaning": 9
+          "meaning": 8
         },
-        "hard_errors": [
-          {
-            "kind": "number",
-            "summary_text": "tại 530 trường công",
-            "explanation": "The source says the system will roll out across more than 530 public schools, not exactly 530 (outlet:p005)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "notable",
-            "problem": "The headline makes the school count exact.",
-            "fix": "Say “hơn 530 trường công,” matching outlet:p005."
+            "question": "meaning",
+            "problem": "The account leaves out the AI curriculum that provides context for the simultaneous move away from classroom devices.",
+            "fix": "Mention that an AI curriculum began in fall 2025 in all public and some private schools, from kindergarten through grade 12 (outlet:p006)."
           }
         ],
         "writer_boats": [
@@ -133440,8 +133435,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "10b6d16bb5203556b3a1114f91aadf22d94c8781bb988089bf880c0f7b2c51d5",
-        "scored_at": "2026-11-24T13:38:22.717172+00:00"
+        "prose_sha256": "64d60c4b4d867ddd4ea6183abfd2d5d2e6643abd730521996e937c644e50a585",
+        "scored_at": "2026-11-24T15:27:19.142516+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
@@ -133719,10 +133714,10 @@
       "use_original_title": false,
       "source_url": "https://fedscoop.com/federal-ai-moving-past-the-pilot-phase/",
       "key_points": [
-        "Hai chuyên gia McKinsey nhận định trên FedScoop rằng các cơ quan liên bang Mỹ đối mặt chi phí trí tuệ nhân tạo (AI) tăng vọt khi giai đoạn thử nghiệm giá rẻ kết thúc. Dù từng được dùng thử dưới 1 USD một năm, phần lớn thử nghiệm chưa đem lại tác động lớn cho nhiệm vụ.",
-        "Tác giả giải thích chi phí tăng do hết giá ưu đãi, dự án nhân rộng và các tác nhân AI (phần mềm tự hành theo chuỗi) tiêu tốn năng lực tính toán gấp bội.",
-        "Quan chức ở cả năm cơ quan được cơ quan kiểm toán GAO kiểm tra đều thừa nhận chi phí AI rất khó hiểu. Dù chi tiêu tăng có thể mang lại hiệu quả, việc áp AI lên quy trình 10 bước sẵn có sẽ chỉ đẩy nhanh lãng phí nếu không tái thiết kế.",
-        "Bài viết kết luận các cơ quan chỉ có thể bảo vệ ngân sách nếu tính rõ chi phí và kết quả AI trên từng hồ sơ trợ cấp hay báo cáo kiểm tra. Đổi mới quy trình cũng chỉ hiệu quả nếu có đầu tư đào tạo để nhân viên tin tưởng làm việc cùng công nghệ mới."
+        "Tác giả bài viết trên FedScoop nhận định chi phí AI của cơ quan liên bang đang trở thành khoản chi vận hành đáng kể ở quy mô lớn. Dù thử nghiệm giúp tăng hiểu biết công nghệ, phần lớn trường hợp vẫn chưa tạo ra tác động lớn cho nhiệm vụ.",
+        "Tác giả chỉ ra ba nguyên nhân đẩy chi phí lên là việc hết giá ưu đãi, thử nghiệm mở rộng và tác nhân AI (agent - phần mềm tự hành) làm việc đa bước tiêu tốn nhiều điện toán hơn câu hỏi đơn lẻ.",
+        "Trước đó, nhiều cơ quan được dùng thử với giá từ 1 USD trở xuống cho mỗi cơ quan trong một năm qua thỏa thuận của GSA. Dẫu vậy, quan chức ở toàn bộ năm cơ quan được GAO kiểm tra đều thừa nhận chi phí AI hiện rất khó hiểu.",
+        "Bài viết kết luận tự động hóa từng bước chỉ tiết kiệm chút ít thời gian, trong khi tái thiết kế quy trình mới đem lại lợi ích lớn hơn. Quy trình mới chỉ hiệu quả nếu các cơ quan đầu tư đào tạo nhân viên và gắn chi phí AI với kết quả từng hồ sơ."
       ],
       "same_event_coverage_ids": [
         "099b1352a568824e7b0c"
@@ -133736,7 +133731,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Hết thời thử nghiệm 1 USD, các cơ quan liên bang Mỹ đối mặt chi phí AI tăng cao khi mở rộng ứng dụng",
+      "editorial_headline_vi": "Hết giai đoạn thử nghiệm 1 USD, các cơ quan liên bang Mỹ đối mặt chi phí vận hành AI tăng",
       "summary_sources": [
         {
           "id": "outlet",
@@ -133749,45 +133744,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 7.95,
+        "value": 9.35,
         "answers": {
-          "what": 8,
+          "what": 9,
           "why": 10,
-          "notable": 7,
-          "meaning": 7
+          "notable": 10,
+          "meaning": 8
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "chi phí trí tuệ nhân tạo (AI) tăng vọt",
-            "explanation": "The authors say three forces are pushing costs up and that AI is becoming a meaningful operating cost at scale; they do not establish a sharp surge (outlet:p008)."
-          },
-          {
-            "kind": "number",
-            "summary_text": "dùng thử dưới 1 USD một năm",
-            "explanation": "The source says $1 or less per agency for a year, rather than strictly under $1, and specifies the per-agency unit (outlet:p006)."
-          },
-          {
-            "kind": "quote",
-            "summary_text": "việc áp AI lên quy trình 10 bước sẵn có sẽ chỉ đẩy nhanh lãng phí nếu không tái thiết kế",
-            "explanation": "The authors say automating the steps could save some time, while redesigning the workflow could bring larger returns; they do not say automation would only accelerate waste (outlet:p012)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
             "question": "meaning",
-            "problem": "The reader is told that automating the existing 10-step process can only accelerate waste.",
-            "fix": "Explain that it could save some time, while redesigning the process offers the larger potential return (outlet:p012)."
-          },
-          {
-            "question": "notable",
-            "problem": "The introductory price is misstated and loses its per-agency unit.",
-            "fix": "Say many agencies received access for $1 or less per agency for one year (outlet:p006)."
-          },
-          {
-            "question": "what",
-            "problem": "The description of costs as surging is stronger than the authors' stated outlook.",
-            "fix": "Describe rising costs that could become a meaningful operating expense at scale (outlet:p008)."
+            "problem": "The reader does not get the article’s test for whether rising AI costs are worthwhile.",
+            "fix": "Add that agencies must compare costs with faster service, more accurate decisions or staff time freed for higher-value work; a bigger bill can signal either greater impact or poor value (outlet:p009)."
           }
         ],
         "writer_boats": [
@@ -133795,8 +133764,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "4e9e65c7742e218c8e73b8704d57055f01d61450350399d037b7ffac46673e1c",
-        "scored_at": "2026-11-24T13:30:02.790872+00:00"
+        "prose_sha256": "29b508d52f9640f705ddd5c951b9e0a2700c90aa660dfdd7efbcfe0c67847671",
+        "scored_at": "2026-11-24T15:27:19.142788+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
@@ -133821,10 +133790,10 @@
       "use_original_title": false,
       "source_url": "https://www.wired.com/story/dont-bring-up-ai-if-you-want-to-enjoy-your-thanksgiving/",
       "key_points": [
-        "Theo Wired dẫn lời chuyên gia tâm lý Matt Lundquist, các tranh cãi về trí tuệ nhân tạo (AI) đang gia tăng và gây chia rẽ trong nhiều gia đình Mỹ trước lễ Tạ ơn. Mâu thuẫn này bùng phát ngay cả ở những gia đình vốn có quan điểm chính trị rất đồng thuận.",
-        "Lundquist giải thích mâu thuẫn bắt nguồn từ tâm lý bất an của người trẻ mới đi làm trước nguy cơ mất việc, đối lập với sự thảnh thơi của thế hệ cha mẹ đã có nhà cửa và xem AI là tiện ích vô hại.",
-        "Điển hình là John, sinh viên quay phim 20 tuổi ở Chicago lo sợ AI tước đoạt nghề nghiệp, trong khi người cha kỹ sư lại dùng AI sắp xếp dữ liệu nhà máy. Dù 73% người Mỹ dưới 30 tuổi lo AI làm giảm việc làm theo khảo sát của Pew, thăm dò từ Axios cho thấy 61% nhóm này vẫn dùng ChatGPT trong tháng qua.",
-        "Lundquist nhận định các tranh luận về AI thực chất phản ánh khát khao được thấu hiểu và nỗi bất bình kinh tế sâu sắc giữa các thế hệ. Chuyên gia khuyên nên tránh đề cập chủ đề này trên bàn ăn nếu cuộc trò chuyện không xuất phát từ thiện chí trao đổi thực sự."
+        "Theo nhà tâm lý học Matt Lundquist trên Wired, tranh cãi về trí tuệ nhân tạo đang gia tăng và gây chia rẽ trong nhiều gia đình trước lễ Tạ ơn. Bất đồng này tạo ra rạn nứt ngay cả giữa những người thân vốn luôn đồng thuận về chính trị.",
+        "Lundquist giải thích mâu thuẫn bắt nguồn từ việc người trẻ mới đi làm lo ngại nguy cơ mất việc làm và chịu áp lực kinh tế. Trái lại, nhiều người lớn tuổi thờ ơ trước nỗi sợ này vì họ đã có nhà riêng và chỉ xem AI là tiện ích đơn thuần.",
+        "Điển hình, sinh viên điện ảnh John lo ngại AI đe dọa sự nghiệp, trong khi người cha kỹ sư lại dùng công cụ này để quản lý nhà máy. Theo Pew, 73% người Mỹ dưới 30 tuổi tin AI làm giảm việc làm, dù Axios ghi nhận 61% người từ 18 đến 34 tuổi vẫn dùng ChatGPT.",
+        "Lundquist nhận định tranh cãi về AI phản ánh khát khao được thấu hiểu cùng nỗi bất bình của người trẻ về những khó khăn kinh tế so với thế hệ trước. Chuyên gia khuyên nên tránh bàn về AI trên bàn ăn nếu cuộc trò chuyện không xuất phát từ thiện chí kết nối và học hỏi lẫn nhau."
       ],
       "same_event_coverage_ids": [
         "72a1f9d2383fc68b7783"
@@ -133840,7 +133809,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Khảo sát 73% người trẻ lo mất việc biến AI thành mâu thuẫn thế hệ gay gắt trong gia đình Mỹ dịp lễ Tạ ơn",
+      "editorial_headline_vi": "Tranh cãi về trí tuệ nhân tạo gia tăng và gây chia rẽ nhiều gia đình Mỹ trước kỳ nghỉ lễ Tạ ơn",
       "summary_sources": [
         {
           "id": "outlet",
@@ -133855,35 +133824,40 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.2,
+        "value": 7.9,
         "answers": {
           "what": 9,
-          "why": 8,
-          "notable": 7,
+          "why": 5,
+          "notable": 8,
           "meaning": 9
         },
         "hard_errors": [
           {
-            "kind": "cause",
-            "summary_text": "Khảo sát 73% người trẻ lo mất việc biến AI thành mâu thuẫn thế hệ gay gắt trong gia đình Mỹ dịp lễ Tạ ơn",
-            "explanation": "The Pew finding provides context for young adults' concerns; the source does not say the survey caused family conflict (outlet:p013)."
+            "kind": "quote",
+            "summary_text": "nhiều người lớn tuổi thờ ơ trước nỗi sợ này",
+            "explanation": "Lundquist says many older adults are unaware of how real the threat feels to younger relatives, not that they are indifferent to that fear (outlet:p019)."
           },
           {
-            "kind": "number",
-            "summary_text": "61% nhóm này vẫn dùng ChatGPT trong tháng qua",
-            "explanation": "The Axios figure applies to respondents aged 18 to 34, not the under-30 group in the preceding Pew statistic (outlet:p013)."
+            "kind": "cause",
+            "summary_text": "vì họ đã có nhà riêng",
+            "explanation": "Lundquist illustrates his point with a hypothetical older person who owns a second or third home; the source does not establish home ownership as the reason older adults react differently (outlet:p019)."
           }
         ],
         "findings": [
           {
             "question": "why",
-            "problem": "The headline makes the 73% survey finding sound like the cause of the family disputes.",
-            "fix": "Present it as context for younger adults' job concerns, alongside the reported family disagreements (outlet:p007, outlet:p013)."
+            "problem": "The explanation makes economic insecurity sound like the sole cause of the disputes.",
+            "fix": "Present it as Lundquist’s interpretation of some fights, alongside the reported concerns about creative work and other harms (outlet:p002, outlet:p009, outlet:p011, outlet:p021)."
+          },
+          {
+            "question": "why",
+            "problem": "The reader is told that older relatives are indifferent because they own homes.",
+            "fix": "Say Lundquist finds many older adults do not grasp how threatening AI feels to younger relatives; his home-owning example is illustrative (outlet:p019)."
           },
           {
             "question": "notable",
-            "problem": "The two poll figures appear to describe the same age group.",
-            "fix": "Identify the Pew group as adults under 30 and the Axios group as respondents aged 18 to 34 (outlet:p013)."
+            "problem": "The Axios figure loses its survey period.",
+            "fix": "Specify that 61% of respondents aged 18–34 said they had used ChatGPT in the past month (outlet:p013)."
           }
         ],
         "writer_boats": [
@@ -133891,8 +133865,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "57fd1f4b4c67fb1cb2f1cb4cbfe64b857759fdb364c9ed8de586dde2a48f1454",
-        "scored_at": "2026-11-24T13:30:02.790906+00:00"
+        "prose_sha256": "3d7b11853b604986e5d165c613ea5883e280a1fb0559b53f8de98c8ed3bc77eb",
+        "scored_at": "2026-11-24T15:27:19.142849+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
@@ -134085,6 +134059,363 @@
         "scorer_provider": "codex",
         "prose_sha256": "173d4360b8ad1176151f004c6dcea2aafeb5fa985f66dd1094f46bce761ac079",
         "scored_at": "2026-11-24T13:30:02.790960+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "8d5151ca010712d1a73e",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://analyticsindiamag.com/ai-features/trump-has-saved-jensens-job-but-can-he-save-nvidia",
+      "key_points": [
+        "NVIDIA's stock surged more than 31% after news broke that Jensen Huang returned as CEO, adding roughly $950 billion in market value in its biggest single-day surge since 2003.",
+        "Stocks across AI infrastructure rallied in tandem, with CoreWeave jumping nearly 30% and Micron Technology gaining 19.3%.",
+        "The broader tech rally propelled the Nasdaq up 6.6%, its largest single-day gain since April 2025."
+      ],
+      "same_event_coverage_ids": [
+        "8848a0953dad385e829e"
+      ],
+      "split_coverage_ids": [],
+      "subject": "NVIDIA",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Jensen Huang",
+          "Donald Trump"
+        ],
+        "availability": "global",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "4a60cf75ab435f1bbee6",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Promotional vendor case study on developer.nvidia.com highlighting how customer Everstone Studio implemented NVIDIA DLSS 5.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://developer.nvidia.com/blog/qa-how-everstone-brings-where-winds-meet-to-life-with-nvidia-dlss-5/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "098086c3b052c348283c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "0ca7c5e1d36e9d0d1f60",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-24/kaszek-raises-650-million-fund-for-latin-america-s-ai-startups",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "a6d6bee856bf5b55f8c3"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "27a37828cf27a7adc412",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-24/trump-s-nvidia-move-hopefully-not-a-precedent-luria-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "6c6bd7c6c5cf33a22a41"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "fe0cf0e42c1c6bf3982f",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.404media.co/googles-customized-ai-tv-channel-starring-you/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c3c405438725f6908f19"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "f416d676e29213d0cc40",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/24/2026/small-traders-reap-the-reward-from-buying-nvidia-dip",
+      "key_points": [
+        "Các nhà đầu tư nhỏ lẻ đã mua gom cổ phiếu Nvidia và thu lợi nhuận lớn khi giá phục hồi sau tin tức Jensen Huang trở lại.",
+        "Sự trở lại của Jensen Huang được một nhóm tinh hoa tại Thung lũng Silicon thúc đẩy, sau khi cổ phiếu Nvidia giảm 28% trong bảy ngày giao dịch.",
+        "Nvidia là cổ phiếu được giao dịch nhiều nhất trên toàn bộ Robinhood vào ngày 12 tháng 11, theo người phát ngôn của hãng chia sẻ với Semafor. Khách hàng của công ty môi giới bán lẻ này tiếp tục duy trì trạng thái mua ròng trong những ngày sau đó.",
+        "Doanh nghiệp đã thay đổi căn bản dù các yếu tố nền tảng không đổi, theo nhận định của nhà quản lý danh mục Joe Tigay tại Equity Armor Investments với Semafor."
+      ],
+      "same_event_coverage_ids": [
+        "b8a336cd74b9c8a185e7"
+      ],
+      "split_coverage_ids": [],
+      "subject": "NVIDIA",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Jensen Huang",
+          "Joe Tigay",
+          "Jake Angelo",
+          "Ellen DiMauro"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nhà đầu tư cá nhân trên Robinhood gom mua cổ phiếu Nvidia và thu lợi sau khi Jensen Huang trở lại",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/24/2026/small-traders-reap-the-reward-from-buying-nvidia-dip"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.55,
+        "answers": {
+          "what": 8,
+          "why": 10,
+          "notable": 8,
+          "meaning": 9
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "thu lợi nhuận lớn",
+            "explanation": "The source says small traders reaped rewards but gives no basis for describing their profits as large (outlet:p001)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "Readers lack the event that explains the trading timeline.",
+            "fix": "Say Huang resigned on November 12 before describing the purchases and rebound (outlet:p001–p002)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The summary asserts that traders made large profits without evidence of their profit size.",
+            "fix": "Say they benefited from the rebound without specifying how much they gained (outlet:p001)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "13e8ce814630ce1a1cb162f78f93464d3c7c5babfdfaef57e4d8ee22c5ddc00a",
+        "scored_at": "2026-11-24T15:19:10.042326+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "0ea66ddcc209eef858db",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-24/anthropic-breaks-below-83-ipo-price-in-premarket-trading",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "5d7e2e1f5259fb1cbf87"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "d058a29432b5f7229b45",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.scmp.com/tech/big-tech/article/3375648/jensen-huangs-return-reignites-race-debate-trump-remarks-draw-ire",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "5d9bd4168e5db8f5be87"
+      ],
+      "split_coverage_ids": [
+        "b5f4e8b31d59fb581858"
+      ],
+      "subject": "Donald Trump",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Donald Trump",
+          "Jensen Huang"
+        ],
+        "availability": "global",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "dc8d61b6cdb0f54e49a6",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-24/ai-bulls-in-asia-get-huang-back-but-the-harder-questions-remain",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "f113c36436cb01bb5cb0"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "3204b6dd50cbb423eec9",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "top tier needs four to eight verified key points",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "top tier needs four to eight verified key points"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/tech/1040428/nvidia-jensen-huang-ceo-return",
+      "key_points": [
+        "Nvidia đã tái bổ nhiệm Jensen Huang làm tổng giám đốc vào ngày thứ Hai, sau khi xác định việc này không gây rủi ro an ninh quốc gia.",
+        "Nhiều nhân vật như Elon Musk hay Sam Altman công khai ủng hộ ông Huang, trong khi các đồng minh đặt nghi vấn về những cáo buộc nhắm vào ông.",
+        "Semafor đưa tin ông Trump thậm chí đã gọi điện vào cuộc họp hội đồng quản trị Nvidia để vận động phục chức cho ông Huang. Trả lời CNBC, ông Trump nói rằng nếu ông không can thiệp thì có lẽ Nvidia sẽ phải chịu cảnh rất buồn trong một thời gian dài.",
+        "Làn sóng giám sát mới từ giới lập pháp và cơ quan quản lý liên bang mới chỉ bắt đầu, theo nhận định từ The Verge. Nvidia tuyên bố sẽ hoàn tất điều tra nội bộ với ông Huang, trong khi Ủy ban Chứng khoán và Giao dịch Mỹ đang xem xét quy trình kế toán của hãng."
+      ],
+      "same_event_coverage_ids": [
+        "c3affa6362c1e1849cd6"
+      ],
+      "split_coverage_ids": [
+        "0efb72a3f2ad0ba2f60a"
+      ],
+      "subject": "NVIDIA",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Jensen Huang",
+          "Emma Roth"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nvidia tái bổ nhiệm Jensen Huang làm CEO sau chiến dịch vận động của giới công nghệ và ông Trump",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/tech/1040428/nvidia-jensen-huang-ceo-return"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.3,
+        "answers": {
+          "what": 9,
+          "why": 7,
+          "notable": 8,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "Readers cannot understand why Huang needed reinstatement.",
+            "fix": "Explain that he resigned on November 12 amid scrutiny of alleged affairs and admitted being unfaithful (outlet:p029)."
+          },
+          {
+            "question": "notable",
+            "problem": "The board’s reversal is missing, making the reinstatement less striking.",
+            "fix": "Add that its chair had said the board unanimously accepted Huang’s resignation and did not intend to reinstate him (outlet:p031)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "54c19e8ae4528870c94d3ad3ef97b7a870a357b2f4cdf7a09ee87326102e7856",
+        "scored_at": "2026-11-24T15:19:10.042366+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
