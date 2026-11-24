@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-24T07:50:46.695874+00:00",
-  "input_generated_at": "2026-11-24T06:46:41Z",
+  "generated_at": "2026-11-24T10:11:04.588951+00:00",
+  "input_generated_at": "2026-11-24T08:46:40Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -130334,10 +130334,10 @@
       "use_original_title": false,
       "source_url": "https://micjm.com/blog/lowering-perplexity-without-scaling/",
       "key_points": [
-        "Theo tác giả bài viết trên micjm, OpenAI vừa công bố biểu đồ độ rối giảm dần và nhận định đây là thước đo trí tuệ phổ quát.",
-        "Tác giả chỉ ra độ rối (thước đo xác suất dự đoán từ tiếp theo) vô nghĩa nếu thiếu ngữ cảnh, trong khi số liệu của OpenAI chỉ đo trên một tập mã nguồn cố định.",
-        "Dẫn lại nghiên cứu trên mô hình 160M, tác giả chỉ ra khi dữ liệu chứa 75% mã nguồn, độ rối đối với văn bản phi mã nguồn lại tăng mạnh.",
-        "Tác giả kết luận kết quả này chỉ chứng minh mô hình giỏi viết mã hơn, do đó OpenAI cần bổ sung nhiều điều kiện giới hạn cho tuyên bố của mình."
+        "OpenAI công bố biểu đồ độ rối giảm dần của các mô hình và nhận định độ rối có thể là thước đo trí tuệ phổ quát. Tác giả bài viết cho biết biểu đồ này vô nghĩa nếu thiếu ngữ cảnh, vì số liệu thực tế chỉ đo độ rối (thước đo dự đoán từ tiếp theo) trên một tập mã nguồn cố định.",
+        "Theo tác giả, sự sụt giảm độ rối này có thể chỉ phản ánh việc các mô hình OpenAI ngày càng được huấn luyện nhiều bằng dữ liệu mã nguồn.",
+        "Dẫn nghiên cứu trên mô hình 160M, tác giả chỉ ra khi dữ liệu huấn luyện chứa 75% mã nguồn, độ rối đối với văn bản phi mã nguồn lại tăng mạnh.",
+        "Tác giả nhận định mô hình nhiều mã nguồn gần như chắc chắn giỏi viết mã hơn, nhưng bài đăng của OpenAI cần thêm nhiều điều kiện giới hạn trước khi khái quát hóa."
       ],
       "same_event_coverage_ids": [
         "d0299bc9a5f034de4bb5"
@@ -130351,7 +130351,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Tác giả trên micjm phản bác tuyên bố độ rối là thước đo trí tuệ phổ quát của OpenAI",
+      "editorial_headline_vi": "Biểu đồ độ rối của OpenAI bị nghi do tăng cường huấn luyện mã nguồn thay vì phản ánh trí tuệ",
       "summary_sources": [
         {
           "id": "outlet",
@@ -130364,45 +130364,24 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 7.85,
+        "value": 9.1,
         "answers": {
-          "what": 8,
-          "why": 8,
-          "notable": 9,
-          "meaning": 5
+          "what": 10,
+          "why": 10,
+          "notable": 8,
+          "meaning": 8
         },
-        "hard_errors": [
-          {
-            "kind": "name",
-            "summary_text": "trên micjm",
-            "explanation": "The supplied source does not identify micjm as the author's site or publisher (outlet:p001–p003)."
-          },
-          {
-            "kind": "name",
-            "summary_text": "trên micjm",
-            "explanation": "The repeated site attribution is not established by the supplied source (outlet:p001–p003)."
-          },
-          {
-            "kind": "quote",
-            "summary_text": "kết quả này chỉ chứng minh mô hình giỏi viết mã hơn",
-            "explanation": "The author says the code-heavy model is almost certainly smarter at code and that the chart does measure something; the example does not prove that code skill is the only result (outlet:p013)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
+            "question": "notable",
+            "problem": "The reader cannot tell that the cited comparison changed only the proportion of code in training.",
+            "fix": "Add that the paper used five training sets for the same 160M model, varying only the code share (outlet:p009)."
+          },
+          {
             "question": "meaning",
-            "problem": "Readers get a claim of proof where the author makes a qualified inference.",
-            "fix": "Say the code-heavy model is almost certainly better at code, while the chart needs qualifications before supporting a general-intelligence claim (outlet:p013–p014)."
-          },
-          {
-            "question": "what",
-            "problem": "The story assigns the author to an unsupported site.",
-            "fix": "Remove “trên micjm” unless a supplied source establishes that attribution (outlet:p001–p003)."
-          },
-          {
-            "question": "why",
-            "problem": "The specific alternative explanation for the falling code perplexity is missing.",
-            "fix": "Add that a larger proportion of code in training could produce the observed drop (outlet:p005–p006)."
+            "problem": "The reader misses that OpenAI itself stated a relevant limit for two earlier models.",
+            "fix": "Mention that OpenAI’s footnote calls code prediction a poor proxy for the general capabilities of GPT-2 and GPT-3 (outlet:p014)."
           }
         ],
         "writer_boats": [
@@ -130410,8 +130389,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "e8d1ecc332cc94c051ad57d8b42ce74a948fbe61b317cc1296e41d660a219475",
-        "scored_at": "2026-11-24T07:32:45.649673+00:00"
+        "prose_sha256": "9fb6f83b654d5bce05cdc9c735891e251ce8e3974d25dbfb26b0dba3a9c61586",
+        "scored_at": "2026-11-24T10:11:04.570927+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
@@ -130647,10 +130626,10 @@
       "use_original_title": false,
       "source_url": "https://arxiv.org/abs/2611.30573",
       "key_points": [
-        "Nhóm tác giả ZiAn Wang giới thiệu PersistWorld truyền khung hình camera vào trạng thái thế giới 3D cố định để dự đoán độ chiếm chỗ 4D (dự báo không gian 3D trước vài giây). Theo nhóm nghiên cứu, mô hình ghi mỗi khung hình một lần thay vì dựng lại từ các khung hình cũ.",
-        "Nhóm tác giả cho biết các mô hình dùng camera hiện nay thất bại ở phần không gian không đổi vì không giữ được những gì đã thấy khi xe chạy. Do đó, nhóm biến những gì mô hình đã quan sát thành trạng thái lưu trữ của hệ thống.",
-        "Mức tăng đạt từ 18 đến 24 điểm khi thời gian dự báo kéo dài tới 8 s.",
-        "Nhóm nghiên cứu cho biết trạng thái thế giới được học đầu-cuối với dự báo để bộ tiến hóa ước tính tại mọi thời điểm dọc quỹ đạo xe. Tuy vậy, kết quả cải thiện độ chính xác và tốc độ này mới được ghi nhận trên tập dữ liệu chuẩn Occ3D-nuScenes."
+        "Nhóm tác giả ZiAn Wang phát triển PersistWorld truyền khung hình camera vào trạng thái thế giới 3D bền vững neo trong khung cảnh để dự báo độ chiếm chỗ 4D (dự đoán không gian ngữ nghĩa 3D trước vài giây). Theo nhóm nghiên cứu, mô hình ghi mỗi khung hình một lần thay vì dựng lại từ các khung hình cũ.",
+        "Nhóm tác giả chỉ ra các mô hình dùng camera hiện nay thất bại ở phần không gian không đổi do không giữ được những gì đã thấy, thay vì do dự báo kém phần biến đổi. Do đó, nhóm biến trực tiếp những gì mô hình đã quan sát thành trạng thái hệ thống.",
+        "Nhóm nghiên cứu ghi nhận mô hình đạt mức tăng này trong khi vận hành nhanh hơn gấp hai lần.",
+        "Nhóm tác giả cho biết trạng thái này được học đầu-cuối cùng dự báo để bộ tiến hóa ước tính tại mọi thời điểm dọc quỹ đạo xe. Dù vậy, nhóm nghiên cứu giới hạn kết quả cải thiện này trong thử nghiệm trên tập chuẩn Occ3D-nuScenes đối với mô hình dùng camera."
       ],
       "same_event_coverage_ids": [
         "12942b47faaff8cff94d"
@@ -130675,7 +130654,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "PersistWorld tăng đến 24 điểm IoU dự báo độ chiếm chỗ 4D trên tập chuẩn Occ3D-nuScenes",
+      "editorial_headline_vi": "PersistWorld tăng tới 24 điểm IoU so với mô hình camera tốt nhất trên tập chuẩn Occ3D-nuScenes",
       "summary_sources": [
         {
           "id": "outlet",
@@ -130688,24 +130667,30 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.1,
+        "value": 8.65,
         "answers": {
-          "what": 8,
+          "what": 10,
           "why": 10,
-          "notable": 7,
-          "meaning": 8
+          "notable": 6,
+          "meaning": 9
         },
-        "hard_errors": [],
+        "hard_errors": [
+          {
+            "kind": "number",
+            "summary_text": "nhanh hơn gấp hai lần",
+            "explanation": "The source reports that PersistWorld runs more than twice as fast, not simply twice as fast (outlet:p009)."
+          }
+        ],
         "findings": [
           {
-            "question": "what",
-            "problem": "“Trạng thái thế giới 3D cố định” could make a reader think the stored world state does not change.",
-            "fix": "Describe it as a persistent 3D state anchored in the scene; the source says an evolver predicts that state at queried times (outlet:p009)."
+            "question": "notable",
+            "problem": "The 24-point headline gain lacks its forecast horizon, so the reader cannot place the result.",
+            "fix": "State that the source reports a gain of 19 IoU points at 1–3 seconds and gains of 18–24 points up to 8 seconds on Occ3D-nuScenes (outlet:p009)."
           },
           {
             "question": "notable",
-            "problem": "The performance result lacks its comparator and the reported speed magnitude.",
-            "fix": "Specify that IoU improved over the best camera-based world model by 19 points at 1–3 seconds and 18–24 points up to 8 seconds, while running more than twice as fast (outlet:p009)."
+            "problem": "The speed comparison loses the source’s “more than” qualifier.",
+            "fix": "Say PersistWorld runs more than twice as fast as the comparison model (outlet:p009)."
           }
         ],
         "writer_boats": [
@@ -130713,8 +130698,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "3790165ae317a8d55de1f8a63e1fd3dcae1f24353c0e3db407b9bc32cd42ffd1",
-        "scored_at": "2026-11-24T07:32:45.649772+00:00"
+        "prose_sha256": "34d37a0acbfdc07a8fdcea64103fb05005547d8e1b83f815da672c2b0cf73677",
+        "scored_at": "2026-11-24T10:11:04.571036+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
@@ -130737,10 +130722,10 @@
       "use_original_title": false,
       "source_url": "https://claude.com/resources/articles/zero-data-retention-with-enterprise-frontier-safeguards",
       "key_points": [
-        "Anthropic mở thử nghiệm công khai tính năng Enterprise Frontier Safeguards (EFS) tương thích chính sách không lưu giữ dữ liệu (ZDR) cho khách hàng doanh nghiệp. Theo công ty, tính năng này giúp phát hiện hành vi lạm dụng tinh vi mà không để bên nào lưu trữ dữ liệu doanh nghiệp.",
-        "Anthropic giải thích tấn công tinh vi thường diễn ra qua nhiều truy vấn nên từng yêu cầu đơn lẻ trông có vẻ vô hại trước các bộ lọc truyền thống.",
-        "Với EFS, hệ thống giám sát tự động phân tích dữ liệu trực tiếp trên hạ tầng do khách hàng kiểm soát thay vì lưu về Anthropic. Trưởng bộ phận bảo mật Matthew Kemelhar tại Stripe xác nhận giải pháp giúp công ty lưu nhật ký hội thoại an toàn trên môi trường AWS của Stripe.",
-        "Theo Anthropic, dữ liệu người dùng chỉ phục vụ giám sát tự động, không nhân viên nào được đọc và không bao giờ dùng huấn luyện mô hình. Khi phát hiện nguy cơ, hồ sơ an toàn (Safety Case) gửi tới khách hàng cũng được giới hạn không chứa nội dung dữ liệu đầu vào hay đầu ra."
+        "Anthropic mở thử nghiệm công khai Enterprise Frontier Safeguards (EFS) cho khách hàng doanh nghiệp.",
+        "Anthropic giải thích các cuộc tấn công tinh vi thường diễn ra qua nhiều truy vấn khiến từng yêu cầu riêng lẻ trông có vẻ vô hại. Để đối phó, hệ thống giám sát an toàn tự động phân tích dữ liệu lưu hoàn toàn trên hạ tầng do khách hàng kiểm soát.",
+        "Khi phát hiện rủi ro, hệ thống tạo hồ sơ an toàn cho khách hàng xem xét qua bộ nhớ đám mây hoặc giao diện ứng dụng (API) mà không chứa dữ liệu nhập xuất. Trưởng bộ phận bảo mật Matthew Kemelhar tại Stripe nhận định EFS sẽ cho phép công ty lưu nhật ký hội thoại trên môi trường AWS dưới sự kiểm soát an ninh của họ.",
+        "Theo Anthropic, khách hàng tự lưu trữ dữ liệu còn Anthropic và nhà cung cấp đám mây không giữ lại dữ liệu sau khi ghi vào bộ nhớ doanh nghiệp. Nhân sự của Anthropic và bên đám mây không thể truy cập dữ liệu này, trong khi khách hàng tự cấu hình chính sách phân quyền nội bộ."
       ],
       "same_event_coverage_ids": [
         "23143ae1b68a45112114",
@@ -130757,7 +130742,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Anthropic mở thử nghiệm công khai EFS giúp bảo vệ mô hình AI mà không lưu dữ liệu",
+      "editorial_headline_vi": "Anthropic mở thử nghiệm EFS giúp doanh nghiệp giám sát lạm dụng qua nhiều truy vấn",
       "summary_sources": [
         {
           "id": "outlet",
@@ -130772,55 +130757,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 6.95,
+        "value": 9.55,
         "answers": {
-          "what": 6,
+          "what": 10,
           "why": 10,
-          "notable": 7,
-          "meaning": 5
+          "notable": 9,
+          "meaning": 9
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "bảo vệ mô hình AI",
-            "explanation": "The source describes safeguards against sophisticated misuse when businesses use frontier models; it does not describe protecting the models themselves (outlet:p001, outlet:p026, outlet:p030)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "không để bên nào lưu trữ dữ liệu doanh nghiệp",
-            "explanation": "Customers bring their own storage and retain their own data. The zero-retention promise applies to Anthropic and cloud providers keeping copies after delivery to customer-controlled storage (outlet:p034–p035)."
-          },
-          {
-            "kind": "quote",
-            "summary_text": "xác nhận giải pháp giúp công ty lưu nhật ký hội thoại an toàn trên môi trường AWS của Stripe",
-            "explanation": "Matthew Kemelhar says EFS *will enable* Stripe to retain conversation logs in Stripe’s AWS environment, with access and review governed by Stripe’s security controls; he does not report an already established result (outlet:p005–p006)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "không nhân viên nào được đọc",
-            "explanation": "The source excludes Anthropic and cloud-provider personnel from accessing inputs and outputs. It does not exclude authorized customer personnel, whose access policies the customer configures (outlet:p035–p036)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
             "question": "meaning",
-            "problem": "The reader may believe enterprise data is stored nowhere.",
-            "fix": "State that customers store inputs and outputs in storage they control, while Anthropic and cloud providers do not retain copies (outlet:p034–p035)."
-          },
-          {
-            "question": "what",
-            "problem": "The headline describes protection of AI models rather than detection of misuse.",
-            "fix": "Describe EFS as cross-request safety monitoring for enterprise use of frontier models (outlet:p001, outlet:p028–p030)."
-          },
-          {
-            "question": "meaning",
-            "problem": "The personnel-access claim is broader than the source’s guarantee.",
-            "fix": "Limit it to Anthropic and cloud-provider personnel, and note that customers set their own access policies (outlet:p035–p036)."
-          },
-          {
-            "question": "notable",
-            "problem": "The summary omits how a customer can inspect a flagged case.",
-            "fix": "Add that Safety Cases can be read from customer cloud storage or through an API and contain no inputs or outputs (outlet:p031)."
+            "problem": "The reader does not learn whether customer inputs and outputs are used for training.",
+            "fix": "Add Anthropic’s stated guarantee that EFS uses them only for automated safety monitoring, never for model or classifier training (outlet:p037)."
           }
         ],
         "writer_boats": [
@@ -130828,8 +130777,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "dfff65f45b7579f4436fdf4b97fd680cca9cb2cd9e85e00708fb480636483a88",
-        "scored_at": "2026-11-24T07:32:45.649812+00:00"
+        "prose_sha256": "df03114be463ed345c48b444fda6f93631b641d2ca1e6c9b68675b67009bbea4",
+        "scored_at": "2026-11-24T10:11:04.571079+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
@@ -131372,6 +131321,1263 @@
         "scorer_provider": "codex",
         "prose_sha256": "d842d3fee11d50090ac0f83da904cc377572aa097573d07c76ffd354ed27e16a",
         "scored_at": "2026-11-24T07:32:45.650041+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "f1d19473edbbbd83dc51",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-24/zurrer-huang-s-credibility-in-industry-too-important-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c680bb4013e78f4fa1f7"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "27575c9b87078192b90e",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The cluster conflates an MEA regional market broadcast covering Iran sanctions with standalone reporting on Nvidia reinstating Jensen Huang as CEO.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-24/horizons-middle-east-africa-11-24-2026-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "cc8f302eb6a7c1b623e2"
+      ],
+      "split_coverage_ids": [
+        "bb33df988506faaa1ea1",
+        "ec6cb60571f772536fef"
+      ]
+    },
+    {
+      "id": "0166fb3c99270a540cf9",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://analyticsindiamag.com/ai-news/nasscom-seeks-three-year-ai-scheme-for-indian-it-firms-in-budget-2027-28",
+      "key_points": [
+        "Hiệp hội Nasscom đề xuất chương trình ba năm có chính phủ hỗ trợ giúp doanh nghiệp dịch vụ công nghệ Ấn Độ thương mại hóa AI. Nasscom đề xuất Bộ Điện tử và Công nghệ Thông tin cùng Bộ Tài chính phối hợp thiết kế đề án với sự tham vấn từ ngành.",
+        "Theo Nasscom, AI đang thay đổi căn bản nhu cầu công nghệ toàn cầu, mô hình kinh doanh và bản chất việc làm. Tổ chức này nhận định Ấn Độ cần củng cố năng lực công nghệ để tạo ra việc làm tay nghề cao.",
+        "Đề án sẽ hỗ trợ sản phẩm AI xây dựng tại Ấn Độ tạo doanh thu qua cấp phép hoặc thuê bao. Với doanh nghiệp nhỏ, Nasscom đề xuất dùng chung cơ sở kỹ thuật, hỗ trợ chuyên gia và hợp tác dự án.",
+        "Nasscom cũng đề xuất đào tạo gắn với triển khai dự án có giám sát nhằm giúp nhân viên chuyển đổi vai trò. Theo Analytics India Magazine, hiệu quả kinh tế của dịch vụ AI vẫn là thách thức cho các nhà cung cấp."
+      ],
+      "same_event_coverage_ids": [
+        "e923c155b96e76a36697"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Nasscom",
+      "video_labels": {
+        "video_hook": "money_jobs",
+        "named_people": [],
+        "availability": "region_locked:India",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nasscom đề xuất chương trình ba năm có chính phủ hỗ trợ phát triển dịch vụ AI tại Ấn Độ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "analytics-india-magazine",
+          "url": "https://analyticsindiamag.com/ai-news/nasscom-seeks-three-year-ai-scheme-for-indian-it-firms-in-budget-2027-28"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.85,
+        "answers": {
+          "what": 10,
+          "why": 8,
+          "notable": 8,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The reader misses why developing reusable AI offerings is financially difficult.",
+            "fix": "Add Nasscom's point that companies must invest before earning returns and that smaller providers struggle to finance development and free staff for training (outlet:p004-p005)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "1de2097ab2d0f732b7e99901475a051fbb603194746c591dc8f64cbd4519b05f",
+        "scored_at": "2026-11-24T10:05:09.794644+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "2ddb558d5e56156cd399",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://analyticsindiamag.com/ai-news/antariksh-venture-capital-fund-invests-60-cr-in-bengalurus-satsure",
+      "key_points": [
+        "Quỹ Antariksh Venture Capital Fund đầu tư 60 crore rupee vào công ty dữ liệu SatSure, dẫn đầu đợt chốt đầu tiên của vòng Series B trị giá 200 crore rupee. Thương vụ nâng tổng vốn từ các tổ chức của SatSure lên 427 crore rupee, không tính trợ cấp chính phủ.",
+        "SatSure sẽ dùng vốn để thúc đẩy bốn sáng kiến gồm phát triển tải trọng vệ tinh quang học cho năm 2027 và thực hiện chùm vệ tinh theo đối tác công tư EO-PPP. Khoản tài trợ cũng hỗ trợ mô hình Dhaarini và mở rộng hoạt động thương mại quốc tế từ Ấn Độ.",
+        "Dòng sản phẩm SatSource của SatSure được các ngân hàng quốc doanh ứng dụng để thẩm định hồ sơ vay nông nghiệp. SatSure cho biết giải pháp giúp rút ngắn thời gian xét duyệt từ nhiều tuần xuống chỉ còn vài phút.",
+        "Thương vụ đánh dấu khoản đầu tư đầu tiên của quỹ vào mảng phân tích dữ liệu và AI hạ nguồn của ngành không gian Ấn Độ. Theo Analytics India Magazine, sự kiện này giúp quỹ mở rộng danh mục vượt ra ngoài phần cứng vệ tinh và hạ tầng phóng."
+      ],
+      "same_event_coverage_ids": [
+        "d9c294e4de0013eb3d6f"
+      ],
+      "split_coverage_ids": [],
+      "subject": "SatSure",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Quỹ Antariksh rót 60 crore rupee vào SatSure để đầu tư mảng phân tích dữ liệu và AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "analytics-india-magazine",
+          "url": "https://analyticsindiamag.com/ai-news/antariksh-venture-capital-fund-invests-60-cr-in-bengalurus-satsure"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The phrase about payloads being developed 'for 2027' obscures what is planned for that year.",
+            "fix": "Specify that their orbital flight is planned for 2027 (outlet:p004)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "4039a87c87f0c88e90b69474d993ae42fe74669da6db21dfbc4129731dda3ce8",
+        "scored_at": "2026-11-24T10:05:09.794738+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "e9023417c644b88b7789",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-24/ai-chipmaker-axelera-in-talks-to-raise-additional-400-million",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "ca8924a8ea480a85b2cc"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "d1df0c400bd52661ed54",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://github.com/CajasiZep76/local-ai-chat-uncensored",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "111a4c5ec4354beb0d7f"
+      ],
+      "split_coverage_ids": [],
+      "subject": "LocalAiChatUncensored",
+      "video_labels": {
+        "video_hook": "usable_now",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "81258050af59d249333c",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Social milestone notification reporting 500 GitHub stars without substantive reporting, product launch, or release notes.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/NPC-Worldwide/incognide",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "61529e7a21768684f770"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "7c85a337d97b4634f19b",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://techcrunch.com/2026/11/23/nvidia-employees-greet-jensen-huang-like-a-hero-as-he-returns-to-companys-hq/",
+      "key_points": [
+        "Jensen Huang đã quay lại văn phòng Nvidia trong tiếng vỗ tay của hàng trăm nhân viên sau khi được phục chức Tổng giám đốc (CEO), theo các video trên mạng. Nhà sáng lập này trước đó đã từ chức vào đầu tháng giữa hàng loạt bê bối, gồm quan hệ tình cảm với một người bị nghi là gián điệp Trung Quốc và hai nhân viên Nvidia.",
+        "Theo TechCrunch, ông Huang được phục chức nhờ sự phản ứng từ cộng đồng công nghệ cùng sự can thiệp của Tổng thống Donald Trump. Phát biểu trước nhân viên, ông Huang cảm ơn mọi người đã cho ông cơ hội thứ hai và cam kết sẽ trở thành một CEO tốt hơn.",
+        "Hơn 200.000 người, bao gồm khoảng 10.000 nhân viên Nvidia, đã ký thư ngỏ kêu gọi đưa ông Huang trở lại lãnh đạo công ty. Nhiều lãnh đạo công nghệ cũng ủng hộ ông, trong đó Elon Musk ví việc loại bỏ Huang giống như đuổi Michael Jordan khỏi đội bóng đang chiến thắng.",
+        "Dù vậy, The New York Times dẫn tài liệu tòa án và các cuộc phỏng vấn cho biết ông Huang từng dùng sự sỉ nhục làm công cụ với nhân viên. Đặc biệt, mối quan hệ giữa ông và người bị nghi là gián điệp Trung Quốc đã châm ngòi cho nhiều phiên điều trần tại Quốc hội Mỹ về an ninh quốc gia."
+      ],
+      "same_event_coverage_ids": [
+        "087c7c24a1059104803f",
+        "b2b2ec64a7d2958397bc"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Jensen Huang",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Jensen Huang",
+          "Donald Trump",
+          "Elon Musk"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Jensen Huang trở lại làm CEO Nvidia sau sự can thiệp của Donald Trump và phản ứng từ giới công nghệ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch.com",
+          "url": "https://techcrunch.com/2026/11/23/nvidia-employees-greet-jensen-huang-like-a-hero-as-he-returns-to-companys-hq/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "37cf5a300bdf0450ae29339f53714ee555ad05e56440ab2fceab1b0f2699e321",
+        "scored_at": "2026-11-24T10:05:09.794777+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "abf6810ce0f254f46f9a",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-23/expect-more-bearishness-after-nvidia-ceo-return-marcus-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "5d8d898348869f191b54"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "16daac3d32ec4516f28c",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/ai-artificial-intelligence/1030422/nvidia-jensen-huang-ai-china-alice-huang",
+      "key_points": [
+        "Hội đồng quản trị Nvidia công bố ông Jensen Huang trở lại làm CEO (giám đốc điều hành) vào ngày 23/11/2026, chưa đầy hai tuần sau khi ông từ chức vì các bê bối tình cảm cá nhân.",
+        "Hội đồng quản trị Nvidia cho biết họ phục chức cho ông sau khi nhận ý kiến từ cấp cao chính phủ Mỹ và xác định việc này không gây rủi ro an ninh quốc gia. Tổng thống Donald Trump cũng tuyên bố trên truyền hình CNBC rằng ông đã trực tiếp trao đổi và thuyết phục hội đồng quản trị của công ty.",
+        "Donald Trump khẳng định cuộc điều tra cho thấy ông Huang chỉ thiếu sáng suốt trong vài sự việc chứ không làm điều gì sai phạm. Trong khi đó, Bộ Thương mại Mỹ đưa công ty Megaspeed tại Singapore vào danh sách đen thương mại chỉ vài giờ sau quyết định phục chức này.",
+        "Trước đó, Chủ tịch Harvey C. Jones từng tuyên bố hội đồng quản trị không có ý định phục chức cho ông Huang sau khi đã nhất trí chấp thuận đơn từ chức. Tuy nhiên, ông Donald Trump cho biết Bộ trưởng Tư pháp Mỹ xác nhận chính quyền không nắm giữ bằng chứng nào về hành vi phạm pháp của CEO Nvidia."
+      ],
+      "same_event_coverage_ids": [
+        "240517ddf4f7dfd5e34d"
+      ],
+      "split_coverage_ids": [
+        "519a817d409f54bd1965"
+      ],
+      "subject": "Nvidia",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Jensen Huang",
+          "Alice Huang",
+          "Colette Kress",
+          "Donald Trump",
+          "Richard Lawler"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Jensen Huang trở lại làm CEO Nvidia giữa lúc Mỹ đưa Megaspeed vào danh sách đen thương mại",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1030422/nvidia-jensen-huang-ai-china-alice-huang"
+        },
+        {
+          "id": "coverage1",
+          "role": "coverage",
+          "name": "scmp",
+          "url": "https://www.scmp.com/tech/tech-war/article/3375556/us-places-megaspeed-blacklist-jensen-huang-returns-helm-nvidia"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.65,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "8bcda1489fd168940637daf277cb82b05221d675511ce3ce752621b117ece5d3",
+        "scored_at": "2026-11-24T10:05:09.794810+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "55c79c0f4faf50b9f417",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.wired.com/story/jensen-huang-is-back-as-nvidia-ceo/",
+      "key_points": [
+        "Ông Jensen Huang quay lại giữ chức giám đốc điều hành (CEO) Nvidia có hiệu lực ngay lập tức, chỉ 11 ngày sau khi từ chức khỏi công ty do ông đồng sáng lập 33 năm trước.",
+        "Chủ tịch hội đồng quản trị Harvey Jones tuyên bố họ tin ông Huang là người phù hợp nhất để dẫn dắt Nvidia vì lợi ích của cổ đông, nhân viên và đối tác. Cơ quan này cũng cho biết họ hài lòng về sự thẳng thắn cùng năng lực của ông, đồng thời đã nhận ý kiến từ cấp cao chính phủ Mỹ trước khi quyết định.",
+        "Trước đó, nhân viên Nvidia đã để lại hơn 1.600 bình luận nội bộ kêu gọi đưa ông trở lại, bên cạnh bản kiến nghị trực tuyến đạt hơn 200.000 chữ ký mà đa số người tham gia tự nhận là cổ đông. Những nhân vật như Elon Musk và CEO Garry Tan của Y Combinator cũng tuyên bố ủng hộ kiến nghị này.",
+        "Theo tạp chí WIRED, quyết định phục chức đánh dấu sự đảo ngược hoàn toàn lập trường công khai của hội đồng quản trị Nvidia, sau khi cơ quan này từng tuyên bố không có ý định đưa ông trở lại."
+      ],
+      "same_event_coverage_ids": [
+        "3e2be7560b21474e2b46",
+        "f96be836a384fa02a216"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Nvidia",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Jensen Huang",
+          "Harvey Jones",
+          "Donald Trump"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nvidia phục chức CEO cho Jensen Huang sau khi nhận ý kiến từ cấp cao chính phủ Mỹ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "wired",
+          "url": "https://www.wired.com/story/jensen-huang-is-back-as-nvidia-ceo/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "4084a602780b4cb0737a0177525c4c20c2a6716e1ccc1078a635e13b1c85efe0",
+        "scored_at": "2026-11-24T10:05:09.794841+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "19565e5a08d836edfb9a",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://en.yna.co.kr/view/AEN20261123006651320",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "381f1920cf55add65c76",
+        "416ff732b4d70b4e16eb",
+        "a6e4d12ffb2b36aa331f",
+        "f0cd029a4dae96e2afff"
+      ],
+      "split_coverage_ids": [],
+      "subject": "South Korean stock market",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "region_locked:South Korea",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "464c7f3b2d38dfa2f181",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://technode.com/2026/11/23/ant-group-unveils-ai-health-ring-and-wristband-under-afu-brand/",
+      "key_points": [
+        "Dịch vụ y tế tích hợp trí tuệ nhân tạo Afu của Ant Group vừa ra mắt nhẫn và vòng đeo tay thông minh tại một hội nghị chăm sóc sức khỏe.",
+        "Các thiết bị theo dõi giấc ngủ, nhịp tim, nhịp thở cùng nồng độ oxy trong máu, đồng thời cung cấp các báo cáo và khuyến nghị sức khỏe do AI tạo ra dựa trên những chỉ số đo.",
+        "Vòng đeo tay Fuhuan có phiên bản kèm màn hình hoặc không màn hình, còn nhẫn Fujie mang thiết kế màu trắng bạc tối giản. Ant Group nêu bật thời lượng pin dài nhưng chưa công bố thông số kỹ thuật chi tiết, giá bán lẻ hay ngày phát hành chính thức.",
+        "Theo TechNode, những thiết bị này sẽ đem lại cho Afu công cụ thu thập số liệu đo lường liên tục song song với thông tin trò chuyện, mở rộng vai trò từ giải đáp câu hỏi đơn lẻ sang theo dõi biến đổi thể trạng theo thời gian."
+      ],
+      "same_event_coverage_ids": [
+        "925b35c1a6db0baeeb79"
+      ],
+      "split_coverage_ids": [
+        "b63968c315b41245ecca"
+      ],
+      "subject": "Ant Group",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "region_locked:China",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Ant Group ra mắt vòng tay và nhẫn thông minh Afu nhưng chưa ấn định ngày mở bán",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "technode",
+          "url": "https://technode.com/2026/11/23/ant-group-unveils-ai-health-ring-and-wristband-under-afu-brand/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "116ce991f5ad9758dcbee22fe0c7d98a4a21d0b1f408367ba2a7c3315bcb0ac8",
+        "scored_at": "2026-11-24T10:05:09.794872+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "ee5be82460b1242def93",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://github.com/mbzuai-oryx/LoopedWSP",
+      "key_points": [
+        "Mô hình Claude Opus 5.5 đã tự lập trình 19.936 trọng số (thông số mạng nơ-ron) cho một transformer nhỏ không qua huấn luyện, giải đúng 100% bài kiểm tra mê cung Maze-Hard. Theo nhóm tác giả, Claude hoàn tất bộ trọng số sau 39 phút nhận nhiệm vụ với chi phí token khoảng 19 USD.",
+        "Thử nghiệm diễn ra do Claude trực tiếp giải chỉ đạt 26% mê cung 30x30 trên Maze-Hard, khiến nhóm nghiên cứu yêu cầu nó tự tạo transformer thay thế. Theo các tác giả, transformer này lặp một khối duy nhất để tìm đường đi ngắn nhất mà không cần thêm trọng số khi kích thước mê cung lớn hơn.",
+        "Chính bộ 19.936 trọng số này giải đúng 100% mê cung 60x60 và 100x100, dù Claude chỉ kiểm tra mô hình ở kích thước tối đa 45x45. Ngoài ra, một phiên bản rút gọn riêng biệt chỉ có 928 trọng số cũng giải đúng 100%, vượt qua mô hình huấn luyện EBR vốn dùng tham số gấp 1.900 lần nhưng chỉ đạt 93,5%.",
+        "Nhóm tác giả cho biết thuật toán hạ gradient không tìm ra các trọng số hoạt động này trong các lượt chạy thử nghiệm của họ. Cụ thể, khi đặt lại trọng số ngẫu nhiên cho cùng kiến trúc Claude viết rồi huấn luyện trên 1.000 mê cung mẫu, mô hình chỉ giải đúng 0% bài kiểm tra."
+      ],
+      "same_event_coverage_ids": [
+        "bcb6f86f504004003ba3"
+      ],
+      "split_coverage_ids": [],
+      "subject": "LoopedWSP",
+      "video_labels": {
+        "video_hook": "usable_now",
+        "named_people": [
+          "Abdelrahman Elsayed",
+          "Ahmed Heakl",
+          "Abdelrahman Shaker",
+          "Fahad Khan",
+          "Salman Khan"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Claude Opus 5.5 tự lập trình 19.936 trọng số cho transformer giải 100% mê cung Maze-Hard",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "github",
+          "url": "https://github.com/mbzuai-oryx/LoopedWSP"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "Readers see the maze result but miss that the authors tested the approach on eight additional benchmark tasks.",
+            "fix": "Add that Claude wrote a transformer for each of eight more tasks and each solved every test problem the researchers gave it (outlet:p006-p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "74f7de16bf813853eb658aa2aa579622059a02ab82c31dac1036ab7a8059af79",
+        "scored_at": "2026-11-24T10:05:09.794902+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "e39405d9df0026c7ef02",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.30662",
+      "key_points": [
+        "WeMM-Ecom is a family of multimodal large language models built for WeChat e-commerce content understanding.",
+        "The WeMM-Ecom family spans five model sizes, from a 0.8B dense model to a 35B mixture-of-experts model with 3B active parameters.",
+        "The training pipeline uses two-stage continued pre-training followed by hybrid-thinking post-training combining on-policy distillation and reinforcement learning."
+      ],
+      "same_event_coverage_ids": [
+        "fb4ef0682e7d1537b67f"
+      ],
+      "split_coverage_ids": [],
+      "subject": "WeMM-Ecom",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Binhui Xie",
+          "Jinmin Li",
+          "Haomiao Tang",
+          "Guangting Wang",
+          "Song Jin",
+          "Jianwei Zhu",
+          "Fengyun Rao",
+          "Jing Lyu"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "e245838b963767c90783",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "top tier needs four to eight verified key points",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "top tier needs four to eight verified key points"
+      ],
+      "use_original_title": false,
+      "source_url": "https://claude.com/resources/articles/introducing-claude-ship",
+      "key_points": [
+        "Anthropic thử nghiệm Claude Ship kết hợp Code Review với hai tác nhân (agent, AI tự hành) PR Steward và Claude Approvals nhằm tự động xử lý yêu cầu kéo mã. Hệ thống giúp đánh giá, sửa lỗi và quyết định phê duyệt mã theo chính sách của từng nhóm.",
+        "Anthropic cho biết công cụ nhằm đẩy nhanh khâu đánh giá, sửa lỗi và duyệt để chuyển giao mã nhanh như tốc độ viết mã. Hãng lý giải điều này do Claude hiện tự viết phần lớn mã nguồn của chính đội ngũ Claude Code.",
+        "Tác nhân PR Steward can thiệp sửa lỗi kiểm tra tích hợp liên tục (CI), xung đột hợp nhất và phản hồi đánh giá, nhưng không tự duyệt hay hợp nhất mã. Tại nhóm Claude Code, nơi đánh giá chỉ là một tầng quy trình rộng hơn, số yêu cầu hợp nhất tăng hơn gấp đôi từ tháng 6 đến tháng 9 còn tỷ lệ hoàn tác giảm hơn 40%.",
+        "Claude Ship hỗ trợ kho lưu trữ GitHub của gói Claude Team và Enterprise, trong đó chính sách của nhóm vẫn có thể yêu cầu con người trực tiếp ký duyệt. Tính năng tính phí theo token có thể làm tăng chi phí và không áp dụng cho cấu hình Không lưu giữ dữ liệu, HIPAA hay khóa mã hóa do khách hàng quản lý."
+      ],
+      "same_event_coverage_ids": [
+        "13c587685a34e08195f5",
+        "1c02f96bcf429378fea5",
+        "b36a8e8f8516a21f8716",
+        "b4ae7d4f8fc2f0e8c310"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Anthropic",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Anthropic thử nghiệm Claude Ship giúp tự động đánh giá, sửa lỗi và duyệt yêu cầu kéo mã",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "anthropic",
+          "url": "https://claude.com/resources/articles/introducing-claude-ship"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.05,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 8,
+          "meaning": 9
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "số yêu cầu hợp nhất tăng hơn gấp đôi",
+            "explanation": "The source says the number of pull requests that were merged more than doubled, not that the number of pull requests overall increased (outlet:p007)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The performance sentence can make readers think the total number of pull requests doubled.",
+            "fix": "Specify that the number of merged pull requests more than doubled on the Claude Code team from June to September (outlet:p007)."
+          },
+          {
+            "question": "notable",
+            "problem": "Developers do not learn the direct way to try the product.",
+            "fix": "Mention that developers can run `/ship` in Claude Code, subject to their permissions and repository branch rules (outlet:p012, outlet:p032)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "d0f014f0320f4b4eb3bec985ffe8552bba565c52bc7c3cb1627fd428ad0fb3eb",
+        "scored_at": "2026-11-24T10:05:09.794935+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "c0ad5817f1e56580f40d",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.30627",
+      "key_points": [
+        "Existing reinforcement learning approaches for LLMs focus on final outputs or textual solution trajectories, causing textual reward aliasing and unreliable reasoning.",
+        "Researchers proposed the Attention Process Reward Model to provide rewards based on how a model reasons internally via attention rather than only what it outputs."
+      ],
+      "same_event_coverage_ids": [
+        "c9c3774c62334753a0d5"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Attention Process Reward Model",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Kairong Han",
+          "Nuanqiao Shan",
+          "Ziyu Zhao",
+          "Xinpeng Dong",
+          "Zijing Hu",
+          "Dian Jin",
+          "Leyan Deng",
+          "Junjian Ye",
+          "Lujia Pan",
+          "Fei Wu",
+          "Kun Kuang"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "a04604e70f2d13fa8adf",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.30287",
+      "key_points": [
+        "Tác giả Yuxuan Chen cùng các đồng tác giả đề xuất MMMem, khung bộ nhớ đa phương thức giúp tác tử (chương trình AI tự hành) tự cải thiện qua bốn chiến lược củng cố trải nghiệm. Nghiên cứu nhằm giải quyết tình trạng tác tử hiếm khi lưu giữ hiểu biết sau tương tác dài hạn, khiến sai sót dễ lặp lại trên các câu hỏi liên quan.",
+        "Nhóm tác giả chỉ ra các phương pháp bộ nhớ đa phương thức hiện nay chủ yếu tập trung lưu trữ và truy xuất bản ghi mà thiếu cơ chế học hỏi từ tác vụ đã hoàn thành. Do đó, MMMem tổ chức bộ nhớ đa góc nhìn liên kết nguồn và tạo tác vụ căn chỉnh tri thức để củng cố kinh nghiệm vào bộ nhớ ngoài.",
+        "Khi thử nghiệm với mô hình Qwen3.5-9B, MMMem đạt mức tăng hiệu năng tương đối lần lượt là 36,9%, 17,6% và 15,2% so với các phương pháp cơ sở tốt nhất trên ba bài kiểm tra LoCoMo, Mem-Gallery và LooGLE v2.",
+        "Nhóm tác giả khẳng định hệ thống vượt trội hơn tám phương pháp cơ sở trên ba chuẩn đánh giá (bộ kiểm tra tiêu chuẩn) bộ nhớ và hai bộ đọc thị giác-ngôn ngữ. Dù vậy, kết quả này được ghi nhận trong phạm vi thử nghiệm đối chuẩn với các mô hình và bộ dữ liệu nghiên cứu cụ thể."
+      ],
+      "same_event_coverage_ids": [
+        "2b443dde77fa54987d33"
+      ],
+      "split_coverage_ids": [],
+      "subject": "MMMem",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Yuxuan Chen",
+          "Changwei Lv",
+          "Yunfei Li",
+          "Zhongjing Du",
+          "Kehui Tan",
+          "Zijun Liao",
+          "Ruochong Zheng",
+          "Hao Chen",
+          "Can Deng",
+          "Zheni Zeng",
+          "Chang Liu",
+          "Jie Chen"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Khung bộ nhớ MMMem giúp mô hình Qwen3.5-9B đạt mức tăng tương đối tới 36,9% qua ba chuẩn đánh giá",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.30287"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.65,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "1476defbfc26b38ea6d81819a3888e62087b0f8c5fde672c965c54dfb7d3d571",
+        "scored_at": "2026-11-24T10:05:09.794963+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "4f81071420d385cdcb3e",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.30207",
+      "key_points": [
+        "Nhóm tác giả công bố bộ dữ liệu SWE-Gym-Verified gồm 1.087 tác vụ đã kiểm định cùng bằng chứng thực thi. Họ phát hiện 74% tác vụ mô hình 9B không bao giờ giải được bị kiểm thử loại bỏ bản sửa đúng, so với 20% ở nhóm đôi khi giải được.",
+        "Theo các tác giả, các bộ dữ liệu hiện chỉ đối chiếu kiểm thử ẩn với bản sửa mẫu duy nhất để xác định phần thưởng cho tác tử (chương trình AI tự hành). Nhóm nghiên cứu kiểm định dữ liệu bằng hai họ mô hình lớn và chỉ tính lỗi nếu việc thực thi tái hiện được lỗi đó.",
+        "Khi giữ cùng quy mô và độ khó, mô hình học trên tác vụ đã kiểm định đạt điểm cao hơn 2,4 và 2,7 điểm trên bài kiểm chuẩn (thước đo chuẩn) SWE-bench Verified và SWE-bench Pro so với dữ liệu gốc. Trái lại, việc đơn thuần loại bỏ tác vụ chưa giải được không đem lại mức tăng điểm nào.",
+        "Các tác giả kết luận tỷ lệ vượt qua chỉ cho biết tác vụ có sinh phần thưởng hay không chứ không chứng minh phần thưởng đó đúng, đòi hỏi phải kiểm tra chính nhãn thưởng. Ngoài ra, các bài kiểm thử mới bắt được một phần tư số bản vá sai cũng không làm thay đổi điểm số đánh giá một cách rõ rệt."
+      ],
+      "same_event_coverage_ids": [
+        "14d0c18ed40c43d95fcd"
+      ],
+      "split_coverage_ids": [],
+      "subject": "SWE-Gym",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Yikai Zhang",
+          "Mai Xu",
+          "Yunbei Zhang",
+          "Qirui Jin",
+          "Kenan Li",
+          "Yuwen Jia",
+          "Jinwei Yao",
+          "Xiangyu Zhang",
+          "Jielun Tan",
+          "Jin Pan",
+          "Zijian Jin",
+          "Xiao Sun"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nghiên cứu: 74% tác vụ mô hình 9B không bao giờ giải được trên SWE-Gym có bài kiểm thử loại bỏ bản sửa đúng",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.30207"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "quote",
+            "summary_text": "không đem lại mức tăng điểm nào",
+            "explanation": "The source says simply dropping never-solved tasks showed no such gain as the 2.4- and 2.7-point improvements; it does not say the score gain was zero (outlet:p009)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "một phần tư số bản vá sai",
+            "explanation": "The source says new tests caught a quarter of wrong patches that had passed, not a quarter of all wrong patches (outlet:p009)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The reader is told that dropping never-solved tasks brought no score gain at all.",
+            "fix": "Say it did not produce the reported 2.4- and 2.7-point gains (outlet:p009)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The reader is told the new tests caught a quarter of all wrong patches.",
+            "fix": "Specify that they caught a quarter of wrong patches that had passed the existing tests (outlet:p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "c35daad29be5d27b5978789a4bd51d8228df85871170ac650dca3f112ef2f81d",
+        "scored_at": "2026-11-24T10:05:09.794994+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "34050f20d059807ea413",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.31201",
+      "key_points": [
+        "Researchers introduced Embo-Harness to systematically study closed-loop robotic harnesses where frontier multimodal models serve directly as policies.",
+        "The study examined four components of the robotic agentic loop—prompting, planning, action execution, and tool use—and distilled six empirical findings into a recipe."
+      ],
+      "same_event_coverage_ids": [
+        "b6e326fd9e418cf7d923"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Embo-Harness",
+      "video_labels": null
+    },
+    {
+      "id": "116fcc3b23115bd0a1cc",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.30157",
+      "key_points": [
+        "Researchers introduced UUBench, a benchmark for assessing how well multimodal interactive systems understand unspoken communicative intent.",
+        "UUBench evaluates whether systems can understand unspoken needs communicated through prosody, facial expressions, gestures, and context, and generate appropriate audiovisual responses."
+      ],
+      "same_event_coverage_ids": [
+        "67f072ec0826153fb587"
+      ],
+      "split_coverage_ids": [],
+      "subject": "UUBench",
+      "video_labels": null
+    },
+    {
+      "id": "0c4838d2426f9ef3a630",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.30597",
+      "key_points": [
+        "Tác giả Yuxi Wang cùng các cộng sự đề xuất khung làm việc ViDiHand2 để tái tạo chuyển động tay 3D theo kích thước thực từ video góc nhìn thứ nhất. Hệ thống chuyển đổi việc ước tính độ sâu từ hồi quy ngoại quan sang giải bài toán ràng buộc hình học chi tiết.",
+        "Các tác giả chỉ ra rằng phương pháp hồi quy độ sâu ngoại quan trước đây khái quát hóa kém trên camera mới. Để tăng độ bền vững khi bị che khuất, nhóm bổ sung cơ chế kết hợp có cổng tin cậy giữa khớp nâng hình học và mô hình MANO.",
+        "Mô hình ViDiHand2 giảm 42% sai số khớp tuyệt đối ngoài thực tế và giảm 8,82 lần lỗi phát hiện so với mô hình cơ sở tốt nhất ở từng tiêu chí. Trên 7 bộ dữ liệu, hệ thống vượt trội 18 mô hình cơ sở ở tốc độ 57 khung hình mỗi giây.",
+        "Theo các tác giả, chuyển động tay 3D chuẩn xác theo kích thước thực là điều kiện cốt lõi để dạy robot thao tác từ video góc nhìn thứ nhất. Dù vậy, việc nâng hình học vẫn phụ thuộc vào chất lượng dự đoán khớp hai chiều trên từng khung hình."
+      ],
+      "same_event_coverage_ids": [
+        "1a34c00740954142a27a"
+      ],
+      "split_coverage_ids": [],
+      "subject": "ViDiHand2",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Yuxi Wang",
+          "Yufei Liu",
+          "Chengkai Jin",
+          "Qingyue Chen",
+          "Wenqi Ouyang",
+          "Tianyi Wei",
+          "Kerui Ren",
+          "Siyuan Huang",
+          "Zhiqi Shen",
+          "Hongsheng Li",
+          "Xingang Pan"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "ViDiHand2 giảm 42% sai số khớp tay 3D ngoài thực tế so với mô hình cơ sở ở tốc độ 57 FPS",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.30597"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.45,
+        "answers": {
+          "what": 9,
+          "why": 9,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "cb9e4a65224c9359215bf398216bc0d7f114d6c77bf06e624a0bdbeb4db9517f",
+        "scored_at": "2026-11-24T10:05:09.795023+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "b2d25681ae52d4cb4c02",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "top",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/22/2026/us-spy-chief-calls-nvidia-chips-jewels",
+      "key_points": [
+        "Giám đốc tình báo Mỹ Jay Clayton cho biết Washington đang điều tra nghi vấn điệp viên Trung Quốc liên hệ với cựu CEO Jensen Huang của Nvidia. Cuộc điều tra diễn ra khi nỗ lực thu thập chip Mỹ của Bắc Kinh bị siết chặt giám sát.",
+        "Ông Clayton nhận định chip Nvidia là món trang sức ai cũng muốn, trong bối cảnh The New York Times đưa tin Bắc Kinh hỗ trợ doanh nghiệp thu thập chip Mỹ.",
+        "Theo Bloomberg, tập đoàn Nvidia đã phục hồi chức vụ tổng giám đốc cho Jensen Huang chỉ 11 ngày sau khi ông từ chức vì quan hệ với nhân vật bị nghi là điệp viên.",
+        "Chuyên gia Kyle Chan nhận định các lệnh hạn chế của Mỹ đang thúc đẩy Trung Quốc sao chép toàn bộ chuỗi cung ứng bán dẫn toàn cầu. Dù các viện nghiên cứu Trung Quốc vẫn muốn dùng chip Nvidia, Bloomberg lưu ý những rủi ro vẫn còn khi ông Huang chuẩn bị điều trần trước Thượng viện."
+      ],
+      "same_event_coverage_ids": [
+        "5dc4a4641652a8c073de"
+      ],
+      "split_coverage_ids": [
+        "60e5d7125f83f6b64763",
+        "ab24891b8dd74919d367",
+        "ae7c134856da39fe48ae",
+        "b1c72c52936b6a23b8f7",
+        "dedd0ace5edc976d50ef"
+      ],
+      "subject": "Nvidia",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Jay Clayton",
+          "Jensen Huang",
+          "Kyle Chan"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Jensen Huang trở lại vị trí CEO Nvidia sau 11 ngày dù Washington đang điều tra gián điệp",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/22/2026/us-spy-chief-calls-nvidia-chips-jewels"
+        },
+        {
+          "id": "coverage2",
+          "role": "coverage",
+          "name": "bloomberg",
+          "url": "https://www.bloomberg.com/news/videos/2026-11-24/what-s-next-for-huang-nvidia-and-the-ai-trade-video"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.15,
+        "answers": {
+          "what": 9,
+          "why": 7,
+          "notable": 8,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "cause",
+            "summary_text": "ông từ chức vì quan hệ với nhân vật bị nghi là điệp viên",
+            "explanation": "The supplied coverage says Huang left after reports of links to a suspected spy, and that Nvidia's board accepted his resignation following reports of an affair. It does not establish those links as his reason for resigning (coverage1:p002; coverage2:p002)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The reader is given an established reason for Huang's resignation where the sources report a sequence of events and allegations.",
+            "fix": "Say he left the role following reports of links to a suspected spy, without asserting his reason for resigning (coverage1:p002; coverage2:p002)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The reader may take Chinese AI labs' preference for Nvidia chips as open-ended.",
+            "fix": "Keep the source's short-run condition and specify that Beijing's supply-chain effort is to reproduce it in China (outlet:p003)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "55f627872375bc17024b80ea3c6b9c0befef6492de5a46ee686b934a02391b30",
+        "scored_at": "2026-11-24T09:49:52.706609+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
