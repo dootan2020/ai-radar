@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-24T10:11:04.588951+00:00",
-  "input_generated_at": "2026-11-24T08:46:40Z",
+  "generated_at": "2026-11-24T12:02:05.406767+00:00",
+  "input_generated_at": "2026-11-24T10:46:45Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -130528,10 +130528,10 @@
       "use_original_title": false,
       "source_url": "https://arxiv.org/abs/2611.30637",
       "key_points": [
-        "Nhóm tác giả Hiroaki Honda giới thiệu bộ chuẩn (hệ thống đánh giá tiêu chuẩn) mô phỏng SWEEP-Bench để đo năng lực thích ứng tốc độ của chính sách robot.",
-        "Theo các tác giả, robot cần thích ứng tốc độ nhưng các bộ chuẩn hiện nay hiếm khi đo lường điều này qua nhiều tác vụ. Nghiên cứu tinh chỉnh 8 mô hình hành động để so sánh việc chỉ dùng khung hình hiện tại với việc bổ sung hai khung hình quá khứ.",
-        "Thử nghiệm cho thấy sáu mô hình chỉ đạt tỷ lệ thành công cao nhất ở tốc độ trung bình vì có xu hướng hành động theo tốc độ bình quân. Việc thêm khung hình quá khứ giúp tăng tỷ lệ thành công từ 10 đến 40 điểm phần trăm ở 3 mô hình.",
-        "Nhóm tác giả kết luận thử nghiệm mô phỏng này chỉ ra rằng khung hình quá khứ chỉ hỗ trợ những chính sách có thể giải mã tuyến tính tốc độ tốt nhất."
+        "Nhóm tác giả Hiroaki Honda giới thiệu bộ chuẩn (hệ thống đánh giá tiêu chuẩn) mô phỏng SWEEP-Bench gồm 80 tác vụ thao tác trên băng chuyền thuộc 16 nhóm kỹ năng, được đánh giá ở 13 mức tốc độ từ 0,10 đến 0,40 m/s.",
+        "Theo các tác giả, các bộ chuẩn hiện nay hiếm khi đo lường năng lực thích ứng tốc độ của robot qua nhiều tác vụ và tốc độ. Họ tinh chỉnh 8 mô hình để so sánh quan sát từ khung hình hiện tại với việc thêm hai khung hình quá khứ.",
+        "Thử nghiệm cho thấy tỷ lệ thành công của 6 mô hình đạt đỉnh ở tốc độ trung bình, với các thất bại phản ánh xu hướng hành động theo tốc độ biểu diễn bình quân thay vì tốc độ thực tế. Việc thêm hai khung hình quá khứ giúp tăng tỷ lệ thành công từ 10 đến 40 điểm phần trăm ở 3 mô hình.",
+        "Nhóm tác giả cho rằng khung hình quá khứ có thể chỉ hỗ trợ những chính sách giải mã tốc độ tốt nhất, như các mô hình tiền huấn luyện trên nhiều khung hình. Việc bổ sung tốc độ thực tế giúp cải thiện cả 4 mô hình, và tốc độ ước tính từ hình ảnh giữ lại phần lớn mức tăng này."
       ],
       "same_event_coverage_ids": [
         "361e91d812df9bc3b6da"
@@ -130551,7 +130551,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "SWEEP-Bench phát hiện 6 mô hình robot mô phỏng chỉ xử lý tốt theo tốc độ bình quân",
+      "editorial_headline_vi": "SWEEP-Bench: 6 mô hình robot mô phỏng đạt tỷ lệ thành công cao nhất ở tốc độ trung bình",
       "summary_sources": [
         {
           "id": "outlet",
@@ -130564,49 +130564,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.05,
+        "value": 9.85,
         "answers": {
-          "what": 8,
-          "why": 9,
-          "notable": 8,
-          "meaning": 7
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 9
         },
-        "hard_errors": [
-          {
-            "kind": "quote",
-            "summary_text": "chỉ xử lý tốt theo tốc độ bình quân",
-            "explanation": "The source says six models’ success rates peak at intermediate belt speeds and that their failures indicate a tendency to act for the average demonstration speed. It does not say they can perform well only at that speed (outlet:p009)."
-          },
-          {
-            "kind": "quote",
-            "summary_text": "kết luận thử nghiệm mô phỏng này chỉ ra rằng khung hình quá khứ chỉ hỗ trợ",
-            "explanation": "The source presents the restriction on which policies benefit from past frames as a suggestion, not a demonstrated categorical conclusion (outlet:p009)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "what",
-            "problem": "The headline makes the six models’ speed limitation categorical.",
-            "fix": "Say their success rates peaked at intermediate speeds and their failures suggest actions suited to the average demonstration speed (outlet:p009)."
-          },
-          {
-            "question": "meaning",
-            "problem": "The conclusion states the past-frame finding more firmly than the authors do.",
-            "fix": "Attribute it as the authors’ suggestion, and note that supplying actual speed improved four models while image-estimated speed retained most of the gain (outlet:p009)."
-          },
-          {
-            "question": "notable",
-            "problem": "The reader cannot see the range of tasks and speeds behind the result.",
-            "fix": "Add that the benchmark covers 80 tasks in 16 categories at 13 belt speeds (outlet:p009)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "179a9fe38c324580836c471897f20f2733d9d597656f67b0b055ad8cfa66a764",
-        "scored_at": "2026-11-24T07:32:45.649749+00:00"
+        "prose_sha256": "96eecddf884656cbbd857426d7623d3b3695973916d8c3da3212341688fe75e8",
+        "scored_at": "2026-11-24T11:57:59.498236+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
@@ -132070,9 +132043,9 @@
       "use_original_title": false,
       "source_url": "https://claude.com/resources/articles/introducing-claude-ship",
       "key_points": [
-        "Anthropic thử nghiệm Claude Ship kết hợp Code Review với hai tác nhân (agent, AI tự hành) PR Steward và Claude Approvals nhằm tự động xử lý yêu cầu kéo mã. Hệ thống giúp đánh giá, sửa lỗi và quyết định phê duyệt mã theo chính sách của từng nhóm.",
-        "Anthropic cho biết công cụ nhằm đẩy nhanh khâu đánh giá, sửa lỗi và duyệt để chuyển giao mã nhanh như tốc độ viết mã. Hãng lý giải điều này do Claude hiện tự viết phần lớn mã nguồn của chính đội ngũ Claude Code.",
-        "Tác nhân PR Steward can thiệp sửa lỗi kiểm tra tích hợp liên tục (CI), xung đột hợp nhất và phản hồi đánh giá, nhưng không tự duyệt hay hợp nhất mã. Tại nhóm Claude Code, nơi đánh giá chỉ là một tầng quy trình rộng hơn, số yêu cầu hợp nhất tăng hơn gấp đôi từ tháng 6 đến tháng 9 còn tỷ lệ hoàn tác giảm hơn 40%.",
+        "Anthropic ra mắt bản thử nghiệm beta của Claude Ship kết hợp tính năng Code Review với hai tác nhân (agent, AI tự hành) PR Steward và Claude Approvals để tự động đánh giá, sửa lỗi và duyệt yêu cầu kéo mã (pull request).",
+        "Anthropic cho biết hãng phát triển giải pháp vì muốn quy trình xử lý sau yêu cầu kéo mã diễn ra nhanh như tốc độ viết mã, khi Claude hiện tự viết phần lớn mã nguồn cho đội ngũ Claude Code.",
+        "Lập trình viên có thể dùng lệnh /ship trong Claude Code để đẩy mã và mở yêu cầu kéo, trong khi việc có được hợp nhất hay không phụ thuộc vào quyền hạn và quy tắc nhánh của kho mã. Tại nhóm Claude Code, nơi đánh giá chỉ là một tầng quy trình rộng hơn, số yêu cầu kéo được hợp nhất tăng hơn gấp đôi từ tháng 6 đến tháng 9 còn tỷ lệ hoàn tác giảm hơn 40%.",
         "Claude Ship hỗ trợ kho lưu trữ GitHub của gói Claude Team và Enterprise, trong đó chính sách của nhóm vẫn có thể yêu cầu con người trực tiếp ký duyệt. Tính năng tính phí theo token có thể làm tăng chi phí và không áp dụng cho cấu hình Không lưu giữ dữ liệu, HIPAA hay khóa mã hóa do khách hàng quản lý."
       ],
       "same_event_coverage_ids": [
@@ -132103,39 +132076,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.05,
+        "value": 9.7,
         "answers": {
           "what": 10,
-          "why": 9,
-          "notable": 8,
-          "meaning": 9
+          "why": 10,
+          "notable": 9,
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "số yêu cầu hợp nhất tăng hơn gấp đôi",
-            "explanation": "The source says the number of pull requests that were merged more than doubled, not that the number of pull requests overall increased (outlet:p007)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "notable",
-            "problem": "The performance sentence can make readers think the total number of pull requests doubled.",
-            "fix": "Specify that the number of merged pull requests more than doubled on the Claude Code team from June to September (outlet:p007)."
-          },
-          {
-            "question": "notable",
-            "problem": "Developers do not learn the direct way to try the product.",
-            "fix": "Mention that developers can run `/ship` in Claude Code, subject to their permissions and repository branch rules (outlet:p012, outlet:p032)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "d0f014f0320f4b4eb3bec985ffe8552bba565c52bc7c3cb1627fd428ad0fb3eb",
-        "scored_at": "2026-11-24T10:05:09.794935+00:00"
+        "prose_sha256": "4030ad63c6b9da098bfb228d69e84676f71890753cce8228f3746bdc6f3e82c2",
+        "scored_at": "2026-11-24T12:02:05.370178+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
@@ -132274,10 +132230,10 @@
       "use_original_title": false,
       "source_url": "https://arxiv.org/abs/2611.30207",
       "key_points": [
-        "Nhóm tác giả công bố bộ dữ liệu SWE-Gym-Verified gồm 1.087 tác vụ đã kiểm định cùng bằng chứng thực thi. Họ phát hiện 74% tác vụ mô hình 9B không bao giờ giải được bị kiểm thử loại bỏ bản sửa đúng, so với 20% ở nhóm đôi khi giải được.",
-        "Theo các tác giả, các bộ dữ liệu hiện chỉ đối chiếu kiểm thử ẩn với bản sửa mẫu duy nhất để xác định phần thưởng cho tác tử (chương trình AI tự hành). Nhóm nghiên cứu kiểm định dữ liệu bằng hai họ mô hình lớn và chỉ tính lỗi nếu việc thực thi tái hiện được lỗi đó.",
-        "Khi giữ cùng quy mô và độ khó, mô hình học trên tác vụ đã kiểm định đạt điểm cao hơn 2,4 và 2,7 điểm trên bài kiểm chuẩn (thước đo chuẩn) SWE-bench Verified và SWE-bench Pro so với dữ liệu gốc. Trái lại, việc đơn thuần loại bỏ tác vụ chưa giải được không đem lại mức tăng điểm nào.",
-        "Các tác giả kết luận tỷ lệ vượt qua chỉ cho biết tác vụ có sinh phần thưởng hay không chứ không chứng minh phần thưởng đó đúng, đòi hỏi phải kiểm tra chính nhãn thưởng. Ngoài ra, các bài kiểm thử mới bắt được một phần tư số bản vá sai cũng không làm thay đổi điểm số đánh giá một cách rõ rệt."
+        "Nhóm tác giả phát hiện 74% tác vụ mô hình 9B không bao giờ giải được trên SWE-Gym có kiểm thử từ chối bản sửa đúng, và chỉ tính lỗi nếu việc thực thi tái hiện được. Sau khi xử lý lỗi, họ phát hành SWE-Gym-Verified gồm 1.087 tác vụ đã kiểm định.",
+        "Theo các tác giả, các bộ dữ liệu hiện chỉ đối chiếu kiểm thử ẩn với bản sửa mẫu duy nhất để tính thưởng cho tác tử lập trình (chương trình AI tự hành viết mã). Vì vậy, họ đã kiểm định SWE-Gym bằng hai họ mô hình lớn để đánh giá tiêu chuẩn nhãn thưởng.",
+        "Ở cùng quy mô và độ khó tương đương, mô hình học trên tác vụ đã kiểm định đạt điểm cao hơn 2,4 và 2,7 điểm trên bài kiểm chuẩn (thước đo chuẩn) SWE-bench Verified và SWE-bench Pro so với dữ liệu gốc. Tuy nhiên, việc chỉ loại bỏ các tác vụ chưa giải được không đem lại mức tăng điểm tương tự.",
+        "Các tác giả kết luận tỷ lệ vượt qua không chứng minh phần thưởng là đúng, nên chính nhãn thưởng phải được kiểm tra trực tiếp. Đồng thời, kiểm thử mới bắt được một phần tư số bản vá sai từng vượt qua kiểm thử trước đó không làm thay đổi điểm số đánh giá một cách rõ rệt."
       ],
       "same_event_coverage_ids": [
         "14d0c18ed40c43d95fcd"
@@ -132304,7 +132260,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Nghiên cứu: 74% tác vụ mô hình 9B không bao giờ giải được trên SWE-Gym có bài kiểm thử loại bỏ bản sửa đúng",
+      "editorial_headline_vi": "Nghiên cứu: 74% tác vụ mô hình 9B không giải được trên SWE-Gym có bài kiểm thử loại bỏ bản sửa đúng",
       "summary_sources": [
         {
           "id": "outlet",
@@ -132321,40 +132277,18 @@
         "answers": {
           "what": 10,
           "why": 10,
-          "notable": 10,
-          "meaning": 8
+          "notable": 9,
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "quote",
-            "summary_text": "không đem lại mức tăng điểm nào",
-            "explanation": "The source says simply dropping never-solved tasks showed no such gain as the 2.4- and 2.7-point improvements; it does not say the score gain was zero (outlet:p009)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "một phần tư số bản vá sai",
-            "explanation": "The source says new tests caught a quarter of wrong patches that had passed, not a quarter of all wrong patches (outlet:p009)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "meaning",
-            "problem": "The reader is told that dropping never-solved tasks brought no score gain at all.",
-            "fix": "Say it did not produce the reported 2.4- and 2.7-point gains (outlet:p009)."
-          },
-          {
-            "question": "meaning",
-            "problem": "The reader is told the new tests caught a quarter of all wrong patches.",
-            "fix": "Specify that they caught a quarter of wrong patches that had passed the existing tests (outlet:p009)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "c35daad29be5d27b5978789a4bd51d8228df85871170ac650dca3f112ef2f81d",
-        "scored_at": "2026-11-24T10:05:09.794994+00:00"
+        "prose_sha256": "60d61377202a7ff1df2d408c052572fe9c866296a194fa229b87b4104cab7759",
+        "scored_at": "2026-11-24T11:57:59.498278+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
@@ -132499,10 +132433,10 @@
       "use_original_title": false,
       "source_url": "https://www.semafor.com/article/11/22/2026/us-spy-chief-calls-nvidia-chips-jewels",
       "key_points": [
-        "Giám đốc tình báo Mỹ Jay Clayton cho biết Washington đang điều tra nghi vấn điệp viên Trung Quốc liên hệ với cựu CEO Jensen Huang của Nvidia. Cuộc điều tra diễn ra khi nỗ lực thu thập chip Mỹ của Bắc Kinh bị siết chặt giám sát.",
-        "Ông Clayton nhận định chip Nvidia là món trang sức ai cũng muốn, trong bối cảnh The New York Times đưa tin Bắc Kinh hỗ trợ doanh nghiệp thu thập chip Mỹ.",
-        "Theo Bloomberg, tập đoàn Nvidia đã phục hồi chức vụ tổng giám đốc cho Jensen Huang chỉ 11 ngày sau khi ông từ chức vì quan hệ với nhân vật bị nghi là điệp viên.",
-        "Chuyên gia Kyle Chan nhận định các lệnh hạn chế của Mỹ đang thúc đẩy Trung Quốc sao chép toàn bộ chuỗi cung ứng bán dẫn toàn cầu. Dù các viện nghiên cứu Trung Quốc vẫn muốn dùng chip Nvidia, Bloomberg lưu ý những rủi ro vẫn còn khi ông Huang chuẩn bị điều trần trước Thượng viện."
+        "Giám đốc tình báo Mỹ Jay Clayton cho biết Washington đang điều tra nghi phạm điệp viên Trung Quốc liên hệ cựu CEO Jensen Huang của Nvidia, giữa lúc nỗ lực thu thập chip của Bắc Kinh bị siết chặt giám sát.",
+        "Theo Bloomberg, Nvidia đã phục hồi chức vụ tổng giám đốc cho ông Huang chỉ 11 ngày sau khi ông rời vai trò sau các thông tin về mối liên hệ với nghi phạm điệp viên.",
+        "Ông Clayton nhận định chip Nvidia là món trang sức ai cũng muốn, khi tờ The New York Times đưa tin tình báo Trung Quốc giúp doanh nghiệp thu thập chip để thúc đẩy đổi mới trong nước.",
+        "Chuyên gia Kyle Chan nhận định kiểm soát xuất khẩu của Mỹ thúc đẩy Trung Quốc tái lập chuỗi cung ứng bán dẫn ngay trong nước, dù các viện AI nước này muốn dùng chip Nvidia trong ngắn hạn. Bloomberg lưu ý rủi ro vẫn còn khi ông Huang chuẩn bị điều trần trước Thượng viện."
       ],
       "same_event_coverage_ids": [
         "5dc4a4641652a8c073de"
@@ -132545,30 +132479,30 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.15,
+        "value": 8.75,
         "answers": {
           "what": 9,
-          "why": 7,
+          "why": 10,
           "notable": 8,
           "meaning": 8
         },
         "hard_errors": [
           {
-            "kind": "cause",
-            "summary_text": "ông từ chức vì quan hệ với nhân vật bị nghi là điệp viên",
-            "explanation": "The supplied coverage says Huang left after reports of links to a suspected spy, and that Nvidia's board accepted his resignation following reports of an affair. It does not establish those links as his reason for resigning (coverage1:p002; coverage2:p002)."
+            "kind": "quote",
+            "summary_text": "chip Nvidia là món trang sức ai cũng muốn",
+            "explanation": "Clayton used “jewel” to describe Nvidia chips as a coveted prize, not as jewelry (outlet:p002)."
           }
         ],
         "findings": [
           {
-            "question": "why",
-            "problem": "The reader is given an established reason for Huang's resignation where the sources report a sequence of events and allegations.",
-            "fix": "Say he left the role following reports of links to a suspected spy, without asserting his reason for resigning (coverage1:p002; coverage2:p002)."
+            "question": "notable",
+            "problem": "The jewelry wording changes Clayton's metaphor into a literal description.",
+            "fix": "Describe Nvidia chips as a prized asset that everybody wants (outlet:p002)."
           },
           {
             "question": "meaning",
-            "problem": "The reader may take Chinese AI labs' preference for Nvidia chips as open-ended.",
-            "fix": "Keep the source's short-run condition and specify that Beijing's supply-chain effort is to reproduce it in China (outlet:p003)."
+            "problem": "The reader misses the stated scale of Beijing's ambition.",
+            "fix": "Specify that the expert described an effort to replicate the entire global semiconductor supply chain in China (outlet:p003)."
           }
         ],
         "writer_boats": [
@@ -132576,8 +132510,865 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "55f627872375bc17024b80ea3c6b9c0befef6492de5a46ee686b934a02391b30",
-        "scored_at": "2026-11-24T09:49:52.706609+00:00"
+        "prose_sha256": "98fa01c012fe3cdd8b1cada7a1f6e6e924bd261b3b787b6b3908a0fc89c8c57a",
+        "scored_at": "2026-11-24T11:57:59.498310+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "3908674a440d3e4a44da",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://analyticsindiamag.com/ai-news/google-launches-momentum-initiative-to-support-indias-startups",
+      "key_points": [
+        "Google ra mắt sáng kiến Momentum hỗ trợ các công ty khởi nghiệp tại Ấn Độ thông qua việc cung cấp quyền tiếp cận công nghệ trí tuệ nhân tạo (AI), hạ tầng đám mây và chuyên môn kỹ thuật. Theo công bố từ Google, hãng từng hỗ trợ 277 doanh nghiệp khởi nghiệp Ấn Độ sau một thập kỷ triển khai các chương trình tăng tốc.",
+        "Mục tiêu của sáng kiến là nhằm giúp các nhà sáng lập phát triển sản phẩm và mở rộng thị trường, đồng thời kế thừa các chương trình tăng tốc của Google tại Ấn Độ theo ghi nhận từ Analytics India Magazine.",
+        "Điển hình là SpotDraft giảm 70% độ trễ và 80% chi phí xử lý khi tích hợp Gemini vào quy trình làm việc theo tuyên bố từ Google. Bên cạnh đó, Google cho biết công ty y tế AiSteth đã sử dụng các mô hình Gemini và Gemma để sàng lọc cho hơn 160.000 bệnh nhân tại hơn 20 bang ở Ấn Độ.",
+        "Ý nghĩa của Momentum là kết nối công nghệ, nghiên cứu và mạng lưới toàn cầu để thúc đẩy các nhà sáng lập Ấn Độ theo khẳng định từ Google."
+      ],
+      "same_event_coverage_ids": [
+        "1109d6c2ce2f27625e03"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Google Momentum initiative",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "region_locked:India",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Google ra mắt sáng kiến Momentum hỗ trợ startup Ấn Độ tiếp cận AI và điện toán đám mây",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "analytics-india-magazine",
+          "url": "https://analyticsindiamag.com/ai-news/google-launches-momentum-initiative-to-support-indias-startups"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.05,
+        "answers": {
+          "what": 9,
+          "why": 8,
+          "notable": 6,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "đã sử dụng các mô hình Gemini và Gemma để sàng lọc cho hơn 160.000 bệnh nhân",
+            "explanation": "Google says AiSteth screened those patients, but says it uses Gemini, MedGemma, and Gemma for clinical summaries and medical training, alongside an offline-capable cardiac screening product. It does not say those models performed the screenings (outlet:p004)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The reader attributes AiSteth's patient screenings to Gemini and Gemma.",
+            "fix": "State the screening total separately from the models' reported uses in clinical summaries and medical training (outlet:p004)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "45f41efc342b2d0efc57ffb4f208ed956e17cbad0c0f0d391f46a4aac61f7d8e",
+        "scored_at": "2026-11-24T11:29:04.481314+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "06a3f7a5f2e64d193b45",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://analyticsindiamag.com/ai-news/cashfree-launches-wallet-letting-ai-agents-pay-for-indian-users",
+      "key_points": [
+        "Nền tảng Cashfree ra mắt Cashfree Wallet cho phép người dùng ủy quyền cho trợ lý trí tuệ nhân tạo (AI agent - phần mềm tự động hành động độc lập) thanh toán thay mình. Dịch vụ cho phép người dùng tự thiết lập ngân sách và quy tắc chi tiêu bắt buộc cho trợ lý.",
+        "Đồng sáng lập Reeju Datta cho biết nguyên nhân là chưa có giải pháp an toàn nào để ủy quyền thanh toán cho trợ lý AI mà vẫn duy trì quyền kiểm soát của người dùng.",
+        "Hiện tại, trợ lý AI chỉ có thể thanh toán hóa đơn và trích tiền từ ví nên không bao giờ thấy thông tin ngân hàng của người dùng. Theo Cashfree, hơn 100 trợ lý cá nhân và đơn vị xây dựng bot đã tích hợp ví này trong đợt ra mắt ban đầu.",
+        "Ông Datta tuyên bố mục tiêu của Cashfree là đưa ví này trở thành phương thức thanh toán mặc định qua trợ lý AI tại Ấn Độ."
+      ],
+      "same_event_coverage_ids": [
+        "a9171fcd0dfa555dd99e"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Cashfree Wallet for AI agents",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "region_locked:India",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Cashfree ra mắt ví điện tử cho phép trợ lý AI thay mặt người dùng thanh toán tại Ấn Độ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "analytics-india-magazine",
+          "url": "https://analyticsindiamag.com/ai-news/cashfree-launches-wallet-letting-ai-agents-pay-for-indian-users"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.35,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 9,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The reader does not learn how the user connects and funds the wallet or where agent payments work.",
+            "fix": "Add that users verify a mobile number by OTP, fund the wallet through UPI, card or net banking, and agents pay merchants using Cashfree checkout (outlet:p003)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "a64ebc834c822ed21330876c000ec97d98ea1421531da9ce4c6061d6cd226ca1",
+        "scored_at": "2026-11-24T11:43:02.907436+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "ee36fb188dc11d0f09a2",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.wired.com/story/ai-solved-maths-most-famous-problem/",
+      "key_points": [
+        "Anthropic researcher Levent Alpöge published a 17-million-line proof in the Lean programming language of the 167-year-old Riemann hypothesis created with Claude.",
+        "The Riemann hypothesis describes the distribution of prime numbers and is widely regarded as a holy grail of number theory.",
+        "More than 200 people collaborated to verify Alpöge's Lean proof following its publication.",
+        "The Lean Focused Research Organization and Mathlib announced they have full confidence the proof is sound and confirmed the code compiles."
+      ],
+      "same_event_coverage_ids": [
+        "4f8419163acb58e55bd4"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Riemann hypothesis proof by Claude and Levent Alpöge",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Levent Alpöge"
+        ],
+        "availability": "global",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "1320c51b2d526e005712",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "DRW Holdings is launching an asset management business focusing on compute and crypto; the AI boom is only mentioned in passing as a backdrop driver for compute demand.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-24/drw-plans-asset-management-foray-with-compute-crypto-focus",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c616f60185851fd9ff55"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "dd3113eb9d158346b31a",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/24/2026/huangs-reinstatement-at-nvidia-shows-lutnick-is-dug-in",
+      "key_points": [
+        "Nvidia đã thông báo ông Jensen Huang trở lại vị trí Giám đốc điều hành (CEO) của doanh nghiệp này.",
+        "Theo Nvidia, quyết định phục chức này dựa trên sự bảo đảm từ giới chức chính quyền rằng việc ông trở lại không gây rủi ro an ninh quốc gia.",
+        "Thông tin phục chức đã khiến cổ phiếu AI tăng vọt, diễn ra sau khi Bộ trưởng Tài chính Scott Bessent đổi lập trường với nhận định văn hóa Nvidia quan trọng hơn khuyết điểm cá nhân.",
+        "Semafor nhận định diễn biến này củng cố năng lực vượt qua sóng gió nội các của Bộ trưởng Thương mại Howard Lutnick, trong khi Nhà Trắng khẳng định Tổng thống Donald Trump vẫn tin tưởng trọn vẹn vào ông."
+      ],
+      "same_event_coverage_ids": [
+        "a3ec1e71d60f5f02cad0"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Jensen Huang Nvidia reinstatement and US chip export policy",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Jensen Huang",
+          "Howard Lutnick",
+          "Scott Bessent",
+          "Donald Trump"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Jensen Huang trở lại ghế CEO Nvidia sau bảo đảm an ninh, củng cố vị thế Bộ trưởng Howard Lutnick",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/24/2026/huangs-reinstatement-at-nvidia-shows-lutnick-is-dug-in"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.0,
+        "answers": {
+          "what": 10,
+          "why": 8,
+          "notable": 8,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The reader lacks the dispute that explains why Huang’s return was a win for Lutnick.",
+            "fix": "Explain that Bessent and others had pressed Lutnick to tighten chip exports to China after Commerce blacklisted Nvidia customer Megaspeed, but Lutnick declined to act and Trump appeared to agree with delaying action (outlet:p002–p003)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "4e59a2efb519b045746d908adffec60479e52ea960d217afb8d2b7c729b1a342",
+        "scored_at": "2026-11-24T11:43:02.907611+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "89859b71aef0c12ca91b",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://philippdubach.com/posts/cheaper-ai-tokens-wont-pay-for-capex/",
+      "key_points": [
+        "Theo tác giả bài viết, năm tập đoàn công nghệ lớn chi 560 tỷ USD tiền mặt cho chi phí vốn trong ba quý đầu năm 2026. Hồ sơ SEC cho thấy riêng quý 3, nhóm này chi 230 tỷ USD, tăng gần gấp bốn lần hai năm trước.",
+        "Tác giả chỉ ra khối lượng và giá token biến động cùng tốc độ, nên giá suy luận rẻ hơn không tự làm tăng doanh thu AI. Từ dữ liệu OpenRouter và Azure, Mert Demirer, Andrey Fradkin, Nadav Tadelis và Sida Peng ước tính độ co giãn giá ngắn hạn chỉ nhỉnh hơn một, trong khi ở mức co giãn bằng một thì giá giảm mười lần chỉ mua được gấp mười lần token với cùng số tiền.",
+        "Ở doanh nghiệp, mô hình mở trọng số xử lý 19% token nhưng chỉ nhận 4% chi tiêu, đối lập với 69% ngân sách cho mô hình tiên phong. Dù vậy, tác giả dẫn phản biện rằng giá rẻ có thể thúc đẩy lập trình viên dùng tác tử (agent - phần mềm AI tự vận hành) gọi mô hình hàng trăm lần, làm nhu cầu tăng nhanh hơn mức giảm giá.",
+        "Tác giả bài viết kết luận thu hẹp khoảng cách giữa chi phí vốn và doanh thu cần nguồn tiền trả cho lao động, và định giá theo kết quả là cách các nhà cung cấp đang hướng tới."
+      ],
+      "same_event_coverage_ids": [
+        "1366360b58aca71fe786",
+        "792b5234abcc0a4e52dd"
+      ],
+      "split_coverage_ids": [],
+      "subject": "AI market economics and hyperscaler capital expenditure",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Năm tập đoàn công nghệ chi 560 tỷ USD vốn bằng tiền mặt nhưng giá token rẻ không tự bù đắp chi phí",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://philippdubach.com/posts/cheaper-ai-tokens-wont-pay-for-capex/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.5,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The comparison of token growth and price declines reads as more conclusive than the author says it is.",
+            "fix": "Add the author’s qualification that the figures alone prove nothing because the measured Google tokens are not sold at the fixed-capability prices used in the comparison (outlet:p013)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "d4abeca190955f79239c456fe3fa902d23b25d71e2bf62626743ce972e9deb78",
+        "scored_at": "2026-11-24T11:43:02.907675+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "d10003edfacf2f3b77d5",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The report covers general European equity and bond asset allocation recommendations from Goldman Sachs, referencing the AI trade only in passing.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-24/goldman-stay-overweight-stocks-add-bonds-as-buffer-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "2eea78cad6fdb70ab63f"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "e6fa82e6b8c38eaaf0d8",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-24/ex-rbi-chief-rajan-sees-nvidia-governance-risk-in-huang-s-return",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "52a79e281e1b9b3c776f"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "24709e237e2b3258b5a8",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.scmp.com/economy/policy/article/3375565/dutch-minister-heads-china-nvidia-saga-revives-us-push-tougher-asml-curbs",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "f853eea7e2e223adf886"
+      ],
+      "split_coverage_ids": [
+        "1accbe5d507076d78378"
+      ],
+      "subject": "Dutch Foreign Minister China visit regarding ASML export curbs",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Tom Berendsen"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "a681036cf8511fc96dad",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://github.com/brainintelli/BioSignal-Guided-LLM-Reinforcement-Learning",
+      "key_points": [
+        "Brainintelli Research Lab cho biết thử nghiệm phát lại tín hiệu organoid không ghi nhận cải thiện sinh tồn đáng tin cậy khi sáu khoảng tin cậy chính đều chứa số 0. Ở cùng mốc thời gian, dữ liệu không đem lại lợi ích khám phá có thể tái lập và không tái lập trên chip 22554.",
+        "Trong thử nghiệm trên chip 22021, 96 mô hình cố định đã chơi 18.432 ván ở các kịch bản khởi đầu khi máu thấp hoặc đói khát nghiêm trọng. Nghiên cứu đối chiếu nhóm nhận tín hiệu nguyên vẹn với nhóm xáo trộn khối hai giây và nhóm đối chứng che tín hiệu bằng số 0.",
+        "Trong thử nghiệm phụ ngày đầu, thời lượng hành động chiếm 84,3% chênh lệch điểm số ở nhóm nhận tín hiệu nguyên vẹn và 95,9% ở nhóm không kích thích so với nhóm đối chứng vector 0.",
+        "Brainintelli Research Lab nhấn mạnh thước đo thời gian và điểm kết thúc quyết định việc đánh giá tác tử (agent - phần mềm AI tự vận hành) có hành động mang thời lượng khác nhau. Nghiên cứu chưa xác định tác động từ tín hiệu nhân tạo, đồng thời hành vi tìm nước của nhân vật không đo lường cảm xúc sợ hãi chủ quan."
+      ],
+      "same_event_coverage_ids": [
+        "e4c45c707befa0bfca99"
+      ],
+      "split_coverage_ids": [],
+      "subject": "BioSignal-Guided-LLM-Reinforcement-Learning",
+      "video_labels": {
+        "video_hook": "usable_now",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Thử nghiệm tín hiệu organoid không ghi nhận cải thiện sinh tồn đáng tin cậy khi sáu khoảng tin cậy chứa số 0",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "github",
+          "url": "https://github.com/brainintelli/BioSignal-Guided-LLM-Reinforcement-Learning"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.5,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The six intervals are presented mainly as evidence about survival, though they cover the primary adverse-start outcomes for both exploration and survival.",
+            "fix": "Specify that the intervals concern exploration from low health and survival from severe thirst or hunger (outlet:p026, outlet:p030)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "bc5123b19863b686d110edb3eeacff2a62484fde1c58ee7772d6d5616053f667",
+        "scored_at": "2026-11-24T11:43:02.907804+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "93fcdb07d58d0cbb4c9a",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://linch.substack.com/p/ai-is-already-massively-speeding",
+      "key_points": [
+        "Tổ chức METR phát hiện năng lực AI tăng tốc gấp hai lần trong năm 2026 so với một năm rưỡi trước đó, dựa trên dữ liệu từ các hệ thống nội bộ của Anthropic.",
+        "Tổ chức METR tin rằng tốc độ nghiên cứu tăng lên do dùng AI là nguyên nhân dẫn đến gần như toàn bộ sự bứt phá này, theo bằng chứng che bớt từ Anthropic.",
+        "Chuyên gia dự báo AI kiêm nhà nghiên cứu Ajeya Cotra của METR ước tính tốc độ nghiên cứu AI tăng khoảng mười lần, trong khi khảo sát nhân viên Anthropic ghi nhận mức tăng mười hai lần. Cotra nhận định mức độ này khó có thể đạt được ngay cả khi tuyển dụng mọi nhân sự đủ tiêu chuẩn trên thế giới.",
+        "Tác giả bài viết khuyến nghị chính phủ cần ưu tiên hàng đầu việc nhanh chóng hiểu rõ các rủi ro và cân nhắc tạm dừng hoặc điều tiết tiến trình phát triển AI đỉnh cao. Theo tác giả bài viết, ngay cả khi mức tăng tốc hai lần chỉ là bước nhảy một lần thì AI siêu phàm vẫn có thể xuất hiện vào năm 2028 hoặc 2029, còn nếu nghiên cứu tiếp tục tăng tốc thì mốc năm 2027 ngày càng trở nên khả thi."
+      ],
+      "same_event_coverage_ids": [
+        "c9c3c53022fc8eb072bc"
+      ],
+      "split_coverage_ids": [],
+      "subject": "AI research acceleration and recursive self-improvement",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "METR ghi nhận năng lực AI tăng tốc gấp 2 lần năm 2026 chủ yếu nhờ dùng chính AI nghiên cứu",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://linch.substack.com/p/ai-is-already-massively-speeding"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.2,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 10,
+          "meaning": 7
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "Readers do not learn that the evidence may not generalize across AI research.",
+            "fix": "Add that METR establishes strong confidence for easily defined tasks, while acceleration on harder-to-define tasks is uncertain (outlet:p025–p027)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "8d0fdc2cf2a8a2ac24698a83576eb9d69b9ad83ed88bbbfb1f06d2b15839dd91",
+        "scored_at": "2026-11-24T11:43:02.907940+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "e14d2a7f5703f4db503b",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.31053",
+      "key_points": [
+        "ReWeave tối ưu hóa cấu trúc tác vụ và khung điều khiển tác tử hiện thân (embodied agent - hệ thống AI điều khiển robot tương tác môi trường) mà không cần cập nhật trọng số chính sách. Khung làm việc này giữ cố định chính sách thực thi và cảm nhận để đồng tối ưu ngữ cảnh, quy trình làm việc cùng các vòng lặp điều khiển.",
+        "Phản hồi sơ sài khiến tìm kiếm mất định hướng do không nhận diện được điều kiện tiên quyết vật lý nào được thỏa mãn, đồng thời việc tối ưu hóa theo tác vụ dễ bị quá khớp vào từng cảnh.",
+        "Tỷ lệ thành công kiểm thử tăng đáng kể từ 89,00% lên 98,75% trên bộ chuẩn đánh giá (benchmark - thước đo kiểm chuẩn chuẩn hóa) LIBERO-PRO và từ 25,50% lên 58,25% trên RoboDojo. Hệ thống cũng phát hiện tiến độ còn giữ được trong 89% của 159 lượt thử phát triển thất bại trên RoboDojo.",
+        "Hiệu quả trên tác vụ chưa từng gặp đạt 51,3% tỷ lệ thành công so với 41,3% của chưng cất trực tiếp trên tám tác vụ LIBERO-PRO mới, trước khi tăng lên 75,0% sau học liên tục. Cơ chế này gom 72 đơn vị chuyên biệt thành 44 nhóm tái sử dụng trong một khung chia sẻ gọn nhẹ."
+      ],
+      "same_event_coverage_ids": [
+        "35d23fd134b2aff09c03"
+      ],
+      "split_coverage_ids": [],
+      "subject": "ReWeave embodied robotics framework",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Yicheng Xu",
+          "Wencan Jiang",
+          "Zihao Zhu",
+          "Keru Zhou",
+          "Chang Zhou",
+          "Li Liu",
+          "Maoqing Yao",
+          "Yong Liu",
+          "Jiangning Zhang"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Khung ReWeave nâng tỷ lệ thành công trên RoboDojo lên 58,25% mà không cần cập nhật trọng số",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.31053"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "232b1d0f170ecc20ddf78e4c1d938e3033accca5cfb355741e9936e07adcdd3e",
+        "scored_at": "2026-11-24T11:29:04.481819+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "86ec20b09c6a190c74a1",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.30898",
+      "key_points": [
+        "Nhóm tác giả đề xuất Native LAM và khung tiền huấn luyện PAWlicy cho chính sách thị giác - ngôn ngữ - hành động (VLA, điều khiển robot từ hình ảnh và văn bản). Theo nhóm nghiên cứu, hệ thống dùng mô hình thế giới làm bộ máy dạy động lực học trên video lớn và không tạo video.",
+        "Nghiên cứu xuất phát từ việc mô hình hành động ẩn trước đây phải huấn luyện từ đầu, gây đánh đổi giữa tái tạo điểm ảnh và độ chính xác. Native LAM chỉ dùng các thanh ghi động lực học làm cầu nối duy nhất trong mô hình khuếch tán có sẵn, nhằm cô đọng động lực học video thành hành động ẩn.",
+        "Ở thử nghiệm mô phỏng, PAWlicy đạt tỷ lệ thành công trung bình 93,6% trên RoboTwin 2.0 với bản 3,8B huấn luyện bằng mẫu ngẫu nhiên hóa miền, cao nhất trong các mô hình VLA. Trên robot thật, nhóm tác giả ghi nhận mô hình cải thiện hiệu năng so với mốc pi_0.5 ở cả hai tác vụ.",
+        "Theo nhóm nghiên cứu, cả hai giai đoạn đều chỉ dùng dữ liệu công khai cùng một mô hình thế giới đã phát hành rộng rãi. Dù không đặt mục tiêu chuyển giao khi huấn luyện, hành động ẩn vẫn có thể tái hiện cùng chuyển động sang robot mới, bối cảnh mới và từ tay người sang robot."
+      ],
+      "same_event_coverage_ids": [
+        "28213a736f23a581c57d"
+      ],
+      "split_coverage_ids": [],
+      "subject": "World Models as Native Latent Action Models",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Qinyue Li",
+          "Weijie Qiao",
+          "Qingyi Tao",
+          "Zerui Gong",
+          "Zhe Yang",
+          "Quanzhou Li",
+          "Taolin Zhang",
+          "Jinglin He",
+          "Zhonghua Wu",
+          "Chen Change Loy"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "PAWlicy đạt tỷ lệ thành công trung bình 93,6% trên RoboTwin 2.0, dẫn đầu các mô hình VLA với bản 3,8B",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.30898"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.45,
+        "answers": {
+          "what": 9,
+          "why": 9,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "c9dff5e465e336b2e14ffa6949f934fa3fca2b3d85eafdac347e23a50e3c465f",
+        "scored_at": "2026-11-24T11:43:02.908777+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "7b0a27147e8b17d74e2a",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.31126",
+      "key_points": [
+        "Researchers introduced WeaveVLA, a framework that enhances vision-language-action (VLA) action generation by explicitly modeling task-relevant relative 3D relations and maintaining relational context across observations.",
+        "WeaveVLA employs a task-conditioned sparse graph neural network to encode relative 3D relations among objects, the gripper, and nearby references.",
+        "The framework integrates geometric evidence across observations using pair-specific recurrent edge states to maintain evolving spatial context."
+      ],
+      "same_event_coverage_ids": [
+        "36be9a7d47afdd22b3d2"
+      ],
+      "split_coverage_ids": [],
+      "subject": "WeaveVLA",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Zien Wang",
+          "Yuhao Pan",
+          "Yunfeng Fan",
+          "Nan Cheng",
+          "Xin Xia",
+          "Wenchao Xu"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "6490689e32ab54adb322",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.30011",
+      "key_points": [
+        "Nhóm tác giả giới thiệu MORSE, khung tự nghiên cứu mở dùng các lỗi lặp lại để định hướng tìm kiếm trực tuyến giải pháp. Trình chỉnh sửa phân nhóm lỗi theo nguyên nhân, rồi tìm kiếm trực tuyến bài báo, thẻ mô hình và mã nguồn để tìm phương pháp thích ứng hoặc mô hình cảm nhận huấn luyện sẵn.",
+        "Theo nhóm tác giả, các phương pháp tự cải tiến trước đây chỉ sửa lỗi từ tri thức có sẵn và công cụ định trước dù vấn đề có thể đã được nghiên cứu trước giải quyết. Khi bổ sung năng lực cảm nhận mới, hệ thống cũng có thể sửa đổi cách lưu trữ và truy xuất bằng chứng cho mô hình ngôn ngữ - video cố định.",
+        "Trên OVO-Bench (tiêu chuẩn đánh giá hiệu năng video truyền phát), khung xử lý dùng Qwen3-VL-8B đạt độ chính xác 75,1%, vượt 3,1 điểm phần trăm so với thiết kế tốt kế tiếp có cùng mô hình nền cố định. Hệ thống đạt kết quả này đồng thời trả lời truy vấn với thời gian trung bình 0,30 giây.",
+        "Nhóm tác giả cho biết MORSE luôn đạt độ chính xác cao nhất trong từng phép so sánh cùng mô hình nền cố định trên ba tiêu chuẩn video truyền phát. Trên các luồng kiểm định độc lập, hệ thống trước hết chọn bản sửa giúp tăng chất lượng câu trả lời, rồi tìm bản sửa nhanh hơn mà vẫn giữ mức tăng trong dung sai xác định."
+      ],
+      "same_event_coverage_ids": [
+        "f7673f12059f56f14adf"
+      ],
+      "split_coverage_ids": [],
+      "subject": "MORSE",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Ce Zhang",
+          "Jianshu Zhang",
+          "Jinxi He",
+          "Xiyuan Yang",
+          "Pan Wang",
+          "Han Liu",
+          "Katia Sycara",
+          "Yaqi Xie"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Đạt độ chính xác 75,1% trên OVO-Bench, MORSE dẫn đầu so sánh với cùng mô hình nền cố định",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.30011"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "52548fc3911af19bbad6eb11afed88bd2cb645942b1692fdc74b0ccd3d86a2fb",
+        "scored_at": "2026-11-24T11:43:02.908853+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
