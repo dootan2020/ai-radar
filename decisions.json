@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-25T13:30:40.441937+00:00",
-  "input_generated_at": "2026-11-25T12:46:44Z",
+  "generated_at": "2026-11-25T15:45:48.430975+00:00",
+  "input_generated_at": "2026-11-25T14:47:10Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -141378,10 +141378,10 @@
       "use_original_title": false,
       "source_url": "https://www.technologyreview.com/2026/11/25/1149702/ai-is-straining-americas-open-records-systems/",
       "key_points": [
-        "MIT Technology Review cho biết AI đang gây áp lực lên hệ thống hồ sơ công khai tại Mỹ khi lượng đơn tăng vọt. Năm qua, các cơ quan liên bang tiếp nhận kỷ lục 1,7 triệu yêu cầu dù văn phòng xử lý không được tăng nhân sự hay ngân sách.",
-        "The New York Times quy nguyên nhân kỷ lục trên chỉ một phần do AI, bên cạnh việc Heritage Foundation nộp hàng loạt và người nhập cư tìm hồ sơ. Các doanh nghiệp thường gửi yêu cầu theo mẫu thay vì AI, nhưng dùng AI để phân tích dữ liệu trả về nhằm tạo tín hiệu bán hàng.",
-        "Kiểm tra nhật ký của Bộ Giáo dục Mỹ, chuyên gia David Cuillier kết luận ít nhất 29% yêu cầu do AI soạn một phần, dài gấp đôi và 83% đòi hỏi lượng hồ sơ lớn. MIT Technology Review ghi nhận nhiều văn bản do AI tạo ra bị kéo dài nhiều trang, thậm chí chứa các điều luật bịa đặt.",
-        "Theo CivicPlus, hơn 20 biện pháp cấp bang và liên bang đang được thúc đẩy với một số mở ra căn cứ bác đơn, trong đó California đã ký luật vào tháng 9. MIT Technology Review nhận định nguy cơ lớn nhất là quy định chặn AI hàng loạt sẽ ảnh hưởng đến cả phóng viên ngoại bang, học giả và luật sư di trú."
+        "MIT Technology Review cho biết AI (trí tuệ nhân tạo) đang gây áp lực lên hệ thống hồ sơ công khai tại Mỹ khi lượng đơn tăng vọt, dù văn phòng tiếp nhận không phải lúc nào cũng được tăng nhân sự hay ngân sách. Năm qua, các cơ quan liên bang tiếp nhận kỷ lục 1,7 triệu yêu cầu.",
+        "The New York Times cho rằng kỷ lục trên chỉ một phần do AI, bên cạnh việc Heritage Foundation nộp hàng loạt và người nhập cư tìm hồ sơ. Theo MIT Technology Review, các công ty dùng mẫu sẵn thay vì AI để yêu cầu, nhưng dùng AI phân tích dữ liệu nhằm tạo tín hiệu bán hàng.",
+        "Kiểm tra nhật ký Bộ Giáo dục Mỹ, chuyên gia David Cuillier kết luận ít nhất 29% yêu cầu do AI soạn một phần, dài gấp đôi và 83% đòi danh sách dài hồ sơ. MIT Technology Review ghi nhận nhiều đơn do AI soạn dài nhiều trang, thậm chí chứa các điều luật bịa đặt.",
+        "Theo CivicPlus, hơn 20 biện pháp cấp bang và liên bang đang được xem xét năm nay, trong đó có một vài biện pháp mang lại cách thức mới để từ chối yêu cầu. MIT Technology Review nhận định nguy cơ lớn nhất là quy định chặn AI hàng loạt sẽ ảnh hưởng lan sang phóng viên ngoại bang, học giả và luật sư di trú."
       ],
       "same_event_coverage_ids": [
         "81dc60d55b9f94a3254f"
@@ -141412,35 +141412,35 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.65,
+        "value": 8.7,
         "answers": {
-          "what": 8,
+          "what": 9,
           "why": 9,
-          "notable": 10,
+          "notable": 9,
           "meaning": 7
         },
         "hard_errors": [
           {
             "kind": "fact",
-            "summary_text": "văn phòng xử lý không được tăng nhân sự hay ngân sách",
-            "explanation": "The source says offices answering requests have not always grown in head count or budget, not that they received no increase; it does not apply that claim specifically to every office handling the federal requests (outlet:p004)."
-          },
-          {
-            "kind": "fact",
             "summary_text": "phóng viên ngoại bang",
-            "explanation": "The source identifies out-of-state reporters—reporters from another US state—not foreign reporters (outlet:p028)."
+            "explanation": "The source says “out-of-state reporters,” meaning reporters from another US state, not foreign reporters (outlet:p028)."
           }
         ],
         "findings": [
           {
             "question": "meaning",
-            "problem": "Readers are told that foreign reporters face the spillover risk.",
-            "fix": "Change this to reporters from other US states, as specified in outlet:p028."
+            "problem": "Readers are told that foreign reporters may be affected.",
+            "fix": "Change “phóng viên ngoại bang” to reporters from other US states, as stated in outlet:p028."
+          },
+          {
+            "question": "meaning",
+            "problem": "Readers miss the source’s stated choice between funding offices and reducing access.",
+            "fix": "Add Wagenseller’s funding-versus-openness trade-off from outlet:p021."
           },
           {
             "question": "what",
-            "problem": "Readers are told processing offices received no staffing or budget increase.",
-            "fix": "Say those offices have not always grown in staffing or budget, without making the claim universal or tying it specifically to all federal offices (outlet:p004)."
+            "problem": "The scale of commercial requests and their effect on small offices is less clear.",
+            "fix": "Use the Panton clerk’s increasingly frequent requests (outlet:p001–p002) or NationGraph’s claimed 10,000 daily requests (outlet:p013) to make that pressure concrete."
           }
         ],
         "writer_boats": [
@@ -141448,8 +141448,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "6511de7d17d023ad6d681492f540c58c0fb745f674169a91ce3ed4c1fc573886",
-        "scored_at": "2026-11-25T11:23:46.598768+00:00"
+        "prose_sha256": "362b2dc0119eec35df296b98556c9e2684496dae0e70f83ff900d9d72c9f9225",
+        "scored_at": "2026-11-25T15:45:48.426002+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
@@ -141889,10 +141889,10 @@
       "use_original_title": false,
       "source_url": "https://www.semafor.com/article/11/25/2026/analysts-raise-concerns-over-impending-us-chip-glut",
       "key_points": [
-        "Các nhà phân tích cảnh báo việc Washington tăng cường hạn chế vi chip với Trung Quốc có thể làm trầm trọng thêm dư thừa nguồn cung bán dẫn tại Mỹ.",
-        "Theo tác giả Prashant Rao trên Semafor, hai yếu tố dẫn đến cảnh báo gồm nhà sản xuất tăng sản lượng và nguồn cung cho doanh nghiệp Mỹ tăng khi hạn chế Trung Quốc. Trong đó, Google đang đẩy mạnh chế tạo khi vụ bê bối Nvidia thúc đẩy Washington siết chặt công nghệ.",
-        "Công ty SemiAnalysis ghi nhận dấu hiệu hạ nhiệt giá chip AI (trí tuệ nhân tạo) của Nvidia đang bắt đầu xuất hiện trên diện rộng.",
-        "Theo tác giả Prashant Rao trên Semafor, sự kìm hãm đối với cơn sốt AI phần lớn có thể đang thay đổi khi rào cản về điện năng và vi chip dần chuyển biến."
+        "Các nhà phân tích cảnh báo việc Washington tăng cường hạn chế vi chip với Trung Quốc có thể làm trầm trọng thêm nguy cơ dư thừa nguồn cung bán dẫn sắp tới tại Mỹ.",
+        "Theo tác giả Prashant Rao trên Semafor, hai yếu tố dẫn đến cảnh báo gồm việc nhà sản xuất tăng sản lượng và nguồn cung cho doanh nghiệp Mỹ được giải phóng khi hạn chế Trung Quốc.",
+        "Trong đó, các nhà sản xuất bán dẫn lớn bao gồm cả những bên mới gia nhập như Google đang đẩy mạnh chế tạo khi vụ bê bối Nvidia thúc đẩy Washington siết chặt công nghệ.",
+        "Theo tác giả Prashant Rao trên Semafor, sự kìm hãm đối với cơn sốt AI (trí tuệ nhân tạo) phần lớn có thể đang thay đổi, khi công ty SemiAnalysis ghi nhận dấu hiệu hạ nhiệt giá trên diện rộng đối với chip AI của Nvidia."
       ],
       "same_event_coverage_ids": [
         "a757025cb8d4878a499d"
@@ -141908,7 +141908,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Hạn chế vi chip với Trung Quốc có thể làm trầm trọng thêm dư thừa nguồn cung bán dẫn tại Mỹ",
+      "editorial_headline_vi": "Hạn chế vi chip với Trung Quốc có thể làm trầm trọng thêm nguy cơ dư thừa nguồn cung bán dẫn sắp tới tại Mỹ",
       "summary_sources": [
         {
           "id": "outlet",
@@ -141921,24 +141921,24 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.0,
+        "value": 9.5,
         "answers": {
-          "what": 9,
+          "what": 10,
           "why": 9,
           "notable": 10,
-          "meaning": 7
+          "meaning": 8
         },
         "hard_errors": [],
         "findings": [
           {
-            "question": "what",
-            "problem": "Readers may take the US surplus as already present.",
-            "fix": "Say the potential glut is coming, as the source does (outlet:p001)."
+            "question": "meaning",
+            "problem": "Readers do not learn that power for data centers, alongside chips, has constrained the AI boom.",
+            "fix": "Add the two constraints stated in outlet:p001 when explaining what may be changing."
           },
           {
-            "question": "meaning",
-            "problem": "The ending blurs what evidence supports a possible change in AI constraints.",
-            "fix": "Tie the tentative change specifically to SemiAnalysis’s early signs of a Nvidia chip pricing cooldown (outlet:p001)."
+            "question": "why",
+            "problem": "Calling it only a Nvidia scandal loses the detail that connects it to restrictions on China.",
+            "fix": "Identify it as the Nvidia espionage scandal, as in outlet:p002."
           }
         ],
         "writer_boats": [
@@ -141946,8 +141946,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "67dcfa49e753f629c59a1bcbdf012fb351c299dc2c777b142d87ce0fa24d228a",
-        "scored_at": "2026-11-25T13:27:28.191490+00:00"
+        "prose_sha256": "a5c836ff8f6b7b6dfc4828b882af643b1651bb40b163e83d0ddbdb18dc227245",
+        "scored_at": "2026-11-25T15:41:57.890510+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
@@ -142188,6 +142188,602 @@
       "writer_models": [
         "gemini-3.8-flash-high"
       ]
+    },
+    {
+      "id": "3057c1692fc87eb12e35",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/25/amazon-and-meta-reportedly-in-talks-to-lift-blockade-on-ai-agent-muse/",
+      "key_points": [
+        "Theo TechCrunch, Amazon và Meta đang đàm phán một thỏa thuận tiềm năng cho phép đại lý AI (phần mềm tự động thực hiện tác vụ) Muse kết nối trực tiếp với cửa hàng trực tuyến của Amazon. Cuộc thảo luận này đánh dấu bước đảo ngược lớn so với hai tháng trước, khi người dùng Muse bị chặn mua hàng trên Amazon và gặp lỗi lúc thanh toán.",
+        "Theo Fortune trích dẫn các nguồn tin nắm rõ vấn đề, đàm phán giữa hai bên tập trung vào cách hiển thị kết quả tìm kiếm và xử lý quảng cáo.",
+        "Fortune cho biết giới lãnh đạo lo ngại các đại lý mua sắm bên thứ ba có thể làm suy yếu mối quan hệ trực tiếp của Amazon với người tiêu dùng. Ngoài ra, bất kỳ thỏa thuận tiềm năng nào giữa Amazon và Meta cũng cần có sự phê duyệt từ giám đốc điều hành của cả hai tập đoàn."
+      ],
+      "same_event_coverage_ids": [
+        "6ff5f995a3be5a00bbcc",
+        "7e684cb1e7d1f8198ccd"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Amazon and Meta discussions on Muse AI agent integration",
+      "video_labels": {
+        "video_hook": "drama_company",
+        "named_people": [
+          "Andy Jassy"
+        ],
+        "availability": "global",
+        "is_leak": true
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Amazon và Meta được cho là đang đàm phán dỡ bỏ lệnh chặn đại lý AI mua sắm Muse",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/25/amazon-and-meta-reportedly-in-talks-to-lift-blockade-on-ai-agent-muse/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.6,
+        "answers": {
+          "what": 10,
+          "why": 8,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "a65b459639f3634e062559eb93997c6cfc65d7d83cd10d0418d0cecc243a81f5",
+        "scored_at": "2026-11-25T15:23:32.626073+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "48919c55052d9c9281a8",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://blog.cloudflare.com/search-for-agents/",
+      "key_points": [
+        "Cloudflare vừa ra mắt Search for Agents, tính năng kích hoạt qua bảng điều khiển giúp tự động tạo phiên bản tìm kiếm AI và cung cấp API tìm kiếm trực tiếp từ tên miền. Công cụ này được cung cấp cho mọi khách hàng, bao gồm cả gói miễn phí nhưng đi kèm các giới hạn sử dụng.",
+        "Theo Cloudflare, tính năng này nhằm thay thế quy trình thiết lập thủ công phức tạp trước đây, khi quản trị viên phải tự cấu hình và tích hợp điểm cuối tìm kiếm để các đại lý AI (phần mềm tự động thực hiện tác vụ) có thể tìm thấy dữ liệu.",
+        "Hệ thống tự động thông báo điểm cuối tìm kiếm qua siêu dữ liệu trong phần đầu trang đối với các phản hồi HTML. Ngoài ra, nếu trang bật tính năng Markdown for Agents và đại lý gửi yêu cầu nhận định dạng Markdown, thông tin chỉ dẫn tìm kiếm này sẽ xuất hiện trong phần mở đầu YAML.",
+        "Cloudflare lưu ý quyền tìm kiếm của đại lý vẫn phụ thuộc vào cấu hình tên miền như tường lửa ứng dụng web, kiểm soát thu thập dữ liệu và quản lý bot. Chi phí sử dụng tính năng này tuân theo biểu giá của AI Search và chịu các hạn mức định mức của gói Workers miễn phí hoặc trả phí."
+      ],
+      "same_event_coverage_ids": [
+        "a88765b8768fd90f8627"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Cloudflare Search for Agents launch",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Cloudflare ra mắt Search for Agents hỗ trợ đại lý AI tìm kiếm dữ liệu trực tiếp trên tên miền",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "cloudflare",
+          "url": "https://blog.cloudflare.com/search-for-agents/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.9,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 8,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The reader does not learn that enabling the feature also starts crawling and indexing the site's content.",
+            "fix": "Add that Cloudflare automatically starts crawling and indexing the zone after activation (outlet:p003, outlet:p008)."
+          },
+          {
+            "question": "notable",
+            "problem": "The reader cannot tell whether the endpoint supplies source material or an AI-written answer.",
+            "fix": "Say it returns retrieved content in Markdown, not a generated answer (outlet:p025)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "6fdb2f3d3447e9c84a6dd8fe8ed3cea3909a52e0215fe90e771d0fe526699801",
+        "scored_at": "2026-11-25T15:26:58.828007+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "b814d92d214e88a5b93d",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://analyticsindiamag.com/ai-features/ai-trading-in-india-promises-smarter-investment-betsat-a-steep-new-risk",
+      "key_points": [
+        "Các công ty môi giới chứng khoán Ấn Độ đang ứng dụng trí tuệ nhân tạo (AI) làm trợ lý nghiên cứu thị trường thay vì đóng vai trò chọn mã cổ phiếu. Theo bài viết trên Analytics India Magazine, các ứng dụng như Angel One hay Groww giúp phổ cập chứng khoán nhanh hơn nhưng cũng đặt ra rủi ro mới nếu người dùng quá phụ thuộc vào máy móc.",
+        "Động thái này diễn ra nhằm giảm thiểu thời gian và công sức nghiên cứu đầu tư cho người dùng thông qua giao diện hội thoại. Thay vì đọc các báo cáo tài chính dài, nhà đầu tư có thể dùng AI để trích xuất nhanh chỉ số trọng yếu hoặc tóm tắt các cuộc họp kinh doanh.",
+        "Tiêu biểu cho xu hướng này, Groww ra mắt trợ lý tài chính GR-1 để phân tích danh mục, còn Angel One triển khai chatbot (trình đàm thoại tự động) Ask Angel. Trong khi đó, Zerodha và Upstox sử dụng giao thức Model Context Protocol (MCP - chuẩn kết nối dữ liệu) để trợ lý bên ngoài truy cập thông tin môi giới.",
+        "Lãnh đạo các công ty chứng khoán nhận định AI không thể dự đoán tương lai hay biến một chiến lược đầu tư tồi thành tốt."
+      ],
+      "same_event_coverage_ids": [
+        "c52dfc96b55fd610865e"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Risks of AI-powered stock trading tools in India",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Sonam Srivastava"
+        ],
+        "availability": "region_locked:India",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Các công ty môi giới Ấn Độ đưa AI vào nghiên cứu đầu tư giữa cảnh báo về rủi ro dự báo",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "analytics-india-magazine",
+          "url": "https://analyticsindiamag.com/ai-features/ai-trading-in-india-promises-smarter-investment-betsat-a-steep-new-risk"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.65,
+        "answers": {
+          "what": 9,
+          "why": 8,
+          "notable": 9,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "Readers miss the practical boundary between AI research and investment advice.",
+            "fix": "Add that AI suggestions should be checked against the investor’s circumstances and human judgment, particularly for larger investments (outlet:p009, outlet:p011)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "cb47ec60c1a6c45c3ac53079a0828bef4436ab2bb5c7dcd7daa262d7487dd35e",
+        "scored_at": "2026-11-25T15:23:32.626189+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "cc07641b88dc86101f63",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/25/2026/anthropic-stock-tumble-shows-ipo-gamesmanship",
+      "key_points": [
+        "Cổ phiếu công ty trí tuệ nhân tạo Anthropic đã rơi xuống dưới mức giá chào bán công khai lần đầu (IPO) 83 USD vào thứ Ba. Theo Semafor, đợt niêm yết từng ghi nhận lượng đặt mua vượt gấp sáu lần nhưng thị giá hiện lao dốc về gần mục tiêu ban đầu là 78 USD.",
+        "Hiện tượng này bắt nguồn từ việc giới đầu tư cố tình đặt dư mua vì đoán trước sẽ bị cắt giảm, trong khi các ngân hàng phân bổ cổ phiếu cho các quỹ đầu cơ bán tháo kiếm lời ngắn hạn.",
+        "Minh chứng là chuyên gia Jay Ritter chỉ nhận được 51 cổ phiếu dù đặt mua 3.000 cổ phiếu qua tài khoản cá nhân, cho thấy lượng đăng ký ảo không phản ánh nhu cầu sở hữu thực sự.",
+        "Semafor nhận định áp lực cung cầu đối đầu gay gắt tại doanh nghiệp nghìn tỷ USD chưa rõ lộ trình sinh lời."
+      ],
+      "same_event_coverage_ids": [
+        "7f8fcc5ce41d0979e317"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Anthropic IPO valuation dynamics and allocation mechanics",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Jay Ritter"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Cổ phiếu Anthropic rơi xuống dưới giá IPO 83 USD giữa áp lực phân bổ và cung cầu gay gắt",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/25/2026/anthropic-stock-tumble-shows-ipo-gamesmanship"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.15,
+        "answers": {
+          "what": 10,
+          "why": 6,
+          "notable": 7,
+          "meaning": 9
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "các ngân hàng phân bổ cổ phiếu cho các quỹ đầu cơ bán tháo kiếm lời ngắn hạn",
+            "explanation": "The source describes a general tendency for investment banks to steer IPO shares to favored hedge funds likely to sell into an initial price rise. It does not establish that these funds sold off Anthropic shares (outlet:p004)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "cho thấy lượng đăng ký ảo không phản ánh nhu cầu sở hữu thực sự",
+            "explanation": "Ritter’s order of 3,000 shares and allocation of 51 illustrates a large allocation cut; that example alone does not establish that the orders were inflated. Ritter separately explains why oversubscription need not equal genuine desire to own the stock (outlet:p003, outlet:p005)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "Readers are told that hedge funds sold Anthropic shares, although the source states only that such clients are often expected to sell into an IPO price rise.",
+            "fix": "Describe the bank practice as a tendency and preserve the source’s uncertainty about what happened in this listing (outlet:p004)."
+          },
+          {
+            "question": "notable",
+            "problem": "Ritter’s small allocation is used as proof that orders were inflated.",
+            "fix": "Use his 3,000-share order and 51-share allocation to show the size of the cut, then attribute the broader point about inflated orders to his explanation (outlet:p003, outlet:p005)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "93dbf9509dbe64310f4081c50d5f25e3485166844a169e2f1dc90112dfb8dd51",
+        "scored_at": "2026-11-25T15:23:32.626218+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "b77df4066fefc2153e61",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-25/huang-is-worth-up-to-10-trillion-to-the-market-ives-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "f1b5a31afa0ab3a8327f"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "ec57c99a6a096767a36e",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/25/the-questions-jensen-huang-and-nvidia-will-still-have-to-answer-about-megaspeed/",
+      "key_points": [
+        "Theo TechCrunch, việc ông Jensen Huang trở lại làm giám đốc điều hành (CEO) không làm giảm áp lực điều tra trước cáo buộc Megaspeed tuồn lậu GPU (bộ xử lý đồ họa) sang Trung Quốc. Nhà điều hành trung tâm dữ liệu Megaspeed tại Singapore đã phủ nhận mọi sai phạm.",
+        "TechCrunch cho biết giới điều tra muốn làm rõ Nvidia biết gì về điểm đến của số chip, và liệu quan hệ riêng của ông Huang có khiến công ty có lý do nghi ngờ các cam kết từ Megaspeed. Theo các luật sư, rủi ro pháp lý sẽ tăng nếu nhân sự Nvidia có lý do tin cam kết từ đối tác thiếu tin cậy.",
+        "Tuần tới, ba ủy ban Hạ viện Mỹ sẽ phỏng vấn kín ông Huang và luật sư Tim Teter, người được tường trình là từng can thiệp cuộc điều tra Megaspeed của Bộ Thương mại. Thượng viện Mỹ cũng sẽ chất vấn công khai ông Huang trong phiên điều trần ngày 3 tháng 12.",
+        "TechCrunch nhận định việc ông Huang phục chức không khép lại vụ việc khi Tổng chưởng lý California cùng Quốc hội tiếp tục điều tra, dù Bộ trưởng Tư pháp Mỹ gợi ý Nvidia không phải mục tiêu. Thượng nghị sĩ Elizabeth Warren nhấn mạnh Nvidia vẫn nợ Quốc hội câu trả lời về kiểm soát xuất khẩu và yêu cầu chính phủ giải trình về tác động giúp ông phục chức."
+      ],
+      "same_event_coverage_ids": [
+        "1633b28bc2a4adaacc9d"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Scrutiny and inquiries facing Nvidia and Jensen Huang over Megaspeed",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Jensen Huang",
+          "Todd Blanche"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Quốc hội Mỹ sẽ chất vấn Jensen Huang khi Nvidia đối mặt loạt điều tra về nghi vấn tuồn chip sang Trung Quốc",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/25/the-questions-jensen-huang-and-nvidia-will-still-have-to-answer-about-megaspeed/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.15,
+        "answers": {
+          "what": 10,
+          "why": 8,
+          "notable": 9,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "“Quan hệ riêng” leaves out the specific relationship at the center of investigators' question.",
+            "fix": "Identify Huang's affair with Megaspeed executive Alice Huang and explain why it could cast doubt on Megaspeed's assurances (outlet:p007, outlet:p010)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The account of continuing scrutiny omits the reported SEC investigation.",
+            "fix": "Add that the SEC is reportedly investigating Nvidia's corporate disclosures (outlet:p017)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "dc851fd705a2476c27001f4700475e27e3b85292bc19a460b77facae88a69a28",
+        "scored_at": "2026-11-25T15:26:58.828054+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "d7f8df890f989b59e608",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/ai-artificial-intelligence/1040081/vibe-coding-open-source-music-firmware",
+      "key_points": [
+        "Theo The Verge, nhiều hãng thiết bị âm nhạc bắt đầu mở mã nguồn sản phẩm khi nhận thấy phần cứng không còn nằm ngoài tầm can thiệp của người dùng. Trong khi Roland chọn im lặng, các nhà sản xuất khác đã tiếp nhận cộng đồng modding (tùy biến phần mềm thiết bị).",
+        "The Verge nhận định sự xuất hiện của các công cụ lập trình AI khiến giới doanh nghiệp lúng túng, khi làn sóng vibe-coding (lập trình nhờ AI) cùng công cụ Reverse Engineer Anything gây xáo trộn thị trường.",
+        "Điển hình là inMusic cung cấp bộ công cụ và mở mã nguồn thiết bị, khi Tổng giám đốc Jack O’Donnell cho biết sẽ mở cơ chế dòng MPC cùng bộ công cụ SDK mới. Bên cạnh đó, Behringer công bố máy Kick mở mã nguồn giá 150 USD, còn M-Vave phát hành firmware (phần mềm điều khiển) mở cho dòng FM-1 giá 70 USD.",
+        "Ngược lại, Elektron cảnh báo nguy cơ hỏng thiết bị và mất bảo hành, cấm dẫn liên kết firmware tự chỉnh sửa do lo ngại nguy cơ biến máy thành cục gạch. Trong khi đó, nhà sáng lập Erica Synths là Ģirts Ozoliņš vẫn băn khoăn liệu phong trào vibe-coding có giải quyết được vấn đề căn bản nào hay không."
+      ],
+      "same_event_coverage_ids": [
+        "ae65c5b1e377fa7977d4"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Influence of AI vibe coding on open-source synthesizer firmware",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Trước làn sóng lập trình AI, loạt hãng thiết bị âm nhạc bắt đầu mở mã nguồn sản phẩm",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1040081/vibe-coding-open-source-music-firmware"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.85,
+        "answers": {
+          "what": 9,
+          "why": 9,
+          "notable": 9,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The reader may take Behringer’s announced products as closer to release than the source establishes.",
+            "fix": "Add that their launch timing remains unclear (outlet:p016)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "e3647c61f9dc7a5f98f9b75fcc6d9c55c85b5daa6eed09e345a55477825ee634",
+        "scored_at": "2026-11-25T15:23:32.626278+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "b0694eb8e6156e07fcc2",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "General business and policy reporting on an EU sovereign fund for frontier technologies; AI is mentioned only incidentally in a list alongside quantum computing and semiconductors.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-25/eu-seeks-50-billion-for-frontier-technology-to-rival-us-china",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "397b02b00ea52bad9ce7"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "1002a532377112886a0f",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.phoronix.com/news/Linus-Torvalds-EXT4-AI-Big",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "f701e558ab18a996d889"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Linus Torvalds rebuke of AI-generated kernel submission",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Linus Torvalds"
+        ],
+        "availability": "global",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "27a6b6af092d6a67400e",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://nvidianews.nvidia.com/news/nvidia-board-reinstates-jensen-huang-as-president-ceo-and-board-director",
+      "key_points": [
+        "NVIDIA's Board of Directors voted unanimously to reinstate Jensen Huang as President, CEO, and board member effective immediately.",
+        "The Board consulted senior levels of the U.S. government and concluded Huang's reinstatement poses no national security risk.",
+        "Harvey C. Jones will continue as Chair of the Board and expressed confidence in Huang resuming leadership.",
+        "Colette Kress completed her interim CEO service and resumes her ongoing duties as Chief Financial Officer."
+      ],
+      "same_event_coverage_ids": [
+        "240517ddf4f7dfd5e34d",
+        "ae030d3215ea3e0c48b8",
+        "bf13d8100f250a10ac85",
+        "db1b7bd1af1884cd71e2",
+        "ec6cb60571f772536fef",
+        "f15bd3a1237cda1bba6f",
+        "f96be836a384fa02a216"
+      ],
+      "split_coverage_ids": [
+        "4ad52674d5456a1308c7",
+        "72a74e281d7bebc41b20",
+        "daba4a98283d7f329bfb"
+      ],
+      "subject": "Jensen Huang reinstatement as NVIDIA CEO",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Jensen Huang",
+          "Harvey C. Jones",
+          "Colette Kress"
+        ],
+        "availability": "global",
+        "is_leak": false
+      }
     }
   ]
 }
