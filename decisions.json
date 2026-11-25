@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-25T09:58:56.838661+00:00",
-  "input_generated_at": "2026-11-25T08:46:42Z",
+  "generated_at": "2026-11-25T11:36:03.273450+00:00",
+  "input_generated_at": "2026-11-25T10:50:41Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -139566,10 +139566,10 @@
       "use_original_title": false,
       "source_url": "https://pandaily.com/alibaba-qwen-go-free-authorized-ai-calling",
       "key_points": [
-        "Ứng dụng Qwen Go của Alibaba đã mở dịch vụ gọi điện thay mặt người dùng miễn phí cho người dùng phổ thông theo các báo cáo từ truyền thông Trung Quốc. Tính năng này cho phép trợ lý trí tuệ nhân tạo (AI) liên hệ với cá nhân hoặc doanh nghiệp cụ thể sau khi người dùng đưa ra chỉ dẫn và cấp quyền.",
-        "Hệ thống vận hành theo cơ chế người dùng ấn định đối tượng, nội dung hoặc hẹn giờ gọi, trợ lý tự xưng là AI trong hội thoại và có cơ chế sàng lọc yêu cầu.",
-        "Các trường hợp sử dụng trong thông báo tập trung vào việc thực hiện các tác vụ hàng ngày như đặt phòng nhà hàng hay hỏi đồ thất lạc hoặc kiểm tra tiến độ giao hàng.",
-        "Trang tin Pandaily nhấn mạnh tính năng không đồng nghĩa với quyền gọi không giới hạn hay thực hiện các tác vụ rủi ro cao như tài chính và khẩn cấp, đồng thời việc gọi điện không đảm bảo kết quả đã thành công."
+        "Theo báo chí Trung Quốc ngày 25 tháng 11, Qwen Go của Alibaba đã mở dịch vụ gọi điện thay mặt miễn phí cho người dùng phổ thông. Tính năng này cho phép trợ lý AI (trí tuệ nhân tạo) liên hệ người hoặc doanh nghiệp cụ thể sau khi người dùng cấp quyền.",
+        "Người dùng chỉ định đối tượng, nội dung hoặc hẹn giờ gọi, rồi dịch vụ báo lại kết quả. Theo thông báo từ dịch vụ, trợ lý phải tự xưng là AI và cơ chế bảo vệ sẽ sàng lọc, chặn yêu cầu rủi ro.",
+        "Các ví dụ trong thông báo chỉ gồm tác vụ thực tế có giới hạn như liên hệ nhà hàng hỏi đặt phòng, hỏi khách sạn về đồ bỏ quên hoặc kiểm tra bưu kiện.",
+        "Pandaily lưu ý tính năng không đồng nghĩa với quyền gọi tùy ý hay xử lý việc tài chính và khẩn cấp. Trang tin nhấn mạnh cuộc gọi không đảm bảo thành công mà phụ thuộc vào đối thoại thực tế."
       ],
       "same_event_coverage_ids": [
         "ce63b2a5ad3c9ea28cbd"
@@ -139583,7 +139583,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Alibaba mở tính năng gọi điện thoại thay mặt người dùng miễn phí trên ứng dụng Qwen Go",
+      "editorial_headline_vi": "Theo báo chí, Qwen Go của Alibaba mở tính năng gọi điện thay người dùng có sàng lọc rủi ro",
       "summary_sources": [
         {
           "id": "outlet",
@@ -139596,25 +139596,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.4,
+        "value": 9.55,
         "answers": {
           "what": 10,
           "why": 10,
-          "notable": 8,
-          "meaning": 10
+          "notable": 9,
+          "meaning": 9
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "Hệ thống vận hành theo cơ chế người dùng ấn định đối tượng, nội dung hoặc hẹn giờ gọi, trợ lý tự xưng là AI trong hội thoại và có cơ chế sàng lọc yêu cầu.",
-            "explanation": "User direction and scheduling are reported features, but AI self-identification and request screening are announced safeguards, not independently verified operation (outlet:p001–p004)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "notable",
-            "problem": "Readers may take the stated safeguards as independently confirmed.",
-            "fix": "Attribute AI self-identification and risk screening to the service’s announcement (outlet:p004)."
+            "question": "meaning",
+            "problem": "A reader may take the described screening as verified to work reliably.",
+            "fix": "State that these are announced safeguards and that the report did not independently audit how reliably requests are classified (outlet:p004)."
           }
         ],
         "writer_boats": [
@@ -139622,8 +139616,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "122b89ad228d7bbc56c90931c11780f55f61ac4a14373c5c7e4a1d32c1192c4a",
-        "scored_at": "2026-11-25T09:43:25.686786+00:00"
+        "prose_sha256": "e3484d03fa98840b8f2a1777e8b530726f457cea910753f2354de74b84de8a95",
+        "scored_at": "2026-11-25T11:36:03.255427+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
@@ -139876,10 +139870,10 @@
       "use_original_title": true,
       "source_url": "https://analyticsindiamag.com/ai-news/aidenai-raises-32-million-in-series-a-funding-led-by-a91-partners",
       "key_points": [
-        "Startup AidenAI vừa huy động 32 triệu USD trong vòng gọi vốn Series A do quỹ A91 Partners dẫn đầu.",
-        "Theo nhà sáng lập Srinivas Kamadi, AidenAI nhận thấy cơ hội lớn trong việc thu hẹp khoảng cách năng lực AI, đưa trí tuệ nhân tạo vào lõi doanh nghiệp và tái định hình các giải pháp công nghệ.",
-        "Theo ông Kaushik Anand từ A91 Partners, AidenAI đã hỗ trợ hơn 30 doanh nghiệp lớn đạt kết quả kinh doanh đo lường được trong ba năm qua. Công ty cũng lên kế hoạch đào tạo hơn 1.000 kỹ sư AI trước cuối năm 2027 thông qua học viện riêng.",
-        "Dù vậy, ông Anand nhấn mạnh việc ứng dụng AI trong doanh nghiệp hiện vẫn chỉ đang ở giai đoạn đầu."
+        "Startup AidenAI đã huy động 32 triệu USD ở vòng Series A do quỹ A91 Partners dẫn đầu. Thành lập năm 2023, công ty cung cấp nền tảng xây dựng các tác tử AI (phần mềm tự hành) cho doanh nghiệp.",
+        "Tổng giám đốc Srinivas Kamadi cho biết khoản vốn giúp thu hẹp khoảng cách năng lực AI và đưa trí tuệ nhân tạo vào lõi doanh nghiệp. Đây là cột mốc để thúc đẩy tham vọng xây dựng nền tảng AI toàn cầu.",
+        "AidenAI dự định xây dựng đội ngũ hơn 1.000 kỹ sư AI trước cuối năm 2027 qua học viện Builder Academy. Quỹ A91 Partners cho biết công ty đã giúp hơn 30 doanh nghiệp lớn đạt kết quả đo lường được.",
+        "AidenAI sẽ dùng vốn phát triển giải pháp AI chuyên ngành và mở rộng ngoài sáu quốc gia hiện tại. Dù vậy, A91 Partners lưu ý việc ứng dụng AI trong doanh nghiệp mới ở giai đoạn đầu."
       ],
       "same_event_coverage_ids": [
         "febc363514f059e32488"
@@ -139895,7 +139889,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Startup AidenAI huy động 32 triệu USD vòng Series A để mở rộng nền tảng tác tử AI",
+      "editorial_headline_vi": "AidenAI huy động 32 triệu USD vòng Series A nhằm mở rộng nền tảng tác tử AI doanh nghiệp",
       "summary_sources": [
         {
           "id": "outlet",
@@ -139908,39 +139902,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.25,
+        "value": 9.85,
         "answers": {
           "what": 10,
-          "why": 8,
-          "notable": 7,
-          "meaning": 7
+          "why": 10,
+          "notable": 10,
+          "meaning": 9
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "đào tạo hơn 1.000 kỹ sư AI",
-            "explanation": "The source says AidenAI plans to build a team of more than 1,000 frontier AI engineers through its Builder Academy; it does not say it will train more than 1,000 engineers (outlet:p004)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "notable",
-            "problem": "The hiring or team-building target becomes a training target.",
-            "fix": "Say AidenAI plans to build a team of more than 1,000 frontier AI engineers by the end of 2027 through its Builder Academy (outlet:p004)."
-          },
-          {
-            "question": "meaning",
-            "problem": "The reader misses two stated uses of the funding.",
-            "fix": "Add industry-specific agentic AI solutions and expansion beyond the company's existing six-country presence (outlet:p004–p005)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "c26407d0a78c7fe7db0689eab60c28075ed63ee938044e069458a33984f19430",
-        "scored_at": "2026-11-25T09:43:25.686895+00:00"
+        "prose_sha256": "72e20972d21452653007fb453aec5cf196e912ccc1a2d046f16f096b2b364b84",
+        "scored_at": "2026-11-25T11:36:03.255514+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
@@ -140431,10 +140408,10 @@
       "use_original_title": false,
       "source_url": "https://arxiv.org/abs/2611.33010",
       "key_points": [
-        "Theo nhóm tác giả, mọi điều kiện gương đều làm giảm tỷ lệ thành công tổng hợp trên năm chính sách robot trong bộ chuẩn RoboDojo-Mirror (hệ thống kiểm tra chuẩn hóa). Thử nghiệm so sánh đường cơ sở không gương với các điều kiện gương đơn, gương đôi và mặt bàn phản chiếu.",
-        "Theo nhóm tác giả, các hành vi nhắm vào vật thể ảo và định vị sai lệch vật thể thật xuất hiện lặp lại trong phân tích quỹ đạo.",
-        "Trên năm chính sách robot, mức sụt giảm trung bình qua ba điều kiện từ 10,8 đến 56,7 điểm phần trăm đối với tỷ lệ thành công tổng hợp (thước đo mức độ hoàn thành nhiệm vụ). Riêng trên mặt bàn phản chiếu, mức sụt giảm chạm mức 62,5 điểm phần trăm.",
-        "Nhóm tác giả kết luận phát hiện này bộc lộ điểm yếu chung trước môi trường phản chiếu và thúc đẩy việc đánh giá có tính đến gương đối với trí tuệ thể hiện (AI gắn với robot). Thử nghiệm trên robot thực với chính sách $\\pi_{0.5}$ và FastWAM cũng cho thấy tỷ lệ thành công sụt giảm trước gương đứng và bàn phản chiếu."
+        "Nhóm tác giả phát hiện mọi điều kiện gương đều làm giảm tỷ lệ thành công tổng hợp của năm chính sách robot trong bộ chuẩn (hệ thống kiểm tra chuẩn hóa) RoboDojo-Mirror. Nghiên cứu đối chiếu đường cơ sở không gương với các điều kiện gương đơn, gương đôi và mặt bàn phản chiếu.",
+        "Phân tích quỹ đạo thay vào đó ghi nhận các hành vi lặp lại nhất quán với việc nhắm vào vật thể ảo trong gương và định vị sai lệch vật thể thật.",
+        "Tính trung bình qua ba điều kiện, tỷ lệ thành công tổng hợp (thước đo hoàn thành nhiệm vụ) sụt giảm từ 10,8 đến 56,7 điểm phần trăm trên năm chính sách robot. Mức sụt giảm này chạm mốc 62,5 điểm phần trăm ở điều kiện mặt bàn phản chiếu.",
+        "Nhóm nghiên cứu kết luận kết quả này bộc lộ điểm yếu chung trước môi trường phản chiếu và thúc đẩy đánh giá có tính đến gương cho trí tuệ thể hiện (AI gắn với robot). Thử nghiệm trên robot thực với các chính sách $\\pi_{0.5}$ và FastWAM cũng cho thấy tỷ lệ thành công sụt giảm trước gương đứng và mặt bàn phản chiếu."
       ],
       "same_event_coverage_ids": [
         "822215b6ff1ddffff731"
@@ -140457,7 +140434,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "RoboDojo-Mirror phát hiện gương làm giảm trung bình 10,8 đến 56,7 điểm phần trăm tỷ lệ thành công của robot",
+      "editorial_headline_vi": "Gương làm giảm tới 62,5 điểm phần trăm tỷ lệ thành công của robot trong thử nghiệm RoboDojo-Mirror",
       "summary_sources": [
         {
           "id": "outlet",
@@ -140470,30 +140447,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.2,
+        "value": 9.6,
         "answers": {
           "what": 10,
-          "why": 6,
+          "why": 8,
           "notable": 10,
           "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "quote",
-            "summary_text": "các hành vi nhắm vào vật thể ảo và định vị sai lệch vật thể thật xuất hiện lặp lại",
-            "explanation": "The source reports recurring behaviors *consistent with* targeting reflected objects and mislocating real ones; it does not establish those interpretations as observed facts (outlet:p009)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
             "question": "why",
-            "problem": "The Vietnamese states the proposed failure mechanisms more firmly than the research does.",
-            "fix": "Say the trajectories showed behaviors consistent with targeting reflections and mislocating real objects (outlet:p009)."
-          },
-          {
-            "question": "why",
-            "problem": "Readers do not learn why ordinary collisions are an insufficient explanation.",
-            "fix": "Add that 50–88% of mirror-specific failures occurred without recorded robot–panel contact in the matched-panel comparison (outlet:p009)."
+            "problem": "The reader misses why the researchers say physical collisions alone cannot explain the failures.",
+            "fix": "Add that 50–88% of mirror-specific failures occurred without recorded robot–panel contact in comparisons with matched non-reflective panels (outlet:p009)."
           }
         ],
         "writer_boats": [
@@ -140501,8 +140467,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "710be2d6ffb1519f665f5591fcdce9c698bf8041fdd1d32dc19fa9ddbf1fac8a",
-        "scored_at": "2026-11-25T09:55:34.795943+00:00"
+        "prose_sha256": "1c9e8169de8a86fd73c80bc8dfec936f6265c51670bb21a35ba9f265107e742d",
+        "scored_at": "2026-11-25T11:36:03.255563+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
@@ -140710,10 +140676,10 @@
       "use_original_title": false,
       "source_url": "https://arxiv.org/abs/2611.31974",
       "key_points": [
-        "Nhóm tác giả giới thiệu bài kiểm chuẩn (tiêu chuẩn đánh giá năng lực) Coding4Games trên 15 trò chơi để đo khả năng tác nhân lập trình (AI viết mã) tạo phần mềm tự chơi độc lập. Chương trình được đóng băng để thử nghiệm độc lập mà không cần mô hình ngôn ngữ suy luận khi vận hành.",
-        "Theo các tác giả, các bài kiểm chuẩn hiện hành chủ yếu thử nghiệm việc truy vấn mô hình liên tục khi chơi, gây tốn kém suy luận và chậm trễ trong thời gian thực. Nghiên cứu mới xem xét liệu tác nhân có thể học từ tương tác để tạo chương trình tự chơi qua hình ảnh và thao tác tiêu chuẩn.",
-        "Trên 15 trò chơi, chương trình tốt nhất ở mỗi trò do tác nhân tạo ra đạt điểm cao hơn mốc cơ sở giao diện đồ họa (GUI) mạnh nhất ở 13 trò và hòa ở một trò. Hệ thống đo lường cả hiệu năng chơi lẫn cách tác nhân dùng phản hồi để sửa chương trình và giải quyết lỗi.",
-        "Nhóm nghiên cứu nhận định bài kiểm chuẩn giúp xác định khả năng AI biến hiểu biết môi trường phức tạp thành phần mềm tự chạy tin cậy. Dù vậy, người chơi con người vẫn đạt điểm cao hơn toàn bộ tác nhân ở 10 trên 15 trò chơi."
+        "Nhóm tác giả giới thiệu bài kiểm chuẩn (tiêu chuẩn đánh giá) Coding4Games trên 15 trò chơi, đánh giá khả năng tác nhân lập trình (AI viết mã) tạo phần mềm tự chơi độc lập. Chương trình được chọn sẽ đóng băng để thử nghiệm độc lập mà không cần mô hình ngôn ngữ suy luận.",
+        "Theo nhóm tác giả, các bài kiểm chuẩn cũ truy vấn mô hình liên tục khi chơi, gây tốn chi phí suy luận và môi trường trò chơi thời gian thực tiếp tục biến đổi khi tác nhân hành động. Nghiên cứu xem xét liệu tác nhân có thể học từ tương tác để tạo chương trình tự chơi qua hình ảnh và thao tác tiêu chuẩn.",
+        "Trên 15 trò chơi, chương trình tốt nhất ở mỗi trò do tác nhân tạo ra đạt điểm cao hơn mốc cơ sở giao diện đồ họa (GUI) mạnh nhất ở 13 trò và hòa một trò. Hệ thống đo lường cả hiệu năng chơi lẫn cách tác nhân dùng phản hồi để sửa chương trình và giải quyết lỗi.",
+        "Nhóm tác giả nhận định Coding4Games giúp đánh giá khả năng AI biến hiểu biết môi trường tương tác phức tạp thành phần mềm tự chạy tin cậy. Dù vậy, người chơi con người vẫn đạt điểm cao hơn toàn bộ tác nhân ở 10 trên 15 trò chơi."
       ],
       "same_event_coverage_ids": [
         "53e813393a802b66e1b0"
@@ -140740,34 +140706,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.6,
+        "value": 10.0,
         "answers": {
           "what": 10,
-          "why": 3,
+          "why": 10,
           "notable": 10,
           "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "cause",
-            "summary_text": "gây tốn kém suy luận và chậm trễ trong thời gian thực",
-            "explanation": "The source attributes repeated inference cost to querying the model throughout play. For real-time games, it says the environment continues to evolve while the agent acts; it does not state that those queries cause a delay (outlet:p009)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "why",
-            "problem": "Readers are told that repeated model queries cause real-time delay.",
-            "fix": "State that repeated queries incur inference cost and that, in real-time games, the environment continues to evolve while the agent acts (outlet:p009)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "1b8fa5f66dd0f4e860d1018f6d9c92c9b9864b31a1d6f2bdc700f0c95bea442d",
-        "scored_at": "2026-11-25T09:55:34.795994+00:00"
+        "prose_sha256": "37cb5f3ed9fcf55f4e5aa20e552d77b3346194a5f0bd7a24b8d1f68b70645903",
+        "scored_at": "2026-11-25T11:36:03.255606+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
@@ -141102,10 +141056,10 @@
       "use_original_title": false,
       "source_url": "https://arxiv.org/abs/2611.32973",
       "key_points": [
-        "Nhóm tác giả do Xingjian Wang đứng đầu đề xuất SpecEngineeringBench (benchmark, bộ tiêu chuẩn đánh giá) gồm 100 bài toán từ 78 kho mã nguồn Python để thử nghiệm tác nhân lập trình (coding agent, mô hình AI viết mã). Công cụ này kiểm tra năng lực chuyển đổi yêu cầu chức năng thành bài kiểm thử thực thi và dùng kết quả để phát hiện khiếm khuyết.",
-        "Theo nhóm nghiên cứu, các chuẩn đánh giá hiện nay cung cấp sẵn gợi ý sự cố nên chưa đo lường đầy đủ năng lực tự tìm vị trí kiểm tra của mô hình. Họ thiết kế hai tác vụ độc lập gồm tạo bài kiểm thử và phát hiện lỗi qua phân tích thực thi để giải quyết thiếu sót này.",
-        "Thử nghiệm trên bảy tác nhân AI hàng đầu cho thấy tính hợp lệ và độ bao phủ kiểm thử tách rời khỏi khả năng phơi bày lỗi. Cụ thể, các mô hình đạt 80,48% độ bao phủ tập trung thay đổi (Change-focused Coverage) nhưng tỷ lệ phát hiện lỗi (Fail-to-Pass Rate) chỉ đạt 26,36%.",
-        "Việc tự tạo kiểm thử giúp tăng độ nhạy định vị lỗi thêm 4,99 điểm phần trăm so với việc chỉ dùng kiểm thử có sẵn của kho mã. Dù vậy, nghiên cứu chỉ ra hạn chế khi độ nhạy định vị sụt giảm từ 78,11% ở cấp tệp xuống 51,29% ở cấp hàm."
+        "Nhóm tác giả có tác giả đầu là Xingjian Wang đề xuất SpecEngineeringBench (bộ chuẩn đánh giá) gồm 100 bài toán từ 78 kho mã Python để kiểm thử tác nhân lập trình (coding agent, mô hình AI viết mã). Bộ chuẩn này kiểm tra việc chuyển đổi yêu cầu thành bài kiểm thử thực thi và phát hiện khiếm khuyết trong các trường hợp chứa nhiều lỗi.",
+        "Theo nhóm nghiên cứu, các bộ chuẩn hiện nay thường cung cấp sẵn gợi ý nên chưa đo lường đầy đủ năng lực tự tìm vị trí kiểm thử. Họ chia thành hai tác vụ độc lập gồm tạo bộ kiểm thử và phát hiện lỗi qua phân tích thực thi để đo các năng lực bổ trợ.",
+        "Kết quả trên 7 tác nhân lập trình hàng đầu cho thấy tính hợp lệ và độ bao phủ tách rời khỏi khả năng phơi bày lỗi. Mô hình đạt 91,47% Head Pass Rate và 80,48% Change-focused Coverage, nhưng tỷ lệ Fail-to-Pass Rate đo mức phơi bày lỗi chỉ đạt 26,36%.",
+        "Tự tạo kiểm thử giúp tăng độ nhạy định vị lỗi ở cấp tệp, hàm và đoạn mã thêm lần lượt 4,99, 2,77 và 2,69 điểm phần trăm so với kiểm thử sẵn có của kho mã. Dù vậy, nghiên cứu chỉ ra hạn chế khi độ nhạy định vị sụt giảm từ 78,11% ở cấp tệp xuống 51,29% ở cấp hàm."
       ],
       "same_event_coverage_ids": [
         "40ec5c801da6768f0eac"
@@ -141119,7 +141073,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Bảy tác nhân AI đạt độ bao phủ kiểm thử 80,48% nhưng chỉ phát hiện 26,36% lỗi ở SpecEngineeringBench",
+      "editorial_headline_vi": "Bảy tác nhân AI đạt độ bao phủ 80,48% nhưng tỷ lệ Fail-to-Pass chỉ đạt 26,36% ở SpecEngineeringBench",
       "summary_sources": [
         {
           "id": "outlet",
@@ -141132,59 +141086,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 7.95,
+        "value": 9.65,
         "answers": {
           "what": 9,
-          "why": 9,
-          "notable": 6,
-          "meaning": 8
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "role",
-            "summary_text": "Nhóm tác giả do Xingjian Wang đứng đầu",
-            "explanation": "The source lists Xingjian Wang as the first author but does not identify him as the team's leader (outlet:p006)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "chỉ phát hiện 26,36% lỗi",
-            "explanation": "The source reports a 26.36% Fail-to-Pass Rate, not that the agents detected exactly 26.36% of defects (outlet:p009)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "tỷ lệ phát hiện lỗi (Fail-to-Pass Rate) chỉ đạt 26,36%",
-            "explanation": "The source labels 26.36% as Fail-to-Pass Rate; translating it as the percentage of defects detected changes what the metric asserts (outlet:p009)."
-          },
-          {
-            "kind": "number",
-            "summary_text": "tăng độ nhạy định vị lỗi thêm 4,99 điểm phần trăm",
-            "explanation": "The 4.99-point gain applies specifically to file-level localization recall. The source reports separate gains of 2.77 points at function level and 2.69 at hunk level (outlet:p009)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "notable",
-            "problem": "The headline and body make 26.36% sound like the fraction of defects found.",
-            "fix": "Identify it as the Fail-to-Pass Rate and describe it as the study's defect-exposure measure without converting it into a defect count (outlet:p009)."
-          },
-          {
-            "question": "meaning",
-            "problem": "The 4.99-point localization gain is presented without its level.",
-            "fix": "Specify file-level recall, and include the 2.77-point function-level and 2.69-point hunk-level gains if discussing localization across levels (outlet:p009)."
-          },
-          {
-            "question": "what",
-            "problem": "The reader is told that the first author led the team.",
-            "fix": "Refer to Xingjian Wang as the first listed author, or simply say “the authors” (outlet:p006)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "2edc3c9aa6fa997928900072f2460662b6ef91ec5a37d940577b3e30526c8d3f",
-        "scored_at": "2026-11-25T09:43:25.687526+00:00"
+        "prose_sha256": "cd9b553f7811eeb27fd850d4dc8799278f830936c16f668d3bd0d9898d546658",
+        "scored_at": "2026-11-25T11:36:03.255647+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
@@ -141250,6 +141167,526 @@
         "scorer_provider": "codex",
         "prose_sha256": "86da94d5283c3d5c7974b63843f4a3e22b2b2d5164253f4806e19ddf5e4f4065",
         "scored_at": "2026-11-25T09:55:34.796040+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "2f73843ab8343769e187",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://analyticsindiamag.com/ai-news/anthropic-brings-claude-duet-ai-agent-to-india",
+      "key_points": [
+        "Anthropic mở rộng bản thử nghiệm nghiên cứu của Claude Duet, tác tử AI (phần mềm tự vận hành) quản lý công việc, sang Ấn Độ. Ứng dụng hỗ trợ web, iOS và Android, mở qua danh sách chờ cho gói Pro, Max, Ultra cùng bản beta công khai cho gói Team.",
+        "Vận hành trên Claude Opus 5.5, phần mềm dùng trình duyệt và máy ảo riêng, tự theo dõi ứng dụng liên kết và chạy khi người dùng rời máy. Công cụ hỗ trợ 35 ngôn ngữ, kết nối dịch vụ ngoài, trực tiếp lập lịch, tạo bảng dữ liệu hay dự báo tài chính.",
+        "Theo Anthropic, những người thử nghiệm sớm dùng ứng dụng phát hiện xung đột lịch trình cùng các cuộc hẹn sát giờ bay. Công ty cho biết sản phẩm hướng đến giới chuyên gia và doanh nghiệp nhỏ cần xử lý hóa đơn, email, tuyển dụng cùng lịch họp.",
+        "Anthropic nêu rõ hệ thống yêu cầu phê duyệt trước khi gửi tin nhắn, thanh toán, ký tài liệu hoặc xóa dữ liệu, đồng thời tự chặn số thẻ ngân hàng. Doanh nghiệp khẳng định tác tử không truy cập mật khẩu người dùng và đã hoàn tất kiểm thử xâm nhập độc lập."
+      ],
+      "same_event_coverage_ids": [
+        "d9f989b1bbeca8c54599"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Anthropic",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "region_locked:India",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Anthropic đưa trợ lý tác tử Claude Duet thử nghiệm tại Ấn Độ với quyền kiểm duyệt tác vụ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "analytics-india-magazine",
+          "url": "https://analyticsindiamag.com/ai-news/anthropic-brings-claude-duet-ai-agent-to-india"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "0d41b41dc7dc608dd2551053ea32b83e34813d95660552d242ad9324fb182e1a",
+        "scored_at": "2026-11-25T11:18:23.927426+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "3fff877084051db22728",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.scmp.com/tech/big-tech/article/3375756/huawei-forms-patent-teams-chips-and-ai-eyeing-ecosystem-rival-nvidia",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "33093b4bb52c4f0e5c87"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Huawei",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "0077e07924e43bf73f6b",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The blog post is a technical tutorial and use-case walkthrough demonstrating how to build an Indic voice agent using the CUGA harness.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://huggingface.co/blog/ibm-research/an-indic-voice-agent-with-cuga",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b48e7925f11c935b5335"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "caf9a199bc2f24d1dbfe",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/25/2026/millers-ai-task-force-involvement-still-taking-shape",
+      "key_points": [
+        "Một quan chức Nhà Trắng cho biết với Semafor rằng các thành viên ban đặc nhiệm AI của Tổng thống Donald Trump sẽ báo cáo cho tân Chánh văn phòng Stephen Miller theo điều lệ. Theo Semafor, ông Miller có thể có sự khác biệt so với người tiền nhiệm Susie Wiles đối với ban đặc nhiệm này.",
+        "Semafor cho biết ông Miller từng rút khỏi các vấn đề AI vì hoạt động kinh doanh của vợ, dù quy định này hiện không còn áp dụng.",
+        "Trong khi bà Wiles từng trực tiếp tham gia ban đặc nhiệm, Nhà Trắng không bình luận về việc liệu Miller có đảm nhận vai trò thành viên hay không.",
+        "Semafor nhận định sẽ cần thời gian để xem liệu Miller có tham gia sâu như bà Wiles hay không, do ông có những mối quan tâm khác và chưa từng lên tiếng nhiều về các vấn đề AI trong quá khứ."
+      ],
+      "same_event_coverage_ids": [
+        "dbf33de1210bd1ae6068"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Stephen Miller",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Stephen Miller",
+          "Donald Trump",
+          "Susie Wiles"
+        ],
+        "availability": "unknown",
+        "is_leak": true
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Quan chức Nhà Trắng cho biết ban đặc nhiệm AI sẽ báo cáo cho tân Chánh văn phòng Stephen Miller",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/25/2026/millers-ai-task-force-involvement-still-taking-shape"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "97644bc750c5564def2ea5259f28faa21945582e2164dac1e238ffdc79fe5cf9",
+        "scored_at": "2026-11-25T11:23:46.598702+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "1684673b3d07d7df1276",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.technologyreview.com/2026/11/25/1149702/ai-is-straining-americas-open-records-systems/",
+      "key_points": [
+        "MIT Technology Review cho biết AI đang gây áp lực lên hệ thống hồ sơ công khai tại Mỹ khi lượng đơn tăng vọt. Năm qua, các cơ quan liên bang tiếp nhận kỷ lục 1,7 triệu yêu cầu dù văn phòng xử lý không được tăng nhân sự hay ngân sách.",
+        "The New York Times quy nguyên nhân kỷ lục trên chỉ một phần do AI, bên cạnh việc Heritage Foundation nộp hàng loạt và người nhập cư tìm hồ sơ. Các doanh nghiệp thường gửi yêu cầu theo mẫu thay vì AI, nhưng dùng AI để phân tích dữ liệu trả về nhằm tạo tín hiệu bán hàng.",
+        "Kiểm tra nhật ký của Bộ Giáo dục Mỹ, chuyên gia David Cuillier kết luận ít nhất 29% yêu cầu do AI soạn một phần, dài gấp đôi và 83% đòi hỏi lượng hồ sơ lớn. MIT Technology Review ghi nhận nhiều văn bản do AI tạo ra bị kéo dài nhiều trang, thậm chí chứa các điều luật bịa đặt.",
+        "Theo CivicPlus, hơn 20 biện pháp cấp bang và liên bang đang được thúc đẩy với một số mở ra căn cứ bác đơn, trong đó California đã ký luật vào tháng 9. MIT Technology Review nhận định nguy cơ lớn nhất là quy định chặn AI hàng loạt sẽ ảnh hưởng đến cả phóng viên ngoại bang, học giả và luật sư di trú."
+      ],
+      "same_event_coverage_ids": [
+        "81dc60d55b9f94a3254f"
+      ],
+      "split_coverage_ids": [],
+      "subject": "open records systems",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Kyle Rowe"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Cơ quan liên bang Mỹ nhận kỷ lục 1,7 triệu yêu cầu hồ sơ giữa áp lực từ công nghệ AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "mit-tech-review",
+          "url": "https://www.technologyreview.com/2026/11/25/1149702/ai-is-straining-americas-open-records-systems/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.65,
+        "answers": {
+          "what": 8,
+          "why": 9,
+          "notable": 10,
+          "meaning": 7
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "văn phòng xử lý không được tăng nhân sự hay ngân sách",
+            "explanation": "The source says offices answering requests have not always grown in head count or budget, not that they received no increase; it does not apply that claim specifically to every office handling the federal requests (outlet:p004)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "phóng viên ngoại bang",
+            "explanation": "The source identifies out-of-state reporters—reporters from another US state—not foreign reporters (outlet:p028)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "Readers are told that foreign reporters face the spillover risk.",
+            "fix": "Change this to reporters from other US states, as specified in outlet:p028."
+          },
+          {
+            "question": "what",
+            "problem": "Readers are told processing offices received no staffing or budget increase.",
+            "fix": "Say those offices have not always grown in staffing or budget, without making the claim universal or tying it specifically to all federal offices (outlet:p004)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "6511de7d17d023ad6d681492f540c58c0fb745f674169a91ce3ed4c1fc573886",
+        "scored_at": "2026-11-25T11:23:46.598768+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "ca46993d6625bd43711c",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://analyticsindiamag.com/ai-news/at-un-india-warns-of-ai-misuse-in-conflicts-stresses-human-accountability",
+      "key_points": [
+        "Tại Hội đồng Bảo an Liên Hợp Quốc, Đại sứ Ấn Độ Harish Parvathaneni kêu gọi duy trì trách nhiệm giải trình và phán đoán của con người khi dùng AI trong chiến tranh. Ông nhấn mạnh công nghệ chỉ là phương tiện thực hiện mục tiêu do con người định hướng chứ không phải mục đích tự thân.",
+        "Ấn Độ cảnh báo các hệ thống vũ khí sát thương tự động làm dấy lên câu hỏi pháp lý, đạo đức và nguy cơ khủng bố thao túng dữ liệu ra quyết định. Ông khẳng định công nghệ triển khai trong chiến sự phải tôn trọng chủ quyền quốc gia, luật pháp quốc tế và bảo vệ thường dân.",
+        "Đại sứ Parvathaneni khẳng định trách nhiệm sử dụng vũ khí tự động phải luôn thuộc về con người dựa trên bối cảnh tác chiến cụ thể. Dù vậy, ông nhận định AI có tiềm năng hỗ trợ gìn giữ hòa bình qua hệ thống cảnh báo sớm, phân tích dữ liệu và ảnh vệ tinh.",
+        "Ông Parvathaneni khẳng định các quốc gia Nam Bán Cầu (Global South - các nước đang phát triển) không thể bị xem là người tiêu dùng thuần túy mà phải có vai trò trong phát triển và quản trị AI."
+      ],
+      "same_event_coverage_ids": [
+        "a75da44d6c948f120b7e"
+      ],
+      "split_coverage_ids": [],
+      "subject": "India",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Harish Parvathaneni"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Ấn Độ cảnh báo nguy cơ từ vũ khí AI tại Liên Hợp Quốc và yêu cầu con người chịu trách nhiệm",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "analytics-india-magazine",
+          "url": "https://analyticsindiamag.com/ai-news/at-un-india-warns-of-ai-misuse-in-conflicts-stresses-human-accountability"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.25,
+        "answers": {
+          "what": 10,
+          "why": 7,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "nguy cơ khủng bố thao túng dữ liệu ra quyết định",
+            "explanation": "The source separately raises possible AI misuse by terrorists and non-state actors and the danger of incomplete, inaccurate or deliberately manipulated data. It does not say terrorists manipulate that data (outlet:p008)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The reader is told the ambassador specifically warned of terrorists manipulating decision-making data.",
+            "fix": "Separate concern about terrorist misuse of AI from concern that unreliable or manipulated data can undermine decisions (outlet:p008)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "d330563443fff1d68f236f11f6b0d1056c2ee155cb702a99534d1ffda9316a34",
+        "scored_at": "2026-11-25T11:18:23.927594+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "4e0653d413f526d43f20",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.32918",
+      "key_points": [
+        "Nhóm tác giả Xiaofeng Shi, Qian Kou và Hua Zhou đề xuất phương pháp InstructReplay để bảo toàn năng lực chung khi tinh chỉnh (huấn luyện bổ sung) mô hình ngôn ngữ với dữ kiện mới. Mô hình ban đầu trả lời một tập chỉ dẫn chung một lần, rồi được duy trì bám sát các câu trả lời này trong suốt quá trình tinh chỉnh.",
+        "Nhóm nghiên cứu phát hiện tinh chỉnh chuẩn làm giảm trung bình 35 điểm trên các bài kiểm chuẩn (đánh giá năng lực) tuân thủ chỉ dẫn, suy luận và lập trình. Sự suy giảm này đi kèm việc câu trả lời bị rút ngắn ít nhất một nửa, và độ dài càng lệch mô hình ban đầu thì câu trả lời càng dễ thất bại.",
+        "Trên ba họ mô hình và hai lĩnh vực, InstructReplay giảm mức sụt giảm điểm chuẩn trung bình trên năm bài kiểm tra năng lực chung từ 28,1 xuống 2,4 điểm. Phương pháp giữ độ dài câu trả lời gần với mô hình gốc, đồng thời học dữ kiện mới tốt tương đương tinh chỉnh chuẩn.",
+        "Nhóm tác giả kết luận InstructReplay cân bằng giữa tiếp thu dữ kiện và duy trì năng lực tốt hơn bảy phương pháp thích ứng trong cả sáu thiết lập. Các phép so sánh có kiểm soát quy kết lợi thế này là nhờ việc phát lại câu trả lời chỉ dẫn chung của mô hình thay vì do dạng thức hàm mất mát."
+      ],
+      "same_event_coverage_ids": [
+        "534e311d068ef0592c54"
+      ],
+      "split_coverage_ids": [],
+      "subject": "InstructReplay",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Xiaofeng Shi",
+          "Qian Kou",
+          "Hua Zhou"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "InstructReplay giúp giảm mức sụt giảm điểm chuẩn từ 28,1 xuống 2,4 khi tinh chỉnh mô hình AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.32918"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "74b550e78ae3b7a017dd38a7785dbbf5cc17fb6ef1de2950b1542eb9b795ab41",
+        "scored_at": "2026-11-25T11:23:46.598806+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "1546a033e2498fa9a96e",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.33148",
+      "key_points": [
+        "Chính sách tác nhân (agent: mô hình AI tự thực hiện chuỗi hành động) dài hạn có thể được chưng cất từ riêng hành động của giáo viên mà không cần chuỗi suy luận. Theo nhóm tác giả, mô hình học sinh được huấn luyện trên các quỹ đạo để trống khối suy luận và dùng hàm mất mát KL để hạn chế trôi dạt khỏi mô hình gốc.",
+        "Chuỗi suy luận của các giáo viên đóng mạnh nhất bị ẩn sau API, dù phương pháp tinh chỉnh chuẩn mô phỏng cả suy luận lẫn hành động. Nhóm tác giả chỉ ra rằng chỉ riêng hành động của giáo viên là đủ để đào tạo tác nhân mà có thể lược bỏ hoàn toàn chuỗi suy luận.",
+        "Chưng cất từ GPT-5.6 Luna nâng tỷ lệ thành công nhiệm vụ của Qwen3-4B trên AppWorld từ 7% lên 48% và trên bộ chuẩn (benchmark) SWE-bench Verified từ 3% lên 28%. Với giáo viên Qwen3.6-27B trên AppWorld, chưng cất hành động nâng Qwen3-4B từ 7% lên 18%, còn kỹ thuật CoT-proxy giúp mô hình đạt 35%.",
+        "Chính sách học được vẫn chuyển giao sang lúc suy luận, giúp mô hình suy luận theo phong cách riêng nhưng hành động như giáo viên. Nhóm tác giả kết luận quy trình này áp dụng nguyên vẹn cho các giáo viên đóng vì không cần chuỗi suy luận ẩn."
+      ],
+      "same_event_coverage_ids": [
+        "472e6e903b8208cbdbcb"
+      ],
+      "split_coverage_ids": [],
+      "subject": "CoT-Proxy",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Dawid J. Kopiczko",
+          "Tijmen Blankevoort",
+          "Yuki M. Asano"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Chưng cất từ GPT-5.6 Luna giúp mô hình Qwen3-4B đạt 48% trên AppWorld mà không cần chuỗi suy luận ẩn",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.33148"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.05,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 8,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "Readers may take the 48% AppWorld result as coming from actions alone.",
+            "fix": "Specify that the GPT-5.6 Luna experiment used its visible outputs and the reasoning summaries returned by its API (outlet:p009)."
+          },
+          {
+            "question": "meaning",
+            "problem": "Readers are not told what a CoT-proxy contains.",
+            "fix": "Describe it as a short summary of the teacher’s reasoning placed after the empty reasoning block (outlet:p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "d93d6ca3e8d89e139c74640ae3b47daf624a35ceac8993372252ae54a4cd32fe",
+        "scored_at": "2026-11-25T11:23:46.598838+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
