@@ -1,0 +1,344 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-26",
+  "timezone": "Asia/Ho_Chi_Minh",
+  "window_start_at": "2026-11-24T23:00:00Z",
+  "cutoff_at": "2026-11-25T23:00:00Z",
+  "created_at": "2026-11-25T23:08:44Z",
+  "snapshot_generated_at": "2026-11-25T23:06:42Z",
+  "policy": {
+    "method": "daily-evidence-v3",
+    "max_stories": 5,
+    "window_hours": 24,
+    "cutoff_hour": 6,
+    "engagement_percentile_min": 0.8,
+    "publisher_coverage_excludes_forums": true,
+    "attention_requires_nonforum": true,
+    "forum_exception_percentile_min": 0.97,
+    "forum_exception_comments_min": 100,
+    "max_forum_only_stories": 1,
+    "score_measured_at": "2026-11-25T23:06:42Z",
+    "description": "Ưu tiên dấu hiệu công bố, số nhà xuất bản và tương tác đo được; sau đó theo điểm nóng và thời gian công bố"
+  },
+  "stories": [
+    {
+      "id": "48919c55052d9c9281a8",
+      "title": "Introducing Search for Agents",
+      "headline": "Introducing Search for Agents",
+      "url": "https://blog.cloudflare.com/search-for-agents/",
+      "published_at": "2026-11-25T14:00:00Z",
+      "kind": "product",
+      "time_basis": "published",
+      "editorial_headline_vi": "Cloudflare ra mắt Search for Agents hỗ trợ đại lý AI tìm kiếm dữ liệu trực tiếp trên tên miền",
+      "editorial_headline_verified": true,
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "a88765b8768fd90f8627",
+          "title": "Introducing Search for Agents",
+          "headline": "Introducing Search for Agents",
+          "url": "https://blog.cloudflare.com/search-for-agents/",
+          "published_at": "2026-11-25T14:00:00Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "cloudflare-blog",
+          "publisher": "cloudflare",
+          "entity": "cloudflare",
+          "group": "lab",
+          "observed_at": "2026-11-25T23:06:42Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [
+          {
+            "code": "primary_release",
+            "text": "Tiêu đề nguồn gốc có dấu hiệu công bố model hoặc sản phẩm",
+            "observation_ids": [
+              "a88765b8768fd90f8627"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "cloudflare"
+          ],
+          "age_hours_at_cutoff": 9.0,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "5326ee243a6612feac9b",
+      "title": "BAAI Unveils REAL Physical AI Assessment and HumanCOIN Data Plan",
+      "headline": "BAAI Unveils REAL Physical AI Assessment and HumanCOIN Data Plan",
+      "url": "https://pandaily.com/baai-real-physical-ai-assessment-humancoin-data-plan",
+      "published_at": "2026-11-25T02:18:39Z",
+      "kind": "product",
+      "time_basis": "published",
+      "editorial_headline_vi": "BAAI ra mắt khung đánh giá AI vật lý REAL cùng kế hoạch phát hành từng phần dữ liệu HumanCOIN",
+      "editorial_headline_verified": true,
+      "source_count": 2,
+      "coverage": [
+        {
+          "id": "11b18f79c96df2c6341a",
+          "title": "SpaceX Wins Government Approval to Launch Space Data Centers",
+          "title_vi": "SpaceX giành được sự chấp thuận của chính phủ để phóng Trung tâm dữ liệu không gian",
+          "headline": "SpaceX Wins Government Approval to Launch Space Data Centers",
+          "headline_vi": "SpaceX giành được sự chấp thuận của chính phủ để phóng Trung tâm dữ liệu không gian",
+          "url": "https://www.bloomberg.com/news/articles/2026-11-25/spacex-receives-government-approval-to-launch-space-data-centers",
+          "published_at": "2026-11-25T18:05:26Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "bloomberg-tech",
+          "publisher": "bloomberg",
+          "entity": "bloomberg",
+          "group": "press",
+          "observed_at": "2026-11-25T23:06:42Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "96ecb424e0a8ae5257db",
+          "title": "BAAI Unveils REAL Physical AI Assessment and HumanCOIN Data Plan",
+          "headline": "BAAI Unveils REAL Physical AI Assessment and HumanCOIN Data Plan",
+          "url": "https://pandaily.com/baai-real-physical-ai-assessment-humancoin-data-plan",
+          "published_at": "2026-11-25T02:18:39Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "pandaily",
+          "publisher": "pandaily",
+          "entity": "pandaily",
+          "group": "press",
+          "observed_at": "2026-11-25T23:06:42Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "2 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "bloomberg",
+              "pandaily"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "bloomberg",
+            "pandaily"
+          ],
+          "age_hours_at_cutoff": 20.6892,
+          "hot_score": 48.251,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "ec57c99a6a096767a36e",
+      "title": "The questions Jensen Huang and Nvidia will still have to answer about Megaspeed",
+      "title_vi": "Những câu hỏi mà Jensen Huang và Nvidia vẫn phải trả lời về Megaspeed",
+      "headline": "The questions Jensen Huang and Nvidia will still have to answer about Megaspeed",
+      "headline_vi": "Những câu hỏi mà Jensen Huang và Nvidia vẫn phải trả lời về Megaspeed",
+      "url": "https://techcrunch.com/2026/11/25/the-questions-jensen-huang-and-nvidia-will-still-have-to-answer-about-megaspeed/",
+      "published_at": "2026-11-25T13:00:00Z",
+      "kind": "other",
+      "time_basis": "published",
+      "editorial_headline_vi": "Quốc hội Mỹ sẽ chất vấn Jensen Huang khi Nvidia đối mặt loạt điều tra về nghi vấn tuồn chip sang Trung Quốc",
+      "editorial_headline_verified": true,
+      "source_count": 2,
+      "coverage": [
+        {
+          "id": "0f6a41579b1d3a3d413e",
+          "title": "Nvidia’s Jensen Huang is back – but will he still be a regular visitor to China?",
+          "title_vi": "Jensen Huang của Nvidia đã trở lại nhưng anh ấy vẫn sẽ là khách thường xuyên đến Trung Quốc?",
+          "headline": "Nvidia’s Jensen Huang is back – but will he still be a regular visitor to China?",
+          "headline_vi": "Jensen Huang của Nvidia đã trở lại nhưng anh ấy vẫn sẽ là khách thường xuyên đến Trung Quốc?",
+          "url": "https://www.scmp.com/tech/big-tech/article/3375795/nvidias-jensen-huang-back-will-he-still-be-regular-visitor-china",
+          "published_at": "2026-11-25T15:30:07Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "scmp-tech",
+          "publisher": "scmp",
+          "entity": "scmp",
+          "group": "press",
+          "observed_at": "2026-11-25T23:06:42Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "1633b28bc2a4adaacc9d",
+          "title": "The questions Jensen Huang and Nvidia will still have to answer about Megaspeed",
+          "title_vi": "Những câu hỏi mà Jensen Huang và Nvidia vẫn phải trả lời về Megaspeed",
+          "headline": "The questions Jensen Huang and Nvidia will still have to answer about Megaspeed",
+          "headline_vi": "Những câu hỏi mà Jensen Huang và Nvidia vẫn phải trả lời về Megaspeed",
+          "url": "https://techcrunch.com/2026/11/25/the-questions-jensen-huang-and-nvidia-will-still-have-to-answer-about-megaspeed/",
+          "published_at": "2026-11-25T13:00:00Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "techcrunch-ai",
+          "publisher": "techcrunch",
+          "entity": "techcrunch",
+          "group": "press",
+          "observed_at": "2026-11-25T23:06:42Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "2 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "scmp",
+              "techcrunch"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "scmp",
+            "techcrunch"
+          ],
+          "age_hours_at_cutoff": 10.0,
+          "hot_score": 47.064,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "3057c1692fc87eb12e35",
+      "title": "Amazon and Meta reportedly in talks to lift blockade on AI agent Muse",
+      "title_vi": "Amazon và Meta được cho là đang đàm phán để dỡ bỏ phong tỏa đối với agent AI Muse",
+      "headline": "Amazon and Meta reportedly in talks to lift blockade on AI agent Muse",
+      "headline_vi": "Amazon và Meta được cho là đang đàm phán để dỡ bỏ phong tỏa đối với agent AI Muse",
+      "url": "https://techcrunch.com/2026/11/25/amazon-and-meta-reportedly-in-talks-to-lift-blockade-on-ai-agent-muse/",
+      "published_at": "2026-11-25T14:10:18Z",
+      "kind": "product",
+      "time_basis": "published",
+      "editorial_headline_vi": "Amazon và Meta được cho là đang đàm phán dỡ bỏ lệnh chặn đại lý AI mua sắm Muse",
+      "editorial_headline_verified": true,
+      "source_count": 2,
+      "coverage": [
+        {
+          "id": "6ff5f995a3be5a00bbcc",
+          "title": "Amazon and Meta reportedly in talks to lift blockade on AI agent Muse",
+          "title_vi": "Amazon và Meta được cho là đang đàm phán để dỡ bỏ phong tỏa đối với agent AI Muse",
+          "headline": "Amazon and Meta reportedly in talks to lift blockade on AI agent Muse",
+          "headline_vi": "Amazon và Meta được cho là đang đàm phán để dỡ bỏ phong tỏa đối với agent AI Muse",
+          "url": "https://techcrunch.com/2026/11/25/amazon-and-meta-reportedly-in-talks-to-lift-blockade-on-ai-agent-muse/",
+          "published_at": "2026-11-25T14:10:18Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "techcrunch-ai",
+          "publisher": "techcrunch",
+          "entity": "techcrunch",
+          "group": "press",
+          "observed_at": "2026-11-25T23:06:42Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "7e684cb1e7d1f8198ccd",
+          "title": "Amazon is reportedly in talks to end Muse AI shopping block",
+          "title_vi": "Amazon được cho là đang đàm phán để chấm dứt khối mua sắm Muse AI",
+          "headline": "Amazon is reportedly in talks to end Muse AI shopping block",
+          "headline_vi": "Amazon được cho là đang đàm phán để chấm dứt khối mua sắm Muse AI",
+          "url": "https://www.theverge.com/tech/1042071/meta-amazon-muse-ai-shopping-discussions",
+          "published_at": "2026-11-25T14:12:33Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "verge-ai",
+          "publisher": "the-verge",
+          "entity": "the-verge",
+          "group": "press",
+          "observed_at": "2026-11-25T23:06:42Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "2 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "techcrunch",
+              "the-verge"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "techcrunch",
+            "the-verge"
+          ],
+          "age_hours_at_cutoff": 8.8283,
+          "hot_score": 46.482,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "c3986ed0d71a9c0fde5f",
+      "title": "Jensen Huang broke Nvidia’s code of conduct, and his employees may not forget it",
+      "title_vi": "Jensen Huang đã vi phạm quy tắc hành vi của Nvidia, và nhân viên của ông có thể không quên nó",
+      "headline": "Jensen Huang broke Nvidia’s code of conduct, and his employees may not forget it",
+      "headline_vi": "Jensen Huang đã vi phạm quy tắc hành vi của Nvidia, và nhân viên của ông có thể không quên nó",
+      "url": "https://techcrunch.com/2026/11/25/jensen-huang-broke-nvidias-code-of-conduct-and-his-employees-may-not-forget-it/",
+      "published_at": "2026-11-25T19:54:57Z",
+      "kind": "other",
+      "time_basis": "published",
+      "editorial_headline_vi": "Jensen Huang thừa nhận vi phạm quy tắc ứng xử của Nvidia nhưng khẳng định không bị sa thải ngay lập tức",
+      "editorial_headline_verified": true,
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "f9149a49ddc7503a7717",
+          "title": "Jensen Huang broke Nvidia’s code of conduct, and his employees may not forget it",
+          "title_vi": "Jensen Huang đã vi phạm quy tắc hành vi của Nvidia, và nhân viên của ông có thể không quên nó",
+          "headline": "Jensen Huang broke Nvidia’s code of conduct, and his employees may not forget it",
+          "headline_vi": "Jensen Huang đã vi phạm quy tắc hành vi của Nvidia, và nhân viên của ông có thể không quên nó",
+          "url": "https://techcrunch.com/2026/11/25/jensen-huang-broke-nvidias-code-of-conduct-and-his-employees-may-not-forget-it/",
+          "published_at": "2026-11-25T19:54:57Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "techcrunch-ai",
+          "publisher": "techcrunch",
+          "entity": "techcrunch",
+          "group": "press",
+          "observed_at": "2026-11-25T23:06:42Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [],
+        "signals": {
+          "publishers": [
+            "techcrunch"
+          ],
+          "age_hours_at_cutoff": 3.0842,
+          "hot_score": 46.124,
+          "engagement_percentile": 0.5052631578947369
+        }
+      }
+    }
+  ],
+  "source_health": {
+    "active_remote_sources": 77,
+    "successful_remote_sources": 77,
+    "failed_remote_sources": []
+  }
+}
