@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-25T15:45:48.430975+00:00",
-  "input_generated_at": "2026-11-25T14:47:10Z",
+  "generated_at": "2026-11-25T17:46:38.289328+00:00",
+  "input_generated_at": "2026-11-25T16:46:50Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -142434,10 +142434,10 @@
       "use_original_title": false,
       "source_url": "https://www.semafor.com/article/11/25/2026/anthropic-stock-tumble-shows-ipo-gamesmanship",
       "key_points": [
-        "Cổ phiếu công ty trí tuệ nhân tạo Anthropic đã rơi xuống dưới mức giá chào bán công khai lần đầu (IPO) 83 USD vào thứ Ba. Theo Semafor, đợt niêm yết từng ghi nhận lượng đặt mua vượt gấp sáu lần nhưng thị giá hiện lao dốc về gần mục tiêu ban đầu là 78 USD.",
-        "Hiện tượng này bắt nguồn từ việc giới đầu tư cố tình đặt dư mua vì đoán trước sẽ bị cắt giảm, trong khi các ngân hàng phân bổ cổ phiếu cho các quỹ đầu cơ bán tháo kiếm lời ngắn hạn.",
-        "Minh chứng là chuyên gia Jay Ritter chỉ nhận được 51 cổ phiếu dù đặt mua 3.000 cổ phiếu qua tài khoản cá nhân, cho thấy lượng đăng ký ảo không phản ánh nhu cầu sở hữu thực sự.",
-        "Semafor nhận định áp lực cung cầu đối đầu gay gắt tại doanh nghiệp nghìn tỷ USD chưa rõ lộ trình sinh lời."
+        "Cổ phiếu Anthropic đã giảm xuống dưới giá chào bán lần đầu (IPO) 83 USD vào thứ Ba, hướng về mức ban đầu 78 USD. Theo Semafor, đợt niêm yết này từng được báo cáo có lượng đặt mua vượt gấp sáu lần.",
+        "Theo phóng viên Liz Hoffman của Semafor, giới đầu tư thường đặt mua vượt nhu cầu thực tế vì đoán trước sẽ bị cắt giảm. Tác giả lưu ý các ngân hàng đầu tư có xu hướng ưu tiên quỹ đầu cơ dễ bán ra khi giá tăng sau IPO.",
+        "Chuyên gia Jay Ritter chỉ nhận được 51 cổ phiếu dù đặt mua 3.000 cổ phiếu qua tài khoản Schwab. Ông Ritter giải thích rằng việc thổi phồng lệnh mua không đồng nghĩa với mong muốn sở hữu cổ phiếu thực tế.",
+        "Tác giả dẫn chứng SpaceX với giá cổ phiếu đã giảm 22% kể từ sau đợt IPO."
       ],
       "same_event_coverage_ids": [
         "7f8fcc5ce41d0979e317"
@@ -142453,7 +142453,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Cổ phiếu Anthropic rơi xuống dưới giá IPO 83 USD giữa áp lực phân bổ và cung cầu gay gắt",
+      "editorial_headline_vi": "Cổ phiếu Anthropic rơi xuống dưới giá IPO 83 USD khi cung cầu đối đầu tại công ty chưa rõ đường sinh lời",
       "summary_sources": [
         {
           "id": "outlet",
@@ -142466,35 +142466,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.15,
+        "value": 9.85,
         "answers": {
           "what": 10,
-          "why": 6,
-          "notable": 7,
+          "why": 10,
+          "notable": 10,
           "meaning": 9
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "các ngân hàng phân bổ cổ phiếu cho các quỹ đầu cơ bán tháo kiếm lời ngắn hạn",
-            "explanation": "The source describes a general tendency for investment banks to steer IPO shares to favored hedge funds likely to sell into an initial price rise. It does not establish that these funds sold off Anthropic shares (outlet:p004)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "cho thấy lượng đăng ký ảo không phản ánh nhu cầu sở hữu thực sự",
-            "explanation": "Ritter’s order of 3,000 shares and allocation of 51 illustrates a large allocation cut; that example alone does not establish that the orders were inflated. Ritter separately explains why oversubscription need not equal genuine desire to own the stock (outlet:p003, outlet:p005)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "why",
-            "problem": "Readers are told that hedge funds sold Anthropic shares, although the source states only that such clients are often expected to sell into an IPO price rise.",
-            "fix": "Describe the bank practice as a tendency and preserve the source’s uncertainty about what happened in this listing (outlet:p004)."
-          },
-          {
-            "question": "notable",
-            "problem": "Ritter’s small allocation is used as proof that orders were inflated.",
-            "fix": "Use his 3,000-share order and 51-share allocation to show the size of the cut, then attribute the broader point about inflated orders to his explanation (outlet:p003, outlet:p005)."
+            "question": "meaning",
+            "problem": "The reader misses the scale that the source says makes the supply-and-demand test harder.",
+            "fix": "State that Anthropic is valued above $1 trillion, alongside its unclear path to profitability (outlet:p004)."
           }
         ],
         "writer_boats": [
@@ -142502,8 +142486,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "93dbf9509dbe64310f4081c50d5f25e3485166844a169e2f1dc90112dfb8dd51",
-        "scored_at": "2026-11-25T15:23:32.626218+00:00"
+        "prose_sha256": "42adc28b314021e9b5f06da467a5d69860fa6db8404612a66d46e3f38eaeda21",
+        "scored_at": "2026-11-25T17:46:38.271157+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
@@ -142784,6 +142768,338 @@
         "availability": "global",
         "is_leak": false
       }
+    },
+    {
+      "id": "6bfe9423d1f62cdcc6bb",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-25/nasdaq-100-enters-bear-market-territory-on-ai-angst-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "54ff516111a6835f4305"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "e7a22050f5076688c91d",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-25/billions-in-data-center-deals-grind-to-halt-after-ai-chip-curbs",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "01600066851df673aa3d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "551b41b55629eb2adfe6",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "podcast",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/podcast/ai-data-centers-are-becoming-harder-to-build-and-neoclouds-are-feeling-it/",
+      "key_points": [
+        "Theo TechCrunch, Nvidia tuyên bố sẽ không bảo lãnh cho trung tâm dữ liệu AI cho đến khi cơ sở gần sẵn sàng vận hành, trong bối cảnh các dịch vụ đám mây thế hệ mới báo cáo tiến độ xây dựng bị chậm trễ và chi phí nợ tăng cao.",
+        "Công ty Arizona Land Consulting của Anita Verma-Lallian gom mặt bằng cho các bên phát triển, phòng thí nghiệm AI và dịch vụ đám mây thế hệ mới. Theo TechCrunch, quỹ đất, nguồn điện và nhà xưởng hoàn thiện hiện quan trọng hơn một bản thuyết trình dự án.",
+        "Theo podcast của TechCrunch, các dự án đầu cơ có thể là bên đầu tiên đổ vỡ khi Nvidia trở nên khắt khe hơn. Chương trình podcast của TechCrunch cũng thảo luận về viễn cảnh có thể xảy ra của đợt thanh lọc năm 2027 và những bên có thể hưởng lợi khi thâu tóm các dự án gặp khó khăn."
+      ],
+      "same_event_coverage_ids": [
+        "67cb631f75feb613f9bc"
+      ],
+      "split_coverage_ids": [],
+      "subject": "AI data center development and neocloud financing challenges",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Anita Verma-Lallian",
+          "Chamath Palihapitiya",
+          "Rebecca Bellan"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nvidia siết bảo lãnh trung tâm dữ liệu AI khi các dịch vụ đám mây thế hệ mới chậm tiến độ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/podcast/ai-data-centers-are-becoming-harder-to-build-and-neoclouds-are-feeling-it/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "4ce8ffd232f8ea1df0b524807e49713cb5d5c75f23cab4779656986d742a59c5",
+        "scored_at": "2026-11-25T17:36:29.376857+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "9930de04b333019eb4c4",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-25/stocks-swoon-as-ai-fears-spur-rush-to-treasuries-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "ff70fd43f8ad1acd4d17"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "47d7b9ddcc6c0310813d",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-25/ai-demand-much-bigger-than-market-pricing-in-says-ives-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "1240eb7386e485b8480c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "ccaad1b40c6a7667c9e6",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "podcast",
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.404media.co/podcast-the-ai-tool-hacking-the-planet/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "e8262f3305e89bfd7116"
+      ],
+      "split_coverage_ids": [],
+      "subject": "ARTEX AI hacking framework and Google AI TV channel",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "5b3334203d50f9211fb8",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.reuters.com/video/watch/idRW107225112026RP1/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "48d1e17a22b7963c4437"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Probe into Alice Huang-linked funding of China AI sector",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Alice Huang"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "69fbec9981f84b435a9d",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.anthropic.com/research/migrating-api-to-rust",
+      "key_points": [
+        "The Messages API is the primary route for customers and apps like Claude Code and Cowork to reach Claude.",
+        "Migrating live systems with AI is challenging because edge cases fall outside test suites and verifying correctness is difficult."
+      ],
+      "same_event_coverage_ids": [
+        "60c1bf9925d62db2f05f"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Migrating Anthropic Messages API from Python to Rust",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "247664f7b48ac8a87d27",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://jayd.ml/2026/11/14/rockbox-on-yp3.html",
+      "key_points": [
+        "Theo tác giả bài viết, AI đã đưa thành công firmware Rockbox lên máy nghe nhạc 512 KiB mà người này gần như không phải can thiệp. Đây là máy nghe nhạc không thương hiệu mang mã YP3 có giá 9,71 USD, dùng vi xử lý Trung Quốc không có tài liệu trực tuyến.",
+        "Tác giả bài viết giải thích dự án diễn ra vì vào năm 2026 dường như không còn máy nghe nhạc giá rẻ nào được Rockbox hỗ trợ. Đánh giá việc dịch ngược phần cứng nhúng rất khó, người này đã mua gói token AI trợ giá để thử nghiệm trên thiết bị giá 9 USD có sẵn.",
+        "Sau khoảng một tuần, thiết bị đã khởi động được bản dựng Rockbox tinh giản và phát âm thanh sau khi cắt giảm tối đa các bộ đệm. Đặc biệt, mô hình Claude đã tự dịch ngược ngăn xếp Bluetooth trong một đêm và viết lớp trừu tượng phần cứng cho Rockbox.",
+        "Theo tác giả bài viết, dự án giúp tạo ra bộ công cụ tái sử dụng giúp đưa Rockbox lên máy khác trong 4 giờ, điển hình là máy TS47. Dù vậy, tác giả lưu ý thiết bị phải chịu giới hạn lớn là không thể chạy đồng thời khi nghe nhạc và mở tiện ích do bộ nhớ hạn chế."
+      ],
+      "same_event_coverage_ids": [
+        "3a0c0ad55677993e15ea"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Release of auto-rockbox toolkit for porting firmware with LLMs",
+      "video_labels": {
+        "video_hook": "usable_now",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "AI đưa thành công firmware Rockbox lên máy nghe nhạc 9 USD dù thiết bị chỉ có 512 KiB SRAM",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://jayd.ml/2026/11/14/rockbox-on-yp3.html"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.85,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "807faf7f77c6da7ff73ce5e9a4b79d3582513d99634fb5f309d19ce1854cf916",
+        "scored_at": "2026-11-25T17:31:49.035712+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "3dd63c082203ec911d60",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.scmp.com/plus/tech/big-tech/article/3375546/what-nvidia-said-about-jensen-huangs-return",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "529a83be617d105b5ae6",
+        "90894395aac0dff78add",
+        "b68311b70f5a2d724f66",
+        "be0007ef71ef0867cfb9",
+        "e96dcd4f81f5b07bfc88"
+      ],
+      "split_coverage_ids": []
     }
   ]
 }
