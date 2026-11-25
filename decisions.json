@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-25T05:49:52.189573+00:00",
-  "input_generated_at": "2026-11-25T04:46:42Z",
+  "generated_at": "2026-11-25T09:58:56.838661+00:00",
+  "input_generated_at": "2026-11-25T08:46:42Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -138213,10 +138213,10 @@
       "use_original_title": true,
       "source_url": "https://analyticsindiamag.com/ai-news/dell-lifts-fy27-outlook-for-third-time-as-ai-server-backlog-hits-132-billion",
       "key_points": [
-        "Dell nâng dự báo doanh thu năm tài chính 2027 lên 202 tỷ USD từ mức ước tính 192 tỷ USD trước đó. Doanh nghiệp kỳ vọng doanh thu tăng 78%, cùng lượng đơn hàng máy chủ AI tồn đọng đạt kỷ lục 132,3 tỷ USD.",
-        "Theo Analytics India Magazine, nhu cầu hạ tầng AI thúc đẩy doanh thu quý 3 lên kỷ lục 54,9 tỷ USD. Ông Jeffrey Clarke cho biết nhu cầu đang vượt cung và dự kiến cách biệt này nới rộng sang năm 2027.",
-        "Riêng máy chủ tối ưu cho AI quý này tăng 291% đạt 22 tỷ USD.",
-        "Ông Clarke cho biết máy chủ cho tác vụ suy luận và tác tử AI (hệ thống tự vận hành) có giá trung bình cao gần gấp đôi máy chủ truyền thống. Dù vậy, Analytics India Magazine ghi nhận phần lớn khách hàng doanh nghiệp vẫn dừng ở mức thử nghiệm khái niệm và công cụ."
+        "Dell nâng dự báo doanh thu năm tài chính 2027 lên 202 tỷ USD từ mức 192 tỷ USD ước tính trước đó. Doanh nghiệp kỳ vọng doanh thu tăng 78%, ghi nhận lần tăng triển vọng thứ ba trong năm.",
+        "Theo Analytics India Magazine, nhu cầu hạ tầng AI thúc đẩy doanh số kỷ lục và nâng lượng tồn đọng máy chủ AI lên 132,3 tỷ USD. Phó chủ tịch Jeffrey Clarke cho biết nhu cầu đang vượt cung và dự kiến khoảng cách này sẽ nới rộng sang năm dương lịch 2027.",
+        "Doanh thu máy chủ tối ưu cho AI quý này tăng 291% lên 22 tỷ USD, còn máy chủ truyền thống và mạng tăng 235% đạt 15 tỷ USD.",
+        "Theo ông Clarke, máy chủ phục vụ suy luận và tác tử AI (hệ thống tự vận hành) có giá trung bình cao gấp đôi máy chủ truyền thống. Dù vậy, Analytics India Magazine ghi nhận phần lớn khách hàng doanh nghiệp vẫn dừng ở mức thử nghiệm khái niệm và công cụ."
       ],
       "same_event_coverage_ids": [
         "3ae987d938cfc7208844"
@@ -138232,7 +138232,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Dell nâng dự báo doanh thu năm 2027 lên 202 tỷ USD nhờ đơn hàng tồn đọng máy chủ AI đạt 132,3 tỷ USD",
+      "editorial_headline_vi": "Dell nâng dự báo doanh thu năm 2027 lên 202 tỷ USD do nhu cầu hạ tầng AI, đưa tồn đọng máy chủ lên 132,3 tỷ USD",
       "summary_sources": [
         {
           "id": "outlet",
@@ -138245,25 +138245,24 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.05,
+        "value": 8.85,
         "answers": {
           "what": 10,
-          "why": 6,
-          "notable": 10,
+          "why": 8,
+          "notable": 8,
           "meaning": 9
         },
-        "hard_errors": [
-          {
-            "kind": "cause",
-            "summary_text": "nhờ đơn hàng tồn đọng máy chủ AI đạt 132,3 tỷ USD",
-            "explanation": "The source attributes the stronger outlook to AI infrastructure demand, which drove sales and pushed up the backlog; it does not say reaching that backlog figure caused the forecast increase (outlet:p001)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
+            "question": "notable",
+            "problem": "Readers miss the result the source calls the standout.",
+            "fix": "Add that Dell’s Infrastructure Solutions Group revenue rose 198% to $42 billion (outlet:p003)."
+          },
+          {
             "question": "why",
-            "problem": "The headline makes the backlog figure the cause of the raised forecast.",
-            "fix": "Attribute the increase to AI infrastructure demand and present the $132.3 billion backlog as a result or indicator of that demand (outlet:p001)."
+            "problem": "Readers get the broad cause but miss the source’s explanation of emerging demand.",
+            "fix": "Explain that Clarke linked AI agents to greater token use and demand across servers, storage, data management, and networking (outlet:p006)."
           }
         ],
         "writer_boats": [
@@ -138271,8 +138270,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "893af2b273818dc594d29efa987d2478a93e1152ba56384ea1da1540f7da470a",
-        "scored_at": "2026-11-25T05:44:47.218545+00:00"
+        "prose_sha256": "a5128750ea908eef6e72f8597a75175c16e260c702af538f7752cfa547c193b4",
+        "scored_at": "2026-11-25T09:58:56.821118+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
@@ -139305,6 +139304,1952 @@
         "scorer_provider": "codex",
         "prose_sha256": "780ca21eceabb7244f51de8462ab5ed9607488b36976bfb00835a849fd870b79",
         "scored_at": "2026-11-25T05:44:47.219012+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "79454fa76615f529c2c1",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-25/neuberger-easy-ai-wins-are-over-stick-to-hyperscalers-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "dea1bb1cd4473499edc4"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "4c68caff06d4ae448407",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://analyticsindiamag.com/ai-news/neysa-looks-beyond-gpu-capacity-to-build-an-enterprise-ai-partner-network",
+      "key_points": [
+        "Công ty hạ tầng đám mây Neysa tại Mumbai đã ra mắt chương trình đối tác cho nền tảng đám mây Velocis nhằm hỗ trợ xây dựng và triển khai các ứng dụng AI (trí tuệ nhân tạo).",
+        "Theo ông Aniket Chandavarkar đại diện Neysa, mục tiêu của chương trình là biến việc ứng dụng AI doanh nghiệp thành cơ hội chung trong toàn hệ sinh thái.",
+        "Chương trình cung cấp năng lực tính toán, hỗ trợ đăng ký thương vụ, phát triển đề xuất chung và cho phép tiếp cận đội ngũ bán hàng cho các công ty phần mềm, đơn vị tích hợp hệ thống cùng nhà tư vấn.",
+        "Ông Mushtaq Khot thuộc đối tác Lauren Group cho biết các khách hàng khi chuyển khối lượng công việc AI từ thử nghiệm sang vận hành thực tế cần những giải pháp bảo đảm hiệu quả kinh doanh mà không làm mất quyền kiểm soát dữ liệu."
+      ],
+      "same_event_coverage_ids": [
+        "239ced044b8d5c06cc8a"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Neysa",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Aniket Chandavarkar",
+          "Mushtaq Khot"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Neysa ra mắt chương trình đối tác trên nền tảng đám mây Velocis để mở rộng ứng dụng AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "analytics-india-magazine",
+          "url": "https://analyticsindiamag.com/ai-news/neysa-looks-beyond-gpu-capacity-to-build-an-enterprise-ai-partner-network"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.3,
+        "answers": {
+          "what": 10,
+          "why": 8,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "Readers miss Neysa’s stated business aim.",
+            "fix": "Add that Neysa hopes to reach more customers for its infrastructure-as-a-service offering (outlet:p003)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "7f0a1f3981e5298222a94606e711b76ea30c4be94a407c269c2d2ad8ccd016fe",
+        "scored_at": "2026-11-25T09:55:34.795823+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "4aac693f6b2b2bd44f11",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-25/one-more-late-cycle-mania-in-ai-trade-3-minutes-mliv-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "d05d881c40dd0789b7b3"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "565fc96be491d7a1823f",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The report focuses on metals markets and commodities rout; AI is only mentioned in passing as market context.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-25/copper-nears-bear-market-as-ai-doubts-fuel-rout-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "62722848794e4be6205b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "098a1a4e2ebc663306e0",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The article focuses on Dassault Systèmes' startup pricing ladder for CAD design software; AI is merely an incidental reference.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://analyticsindiamag.com/ai-features/dassault-bets-free-software-and-ai-can-turn-hardware-startups-into-customers",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "884b97317ebda63b873a"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "ff1c1c85052fbd5abc56",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://en.yna.co.kr/view/AEN20261125006252320",
+      "key_points": [
+        "Chỉ số chứng khoán KOSPI của Hàn Quốc đã giảm 308,52 điểm, tương đương 6,16%, xuống mức 4.697,51 điểm và rơi xuống dưới mốc tâm lý 5.000 điểm trong phiên ngày 25 tháng 11.",
+        "Hãng tin Yonhap cho biết đà sụt giảm xảy ra do đợt bán tháo cổ phiếu công nghệ tại Phố Wall đêm trước làm dấy lên lo ngại về tính bền vững của làn sóng đầu tư AI (trí tuệ nhân tạo). Tại thị trường Mỹ, các cổ phiếu công nghệ cũng đồng thời chịu sức ép từ những mối lo ngại về mức thuế quan mới.",
+        "Nhóm công nghệ dẫn đầu đà giảm khi cổ phiếu đầu ngành Samsung Electronics sụt 9,87% xuống 170.700 won, còn đối thủ sản xuất chip SK hynix mất 11,05% xuống 1,03 triệu won. Áp lực bán tháo khiến Sở Giao dịch Chứng khoán Hàn Quốc phải kích hoạt lệnh ngắt mạch tạm thời (sidecar) lúc 9 giờ 09 phút để đình chỉ lệnh mua theo chương trình trong năm phút.",
+        "Đánh giá về đợt phục hồi mạnh của phiên liền trước đó, nhà phân tích Han Ji-young tại Kiwoom Securities nhận định phù hợp hơn nếu coi đó là dấu hiệu ban đầu cho thấy tâm lý bi quan tích tụ suốt hai tháng qua đang giảm bớt, thay vì xem là sự đảo chiều xu hướng bền vững."
+      ],
+      "same_event_coverage_ids": [
+        "950b6528efb6ed689c7a"
+      ],
+      "split_coverage_ids": [],
+      "subject": "KOSPI",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Chứng khoán Hàn Quốc giảm hơn 6% xuống dưới 5.000 điểm khi cổ phiếu công nghệ bị bán tháo",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "yonhap",
+          "url": "https://en.yna.co.kr/view/AEN20261125006252320"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "d5e99f30f3e37b5a8df58a9b268b19e14205b1f823b407e3bd488756b979b359",
+        "scored_at": "2026-11-25T09:55:34.795886+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "a3607e5599adb94f17ed",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-25/prosus-ceo-very-bullish-on-tencent-s-ai-assistant-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "44a186959d2c7309d7f0"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "6de64f759eff2f7fc962",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://pandaily.com/alibaba-qwen-go-free-authorized-ai-calling",
+      "key_points": [
+        "Ứng dụng Qwen Go của Alibaba đã mở dịch vụ gọi điện thay mặt người dùng miễn phí cho người dùng phổ thông theo các báo cáo từ truyền thông Trung Quốc. Tính năng này cho phép trợ lý trí tuệ nhân tạo (AI) liên hệ với cá nhân hoặc doanh nghiệp cụ thể sau khi người dùng đưa ra chỉ dẫn và cấp quyền.",
+        "Hệ thống vận hành theo cơ chế người dùng ấn định đối tượng, nội dung hoặc hẹn giờ gọi, trợ lý tự xưng là AI trong hội thoại và có cơ chế sàng lọc yêu cầu.",
+        "Các trường hợp sử dụng trong thông báo tập trung vào việc thực hiện các tác vụ hàng ngày như đặt phòng nhà hàng hay hỏi đồ thất lạc hoặc kiểm tra tiến độ giao hàng.",
+        "Trang tin Pandaily nhấn mạnh tính năng không đồng nghĩa với quyền gọi không giới hạn hay thực hiện các tác vụ rủi ro cao như tài chính và khẩn cấp, đồng thời việc gọi điện không đảm bảo kết quả đã thành công."
+      ],
+      "same_event_coverage_ids": [
+        "ce63b2a5ad3c9ea28cbd"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Alibaba Qwen Go",
+      "video_labels": {
+        "video_hook": "usable_now",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Alibaba mở tính năng gọi điện thoại thay mặt người dùng miễn phí trên ứng dụng Qwen Go",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "pandaily",
+          "url": "https://pandaily.com/alibaba-qwen-go-free-authorized-ai-calling"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.4,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 8,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "Hệ thống vận hành theo cơ chế người dùng ấn định đối tượng, nội dung hoặc hẹn giờ gọi, trợ lý tự xưng là AI trong hội thoại và có cơ chế sàng lọc yêu cầu.",
+            "explanation": "User direction and scheduling are reported features, but AI self-identification and request screening are announced safeguards, not independently verified operation (outlet:p001–p004)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "Readers may take the stated safeguards as independently confirmed.",
+            "fix": "Attribute AI self-identification and risk screening to the service’s announcement (outlet:p004)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "122b89ad228d7bbc56c90931c11780f55f61ac4a14373c5c7e4a1d32c1192c4a",
+        "scored_at": "2026-11-25T09:43:25.686786+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "3272ede2c37e09eb4b0e",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://analyticsindiamag.com/ai-news/can-ai-predict-the-future-former-xai-team-build-ai-time-machine-in-hopes-of-just-that",
+      "key_points": [
+        "Ba cựu thành viên thuộc đội ngũ xAI đã thành lập startup Epochal và gọi vốn 100 triệu USD để huấn luyện các mô hình AI có khả năng dự đoán các sự kiện trong tương lai. Theo Bloomberg, nhà đồng sáng lập Guodong Zhang cũng tự đầu tư vốn vào công ty, bên cạnh việc thu hút nhân sự từ các tổ chức như OpenAI và Google DeepMind.",
+        "Theo Epochal, các mô hình rất khó phân biệt giữa nhận diện quy luật và sử dụng kiến thức sẵn có, nên công ty muốn giải quyết vấn đề thiên kiến nhận thức muộn bằng cách đưa AI quay ngược thời gian.",
+        "Startup này phát triển môi trường Time Portal cho phép tác tử AI (phần mềm tự chủ) duyệt internet theo mốc thời gian quá khứ. Trong thử nghiệm nội bộ với 347 câu hỏi từ thị trường Kalshi và Polymarket, Epochal cho biết độ tương quan sai số đạt 0,98, dù con số này không đồng nghĩa AI đạt độ chính xác 98%.",
+        "Theo bài viết, phương pháp này gặp giới hạn cố hữu vì việc chặn web không thể loại bỏ thông tin mô hình nền tảng đã tiếp nhận trong huấn luyện, và Epochal hiện chỉ mở quyền tiếp cận hạn chế qua API."
+      ],
+      "same_event_coverage_ids": [
+        "9ba6cb09d36940c40070",
+        "a26937a839abc003104f"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Epochal",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Guodong Zhang",
+          "Zihang Dai",
+          "Manuel Kroiss",
+          "Elon Musk"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Cựu thành viên xAI lập startup Epochal gọi vốn 100 triệu USD phát triển AI dự đoán tương lai",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "analytics-india-magazine",
+          "url": "https://analyticsindiamag.com/ai-news/can-ai-predict-the-future-former-xai-team-build-ai-time-machine-in-hopes-of-just-that"
+        },
+        {
+          "id": "coverage1",
+          "role": "coverage",
+          "name": "bloomberg",
+          "url": "https://www.bloomberg.com/news/articles/2026-11-24/xai-founders-unveil-new-ai-startup-to-predict-future-events"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.7,
+        "answers": {
+          "what": 10,
+          "why": 8,
+          "notable": 8,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The 0.98 figure lacks its comparison, leaving its meaning unclear.",
+            "fix": "Say it measures how closely replayed forecast errors matched the original live forecast errors in Epochal’s internal test (outlet:p009–p010)."
+          },
+          {
+            "question": "why",
+            "problem": "The wording makes it sound as though the models themselves struggle to distinguish patterns from prior knowledge.",
+            "fix": "Explain that evaluating their forecasts makes it difficult to establish which of those two sources produced a prediction (outlet:p003–p004)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "cd9e4445e24167dfefe56a9466e531acc6817e9d039c63b5f04b4d23eb1fc8cf",
+        "scored_at": "2026-11-25T09:43:25.686817+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "c26ca01c491768b138af",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://technode.com/2026/11/25/oceanbases-databricks-moment-building-an-enterprise-ai-platform-on-its-core-database-roots/",
+      "key_points": [
+        "Ngày 24 tháng 11, OceanBase ra mắt nền tảng dữ liệu OceanLake và mở mã nguồn cơ sở dữ liệu OceanSeek dành cho các tác tử AI (hệ thống AI tự hành thực hiện tác vụ). Nền tảng này kết hợp xử lý giao dịch thời gian thực, tính toán phân tích và lưu trữ mở từ hồ dữ liệu theo công bố của OceanBase.",
+        "Ông Yang cho biết tác tử AI khi thực hiện tác vụ đòi hỏi truy xuất dữ liệu, lưu nhớ và độ tin cậy giao dịch trong cùng một quy trình.",
+        "Tại Ping An Life, OceanBase cho biết việc mô hình hóa bản thể học giúp rút ngắn thời gian bàn giao truy vấn dữ liệu điển hình từ 2 đến 5 ngày xuống khoảng 15 phút.",
+        "TechNode đánh giá canh bạc của OceanBase là lợi thế doanh nghiệp vẫn đến từ dữ liệu và hạ tầng, ngay cả khi các mô hình AI dần trở nên đại trà. Tuy nhiên, ông Yang nhận định doanh nghiệp vẫn đối mặt thách thức phải tự chuyển đổi dữ liệu độc quyền thành định dạng mà AI sử dụng được."
+      ],
+      "same_event_coverage_ids": [
+        "fc0d3ac6e2f2a14f0f85"
+      ],
+      "split_coverage_ids": [],
+      "subject": "OceanBase",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Evan Yang"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "OceanBase ra mắt nền tảng OceanLake và mở mã nguồn cơ sở dữ liệu OceanSeek phục vụ các tác tử AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "technode",
+          "url": "https://technode.com/2026/11/25/oceanbases-databricks-moment-building-an-enterprise-ai-platform-on-its-core-database-roots/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.8,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "bd22a2246bfe2437d9a2b6c58d33178c2aad7479ba2fe3d2a9bbdd22fe9d4a4e",
+        "scored_at": "2026-11-25T09:55:34.795913+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "ab88b8ed39c8682e09f0",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-25/asian-stocks-resume-slide-as-ai-concerns-hit-chipmakers-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "0e53e5910b6796eb0c87"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "42183324deaa667b6060",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://en.yna.co.kr/view/AEN20261125006100320",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "4baf739e6133280c1f07",
+        "6eaa1430dacf2477bbb1",
+        "7adfd37f560a15cb21fc"
+      ],
+      "split_coverage_ids": [],
+      "subject": "KOSPI",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "69622efd72bb758d56c7",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-25/asia-data-centers-sound-out-us-clients-to-replace-china-demand",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "ee428a297f78801c8758"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "c9c8160087b667e86dba",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://analyticsindiamag.com/ai-news/aidenai-raises-32-million-in-series-a-funding-led-by-a91-partners",
+      "key_points": [
+        "Startup AidenAI vừa huy động 32 triệu USD trong vòng gọi vốn Series A do quỹ A91 Partners dẫn đầu.",
+        "Theo nhà sáng lập Srinivas Kamadi, AidenAI nhận thấy cơ hội lớn trong việc thu hẹp khoảng cách năng lực AI, đưa trí tuệ nhân tạo vào lõi doanh nghiệp và tái định hình các giải pháp công nghệ.",
+        "Theo ông Kaushik Anand từ A91 Partners, AidenAI đã hỗ trợ hơn 30 doanh nghiệp lớn đạt kết quả kinh doanh đo lường được trong ba năm qua. Công ty cũng lên kế hoạch đào tạo hơn 1.000 kỹ sư AI trước cuối năm 2027 thông qua học viện riêng.",
+        "Dù vậy, ông Anand nhấn mạnh việc ứng dụng AI trong doanh nghiệp hiện vẫn chỉ đang ở giai đoạn đầu."
+      ],
+      "same_event_coverage_ids": [
+        "febc363514f059e32488"
+      ],
+      "split_coverage_ids": [],
+      "subject": "AidenAI",
+      "video_labels": {
+        "video_hook": "money_jobs",
+        "named_people": [
+          "Srinivas Kamadi"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Startup AidenAI huy động 32 triệu USD vòng Series A để mở rộng nền tảng tác tử AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "analytics-india-magazine",
+          "url": "https://analyticsindiamag.com/ai-news/aidenai-raises-32-million-in-series-a-funding-led-by-a91-partners"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.25,
+        "answers": {
+          "what": 10,
+          "why": 8,
+          "notable": 7,
+          "meaning": 7
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "đào tạo hơn 1.000 kỹ sư AI",
+            "explanation": "The source says AidenAI plans to build a team of more than 1,000 frontier AI engineers through its Builder Academy; it does not say it will train more than 1,000 engineers (outlet:p004)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The hiring or team-building target becomes a training target.",
+            "fix": "Say AidenAI plans to build a team of more than 1,000 frontier AI engineers by the end of 2027 through its Builder Academy (outlet:p004)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The reader misses two stated uses of the funding.",
+            "fix": "Add industry-specific agentic AI solutions and expansion beyond the company's existing six-country presence (outlet:p004–p005)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "c26407d0a78c7fe7db0689eab60c28075ed63ee938044e069458a33984f19430",
+        "scored_at": "2026-11-25T09:43:25.686895+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "4522f7fa670364b1e3b5",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-25/malaysia-tightens-controls-amid-us-ai-chip-curbs-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b0b71e4387bf038d9da5"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "2ef5c3b31d923cc64812",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://en.yna.co.kr/view/AEN20261125005400320",
+      "key_points": [
+        "Bộ trưởng Khoa học Hàn Quốc Bae Kyung-hoon thông báo chính phủ đang xem xét nhiều công nghệ kiểm soát gian lận thi cử bằng trí tuệ nhân tạo (AI) cùng các phương tiện công nghệ cao.",
+        "Theo ông Bae, các biện pháp kỹ thuật được xem xét vận hành qua việc phát hiện sóng truyền thông vô tuyến, chèn hình mờ lên đề thi và nhận diện hành vi qua camera giám sát (CCTV).",
+        "Bộ Khoa học tiến hành đánh giá kỹ thuật khả năng sử dụng công nghệ gây nhiễu sóng (chặn tín hiệu không dây có chủ đích trong an ninh tổng thống) ở mức công suất phát thấp hơn. Chính phủ Hàn Quốc đồng thời thảo luận với các hãng công nghệ toàn cầu về công tác điều tra tiếp theo đối với các trường hợp nghi vấn gian lận.",
+        "Bộ trưởng Bae Kyung-hoon nhấn mạnh rất khó tạo ra giải pháp hoàn hảo từ một biện pháp đơn lẻ, đồng thời công bố kế hoạch hoàn thiện các phương án ngắn và dài hạn cùng các bộ ngành hữu quan."
+      ],
+      "same_event_coverage_ids": [
+        "431739febe311824ffe9"
+      ],
+      "split_coverage_ids": [],
+      "subject": "South Korean government AI anti-cheating policy",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Bae Kyung-hoon"
+        ],
+        "availability": "region_locked:South Korea",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Hàn Quốc xem xét công nghệ phá sóng công suất thấp chống gian lận thi cử bằng AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "yonhap",
+          "url": "https://en.yna.co.kr/view/AEN20261125005400320"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.85,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "1ba63372e7e7d16c7e22664e0cdeba81c2dc545229e61da86952c3b020ac0b02",
+        "scored_at": "2026-11-25T09:43:25.686920+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "7f4a24580ced634ea110",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://technode.com/2026/11/25/ant-releases-ling-3-2-air-multimodal-model-under-mit-license/",
+      "key_points": [
+        "Ant Group đã phát hành trọng số mô hình đa phương thức Ling-3.2-air vào thứ Ba theo giấy phép MIT. Mô hình xử lý văn bản, hình ảnh và video, tập trung phục vụ các agent (tác nhân tự hành) dùng công cụ hoàn thành quy trình chuyên môn.",
+        "Ling-3.2-air dùng kiến trúc hỗn hợp chuyên gia với chú ý tuyến tính, gồm 124 tỷ tham số và kích hoạt 5,5 tỷ mỗi token. Tài liệu triển khai cho SGLang và vLLM cho phép lập trình viên tự chạy mô hình cho ứng dụng thương mại.",
+        "Theo Ant, tỷ lệ hoàn tất tác vụ tăng lên 61% so với mức 15,7% của Ling-3.0-flash-VL trên bộ đánh giá AutomationBench-AA do hãng công bố. Doanh nghiệp cũng báo cáo mức cải thiện khi tạo tệp PDF, thao tác phần mềm văn phòng và quy trình trình duyệt.",
+        "Ant cho biết các cải tiến này định vị mô hình vào công việc xử lý qua công cụ thay vì chỉ phản hồi trò chuyện."
+      ],
+      "same_event_coverage_ids": [
+        "bb3bf08e99435c3cfbcd"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Ant Group Ling-3.2-air model release",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Ant Group phát hành trọng số mô hình Ling-3.2-air theo giấy phép MIT, tập trung xử lý quy trình qua công cụ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "technode",
+          "url": "https://technode.com/2026/11/25/ant-releases-ling-3-2-air-multimodal-model-under-mit-license/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.55,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The parameter figures lose their scope.",
+            "fix": "Specify that the 124 billion total and 5.5 billion activated parameters describe Ling-3.2-air's language component (outlet:p003)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "c241e652d894aab10c213a86001f4ec3b9d45c34dccd2e9b242ea2614c6fafb4",
+        "scored_at": "2026-11-25T09:43:25.686942+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "f528c8320cc5dcfeb8fd",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://analyticsindiamag.com/ai-news/thomas-dohmkes-entire-partners-with-sarvam-to-bring-ai-coding-agents-to-india",
+      "key_points": [
+        "Nền tảng Entire do cựu CEO GitHub Thomas Dohmke sáng lập đã hợp tác với Sarvam AI cung cấp agent (tác nhân tự hành) lập trình nội địa. Thỏa thuận này giúp giữ mã nguồn, các phiên chạy agent và quá trình suy luận dữ liệu hoàn toàn trong lãnh thổ Ấn Độ.",
+        "Hợp tác này nhằm đáp ứng yêu cầu lưu trú dữ liệu của các tổ chức, đặc biệt trong những lĩnh vực chịu quản lý nghiêm ngặt. CEO Thomas Dohmke cho rằng mã nguồn và suy luận cần được giữ trong nước khi Ấn Độ theo đuổi chủ quyền AI.",
+        "Theo thỏa thuận, mô hình của Sarvam sẽ được thử nghiệm trên Trails, giải pháp thay thế yêu cầu gộp mã truyền thống của Entire. Trong kiểm chuẩn ForgeMark với nhiều agent đẩy mã đồng thời, Entire tuyên bố hạ tầng đạt 355 lượt đẩy mỗi giây so với 4 của GitHub.",
+        "Theo ông Vivek Raghavan, đồng sáng lập của Sarvam, điều này mở ra khả năng phát triển bằng agent cho các kho mã nhạy cảm đối với những doanh nghiệp cần giữ mã nguồn tại Ấn Độ."
+      ],
+      "same_event_coverage_ids": [
+        "d0c2e56485b5820432b3"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Entire and Sarvam AI partnership",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Thomas Dohmke"
+        ],
+        "availability": "region_locked:India",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Entire hợp tác với Sarvam AI mang agent lập trình lưu trữ nội địa đến các doanh nghiệp Ấn Độ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "analytics-india-magazine",
+          "url": "https://analyticsindiamag.com/ai-news/thomas-dohmkes-entire-partners-with-sarvam-to-bring-ai-coding-agents-to-india"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.55,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "aa515fdfbc737780ab44218c180c034b48ea3aac4ac8a0b364385c254ddbbb77",
+        "scored_at": "2026-11-25T09:43:25.686964+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "fe89a7f4f4663600ea06",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Show HN link to a personal gallery of vintage 1998–2000 graphics hardware tech demos for 3dfx, ATI, and Nvidia, containing no artificial intelligence content.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://gpu-demo-gallery.pages.dev/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c9ba8a8af12db7ecf7b2"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "c220a15a9da754b47211",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Show HN submission linking to a commercial product landing page with promotional copy for a local chat-to-markdown export tool, lacking independent reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://carry.md/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c14679b9bb6072ab6182"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "838a7cd776a012a92c68",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://robkohr.com/articles/no--gen-ai-will-not-end-civilization",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "6c471d5d017402068ebd"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Generative AI capabilities and regulatory debate",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Sam Altman"
+        ],
+        "availability": "global",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "0fdc2fea3ca2a74bb7c5",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/tech/1041571/jensen-huang-all-hands-nvidia-apology",
+      "key_points": [
+        "Nvidia CEO Jensen Huang apologized to staff during his first all-hands meeting since returning to lead the company.",
+        "Huang denied claims that Donald Trump was directly involved in his reinstatement, calling the narrative completely untrue.",
+        "Huang stated that Nvidia remains an apolitical company and politics played no part in his return."
+      ],
+      "same_event_coverage_ids": [
+        "28492e8b51b77e414d4c",
+        "5766bad39bf535138761",
+        "dc64c9cac23487150863"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Jensen Huang Nvidia all-hands address",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Jensen Huang",
+          "Donald Trump",
+          "Marisa Kabas"
+        ],
+        "availability": "global",
+        "is_leak": true
+      }
+    },
+    {
+      "id": "f9c0676a882ce9068679",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.32820",
+      "key_points": [
+        "Nhóm tác giả đề xuất phương pháp Residual Guidance cho mô hình tạo video thời gian thực nhằm triệt tiêu quán tính ngữ cảnh ngoài bộ nhớ đệm (cache, vùng lưu tạm) mà không cần huấn luyện. Theo nhóm nghiên cứu, các mô hình dạng luồng (streaming models, xuất video từng phân đoạn) hiện nay thường tiếp tục bám theo câu lệnh cũ sau khi đổi lệnh.",
+        "Theo nhóm tác giả, quán tính ngữ cảnh từ phân đoạn trước triệt tiêu câu lệnh mới vì phân đoạn liền trước trở thành tiền nghiệm quá mạnh lấn át chỉ dẫn mới. Cơ chế này khử nhiễu phân đoạn cũ dưới câu lệnh mới và cộng phần dư vào phân đoạn kế tiếp ở các bước khử nhiễu sớm, nơi nội dung phân đoạn phần lớn được định hình.",
+        "Nhóm nghiên cứu khẳng định phương pháp cải thiện khả năng chuyển câu lệnh mà vẫn giữ chất lượng hình ảnh và không cần huấn luyện, trong khi phần lớn vẫn duy trì chất lượng thị giác. Kỹ thuật này chỉ tốn thêm một lượt lan truyền xuôi (forward pass, lượt chạy mô hình) cho mỗi phân đoạn và không cần tinh chỉnh riêng, giúp dễ dàng tích hợp vào quy trình tạo video hiện hành."
+      ],
+      "same_event_coverage_ids": [
+        "86722f936a8aa3917e21"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Residual Guidance for streaming video generation",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "NaHyeon Park",
+          "Kyeong-Hwan Moon",
+          "Youjin Jeon",
+          "Hyunjung Shim"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Kỹ thuật Residual Guidance giúp mô hình tạo video dạng luồng chuyển câu lệnh không cần huấn luyện",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.32820"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.15,
+        "answers": {
+          "what": 10,
+          "why": 8,
+          "notable": 9,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "35bca31b1fa3fe1d2458dcdc377a2e0c074c317cb4b0425374a5cdb494462303",
+        "scored_at": "2026-11-25T09:43:25.686986+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "cf9f4fd6674e23e8b799",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.32183",
+      "key_points": [
+        "Nhóm tác giả Jiawei Gu giới thiệu quy trình ThinkMorph-SSL hai giai đoạn, dùng chính hình ảnh làm nguồn giám sát cho suy luận đa phương thức đan xen (interleaved multimodal reasoning - mô hình tự tạo ảnh để dẫn dắt tư duy). Phương pháp chuyển các tác vụ như tô màu hay khử nhiễu thành chuỗi suy luận trước khi tinh chỉnh theo câu hỏi.",
+        "Theo nhóm tác giả, việc huấn luyện khả năng suy luận đan xen thường phụ thuộc vào các minh họa riêng cho từng tác vụ vốn rất khó thu thập. Trong quy trình này, mô hình mô tả ảnh bị biến đổi, tạo ảnh phục hồi rồi diễn giải kết quả.",
+        "Quy trình hoàn chỉnh cải thiện trung bình 11,33 điểm độ chính xác so với mô hình cơ sở trên mười hai bộ chuẩn đánh giá (benchmark - bài kiểm tra chuẩn hóa). Khi cùng ngân sách tinh chỉnh chỉ dẫn, mô hình học từ tác vụ tiền đề cũng vượt trội so với chỉ tinh chỉnh đơn thuần.",
+        "Nhóm tác giả nhận định nguồn giám sát từ hình ảnh có thể xây dựng kỹ năng thị giác cho suy luận đan xen và nâng cao hiệu quả học từ minh họa tác vụ."
+      ],
+      "same_event_coverage_ids": [
+        "4aacfef8871b9b5102f1"
+      ],
+      "split_coverage_ids": [],
+      "subject": "ThinkMorph-SSL multimodal reasoning recipe",
+      "video_labels": null,
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "ThinkMorph-SSL tăng trung bình 11,33 điểm độ chính xác trên 12 bộ chuẩn khi dùng hình ảnh tự giám sát",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.32183"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "4934797e1fc98c8a733efdd1abd820aae2d8b11f63e5f3605f6e2ac947ac364d",
+        "scored_at": "2026-11-25T09:43:25.687007+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "cdf775648a247bf3bcf8",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.33010",
+      "key_points": [
+        "Theo nhóm tác giả, mọi điều kiện gương đều làm giảm tỷ lệ thành công tổng hợp trên năm chính sách robot trong bộ chuẩn RoboDojo-Mirror (hệ thống kiểm tra chuẩn hóa). Thử nghiệm so sánh đường cơ sở không gương với các điều kiện gương đơn, gương đôi và mặt bàn phản chiếu.",
+        "Theo nhóm tác giả, các hành vi nhắm vào vật thể ảo và định vị sai lệch vật thể thật xuất hiện lặp lại trong phân tích quỹ đạo.",
+        "Trên năm chính sách robot, mức sụt giảm trung bình qua ba điều kiện từ 10,8 đến 56,7 điểm phần trăm đối với tỷ lệ thành công tổng hợp (thước đo mức độ hoàn thành nhiệm vụ). Riêng trên mặt bàn phản chiếu, mức sụt giảm chạm mức 62,5 điểm phần trăm.",
+        "Nhóm tác giả kết luận phát hiện này bộc lộ điểm yếu chung trước môi trường phản chiếu và thúc đẩy việc đánh giá có tính đến gương đối với trí tuệ thể hiện (AI gắn với robot). Thử nghiệm trên robot thực với chính sách $\\pi_{0.5}$ và FastWAM cũng cho thấy tỷ lệ thành công sụt giảm trước gương đứng và bàn phản chiếu."
+      ],
+      "same_event_coverage_ids": [
+        "822215b6ff1ddffff731"
+      ],
+      "split_coverage_ids": [],
+      "subject": "RoboDojo-Mirror benchmark announcement",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Xuanchen Liu",
+          "Hejun Zhang",
+          "Boxuan Dong",
+          "Ying Wu",
+          "Heshuai Li",
+          "Wen Gao",
+          "Yonghong Tian",
+          "Weihao Yu"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "RoboDojo-Mirror phát hiện gương làm giảm trung bình 10,8 đến 56,7 điểm phần trăm tỷ lệ thành công của robot",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.33010"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.2,
+        "answers": {
+          "what": 10,
+          "why": 6,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "quote",
+            "summary_text": "các hành vi nhắm vào vật thể ảo và định vị sai lệch vật thể thật xuất hiện lặp lại",
+            "explanation": "The source reports recurring behaviors *consistent with* targeting reflected objects and mislocating real ones; it does not establish those interpretations as observed facts (outlet:p009)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The Vietnamese states the proposed failure mechanisms more firmly than the research does.",
+            "fix": "Say the trajectories showed behaviors consistent with targeting reflections and mislocating real objects (outlet:p009)."
+          },
+          {
+            "question": "why",
+            "problem": "Readers do not learn why ordinary collisions are an insufficient explanation.",
+            "fix": "Add that 50–88% of mirror-specific failures occurred without recorded robot–panel contact in the matched-panel comparison (outlet:p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "710be2d6ffb1519f665f5591fcdce9c698bf8041fdd1d32dc19fa9ddbf1fac8a",
+        "scored_at": "2026-11-25T09:55:34.795943+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "ba706a0fac781c003ca2",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.32639",
+      "key_points": [
+        "Giới thiệu khung học tăng cường ReFocus (học máy qua tương tác), nhóm tác giả Haoyuan Li đề xuất giải pháp luân phiên học toàn cục và cục bộ trong thao tác robot dài hạn. Khung làm việc này dùng đồ thị có hướng không chu trình để tính điểm thưởng tiến độ và phân bổ thêm tương tác vào các điểm nghẽn.",
+        "Phản hồi thưa thớt khó xác định điểm nghẽn là vấn đề cốt lõi được nhóm tác giả chỉ ra khi robot thực hiện các thao tác dài hạn. Theo nhóm nghiên cứu, việc lặp lại toàn bộ quy trình nhiệm vụ cũng khiến các khâu nghẽn này không được phân tích kỹ và thiếu luyện tập.",
+        "Tỷ lệ thành công vượt trội mức cơ sở được ghi nhận trong các thử nghiệm trên LIBERO-Long và RoboCasa365. Cụ thể, ReFocus đạt tỷ lệ thành công 97,8% và 51,3%, cao hơn mức đối chứng 90,6% và 39,3% của mô hình cơ sở pi-0.5.",
+        "Thử nghiệm thích ứng thực tế giới hạn ở ba tác vụ dài hạn là phạm vi đánh giá được nhóm tác giả thực hiện. Trong tác vụ BreadBaker, ReFocus đạt tỷ lệ thành công 95% so với mức đối chứng 30% của mô hình cơ sở pi-0.5."
+      ],
+      "same_event_coverage_ids": [
+        "f7061239310a04773dbd"
+      ],
+      "split_coverage_ids": [],
+      "subject": "ReFocus robotic manipulation framework",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Haoyuan Li",
+          "Wei Huang",
+          "Jiehong Lin",
+          "Shengrong Zhang",
+          "Chenzhi Liu",
+          "Shengchao Zhou",
+          "Hehe Fan",
+          "Xiaojuan Qi",
+          "Yi Yang"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Khung học ReFocus giúp robot tăng tỷ lệ thành công lên 97,8% trong thử nghiệm thao tác dài hạn",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.32639"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "4f79e77fd99f512a77bc0ed16fb9a4dfbd7413ebc9ad028a0f99e3706159fe25",
+        "scored_at": "2026-11-25T09:55:34.795969+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "a49babc1bd6f53c5dadd",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.31766",
+      "key_points": [
+        "The RoMo Hands dataset is an order of magnitude larger than prior pure-hand motion datasets.",
+        "A dexterity filter discards low-articulation sequences to focus the dataset distribution on complex bimanual movement.",
+        "Each motion clip is paired with five captions at increasing granularities."
+      ],
+      "same_event_coverage_ids": [
+        "e2c234b46c5052433c7c"
+      ],
+      "split_coverage_ids": [],
+      "subject": "RoMo Hands text-to-hand motion dataset",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "9ebe9fdaf57b83480c99",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.32884",
+      "key_points": [
+        "Các tác giả đề xuất phương pháp RLVB giúp tác nhân AI tránh kết luận vội khi chưa đủ bằng chứng. Cơ chế này thưởng cho tác nhân khi thực hiện thêm bước nếu xác suất hậu nghiệm còn nhiều khả năng và chỉ kết luận lúc bằng chứng đã đủ.",
+        "Theo nhóm nghiên cứu, phần thưởng kết quả không dạy được thời điểm kết luận do phỏng đoán may mắn vẫn nhận thưởng ngang đáp án có căn cứ. Trong khi đó, môi trường mô phỏng tính được chính xác xác suất hậu nghiệm ở từng bước và xác định bằng chứng đã đủ hay chưa.",
+        "Phương pháp RLVB cải thiện mô hình cơ sở trung bình 17,1% trên chín thiết lập kiểm chuẩn khi đánh giá ba mô hình thị giác ngôn ngữ. Kết quả này cũng vượt phương pháp PPO dùng phần thưởng tiến trình 9,3% trong khi tốn ít hơn 1,6 lần số giờ GPU.",
+        "Nhóm tác giả kết luận độ chính xác tăng nhờ trả lời thường xuyên hơn khi có mức bằng chứng cao. Tác nhân được huấn luyện trả lời với đủ bằng chứng trong 51%, 12% và 74% số lượt thử nghiệm trên ba bộ kiểm chuẩn, so với 8%, 0,4% và 36% ở mô hình cơ sở."
+      ],
+      "same_event_coverage_ids": [
+        "18997acadc02d993589b"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Reinforcement Learning with Verifiable Beliefs for agent laziness",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Phương pháp RLVB giúp tác nhân AI tăng trung bình 17,1% hiệu năng trên chín thiết lập kiểm chuẩn",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.32884"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.4,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The reader misses how the authors support the claim that the agent acts on its own belief.",
+            "fix": "Explain that the reward never reads the agent's belief line, yet the trained agent rarely commits when that line still lists several answers and evidence is insufficient (outlet:p009)."
+          },
+          {
+            "question": "notable",
+            "problem": "The PPO comparison lacks the source's condition that its process reward comes from an LLM judge.",
+            "fix": "Add that condition to the 9.3% comparison (outlet:p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "d57f3bd7e84bd8adc63323a294ce5549b0cef1234f83a67c0a94d1857b34d225",
+        "scored_at": "2026-11-25T09:43:25.687170+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "8dd2e13c55a7d6c08ce1",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.31974",
+      "key_points": [
+        "Nhóm tác giả giới thiệu bài kiểm chuẩn (tiêu chuẩn đánh giá năng lực) Coding4Games trên 15 trò chơi để đo khả năng tác nhân lập trình (AI viết mã) tạo phần mềm tự chơi độc lập. Chương trình được đóng băng để thử nghiệm độc lập mà không cần mô hình ngôn ngữ suy luận khi vận hành.",
+        "Theo các tác giả, các bài kiểm chuẩn hiện hành chủ yếu thử nghiệm việc truy vấn mô hình liên tục khi chơi, gây tốn kém suy luận và chậm trễ trong thời gian thực. Nghiên cứu mới xem xét liệu tác nhân có thể học từ tương tác để tạo chương trình tự chơi qua hình ảnh và thao tác tiêu chuẩn.",
+        "Trên 15 trò chơi, chương trình tốt nhất ở mỗi trò do tác nhân tạo ra đạt điểm cao hơn mốc cơ sở giao diện đồ họa (GUI) mạnh nhất ở 13 trò và hòa ở một trò. Hệ thống đo lường cả hiệu năng chơi lẫn cách tác nhân dùng phản hồi để sửa chương trình và giải quyết lỗi.",
+        "Nhóm nghiên cứu nhận định bài kiểm chuẩn giúp xác định khả năng AI biến hiểu biết môi trường phức tạp thành phần mềm tự chạy tin cậy. Dù vậy, người chơi con người vẫn đạt điểm cao hơn toàn bộ tác nhân ở 10 trên 15 trò chơi."
+      ],
+      "same_event_coverage_ids": [
+        "53e813393a802b66e1b0"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Coding4Games benchmark for coding agents",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Chương trình tốt nhất do AI viết mã vượt mốc cơ sở ở 13 trên 15 game nhưng thua người chơi ở 10 game",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.31974"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.6,
+        "answers": {
+          "what": 10,
+          "why": 3,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "cause",
+            "summary_text": "gây tốn kém suy luận và chậm trễ trong thời gian thực",
+            "explanation": "The source attributes repeated inference cost to querying the model throughout play. For real-time games, it says the environment continues to evolve while the agent acts; it does not state that those queries cause a delay (outlet:p009)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "Readers are told that repeated model queries cause real-time delay.",
+            "fix": "State that repeated queries incur inference cost and that, in real-time games, the environment continues to evolve while the agent acts (outlet:p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "1b8fa5f66dd0f4e860d1018f6d9c92c9b9864b31a1d6f2bdc700f0c95bea442d",
+        "scored_at": "2026-11-25T09:55:34.795994+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "69bb314ef171a69fc21d",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.33020",
+      "key_points": [
+        "Nhóm tác giả Ce Zhang giới thiệu bộ đánh giá GRAPE-Bench (bộ chuẩn kiểm tra năng lực) nhằm đo lường khả năng suy luận video khi hình ảnh suy giảm. Theo nhóm nghiên cứu, mô hình suy luận video vẫn dễ tổn thương trong tình huống an toàn then chốt, dù thể hiện tốt trên chuẩn thông thường.",
+        "Theo nhóm tác giả, các bộ chuẩn hiện tại chưa đánh giá video suy giảm tự nhiên và bỏ ngỏ phán đoán an toàn khi lái xe. Do đó, bài thử nghiệm kết hợp 12 dạng suy giảm nhân tạo với video lái xe thực tế vào ban đêm, khi mưa, tuyết hoặc sương mù.",
+        "Việc tinh chỉnh bằng dữ liệu nhân tạo giúp Qwen3.5-9B tăng độ chính xác trên video thực tế (đo lường tỷ lệ trả lời đúng) từ 76,7% lên 81,1%. Dù vậy, nhóm tác giả ghi nhận thứ hạng mô hình bị đảo ngược giữa môi trường nhân tạo và thực tế, còn độ chính xác tổng thể che khuất điểm yếu từng cấp độ.",
+        "Nhóm tác giả khẳng định GRAPE-Bench cung cấp môi trường thử nghiệm thống nhất nhằm đánh giá, cải thiện và kiểm soát suy luận video khi thị giác suy giảm. Nghiên cứu cũng chứng minh kỹ thuật điều hướng sở thích giúp kiểm soát sự đánh đổi giữa phán đoán an toàn và suy luận phức tạp."
+      ],
+      "same_event_coverage_ids": [
+        "c34454526b0e18d9d543"
+      ],
+      "split_coverage_ids": [],
+      "subject": "GRAPE-Bench video reasoning benchmark",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Tinh chỉnh bằng dữ liệu nhân tạo giúp mô hình Qwen3.5-9B tăng độ chính xác thực tế lên 81,1%",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.33020"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.5,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The preference-steering result lacks the conditions that make the finding distinctive.",
+            "fix": "State that steering changed the trade-off in a frozen model while overall accuracy changed little (outlet:p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "0f58598aba6bf431f5127f59b20293ba509fdad71dcfb8c41b93e4122d950d18",
+        "scored_at": "2026-11-25T09:43:25.687404+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "516b29408e01f2510096",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.32617",
+      "key_points": [
+        "Nhóm tác giả giới thiệu VenusOCR2.0, mô hình nhận dạng thị giác ngôn ngữ 1 tỷ tham số để phân tích văn bản, bảng biểu và công thức tài liệu. Kiến trúc này kết hợp bộ mã hóa SigLIP2 cùng bộ giải mã Qwen3-0.6B, đồng thời áp dụng token OTSL nguyên tử gọn nhẹ để rút ngắn chuỗi bảng và giảm lỗi cấu trúc.",
+        "Để nâng cao chất lượng nhận dạng mà không bị suy thoái tự huấn luyện (suy thoái do học dữ liệu tự sinh), nhóm nghiên cứu xây dựng quy trình tự cải tiến đệ quy có kiểm soát. Nhóm tác giả cho biết mô hình chỉ đóng vai trò dò điểm yếu, còn chuyên gia bên ngoài và mô hình thị giác lớn cung cấp dữ liệu giám sát tin cậy.",
+        "Mô hình đạt điểm tổng thể 96,45 trên bộ đánh giá OmniDocBenchv1.6 (hệ thống kiểm thử bóc tách tài liệu) và đạt 98,57 điểm CDM công thức toán học. Theo nhóm nghiên cứu, kết quả này vượt trội các mô hình thị giác lớn đa năng gồm Gemini-3-Pro (92,91 điểm) và Qwen3-VL-235B (89,78 điểm).",
+        "Module PTPv2 giúp tăng tốc độ xử lý đơn lẻ 2,96 lần và nâng thông lượng theo lô lên tới 2,36 lần khi triển khai trên vLLM với một GPU H20 duy nhất. Theo các tác giả, mức tăng tốc này bảo đảm tính tương đương nguyên vẹn từng token so với phương pháp giải mã tự hồi quy tiêu chuẩn."
+      ],
+      "same_event_coverage_ids": [
+        "a8586caf3b77fa451b17"
+      ],
+      "split_coverage_ids": [],
+      "subject": "VenusOCR2.0 document parsing model",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Mô hình VenusOCR2.0 1 tỷ tham số đạt 96,45 điểm trên OmniDocBenchv1.6, vượt Gemini-3-Pro",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.32617"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.8,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "6aa3fff3dbd868a118992bc7a3ae6bddaf73b2fea9bc792f8ad355b58899a1ea",
+        "scored_at": "2026-11-25T09:55:34.796018+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "4f7afaa54c50cfa8bd52",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.32423",
+      "key_points": [
+        "Full forward passes slow down, lose accuracy, and hit context window limits as input context grows across text, video, or images.",
+        "Sparse attention provides computational efficiency but still suffers from slowdown and loss of accuracy as context expands.",
+        "Grid probing queries frozen models on local and strided spans to extend reach and accuracy, but repeats computation by re-encoding each span.",
+        "The authors propose Factorized Context Attention after identifying grid probing as an external form of emulated attention."
+      ],
+      "same_event_coverage_ids": [
+        "e9a3aa66236e7a4e5a12"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Factorized Context Attention mechanism",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "3474215e68e43f04bc87",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.32462",
+      "key_points": [
+        "Nhóm tác giả giới thiệu MAGPIE, phương pháp biểu diễn bố cục dự kiến dưới dạng cảnh không gian ba chiều đơn giản hóa bằng chương trình Blender thực thi được, giúp tạo ảnh từ nhiều hình mẫu tham chiếu.",
+        "Nhóm tác giả cho biết các phương pháp hiện tại khó sắp xếp đối tượng do mối quan hệ bố cục dự kiến không được hiển thị rõ ràng để kiểm tra và tinh chỉnh trước khi tổng hợp ảnh.",
+        "Khi kết hợp với mô hình FLUX trên bộ chuẩn đánh giá (công cụ đo lường hiệu năng) DreamOmni2, MAGPIE đã nâng tỷ lệ thành công tổng thể thêm 28,21 điểm phần trăm so với mô hình gốc. Mô hình này đồng thời đạt điểm số tổng thể cao nhất trong số các mô hình được đánh giá trên bộ chuẩn SconeEval.",
+        "Nhóm nghiên cứu nhận định rằng MAGPIE giúp nâng cao hiệu quả tạo ảnh của cả mô hình Qwen và FLUX trong phạm vi thử nghiệm trên DreamOmni2 cùng SconeEval."
+      ],
+      "same_event_coverage_ids": [
+        "909f32c925c21f0a0ab2"
+      ],
+      "split_coverage_ids": [],
+      "subject": "MAGPIE",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "MAGPIE giúp FLUX tăng 28,21 điểm phần trăm tỷ lệ thành công tạo ảnh trên bộ chuẩn DreamOmni2",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.32462"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.45,
+        "answers": {
+          "what": 9,
+          "why": 9,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The reader misses how the executable scene becomes a checked visual plan.",
+            "fix": "Add that a coding agent links scene objects to references, checks the geometry and rendered view against the instruction, and revises the program before the final rendering guides generation (outlet:p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "ba43b2521ee86ec763e6a8a595905fc52c3d9593c32269b8633da128f06a99cf",
+        "scored_at": "2026-11-25T09:43:25.687471+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "28ebc6283deec850bd30",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.32736",
+      "key_points": [
+        "Nhóm tác giả giới thiệu Qwen-Image-HD, phương pháp nâng cấp Qwen-Image 2.0 để tạo ảnh độ nét cao thông qua huấn luyện cục bộ và sinh ảnh tự hồi quy (tạo từng phần kế tiếp dựa trên phần trước) theo từng khối 1K.",
+        "Nhóm tác giả giải thích việc tinh chỉnh trên toàn khung hình độ nét cao tốn nhiều tính toán và chuỗi ảnh dài, nhưng các vùng cục bộ vẫn dễ xuất hiện vệt sọc lặp lại phi tự nhiên khi tài nguyên huấn luyện bị giới hạn.",
+        "Trên bộ chuẩn đánh giá (công cụ đo lường hiệu năng) Qwen-Image-Bench ở 4K, Qwen-Image-HD đạt hiệu năng tổng thể cao hơn việc tạo trực tiếp ảnh 4K bằng FLUX-3-Image-Klein. Họ cũng bổ sung cơ chế Wavefront-AutoRegressive tạo song song các ô trên nhiều bộ xử lý đồ họa để giảm độ trễ khi sinh một bức ảnh.",
+        "So với việc tinh chỉnh có giám sát toàn ảnh 4K trên cùng kiến trúc gốc, các tác giả kết luận phương pháp đạt chất lượng tốt hơn với chi phí huấn luyện thấp hơn và ít vệt sọc lặp lại phi tự nhiên hơn trong so sánh ở độ phân giải gốc."
+      ],
+      "same_event_coverage_ids": [
+        "83a68e0c506a603d0df5"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Qwen-Image-HD",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Qwen-Image-HD vượt FLUX-3-Image-Klein về hiệu năng đánh giá tổng thể khi tạo ảnh 4K trên Qwen-Image-Bench",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.32736"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.55,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The reader misses one of the reported advantages over full-image fine-tuning.",
+            "fix": "Add higher inference efficiency alongside better quality and lower training compute (outlet:p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "5e5f8a94212ab408abf8f6f80f1717bfdaccd6f618e66439cf78060a5d9b45e3",
+        "scored_at": "2026-11-25T09:43:25.687496+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "19b4c66464eb3ea16725",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.32973",
+      "key_points": [
+        "Nhóm tác giả do Xingjian Wang đứng đầu đề xuất SpecEngineeringBench (benchmark, bộ tiêu chuẩn đánh giá) gồm 100 bài toán từ 78 kho mã nguồn Python để thử nghiệm tác nhân lập trình (coding agent, mô hình AI viết mã). Công cụ này kiểm tra năng lực chuyển đổi yêu cầu chức năng thành bài kiểm thử thực thi và dùng kết quả để phát hiện khiếm khuyết.",
+        "Theo nhóm nghiên cứu, các chuẩn đánh giá hiện nay cung cấp sẵn gợi ý sự cố nên chưa đo lường đầy đủ năng lực tự tìm vị trí kiểm tra của mô hình. Họ thiết kế hai tác vụ độc lập gồm tạo bài kiểm thử và phát hiện lỗi qua phân tích thực thi để giải quyết thiếu sót này.",
+        "Thử nghiệm trên bảy tác nhân AI hàng đầu cho thấy tính hợp lệ và độ bao phủ kiểm thử tách rời khỏi khả năng phơi bày lỗi. Cụ thể, các mô hình đạt 80,48% độ bao phủ tập trung thay đổi (Change-focused Coverage) nhưng tỷ lệ phát hiện lỗi (Fail-to-Pass Rate) chỉ đạt 26,36%.",
+        "Việc tự tạo kiểm thử giúp tăng độ nhạy định vị lỗi thêm 4,99 điểm phần trăm so với việc chỉ dùng kiểm thử có sẵn của kho mã. Dù vậy, nghiên cứu chỉ ra hạn chế khi độ nhạy định vị sụt giảm từ 78,11% ở cấp tệp xuống 51,29% ở cấp hàm."
+      ],
+      "same_event_coverage_ids": [
+        "40ec5c801da6768f0eac"
+      ],
+      "split_coverage_ids": [],
+      "subject": "SpecEngineeringBench",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Bảy tác nhân AI đạt độ bao phủ kiểm thử 80,48% nhưng chỉ phát hiện 26,36% lỗi ở SpecEngineeringBench",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.32973"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 7.95,
+        "answers": {
+          "what": 9,
+          "why": 9,
+          "notable": 6,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "role",
+            "summary_text": "Nhóm tác giả do Xingjian Wang đứng đầu",
+            "explanation": "The source lists Xingjian Wang as the first author but does not identify him as the team's leader (outlet:p006)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "chỉ phát hiện 26,36% lỗi",
+            "explanation": "The source reports a 26.36% Fail-to-Pass Rate, not that the agents detected exactly 26.36% of defects (outlet:p009)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "tỷ lệ phát hiện lỗi (Fail-to-Pass Rate) chỉ đạt 26,36%",
+            "explanation": "The source labels 26.36% as Fail-to-Pass Rate; translating it as the percentage of defects detected changes what the metric asserts (outlet:p009)."
+          },
+          {
+            "kind": "number",
+            "summary_text": "tăng độ nhạy định vị lỗi thêm 4,99 điểm phần trăm",
+            "explanation": "The 4.99-point gain applies specifically to file-level localization recall. The source reports separate gains of 2.77 points at function level and 2.69 at hunk level (outlet:p009)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The headline and body make 26.36% sound like the fraction of defects found.",
+            "fix": "Identify it as the Fail-to-Pass Rate and describe it as the study's defect-exposure measure without converting it into a defect count (outlet:p009)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The 4.99-point localization gain is presented without its level.",
+            "fix": "Specify file-level recall, and include the 2.77-point function-level and 2.69-point hunk-level gains if discussing localization across levels (outlet:p009)."
+          },
+          {
+            "question": "what",
+            "problem": "The reader is told that the first author led the team.",
+            "fix": "Refer to Xingjian Wang as the first listed author, or simply say “the authors” (outlet:p006)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "2edc3c9aa6fa997928900072f2460662b6ef91ec5a37d940577b3e30526c8d3f",
+        "scored_at": "2026-11-25T09:43:25.687526+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "0744badbb33cb571d620",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.30986",
+      "key_points": [
+        "Tác giả Yihong Luo đề xuất iTDM cho mô hình khuếch tán (mô hình AI tạo ảnh khử nhiễu) trong học tăng cường (tối ưu hóa theo phần thưởng). Kỹ thuật này neo độ dốc cấp mẫu vào vận tốc hành vi mà không cần học thêm điểm số mục tiêu.",
+        "Tác giả chỉ ra sự lệch pha giữa hành vi và chính sách làm mất tính bất biến đường cơ sở, gây trôi dạt độ dốc và mất ổn định huấn luyện. Sự cố xảy ra khi dùng hướng dẫn không phân loại (CFG), cập nhật ngoại tuyến hoặc khi tính tự nhất quán trực tuyến chưa hoàn hảo.",
+        "Trên chuẩn GenEval2 (benchmark, bộ kiểm tra đánh giá), iTDM hội tụ nhanh hơn gần 3 lần so với đối thủ và đạt điểm 0,87 không sụp đổ. Phương pháp cũng mở rộng lên mô hình FLUX.3 quy mô 5,6 tỷ tham số với kết quả tốt hơn trên cả thước đo trong miền lẫn chưa từng thấy.",
+        "Nghiên cứu khẳng định iTDM đạt hiệu năng dẫn đầu cả trong miền lẫn ngoài miền trên các thiết lập học tăng cường nhóm trực tuyến, ngoại tuyến và theo cặp ngoại tuyến. Theo tác giả, bộ khử nhiễu phụ trợ bảo đảm tính bất biến đường cơ sở tại điểm tối ưu phụ trợ, giúp kìm hãm hiệu quả trôi dạt ở cả học trực tuyến lẫn ngoại tuyến."
+      ],
+      "same_event_coverage_ids": [
+        "a59a4a90eb62b503450e"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Reinforcing Diffusion Models",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Phương pháp iTDM giúp mô hình khuếch tán hội tụ nhanh gần gấp 3 lần trên chuẩn GenEval2",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.30986"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.65,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "86da94d5283c3d5c7974b63843f4a3e22b2b2d5164253f4806e19ddf5e4f4065",
+        "scored_at": "2026-11-25T09:55:34.796040+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
