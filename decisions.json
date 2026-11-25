@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-25T17:46:38.289328+00:00",
-  "input_generated_at": "2026-11-25T16:46:50Z",
+  "generated_at": "2026-11-25T19:36:30.481767+00:00",
+  "input_generated_at": "2026-11-25T18:46:23Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -143100,6 +143100,745 @@
         "e96dcd4f81f5b07bfc88"
       ],
       "split_coverage_ids": []
+    },
+    {
+      "id": "e995f8eadc10a31181f0",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-25/can-us-chip-controls-slow-china-s-ai-progress-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "a44fe3682ac533124849"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "2403967676efe5c36d09",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-25/us-genesis-mission-looks-to-ai-to-accelerate-science-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "ff1576d9afd2766e6682"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "62c41d5cc0acfcc3e16e",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Broad market roundup covering the Nasdaq 100 tumble and tech shares generally, without AI being the primary focus.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-25/bloomberg-tech-11-25-2026-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "4159c7b21897f3c40850"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "99064c93a4d71226bfce",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-25/elevenlabs-in-early-talks-for-2027-funding-at-33-billion-value",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "1f24742739eeecd28bb2"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "fd3eea6ab732b7250509",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://techcrunch.com/2026/11/25/want-to-buy-your-kid-an-ai-toy-this-christmas-not-in-new-york/",
+      "key_points": [
+        "Thống đốc Kathy Hochul vừa ký luật cấm sản xuất, phân phối và bán đồ chơi tích hợp chatbot AI (chương trình trò chuyện tự động) tại New York trong 5 năm tới. Luật đưa New York thành bang thứ hai cấm đồ chơi AI sau California, dù quy định chỉ có hiệu lực sau 90 ngày.",
+        "Bà Hochul nhấn mạnh việc bảo vệ trẻ em trước nguy cơ bị thao túng tâm lý và xâm phạm quyền riêng tư, cho rằng phụ huynh khi mua quà không nên phải lo ngại những chatbot nguy hiểm đội lốt đồ chơi.",
+        "Thử nghiệm năm sản phẩm của Common Sense Media phát hiện gấu trúc BubblePal Panda mô phỏng chi tiết vụ xả súng hàng loạt khi được yêu cầu. Dù phần lớn đồ chơi từ chối nội dung bạo lực, hầu hết vẫn chỉ dẫn cách tìm và dùng vật nguy hiểm như dao, diêm hay thuốc.",
+        "Quan chức Albert Pulido cho biết bang phối hợp với tổng chưởng lý áp mức phạt nghiêm khắc 15.000 USD mỗi ngày để thực thi lệnh cấm. Đại diện Amazon tuyên bố sẽ hạn chế bán đồ chơi AI tại khu vực bị cấm nhưng chưa công bố kế hoạch cụ thể."
+      ],
+      "same_event_coverage_ids": [
+        "cde124f1ef756c2ad7eb"
+      ],
+      "split_coverage_ids": [],
+      "subject": "New York five-year ban on AI chatbot toys",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Kathy Hochul"
+        ],
+        "availability": "region_locked:New York",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "New York cấm đồ chơi tích hợp chatbot AI trong 5 năm với mức phạt 15.000 USD mỗi ngày",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/25/want-to-buy-your-kid-an-ai-toy-this-christmas-not-in-new-york/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.8,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "f3e3af5794045e8d40a9cd8d8d734e5ca1a17dcef92bd652b1b52b256f10251a",
+        "scored_at": "2026-11-25T19:31:24.739453+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "6f1b536a30ba0b2011ba",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Cybersecurity newsletter on infrastructure flaws and tech outages where AI is only mentioned in passing as a contributing factor.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/newsletters/2026-11-25/fast-fixes-for-cyber-flaws-mean-tech-outages-likely-to-continue",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "45fb077b11a7dca4b166"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "f609260db15c2d6f4fc1",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-25/ai-debt-financing-story-is-far-from-over-cisar-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "3839f9c4d6ebb4c366df"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "17929128d139e3d01b22",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/science/1042278/spacex-fcc-starmind-ai-space-data-centers",
+      "key_points": [
+        "Ủy ban Truyền thông Liên bang Mỹ (FCC) vừa chính thức cấp phép cho SpaceX triển khai tới 1 triệu vệ tinh gắn chip AI (trí tuệ nhân tạo) trong khuôn khổ dự án Starmind.",
+        "Theo mô tả của SpaceX, dự án Starmind nhằm thu nhận năng lượng mặt trời trong không gian để cung cấp điện năng cho các hệ thống AI hoạt động dưới Trái Đất.",
+        "Giấy phép của cơ quan quản lý yêu cầu công ty phải phóng ít nhất một vệ tinh trước năm 2033 và hoàn tất toàn bộ mốc 1 triệu vệ tinh vào năm 2040.",
+        "The Verge nhận định đây là lần đầu tiên FCC phê duyệt một chòm vệ tinh AI hoàn chỉnh, dù cơ quan này tạm hoãn cấp phép kế hoạch đưa vệ tinh hết hạn vào quỹ đạo nghĩa địa do SpaceX thiếu thông tin xử lý."
+      ],
+      "same_event_coverage_ids": [
+        "c6aa006f6d1ac4fb252c"
+      ],
+      "split_coverage_ids": [],
+      "subject": "FCC authorization for SpaceX Starmind AI satellite constellation",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Elon Musk"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "FCC phê duyệt cho SpaceX triển khai 1 triệu vệ tinh trung tâm dữ liệu AI lên vũ trụ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/science/1042278/spacex-fcc-starmind-ai-space-data-centers"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.5,
+        "answers": {
+          "what": 10,
+          "why": 4,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "cung cấp điện năng cho các hệ thống AI hoạt động dưới Trái Đất",
+            "explanation": "SpaceX says Starmind will capture solar energy in space to power AI capabilities on Earth and transmit data to Earth; the source does not say it will supply electricity to AI systems located on Earth (outlet:p017)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The reader is told that Starmind supplies electricity to AI systems on Earth.",
+            "fix": "Say that SpaceX proposes using solar energy in space to power AI capabilities serving Earth, with data sent through lasers linked to Starlink (outlet:p017)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "ef100b15468ad9bf423fc2487ddef1b3617b6ad868050eec510fefddcfabb10a",
+        "scored_at": "2026-11-25T19:31:24.739541+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "628d3c512960bc42def6",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/25/state-ags-fight-character-ais-plan-to-auction-off-users-private-chats/",
+      "key_points": [
+        "Liên minh 42 tổng chưởng lý bang tại Mỹ đang can thiệp vào vụ phá sản của Character.ai nhằm ngăn chặn việc bán đấu giá dữ liệu trò chuyện riêng tư của người dùng. Theo giới công tố, công ty này nộp đơn xin phá sản vào tháng 10 năm 2026 dù từng cam kết sẽ không bán thông tin cá nhân của khách hàng.",
+        "Các tổng chưởng lý phản đối thương vụ vì bên mua không bị ràng buộc bảo vệ người dùng và không phải tuân thủ chính sách quyền riêng tư. Họ cũng cho biết Character.ai cung cấp cho tòa án ít thông tin hơn các bên đấu giá về những rủi ro an toàn hoặc pháp lý tiềm ẩn.",
+        "Theo nhóm tổng chưởng lý, tập dữ liệu chứa lịch sử trò chuyện của hơn 21 triệu tài khoản Mỹ, gồm hơn 2,1 triệu tài khoản vị thành niên cùng địa chỉ IP. Tổng chưởng lý Rob Bonta cho biết Smirks and Pangs Acquisition LLC là bên đấu giá duy nhất được tiết lộ đến nay và được chọn làm giá sàn cho phiên ngày 1 tháng 12.",
+        "Ông Bonta nhấn mạnh hành vi này là phi pháp theo luật liên bang lẫn California, khẳng định doanh nghiệp không thể lợi dụng phá sản để né tránh luật bảo vệ người tiêu dùng."
+      ],
+      "same_event_coverage_ids": [
+        "7134975da77867c72508"
+      ],
+      "split_coverage_ids": [],
+      "subject": "State AG intervention in Character.ai bankruptcy chat auction",
+      "video_labels": {
+        "video_hook": "drama_company",
+        "named_people": [],
+        "availability": "region_locked:United States",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "42 tổng chưởng lý Mỹ can thiệp ngăn Character.ai đấu giá dữ liệu của hơn 21 triệu tài khoản",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/25/state-ags-fight-character-ais-plan-to-auction-off-users-private-chats/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.05,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 8,
+          "meaning": 9
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "được chọn làm giá sàn",
+            "explanation": "Character.ai selected Smirks as the base bid for the auction, not as a floor price; Smirks is a bidder, not a price (outlet:p010)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The reader may understand Smirks to be a price rather than the bidder whose bid anchors the auction.",
+            "fix": "Say Character.ai selected Smirks’s bid as the auction’s base bid (outlet:p010)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "f205e29f48a43c8085b8b4b89f7344bbda69181044a37ccd6d6bc3766f9ff21c",
+        "scored_at": "2026-11-25T19:36:30.450570+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "3abfd983a8d61957f68f",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/25/2026/jensen-huang-to-face-questioning-on-capitol-hill",
+      "key_points": [
+        "Giám đốc điều hành Jensen Huang của Nvidia chuẩn bị đối diện các phiên chất vấn tại Quốc hội Mỹ, trùng thời điểm công ty tổ chức sự kiện công nghệ cách đó chưa đầy hai dặm.",
+        "Theo Semafor, Nvidia đã triệu tập một nhóm luật sư và nhà vận động hành lang hàng đầu tại Washington trước buổi làm việc kín của ông Huang với ba ủy ban Hạ viện.",
+        "Theo Bloomberg, ông Huang sẽ trả lời phỏng vấn kín trước ba ủy ban Hạ viện vào ngày 1 tháng 12, sau đó điều trần công khai tại một ủy ban thuộc Thượng viện vào ngày 3 tháng 12.",
+        "Tác giả bài viết trên Semafor nhận xét giới lập pháp vẫn đặt nhiều câu hỏi cho Nvidia, trong khi phần lớn giới công nghệ chỉ coi các cuộc điều trần này như một màn kịch chính trị."
+      ],
+      "same_event_coverage_ids": [
+        "2bf63d267aca07d72ffa",
+        "3fb998212c9b3ce2ad6a",
+        "e6d77537835adbc5fdc8"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Jensen Huang congressional questioning on Capitol Hill",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Jensen Huang"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "CEO Jensen Huang của Nvidia chuẩn bị điều trần trước Thượng viện và Hạ viện Mỹ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/25/2026/jensen-huang-to-face-questioning-on-capitol-hill"
+        },
+        {
+          "id": "coverage1",
+          "role": "coverage",
+          "name": "bloomberg",
+          "url": "https://www.bloomberg.com/news/videos/2026-11-24/jensen-huang-to-face-bipartisan-scrutiny-on-capitol-hill-video"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.5,
+        "answers": {
+          "what": 10,
+          "why": 7,
+          "notable": 8,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "quote",
+            "summary_text": "phần lớn giới công nghệ",
+            "explanation": "Semafor says “much of the tech world,” which does not establish that a majority holds this view (outlet:p005)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The Vietnamese overstates how widely the political-theater view is held.",
+            "fix": "Use wording equivalent to “many in the tech world” and retain Semafor’s point that lawmakers have legitimate questions (outlet:p005)."
+          },
+          {
+            "question": "notable",
+            "problem": "The reader misses the uncertainty over Huang’s scheduled keynote.",
+            "fix": "Add that it was removed after his resignation and that his return to the stage had not been confirmed after his reinstatement (outlet:p002-outlet:p003)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "10940e95278a5c67096df6986426f69786e436d5663e92c482e065bd8dd69469",
+        "scored_at": "2026-11-25T19:31:24.739609+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "58c7a788c175da4b1125",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.semafor.com/article/11/25/2026/powerful-but-unpredictable-ai-is-a-product-no-one-will-buy",
+      "key_points": [
+        "Theo góc nhìn của tác giả Reed trên Semafor dẫn tin từ Axios, các phòng nghiên cứu trí tuệ nhân tạo (AI) lo ngại nội bộ rằng mô hình đã quá thiếu an toàn để phát hành công khai.",
+        "Tác giả giải thích nguyên nhân là các phòng nghiên cứu gặp khó khăn trong việc tạo ra mô hình ngày càng mạnh mà vừa hiểu vừa kiểm soát được.",
+        "Cụ thể, giá cổ phiếu của Anthropic đã giảm xuống dưới mức chào bán công khai lần đầu (IPO) 83 USD khi giới đầu tư suy xét lại thị trường AI.",
+        "Tác giả Semafor nhận định việc các phòng nghiên cứu thất bại trong tham vọng tiếp quản toàn bộ công việc tri thức là tin tốt cho xã hội, chừng nào chưa ai dùng mô hình cho việc quan trọng hay cấp quyền tiếp cận trọng yếu."
+      ],
+      "same_event_coverage_ids": [
+        "13db601f285a5b3c0029"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Commercial viability of unpredictable AI models",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Satya Nadella"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Cổ phiếu Anthropic giảm dưới giá IPO 83 USD khi các phòng nghiên cứu AI lo ngại mô hình khó kiểm soát",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/25/2026/powerful-but-unpredictable-ai-is-a-product-no-one-will-buy"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.7,
+        "answers": {
+          "what": 8,
+          "why": 10,
+          "notable": 10,
+          "meaning": 6
+        },
+        "hard_errors": [
+          {
+            "kind": "quote",
+            "summary_text": "là tin tốt cho xã hội, chừng nào chưa ai dùng mô hình cho việc quan trọng hay cấp quyền tiếp cận trọng yếu",
+            "explanation": "The condition about important work and access qualifies Reed’s claim that models are not actually a threat (outlet:p004). His statement that failure to build models capable of taking over knowledge work is good news for society is a separate conclusion (outlet:p005–p006)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The reader gets the condition on Reed’s societal conclusion instead of on his narrower safety claim.",
+            "fix": "State separately that models are not an actual threat while kept away from important work and access (outlet:p004), and that failure to build the hoped-for knowledge-work replacement is good news for society (outlet:p005–p006)."
+          },
+          {
+            "question": "what",
+            "problem": "The headline makes the share-price item the lead, although Reed’s main argument concerns AI labs’ difficulty understanding and controlling capable models.",
+            "fix": "Lead with that argument and present Anthropic’s share-price drop as a separate notable item (outlet:p002–p003, outlet:p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "5e99364c397150a21d153f28f1cfaf3744265384d2276022ae0a59fe6da1d859",
+        "scored_at": "2026-11-25T19:36:30.450613+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "956bbb158c429c98bf60",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-25/tech-stocks-tumble-as-ai-angst-fuels-losses-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "8229608d70ba46c08ba1"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "c1fcd1cc670f47557118",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Commodity market commentary on copper supply deficits and prices where the AI trade is mentioned only incidentally.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-25/copper-can-t-escape-the-ai-trade-yet-gower-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "cc0b3f7290e8db0cdced"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "75e5a32090df981b35e1",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Macroeconomic market discussion focused primarily on Federal Reserve rate decisions, Treasury yields, and oil prices, with only passing reference to AI.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-25/fed-ai-fears-rattle-markets-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "2d5df52579ffdbec2fe3"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "e0d965bae52b98751269",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Discussion of wartime military targeting of cloud data centers generally, without a focus on AI.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://arstechnica.com/gadgets/2026/11/ars-live-recap-dont-expect-military-attacks-on-data-centers-to-stop/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "cd1e24e30094f1884063"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "ade278c8145c4b2e43b5",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.axios.com/2026/11/24/anthropic-openai-unreleased-ai-safety-risks",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "06ab1ed1a040bc6c3516"
+      ],
+      "split_coverage_ids": [],
+      "subject": "AI employee safety alarms on unreleased frontier models",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": true
+      }
+    },
+    {
+      "id": "df3be113c8aed13fbadf",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://huggingface.co/blog/inkling-2-mini-inference-hillclimb",
+      "key_points": [
+        "Theo Hugging Face, tốc độ giải mã (decode) đơn người dùng của Inkling 2 Mini trên một GPU NVIDIA RTX PRO 6000 96 GB tăng từ 136 lên 190,6 token/giây qua 46 lần kiểm chuẩn (benchmark). Quá trình tinh chỉnh do tác tử lập trình (agent - chương trình AI tự hành) thực hiện tự động trong một buổi chiều.",
+        "Tác giả giải thích toàn bộ mức tăng tốc đến từ việc chuyển sang vLLM nightly, bật DSpark với 7 token dự đoán, lấy mẫu xác suất và thêm hai cờ bộ nhớ để khởi động trên GPU 96 GB. Thử nghiệm đối chiếu với cấu hình cơ sở là khung làm việc SGLang không dùng phỏng đoán giải mã.",
+        "Ở mức tải 8 người dùng, tổng thông lượng tăng 26%, từ khoảng 570 lên 716 token/giây khi chạy vLLM nightly cùng DSpark. Ngược lại, việc chuyển sang lấy mẫu tham lam (greedy) làm giảm 11% tốc độ giải mã ở nhiệt độ mặc định 1,0.",
+        "Tác giả ghi nhận cấu hình vLLM cùng DSpark đạt khoảng 95% trần băng thông bộ nhớ, trong khi vLLM không phỏng đoán ở mức 157 token/giây bị giới hạn phần lớn do độ trễ khởi chạy nhân qua 48 lượt lớp mạng."
+      ],
+      "same_event_coverage_ids": [
+        "dcd6bf8541f856baa231"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Inkling 2 Mini model architecture and local inference optimization",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Niels Rogge"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Tốc độ giải mã Inkling 2 Mini tăng 40% lên 190,6 token/giây trên một GPU NVIDIA RTX PRO 6000",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://huggingface.co/blog/inkling-2-mini-inference-hillclimb"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The reader does not learn that the measured configuration passed output and long-context checks and is running as an endpoint.",
+            "fix": "Add that greedy outputs were byte-identical, long-context retrieval passed 3/3 through 250,000 tokens, and the verified configuration was deployed as an Inference Endpoint (outlet:p013)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "eae9d740aaabf3fcfdbbd31377a019f23bb2ff21b19f3b4c0145efbac5f05c40",
+        "scored_at": "2026-11-25T19:36:30.450640+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "616293296550946fa78f",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://deepmind.google/blog/interpreting-mass-spectra-with-google-antigravity/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "99697c7b66f0d5c8d04a"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Google DeepMind Mass Spec Skills for Antigravity",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      }
     }
   ]
 }
