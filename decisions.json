@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-25T19:36:30.481767+00:00",
-  "input_generated_at": "2026-11-25T18:46:23Z",
+  "generated_at": "2026-11-25T21:35:35.418065+00:00",
+  "input_generated_at": "2026-11-25T20:46:48Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -143301,10 +143301,10 @@
       "use_original_title": false,
       "source_url": "https://www.theverge.com/science/1042278/spacex-fcc-starmind-ai-space-data-centers",
       "key_points": [
-        "Ủy ban Truyền thông Liên bang Mỹ (FCC) vừa chính thức cấp phép cho SpaceX triển khai tới 1 triệu vệ tinh gắn chip AI (trí tuệ nhân tạo) trong khuôn khổ dự án Starmind.",
-        "Theo mô tả của SpaceX, dự án Starmind nhằm thu nhận năng lượng mặt trời trong không gian để cung cấp điện năng cho các hệ thống AI hoạt động dưới Trái Đất.",
-        "Giấy phép của cơ quan quản lý yêu cầu công ty phải phóng ít nhất một vệ tinh trước năm 2033 và hoàn tất toàn bộ mốc 1 triệu vệ tinh vào năm 2040.",
-        "The Verge nhận định đây là lần đầu tiên FCC phê duyệt một chòm vệ tinh AI hoàn chỉnh, dù cơ quan này tạm hoãn cấp phép kế hoạch đưa vệ tinh hết hạn vào quỹ đạo nghĩa địa do SpaceX thiếu thông tin xử lý."
+        "Ủy ban Truyền thông Liên bang Mỹ (FCC) vừa cấp phép cho SpaceX triển khai tới 1 triệu vệ tinh trang bị chip AI (trí tuệ nhân tạo) thuộc sáng kiến Starmind.",
+        "Theo SpaceX, dự án Starmind nhằm thu năng lượng mặt trời ngoài không gian để vận hành năng lực AI trên Trái Đất. Công ty cho biết hệ thống sẽ truyền dữ liệu về Trái Đất bằng laser tốc độ cao kết nối với Starlink.",
+        "Quyết định phê duyệt của FCC yêu cầu SpaceX phải triển khai ít nhất một vệ tinh vào năm 2033 và đạt mốc 1 triệu vệ tinh vào năm 2040.",
+        "The Verge nhận định đây là lần đầu tiên FCC cấp phép một chòm vệ tinh AI hoàn chỉnh. Tuy vậy, cơ quan này hoãn phê duyệt yêu cầu đưa các vệ tinh trên 600 km vào quỹ đạo nghĩa địa vì SpaceX chưa cung cấp đủ thông tin quy trình."
       ],
       "same_event_coverage_ids": [
         "c6aa006f6d1ac4fb252c"
@@ -143320,7 +143320,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "FCC phê duyệt cho SpaceX triển khai 1 triệu vệ tinh trung tâm dữ liệu AI lên vũ trụ",
+      "editorial_headline_vi": "FCC cấp phép cho SpaceX phóng tới 1 triệu vệ tinh trung tâm dữ liệu AI Starmind",
       "summary_sources": [
         {
           "id": "outlet",
@@ -143333,34 +143333,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.5,
+        "value": 10.0,
         "answers": {
           "what": 10,
-          "why": 4,
+          "why": 10,
           "notable": 10,
-          "meaning": 8
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "cung cấp điện năng cho các hệ thống AI hoạt động dưới Trái Đất",
-            "explanation": "SpaceX says Starmind will capture solar energy in space to power AI capabilities on Earth and transmit data to Earth; the source does not say it will supply electricity to AI systems located on Earth (outlet:p017)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "why",
-            "problem": "The reader is told that Starmind supplies electricity to AI systems on Earth.",
-            "fix": "Say that SpaceX proposes using solar energy in space to power AI capabilities serving Earth, with data sent through lasers linked to Starlink (outlet:p017)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "ef100b15468ad9bf423fc2487ddef1b3617b6ad868050eec510fefddcfabb10a",
-        "scored_at": "2026-11-25T19:31:24.739541+00:00"
+        "prose_sha256": "4e8e5ddf53c669816462361e91d493eda07d1de25076cf11aa21d730741b501c",
+        "scored_at": "2026-11-25T21:35:35.394580+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
@@ -143383,9 +143371,9 @@
       "use_original_title": false,
       "source_url": "https://techcrunch.com/2026/11/25/state-ags-fight-character-ais-plan-to-auction-off-users-private-chats/",
       "key_points": [
-        "Liên minh 42 tổng chưởng lý bang tại Mỹ đang can thiệp vào vụ phá sản của Character.ai nhằm ngăn chặn việc bán đấu giá dữ liệu trò chuyện riêng tư của người dùng. Theo giới công tố, công ty này nộp đơn xin phá sản vào tháng 10 năm 2026 dù từng cam kết sẽ không bán thông tin cá nhân của khách hàng.",
-        "Các tổng chưởng lý phản đối thương vụ vì bên mua không bị ràng buộc bảo vệ người dùng và không phải tuân thủ chính sách quyền riêng tư. Họ cũng cho biết Character.ai cung cấp cho tòa án ít thông tin hơn các bên đấu giá về những rủi ro an toàn hoặc pháp lý tiềm ẩn.",
-        "Theo nhóm tổng chưởng lý, tập dữ liệu chứa lịch sử trò chuyện của hơn 21 triệu tài khoản Mỹ, gồm hơn 2,1 triệu tài khoản vị thành niên cùng địa chỉ IP. Tổng chưởng lý Rob Bonta cho biết Smirks and Pangs Acquisition LLC là bên đấu giá duy nhất được tiết lộ đến nay và được chọn làm giá sàn cho phiên ngày 1 tháng 12.",
+        "Liên minh 42 tổng chưởng lý bang tại Mỹ đang can thiệp nhằm ngăn Character.ai bán đấu giá dữ liệu trò chuyện riêng tư của người dùng trong thủ tục phá sản. Theo giới công tố, công ty này nộp đơn xin phá sản vào tháng 10 năm 2026 dù từng cam kết không bán thông tin cá nhân khách hàng.",
+        "Các tổng chưởng lý phản đối vì bên mua không bị ràng buộc bảo vệ người dùng và không phải tuân thủ chính sách quyền riêng tư. Họ cũng cho biết Character.ai cung cấp cho tòa án ít thông tin hơn các bên đấu giá về những rủi ro an toàn hoặc pháp lý tiềm ẩn.",
+        "Theo các thông cáo, tập dữ liệu chứa lịch sử trò chuyện của hơn 21 triệu tài khoản Mỹ, gồm hơn 2,1 triệu tài khoản vị thành niên cùng địa chỉ IP. Tổng chưởng lý Rob Bonta cho biết Character.ai đã chọn giá thầu của bên mua duy nhất được tiết lộ là Smirks and Pangs Acquisition LLC làm giá thầu cơ sở cho phiên đấu giá ngày 1 tháng 12.",
         "Ông Bonta nhấn mạnh hành vi này là phi pháp theo luật liên bang lẫn California, khẳng định doanh nghiệp không thể lợi dụng phá sản để né tránh luật bảo vệ người tiêu dùng."
       ],
       "same_event_coverage_ids": [
@@ -143400,7 +143388,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "42 tổng chưởng lý Mỹ can thiệp ngăn Character.ai đấu giá dữ liệu của hơn 21 triệu tài khoản",
+      "editorial_headline_vi": "42 tổng chưởng lý Mỹ can thiệp ngăn Character.ai đấu giá dữ liệu của 21 triệu tài khoản",
       "summary_sources": [
         {
           "id": "outlet",
@@ -143413,34 +143401,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.05,
+        "value": 9.85,
         "answers": {
           "what": 10,
-          "why": 9,
-          "notable": 8,
+          "why": 10,
+          "notable": 10,
           "meaning": 9
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "được chọn làm giá sàn",
-            "explanation": "Character.ai selected Smirks as the base bid for the auction, not as a floor price; Smirks is a bidder, not a price (outlet:p010)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "notable",
-            "problem": "The reader may understand Smirks to be a price rather than the bidder whose bid anchors the auction.",
-            "fix": "Say Character.ai selected Smirks’s bid as the auction’s base bid (outlet:p010)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "f205e29f48a43c8085b8b4b89f7344bbda69181044a37ccd6d6bc3766f9ff21c",
-        "scored_at": "2026-11-25T19:36:30.450570+00:00"
+        "prose_sha256": "39290d4993d5cba0938802e8053a411305abb6533433ac713bd140aac3df5b7a",
+        "scored_at": "2026-11-25T21:31:53.184135+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
@@ -143462,10 +143438,10 @@
       "use_original_title": false,
       "source_url": "https://www.semafor.com/article/11/25/2026/jensen-huang-to-face-questioning-on-capitol-hill",
       "key_points": [
-        "Giám đốc điều hành Jensen Huang của Nvidia chuẩn bị đối diện các phiên chất vấn tại Quốc hội Mỹ, trùng thời điểm công ty tổ chức sự kiện công nghệ cách đó chưa đầy hai dặm.",
-        "Theo Semafor, Nvidia đã triệu tập một nhóm luật sư và nhà vận động hành lang hàng đầu tại Washington trước buổi làm việc kín của ông Huang với ba ủy ban Hạ viện.",
-        "Theo Bloomberg, ông Huang sẽ trả lời phỏng vấn kín trước ba ủy ban Hạ viện vào ngày 1 tháng 12, sau đó điều trần công khai tại một ủy ban thuộc Thượng viện vào ngày 3 tháng 12.",
-        "Tác giả bài viết trên Semafor nhận xét giới lập pháp vẫn đặt nhiều câu hỏi cho Nvidia, trong khi phần lớn giới công nghệ chỉ coi các cuộc điều trần này như một màn kịch chính trị."
+        "CEO Jensen Huang của Nvidia chuẩn bị đối diện chất vấn tại Quốc hội Mỹ, đúng lúc công ty tổ chức hội nghị công nghệ cách đó chưa đầy hai dặm.",
+        "Theo Semafor, Nvidia đã tập hợp đội luật sư và vận động hành lang trước buổi phỏng vấn kín của ông Huang với ba ủy ban Hạ viện. Bloomberg cho biết ông sẽ trả lời phỏng vấn kín tại Hạ viện vào ngày 1 tháng 12 và điều trần công khai trước Thượng viện ngày 3 tháng 12.",
+        "Bài phát biểu của ông Huang từng bị xóa khỏi lịch trình sau khi ông từ chức CEO. Dù đã được phục chức, việc ông có trở lại sân khấu hay không vẫn chưa được xác nhận.",
+        "Semafor nhận xét giới lập pháp vẫn có nhiều câu hỏi chính đáng cho Nvidia, trong khi phần lớn giới công nghệ chỉ coi các phiên điều trần này là màn kịch chính trị."
       ],
       "same_event_coverage_ids": [
         "2bf63d267aca07d72ffa",
@@ -143483,7 +143459,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "CEO Jensen Huang của Nvidia chuẩn bị điều trần trước Thượng viện và Hạ viện Mỹ",
+      "editorial_headline_vi": "CEO Jensen Huang của Nvidia sẽ trả lời kín ở Hạ viện và điều trần tại Thượng viện",
       "summary_sources": [
         {
           "id": "outlet",
@@ -143502,30 +143478,24 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.5,
+        "value": 8.75,
         "answers": {
           "what": 10,
-          "why": 7,
-          "notable": 8,
-          "meaning": 8
+          "why": 6,
+          "notable": 9,
+          "meaning": 9
         },
-        "hard_errors": [
-          {
-            "kind": "quote",
-            "summary_text": "phần lớn giới công nghệ",
-            "explanation": "Semafor says “much of the tech world,” which does not establish that a majority holds this view (outlet:p005)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "meaning",
-            "problem": "The Vietnamese overstates how widely the political-theater view is held.",
-            "fix": "Use wording equivalent to “many in the tech world” and retain Semafor’s point that lawmakers have legitimate questions (outlet:p005)."
+            "question": "why",
+            "problem": "The reader is not told that Semafor places the questioning in the context of a scandal.",
+            "fix": "Mention the unspecified scandal without supplying allegations the source does not give (outlet:p004–p005)."
           },
           {
             "question": "notable",
-            "problem": "The reader misses the uncertainty over Huang’s scheduled keynote.",
-            "fix": "Add that it was removed after his resignation and that his return to the stage had not been confirmed after his reinstatement (outlet:p002-outlet:p003)."
+            "problem": "The Vietnamese presents Nvidia’s assembly of lawyers and lobbyists more firmly than Semafor does.",
+            "fix": "Preserve that this was reported, rather than independently established by the supplied source (outlet:p002)."
           }
         ],
         "writer_boats": [
@@ -143533,8 +143503,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "10940e95278a5c67096df6986426f69786e436d5663e92c482e065bd8dd69469",
-        "scored_at": "2026-11-25T19:31:24.739609+00:00"
+        "prose_sha256": "09f71050519f254858eae70b2d77e341570a5e49d2f3f6d97f73b5da52a8affa",
+        "scored_at": "2026-11-25T21:35:35.394625+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
@@ -143561,8 +143531,8 @@
       "key_points": [
         "Theo góc nhìn của tác giả Reed trên Semafor dẫn tin từ Axios, các phòng nghiên cứu trí tuệ nhân tạo (AI) lo ngại nội bộ rằng mô hình đã quá thiếu an toàn để phát hành công khai.",
         "Tác giả giải thích nguyên nhân là các phòng nghiên cứu gặp khó khăn trong việc tạo ra mô hình ngày càng mạnh mà vừa hiểu vừa kiểm soát được.",
-        "Cụ thể, giá cổ phiếu của Anthropic đã giảm xuống dưới mức chào bán công khai lần đầu (IPO) 83 USD khi giới đầu tư suy xét lại thị trường AI.",
-        "Tác giả Semafor nhận định việc các phòng nghiên cứu thất bại trong tham vọng tiếp quản toàn bộ công việc tri thức là tin tốt cho xã hội, chừng nào chưa ai dùng mô hình cho việc quan trọng hay cấp quyền tiếp cận trọng yếu."
+        "Ở mục đáng chú ý riêng biệt, bài viết nêu giá cổ phiếu Anthropic đã giảm xuống dưới mức 83 USD của đợt chào bán lần đầu ra công chúng (IPO) khi giới đầu tư suy xét lại thị trường AI.",
+        "Tác giả Reed kết luận một mô hình AI mạnh nhưng hoàn toàn khó đoán là công cụ rất đắt đỏ, vô dụng và công ty sản xuất sẽ không có khách hàng. Tác giả cũng cho rằng mô hình không thực sự đe dọa, chừng nào chưa ai dùng chúng cho việc quan trọng hay cho phép tiếp cận các mục trọng yếu."
       ],
       "same_event_coverage_ids": [
         "13db601f285a5b3c0029"
@@ -143578,7 +143548,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Cổ phiếu Anthropic giảm dưới giá IPO 83 USD khi các phòng nghiên cứu AI lo ngại mô hình khó kiểm soát",
+      "editorial_headline_vi": "Semafor nhận định mô hình AI mạnh nhưng hoàn toàn khó đoán sẽ không có khách mua",
       "summary_sources": [
         {
           "id": "outlet",
@@ -143591,30 +143561,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.7,
+        "value": 9.7,
         "answers": {
-          "what": 8,
+          "what": 10,
           "why": 10,
           "notable": 10,
-          "meaning": 6
+          "meaning": 8
         },
-        "hard_errors": [
-          {
-            "kind": "quote",
-            "summary_text": "là tin tốt cho xã hội, chừng nào chưa ai dùng mô hình cho việc quan trọng hay cấp quyền tiếp cận trọng yếu",
-            "explanation": "The condition about important work and access qualifies Reed’s claim that models are not actually a threat (outlet:p004). His statement that failure to build models capable of taking over knowledge work is good news for society is a separate conclusion (outlet:p005–p006)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
             "question": "meaning",
-            "problem": "The reader gets the condition on Reed’s societal conclusion instead of on his narrower safety claim.",
-            "fix": "State separately that models are not an actual threat while kept away from important work and access (outlet:p004), and that failure to build the hoped-for knowledge-work replacement is good news for society (outlet:p005–p006)."
-          },
-          {
-            "question": "what",
-            "problem": "The headline makes the share-price item the lead, although Reed’s main argument concerns AI labs’ difficulty understanding and controlling capable models.",
-            "fix": "Lead with that argument and present Anthropic’s share-price drop as a separate notable item (outlet:p002–p003, outlet:p009)."
+            "problem": "The reader misses Reed’s explicit conclusion about the broader consequence of labs failing to build models that could take over knowledge work.",
+            "fix": "Add that Reed calls this failure good news for the rest of society, alongside his explanation that an unpredictable model would be too expensive and useless to attract customers (outlet:p005–p007)."
           }
         ],
         "writer_boats": [
@@ -143622,8 +143581,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "5e99364c397150a21d153f28f1cfaf3744265384d2276022ae0a59fe6da1d859",
-        "scored_at": "2026-11-25T19:36:30.450613+00:00"
+        "prose_sha256": "f6a191acddb8bd2dbc37e77a2ca18506670c30ff8b4698a7f8f62cbb3978e7e4",
+        "scored_at": "2026-11-25T21:35:35.394717+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
@@ -143839,6 +143798,496 @@
         "availability": "global",
         "is_leak": false
       }
+    },
+    {
+      "id": "3a73412d0df0bb71aee5",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "notable",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/25/openai-says-heavy-chatgpt-users-may-hit-limits-sooner-as-it-merges-chat-and-work/",
+      "key_points": [
+        "OpenAI began rolling out a unified Chat and Work experience in ChatGPT to a small group of Pro subscribers.",
+        "Under the unified system, Chat and Work share a single usage meter across ChatGPT.",
+        "An OpenAI spokesperson stated that while most users will not experience more frequent usage resets, a small fraction of heavy users may hit limits sooner."
+      ],
+      "same_event_coverage_ids": [
+        "ac41f1554f3b49995e1b"
+      ],
+      "split_coverage_ids": [],
+      "subject": "OpenAI",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Thibault Sottiaux"
+        ],
+        "availability": "global",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "c3986ed0d71a9c0fde5f",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/25/jensen-huang-broke-nvidias-code-of-conduct-and-his-employees-may-not-forget-it/",
+      "key_points": [
+        "Jensen Huang thừa nhận vi phạm quy tắc ứng xử khi phát biểu trước toàn thể nhân viên sau khi trở lại làm CEO Nvidia. Ông nhấn mạnh không ai được miễn trừ, nhưng vi phạm không đồng nghĩa với việc lập tức bị sa thải.",
+        "Căn cứ tình tiết và nhiều đánh giá thực tế vẫn đóng vai trò quan trọng trong việc xem xét kỷ luật, theo lời giải thích của Huang được Wired trích dẫn. Chuyên gia Matt Plass thuộc tổ chức LRN nhận định qua khảo sát hơn 2.000 người lao động rằng rủi ro lớn nhất khi lãnh đạo vi phạm là khiến nhân viên cảm thấy xấu hổ và tức giận.",
+        "Vụ CEO đi xem Thế vận hội ở khu VIP dù công ty vừa ban hành lệnh cấm đi công tác để cắt giảm chi phí được Plass nêu ra làm dẫn chứng điển hình. Sự việc này đã bị nhân viên trong công ty đó nhắc lại suốt hơn mười năm như một ví dụ tồi tệ nhất về vi phạm chuẩn mực quản lý.",
+        "Nguy cơ làm tổn hại niềm tự hào của nhân viên đối với công ty là cái giá mà việc né tránh xử lý quy tắc có thể gây ra cho Nvidia trong thời gian tới, theo TechCrunch. Tác giả bài viết lưu ý rằng dù sự trở lại của Huang chưa gây khủng hoảng tinh thần, Nvidia rất khó áp dụng quy trình thay thế lãnh đạo do thiếu kế hoạch kế nhiệm rõ ràng."
+      ],
+      "same_event_coverage_ids": [
+        "966500419b1d2e279d49",
+        "f9149a49ddc7503a7717"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Nvidia",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Jensen Huang"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Jensen Huang thừa nhận vi phạm quy tắc ứng xử của Nvidia nhưng khẳng định không bị sa thải ngay lập tức",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/25/jensen-huang-broke-nvidias-code-of-conduct-and-his-employees-may-not-forget-it/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.85,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "9d5303e42874a9a0da308bcbc45a19153aaf8badc9ebfa53ac83c38ad3c8c3fb",
+        "scored_at": "2026-11-25T21:20:01.889721+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "835ced6c2b8853dd14a2",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-25/franklin-templeton-s-araghi-sees-ai-selloff-as-market-reset",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "8c5ae4b0def1d9dfd135"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "71a07b1df043fc19097f",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/25/anthropics-dario-amodei-calls-accusations-of-surrendering-human-control-to-ai-absurd/",
+      "key_points": [
+        "Dario Amodei gọi ý kiến từ bỏ quyền kiểm soát cho AI là ngớ ngẩn trong bài đăng trên mạng xã hội X vào thứ Tư. CEO Anthropic nhấn mạnh không bao giờ nên hy sinh quyền tự quyết trước hiệu quả hay an ninh, và ủng hộ sự giám sát dân chủ đối với AI.",
+        "Amodei phản bác các tuyên bố về quan điểm của mình sau khi các đối thủ cảnh báo nguy cơ mất quyền tự quyết nếu AI phát triển thiếu trách nhiệm.",
+        "Claude viết hơn 80% mã nguồn hợp nhất vào cơ sở mã của Anthropic vào tháng 6, khi công ty tăng cường đưa AI vào nghiên cứu nội bộ. Tổ chức METR phát hiện các mô hình Anthropic cải thiện nhanh gấp đôi tốc độ lịch sử, chủ yếu nhờ nghiên cứu có AI hỗ trợ.",
+        "Amodei khẳng định không an toàn nếu Claude tự xây dựng các mô hình tiên tiến kế tiếp hoàn toàn tự chủ mà thiếu sự giám sát hay hiểu biết của con người. Theo TechCrunch, sự giám sát này gặp trở ngại khi AI tiến bộ nhanh hơn khả năng kiểm toán của chuyên gia, buộc họ phụ thuộc vào AI để đánh giá."
+      ],
+      "same_event_coverage_ids": [
+        "ea310a1872a3e5d99f6b"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Anthropic",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Dario Amodei",
+          "Sam Altman",
+          "Alexandr Wang"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "CEO Anthropic gọi cáo buộc nhượng quyền kiểm soát cho hệ thống AI là điều ngớ ngẩn",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/25/anthropics-dario-amodei-calls-accusations-of-surrendering-human-control-to-ai-absurd/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.6,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 8,
+          "meaning": 7
+        },
+        "hard_errors": [
+          {
+            "kind": "number",
+            "summary_text": "Claude viết hơn 80% mã nguồn hợp nhất vào cơ sở mã của Anthropic vào tháng 6",
+            "explanation": "June is when Anthropic reported the figure; the source does not say the code was authored or merged in June (outlet:p014)."
+          },
+          {
+            "kind": "quote",
+            "summary_text": "Amodei khẳng định không an toàn",
+            "explanation": "Amodei said Anthropic does not expect fully autonomous development of successive frontier models to be safe without meaningful human supervision or understanding. The summary removes that qualification (outlet:p016)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "Amodei's qualified safety expectation becomes a categorical assertion.",
+            "fix": "Say he does not expect fully autonomous development of successive frontier models to be safe without meaningful human supervision or understanding (outlet:p016)."
+          },
+          {
+            "question": "notable",
+            "problem": "The figures lack the tension that makes them relevant to his statement.",
+            "fix": "Connect Anthropic's growing use of AI in research to Amodei's suggestion that AI improving itself without human help may need limits (outlet:p013–p014)."
+          },
+          {
+            "question": "notable",
+            "problem": "The summary places Claude's code-writing figure in June.",
+            "fix": "Say Anthropic reported the figure in June, without dating when the code was written or merged (outlet:p014)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "b7228117f615e2a3f7de0ee99a75e6b890301c2144bcd78aea0d2e18725983d0",
+        "scored_at": "2026-11-25T21:25:21.541048+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "1e0d1705ddda1eb4a148",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-25/coreweave-nvidia-credit-risk-hit-fresh-highs-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "f9647d806cdb895c2353"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "f09aeb2897d181487b1d",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Technical developer blog post providing an instructional guide and implementation walkthrough on optimizing NVFP4 attention kernels on Nvidia hardware.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://developer.nvidia.com/blog/how-to-optimize-nvfp4-attention-on-nvidia-rtx-blackwell-through-register-recycling/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "1a9c6e2094ed5b529526"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "7a03d8f693506f03e947",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Static GitHub code repository README page lacking journalistic reporting, documented launch coverage, or verified news substance.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/tDupuis19341/claude-session-rotator",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "18d73faab9b5fb33664b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "e53e1f158d756feb9fef",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Static GitHub repository page without independent news coverage, release documentation, or journalistic reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/YukiCatalano8591/llm-fallback-router",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "44e5c4fee8a14f39b8d8"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "e392a76455c242b11c88",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-25/s-p-says-it-may-downgrade-nvidia-s-ratings-on-governance-worries",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "96149b0e35231f12aebd"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "88bd06d7e0e9b82f43a3",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://huggingface.co/blog/allenai/where-scientists-draw-the-line-on-ai-agents",
+      "key_points": [
+        "Viện Ai2 đã phỏng vấn 17 nhà khoa học về phát triển có trách nhiệm tác nhân AI (hệ thống tự chủ làm nghiên cứu). Khảo sát tìm hiểu các tác vụ chuyên gia muốn được hỗ trợ và điều kiện an toàn để tin cậy giao việc.",
+        "Ai2 cho biết việc này bắt nguồn từ nhu cầu nội bộ khi nhiều nghiên cứu an toàn hiện tập trung vào rủi ro thảm họa sinh học hoặc hạt nhân. Viện thấy cần thêm phương pháp đánh giá xem tác nhân có tuân thủ chuẩn mực nghiên cứu có trách nhiệm trong từng chuyên ngành hay không.",
+        "Ai2 đề xuất kiểm thử xem tác nhân có bỏ sót bằng chứng mâu thuẫn khi tổng quan tài liệu, hoặc có truy cập tệp ngoài phạm vi cho phép hay không. Về ranh giới, một nhà sinh học từ chối dùng AI tạo ý tưởng, còn một nhà nhân chủng học ủng hộ tự động hóa phần mô tả phương pháp theo khuôn mẫu.",
+        "Các tiêu chuẩn đánh giá đề xuất hiện mới là ý tưởng thử nghiệm cùng giới khoa học chứ chưa phải giải pháp hoàn chỉnh."
+      ],
+      "same_event_coverage_ids": [
+        "13d6d4c895c449335d1e"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Allen Institute for AI",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Kyle Wiggers"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Ai2 đề xuất kiểm thử tác nhân AI nghiên cứu khoa học dựa trên khảo sát 17 chuyên gia tại Mỹ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://huggingface.co/blog/allenai/where-scientists-draw-the-line-on-ai-agents"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.55,
+        "answers": {
+          "what": 8,
+          "why": 10,
+          "notable": 9,
+          "meaning": 7
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "khảo sát 17 chuyên gia tại Mỹ",
+            "explanation": "Ai2 conducted interviews with 17 US-based scientists; the source explicitly says the study was not a representative survey (outlet:p014, outlet:p041)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "hệ thống tự chủ làm nghiên cứu",
+            "explanation": "The source describes systems that use tools and carry out research tasks with varying degrees of autonomy, not uniformly autonomous systems conducting research as a whole (outlet:p014)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The headline describes the 17-scientist interview study as a survey.",
+            "fix": "Call it interviews with 17 US-based scientists, and retain the source's limit that they do not represent scientific opinion generally (outlet:p014, outlet:p041)."
+          },
+          {
+            "question": "what",
+            "problem": "The parenthetical description overstates what research agents do and how autonomous they are.",
+            "fix": "Describe them as systems that use tools to perform research tasks with varying degrees of autonomy (outlet:p014)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The reader misses that scientists should help set the boundaries and standards for evaluating agents.",
+            "fix": "Add that Ai2 proposes developing evaluations with scientists, who would help define acceptable research practices and safety requirements (outlet:p017, outlet:p025–p026)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "ffa7e5fd6022f42e35d1ae3ea835acec74452e13336d1aee6819e80d5e53015a",
+        "scored_at": "2026-11-25T21:25:21.541103+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "054fa89e618f46ba3a8b",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.youtube.com/watch?v=Ws4dO4_VsRc",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "0459ab8b920951406a68"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Paul Christiano",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Paul Christiano"
+        ],
+        "availability": "global",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "855ff96753871c6e3427",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Hacker News discussion forum thread consisting of casual hypothetical questions and community chatter without news reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://news.ycombinator.com/item?id=50643310",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "ba6a825703776447b571"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "51a7b30accc3d7690e7f",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Show HN pitch and promotional product landing page for joonoo.art containing demo pitches and commercial copy without independent reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://joonoo.art/create-comic",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "3400e0290b87a9a25208",
+        "36410e170c1ee0d69cb8"
+      ],
+      "split_coverage_ids": []
     }
   ]
 }
