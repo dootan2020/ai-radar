@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-25T11:36:03.273450+00:00",
-  "input_generated_at": "2026-11-25T10:50:41Z",
+  "generated_at": "2026-11-25T13:30:40.441937+00:00",
+  "input_generated_at": "2026-11-25T12:46:44Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -141472,10 +141472,10 @@
       "use_original_title": false,
       "source_url": "https://analyticsindiamag.com/ai-news/at-un-india-warns-of-ai-misuse-in-conflicts-stresses-human-accountability",
       "key_points": [
-        "Tại Hội đồng Bảo an Liên Hợp Quốc, Đại sứ Ấn Độ Harish Parvathaneni kêu gọi duy trì trách nhiệm giải trình và phán đoán của con người khi dùng AI trong chiến tranh. Ông nhấn mạnh công nghệ chỉ là phương tiện thực hiện mục tiêu do con người định hướng chứ không phải mục đích tự thân.",
-        "Ấn Độ cảnh báo các hệ thống vũ khí sát thương tự động làm dấy lên câu hỏi pháp lý, đạo đức và nguy cơ khủng bố thao túng dữ liệu ra quyết định. Ông khẳng định công nghệ triển khai trong chiến sự phải tôn trọng chủ quyền quốc gia, luật pháp quốc tế và bảo vệ thường dân.",
-        "Đại sứ Parvathaneni khẳng định trách nhiệm sử dụng vũ khí tự động phải luôn thuộc về con người dựa trên bối cảnh tác chiến cụ thể. Dù vậy, ông nhận định AI có tiềm năng hỗ trợ gìn giữ hòa bình qua hệ thống cảnh báo sớm, phân tích dữ liệu và ảnh vệ tinh.",
-        "Ông Parvathaneni khẳng định các quốc gia Nam Bán Cầu (Global South - các nước đang phát triển) không thể bị xem là người tiêu dùng thuần túy mà phải có vai trò trong phát triển và quản trị AI."
+        "Tại Hội đồng Bảo an Liên Hợp Quốc, Đại sứ Ấn Độ Harish Parvathaneni kêu gọi duy trì trách nhiệm giải trình và sự phán đoán của con người khi dùng AI trong chiến sự. Ông nhấn mạnh công nghệ chỉ là phương tiện phục vụ mục tiêu do con người định hướng chứ không phải mục đích tự thân.",
+        "Phía Ấn Độ nêu rõ vũ khí tự động sát thương đặt ra nhiều câu hỏi pháp lý và đạo đức, cùng lo ngại AI bị khủng bố và các nhóm phi nhà nước lợi dụng. Đồng thời, quốc gia này cảnh báo thêm hiểm họa khi việc ra quyết định bị suy yếu bởi dữ liệu không đầy đủ, thiếu chuẩn xác hoặc bị cố tình thao túng.",
+        "Đại sứ Parvathaneni khẳng định trách nhiệm sử dụng các hệ thống vũ khí tự động phải luôn thuộc về con người dựa trên bối cảnh tác chiến cụ thể, dù AI có thể hỗ trợ gìn giữ hòa bình qua ảnh vệ tinh. Các công nghệ triển khai trong xung đột cũng phải tôn trọng chủ quyền quốc gia, luật pháp quốc tế và bảo vệ thường dân.",
+        "Về địa chính trị, ông Parvathaneni chỉ trích các biện pháp kiểm soát xuất khẩu công nghệ và khẳng định các quốc gia Nam Bán Cầu không thể bị xem là người tiêu dùng thuần túy mà phải có vai trò quản trị AI."
       ],
       "same_event_coverage_ids": [
         "a75da44d6c948f120b7e"
@@ -141491,7 +141491,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Ấn Độ cảnh báo nguy cơ từ vũ khí AI tại Liên Hợp Quốc và yêu cầu con người chịu trách nhiệm",
+      "editorial_headline_vi": "Ấn Độ yêu cầu con người giữ quyền quyết định vũ khí AI và kêu gọi bình đẳng công nghệ tại Liên Hợp Quốc",
       "summary_sources": [
         {
           "id": "outlet",
@@ -141504,25 +141504,24 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.25,
+        "value": 9.55,
         "answers": {
           "what": 10,
-          "why": 7,
-          "notable": 10,
+          "why": 10,
+          "notable": 9,
           "meaning": 9
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "nguy cơ khủng bố thao túng dữ liệu ra quyết định",
-            "explanation": "The source separately raises possible AI misuse by terrorists and non-state actors and the danger of incomplete, inaccurate or deliberately manipulated data. It does not say terrorists manipulate that data (outlet:p008)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "why",
-            "problem": "The reader is told the ambassador specifically warned of terrorists manipulating decision-making data.",
-            "fix": "Separate concern about terrorist misuse of AI from concern that unreliable or manipulated data can undermine decisions (outlet:p008)."
+            "question": "notable",
+            "problem": "The reader does not learn the specific route India says it is using to address lethal autonomous weapons.",
+            "fix": "Add that India is addressing the legal and ethical issues through the Convention on Prohibitions or Restrictions on the Use of Certain Conventional Weapons (outlet:p006)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The protection requirement is narrower in the Vietnamese than in the source.",
+            "fix": "Include peacekeepers and humanitarian personnel alongside civilians (outlet:p005)."
           }
         ],
         "writer_boats": [
@@ -141530,8 +141529,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "d330563443fff1d68f236f11f6b0d1056c2ee155cb702a99534d1ffda9316a34",
-        "scored_at": "2026-11-25T11:18:23.927594+00:00"
+        "prose_sha256": "07b7fca9407e85c79fbd09b6733d3146aa745e0955d1061d83132362375ed12e",
+        "scored_at": "2026-11-25T13:30:40.419853+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
@@ -141687,6 +141686,504 @@
         "scorer_provider": "codex",
         "prose_sha256": "d93d6ca3e8d89e139c74640ae3b47daf624a35ceac8993372252ae54a4cd32fe",
         "scored_at": "2026-11-25T11:23:46.598838+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "3a9f9e6b462015bc4b59",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.semafor.com/article/11/25/2026/africas-cashless-revolution-faces-ai-challenge",
+      "key_points": [
+        "Giao dịch di động tại châu Phi năm ngoái đã tăng hơn gấp đôi so với năm 2021, theo tổ chức nghiên cứu AfricaNenda Foundation. Giá trị trung bình mỗi lần chuyển tiền qua điện thoại giảm gần một nửa trong cùng kỳ, cho thấy hệ thống số đang được dùng cho các khoản chi tiêu hằng ngày.",
+        "Doanh nghiệp nhỏ thúc đẩy kinh tế châu Phi ngày càng tận dụng điện thoại giá rẻ hơn để chuyển đổi từ tiền mặt sang thanh toán số, theo một báo cáo mới.",
+        "Tổ chức Interpol phát hiện trí tuệ nhân tạo liên quan đến hơn một nửa tội phạm mạng tại châu Phi, với thiệt hại tại 26 quốc gia tăng hơn gấp đôi vào năm 2025 so với năm trước đó.",
+        "Bảo vệ người dùng trước sự phát triển của gian lận là thách thức lớn tiếp theo cho các nhà hoạch định chính sách và tổ chức tài chính, theo tác giả Alexis trên Semafor."
+      ],
+      "same_event_coverage_ids": [
+        "7f9806ce2cbbd6bfb77b"
+      ],
+      "split_coverage_ids": [],
+      "subject": "AI fraud challenge to African cashless payments",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Alexis"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Thanh toán số tại châu Phi tăng gấp đôi nhưng đối mặt làn sóng lừa đảo bằng AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/25/2026/africas-cashless-revolution-faces-ai-challenge"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.3,
+        "answers": {
+          "what": 10,
+          "why": 8,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The reader misses why wider digital payment use matters beyond fraud.",
+            "fix": "Add that transaction histories can help build credit and that digital payments can improve economic visibility and revenue collection (outlet:p002, outlet:p004)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "69069aa01bbb0938f7a559819a4b30f1ad6bfb982fb7addc6d5a399438ab4f88",
+        "scored_at": "2026-11-25T13:22:48.852028+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "a307c1e5433612dd5c42",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://analyticsindiamag.com/ai-news/bp-to-transfer-3000-finance-employees-to-wipro-in-strategic-partnership",
+      "key_points": [
+        "Khoảng 3.000 nhân viên tài chính của BP tại Ấn Độ, Hungary và Malaysia sẽ chuyển sang Wipro theo thỏa thuận đối tác mới ký kết. Mô hình vận hành này dự kiến có hiệu lực vào năm 2027, tùy thuộc vào các điều kiện áp dụng.",
+        "Giám đốc Tài chính BP Kate Thomson phát biểu rằng công ty tin quan hệ đối tác với Wipro là hướng đi tốt nhất khi xây dựng một BP tinh gọn hơn, đồng thời giúp tận dụng công nghệ tài chính tốt hơn.",
+        "Wipro sẽ đưa chuyên môn AI và tự động hóa vào hoạt động tài chính của BP, dù hai bên không công bố mức tiết kiệm chi phí hay ứng dụng AI cụ thể.",
+        "Thương vụ phản ánh xu hướng các hãng IT Ấn Độ tiếp quản nhân sự doanh nghiệp nhưng cũng đi kèm thách thức về biên lợi nhuận và tích hợp, theo Analytics India Magazine."
+      ],
+      "same_event_coverage_ids": [
+        "34e0a00f6d2c18bb0562"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Wipro and BP finance AI transformation partnership",
+      "video_labels": {
+        "video_hook": "money_jobs",
+        "named_people": [
+          "Kate Thomson"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "BP chuyển 3.000 nhân sự tài chính sang Wipro trong thỏa thuận đổi mới bằng AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "analytics-india-magazine",
+          "url": "https://analyticsindiamag.com/ai-news/bp-to-transfer-3000-finance-employees-to-wipro-in-strategic-partnership"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.5,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The reader may not know who remains responsible for standards, data, technology governance, and controls.",
+            "fix": "State that BP retains overall accountability and PwC will provide controls oversight (outlet:p010)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "cda8a93e1e7f74a373d92d98ba79b833c686240018308ecf0febd45eabc76a9f",
+        "scored_at": "2026-11-25T13:22:48.852114+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "47a2aac5301d1d801c34",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.scmp.com/tech/tech-trends/article/3375791/minimax-chatbot-talkie-removed-apple-app-store-over-alleged-sexual-content",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "f6c2ae49ef3ce8e463a5"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Apple App Store removal of MiniMax Talkie",
+      "video_labels": {
+        "video_hook": "drama_company",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "f2b37d103d2bcef8a570",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/25/2026/analysts-raise-concerns-over-impending-us-chip-glut",
+      "key_points": [
+        "Các nhà phân tích cảnh báo việc Washington tăng cường hạn chế vi chip với Trung Quốc có thể làm trầm trọng thêm dư thừa nguồn cung bán dẫn tại Mỹ.",
+        "Theo tác giả Prashant Rao trên Semafor, hai yếu tố dẫn đến cảnh báo gồm nhà sản xuất tăng sản lượng và nguồn cung cho doanh nghiệp Mỹ tăng khi hạn chế Trung Quốc. Trong đó, Google đang đẩy mạnh chế tạo khi vụ bê bối Nvidia thúc đẩy Washington siết chặt công nghệ.",
+        "Công ty SemiAnalysis ghi nhận dấu hiệu hạ nhiệt giá chip AI (trí tuệ nhân tạo) của Nvidia đang bắt đầu xuất hiện trên diện rộng.",
+        "Theo tác giả Prashant Rao trên Semafor, sự kìm hãm đối với cơn sốt AI phần lớn có thể đang thay đổi khi rào cản về điện năng và vi chip dần chuyển biến."
+      ],
+      "same_event_coverage_ids": [
+        "a757025cb8d4878a499d"
+      ],
+      "split_coverage_ids": [],
+      "subject": "U.S. AI chip supply glut and Nvidia pricing dynamics",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Prashant Rao"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Hạn chế vi chip với Trung Quốc có thể làm trầm trọng thêm dư thừa nguồn cung bán dẫn tại Mỹ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/25/2026/analysts-raise-concerns-over-impending-us-chip-glut"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.0,
+        "answers": {
+          "what": 9,
+          "why": 9,
+          "notable": 10,
+          "meaning": 7
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "Readers may take the US surplus as already present.",
+            "fix": "Say the potential glut is coming, as the source does (outlet:p001)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The ending blurs what evidence supports a possible change in AI constraints.",
+            "fix": "Tie the tentative change specifically to SemiAnalysis’s early signs of a Nvidia chip pricing cooldown (outlet:p001)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "67dcfa49e753f629c59a1bcbdf012fb351c299dc2c777b142d87ce0fa24d228a",
+        "scored_at": "2026-11-25T13:27:28.191490+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "319f463cce75ff29a267",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://arstechnica.com/ai/2026/11/ai-can-do-the-calculations-physicists-are-figuring-out-what-comes-next/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "85b8a384e57a1a93f012"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Frontier AI's impact on theoretical physics",
+      "video_labels": {
+        "video_hook": "money_jobs",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "f4598f7a835290fb789e",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The story focuses on Austrian circuit-board manufacturer AT&S mulling a stock listing in the U.S. or Asia, with only an incidental passing mention of supplying parts for AI data center chips.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-25/austria-s-fastest-growing-company-mulls-us-listing-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b05e1e483086049e3ff1"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "db998354f98b53bb7564",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.wired.com/story/airplane-turbulence-is-extremely-hard-to-predict-and-avoid/",
+      "key_points": [
+        "Nỗ lực dựa trên dữ liệu đang giúp các chuyến bay thương mại tiến gần hơn đến việc dự đoán và tránh né nhiễu động không khí, theo tạp chí WIRED. Đột phá xuất hiện khi giới nghiên cứu tận dụng dữ liệu phát sóng công khai của máy bay mà không cần trang bị thêm phần cứng mới.",
+        "Lưu lượng bay tăng trong khi chi phí truyền thông và máy tính trên phi cơ giảm mạnh đã tạo thời điểm thuận lợi để hành động, theo nhà vật lý Larry Cornman. Ngoài ra, biến đổi khí hậu đang khiến các đợt nhiễu động không khí trong lành khó lường trở nên nguy hiểm hơn.",
+        "Hơn 40.000 thiết bị đã cài đặt ứng dụng SkyPath để chia sẻ dữ liệu ẩn danh giữa các máy bay, theo CEO Maya Shpak. Ứng dụng này dùng trí tuệ máy móc để hỗ trợ phi công cảnh báo rung lắc trước 10 đến 15 phút.",
+        "Dự đoán hoàn hảo nhiễu động là điều bất khả thi theo các nhà khoa học, do vô số dòng xoáy vi mô biến đổi quá nhanh. Nhà vật lý Larry Cornman nhấn mạnh độ chính xác dự báo khó chạm mốc 80 đến 100 phần trăm trong tương lai gần vì bài toán quá phức tạp."
+      ],
+      "same_event_coverage_ids": [
+        "2fa0609c3f5d3828f419"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Machine learning and AI in flight turbulence forecasting",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Leonardo da Vinci",
+          "Michael Murillo"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Trí tuệ nhân tạo và dữ liệu chuyến bay giúp cảnh báo sớm nhiễu động không khí",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "wired",
+          "url": "https://www.wired.com/story/airplane-turbulence-is-extremely-hard-to-predict-and-avoid/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.8,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "7894b92727db484318ff30b6036fb889a424490c84082cde1aedc8b4cb6c4e69",
+        "scored_at": "2026-11-25T13:22:48.852179+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "7ee7ada89fd99b23d754",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/newsletters/2026-11-25/jpmorgan-jpm-outage-signals-banks-tsunami-of-patching-before-ai-strikes",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "13d60b88e37e0356053b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "ca958222a09d0287eacf",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-25/anthropic-expands-in-zurich-moving-to-tap-city-s-ai-talent-pool",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "ebcefe61ebb0bbb4f0a6"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "7f3cf867d5ac4edca650",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://restofworld.org/2026/ai-companion-apps-africa-character-ai/?utm_source=rss&utm_medium=rss&utm_campaign=feeds",
+      "key_points": [
+        "Theo các chuyên gia trao đổi với Rest of World, giới trẻ châu Phi—gồm cả trẻ dưới 10 tuổi—ngày càng tìm đến ứng dụng trí tuệ nhân tạo (AI - phần mềm mô phỏng con người) để tìm kiếm sự thân mật.",
+        "Bác sĩ tâm thần Melané van Zyl tại Nam Phi nhận định hệ thống AI phản hồi tức thì và trấn an trở nên đặc biệt hấp dẫn khi người dùng dễ tổn thương cảm xúc.",
+        "Theo công ty AppMagic, hơn 4 triệu người tại Nam Phi và Nigeria đã tải ứng dụng AI đồng hành trong năm qua, tăng gần 60% so với năm 2024 tại hai nước hạ Sahara duy nhất có dữ liệu. Tại Nigeria, bà Confidence Osein từ tổ chức Internet Safe Kids Africa cho biết các nữ sinh gắn bó với bạn trai ảo trên Character.AI, trong đó một số em dần nảy sinh tình cảm qua các cuộc trò chuyện.",
+        "Một nghiên cứu năm 2026 cảnh báo sự phụ thuộc vào AI có thể làm thay đổi các mối quan hệ cộng đồng, trong khi bác sĩ Van Zyl nhấn mạnh nguy cơ nhầm lẫn phản hồi nhân tạo với kết nối thực chất. Dù một số nước châu Phi có khung bảo vệ dữ liệu, chưa quốc gia nào ban hành quy định riêng cho ứng dụng AI đồng hành."
+      ],
+      "same_event_coverage_ids": [
+        "b2db23705407f00c7ba4"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Social impact of AI companion and romance apps in Africa",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Hơn 4 triệu người tại Nam Phi và Nigeria tải ứng dụng AI bầu bạn khi thiếu quy định quản lý",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "rest-of-world",
+          "url": "https://restofworld.org/2026/ai-companion-apps-africa-character-ai/?utm_source=rss&utm_medium=rss&utm_campaign=feeds"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.95,
+        "answers": {
+          "what": 9,
+          "why": 8,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The account leaves out the source’s specific warning that children struggle to distinguish virtual from real relationships.",
+            "fix": "Add that child safety concern and attribute it to Danie van Loggerenberg (outlet:p006–p008)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The sentence about the 2026 study assigns the broad warning about changing community relationships to the study, while the source says the study found a specific clash with Ubuntu.",
+            "fix": "Describe the broader risk separately and state the study’s Ubuntu finding precisely (outlet:p027–p028)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "0e5b64dc25eadda25ffb616ecac650403f1816486df85a0f7cfbe34fb79ab358",
+        "scored_at": "2026-11-25T13:27:28.191593+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
