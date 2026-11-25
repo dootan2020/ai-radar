@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-24T23:41:23.509569+00:00",
-  "input_generated_at": "2026-11-24T22:46:47Z",
+  "generated_at": "2026-11-25T01:36:32.965609+00:00",
+  "input_generated_at": "2026-11-25T00:46:56Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -137251,10 +137251,10 @@
       "use_original_title": false,
       "source_url": "https://techcrunch.com/2026/11/24/even-the-best-ai-agents-struggle-with-everyday-life/",
       "key_points": [
-        "Theo bài kiểm tra ShellBench (bộ tiêu chuẩn đánh giá tác vụ thường nhật), các mô hình AI tiên tiến nhất đã thất bại hơn một phần ba số lần thử nghiệm khi thực hiện việc hàng ngày. Trên tất cả mô hình được thử nghiệm, 15,7% lượt chạy đã vi phạm ít nhất một yêu cầu về an toàn.",
-        "Bộ tiêu chuẩn này được xây dựng từ hơn 10 triệu lượt tương tác thực tế ẩn danh để đánh giá tác tử AI (trợ lý trí tuệ nhân tạo tự hành).",
-        "Về kết quả so sánh, mô hình Muse Wonder Full của Meta đạt tỷ lệ hoàn thành tác vụ 56% trong khung điều khiển Pi nhưng chỉ đạt 38,1% trong Claude Code. Trong khi đó, mô hình Muse Wonder 1.0 của Meta đạt tỷ lệ thành công trung bình 39,7% trên cả năm khung điều khiển được thử nghiệm.",
-        "TechCrunch lưu ý kết quả này có thể không đại diện cho trải nghiệm người dùng thực tế do mô hình chưa được đánh giá trong khung phần mềm gốc của Muse, Dots hay Claude Duet. Dù vậy, trang tin nhận định luôn có rủi ro là trợ lý tự hành sẽ gây thêm rắc rối trong quá trình thực hiện một yêu cầu thông thường."
+        "Theo bài kiểm chuẩn ShellBench (đánh giá tác tử AI, tức trợ lý trí tuệ nhân tạo tự hành), các mô hình AI tiên tiến nhất thất bại hơn một phần ba số lần thử nghiệm, kể cả sản phẩm từ OpenAI, Anthropic và Meta. Trên mọi mô hình thử nghiệm, 15,7% lượt chạy vi phạm ít nhất một yêu cầu an toàn.",
+        "ShellBench cho rằng bản chất thiếu tin cậy của các nguồn dữ liệu đời thường gây khó khăn cho nhiều hệ thống tiên tiến.",
+        "Khi chạy mỗi tác vụ ba lần trong cùng điều kiện, mô hình đạt điểm cao nhất hoàn thành cả ba lần thử dưới một nửa số lần, cụ thể là GPT-6 Astra của OpenAI. Ngoài ra, mô hình Muse Wonder Full của Meta đạt điểm số 56% trong khung điều phối Pi nhưng giảm xuống 38,1% trong Claude Code.",
+        "TechCrunch nhận định người dùng đối mặt nguy cơ tác tử AI gây thêm rắc rối khi thực hiện yêu cầu thường nhật. Trang tin lưu ý do chưa được đánh giá trong khung phần mềm gốc của Muse, Dots hay Claude Duet, kết quả có thể không đại diện cho trải nghiệm thực tế."
       ],
       "same_event_coverage_ids": [
         "45384273a6255080e2ef"
@@ -137268,7 +137268,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Thử nghiệm ShellBench cho thấy mô hình AI hàng đầu thất bại hơn một phần ba tác vụ đời sống",
+      "editorial_headline_vi": "Theo bài kiểm chuẩn ShellBench, các mô hình AI hàng đầu thất bại trong hơn một phần ba số lần thử nghiệm",
       "summary_sources": [
         {
           "id": "outlet",
@@ -137281,24 +137281,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.4,
+        "value": 9.2,
         "answers": {
           "what": 10,
-          "why": 2,
-          "notable": 10,
+          "why": 9,
+          "notable": 8,
           "meaning": 10
         },
         "hard_errors": [],
         "findings": [
           {
-            "question": "why",
-            "problem": "Readers see the failure rates without the source’s explanation of what makes everyday tasks difficult.",
-            "fix": "Explain that agents must sort through unreliable personal data, outdated information, and phishing attempts while deciding what is relevant and private (outlet:p011)."
-          },
-          {
             "question": "notable",
-            "problem": "The harness comparison does not show the source’s separate finding that repeated identical tasks produced inconsistent results.",
-            "fix": "Add that the highest-scoring model completed all three identical runs less than half the time (outlet:p012)."
+            "problem": "Readers see the failure rates but no example of what a safety failure could mean.",
+            "fix": "Add one concrete case from outlet:p014, such as incorrect school pickup handling, failure to withhold a sensitive bank token, or a duplicate or incorrect invoice payment."
           }
         ],
         "writer_boats": [
@@ -137306,8 +137301,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "4992bd2ee4551958de031710a1ca3213f83998f13baec195e1eda83fef6cdcab",
-        "scored_at": "2026-11-24T23:28:41.935066+00:00"
+        "prose_sha256": "ad589c941eb8357f4b1256496835000363e524199e3d65be3c678bdfca5c95df",
+        "scored_at": "2026-11-25T01:36:32.956225+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
@@ -137817,6 +137812,399 @@
       "writer_models": [
         "gemini-3.8-flash-high"
       ]
+    },
+    {
+      "id": "cd26d95554d7ee3a8993",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/24/yales-sonnenfeld-nvidia-is-a-detriment-to-u-s-industrial-might-not-a-champion/",
+      "key_points": [
+        "Theo giáo sư Jeffrey Sonnenfeld, ban giám đốc Nvidia đối mặt trách nhiệm pháp lý cá nhân ở mức lịch sử khi phục chức cho Jensen Huang. Quyết định diễn ra ngay cả khi ban giám đốc đang điều tra nghi vấn ông bị tình báo nước ngoài nhắm đến.",
+        "Theo TechCrunch, nguyên nhân phục chức là do các quan chức cấp cao của chính quyền Mỹ và Tổng thống Donald Trump đã trực tiếp gây sức ép lên hội đồng quản trị. Tổng thống Trump đã trực tiếp gọi điện bảo lãnh cho Huang và tuyên bố chính ông dàn xếp thỏa thuận này.",
+        "Cổ đông Nvidia đã khởi kiện ban giám đốc vì phớt lờ các cảnh báo về mối quan hệ giữa Huang với một nghi phạm gián điệp Trung Quốc. Tính đến ngày 18 tháng 11 năm 2026, năm vụ kiện từ cổ đông đã được đệ trình tại Bắc California.",
+        "Giáo sư Sonnenfeld nhận định Nvidia gây tổn hại cho sức mạnh công nghiệp Mỹ thay vì là trụ cột, bởi chip tiên tiến của hãng đã lọt vào tay quân đội Trung Quốc. Dù vậy, TechCrunch lưu ý Trung Quốc từ lâu đã phủ nhận việc cung cấp vũ khí cho các nước này."
+      ],
+      "same_event_coverage_ids": [
+        "9dff3865d36f667cbdef"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Nvidia corporate governance and Jensen Huang reinstatement",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Jeffrey Sonnenfeld",
+          "Jensen Huang",
+          "JD Vance",
+          "Donald Trump"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Giáo sư Yale cảnh báo ban giám đốc Nvidia đối mặt trách nhiệm pháp lý lịch sử khi phục chức Jensen Huang",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/24/yales-sonnenfeld-nvidia-is-a-detriment-to-u-s-industrial-might-not-a-champion/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.35,
+        "answers": {
+          "what": 9,
+          "why": 8,
+          "notable": 8,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "Readers do not learn that Huang was returned to Nvidia’s board as well as reinstated as CEO.",
+            "fix": "Add the board appointment from outlet:p006."
+          },
+          {
+            "question": "why",
+            "problem": "The reason Sonnenfeld expects personal liability is less clear than in the source.",
+            "fix": "Explain that he says the directors reversed course before their law firm had substantially investigated and failed to use the needed expertise (outlet:p015)."
+          },
+          {
+            "question": "notable",
+            "problem": "The closing reference to China denying arms supplies says “these countries” without naming them.",
+            "fix": "Name Iran and Russia and preserve the editor’s qualification about that claim (outlet:p021)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "331273f07defb37b7d5903cf42797003afb3484b0381e523cc0070903df76d97",
+        "scored_at": "2026-11-25T01:18:59.255239+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "ce0669846f4b083729b2",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The report focuses on Dell Technologies' general Q4 financial strength and server sales; the build-out of AI data centers is only mentioned in passing as an underlying demand factor.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-24/dell-in-strong-position-with-no-signs-of-a-slowdown-cfo-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "e019b741a2e0912809e3"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "5e8eba5b15ac60442c06",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://simonwillison.net/2026/Nov/24/llm-inflection-points/",
+      "key_points": [
+        "Simon Willison nhận định mô hình ngôn ngữ lớn và trợ lý lập trình (coding agent) trải qua ba bước ngoặt trong 12 tháng qua. Các mốc gồm trợ lý lập trình tin cậy tháng 11 năm 2025, mô hình lớp Fable tháng 6 năm 2026, cùng khả năng dựng hình 3D và làm game tháng 9 và 10 năm 2026.",
+        "Theo tác giả, mô hình như Claude Opus 4.5 mang lại kết quả mặc định chính xác và xử lý nhanh hơn tự viết mã. Khi có mục tiêu và công cụ phù hợp, mô hình lớp Fable chủ động tạo cơ chế chụp màn hình và máy chủ nhật ký trong lúc sửa lỗi.",
+        "Tác giả cấp quyền dùng năm micro WebAudio cho Opus 5.5 rồi đến Fable 5.2, và thiết lập này định vị nguồn tiếng bíp trong phạm vi khoảng 40 cm. Ngoài ra, Claude Opus 5.5 tự thử nghiệm tính năng và cân bằng lối chơi suốt 12 giờ trên một tựa game chiến thuật.",
+        "Simon Willison kết luận phát triển phần mềm đã biến đổi hoàn toàn và ông khó quay lại tự gõ mã thủ công. Dù vậy, tác giả nhấn mạnh đây là trải nghiệm cá nhân vài tuần qua và ông vẫn cân nhắc liệu Fable 5.2 là bước ngoặt hay chỉ là cải tiến nhỏ."
+      ],
+      "same_event_coverage_ids": [
+        "2c8c872d043d216db562"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Evolution and inflection points of LLM coding agents",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Simon Willison"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Simon Willison chỉ ra ba bước ngoặt của mô hình AI từ viết mã tin cậy đến phát triển game 3D",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "simon-willison",
+          "url": "https://simonwillison.net/2026/Nov/24/llm-inflection-points/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.6,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 8,
+          "meaning": 7
+        },
+        "hard_errors": [
+          {
+            "kind": "quote",
+            "summary_text": "đây là trải nghiệm cá nhân vài tuần qua",
+            "explanation": "The ‘past few weeks’ qualification concerns Willison’s experience with Fable 5.2 building software he can clearly describe, not his conclusion about the full year of software-development change (outlet:p040–p041)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The reader may take the year-long conclusion as based only on a few weeks of experience.",
+            "fix": "Tie the ‘past few weeks’ wording specifically to Willison’s tentative assessment of Fable 5.2 (outlet:p037–p040)."
+          },
+          {
+            "question": "notable",
+            "problem": "The game example gives the work Opus 5.5 did but misses its result.",
+            "fix": "Add that Willison found the game deeply entertaining after the twelve hours of testing and rebalancing (outlet:p031)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "b8fa261e6608b1d3f9b3f1c9479e9f5fb4214241d4c24fcc2e0933e27e9e33ad",
+        "scored_at": "2026-11-25T01:24:35.594862+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "5b8042f07c748eee8ef7",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-24/the-close-11-24-2026-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "3869654fe8dce41cc039"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "c8cb283d9a3ccfad5a59",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-24/j-p-morgan-asset-mgmt-s-rosenbaum-on-2027-ai-spend-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "bf404c406c442564574d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "d418877529bcb23c888e",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://x.com/_jasonwei/status/2125294984949809309",
+      "key_points": [
+        "In 'Perplexity and Intelligence', Jakub argues in favor of using perplexity as a shared metric for measuring intelligence.",
+        "Jakub's post demonstrated improvements in the perplexity of OpenAI models without releasing a community dataset."
+      ],
+      "same_event_coverage_ids": [
+        "345c267783c6bfa67a1d"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Perplexity as an AI evaluation metric",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Jakub",
+          "Jason Wei"
+        ],
+        "availability": "global",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "14bc3651aabbce867df7",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://sakana.ai/namazu-small/",
+      "key_points": [
+        "Sakana AI announced Sakana Namazu Small, a 30-billion parameter large language model.",
+        "The model is built on NVIDIA's open Nemotron 3 Nano base model using Sakana AI's own continued pre-training and post-training techniques."
+      ],
+      "same_event_coverage_ids": [
+        "a023cbdcb2fb72da3af5"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Sakana AI Sakana Namazu Small model release",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "6ecbcea380ebcdc97997",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://metr.org/blog/2026-11-24-interpreting-a-recent-acceleration-in-pretraining-loss/",
+      "key_points": [
+        "Tổ chức METR cho biết dữ liệu của OpenAI với 13 mô hình nền tảng cho thấy tổn thất tiền huấn luyện (pretraining loss) từ đầu năm 2026 giảm nhanh gấp bảy lần giai đoạn 2022–2025. Thước đo này được tính trên tập kiểm thử cố định trích từ cơ sở mã nội bộ của OpenAI.",
+        "Tiến trình giảm tổn thất thường khó dần khi văn bản không thể dự đoán hoàn hảo và tổn thất không thể hạ dưới ngưỡng sàn. Theo quy luật mở rộng tiêu chuẩn, điện toán tăng gấp mười lần chỉ đem lại mức giảm nhỏ hơn và tiến độ thường sẽ chậm dần.",
+        "Theo hiểu biết của METR, chưa từng có nhà phát triển hàng đầu nào công bố sự thay đổi tổn thất tiền huấn luyện qua nhiều năm trên tập kiểm thử cố định. Nếu giữ tốc độ này, OpenAI có thể bù đắp mức giảm từ GPT-3.5 đến GPT-4.1 chỉ trong sáu tháng rưỡi thay vì ba năm, dù điểm số trên chỉ số ECI của Epoch không tăng tốc tương ứng.",
+        "METR cho biết nội bộ vẫn bất đồng sâu sắc và chưa có quan điểm đồng thuận về việc thay đổi các dự báo năng lực AI tương lai. Dữ liệu có thể đã phóng đại tiến độ do khớp quá mức (overfitting), dù một số góc nhìn kỳ vọng năng lực thực tế sẽ tăng tốc trong sáu tháng tới."
+      ],
+      "same_event_coverage_ids": [
+        "c32aaa88c872c5dff0b6"
+      ],
+      "split_coverage_ids": [],
+      "subject": "OpenAI pretraining loss acceleration and scaling analysis",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "OpenAI ghi nhận tổn thất tiền huấn luyện giảm nhanh gấp 7 lần nhưng METR chưa đồng thuận dự báo",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "metr",
+          "url": "https://metr.org/blog/2026-11-24-interpreting-a-recent-acceleration-in-pretraining-loss/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.15,
+        "answers": {
+          "what": 10,
+          "why": 3,
+          "notable": 9,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The reader learns why the result is surprising, but not what might have produced it.",
+            "fix": "Add OpenAI’s attributed explanation of long-term research and compute investments, with a smaller automation contribution, while retaining METR’s uncertainty about the relative causes (outlet:p013, outlet:p017)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "c5d82a8044bdfbf8a807e44453e4350c23b2cfe816e5405acae7e464837b827c",
+        "scored_at": "2026-11-25T01:24:35.594899+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "a3c9028eefd69cfd15ff",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "A promotional customer case study published by OpenAI detailing how sales engine Clay integrates ChatGPT and Codex.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://openai.com/business/customer-stories/clay-plugins-openai",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "ca8edd5c1b50ede4fed4"
+      ],
+      "split_coverage_ids": []
     }
   ]
 }
