@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-26T09:43:45.114748+00:00",
-  "input_generated_at": "2026-11-26T08:46:21Z",
+  "generated_at": "2026-11-26T11:51:43.646768+00:00",
+  "input_generated_at": "2026-11-26T10:46:16Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -147332,10 +147332,10 @@
       "use_original_title": true,
       "source_url": "https://analyticsindiamag.com/ai-news/bharatgen-launches-patram-15-a-7b-vision-language-model-for-document-processing",
       "key_points": [
-        "BharatGen vừa phát hành mô hình thị giác-ngôn ngữ (VLM - vision-language model) Patram 1.5. Mô hình được phát triển để xử lý các tài liệu quét quang học, viết tay, có con dấu và hỗ trợ nhiều ngôn ngữ.",
-        "Khác với các hệ thống OCR truyền thống chuyển tài liệu sang văn bản thô, Patram 1.5 xử lý trực tiếp tài liệu dưới dạng hình ảnh. Cách làm này giúp mô hình nhận diện nguyên vẹn các thành phần như bảng biểu, chữ ký, con dấu, ảnh chụp, biểu đồ và ghi chú viết tay.",
-        "Khi gặp trường dữ liệu trống hoặc không thể đọc, Patram 1.5 được huấn luyện để gắn cờ báo lỗi thay vì tự tạo câu trả lời, hoặc đưa ra cảnh báo cần con người xác minh nếu phải ước lượng. Mô hình cũng cho phép ngân hàng trích xuất các thông tin cụ thể như mã khách hàng và chi nhánh rồi xuất kết quả theo định dạng JSON định sẵn.",
-        "Mô hình hỗ trợ tiếng Anh cùng tiếng Anh pha trộn ngôn ngữ Ấn Độ với cửa sổ ngữ cảnh tối đa 32.000 mã token."
+        "BharatGen ra mắt Patram 1.5, mô hình xử lý hình ảnh và ngôn ngữ có khả năng đọc tài liệu quét, viết tay, có đóng dấu hoặc bằng nhiều ngôn ngữ. Mô hình hỗ trợ tiếng Anh, tiếng Anh pha các ngôn ngữ Ấn Độ và xử lý nhiều ảnh trong một yêu cầu.",
+        "Khác với hệ thống OCR (nhận dạng ký tự quang học) thông thường vốn chuyển tài liệu thành văn bản trước, Patram 1.5 xử lý tài liệu trực tiếp dưới dạng hình ảnh. Cơ chế này phân tích đồng thời bảng biểu, chữ ký, con dấu, ảnh chụp, biểu đồ và ghi chú viết tay cùng với văn bản.",
+        "Người dùng yêu cầu trích xuất thông tin bằng ngôn ngữ tự nhiên theo chuẩn OCR 3.0, như việc ngân hàng xử lý sao kê có thể yêu cầu chỉ lấy mã khách hàng và chi nhánh rồi nhận kết quả dạng JSON. Khi ô dữ liệu trống hoặc con số không thể đọc, mô hình gắn cờ báo lỗi thay cho việc tạo câu trả lời và kèm cảnh báo cần con người xác minh khi ước lượng.",
+        "Mô hình có thể triển khai trên hạ tầng riêng của tổ chức, cho phép ngân hàng, bệnh viện và cơ quan chính phủ xử lý tài liệu nhạy cảm mà không chuyển ra hệ thống bên ngoài. Patram 1.5 hiện được mở trọng số trên Hugging Face và cho phép truy cập qua BharatGen Playground."
       ],
       "same_event_coverage_ids": [
         "29724d882a9ac1c9f78d"
@@ -147349,7 +147349,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "BharatGen ra mắt mô hình Patram 1.5 xử lý tài liệu bằng hình ảnh thay vì OCR thông thường",
+      "editorial_headline_vi": "BharatGen ra mắt mô hình Patram 1.5 xử lý tài liệu dạng ảnh, có thể triển khai trên hạ tầng riêng",
       "summary_sources": [
         {
           "id": "outlet",
@@ -147360,38 +147360,10 @@
       ],
       "summary_limitations": [],
       "key_points_prompt_version": "summary-vi-7-bullets",
-      "score": {
-        "version": "cham-4-cau-1",
-        "value": 8.2,
-        "answers": {
-          "what": 9,
-          "why": 8,
-          "notable": 9,
-          "meaning": 5
-        },
-        "hard_errors": [],
-        "findings": [
-          {
-            "question": "meaning",
-            "problem": "Readers miss the model's practical availability and its stated benefit for sensitive documents.",
-            "fix": "Add that it is available as open weights and through BharatGen Playground, and can run on an organisation's own infrastructure (outlet:p002, outlet:p011, outlet:p015)."
-          },
-          {
-            "question": "notable",
-            "problem": "The bank example does not make clear that users can specify the fields they want in natural language.",
-            "fix": "Explain that OCR 3.0 accepts natural-language requests for selected information and can return structured output such as JSON (outlet:p005–p006)."
-          }
-        ],
-        "writer_boats": [
-          "agy"
-        ],
-        "scorer_boat": "codex",
-        "scorer_provider": "codex",
-        "prose_sha256": "dc39bf37ae5427dcae1a95eee3927e178cb19720c8d8f77cc8dbacce7cc38fa5",
-        "scored_at": "2026-11-26T09:21:33.580063+00:00"
-      },
+      "score": null,
       "writer_models": [
-        "gemini-3.8-flash-high"
+        "gemini-3.8-flash-high",
+        "gpt-6-sol"
       ]
     },
     {
@@ -147764,6 +147736,602 @@
       "writer_models": [
         "gemini-3.8-flash-high"
       ]
+    },
+    {
+      "id": "b2ba100da4d5dca10893",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://en.yna.co.kr/view/AEN20261126011900315",
+      "key_points": [
+        "Cảnh sát đã nộp đơn xin lệnh bắt giữ thủ khoa kỳ thi kế toán thuế năm nay do bị cáo buộc gian lận bằng công nghệ trí tuệ nhân tạo (AI).",
+        "Theo Yonhap, động thái xin lệnh bắt phản ánh mức độ nghiêm trọng của vụ việc liên quan đến kỳ thi quốc gia và lo ngại nghi phạm có thể bỏ trốn hoặc tiêu hủy chứng cứ.",
+        "Người đàn ông họ Han thừa nhận đã dùng camera siêu nhỏ, điện thoại thông minh và AI tạo sinh để đạt điểm số cao nhất trong kỳ thi. Han thừa nhận hành vi sau khi điểm số gần như tuyệt đối ở vòng một bị soi xét vì bị nhiều người đánh giá là thiếu thực tế.",
+        "Theo Yonhap, vụ việc đã dấy lên làn sóng phẫn nộ trong dư luận cùng những lo ngại về tình trạng gian lận trong các kỳ thi quốc gia."
+      ],
+      "same_event_coverage_ids": [
+        "06585ca34b23c5bd0548"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Police seek arrest warrant for tax accountant exam top scorer over AI-assisted cheating",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Han"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Cảnh sát xin lệnh bắt thủ khoa kỳ thi kế toán thuế do bị cáo buộc dùng AI gian lận",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "yonhap",
+          "url": "https://en.yna.co.kr/view/AEN20261126011900315"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.85,
+        "answers": {
+          "what": 9,
+          "why": 6,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "quote",
+            "summary_text": "động thái xin lệnh bắt phản ánh mức độ nghiêm trọng của vụ việc liên quan đến kỳ thi quốc gia và lo ngại nghi phạm có thể bỏ trốn hoặc tiêu hủy chứng cứ",
+            "explanation": "The source says the move *reportedly* reflected the incident's magnitude and those concerns; it does not establish the rationale as fact (outlet:p004)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The reader receives a reported rationale as a confirmed one.",
+            "fix": "Preserve the source's uncertainty when describing why police sought the warrant (outlet:p004)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "0cf902995e83303c7ef6719352338dc8ffc8a158398c5e5f5429a38f19698bfe",
+        "scored_at": "2026-11-26T11:31:55.181296+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "eb433db2903449b8b632",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://analyticsindiamag.com/ai-news/vertiv-expands-800-vdc-power-portfolio-for-ai-data-centres",
+      "key_points": [
+        "Công ty Vertiv tại Mỹ mở rộng danh mục nguồn điện 800 VDC (dòng điện một chiều) cho trung tâm dữ liệu AI để đáp ứng nhu cầu năng lượng gia tăng. Đợt mở rộng bổ sung hệ thống cho cụm tính toán và phòng máy, bao quát ba cấp độ gồm tủ rack, cụm tính toán và phòng dữ liệu.",
+        "Theo bài viết trên Analytics India Magazine, việc mở rộng diễn ra khi khối lượng công việc AI làm tăng yêu cầu điện năng, khiến các đơn vị vận hành đánh giá hệ thống 800 VDC cho môi trường tính toán mật độ cao.",
+        "Vertiv giới thiệu bộ chuyển đổi PowerDirect 3000 công suất 90 kW lắp trong tủ rack để đổi 800 VDC sang 54 VDC với hiệu suất đạt đỉnh 98,5%. Kiến trúc đưa khâu đổi nguồn và lưu trữ điện ra ngoài tủ IT có thể giải phóng 8 đến 16 đơn vị rack, còn máy biến áp PowerNexus MV SST 5 MW cho phòng máy đạt hiệu suất tới 98%.",
+        "Dù vậy, Vertiv nhận định kiến trúc điện AC và DC sẽ cùng tồn tại song song, đòi hỏi tính linh hoạt trong triển khai. Công ty cho biết các chương trình thí điểm và thẩm định kỹ thuật hiện đang được tiến hành để chuẩn bị kế hoạch triển khai với khách hàng."
+      ],
+      "same_event_coverage_ids": [
+        "0ddaed2acde8accb2a91"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Vertiv expands 800 VDC power portfolio for AI data centres",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Scott Armul"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Vertiv mở rộng danh mục nguồn điện 800 VDC đáp ứng năng lượng cho trung tâm dữ liệu AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "analytics-india-magazine",
+          "url": "https://analyticsindiamag.com/ai-news/vertiv-expands-800-vdc-power-portfolio-for-ai-data-centres"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.55,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 7
+        },
+        "hard_errors": [
+          {
+            "kind": "cause",
+            "summary_text": "để chuẩn bị kế hoạch triển khai với khách hàng",
+            "explanation": "The source separately says pilots and technical validation are underway and Vertiv is discussing potential deployment plans with customers. It does not say the validation is being done for that purpose (outlet:p017)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The reader is given an unsupported purpose for the pilot and validation work.",
+            "fix": "State the two reported activities separately: validation is underway, and Vertiv is discussing potential deployment plans with customers (outlet:p017)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "139b5418c097f6bc8efff9286967bb6222a031c9edca6843b1eb4588713375a6",
+        "scored_at": "2026-11-26T11:31:55.181355+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "09e44dde21690602fe4a",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://analyticsindiamag.com/ai-features/the-next-big-it-services-opportunity-could-be-operationalising-ai",
+      "key_points": [
+        "Công ty Straive đang định vị trở thành đối tác giúp các doanh nghiệp xây dựng, vận hành và cải tiến liên tục các hệ thống AI.",
+        "Theo ông Naveen Gattu từ Straive, việc tách rời phát triển AI khỏi vận hành thường nhật có thể làm hạn chế hiệu quả và khả năng chứng minh lợi tức đầu tư. Bên cạnh đó, các doanh nghiệp đang thận trọng hơn trong chi tiêu và chuyển trọng tâm sang những kết quả đo lường được cùng việc tăng cường quản trị AI.",
+        "Theo ông Gattu, các giải pháp nội bộ dựng sẵn giúp Straive rút ngắn thời gian triển khai từ khoảng 18 tuần xuống 8 đến 12 tuần.",
+        "Theo ông Gattu, vận hành hóa AI có thể trở thành một danh mục dịch vụ công nghệ riêng biệt, tương tự sự phát triển của các công ty dịch vụ công nghệ thông tin vào cuối những năm 1990. Ông cũng lưu ý một vài công ty quy mô tỷ đô-la tại Ấn Độ sẽ phát triển từ việc nắm bắt xu hướng vận hành hóa AI."
+      ],
+      "same_event_coverage_ids": [
+        "3428631ac5940256abd5"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Enterprise IT services shifting toward operationalising AI",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Naveen Gattu"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Lãnh đạo Straive nhận định vận hành hóa AI có thể là cơ hội lớn tiếp theo của ngành dịch vụ công nghệ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "analytics-india-magazine",
+          "url": "https://analyticsindiamag.com/ai-features/the-next-big-it-services-opportunity-could-be-operationalising-ai"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.45,
+        "answers": {
+          "what": 10,
+          "why": 8,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "851d0270ed957a9508a57c83329475d8e15149cdbb73162155fec408169613f2",
+        "scored_at": "2026-11-26T11:31:55.181385+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "6d31c253226f9860a8be",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-26/investec-sees-opportunities-in-three-key-ai-buckets-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "460cdf4a1a4a1da81fc4"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "957d0edaedf9c45b6569",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The content covers the history of UPS and modern logistics with no meaningful focus or connection to artificial intelligence.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-26/marc-levinson-on-how-ups-created-modern-logistics-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "e4827504a3ce56910283"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "a85dcada7dbec77f1cfd",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.scmp.com/tech/big-tech/article/3375902/huawei-advances-home-grown-chip-design-ecosystem-while-eyeing-global-push-rival-nvidia",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "51275047e0760f223b24"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Huawei advances domestic chip design ecosystem to rival Nvidia",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "e6e5f098e61efd937610",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.34756",
+      "key_points": [
+        "Nhóm nghiên cứu giới thiệu phương pháp CARE-OPD cho các tác nhân (hệ thống tự chủ giải quyết chuỗi tác vụ dài) để khắc phục các hạn chế khi chưng cất chính sách. Kỹ thuật này mở rộng độ bao phủ lịch sử và sử dụng bằng chứng thực thi để chọn lọc các lượt đưa ra quyết định quan trọng.",
+        "Theo nhóm tác giả, việc thu thập quỹ đạo chỉ từ giáo viên bỏ sót lịch sử do học viên tạo ra, còn lịch trình phát lại cố định không thể nhận diện các quyết định then chốt. Ngoài ra, chưng cất trực tuyến đầy đủ rất tốn kém vì mỗi lần cập nhật đều phụ thuộc vào các lượt tương tác mới với môi trường.",
+        "Trên bộ đo chuẩn SWE-bench Verified (hệ thống đánh giá tác nhân), CARE-OPD nâng tỷ lệ tác vụ thành công lên 59,5%. Kết quả này đi kèm việc giảm 45% thời gian huấn luyện toàn trình và 44% hành động trong môi trường so với phương pháp chưng cất trực tuyến bất đồng bộ.",
+        "Theo nhóm nghiên cứu, phương pháp mới vượt trội hơn chưng cất trực tuyến và các phương pháp phát lại tiền tố trước đây trên các tác vụ dài hạn gồm Kỹ thuật Phần mềm và Nghiên cứu Chuyên sâu."
+      ],
+      "same_event_coverage_ids": [
+        "ff87058865afa5a61bf9"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Adaptive and efficient on-policy distillation for long-horizon agents",
+      "video_labels": null,
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "CARE-OPD nâng tỷ lệ tác vụ thành công lên 59,5% trên SWE-bench Verified, giảm 45% thời gian huấn luyện",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.34756"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.8,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "e404fff5101057a89ce3f30e2d5e3e37f730cab8502f0f51c773406d404b7c7b",
+        "scored_at": "2026-11-26T11:31:55.182085+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "bb834545ea072825f46a",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.34777",
+      "key_points": [
+        "Các tác giả giới thiệu SPLICE nhằm xây dựng mục tiêu huấn luyện cục bộ từ các quỹ đạo thất bại của chính sách hiện tại cho tác nhân AI (hệ thống tự chủ thực hiện chuỗi tác vụ dài). Kỹ thuật này ước tính giá trị từng phương án qua các bước tiếp nối lặp lại từ chính sách hiện tại, rồi chuyển đổi các ước tính dương thành mục tiêu cục bộ có trọng số phần thưởng.",
+        "Theo nhóm tác giả, học tăng cường theo nhóm thường gặp tình trạng mọi quỹ đạo đều thất bại trên tác vụ dài hạn, khiến phương pháp không có được độ dốc chính sách dựa trên phần thưởng. Biện pháp dùng giải pháp hoàn chỉnh từ mô hình mạnh hơn rất tốn kém và đặt mô hình học trước các chuỗi lịch sử lệch chính sách dài.",
+        "SPLICE vượt trội hơn GRPO và các mốc đối chứng dẫn đường toàn quỹ đạo trong cả bốn thiết lập, cải thiện hơn GRPO từ 2,8 đến 9,8 điểm phần trăm trên hai bộ kiểm chuẩn (benchmark) SWE-bench Verified và BrowseComp-Plus. Riêng ở các bài toán kỹ thuật phần mềm từng thất bại ban đầu, phương pháp này giúp nâng tỷ lệ tốt nghiệp nhiệm vụ của GRPO thêm 10,8 điểm phần trăm.",
+        "Nhóm tác giả kết luận các thử nghiệm sâu hơn cho thấy SPLICE giúp nâng cao hiệu năng, đồng thời giảm thiểu chi phí tính toán tốn kém của mô hình đề xuất trên các tác vụ dài hạn."
+      ],
+      "same_event_coverage_ids": [
+        "ee770fc7c2ab75c20e44"
+      ],
+      "split_coverage_ids": [],
+      "subject": "SPLICE method for long-horizon agent reinforcement learning",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Haowen Hou",
+          "Yicheng Liu",
+          "Zhen Huang",
+          "Jiaqi Wang"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "SPLICE vượt trội hơn GRPO tới 9,8 điểm phần trăm và đánh bại các mốc toàn quỹ đạo trên hai tác vụ AI dài hạn",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.34777"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "5979abf68c176e51e3f6a4ce538169072b708661420cd8246a4493660626cbf8",
+        "scored_at": "2026-11-26T11:31:55.182124+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "aac3e8b2a59d536091e9",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.33579",
+      "key_points": [
+        "Nhóm tác giả giới thiệu quy trình mô phỏng DexEngine giúp chuyển đổi dữ liệu thao tác của người thành quỹ đạo cánh tay và bàn tay robot có thể thực thi vật lý. Trong mô phỏng, hệ thống đưa cử động vào tầm với, bám theo tay người rồi dùng học tăng cường phần dư (thuật toán tự bù sai lệch) hiệu chỉnh chuyển động.",
+        "Nhóm nghiên cứu giải thích việc huấn luyện chính sách toàn robot cần chuyển động khả thi và quy mô lớn, do cử động tái định vị phải thực thi được về động học lẫn vật lý.",
+        "Nhóm tác giả tạo khoảng 5.200 đoạn clip cho mỗi bàn tay khéo léo trong 4 loại từ 9 bộ dữ liệu, rồi mở rộng thành 65.000 quỹ đạo (116 giờ) và 325.000 tập (578 giờ).",
+        "Nhóm tác giả nhận định dữ liệu tinh chỉnh cần hiệu chỉnh vật lý, khi mô hình áp dụng vượt trội hơn hẳn so với việc không hiệu chỉnh hoặc chỉ gắn cánh tay sau hiệu chỉnh bàn tay lơ lửng. Họ cho biết thêm việc huấn luyện giữa kỳ bằng dữ liệu này tiếp tục cải thiện mô hình với cùng ngân sách tinh chỉnh, trong mô phỏng lẫn trên robot thật."
+      ],
+      "same_event_coverage_ids": [
+        "8420a69ac93074f67b2b"
+      ],
+      "split_coverage_ids": [],
+      "subject": "DexEngine simulation pipeline for whole-robot manipulation data",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Wongyun Yu",
+          "Honggeun Kim",
+          "Donguk Lee",
+          "Minchan Kim",
+          "Kyoung Whan Choe",
+          "Minsu Cho"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "DexEngine tạo 65.000 quỹ đạo cánh tay và bàn tay robot, chạy nhanh gấp 10 lần phương pháp học tăng cường",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.33579"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "number",
+            "summary_text": "chạy nhanh gấp 10 lần",
+            "explanation": "The source says DexEngine runs over 10 times faster than RL-based methods, rather than exactly 10 times faster (outlet:p009)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The headline drops the qualification on the speed comparison.",
+            "fix": "Say “hơn 10 lần” to match the comparison with RL-based methods in outlet:p009."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "2319234940c87e642b6805776da422ea0af9499c80408a564014c59d09dd22a0",
+        "scored_at": "2026-11-26T11:31:55.182156+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "56a087677cf27b556f6e",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.34147",
+      "key_points": [
+        "Researchers studied model-driven context management where models decide when and what to compact through a context API in NVIDIA's open-source nooa harness.",
+        "The study compared model-driven context management against harness-level compaction across context budgets from 8K to 512K tokens on document research and ML engineering tasks."
+      ],
+      "same_event_coverage_ids": [
+        "56ec578b6f2f35b42e26"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Study on model-driven context management in AI agent harnesses",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Alessio Devoto",
+          "Avinash Vem",
+          "Tara Safavi",
+          "Sanjay Kariyappa",
+          "Yu-Hsuan Tseng",
+          "Paul Furgale",
+          "Ricardo Silveira Cabral"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "1c34948080904a12baa3",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.34939",
+      "key_points": [
+        "MEMO reconstructs the geometry of complete dynamic scenes captured by multiple synchronized cameras and extracts a mesh at every frame.",
+        "MEMO utilizes a per-Gaussian motion model based on temporal Gaussian kernels to represent position and rotation over time.",
+        "The motion model keeps each Gaussian as a valid surface element throughout a sequence while carrying an implicit representation of dynamic geometry."
+      ],
+      "same_event_coverage_ids": [
+        "8f198e55d22aa50df6af"
+      ],
+      "split_coverage_ids": [],
+      "subject": "MEMO dynamic scene geometry reconstruction and per-frame mesh extraction",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Roy Or-El",
+          "Jeong Joon Park",
+          "Ira Kemelmacher-Shlizerman"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      }
     }
   ]
 }
