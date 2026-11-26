@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-26T05:56:51.627520+00:00",
-  "input_generated_at": "2026-11-26T04:46:15Z",
+  "generated_at": "2026-11-26T08:02:09.615044+00:00",
+  "input_generated_at": "2026-11-26T06:46:42Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -144704,10 +144704,10 @@
       "use_original_title": false,
       "source_url": "https://www.semafor.com/article/11/25/2026/tech-selloff-extends-on-ai-neocloud-jitters",
       "key_points": [
-        "Đà bán tháo trong lĩnh vực công nghệ tiếp tục lan rộng vào thứ Tư khi đợt hồi phục thị trường sau sự trở lại của Jensen Huang tại Nvidia nhanh chóng tan biến.",
-        "Theo Semafor, làn sóng sụt giảm diễn ra do lo ngại gia tăng xung quanh nhóm công ty điện toán đám mây thế hệ mới sử dụng đòn bẩy tài chính cao.",
-        "Theo Semafor, hợp đồng nợ của CoreWeave phản ánh xác suất vỡ nợ hơn 70% trong năm năm tới, giữa lúc hợp đồng hoán đổi rủi ro tín dụng của Nvidia, Alphabet, Oracle và SpaceX chạm mức kỷ lục.",
-        "Cây bút Liz Hoffman của Semafor nhận định phiên tăng điểm kỷ lục sẽ sớm bị lãng quên khi giới đầu tư tỉnh táo nhận ra lý do khiến họ bất an ban đầu."
+        "Đà bán tháo công nghệ tiếp diễn vào thứ Tư khi đợt phục hồi thị trường sau khi Jensen Huang trở lại Nvidia tan biến.",
+        "Theo Semafor, thị trường hạ nhiệt trong bối cảnh lo ngại gia tăng xung quanh nhóm công ty điện toán đám mây thế hệ mới sử dụng đòn bẩy tài chính cao.",
+        "Hợp đồng hoán đổi trên nợ của CoreWeave phản ánh xác suất vỡ nợ hơn 70% trong năm năm tới.",
+        "Cây bút Liz Hoffman của Semafor nhận định đợt phục hồi kỷ lục sẽ sớm bị lãng quên khi giới đầu tư tỉnh táo và nhớ lại lý do khiến họ bất an lúc đầu."
       ],
       "same_event_coverage_ids": [
         "34d321f8ffc0a9b474b3"
@@ -144724,7 +144724,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Đà bán tháo cổ phiếu công nghệ tiếp diễn khi hiệu ứng CEO Nvidia trở lại hạ nhiệt",
+      "editorial_headline_vi": "Đà bán tháo công nghệ tiếp diễn khi đợt phục hồi sau sự trở lại của CEO Nvidia tan biến",
       "summary_sources": [
         {
           "id": "outlet",
@@ -144737,44 +144737,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 7.55,
+        "value": 9.55,
         "answers": {
           "what": 10,
-          "why": 3,
-          "notable": 7,
+          "why": 10,
+          "notable": 9,
           "meaning": 9
         },
-        "hard_errors": [
-          {
-            "kind": "cause",
-            "summary_text": "làn sóng sụt giảm diễn ra do lo ngại gia tăng xung quanh nhóm công ty điện toán đám mây thế hệ mới sử dụng đòn bẩy tài chính cao",
-            "explanation": "The source reports a fading rally and intensifying worries around leveraged neoclouds, but does not state that those worries caused the entire technology selloff (outlet:p001–p002)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "hợp đồng nợ của CoreWeave",
-            "explanation": "The source refers to swaps on CoreWeave’s debt, not debt contracts themselves (outlet:p002)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "why",
-            "problem": "The reader is given a definite cause for the broad selloff that the source does not establish.",
-            "fix": "Report that the rally faded as worries about leveraged neoclouds intensified, without making those worries the stated cause of the entire selloff (outlet:p001–p002)."
-          },
-          {
-            "question": "notable",
-            "problem": "The CoreWeave sentence identifies the wrong financial instrument.",
-            "fix": "Say that swaps on CoreWeave’s debt implied a greater than 70% chance of default within five years (outlet:p002)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "c050663ab5c3382169e47759b17c61a789f3a3d19db803683cc98253d51cb175",
-        "scored_at": "2026-11-26T05:35:35.414051+00:00"
+        "prose_sha256": "8d1572c78bbd0ccafa966686b96ff0dbe769ca7b7e40ec0baef5c097f4c1887d",
+        "scored_at": "2026-11-26T07:59:56.048086+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
@@ -144940,9 +144918,10 @@
       "use_original_title": false,
       "source_url": "https://github.blog/changelog/2026-11-25-copilot-code-review-billing-will-default-to-the-organization",
       "key_points": [
-        "GitHub thông báo từ ngày 30 tháng 12 năm 2026, các lượt duyệt mã bằng Copilot (tính năng trí tuệ nhân tạo hỗ trợ xem xét mã nguồn) của thành viên có bản quyền sẽ mặc định tính phí cho tổ chức nếu chưa chọn phương thức thanh toán. Quy định này áp dụng đối với các tổ chức và doanh nghiệp đang sử dụng gói Copilot Business hoặc Copilot Enterprise.",
-        "Theo GitHub, chi phí duyệt mã sẽ chuyển từ hạn ngạch của thành viên sang tổ chức sở hữu kho lưu trữ. Riêng các tài khoản chưa kích hoạt trả phí AI Credits, bị khóa thanh toán hoặc không có đối tượng thanh toán vẫn được cài đặt tính phí cho thành viên.",
-        "GitHub lưu ý việc tính phí cho tổ chức đòi hỏi phải bật thanh toán AI Credits và có thể làm tăng chi tiêu của tổ chức."
+        "GitHub thông báo từ ngày 30 tháng 12 năm 2026, lượt duyệt mã Copilot của thành viên có bản quyền sẽ mặc định tính phí cho tổ chức nếu chưa cài đặt. Thay đổi áp dụng cho tổ chức và doanh nghiệp dùng gói Copilot Business hoặc Copilot Enterprise.",
+        "Hiện việc duyệt mã dùng hạn ngạch thành viên, song tài khoản chưa bật AI Credits, bị khóa thanh toán hoặc không có đối tượng thanh toán vẫn tính cho thành viên.",
+        "Để giữ tính phí theo hạn ngạch thành viên, quản trị viên cần chọn Member trong cài đặt chính sách Copilot trước ngày 30 tháng 12 năm 2026. Lựa chọn này vẫn giữ nguyên hiệu lực sau khi hệ thống đổi mặc định.",
+        "GitHub lưu ý các lựa chọn đã lưu vẫn giữ hiệu lực và cài đặt cho thành viên chưa có bản quyền không đổi. Việc tính phí cho tổ chức yêu cầu bật AI Credits và có thể làm tăng chi tiêu của tổ chức."
       ],
       "same_event_coverage_ids": [
         "72d3f7c160fc53fd1e3f"
@@ -144956,7 +144935,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "GitHub: Tính năng duyệt mã Copilot sẽ mặc định tính phí cho tổ chức từ cuối năm 2026",
+      "editorial_headline_vi": "GitHub sẽ mặc định tính phí duyệt mã Copilot cho tổ chức từ ngày 30 tháng 12 năm 2026",
       "summary_sources": [
         {
           "id": "outlet",
@@ -144969,24 +144948,24 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.8,
+        "value": 8.9,
         "answers": {
-          "what": 10,
+          "what": 9,
           "why": 10,
-          "notable": 7,
-          "meaning": 8
+          "notable": 8,
+          "meaning": 9
         },
         "hard_errors": [],
         "findings": [
           {
             "question": "notable",
-            "problem": "Readers are not told how to keep billing against members’ Copilot entitlements.",
-            "fix": "Say to select Member in the organization or enterprise Copilot policy settings before December 30; the choice remains effective afterward (outlet:p002, outlet:p008)."
+            "problem": "A reader may think any administrator can make the enterprise-managed choice.",
+            "fix": "Specify that an enterprise owner makes the choice when the enterprise manages the setting (outlet:p009)."
           },
           {
             "question": "meaning",
-            "problem": "Readers may miss that saved choices remain effective and the separate setting for unlicensed members is unchanged.",
-            "fix": "Add these two limits to the change’s scope (outlet:p005, outlet:p006)."
+            "problem": "The billing prerequisite loses the paid-usage qualification.",
+            "fix": "State that organization billing requires AI Credits paid usage (outlet:p010)."
           }
         ],
         "writer_boats": [
@@ -144994,8 +144973,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "94c07f5a98a01bf33fd5d0aa276cd3456af937524b2223caa552573492429707",
-        "scored_at": "2026-11-26T05:35:35.414124+00:00"
+        "prose_sha256": "bd7d90a7553bffba19466d310788afc834dd67073dc2edb63bc9b5d96600abee",
+        "scored_at": "2026-11-26T07:59:56.048137+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
@@ -145099,10 +145078,10 @@
       "use_original_title": false,
       "source_url": "https://www.theverge.com/entertainment/1042221/google-my-channel-ai-video-patent",
       "key_points": [
-        "Theo The Verge, Google từng nộp bằng sáng chế My Channel tạo luồng video và quảng cáo AI cá nhân hóa từ dữ liệu người dùng. Hồ sơ đã bị từ chối, nhưng Google có thể kháng cáo hoặc nộp bản sửa đổi.",
-        "Theo mô tả sáng chế, My Channel thu thập lịch sử xem, nhân khẩu học, độ tuổi cùng dữ liệu thiết bị như địa chỉ IP và tọa độ GPS. Hệ thống tự tạo câu lệnh đưa vào mô hình ngôn ngữ lớn và tạo video trên máy chủ Google theo sở thích người dùng.",
-        "Hồ sơ sáng chế đề cập My Channel có thể tạo hình đại diện số và biến người dùng thành nhân vật chính trong nội dung xuất xưởng. Tài liệu nêu ví dụ nếu người dùng xem nhiều video về The Odyssey của Christopher Nolan, hệ thống có thể cung cấp tác phẩm Odysseus: The Fall của Ash Koosha.",
-        "Tác giả trên The Verge nhận xét nội dung do Google đề xuất không hề khuyến khích khán giả dùng trí tưởng tượng để đồng cảm với nhân vật. Bài viết cũng cho rằng dịch vụ này sẽ cản trở người xem tiếp xúc điều mới lạ và làm giảm hứng thú với tác phẩm không được tùy biến theo thị hiếu định sẵn."
+        "Theo The Verge, Google từng nộp bằng sáng chế My Channel nhằm tạo luồng video và quảng cáo cá nhân hóa bằng trí tuệ nhân tạo (AI) từ dữ liệu người dùng. Dù hồ sơ đã bị từ chối, Google vẫn có thể kháng cáo hoặc nộp bản sửa đổi để thương mại hóa công nghệ.",
+        "Hệ thống tự tạo câu lệnh đưa vào mô hình ngôn ngữ lớn dựa trên nhân khẩu học, lịch sử xem, địa chỉ IP và tọa độ GPS của người dùng. Quá trình tạo video diễn ra trên máy chủ của Google và có thể dựa trên tin tức thời sự mạng xã hội.",
+        "Hồ sơ sáng chế nêu khả năng tạo hình đại diện số biến người dùng thành nhân vật chính trong nội dung từ ảnh và âm thanh của họ. Tài liệu cũng nêu ví dụ gợi ý phim Odysseus: The Fall nếu người dùng xem nhiều video về The Odyssey của Christopher Nolan.",
+        "Tác giả trên The Verge lo ngại dịch vụ giả định này nếu ra mắt sẽ khiến người dùng né tránh tiếp xúc điều mới lạ ngoài vùng an toàn. Bài viết nhận định My Channel có thể làm nản lòng người xem tiếp cận giải trí không được tùy biến theo thị hiếu của họ."
       ],
       "same_event_coverage_ids": [
         "06bb9f3c0af8f01dea96"
@@ -145116,7 +145095,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Bằng sáng chế My Channel bị từ chối của Google đề xuất tạo video AI biến người dùng thành nhân vật chính",
+      "editorial_headline_vi": "Bằng sáng chế My Channel của Google đề xuất dùng AI tạo video biến người xem thành nhân vật chính",
       "summary_sources": [
         {
           "id": "outlet",
@@ -145129,25 +145108,25 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.4,
+        "value": 7.8,
         "answers": {
-          "what": 10,
-          "why": 10,
-          "notable": 10,
-          "meaning": 6
+          "what": 9,
+          "why": 3,
+          "notable": 9,
+          "meaning": 9
         },
         "hard_errors": [
           {
-            "kind": "quote",
-            "summary_text": "dịch vụ này sẽ cản trở người xem tiếp xúc điều mới lạ và làm giảm hứng thú với tác phẩm không được tùy biến theo thị hiếu định sẵn",
-            "explanation": "The Verge says a hypothetical service would make it easier to avoid new things and would discourage engagement with untailored entertainment; the rejected patent may never become a service (outlet:p015, outlet:p020)."
+            "kind": "cause",
+            "summary_text": "để thương mại hóa công nghệ",
+            "explanation": "The source says Google might appeal or resubmit an amended patent and that the system could come to market; it does not state commercialization as Google’s purpose for either action (outlet:p015)."
           }
         ],
         "findings": [
           {
-            "question": "meaning",
-            "problem": "The reader may take the predicted effect as a certain outcome of an existing service.",
-            "fix": "Frame it as The Verge’s concern about what My Channel could do if launched (outlet:p015, outlet:p020)."
+            "question": "why",
+            "problem": "The Vietnamese assigns Google an unstated commercialization motive for a possible appeal or amended filing.",
+            "fix": "Say only that Google might appeal or resubmit an amended version, and that the system could potentially come to market (outlet:p015)."
           }
         ],
         "writer_boats": [
@@ -145155,8 +145134,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "f4854299ba740dd2ed10fda7399bab50ef719de90a5317c46e5e083399ffe0e2",
-        "scored_at": "2026-11-26T05:45:49.643715+00:00"
+        "prose_sha256": "9d25be783a5d7e396bd7067d0fdc1b57c684e32e4a9872d6fc04a8f6b0b1577b",
+        "scored_at": "2026-11-26T07:59:56.048170+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
@@ -145804,10 +145783,10 @@
       "use_original_title": false,
       "source_url": "https://arxiv.org/abs/2611.28010",
       "key_points": [
-        "Nhóm tác giả của Wenrui Zhou đề xuất SlidesWeaver, hệ thống đa tác tử (hệ thống phần mềm tự thực hiện tác vụ) lai kết hợp ngôn ngữ và thị giác để tạo bài thuyết trình PPTX. Các tác tử này phối hợp qua trạng thái chung ở cấp tệp và từng trang trình chiếu.",
-        "Các tác giả cho biết phương pháp lập trình cho thiết kế cứng nhắc còn hình ảnh lại khó chỉnh sửa khi bị nén thành điểm ảnh. Hệ thống lai có thể kết hợp cả hai nhưng phải điều phối các quyết định phụ thuộc lẫn nhau giữa nội dung, bố cục và diện mạo.",
-        "Trên 1.728 lượt tạo thuộc 24 cấu hình hệ thống và mô hình, SlidesWeaver đạt chất lượng vượt trội nhất quán ở mọi khía cạnh đánh giá. Nhóm tác giả cho biết hệ thống duy trì khả năng kiểm soát cấu trúc, tính dễ chỉnh sửa và hiệu quả tạo slide thực tế.",
-        "Nhóm tác giả cho biết hệ thống bảo toàn văn bản gốc cùng hình học và duy trì kiểm soát cấu trúc. Thiết kế này sử dụng hai lịch trình tạo khác nhau tùy theo mức ưu tiên giữa sự tự do bố cục và việc bảo toàn chính xác văn bản."
+        "Nhóm tác giả của Wenrui Zhou đề xuất SlidesWeaver, hệ thống đa tác tử (phần mềm tự thực hiện tác vụ) lai kết hợp ngôn ngữ và thị giác để tạo bài thuyết trình PPTX. Các tác tử này phối hợp qua trạng thái chung ở cả cấp tệp và từng trang trình chiếu.",
+        "Các tác giả cho biết phương pháp lập trình tạo thiết kế cứng nhắc, còn phương pháp hình ảnh nén nội dung thành điểm ảnh khó chỉnh sửa. Theo nhóm tác giả, hệ thống lai kết hợp được các ưu điểm này nhưng phải điều phối những quyết định phụ thuộc lẫn nhau giữa nội dung, bố cục và diện mạo.",
+        "Trên 1.728 lượt tạo thuộc 24 cấu hình hệ thống và mô hình, SlidesWeaver đạt chất lượng vượt trội nhất quán ở mọi khía cạnh được đánh giá. Nhóm nghiên cứu cho biết hệ thống duy trì khả năng kiểm soát cấu trúc, tính dễ chỉnh sửa và hiệu quả tạo slide thực tế.",
+        "Các tác giả cho biết hệ thống bảo toàn các phần tử văn bản có thể chỉnh sửa cùng cấu trúc hình học nguyên bản. Thiết kế này sử dụng hai lịch trình tạo khác nhau tùy theo mức ưu tiên giữa sự tự do bố cục và việc bảo toàn chính xác văn bản."
       ],
       "same_event_coverage_ids": [
         "e612f2f00ac6b62af8b7"
@@ -145834,34 +145813,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.7,
+        "value": 10.0,
         "answers": {
           "what": 10,
           "why": 10,
           "notable": 10,
-          "meaning": 8
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "bảo toàn văn bản gốc cùng hình học",
-            "explanation": "The source says the system preserves native text and geometry—text as editable presentation elements—not necessarily original input wording (outlet:p009)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "meaning",
-            "problem": "“Original text” can give the reader the wrong idea about what remains editable.",
-            "fix": "Describe preservation of native, editable text elements and geometry (outlet:p009)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "e8aa00742492e173fc76603abe3f8f81d4d40425900d5dd26b617eb49d3f117c",
-        "scored_at": "2026-11-26T05:45:49.643775+00:00"
+        "prose_sha256": "bcf99d8d93de9d95a07f44e46dc3162fb19f607522b771c14cb8e02f252775d3",
+        "scored_at": "2026-11-26T07:59:56.048196+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
@@ -145950,10 +145917,10 @@
       "use_original_title": false,
       "source_url": "https://arxiv.org/abs/2611.34575",
       "key_points": [
-        "Nhóm nghiên cứu giới thiệu Sage-Med-Preview, mô hình ngôn ngữ lớn đa phương thức y tế (AI xử lý cả văn bản và hình ảnh) gồm 35 tỷ tham số với 3 tỷ tham số kích hoạt. Hệ thống được phát triển từ 322,7 triệu hồ sơ qua tiền huấn luyện, tinh chỉnh có giám sát và học tăng cường thích ứng.",
-        "Nhóm tác giả phát triển mô hình nhằm tìm hiểu quy luật mở rộng trí tuệ đa phương thức y tế trong thực tế. Theo nhóm, các mô hình y tế hiện có xu hướng kém hơn mô hình đa năng hàng đầu trên một loạt tác vụ, và việc tăng quy mô chủ yếu cải thiện văn bản hơn là cảm nhận đa phương thức.",
-        "Trên 31 bộ kiểm chuẩn (bài kiểm tra chuẩn hóa) đa phương thức công khai, Sage-Med-Preview đạt điểm trung bình 58,26%, vượt Hulu-Med-235B-A22B đạt 50,99% và Intern-S2-Preview đạt 52,24%. Hệ thống cũng tiệm cận mô hình độc quyền tiên tiến GPT-6.2-Sol ở tác vụ tạo báo cáo và định vị thị giác.",
-        "Nghiên cứu đem lại bằng chứng thực nghiệm và công thức huấn luyện mở rộng quy mô cho y tế lâm sàng. Dù vậy, nhóm tác giả lưu ý thách thức lớn vẫn còn ở khả năng suy luận y tế phức tạp và quy trình lâm sàng nhiều bước."
+        "Nhóm tác giả giới thiệu mô hình đa phương thức y tế Sage-Med-Preview gồm 35 tỷ tham số với 3 tỷ tham số kích hoạt. Hệ thống được xây dựng từ quá trình sàng lọc theo từng giai đoạn trên 322,7 triệu hồ sơ ứng viên, kết hợp tiền huấn luyện y tế, tinh chỉnh có giám sát và học tăng cường thích ứng.",
+        "Nhóm nghiên cứu phát triển mô hình nhằm tìm hiểu cách mở rộng trí tuệ đa phương thức y tế trong thực tế. Theo nhóm tác giả, các mô hình y tế hiện có thường kém hơn mô hình đa năng, trong khi việc tăng kích thước chỉ cải thiện văn bản chứ không nâng cao cảm nhận thị giác.",
+        "Sage-Med-Preview đạt điểm trung bình 58,26% trên 31 bộ kiểm chuẩn (bài kiểm tra chuẩn hóa) đa phương thức công khai, vượt Hulu-Med-235B-A22B đạt 50,99%. Điểm số này cũng vượt Intern-S2-Preview ở mức 52,24% và tiệm cận mô hình thương mại GPT-6.2-Sol trong tác vụ tạo báo cáo cùng định vị thị giác.",
+        "Báo cáo nghiên cứu cung cấp bằng chứng thực nghiệm và công thức huấn luyện cho trí tuệ lâm sàng có thể mở rộng quy mô. Dù vậy, nhóm tác giả lưu ý thách thức lớn vẫn còn ở khả năng suy luận y tế phức tạp và quy trình lâm sàng nhiều bước."
       ],
       "same_event_coverage_ids": [
         "b130ae550a316499ab9c"
@@ -145967,7 +145934,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Mô hình y tế Sage-Med-Preview đạt 58,26% điểm chuẩn đa phương thức, vượt Hulu-Med-235B-A22B",
+      "editorial_headline_vi": "Mô hình Sage-Med-Preview đạt 58,26% trên 31 bộ chuẩn đa phương thức, vượt Hulu-Med-235B-A22B",
       "summary_sources": [
         {
           "id": "outlet",
@@ -145980,25 +145947,25 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.1,
+        "value": 9.25,
         "answers": {
-          "what": 8,
-          "why": 9,
+          "what": 10,
+          "why": 7,
           "notable": 10,
-          "meaning": 10
+          "meaning": 9
         },
         "hard_errors": [
           {
-            "kind": "fact",
-            "summary_text": "Hệ thống được phát triển từ 322,7 triệu hồ sơ",
-            "explanation": "The source says development involved stage-specific curation over 322.7 million candidate records; it does not say all those records became training data (outlet:p011)."
+            "kind": "quote",
+            "summary_text": "việc tăng kích thước chỉ cải thiện văn bản chứ không nâng cao cảm nhận thị giác",
+            "explanation": "The source says scaling model size primarily improves text capabilities rather than multimodal perception; it does not say visual perception gains are absent (outlet:p011)."
           }
         ],
         "findings": [
           {
-            "question": "what",
-            "problem": "The reader may think 322.7 million records were all used to train the model.",
-            "fix": "State that 322.7 million were candidate records considered in stage-specific curation (outlet:p011)."
+            "question": "why",
+            "problem": "The reader is told that increasing model size brings no visual-perception improvement.",
+            "fix": "Say that increasing model size primarily improves text capabilities rather than multimodal perception (outlet:p011)."
           }
         ],
         "writer_boats": [
@@ -146006,8 +145973,1337 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "3fb4972346f6628407e6a0665828831075af346d70a2c38d98f92122d5838763",
-        "scored_at": "2026-11-26T05:45:49.643801+00:00"
+        "prose_sha256": "113bc1a128d056f7d33560c711327bd515d0f037d4d95b0af60f59f75d7a45a7",
+        "scored_at": "2026-11-26T07:59:56.048223+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "8c6116a6cafec47e7f37",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Routine South Korean daily stock market wrap covering KOSPI index movements and a central bank interest rate decision, with only incidental passing mentions of AI trade sentiment.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://en.yna.co.kr/view/AEN20261126008300320",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "d6b7b276553e1502f32c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "56a1a91aa5c7c7100c65",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Urgent market flash covering a slight rebound in Seoul shares, with only a passing incidental mention of AI doubt.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://en.yna.co.kr/view/AEN20261126008000320",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "76595696593f3809afe6"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "ff209175337fc3e14d2e",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Hacker News community discussion thread asking a speculative question about earning a living as AI automates knowledge work, lacking news reporting or substantive announcement.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://news.ycombinator.com/item?id=50651911",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "e983a3de4b4645cf27af"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "8769d8237083ed2e04ad",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://analyticsindiamag.com/ai-news/pine-labs-adds-ai-agents-to-merchant-app-for-sales-insights-ad-campaigns",
+      "key_points": [
+        "Pine Labs vừa ra mắt hai tác nhân AI (phần mềm tự hành) trên ứng dụng Pine Labs One để hỗ trợ doanh nghiệp nhỏ phân tích dữ liệu và quản lý quảng cáo số. Công ty cho biết Guide và Marketer Agent sẽ được triển khai tới hàng triệu nhà bán hàng tại Ấn Độ.",
+        "Theo Giám đốc điều hành Google Cloud Ấn Độ Amit Kumar, sự hợp tác này giúp doanh nghiệp nhỏ tự động hóa quản lý chiến dịch mà không cần chuyên môn kỹ thuật.",
+        "Cụ thể, công cụ Guide cho phép người bán truy vấn dữ liệu kinh doanh bằng ngôn ngữ tự nhiên về doanh số cửa hàng, giao dịch tại quầy, quyết toán, hoàn tiền và thanh toán. Trong khi đó, Marketer Agent tự động tạo chiến dịch quảng cáo nhưng yêu cầu tiểu thương phê duyệt trước khi chi tiền, và bước đầu chỉ hỗ trợ các nền tảng của Google.",
+        "Theo Analytics India Magazine, nền tảng này tích hợp lớp quản trị Grantex nhằm kiểm soát dữ liệu truy cập và duy trì sự giám sát của con người ở các khâu trọng yếu."
+      ],
+      "same_event_coverage_ids": [
+        "e20c82000d8256a1d2d1"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Pine Labs",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "region_locked:India",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Pine Labs ra mắt hai tác nhân AI trên ứng dụng quản lý để phân tích dữ liệu và chạy quảng cáo",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "analytics-india-magazine",
+          "url": "https://analyticsindiamag.com/ai-news/pine-labs-adds-ai-agents-to-merchant-app-for-sales-insights-ad-campaigns"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.0,
+        "answers": {
+          "what": 10,
+          "why": 8,
+          "notable": 9,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "nền tảng này tích hợp lớp quản trị Grantex",
+            "explanation": "This wording appears to attribute Grantex to Pine Labs One. The source specifically places Grantex in Pine Labs’ Agentic Org platform (outlet:p009)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The reader may place Grantex in the merchant app.",
+            "fix": "Name Agentic Org as the platform that includes Grantex (outlet:p009)."
+          },
+          {
+            "question": "why",
+            "problem": "The reason for Guide is thin.",
+            "fix": "Explain that it brings information scattered across reports and systems into a conversational interface (outlet:p003)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "db72c97e47edda32b3f695843d05b97212db2c63018177bc474a5e43de542b24",
+        "scored_at": "2026-11-26T07:53:26.878791+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "3d2697b636d74b834fc0",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://huggingface.co/blog/nvidia/building-on-nemotron-35-parse-open-data-fine-tunin",
+      "key_points": [
+        "NVIDIA released synthetic training datasets, a fine-tuning recipe, and a DFlash2 speculator for faster inference building on Nemotron 3.5 Parse.",
+        "NVIDIA Nemotron 3.5 Parse is a compact document model designed to extract structured data from page images for RAG and agents.",
+        "The model was trained using supervised fine-tuning for document understanding followed by reinforcement learning for accuracy and reliability.",
+        "Nemotron 3.5 Parse extracts content into reading order, labels headings, paragraphs, tables, and charts, and generates bounding boxes."
+      ],
+      "same_event_coverage_ids": [
+        "4c51ae5b097f908ecc2e"
+      ],
+      "split_coverage_ids": [],
+      "subject": "NVIDIA Nemotron 3.5 Parse",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Ryan Chesler",
+          "Marek Wawrzos",
+          "Steve Han"
+        ],
+        "availability": "global",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "f9247ee212af8c8235cc",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Business reporting on Alibaba selling equity shares in logistics courier ZTO Express, where AI focus is only mentioned in passing as strategic framing.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.scmp.com/tech/big-tech/article/3375870/alibaba-sells-us482-million-zto-express-shares-ai-focus-sharpens",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "7050b7e44d63a60bd68c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "59eeeb27ead22a5775bf",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/science/1042278/spacex-fcc-starmind-ai-space-data-centers",
+      "key_points": [
+        "FCC đã cấp phép cho SpaceX triển khai tới 1 triệu vệ tinh mang chip AI thuộc dự án Starmind. Quyết định này được đưa ra bất chấp sự phản đối từ Amazon, Viasat và các nhà thiên văn học.",
+        "Theo SpaceX, dự án Starmind nhằm thu năng lượng mặt trời ngoài vũ trụ để cấp nguồn cho AI trên Trái Đất. Công ty cho biết thêm dữ liệu sẽ được truyền về qua hệ thống laser tốc độ cao kết nối với Starlink.",
+        "Theo điều kiện từ FCC, SpaceX phải triển khai ít nhất một vệ tinh vào năm 2033 và hoàn thành mốc 1 triệu vệ tinh năm 2040.",
+        "The Verge cho biết đây là phê duyệt đầu tiên của cơ quan này cho một chòm vệ tinh AI hoàn chỉnh. Tuy nhiên, FCC đã hoãn yêu cầu đưa vệ tinh trên 600 km vào quỹ đạo nghĩa địa do SpaceX chưa nộp đủ thông tin xử lý."
+      ],
+      "same_event_coverage_ids": [
+        "b009dd5df28327357217",
+        "c6aa006f6d1ac4fb252c"
+      ],
+      "split_coverage_ids": [],
+      "subject": "SpaceX Starmind",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Elon Musk"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "FCC cấp phép cho SpaceX triển khai tới 1 triệu vệ tinh AI vào không gian thuộc dự án Starmind",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/science/1042278/spacex-fcc-starmind-ai-space-data-centers"
+        },
+        {
+          "id": "coverage1",
+          "role": "coverage",
+          "name": "analytics-india-magazine",
+          "url": "https://analyticsindiamag.com/ai-news/spacex-gets-us-nod-to-deploy-1-million-satellites-for-orbital-ai-data-centres"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "be4024698f24113192c63a8e96997c7fb277dd074c28e210d70414906cb14b28",
+        "scored_at": "2026-11-26T07:53:26.878841+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "5881ab38c830643a2ccd",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://sakana.ai/marlin-update-2/",
+      "key_points": [
+        "Sakana AI updated its strategic research agent Sakana Marlin with two new modes: Twilight 2.0 and Midnight 2.0.",
+        "The update significantly revamps Sakana Marlin's Microsoft PowerPoint slide generation and export capabilities.",
+        "The original Sakana Marlin functionality remains accessible as a lightweight Sunlight mode."
+      ],
+      "same_event_coverage_ids": [
+        "61ed324e70398425622a"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Sakana Marlin",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "93b028438bfad0b4936f",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Daily financial market wire report on the South Korean KOSPI stock index falling 6 percent and triggering a sidecar, with AI trade concerns only mentioned in passing as macro sentiment.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://en.yna.co.kr/view/AEN20261125006200320",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "4baf739e6133280c1f07",
+        "6eaa1430dacf2477bbb1",
+        "7adfd37f560a15cb21fc",
+        "950b6528efb6ed689c7a"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "efcc63fe60c0dda2517c",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.34941",
+      "key_points": [
+        "Ngày 25 tháng 11 năm 2026, nhóm tác giả Ji Xie giới thiệu phương pháp I2VT giúp nâng cấp mô hình chỉnh sửa video bằng mô hình ảnh. Công trình cho phép mở rộng sang các tác vụ mới mà không cần bổ sung bất kỳ cặp video nào.",
+        "Theo nhóm nghiên cứu, các mô hình video hiện tụt hậu một phần do khó khăn khi thu thập các cặp video gốc và video đã chỉnh sửa. Kỹ thuật này để mô hình video đóng vai xử lý ảnh trên một khung hình, dưới sự hướng dẫn của mô hình ảnh ở từng bước khử nhiễu.",
+        "Thử nghiệm trên ba trình chỉnh sửa video cho thấy I2VT đạt hiệu năng dẫn đầu trên hai bộ tiêu chuẩn (benchmark, thước đo đánh giá) OpenVE-Bench và OpenVE++. Trong đó, OpenVE++ bổ sung bốn tác vụ mới gồm thay đổi hành động, đổi biểu cảm, chuyển động cơ thể và tái chiếu sáng cảnh quay.",
+        "Theo nhóm tác giả, phương pháp cho phép hậu đào tạo hiệu quả chỉ từ ảnh đơn mà không cần đổi kiến trúc hay thêm video mới. Dù chỉ quan sát ảnh đơn khi huấn luyện, mô hình ở giai đoạn kiểm tra vẫn xử lý toàn bộ đoạn video và bảo đảm tính nhất quán thời gian (tức sự liền mạch giữa các khung hình)."
+      ],
+      "same_event_coverage_ids": [
+        "d218981009ebee135094"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Image-to-Video Transfer (I2VT)",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Ji Xie",
+          "Yanhao Jia",
+          "Xiangpeng Yang",
+          "Martin Q. Ma",
+          "Sihan Xu",
+          "Erik Cambria",
+          "Louis-Philippe Morency"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Phương pháp I2VT giúp mô hình chỉnh sửa video đạt hiệu năng dẫn đầu chỉ từ ảnh đơn lẻ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.34941"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "f228aa7aaa8d8353aaef99e98aeddafaeb2a4eb4ab2e17b3cb67529fc482bde4",
+        "scored_at": "2026-11-26T07:53:26.878878+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "e9e5448508f64bf7710b",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.34811",
+      "key_points": [
+        "Nhóm tác giả Boxuan Dong giới thiệu mô hình HOG-WAM bổ sung giám sát biểu đồ gradient định hướng tương lai (HOG) từ ảnh thị phạm. Mô-đun phụ trợ này chỉ kích hoạt khi huấn luyện và gỡ bỏ lúc suy luận nhằm bảo toàn kiến trúc FastWAM.",
+        "Theo nhóm nghiên cứu, nhiễu loạn hình ảnh có thể làm gián đoạn chính sách điều khiển của mô hình thế giới và hành động. Nhóm tác giả đã đánh giá bốn dạng nhiễu quan sát trên môi trường RoboTwin-Plus so với mô hình FastWAM.",
+        "Tỷ lệ thành công trung bình trong bốn nhiệm vụ robot Franka tăng đáng kể từ 40% lên 59% khi quan sát rõ, và từ 17% lên 24% khi có nhiễu. Tại môi trường RoboTwin-Plus, tỷ lệ thành công trước nhiễu hỗn hợp tăng lên 82,86% so với 78,86% của FastWAM, nhưng chỉ ngang bằng ở bối cảnh không nhiễu.",
+        "Nhóm tác giả nhận định dự đoán gradient tương lai đóng vai trò giám sát bổ trợ giúp kiểm soát bền vững trước nhiễu thị giác, với mức cải thiện trên nhiệm vụ vật lý lớn hơn trong mô phỏng."
+      ],
+      "same_event_coverage_ids": [
+        "76f2df3b06093c7f2d58"
+      ],
+      "split_coverage_ids": [],
+      "subject": "HOG-WAM",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Boxuan Dong",
+          "Yupeng Qian",
+          "Ying Wu",
+          "Heshuai Li",
+          "Junhao Tan",
+          "Zhenxiong Tan",
+          "Weijia Wu",
+          "Weihao Yu"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "HOG-WAM nâng tỷ lệ thành công của robot Franka lên 59% khi bổ sung giám sát biểu đồ gradient tương lai",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.34811"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "bd1b8ce9756b5f43933d5f8ab91d15784887dacddd30a166b8d1fbaa48fd9884",
+        "scored_at": "2026-11-26T07:41:34.739315+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "d47f36447ed08fe0b839",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.34466",
+      "key_points": [
+        "Nhóm nghiên cứu giới thiệu bộ đánh giá chuẩn EgoUseBench để kiểm tra các tác nhân AI sử dụng máy tính qua ba thiết lập tương tác khác nhau. Dựa trên hơn 74 giờ ghi hình thực tế, nhóm tác giả xây dựng 693 tác vụ để theo dõi quan sát, yêu cầu của người dùng và trạng thái trang web.",
+        "Theo nhóm tác giả, quan sát góc nhìn thứ nhất có thể cung cấp bằng chứng chưa đầy đủ hoặc mơ hồ do bị giới hạn bởi tầm nhìn người đeo. Khi có dữ liệu mới, tác nhân AI phải điều chỉnh lại nhận thức về bối cảnh và ý định người dùng, điều mà các mô hình hiện nay chưa được đánh giá đầy đủ.",
+        "Tỷ lệ thành công trung bình trong chế độ Online Ego Use thấp hơn 26,3% so với Computer-Use khi đánh giá các mô hình tiên tiến. Sự suy giảm này đối lập với thiết lập Computer-Use vốn chỉ phụ thuộc vào các chỉ dẫn rõ ràng trước khi thực hiện.",
+        "Nhóm tác giả kết luận rằng kết quả này cho thấy sự khó khăn trong việc duy trì thực thi tác vụ đồng bộ với bối cảnh góc nhìn thứ nhất và ý định liên tục thay đổi của người dùng."
+      ],
+      "same_event_coverage_ids": [
+        "6ce95a08c2ba71fe7fcc"
+      ],
+      "split_coverage_ids": [],
+      "subject": "EgoUseBench",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Yurun Chen",
+          "Biao Yi",
+          "Qihang Yu",
+          "Keting Yin",
+          "Shengyu Zhang"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "EgoUseBench: Tỷ lệ thành công của tác nhân AI giảm 26,3% khi bối cảnh góc nhìn thứ nhất thay đổi",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.34466"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.8,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "giảm 26,3% khi bối cảnh góc nhìn thứ nhất thay đổi",
+            "explanation": "The source reports a 26.3% lower average success rate in Online Ego Use than in Computer-Use. It does not report a measured drop as context changes within a task (outlet:p009)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The headline makes the measured difference sound like a decline over time within changing context.",
+            "fix": "State the comparison explicitly: average success in Online Ego Use was 26.3% lower than in Computer-Use (outlet:p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "19567a6087e3e95c1d7ac45dcbab40611318a24aafef78d468b3c601079b102b",
+        "scored_at": "2026-11-26T07:41:34.739344+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "aea97a78b984c93ec765",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.34912",
+      "key_points": [
+        "Nhóm tác giả Jiachen An giới thiệu kiến trúc LiveVAE, bộ tự mã hóa biến phân (VAE - mô hình nén video) dạng luồng dựa trên cơ chế chú ý cửa sổ nhân quả. Kiến trúc này giúp giảm tính toán trên mỗi khung hình và giới hạn bộ nhớ đệm (KV cache) khi truyền phát.",
+        "Theo nhóm nghiên cứu, bộ VAE là điểm nghẽn độ trễ chính do các mô hình hiện nay tốn nhiều chi phí mã hóa và chủ yếu tập trung vào giải mã. Nhóm phát hiện quá trình mã hóa lẫn giải mã từng mảng hình gần như phụ thuộc hoàn toàn vào các vùng lân cận không thời gian.",
+        "LiveVAE tăng tốc mã hóa và giải mã trên mô hình MiniMax-H3 so với VAE chính thức, nhanh hơn từ 5,2 đến 6,2 lần khi mã hóa và 3,0 đến 3,3 lần khi giải mã. Kết quả trên mô hình MiniMax-H3 đồng thời đạt chỉ số chất lượng hình ảnh (PSNR) cao hơn bộ VAE gốc.",
+        "Nhóm tác giả nhận định LiveVAE thay thế trực tiếp cho VAE gốc nhờ phương pháp chưng cất tách rời kết hợp tinh chỉnh để bảo toàn không gian tiềm ẩn. Khi kết hợp cùng hạ tầng suy luận chuyên dụng, mô hình đạt mức tăng tốc 13,4 lần mà hầu như không giảm chất lượng."
+      ],
+      "same_event_coverage_ids": [
+        "4e980e6953704d9178e8"
+      ],
+      "split_coverage_ids": [],
+      "subject": "LiveVAE",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Jiachen An",
+          "Sijie Zhao",
+          "Le Li",
+          "Hongyu Liu",
+          "Zhiyuan Li",
+          "Tianyu Yang",
+          "Xiaoyu Kong",
+          "Xunliang Cai",
+          "Yong Zhang",
+          "Chi-Man Pun",
+          "Xiaoming Wei",
+          "Xiaodong Cun"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "LiveVAE tăng tốc mã hóa video đến 6,2 lần trên MiniMax-H3 nhờ chú ý cửa sổ nhân quả",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.34912"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.65,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "cf3db05d149eadb223e29e09e17f7fb10d3e8ec270aa6ee78e0b6e252490984d",
+        "scored_at": "2026-11-26T07:41:34.739367+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "a7a760569ac6b0acdfe5",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.34331",
+      "key_points": [
+        "Nhóm tác giả Abhinav Sharma công bố bộ đánh giá Puzzling-Bench, tập chuẩn đối chuẩn (benchmark - bài kiểm tra năng lực) gồm 23.777 câu đố từ Puzzling Stack Exchange. Bộ dữ liệu thu thập từ năm 2014 đến 2026 gồm nhiều dạng câu đố trí tuệ, trong đó một phần ba chứa hình ảnh.",
+        "Hệ thống đánh giá chín mô hình ngôn ngữ lớn qua quy trình chấm điểm hai tầng, gồm so khớp chuẩn hóa và giám khảo mô hình ngôn ngữ. Ba giám khảo từ hai họ mô hình khác nhau đạt mức đồng thuận từ 95% đến 97% và làm dịch chuyển điểm không quá 1,6 điểm.",
+        "Theo nhóm nghiên cứu, mô hình tốt nhất đạt 74,8% là GPT-6.1 trong thử nghiệm trên tập dữ liệu chung gồm 255 câu đố. Mặc dù vậy, một nhóm 17 câu đố hóc búa đã đánh bại toàn bộ chín mô hình tham gia kiểm tra.",
+        "Các tác giả nhận định lỗi thất bại có tính tương quan cao giữa các hệ thống, khi mô hình thứ hai chỉ bổ sung đúng một câu giải đúng vào tổ hợp mô hình. Trong thử nghiệm sơ bộ đa phương thức trên 100 câu đố, việc lược bỏ hình ảnh của câu hỏi làm giảm điểm số của hai mô hình tốt nhất lần lượt 24 và 35 điểm."
+      ],
+      "same_event_coverage_ids": [
+        "6adc181593702fc3da4b"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Puzzling-Bench",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "GPT-6.1 dẫn đầu tập chuẩn Puzzling-Bench với 74,8% điểm nhưng 17 câu đố đánh bại cả 9 mô hình",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.34331"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.45,
+        "answers": {
+          "what": 10,
+          "why": 8,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The account of correlated failures omits the source's counterpoint about the combined potential of all nine models.",
+            "fix": "Add that an oracle over all nine models reached 91% (outlet:p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "96a5a42500628743e7f57e999ea461b819028cf3083aba33c6f73c8fb14a8ed4",
+        "scored_at": "2026-11-26T07:41:34.739389+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "7b3e1f41822980cd8743",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.34929",
+      "key_points": [
+        "Nhóm tác giả giới thiệu PixelMatte, khung làm việc tách nền ảnh độ trung thực cao bằng mô hình khuếch tán không gian điểm ảnh. Theo các nhà nghiên cứu, khả năng tách nền này có thể đạt được ngay từ mô hình tạo ảnh từ văn bản mà không cần tiền huấn luyện theo cặp ảnh sang ảnh.",
+        "Nhóm tác giả chỉ ra mô hình khuếch tán không gian ẩn gây sai lệch độ chính xác ở vùng chi tiết tần số cao do biểu diễn nén và tái tạo dựa trên VAE. Các phương pháp hiện tại phần lớn vẫn dựa vào dạng mô hình này dù việc tách nền đòi hỏi độ chuẩn xác cao.",
+        "PixelMatte giảm từ 24% đến 44% sai số SAD và sai số gradient so với RenderMatte trên hai tập dữ liệu kiểm chuẩn P3M-500-NP và AM-2K, với hai thước đo này đánh giá tổng sai lệch tuyệt đối và sai số đường viền. Mô hình đồng thời đạt hiệu năng cạnh tranh trên hai bộ kiểm chuẩn AIM-500 và RenderMatte-2K.",
+        "Theo nhóm tác giả, kết quả chứng minh hiệu quả của tiền nghiệm tạo sinh trong không gian điểm ảnh cho tách nền chính xác đối với các tác vụ nhạy cảm với độ chuẩn xác."
+      ],
+      "same_event_coverage_ids": [
+        "54177009d7bc97719dc2"
+      ],
+      "split_coverage_ids": [],
+      "subject": "PixelMatte",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "PixelMatte giúp giảm 24% đến 44% sai số tách nền ảnh so với RenderMatte trên hai bộ kiểm chuẩn",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.34929"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "với hai thước đo này đánh giá tổng sai lệch tuyệt đối và sai số đường viền",
+            "explanation": "The supplied source names SAD and gradient errors but does not define SAD or equate gradient error with boundary error (outlet:p009)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The reader receives metric definitions that are not established by the supplied source.",
+            "fix": "Retain the reported SAD and gradient error results without defining the metrics from this source (outlet:p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "f60e4ecdb42dfeb2ebd4aae781f94b9ae8bfc041bded32cf566f62bf84145cb6",
+        "scored_at": "2026-11-26T07:53:26.878905+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "67e878b6f576f20720e7",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.34128",
+      "key_points": [
+        "Researchers presented FoundSurface, a generalizable feedforward pipeline that directly reconstructs continuous, high-fidelity 3D scene surfaces from unposed images.",
+        "The approach extracts explicit geometric priors with a pre-trained pointmap model to integrate pointmap- and ray-based representations.",
+        "FoundSurface uses a query-view-centric selection module with a surfel voting mechanism to identify geometrically relevant reference views before cross-attention regression."
+      ],
+      "same_event_coverage_ids": [
+        "ac48e7d4f2cdf225a0af"
+      ],
+      "split_coverage_ids": [],
+      "subject": "FoundSurface",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "61f4b5f38fd11161edba",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.34849",
+      "key_points": [
+        "Tác giả Yongchang Zhang cùng 12 nhà nghiên cứu khác giới thiệu nền tảng hợp nhất Real2SimLab phục vụ việc chuyển đổi từ thực tế sang mô phỏng. Hệ thống đánh giá các phương pháp bằng cách chạy mã mô phỏng được tạo và chấm điểm bằng chính bộ chuẩn đánh giá (benchmark, tức bài kiểm tra tiêu chuẩn) gốc.",
+        "Theo nhóm tác giả, việc đánh giá đòi hỏi N nhân M lần tích hợp khi thử nghiệm N phương pháp trên M bộ chuẩn. Khó khăn này xuất phát từ việc mỗi bộ chuẩn tự quy định dữ liệu đầu vào, sản phẩm bàn giao và quy trình chấm điểm riêng.",
+        "Quy trình của nền tảng lọc bỏ video trong các bộ chuẩn để tránh nhiễm bẩn dữ liệu khi tạo dữ liệu huấn luyện và chú thích phần thưởng. Tính đến nay, Real2SimLab đã hỗ trợ 47 tác tử lập trình (coding agent, tức AI tự viết mã từ video) cùng 5 phương pháp không dùng tác tử trên 6 bộ chuẩn.",
+        "Nhóm tác giả quyết định mở mã nguồn nền tảng để cộng đồng cùng phát triển, đồng thời công khai bản đồ nghiên cứu Awesome-Real2Sim gồm gần 300 bài báo liên quan. Họ kêu gọi cộng đồng Real2SimHub cùng tham gia xây dựng và hoàn thiện các tài nguyên mở này."
+      ],
+      "same_event_coverage_ids": [
+        "6e0c45bed6d03b3c465f"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Real2SimLab",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Ra mắt nền tảng Real2SimLab hỗ trợ thử nghiệm 47 tác tử lập trình trên 6 bộ chuẩn đánh giá",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.34849"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "722ee15b2e2144824b1c067ddc97ddf5d0427c6acdde9f58c67d52f9cd5f3925",
+        "scored_at": "2026-11-26T07:53:26.878928+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "58e858ea151e20d481d7",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.33835",
+      "key_points": [
+        "Tác giả Nannan Zhang cùng 5 tác giả khác giới thiệu khung mô hình 3D CoCa v3 để hiểu cảnh đô thị 3D kết hợp đồ thị cảnh (scene graph - cấu trúc quan hệ không gian). Khung mô hình tích hợp bộ mã hóa thị giác kim tự tháp học biểu diễn hình học đa tỉ lệ cùng bộ giải mã dựa trên mô hình ngôn ngữ.",
+        "Theo nhóm nghiên cứu, các phương pháp hiện có chưa khai thác đầy đủ mô hình hóa quan hệ cấu trúc do chủ yếu tập trung vào ngữ nghĩa toàn cục. Để hỗ trợ việc giám sát này, nhóm xây dựng bộ dữ liệu City3D-9.6K gồm các quan sát thị giác hình học và đồ thị cảnh đa góc nhìn.",
+        "Mô hình đạt độ chính xác top-1 tổng thể 88,35% và 64,79% trên City-3DQA ở các phân chia theo câu và theo thành phố. Kết quả này vượt phiên bản 3D CoCa v2 lần lượt 20,88 và 3,57 điểm phần trăm trên chuẩn đánh giá (benchmark - bài kiểm tra tiêu chuẩn) này.",
+        "Theo nhóm tác giả, mô hình đạt kết quả tốt nhất trên GeoEval3D trong suy luận không gian và hình học, chứng minh hiệu quả trong hiểu biết đô thị."
+      ],
+      "same_event_coverage_ids": [
+        "ad68eae5ddc8c4f54e06"
+      ],
+      "split_coverage_ids": [],
+      "subject": "3D CoCa v3",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Mô hình 3D CoCa v3 đạt độ chính xác 88,35% trên City-3DQA, vượt 3D CoCa v2 tới 20,88 điểm phần trăm",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.33835"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.8,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "ceedfd3ecda5d932bd5432270c736c4dd33a5fd780b8e0857ab821935505a1e8",
+        "scored_at": "2026-11-26T07:53:26.878949+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "4c2fad959c80a8153ce2",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.34675",
+      "key_points": [
+        "Nhóm tác giả đề xuất khung RoboEvo^2 giúp robot tự hoàn thiện đệ quy thông qua cơ chế đồng tiến hóa giữa khung điều phối và chính sách điều khiển. Theo nhóm nghiên cứu, cơ chế khép kín này kết hợp tác tử (chương trình AI tự xử lý tác vụ) lập trình với việc rèn luyện chính sách mà không cần thêm con người biểu diễn.",
+        "Theo nhóm tác giả, chính sách điều khiển cần thêm người biểu diễn còn tác tử suy luận tốn kém chi phí tính toán và sửa lỗi. Các nhà nghiên cứu nhấn mạnh rằng hạn chế này cản trở robot thích ứng môi trường lạ nếu thiếu mẫu thao tác bổ sung từ con người.",
+        "Khung RoboEvo^2 nâng tỷ lệ thành công độc lập từ 11,0% lên 84,1% trên bộ chuẩn (bộ bài kiểm tra tiêu chuẩn hóa) LIBERO-PRO mà không cần thêm người biểu diễn. Thử nghiệm cũng ghi nhận tỷ lệ thành công lai ghép tăng từ 30,4% lên 90,5% trên LIBERO-PRO và giảm chi phí tác tử trên RoboTwin C2R.",
+        "Nhóm tác giả cho biết các thử nghiệm tiếp theo chứng minh khả năng tự tiếp nhận nhiệm vụ và chuyển giao khung điều phối qua các dạng thể robot khác nhau, đạt tỷ lệ thành công lai ghép 95,0% trên robot Unitree G1-D. Nhóm nghiên cứu cam kết phát hành công khai toàn bộ mã nguồn cùng các mô hình."
+      ],
+      "same_event_coverage_ids": [
+        "31f2491f4f38688f70e9"
+      ],
+      "split_coverage_ids": [],
+      "subject": "RoboEvo^2",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "RoboEvo^2 nâng tỷ lệ thành công độc lập từ 11,0% lên 84,1% trên LIBERO-PRO mà không cần thêm người biểu diễn",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.34675"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.55,
+        "answers": {
+          "what": 9,
+          "why": 6,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "quote",
+            "summary_text": "chính sách điều khiển cần thêm người biểu diễn",
+            "explanation": "The authors say vision-language-action policies often need additional human demonstrations to handle unfamiliar settings, not that control policies always need them (outlet:p009)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "toàn bộ mã nguồn",
+            "explanation": "The authors say their models and code will be publicly released; they do not specify that all source code will be released (outlet:p009)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The reader is told that control policies require human demonstrations as a general rule.",
+            "fix": "Say they often need additional demonstrations when handling unfamiliar settings (outlet:p009)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The release promise is broadened to all source code.",
+            "fix": "Say only that the authors plan to release their models and code publicly (outlet:p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "50fdba4167aedd0d23342d72f7583ae9253a67836278dfaa6230e51204ee01a8",
+        "scored_at": "2026-11-26T07:53:26.878983+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "49c7ed7a9e9897fac9fe",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.34347",
+      "key_points": [
+        "Nhóm tác giả giới thiệu bộ chuẩn AIRIS đánh giá trí tuệ hiện thân xã hội qua video luồng góc nhìn thứ nhất. Thử nghiệm trên 45 mô hình độc quyền và mã nguồn mở cho thấy năng lực của chúng bị phân mảnh và lệch chuẩn theo thời gian.",
+        "Theo nhóm tác giả, các chuẩn hiện nay đánh giá tách rời hoặc dùng video hoàn chỉnh làm che khuất vị trí quyết định trực tuyến thất bại. Chuẩn AIRIS chỉ cấp dữ liệu quan sát có sẵn ở thời điểm hỏi, đồng thời thưởng cho sự chờ đợi hợp lý và phạt quyết định vội vàng.",
+        "Thử nghiệm cho thấy mô hình thị giác tổng quát vượt trội ở nhận diện ý định thụ động, trong khi mô hình hiện thân dẫn đầu ở phản ứng riêng lẻ.",
+        "Nhóm tác giả kết luận chuẩn AIRIS cung cấp nền tảng chẩn đoán giúp thu hẹp khoảng cách với tương tác hiện thân đáng tin cậy. Dù vậy, mô hình ở mọi họ thử nghiệm thường xuyên đoán ý định khi chưa đủ bằng chứng và không thể đồng thời căn chỉnh thời điểm, phạm vi cùng việc thực thi can thiệp trong một tình huống."
+      ],
+      "same_event_coverage_ids": [
+        "3f2bebf49cdfeeda0f2d"
+      ],
+      "split_coverage_ids": [],
+      "subject": "AIRIS",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Đánh giá 45 mô hình AI qua chuẩn AIRIS: Các hệ thống thường đoán ý định khi chưa đủ bằng chứng",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.34347"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.1,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 8,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "quote",
+            "summary_text": "không thể đồng thời căn chỉnh thời điểm, phạm vi cùng việc thực thi can thiệp trong một tình huống",
+            "explanation": "The source reports that models in the evaluation fail to align these elements within the same episode; it does not establish that they are incapable of doing so (outlet:p009)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The reader may understand an observed evaluation failure as an absolute inability.",
+            "fix": "Say the evaluated models frequently failed to align intervention timing, action domain, and execution within the same episode (outlet:p009)."
+          },
+          {
+            "question": "notable",
+            "problem": "The reader does not learn the scale of AIRIS.",
+            "fix": "Add its 8,000 expert-curated questions from 357 clips, spanning 11 context categories and 36 capability dimensions (outlet:p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "4f9e1af5ab241504c44066ccba7c4bf20eda3cdfcf72ff77f78c40185b31d6a0",
+        "scored_at": "2026-11-26T07:53:26.879616+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "4002d5d84c5fa3d35f15",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.33922",
+      "key_points": [
+        "Lisiyu Pan và cộng sự đề xuất iMFPO, phương pháp tạo hành động điều khiển trong một bước bằng cách tách việc học vận tốc khỏi bước căn chỉnh vận tốc theo độ lệch. Trong phép đo trên Go2, nhóm báo cáo độ trễ sinh hành động là 0,41 ms với iMFPO, so với 15,57 ms của RFPO dùng 64 bước.",
+        "Theo nhóm tác giả, khi học tăng cường trực tuyến (điều chỉnh cách hành động theo phần thưởng), phân phối hành động thay đổi có thể làm việc học vận tốc tức thời không khớp với cách tạo hành động dựa trên vận tốc trung bình của một khoảng.",
+        "Trong đánh giá zero-latent (không dùng biến tiềm ẩn), nhóm báo cáo điểm thưởng trung bình lần lượt là 35,69 trên Go2, 34,44 trên G1, 416,23 trên H1 và 29,86 trên Spot.",
+        "Theo nhóm tác giả, ở bước sử dụng, iMFPO dự đoán trực tiếp vận tốc trung bình theo khoảng để tạo hành động một bước mà không cần tích phân luồng lặp. Điểm thưởng được báo cáo trong đánh giá zero-latent, còn mức giảm độ trễ là phép so trên Go2 với RFPO 64 bước; quy trình huấn luyện được mô tả có dùng hướng dẫn từ mô hình PPO cố định."
+      ],
+      "same_event_coverage_ids": [
+        "2d61bc5bfe48a53059bd"
+      ],
+      "split_coverage_ids": [],
+      "subject": "iMFPO",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Trong phép đo trên Go2, iMFPO giảm độ trễ sinh hành động từ 15,57 xuống 0,41 ms so với RFPO 64 bước",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.33922"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": null,
+      "writer_models": [
+        "gemini-3.8-flash-high",
+        "gpt-6-sol"
+      ]
+    },
+    {
+      "id": "3242f4c954effa1a175f",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.33894",
+      "key_points": [
+        "Nhóm tác giả Amirhossein Alimohammadi và cộng sự giới thiệu phương pháp Selective Image Analogy (SIA), cho phép người dùng chọn áp dụng một phần chỉnh sửa từ cặp ảnh mẫu vào ảnh mới tại thời điểm suy luận. Nghiên cứu chỉ ra một cặp ảnh mẫu trước và sau duy nhất có thể mã hóa đồng thời nhiều thao tác biến đổi khác nhau.",
+        "Nhóm nghiên cứu nhận định các phương pháp tương tự ảnh hiện tại hạn chế độ linh hoạt, do luôn chuyển giao toàn bộ mọi thay đổi thay vì cho phép chọn lọc. Theo đó, SIA loại bỏ các chỉnh sửa không mong muốn mà không cần tạo cặp ảnh mẫu mới cho từng tổ hợp, nhờ cơ chế triệt tiêu qua token kết hợp véc-tơ khái niệm.",
+        "Các tác giả chứng minh hiệu quả qua đánh giá định lượng, định tính và khảo sát người dùng, khẳng định mô hình giữ lại được các chỉnh sửa mong muốn dù chi tiết thừa vẫn hiện trên ảnh mẫu. Dù vậy, thử nghiệm này được thực hiện trên tập dữ liệu do nhóm biên soạn riêng gồm các mục tiêu chỉnh sửa toàn phần và từng phần."
+      ],
+      "same_event_coverage_ids": [
+        "1624434bdf194cd03a69"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Selective Image Analogy (SIA)",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nghiên cứu giới thiệu mô hình SIA giúp chọn lọc chỉnh sửa từ một cặp ảnh mẫu duy nhất",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.33894"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.4,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "thử nghiệm này được thực hiện trên tập dữ liệu do nhóm biên soạn riêng",
+            "explanation": "The source says the authors curated such a dataset and performed evaluations and user studies; it does not specify that all those tests were conducted on that dataset (outlet:p009)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The reader may infer that all evaluations and user studies were confined to the authors’ curated dataset.",
+            "fix": "State separately that the authors curated a dataset and conducted quantitative and qualitative evaluations and user studies (outlet:p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "a4c3be2642999967510328e1679d9b943a0a3a75676626cbf9ab2053b1cdfb25",
+        "scored_at": "2026-11-26T07:41:34.739732+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "1277f9bf00380e9dd48d",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.34064",
+      "key_points": [
+        "Nhóm tác giả Zesong Yang giới thiệu khung cắt tỉa chú ý SPARC cho mô hình khuếch tán video đã huấn luyện sẵn. Hệ thống biến cơ chế tự chú ý sẵn có thành công cụ thống nhất để điều khiển camera và ghi nhớ cảnh quay.",
+        "Do nhu cầu ngữ cảnh bất đối xứng giữa tái tạo và tạo vùng mới, SPARC giới hạn token đã quan sát vào bối cảnh hình học tương ứng và giữ chú ý dày đặc cho vùng chưa thấy. Theo nhóm nghiên cứu, cơ chế định hướng chú ý theo tương đồng và định vị lịch sử bất biến theo thứ tự giúp truy xuất ổn định qua khoảng cách thời gian dài.",
+        "Thực nghiệm cho thấy kỹ thuật cắt tỉa chú ý giúp cải thiện độ bám sát camera, tính nhất quán khi tái hiện cảnh và độ trung thực hình ảnh. Hệ thống đạt tốc độ suy luận nhanh hơn 50 lần khi kết hợp phương pháp chưng cất bốn bước.",
+        "Nhóm tác giả nhận định SPARC đạt độ bám sát camera và tái hiện cảnh chuẩn xác mà không cần thêm mô-đun kiểm soát hay bộ nhớ học bổ sung. Phương pháp được triển khai trên các mô hình khuếch tán video huấn luyện sẵn, giúp giảm đáng kể phép tính chú ý."
+      ],
+      "same_event_coverage_ids": [
+        "1f5192d5e58c1cb00be3"
+      ],
+      "split_coverage_ids": [],
+      "subject": "SPARC",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Khung SPARC cắt tỉa chú ý tăng tốc tạo video điều khiển camera hơn 50 lần khi kết hợp chưng cất",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.34064"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.8,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The description of what observed tokens can attend to is blurred.",
+            "fix": "Specify geometrically corresponding historical tokens and local spatiotemporal context, as stated in outlet:p009."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "874829910380e37ea5b7491e096943488982b294d076e84d2d8231faa539f415",
+        "scored_at": "2026-11-26T07:53:26.879646+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
