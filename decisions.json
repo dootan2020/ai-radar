@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-26T19:27:47.940497+00:00",
-  "input_generated_at": "2026-11-26T18:46:43Z",
+  "generated_at": "2026-11-26T21:24:52.519043+00:00",
+  "input_generated_at": "2026-11-26T20:46:33Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -149278,10 +149278,10 @@
       "use_original_title": false,
       "source_url": "https://www.london.edu/think/ai-bubble-about-to-burst",
       "key_points": [
-        "Nghiên cứu mới từ Trường Kinh doanh London và Đại học Cambridge xác định xác suất lên tới 97% rằng cổ phiếu AI đang nằm trong bong bóng tài chính tính đến tháng 9 năm 2026.",
-        "Tác giả Marco Grotteria cho biết việc dự báo bong bóng rất khó do không quan sát được nền tảng hay kỳ vọng của nhà đầu tư, nên nhóm phân tích cảm nhận báo chí để đo lường khả năng dự báo. Nghiên cứu cũng chỉ ra báo chí tài chính thường cảnh báo quá mức so với tần suất sụp đổ thực tế.",
-        "Chỉ số bong bóng hàng tháng cao hơn ở tháng có bong bóng trong 74% các so sánh, và mỗi khi vượt 40% đến 50% thì sau đó đều xảy ra sụp đổ. Đáng chú ý, mức điểm tháng 9 năm 2026 đã ngang bằng hoặc cao hơn đỉnh bong bóng dot-com hồi tháng 3 năm 2000.",
-        "Các tác giả khẳng định bằng chứng đầu cơ không đồng nghĩa công nghệ thiếu giá trị kinh tế, bởi bong bóng và cách mạng công nghệ có thể cùng tồn tại."
+        "Nghiên cứu từ Trường Kinh doanh London và Đại học Cambridge xác định xác suất lên tới 97% cổ phiếu AI nằm trong bong bóng vào tháng 9 năm 2026.",
+        "Tác giả Marco Grotteria giải thích việc dự báo rất khó do không quan sát được nền tảng hay kỳ vọng của nhà đầu tư, khiến bong bóng trước đây chỉ được nhận biết sau khi xảy ra. Báo chí tài chính cũng thường cảnh báo quá mức, dự báo xác suất sụp đổ 20% cao gấp 3,5 lần tần suất thực tế 5,7%.",
+        "Đáng chú ý, chỉ số bong bóng tháng 9 năm 2026 đã ngang bằng hoặc cao hơn đỉnh bong bóng dot-com tháng 3 năm 2000. Tác giả Marco Grotteria cho biết chỉ số này cao hơn ở tháng có bong bóng trong 74% so sánh, và mỗi khi vượt 40% đến 50% thì sau đó đều xảy ra sụp đổ.",
+        "Giới lãnh đạo cần nhận diện nguy cơ tiềm tàng và khả năng xảy ra sụp đổ sau bong bóng để chủ động ứng phó. Với nhà hoạch định chính sách coi bỏ lỡ bong bóng tốn kém hơn báo động giả, chỉ số giúp giảm tổn thất dự kiến từ một phần năm đến một phần ba."
       ],
       "same_event_coverage_ids": [
         "e9a51ca5e30d24f24b69"
@@ -149298,7 +149298,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Nghiên cứu từ 170 năm báo chí tài chính chỉ ra xác suất 97% cổ phiếu AI đang ở bong bóng",
+      "editorial_headline_vi": "Nghiên cứu 170 năm báo chí tài chính chỉ ra xác suất tới 97% cổ phiếu AI rơi vào bong bóng",
       "summary_sources": [
         {
           "id": "outlet",
@@ -149311,19 +149311,24 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.4,
+        "value": 9.05,
         "answers": {
-          "what": 10,
+          "what": 9,
           "why": 10,
-          "notable": 10,
-          "meaning": 6
+          "notable": 9,
+          "meaning": 8
         },
         "hard_errors": [],
         "findings": [
           {
             "question": "meaning",
-            "problem": "Readers miss the article’s practical conclusion about crash risk.",
-            "fix": "Add that leaders should prepare for a possible subsequent crash and that the index is useful to policymakers who consider missing a bubble costlier than a false alarm (outlet:p035–p037, outlet:p042–p043)."
+            "problem": "Readers do not get the source’s explicit distinction between a financial bubble and the value of AI technology.",
+            "fix": "Add that speculation does not imply AI technology lacks economic value (outlet:p039–p040)."
+          },
+          {
+            "question": "what",
+            "problem": "The basis of the 97% estimate is unclear.",
+            "fix": "Identify it as a reading from an index built by using an LLM to assess The Economist’s financial journalism (outlet:p017, outlet:p024–p026)."
           }
         ],
         "writer_boats": [
@@ -149331,8 +149336,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "1931580058b4e0d0669609eb7e31c916d373a81ba6808a759d2c82abc35cba38",
-        "scored_at": "2026-11-26T19:19:26.478084+00:00"
+        "prose_sha256": "5e1a99ea90d90de46f5c550b71cb1c9676dc281af50f04da93da1e7290877430",
+        "scored_at": "2026-11-26T21:24:52.513781+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
@@ -149356,6 +149361,138 @@
         "b5a22f6422b40522b2c4"
       ],
       "split_coverage_ids": []
+    },
+    {
+      "id": "33b3d08d99aeb285e8be",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/26/nvidia-hits-pause-on-chip-shipments-to-southeast-asia/",
+      "key_points": [
+        "Theo Wall Street Journal, Nvidia đã yêu cầu đối tác tạm dừng chuyển máy chủ, áp dụng với Dell và Super Micro khi chuyển đến Malaysia, Singapore, Thái Lan và Indonesia trong thời hạn chưa xác định.",
+        "TechCrunch cho biết các công ty Trung Quốc đã khai thác chip từ xa tại đó, kẽ hở vừa bị Bộ Thương mại Mỹ đóng lại hồi đầu tháng.",
+        "Tạp chí này dẫn ước tính từ viện nghiên cứu Institute for Progress rằng các trung tâm dữ liệu từ xa kiểu như vậy cung cấp khoảng 24% năng lực tính toán AI của Trung Quốc.",
+        "TechCrunch nhận định Nvidia đang chịu áp lực phải thay đổi cách hoạt động, và báo cáo của Wall Street Journal cho thấy áp lực này đi xa đến mức nào."
+      ],
+      "same_event_coverage_ids": [
+        "cbb37a3982e6fbe55991"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Nvidia",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nvidia yêu cầu các đối tác tạm ngừng chuyển máy chủ sang Đông Nam Á để đánh giá quy định xuất khẩu của Mỹ",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "techcrunch",
+          "url": "https://techcrunch.com/2026/11/26/nvidia-hits-pause-on-chip-shipments-to-southeast-asia/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.2,
+        "answers": {
+          "what": 10,
+          "why": 6,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "cause",
+            "summary_text": "để đánh giá quy định xuất khẩu của Mỹ",
+            "explanation": "Nvidia is assessing whether its regional partners meet U.S. export requirements, not evaluating the regulations themselves (outlet:p008)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The headline gives readers the wrong purpose for the shipment pause.",
+            "fix": "Say Nvidia is checking whether its regional partners comply with U.S. export requirements (outlet:p008)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "4d60ebd910b3bd08fc53df775581f76a42d05f2c5c7ac1d23884a74e68055d5d",
+        "scored_at": "2026-11-26T21:19:45.114559+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "743be50c28f444177fa4",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Casual social chatter on Hacker News regarding personal life and aging that only makes an incidental, passing reference to AI progress.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://news.ycombinator.com/item?id=50657957",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "31afa793ab8e3614da54"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "030a9d5b67bf966614a6",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://micjm.com/blog/openai-is-in-cost-control-mode/",
+      "key_points": [
+        "Evaluation data indicates that OpenAI's Astra 6.2 and Sol 6.2 models show significant drops in output tokens and reasoning tokens per task.",
+        "Statistical tests indicate significant reductions in output tokens (p=0.0055 for Sol, p=0.022 for Astra) and reasoning tokens (p=0.00013 for Sol, p=0.0064 for Astra)."
+      ],
+      "same_event_coverage_ids": [
+        "e1ba5a2d30c536ff4d03"
+      ],
+      "split_coverage_ids": [],
+      "subject": "OpenAI",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      }
     }
   ]
 }
