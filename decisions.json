@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-25T21:35:35.418065+00:00",
-  "input_generated_at": "2026-11-25T20:46:48Z",
+  "generated_at": "2026-11-26T05:56:51.627520+00:00",
+  "input_generated_at": "2026-11-26T04:46:15Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -143438,10 +143438,10 @@
       "use_original_title": false,
       "source_url": "https://www.semafor.com/article/11/25/2026/jensen-huang-to-face-questioning-on-capitol-hill",
       "key_points": [
-        "CEO Jensen Huang của Nvidia chuẩn bị đối diện chất vấn tại Quốc hội Mỹ, đúng lúc công ty tổ chức hội nghị công nghệ cách đó chưa đầy hai dặm.",
-        "Theo Semafor, Nvidia đã tập hợp đội luật sư và vận động hành lang trước buổi phỏng vấn kín của ông Huang với ba ủy ban Hạ viện. Bloomberg cho biết ông sẽ trả lời phỏng vấn kín tại Hạ viện vào ngày 1 tháng 12 và điều trần công khai trước Thượng viện ngày 3 tháng 12.",
-        "Bài phát biểu của ông Huang từng bị xóa khỏi lịch trình sau khi ông từ chức CEO. Dù đã được phục chức, việc ông có trở lại sân khấu hay không vẫn chưa được xác nhận.",
-        "Semafor nhận xét giới lập pháp vẫn có nhiều câu hỏi chính đáng cho Nvidia, trong khi phần lớn giới công nghệ chỉ coi các phiên điều trần này là màn kịch chính trị."
+        "CEO Jensen Huang của Nvidia sắp bị Quốc hội Mỹ chất vấn giữa lúc công ty tổ chức hội nghị sản phẩm cách Điện Capitol chưa đầy hai dặm. Theo Bloomberg, ông sẽ điều trần kín tại Hạ viện ngày 1 tháng 12 và trước Thượng viện ngày 3 tháng 12.",
+        "Theo Semafor, đợt chất vấn diễn ra do các nhà lập pháp có nhiều câu hỏi chính đáng cho ông Huang và Nvidia.",
+        "Trước buổi phỏng vấn kín, Nvidia được đưa tin đã tập hợp đội ngũ luật sư hàng đầu tại Washington. Bài phát biểu của ông Huang bị xóa sau khi ông từ chức và chưa rõ khả năng trở lại.",
+        "Semafor nhận định bài phát biểu có thể làm đối trọng với chỉ trích tại Quốc hội và phản ánh khác biệt giữa Washington và Thung lũng Silicon. Với nhiều người trong giới công nghệ, các phiên điều trần chỉ là màn kịch chính trị."
       ],
       "same_event_coverage_ids": [
         "2bf63d267aca07d72ffa",
@@ -143459,7 +143459,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "CEO Jensen Huang của Nvidia sẽ trả lời kín ở Hạ viện và điều trần tại Thượng viện",
+      "editorial_headline_vi": "CEO Nvidia sắp bị Quốc hội Mỹ chất vấn giữa lúc công ty ra mắt sản phẩm gần Điện Capitol",
       "summary_sources": [
         {
           "id": "outlet",
@@ -143478,24 +143478,50 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.75,
+        "value": 6.8,
         "answers": {
-          "what": 10,
-          "why": 6,
-          "notable": 9,
+          "what": 7,
+          "why": 3,
+          "notable": 8,
           "meaning": 9
         },
-        "hard_errors": [],
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "ra mắt sản phẩm",
+            "explanation": "The source says Nvidia will tout new products at its conference; it does not say the products will be launched there (outlet:p001)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "điều trần kín tại Hạ viện",
+            "explanation": "Huang is scheduled for a closed-door, transcribed interview with three House committees, not a hearing (outlet:p002; coverage1:p002)."
+          },
+          {
+            "kind": "cause",
+            "summary_text": "đợt chất vấn diễn ra do các nhà lập pháp có nhiều câu hỏi chính đáng",
+            "explanation": "Semafor observes that lawmakers have legitimate questions but does not state that this is why the questioning was arranged (outlet:p005)."
+          }
+        ],
         "findings": [
           {
             "question": "why",
-            "problem": "The reader is not told that Semafor places the questioning in the context of a scandal.",
-            "fix": "Mention the unspecified scandal without supplying allegations the source does not give (outlet:p004–p005)."
+            "problem": "The reader is given an asserted reason for the hearings that the source does not establish.",
+            "fix": "State only that lawmakers still have legitimate questions for Huang and Nvidia; do not present that observation as the cause of the hearings (outlet:p005)."
+          },
+          {
+            "question": "what",
+            "problem": "The House proceeding is described as a hearing.",
+            "fix": "Call it a closed-door interview with three House committees, and specify that the Dec. 3 public testimony is before a Senate committee (outlet:p002; coverage1:p002; coverage2:p002)."
           },
           {
             "question": "notable",
-            "problem": "The Vietnamese presents Nvidia’s assembly of lawyers and lobbyists more firmly than Semafor does.",
-            "fix": "Preserve that this was reported, rather than independently established by the supplied source (outlet:p002)."
+            "problem": "The account of Huang’s possible return to the stage omits that he has already been reinstated as CEO.",
+            "fix": "Add his reinstatement while keeping his conference appearance uncertain (outlet:p003)."
+          },
+          {
+            "question": "what",
+            "problem": "The headline says Nvidia will launch products, which is stronger than the source.",
+            "fix": "Say Nvidia will showcase or promote new products at its conference (outlet:p001)."
           }
         ],
         "writer_boats": [
@@ -143503,8 +143529,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "09f71050519f254858eae70b2d77e341570a5e49d2f3f6d97f73b5da52a8affa",
-        "scored_at": "2026-11-25T21:35:35.394625+00:00"
+        "prose_sha256": "c55ba30da3870d151bc1b98026b3a3a55f0bc1a908e61e9c4b8d0c88e8d2a7f5",
+        "scored_at": "2026-11-26T05:56:51.584949+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
@@ -143939,10 +143965,10 @@
       "use_original_title": false,
       "source_url": "https://techcrunch.com/2026/11/25/anthropics-dario-amodei-calls-accusations-of-surrendering-human-control-to-ai-absurd/",
       "key_points": [
-        "Dario Amodei gọi ý kiến từ bỏ quyền kiểm soát cho AI là ngớ ngẩn trong bài đăng trên mạng xã hội X vào thứ Tư. CEO Anthropic nhấn mạnh không bao giờ nên hy sinh quyền tự quyết trước hiệu quả hay an ninh, và ủng hộ sự giám sát dân chủ đối với AI.",
-        "Amodei phản bác các tuyên bố về quan điểm của mình sau khi các đối thủ cảnh báo nguy cơ mất quyền tự quyết nếu AI phát triển thiếu trách nhiệm.",
-        "Claude viết hơn 80% mã nguồn hợp nhất vào cơ sở mã của Anthropic vào tháng 6, khi công ty tăng cường đưa AI vào nghiên cứu nội bộ. Tổ chức METR phát hiện các mô hình Anthropic cải thiện nhanh gấp đôi tốc độ lịch sử, chủ yếu nhờ nghiên cứu có AI hỗ trợ.",
-        "Amodei khẳng định không an toàn nếu Claude tự xây dựng các mô hình tiên tiến kế tiếp hoàn toàn tự chủ mà thiếu sự giám sát hay hiểu biết của con người. Theo TechCrunch, sự giám sát này gặp trở ngại khi AI tiến bộ nhanh hơn khả năng kiểm toán của chuyên gia, buộc họ phụ thuộc vào AI để đánh giá."
+        "CEO Dario Amodei của Anthropic bác bỏ cáo buộc nhượng quyền tự do ý chí cho AI, gọi quan điểm này là ngớ ngẩn trên mạng xã hội X. Ông khẳng định không được hy sinh quyền tự quyết và con người phải giữ quyền quyết định tối hậu.",
+        "Phản bác của Amodei xuất hiện sau khi các đối thủ cảnh báo nguy cơ mất quyền tự quyết nếu AI phát triển thiếu trách nhiệm. CEO Sam Altman của OpenAI muốn giữ quyền định đoạt tương lai, còn Alexandr Wang từ Meta phản đối việc chuyển giao xã hội cho AI.",
+        "Amodei gợi ý đặt giới hạn cho AI tự cải tiến không cần con người, dù Anthropic vẫn tăng cường đưa AI vào nghiên cứu nội bộ. Hãng cho biết vào tháng 6 rằng Claude đã tạo hơn 80% mã nguồn hợp nhất, trong khi tổ chức METR ghi nhận mô hình tiến bộ nhanh gấp đôi nhờ AI hỗ trợ.",
+        "Amodei nêu rõ công ty không kỳ vọng việc Claude tự xây dựng mô hình tiên phong kế tiếp sẽ an toàn nếu thiếu sự giám sát thực chất của con người. Theo TechCrunch, sự giám sát này gặp trở ngại khi AI tiến bộ nhanh hơn khả năng kiểm toán của chuyên gia, buộc họ phụ thuộc vào AI để đánh giá."
       ],
       "same_event_coverage_ids": [
         "ea310a1872a3e5d99f6b"
@@ -143960,7 +143986,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "CEO Anthropic gọi cáo buộc nhượng quyền kiểm soát cho hệ thống AI là điều ngớ ngẩn",
+      "editorial_headline_vi": "CEO Anthropic bác bỏ cáo buộc nhượng quyền tự quyết cho AI sau cảnh báo từ các đối thủ",
       "summary_sources": [
         {
           "id": "outlet",
@@ -143973,40 +143999,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.6,
+        "value": 9.25,
         "answers": {
-          "what": 9,
+          "what": 10,
           "why": 10,
           "notable": 8,
-          "meaning": 7
+          "meaning": 9
         },
-        "hard_errors": [
-          {
-            "kind": "number",
-            "summary_text": "Claude viết hơn 80% mã nguồn hợp nhất vào cơ sở mã của Anthropic vào tháng 6",
-            "explanation": "June is when Anthropic reported the figure; the source does not say the code was authored or merged in June (outlet:p014)."
-          },
-          {
-            "kind": "quote",
-            "summary_text": "Amodei khẳng định không an toàn",
-            "explanation": "Amodei said Anthropic does not expect fully autonomous development of successive frontier models to be safe without meaningful human supervision or understanding. The summary removes that qualification (outlet:p016)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "meaning",
-            "problem": "Amodei's qualified safety expectation becomes a categorical assertion.",
-            "fix": "Say he does not expect fully autonomous development of successive frontier models to be safe without meaningful human supervision or understanding (outlet:p016)."
-          },
-          {
             "question": "notable",
-            "problem": "The figures lack the tension that makes them relevant to his statement.",
-            "fix": "Connect Anthropic's growing use of AI in research to Amodei's suggestion that AI improving itself without human help may need limits (outlet:p013–p014)."
-          },
-          {
-            "question": "notable",
-            "problem": "The summary places Claude's code-writing figure in June.",
-            "fix": "Say Anthropic reported the figure in June, without dating when the code was written or merged (outlet:p014)."
+            "problem": "The reader misses the distinction at the center of Amodei’s argument.",
+            "fix": "Add that he considers AI performing specific tasks automatically different from surrendering human free will (outlet:p012)."
           }
         ],
         "writer_boats": [
@@ -144014,8 +144019,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "b7228117f615e2a3f7de0ee99a75e6b890301c2144bcd78aea0d2e18725983d0",
-        "scored_at": "2026-11-25T21:25:21.541048+00:00"
+        "prose_sha256": "bea430180effdc81265e7246a416919d86d07a641e1d71eedb1e7476ad49fa22",
+        "scored_at": "2026-11-26T05:51:52.429345+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
@@ -144135,10 +144140,10 @@
       "use_original_title": false,
       "source_url": "https://huggingface.co/blog/allenai/where-scientists-draw-the-line-on-ai-agents",
       "key_points": [
-        "Viện Ai2 đã phỏng vấn 17 nhà khoa học về phát triển có trách nhiệm tác nhân AI (hệ thống tự chủ làm nghiên cứu). Khảo sát tìm hiểu các tác vụ chuyên gia muốn được hỗ trợ và điều kiện an toàn để tin cậy giao việc.",
-        "Ai2 cho biết việc này bắt nguồn từ nhu cầu nội bộ khi nhiều nghiên cứu an toàn hiện tập trung vào rủi ro thảm họa sinh học hoặc hạt nhân. Viện thấy cần thêm phương pháp đánh giá xem tác nhân có tuân thủ chuẩn mực nghiên cứu có trách nhiệm trong từng chuyên ngành hay không.",
-        "Ai2 đề xuất kiểm thử xem tác nhân có bỏ sót bằng chứng mâu thuẫn khi tổng quan tài liệu, hoặc có truy cập tệp ngoài phạm vi cho phép hay không. Về ranh giới, một nhà sinh học từ chối dùng AI tạo ý tưởng, còn một nhà nhân chủng học ủng hộ tự động hóa phần mô tả phương pháp theo khuôn mẫu.",
-        "Các tiêu chuẩn đánh giá đề xuất hiện mới là ý tưởng thử nghiệm cùng giới khoa học chứ chưa phải giải pháp hoàn chỉnh."
+        "Viện Ai2 đã phỏng vấn 17 nhà khoa học tại Mỹ về phát triển có trách nhiệm tác nhân AI (hệ thống dùng công cụ làm nghiên cứu với mức tự chủ khác nhau). Viện nhấn mạnh đây là nghiên cứu khám phá, không phải khảo sát đại diện cho ý kiến toàn thể giới khoa học.",
+        "Ai2 cho biết việc này bắt nguồn từ nhu cầu đánh giá an toàn mô hình nội bộ, khi các nghiên cứu hiện chủ yếu tập trung vào thảm họa sinh học hoặc hạt nhân. Viện thấy cần phương pháp đánh giá xem tác nhân có tuân thủ chuẩn mực nghiên cứu có trách nhiệm trong từng ngành hay không.",
+        "Các nhà khoa học đặt ranh giới khác nhau: một nhà sinh học từ chối dùng AI tạo ý tưởng vì coi đó là trách nhiệm cá nhân cần tự giữ. Trái lại, một nhà nhân chủng học ủng hộ tự động hóa các phần theo khuôn mẫu như mô tả phương pháp và kết quả.",
+        "Ai2 hướng tới tiêu chuẩn đánh giá (benchmark: bài kiểm tra năng lực) có sự tham gia của các nhà khoa học để cùng xác định quy trình và yêu cầu an toàn. Dù vậy, viện nhấn mạnh các đánh giá này hiện mới là đề xuất thử nghiệm chứ chưa phải giải pháp hoàn chỉnh."
       ],
       "same_event_coverage_ids": [
         "13d6d4c895c449335d1e"
@@ -144154,7 +144159,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Ai2 đề xuất kiểm thử tác nhân AI nghiên cứu khoa học dựa trên khảo sát 17 chuyên gia tại Mỹ",
+      "editorial_headline_vi": "Ai2 phỏng vấn 17 nhà khoa học tại Mỹ để đề xuất chuẩn đánh giá có trách nhiệm cho tác nhân AI",
       "summary_sources": [
         {
           "id": "outlet",
@@ -144169,40 +144174,24 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.55,
+        "value": 8.75,
         "answers": {
           "what": 8,
-          "why": 10,
-          "notable": 9,
-          "meaning": 7
+          "why": 8,
+          "notable": 10,
+          "meaning": 9
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "khảo sát 17 chuyên gia tại Mỹ",
-            "explanation": "Ai2 conducted interviews with 17 US-based scientists; the source explicitly says the study was not a representative survey (outlet:p014, outlet:p041)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "hệ thống tự chủ làm nghiên cứu",
-            "explanation": "The source describes systems that use tools and carry out research tasks with varying degrees of autonomy, not uniformly autonomous systems conducting research as a whole (outlet:p014)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
             "question": "what",
-            "problem": "The headline describes the 17-scientist interview study as a survey.",
-            "fix": "Call it interviews with 17 US-based scientists, and retain the source's limit that they do not represent scientific opinion generally (outlet:p014, outlet:p041)."
+            "problem": "The reader gets the proposed benchmark but less of the finding about researchers directing agents.",
+            "fix": "State that scientists should help choose agents’ tasks, how agents operate, and how their performance is evaluated (outlet:p018)."
           },
           {
-            "question": "what",
-            "problem": "The parenthetical description overstates what research agents do and how autonomous they are.",
-            "fix": "Describe them as systems that use tools to perform research tasks with varying degrees of autonomy (outlet:p014)."
-          },
-          {
-            "question": "meaning",
-            "problem": "The reader misses that scientists should help set the boundaries and standards for evaluating agents.",
-            "fix": "Add that Ai2 proposes developing evaluations with scientists, who would help define acceptable research practices and safety requirements (outlet:p017, outlet:p025–p026)."
+            "question": "why",
+            "problem": "The Vietnamese makes the source’s observation about safety work sound like an observation about research in general.",
+            "fix": "Specify that much safety work on scientific AI applications emphasizes catastrophic biology and nuclear-physics risks (outlet:p016)."
           }
         ],
         "writer_boats": [
@@ -144210,8 +144199,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "ffa7e5fd6022f42e35d1ae3ea835acec74452e13336d1aee6819e80d5e53015a",
-        "scored_at": "2026-11-25T21:25:21.541103+00:00"
+        "prose_sha256": "530ca377529ced1bb0cf9335880ce386475dabcbb4715b7b9352ea830902e7b8",
+        "scored_at": "2026-11-26T05:51:52.429414+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
@@ -144288,6 +144277,1741 @@
         "36410e170c1ee0d69cb8"
       ],
       "split_coverage_ids": []
+    },
+    {
+      "id": "d598242c83edcbbf4aa1",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-26/huawei-teases-next-gen-ai-memory-chip-to-take-on-samsung-hynix",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b2f46d215645494b0a83"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "406cfbe1c5f7aa7a4542",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.scmp.com/tech/tech-war/article/3375758/chinese-ai-chips-capture-88-home-market-2028-ubs-says-nvidia-woes-mount",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "d408432489efb502c812"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Chinese AI accelerator market",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "f384089e98365fce7322",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://pandaily.com/huawei-ip-forum-tau-unifiedbus-hi-one-ai-compute",
+      "key_points": [
+        "Tại Diễn đàn Đổi mới và Sở hữu Trí tuệ lần thứ 7 ở Bắc Kinh vào ngày 24 tháng 11, Huawei giới thiệu các giải pháp chế tạo chip, kết nối mạng và liên kết quang học cùng số liệu bằng sáng chế chính thức.",
+        "Theo Pandaily, các nhà sản xuất chip phải tìm kiếm hướng đi mới ngoài việc thu nhỏ bóng bán dẫn do trí tuệ nhân tạo đang đẩy các trung tâm dữ liệu tới giới hạn vật lý và nhiệt. Thay vì thu nhỏ hình học hai chiều, Huawei nhấn mạnh khả năng mở rộng theo thời gian qua Định luật Tỷ lệ Tau và công nghệ LogicFolding sử dụng liên kết lai với khoảng cách gần bằng không.",
+        "Huawei công bố triển khai thương mại động cơ quang học cận đóng gói Hi-ONE trên Atlas 960E SuperPoD, nhưng Pandaily ghi nhận tuyên bố về động cơ sản xuất hàng loạt đầu tiên này chưa được kiểm chứng độc lập. Doanh nghiệp này cũng giới thiệu giao thức UnifiedBus để mở rộng các cụm SuperCluster lên tới một triệu bộ xử lý, song ấn phẩm lưu ý đây chỉ là mục tiêu kiến trúc nội bộ.",
+        "Huawei phác thảo góc nhìn về trung tâm dữ liệu thời hậu định luật Moore qua Định luật Tỷ lệ Tau, UnifiedBus và Hi-ONE, đồng thời lập luận rằng tiến bộ không thể chỉ dựa vào việc xếp thêm bóng bán dẫn lên phiến wafer hai chiều."
+      ],
+      "same_event_coverage_ids": [
+        "7135be707d1908007751"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Huawei AI compute architecture",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Huawei giới thiệu định luật tỷ lệ Tau và thương mại hóa động cơ quang học Hi-ONE",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "pandaily",
+          "url": "https://pandaily.com/huawei-ip-forum-tau-unifiedbus-hi-one-ai-compute"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.7,
+        "answers": {
+          "what": 8,
+          "why": 10,
+          "notable": 8,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The reader misses the official research and patent figures that were part of the forum announcement.",
+            "fix": "Add a concise figure, such as Huawei’s reported CNY 192.3 billion in 2025 research spending or more than 165,000 active granted patents, with attribution to Huawei (outlet:p009)."
+          },
+          {
+            "question": "notable",
+            "problem": "“Processors” loses the specificity of the SuperCluster target.",
+            "fix": "Call the target up to one million NPUs and keep clear that it is a company architecture target, not a result measured at the forum (outlet:p005)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "eff2b2f33957692b3230e63402ed5df7f87bffc241a489e3f5ae081502525258",
+        "scored_at": "2026-11-26T05:35:35.413836+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "8322d8e2af6ba8dabc32",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-26/softbank-credit-risk-tops-500-basis-points-as-ai-worries-mount",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "802da1341ad9da0290b5"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "d2c7a9448931a68665e5",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-26/us-chip-curbs-stall-asia-data-center-financing-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "20c687e50c471af51541"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "f9cdf5cae760996293c9",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://en.yna.co.kr/view/AEN20261126004600320",
+      "key_points": [
+        "Bộ An toàn Thực phẩm và Dược phẩm Hàn Quốc thông báo sẽ cấm các quảng cáo sử dụng hình ảnh chuyên gia do trí tuệ nhân tạo (AI) tạo ra để quảng bá thực phẩm, dược phẩm và mỹ phẩm từ tuần này. Cơ quan này cho biết đã sửa đổi các quy định thi hành luật liên quan và sẽ bắt đầu áp dụng tuần tự từ thứ Sáu.",
+        "Một quan chức thuộc bộ quản lý dược phẩm cho biết cơ quan này sẽ bảo vệ người dân trước các quảng cáo không công bằng lạm dụng công nghệ mới.",
+        "Các đơn vị vi phạm quy định sẽ bị buộc phải đình chỉ kinh doanh hoặc bị yêu cầu tạm ngừng mọi hoạt động quảng cáo và bán hàng.",
+        "Đại diện bộ nhận định quy định này hướng đến mục tiêu tạo dựng một môi trường nơi khách hàng có thể cảm thấy an toàn."
+      ],
+      "same_event_coverage_ids": [
+        "4f4a31db0c5a5626f468"
+      ],
+      "split_coverage_ids": [],
+      "subject": "South Korea AI advertising regulation",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "region_locked:South Korea",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Hàn Quốc cấm quảng cáo thực phẩm, dược phẩm và mỹ phẩm dùng chuyên gia AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "yonhap",
+          "url": "https://en.yna.co.kr/view/AEN20261126004600320"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "3c998bf124eadab449b4d56dfee1d1adadbaeef520e32c762b45c822951eb523",
+        "scored_at": "2026-11-26T05:35:35.413959+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "9cb19612588e26b897d1",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Macroeconomic reporting focused on Bank of Korea's national GDP growth forecasts and historical revisions, with only an incidental passing reference to AI semiconductor exports.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://en.yna.co.kr/view/AEN20261126001851320",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "2f2e018f40c6c58e5e10"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "43d92711b8cb8a245f19",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Routine stock market opening update reporting that Seoul shares opened higher, containing only an incidental passing headline reference to AI woes.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://en.yna.co.kr/view/AEN20261126001600320",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "2fcf6ddc1c98ad37b49c",
+        "7d31e37a666762bca2bc",
+        "9ac86af4d6b34f6a28b2"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "ee0a969bd875cf99ac8b",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://brownstone.org/articles/the-near-coup-at-nvidia-and-the-war-on-open-source-ai/",
+      "key_points": [
+        "Tác giả bài viết trên Brownstone coi việc Jensen Huang rời chức giám đốc điều hành Nvidia là một cuộc đảo chính. Dù truyền thông đưa tin về quan hệ giữa Huang và lãnh đạo Megaspeed, CIA vẫn chưa tin bà cố ý chuyển giao tin tức cho Bắc Kinh.",
+        "Theo tác giả, các quy định cấp phép chip và sắc lệnh liên bang đang dọn đường cho các tập đoàn công nghệ lớn nhất của Mỹ. Tác giả cho rằng các quy định này giáng đòn nặng nhất vào mô hình miễn phí vì chúng không có nguồn thu phí để trang trải chi phí pháp lý.",
+        "Nvidia đã đồng ý mua nền tảng Hugging Face với giá 12,9 tỷ USD trong bối cảnh Huang tích cực thúc đẩy các mô hình mở. Trong khi Anthropic gánh cam kết chi tiêu 900 tỷ USD, các mô hình mở đã chiếm hơn 70% tác vụ xử lý văn bản trên Vercel.",
+        "Tác giả nhận định Huang được đưa trở lại vì thiệt hại thị trường quá nặng nề và họ muốn ngăn chặn đà sụp đổ, dù cơ quan chứng khoán Mỹ đang điều tra kế toán của Nvidia. Trước đó, trong bảy ngày giao dịch sau khi Huang rời chức, khoảng 1,16 nghìn tỷ USD giá trị trên giấy tờ của Nvidia đã bốc hơi trước khi ông trở lại."
+      ],
+      "same_event_coverage_ids": [
+        "8fdc8c5bfb91aa003023"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Nvidia leadership and open-source AI",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Jensen Huang",
+          "Donald Trump",
+          "Xi Jinping"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nvidia bốc hơi khoảng 1,16 nghìn tỷ USD trên giấy tờ sau khi CEO Jensen Huang rời chức",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://brownstone.org/articles/the-near-coup-at-nvidia-and-the-war-on-open-source-ai/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 6.55,
+        "answers": {
+          "what": 8,
+          "why": 3,
+          "notable": 8,
+          "meaning": 5
+        },
+        "hard_errors": [
+          {
+            "kind": "cause",
+            "summary_text": "các quy định này giáng đòn nặng nhất vào mô hình miễn phí vì chúng không có nguồn thu phí để trang trải chi phí pháp lý",
+            "explanation": "Here, “these rules” refers to the chip licensing rule and federal order. The source makes the legal-cost argument about Senator Blackburn’s proposed AI model bill, not those two measures (outlet:p032, outlet:p033)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "Readers are told the chip rule and federal order impose the legal burden on free models.",
+            "fix": "Attribute that argument to the proposed TRUMP AMERICA AI Act, which would require advanced-model developers to join a federal program and provide model materials on request (outlet:p033)."
+          },
+          {
+            "question": "what",
+            "problem": "Readers miss Anthropic’s record IPO, a major event in the source’s account.",
+            "fix": "Add the IPO and distinguish its valuation from the roughly $900 billion in spending commitments (outlet:p011, outlet:p053)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The scale of Anthropic’s funding problem and the writer’s pricing conclusion are unclear.",
+            "fix": "State that the IPO and side deal amounted to about 13% of the commitments, while the writer argues improving open alternatives constrain price increases (outlet:p053, outlet:p055)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "5d0366825dc8e68762a9aeb64d9f70b7191e4ec9ec5fdbfcb3479b6830cb8054",
+        "scored_at": "2026-11-26T05:45:49.643543+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "6b92c74afe8beb0fb7b7",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-25/still-in-early-innings-of-ai-adoption-psp-s-momei-qu-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "6a58fffc864fe6f9ce18"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "fa378e1cc57d68852c6f",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "General equity market technical commentary focused on index intraday reversals, support levels, and dip buying, with only a passing headline reference to AI winners.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-25/financials-healthcare-will-be-big-ai-winners-yardeni-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "aa0a41abfd9de9ae5689"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "2fb0274db5180920d6a4",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/25/2026/tech-selloff-extends-on-ai-neocloud-jitters",
+      "key_points": [
+        "Đà bán tháo trong lĩnh vực công nghệ tiếp tục lan rộng vào thứ Tư khi đợt hồi phục thị trường sau sự trở lại của Jensen Huang tại Nvidia nhanh chóng tan biến.",
+        "Theo Semafor, làn sóng sụt giảm diễn ra do lo ngại gia tăng xung quanh nhóm công ty điện toán đám mây thế hệ mới sử dụng đòn bẩy tài chính cao.",
+        "Theo Semafor, hợp đồng nợ của CoreWeave phản ánh xác suất vỡ nợ hơn 70% trong năm năm tới, giữa lúc hợp đồng hoán đổi rủi ro tín dụng của Nvidia, Alphabet, Oracle và SpaceX chạm mức kỷ lục.",
+        "Cây bút Liz Hoffman của Semafor nhận định phiên tăng điểm kỷ lục sẽ sớm bị lãng quên khi giới đầu tư tỉnh táo nhận ra lý do khiến họ bất an ban đầu."
+      ],
+      "same_event_coverage_ids": [
+        "34d321f8ffc0a9b474b3"
+      ],
+      "split_coverage_ids": [],
+      "subject": "AI tech selloff and neocloud debt",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Jensen Huang",
+          "Liz Hoffman"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Đà bán tháo cổ phiếu công nghệ tiếp diễn khi hiệu ứng CEO Nvidia trở lại hạ nhiệt",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/25/2026/tech-selloff-extends-on-ai-neocloud-jitters"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 7.55,
+        "answers": {
+          "what": 10,
+          "why": 3,
+          "notable": 7,
+          "meaning": 9
+        },
+        "hard_errors": [
+          {
+            "kind": "cause",
+            "summary_text": "làn sóng sụt giảm diễn ra do lo ngại gia tăng xung quanh nhóm công ty điện toán đám mây thế hệ mới sử dụng đòn bẩy tài chính cao",
+            "explanation": "The source reports a fading rally and intensifying worries around leveraged neoclouds, but does not state that those worries caused the entire technology selloff (outlet:p001–p002)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "hợp đồng nợ của CoreWeave",
+            "explanation": "The source refers to swaps on CoreWeave’s debt, not debt contracts themselves (outlet:p002)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The reader is given a definite cause for the broad selloff that the source does not establish.",
+            "fix": "Report that the rally faded as worries about leveraged neoclouds intensified, without making those worries the stated cause of the entire selloff (outlet:p001–p002)."
+          },
+          {
+            "question": "notable",
+            "problem": "The CoreWeave sentence identifies the wrong financial instrument.",
+            "fix": "Say that swaps on CoreWeave’s debt implied a greater than 70% chance of default within five years (outlet:p002)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "c050663ab5c3382169e47759b17c61a789f3a3d19db803683cc98253d51cb175",
+        "scored_at": "2026-11-26T05:35:35.414051+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "5333ad8abec0981e629d",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/25/2026/new-us-export-rules-threaten-asian-ai-buildout",
+      "key_points": [
+        "Theo Bloomberg đưa tin, các bên cho vay đã dừng hàng tỷ USD tài trợ liên quan đến các tập đoàn ByteDance, Alibaba và Tencent. Quyết định này xuất hiện khi quy định kiểm soát xuất khẩu chip AI (trí tuệ nhân tạo) mới của Mỹ đe dọa đình trệ trung tâm dữ liệu châu Á.",
+        "Theo Semafor, mối quan hệ tình cảm của CEO Nvidia với một nhân sự cấp cao tại Singapore đã làm tăng lo ngại chip tiên tiến bị tuồn sang các công ty đại lục.",
+        "Theo Washington, các công ty tại Singapore, Malaysia, Indonesia, Thái Lan và Brazil phải có giấy phép của chính phủ để mua chip Mỹ. Đồng thời, các trung tâm dữ liệu đang cho doanh nghiệp Trung Quốc thuê năng lực tính toán (compute) có 90 ngày để xin một giấy phép riêng.",
+        "Giới phân tích tại Barclays nhận định quy định này chuyển hướng kiểm soát từ điểm đến vật lý sang người tiếp cận tính toán, gây tác động dây chuyền tới kinh tế châu Á."
+      ],
+      "same_event_coverage_ids": [
+        "e4e503ff9a02c6e9a852"
+      ],
+      "split_coverage_ids": [],
+      "subject": "US AI chip export controls",
+      "video_labels": {
+        "video_hook": "drama_company",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Dừng hàng tỷ USD vốn liên quan đến ByteDance, Alibaba và Tencent do Mỹ siết xuất khẩu chip AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/25/2026/new-us-export-rules-threaten-asian-ai-buildout"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.65,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "“Dừng” can leave readers with a stronger impression than the source’s temporary pause.",
+            "fix": "Use “tạm dừng” for the lenders’ action in the headline and opening paragraph (outlet:p001)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "316800816569325f072299c2d1fc70b15485a856dcfb6a4e90663ddbafb50d16",
+        "scored_at": "2026-11-26T05:45:49.643618+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "5fa0069d2950d3496971",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/25/2026/us-intelligence-suggests-jensen-affair-was-actually-amorous",
+      "key_points": [
+        "Bằng chứng do tình báo Mỹ thu thập cho thấy mối quan hệ giữa Jensen Huang và Alice Huang có thể thực sự mang tính lãng mạn.",
+        "The Wall Street Journal đưa tin giới chức xác nhận lãnh đạo Megaspeed có liên lạc với cơ quan tình báo Trung Quốc trong thời gian xảy ra vụ việc. Dù vậy, các quan chức khẳng định không có dấu hiệu cho thấy người này đã tiết lộ thông tin tình báo quan trọng.",
+        "Semafor nhận định vụ việc làm gia tăng lo ngại về bí mật thương mại Mỹ, còn một cựu lãnh đạo công nghệ lo sợ vị này sẽ có hành vi rủi ro khác. Đồng thời, tổ chức xếp hạng S&P Global Ratings đang cân nhắc hạ bậc tín nhiệm của Nvidia."
+      ],
+      "same_event_coverage_ids": [
+        "d7a97e6a76dd81300d31"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Jensen Huang intelligence briefing",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Jensen Huang",
+          "Alice Huang"
+        ],
+        "availability": "unknown",
+        "is_leak": true
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Tình báo Mỹ nhận định mối quan hệ của CEO Nvidia có thể là tình cảm lãng mạn, không phải âm mưu",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/25/2026/us-intelligence-suggests-jensen-affair-was-actually-amorous"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "f959b5b46affc528cacda308d44edad198bc27ae806150633f899f56197dd5c6",
+        "scored_at": "2026-11-26T05:45:49.643654+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "69c0601d70f93f1e53f8",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://github.blog/changelog/2026-11-25-copilot-code-review-billing-will-default-to-the-organization",
+      "key_points": [
+        "GitHub thông báo từ ngày 30 tháng 12 năm 2026, các lượt duyệt mã bằng Copilot (tính năng trí tuệ nhân tạo hỗ trợ xem xét mã nguồn) của thành viên có bản quyền sẽ mặc định tính phí cho tổ chức nếu chưa chọn phương thức thanh toán. Quy định này áp dụng đối với các tổ chức và doanh nghiệp đang sử dụng gói Copilot Business hoặc Copilot Enterprise.",
+        "Theo GitHub, chi phí duyệt mã sẽ chuyển từ hạn ngạch của thành viên sang tổ chức sở hữu kho lưu trữ. Riêng các tài khoản chưa kích hoạt trả phí AI Credits, bị khóa thanh toán hoặc không có đối tượng thanh toán vẫn được cài đặt tính phí cho thành viên.",
+        "GitHub lưu ý việc tính phí cho tổ chức đòi hỏi phải bật thanh toán AI Credits và có thể làm tăng chi tiêu của tổ chức."
+      ],
+      "same_event_coverage_ids": [
+        "72d3f7c160fc53fd1e3f"
+      ],
+      "split_coverage_ids": [],
+      "subject": "GitHub Copilot code review billing",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "GitHub: Tính năng duyệt mã Copilot sẽ mặc định tính phí cho tổ chức từ cuối năm 2026",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "github",
+          "url": "https://github.blog/changelog/2026-11-25-copilot-code-review-billing-will-default-to-the-organization"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.8,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 7,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "Readers are not told how to keep billing against members’ Copilot entitlements.",
+            "fix": "Say to select Member in the organization or enterprise Copilot policy settings before December 30; the choice remains effective afterward (outlet:p002, outlet:p008)."
+          },
+          {
+            "question": "meaning",
+            "problem": "Readers may miss that saved choices remain effective and the separate setting for unlicensed members is unchanged.",
+            "fix": "Add these two limits to the change’s scope (outlet:p005, outlet:p006)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "94c07f5a98a01bf33fd5d0aa276cd3456af937524b2223caa552573492429707",
+        "scored_at": "2026-11-26T05:35:35.414124+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "acd1839cbac010dd245e",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://github.com/alesha-pro/llm.asm/tree/main/02-baremetal-os",
+      "key_points": [
+        "Tác giả dự án phát triển hệ điều hành bare-metal (chạy trực tiếp trên phần cứng) trong 24 KB hợp ngữ thuần túy cho mô hình Qwen3-0.6B. Hạt nhân Multiboot 1 tĩnh này có kích thước 24.252 byte ở chế độ mặc định và không chứa thành phần phụ thuộc động nào.",
+        "Hệ điều hành kết hợp các mô-đun toán và ma trận với 4.167 dòng mã trực tiếp trên phần cứng. Hệ thống liên kết trực tiếp tệp trọng số mô hình từ RAM vật lý và khởi động nguội sau 74 đến 94 mili giây.",
+        "Trong thử nghiệm chuẩn hóa (benchmark), hệ thống đạt sự trùng khớp 100% từng token và từng byte với Giai đoạn 1 trên 1 đến 32 vCPU (CPU ảo). Tốc độ giải mã đạt 134,9 token mỗi giây trên QEMU KVM với 16 vCPU chip AMD EPYC 7642 và đạt 55,4 token mỗi giây trên máy ảo Proxmox VE không ổ đĩa dùng chip Intel Xeon E5-2670 v3.",
+        "Tác giả dự án cho biết hệ điều hành riêng này vận hành Qwen3-0.6B trực tiếp trên phần cứng x86-64 hoặc KVM mà không cần Linux, Windows hay libc. Dù vậy, hệ thống đòi hỏi CPU x86-64 hỗ trợ AVX2 và FMA, đồng thời cấu hình máy ảo Proxmox VE cần 2 GiB RAM khách liên tục cho mô hình cùng bộ nhớ đệm."
+      ],
+      "same_event_coverage_ids": [
+        "26ccb2a496ad4985eb9f"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Bare Metal Qwen OS release",
+      "video_labels": {
+        "video_hook": "usable_now",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Hệ điều hành hợp ngữ 24 KB tự khởi động chạy Qwen3-0.6B trực tiếp trên phần cứng không cần Linux hay Windows",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://github.com/alesha-pro/llm.asm/tree/main/02-baremetal-os"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "Readers do not receive the complete CPU prerequisite.",
+            "fix": "Add F16C alongside AVX2 and FMA (outlet:p009)."
+          },
+          {
+            "question": "meaning",
+            "problem": "Readers may miss that the fast boot leads to an interactive, multi-turn chat with a persistent KV-cache.",
+            "fix": "Describe the interactive chat capability and persistent cache (outlet:p004, outlet:p046)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "9376bf7c68b5084c371320bb8f129b155a18d6325819e4a0ce27a3a9cb655c7e",
+        "scored_at": "2026-11-26T05:45:49.643683+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "c91a30b4e6522b01bf53",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/entertainment/1042221/google-my-channel-ai-video-patent",
+      "key_points": [
+        "Theo The Verge, Google từng nộp bằng sáng chế My Channel tạo luồng video và quảng cáo AI cá nhân hóa từ dữ liệu người dùng. Hồ sơ đã bị từ chối, nhưng Google có thể kháng cáo hoặc nộp bản sửa đổi.",
+        "Theo mô tả sáng chế, My Channel thu thập lịch sử xem, nhân khẩu học, độ tuổi cùng dữ liệu thiết bị như địa chỉ IP và tọa độ GPS. Hệ thống tự tạo câu lệnh đưa vào mô hình ngôn ngữ lớn và tạo video trên máy chủ Google theo sở thích người dùng.",
+        "Hồ sơ sáng chế đề cập My Channel có thể tạo hình đại diện số và biến người dùng thành nhân vật chính trong nội dung xuất xưởng. Tài liệu nêu ví dụ nếu người dùng xem nhiều video về The Odyssey của Christopher Nolan, hệ thống có thể cung cấp tác phẩm Odysseus: The Fall của Ash Koosha.",
+        "Tác giả trên The Verge nhận xét nội dung do Google đề xuất không hề khuyến khích khán giả dùng trí tưởng tượng để đồng cảm với nhân vật. Bài viết cũng cho rằng dịch vụ này sẽ cản trở người xem tiếp xúc điều mới lạ và làm giảm hứng thú với tác phẩm không được tùy biến theo thị hiếu định sẵn."
+      ],
+      "same_event_coverage_ids": [
+        "06bb9f3c0af8f01dea96"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Google",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Bằng sáng chế My Channel bị từ chối của Google đề xuất tạo video AI biến người dùng thành nhân vật chính",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/entertainment/1042221/google-my-channel-ai-video-patent"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.4,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 6
+        },
+        "hard_errors": [
+          {
+            "kind": "quote",
+            "summary_text": "dịch vụ này sẽ cản trở người xem tiếp xúc điều mới lạ và làm giảm hứng thú với tác phẩm không được tùy biến theo thị hiếu định sẵn",
+            "explanation": "The Verge says a hypothetical service would make it easier to avoid new things and would discourage engagement with untailored entertainment; the rejected patent may never become a service (outlet:p015, outlet:p020)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The reader may take the predicted effect as a certain outcome of an existing service.",
+            "fix": "Frame it as The Verge’s concern about what My Channel could do if launched (outlet:p015, outlet:p020)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "f4854299ba740dd2ed10fda7399bab50ef719de90a5317c46e5e083399ffe0e2",
+        "scored_at": "2026-11-26T05:45:49.643715+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "d0f42301425834014aa9",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://github.com/lsernau/grh-lean",
+      "key_points": [
+        "Một nhân sự tại Anthropic cùng mô hình Claude công bố bản chứng minh rút gọn bằng ngôn ngữ Lean 4 cho Giả thuyết Riemann và Giả thuyết Riemann tổng quát đối với các hàm L Dirichlet. Kho lưu trữ này là sản phẩm nghiên cứu không tiếp tục duy trì và không nhận đóng góp bên ngoài.",
+        "Công trình xây dựng trên thư viện Mathlib, kế thừa tài liệu của Levent Alpöge và chỉ dùng ba tiên đề gồm propext, Classical.choice cùng Quot.sound.",
+        "Dự án gồm bản rút gọn grh-compact chứa cùng năm định lý với khoảng 76.000 dòng mã, bên cạnh phiên bản thông thường khoảng 300.000 dòng.",
+        "Theo tác giả, chứng minh hiện mới chỉ vượt qua khâu kiểm tra tự động của máy tính. Chưa có nhà toán học nào đọc thẩm định và dự án không kèm bài báo khoa học nào."
+      ],
+      "same_event_coverage_ids": [
+        "1968d7b0f5b310a24dcb"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Anthropic",
+      "video_labels": {
+        "video_hook": "usable_now",
+        "named_people": [
+          "Levent Alpöge"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nhân sự Anthropic công bố bản chứng minh Giả thuyết Riemann rút gọn trên Lean 4",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://github.com/lsernau/grh-lean"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.65,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "0cfde5cf2789226de7b99b159f1c7efa441cb0e948cb7e13c5186c19371ec02e",
+        "scored_at": "2026-11-26T05:35:35.414271+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "8b46e16140a73639389b",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-25/anthropic-s-stock-sparks-rare-divide-inside-one-wall-street-firm",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "ab657d61e2b6317e4723"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "ffd0ac8a7fd47ec0c8e0",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-25/jpmorgan-sees-450-billion-ai-debt-blitz-in-2027-before-plateau",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "f523ba1249f4af8f03c1"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "1af423c5f25f6f5dede3",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-25/stomach-churning-swings-rock-wall-street-as-ai-doubts-creep-in",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "4ccd61ea5b428a3e97a7"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "06752950474a057f89ec",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Lawsuit alleging accounting fraud at cybersecurity firm Palo Alto Networks; AI is mentioned only in passing regarding an unrelated acquisition.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-25/palo-alto-networks-accused-by-ex-executive-of-accounting-fraud",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "a752b3c59aa9acbff80b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "45b582f32b16ce918142",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://x.com/ArtificialAnlys/status/2125691597602058284",
+      "key_points": [
+        "Artificial Analysis launched a leaderboard for FrontierPhysics featuring 54 physics research tasks written by physicists.",
+        "Claude Fable 5.2 leads the benchmark with a score of 32%, six points ahead of GPT-6.2 Astra.",
+        "FrontierPhysics is an evaluation benchmark developed by Benchflow AI."
+      ],
+      "same_event_coverage_ids": [
+        "73f763c66ec26eadc4bf"
+      ],
+      "split_coverage_ids": [],
+      "subject": "FrontierPhysics",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "ca50c97bfd277b176c97",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Casual social media post by Jason Wei regarding test-time compute scaling without substantive reporting or news announcement.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://x.com/_jasonwei/status/2125667083807789510",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "45075f04d8dd20d9502b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "77bb663b6361291f59ee",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techcrunch.com/2026/11/25/sp-considers-nvidia-credit-downgrade-over-governance-and-key-man-risks/",
+      "key_points": [
+        "S&P Global Ratings is considering downgrading Nvidia's credit rating from AA to AA- over governance and management concerns.",
+        "S&P cited weak executive oversight, lack of succession planning, and key man risk following the ouster and return of CEO Jensen Huang.",
+        "The credit rating review is expected to conclude within 90 days.",
+        "A downgrade could increase borrowing costs for Nvidia and raise financing costs for AI infrastructure firms relying on Nvidia's credit backstop."
+      ],
+      "same_event_coverage_ids": [
+        "70a5518ab9803b3d2652",
+        "96149b0e35231f12aebd"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Nvidia",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Jensen Huang"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "9a85093d5f190173f0c6",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Casual social media post by Dario Amodei refuting claims about surrendering free will to AI, lacking substantive reporting or formal news announcement.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://x.com/DarioAmodei/status/2125656399392690605",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "93a6f591deb1850518cf"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "8763b70407b0edf6de9b",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-25/open-interest-11-25-2026-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "54ff516111a6835f4305",
+        "970a559189b4acc28fa9"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "60894b4a270c0b22d22f",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Hacker News discussion thread asking for examples of AI-generated software; casual forum discussion without substantive reporting or news release.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://news.ycombinator.com/item?id=50643767",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "4a347bad1d9f2655703a"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "13d84a0fbee445581fac",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://github.com/alesha-pro/llm.asm",
+      "key_points": [
+        "Dự án llm.asm công bố ba dự án mô hình ngôn ngữ lớn (phần mềm AI xử lý văn bản) viết hoàn toàn bằng hợp ngữ x86-64 NASM mà không phụ thuộc vào bất kỳ thư viện ngoài nào. Toàn bộ hệ sinh thái gồm 17.252 dòng mã hợp ngữ được biên dịch trực tiếp bằng nasm và liên kết qua ld.",
+        "Trong quá trình giải mã, phần mềm llm.asm kết hợp các phép tính ma trận INT8xINT8 AVX2, tỷ lệ khối FP16 cùng cơ chế nạp trước hàng kế tiếp và bộ nhớ đệm KV liên tục.",
+        "Ở bài thử giải mã mô hình Qwen3-0.6B lượng tử hóa Q8_0, bản suy luận asm-llm đạt tốc độ 126,8 token mỗi giây tại 40 luồng và nhanh hơn phần mềm llama.cpp từ 18% đến 36%.",
+        "Theo dự án llm.asm, bản hệ điều hành tăng thêm khoảng 10% hiệu năng khi ánh xạ trang lớn 2 MiB, nhưng lưu ý llama.cpp xử lý theo lô khi nạp lệnh còn llm.asm tính từng token. Kết quả đo kiểm này được ghi nhận trên máy chủ AMD EPYC 7642 ở chế độ chỉ dùng bộ xử lý trung tâm qua giá trị trung bình của 3 lần chạy."
+      ],
+      "same_event_coverage_ids": [
+        "e8c7596ee19fe6629f18"
+      ],
+      "split_coverage_ids": [],
+      "subject": "llm.asm",
+      "video_labels": {
+        "video_hook": "usable_now",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Dự án llm.asm bằng hợp ngữ x86-64 đạt tốc độ giải mã mô hình Qwen3-0.6B nhanh hơn llama.cpp tới 36% trên CPU",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "github",
+          "url": "https://github.com/alesha-pro/llm.asm"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.2,
+        "answers": {
+          "what": 8,
+          "why": 9,
+          "notable": 8,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The 40-thread speed can be read as the three-run average.",
+            "fix": "Label 126.8 tokens/s as the peak; the three-run average is 125.86 tokens/s (outlet:p010, outlet:p018)."
+          },
+          {
+            "question": "what",
+            "problem": "Readers are told there are three projects without learning what the training project does.",
+            "fix": "Identify the third project as a Mini-GPT trainer and sampler (outlet:p008)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "fd2d76f7ded301373e171a0403522495c72f774098df1edc27ccd663770b0a11",
+        "scored_at": "2026-11-26T05:35:35.414334+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "fb06113008809773da37",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.30460",
+      "key_points": [
+        "Nhóm tác giả giới thiệu CONCOR, bộ đo chuẩn (công cụ đánh giá chuẩn hóa) có kiểm soát nhằm đánh giá khả năng giảm ảo giác thị giác của kỹ thuật giải mã tương phản trong mô hình AI đa phương thức. Hệ thống sử dụng chỉ số CGM để trực tiếp đánh giá sự cạnh tranh giữa câu trả lời đúng và các ứng viên ảo giác.",
+        "Theo nhóm nghiên cứu, các bộ đo hiện có chủ yếu tính điểm tác vụ cuối nên khó cô lập hiệu quả điều chỉnh tương phản do bị nhiễu bởi thiên kiến phản hồi.",
+        "Thử nghiệm của nhóm tác giả cho thấy các phương pháp giải mã tương phản có hành vi khác biệt, khi một số công cụ ưu tiên đáp án đúng còn số khác lại tạo thêm lỗi. Sự khác biệt này khiến việc tăng cường độ tương phản có thể nâng cao hiệu quả ở phương pháp này nhưng lại làm suy giảm ở phương pháp khác.",
+        "Nhóm tác giả kết luận cần đánh giá trực tiếp cơ chế hiệu chỉnh thay vì chỉ dựa vào kết quả đầu ra cuối cùng. Khung phân tích này chỉ áp dụng có kiểm soát cho kỹ thuật giải mã tương phản vốn đối chiếu phân phối từ để giảm thiểu hiện tượng ảo giác."
+      ],
+      "same_event_coverage_ids": [
+        "2349e5f3e3eaf281149c"
+      ],
+      "split_coverage_ids": [],
+      "subject": "CONCOR",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Ting Chen",
+          "Geng Li",
+          "Guohao Chen",
+          "Hanjia Lyu"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Bộ đo chuẩn CONCOR vạch rõ các phương pháp giải mã tương phản có thể gây thêm lỗi khi giảm ảo giác thị giác ở AI",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.30460"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.3,
+        "answers": {
+          "what": 10,
+          "why": 8,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The account of why final-output scores are insufficient leaves out two confounding factors.",
+            "fix": "Add candidate filtering and changes in generation trajectories alongside response bias (outlet:p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "8916312b972ee8e8d475dad9de0d982cf27f25bea0e7779e8af00c2fd4219aac",
+        "scored_at": "2026-11-26T05:35:35.414370+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "ebff2c465875d38f2e79",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.34907",
+      "key_points": [
+        "Nhóm tác giả giới thiệu Agentic LongLive, bộ nhớ tác tử (phần mềm tự hành) bất đồng bộ cho việc tạo video dài. Tác tử này chạy trên GPU riêng, chỉ đọc gợi ý đã nhận chứ không đọc video được tạo, đồng thời duy trì trạng thái cho từng thực thể.",
+        "Theo nhóm tác giả, các bộ tạo video thời gian thực rất khó duy trì tính nhất quán của nhân vật, đồ vật và địa điểm qua câu chuyện dài. Các hệ thống ngoại tuyến có thể lưu nhớ nhưng phải đọc trước toàn bộ kịch bản, điều mà việc phát trực tiếp không cho phép.",
+        "Trên chuẩn đánh giá (tiêu chuẩn đo lường) mới LongStory-Online gồm 25 câu chuyện với 857 cảnh, Agentic LongLive giúp mô hình cơ sở LongLive-2.0 tăng 26,3 điểm độ chính xác trạng thái bền vững. Hệ thống cũng tăng tính nhất quán danh tính nhân vật chính thêm 44,9 điểm và độ nhất quán địa điểm thêm 40,4 điểm, chỉ tốn thêm khoảng 1% thời gian tạo trên H100.",
+        "Theo hiểu biết của nhóm tác giả, đây là bộ tạo video thời gian thực đầu tiên có bộ nhớ văn bản và hình ảnh do một tác tử mô hình ngôn ngữ lớn (LLM) quản lý."
+      ],
+      "same_event_coverage_ids": [
+        "5e16e142b9c25e93d74e"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Agentic LongLive",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Shaoteng Liu",
+          "Shuai Yang",
+          "Wei Huang",
+          "Luozhou Wang",
+          "Song Han",
+          "Yukang Chen"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Agentic LongLive tăng 26,3 điểm độ chính xác trạng thái cho mô hình tạo video thời gian thực",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.34907"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.4,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The reader misses the evidence that the full system can stream faster than real time while maintaining image quality over long stories.",
+            "fix": "Add the reported 34.3 FPS on one 8xB200 node and stable image quality over 14-minute stories (outlet:p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "13db71f3d29b2c61b51bf2ee847bfa874c473646a1517daf64717a962c0de864",
+        "scored_at": "2026-11-26T05:45:49.643744+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "ab3d8dba6ffb67b7bd78",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.33636",
+      "key_points": [
+        "Nhóm tác giả giới thiệu mạng phục hồi hình ảnh HiGLR đa tỉ lệ để giải quyết bài toán phục hồi ảnh tất cả trong một (xử lý nhiều dạng hư tổn trên cùng mô hình). Thiết kế này dựa trên phân tích dư thừa không gian trong cơ chế tự chú ý (tính toán liên kết điểm ảnh) và mạng truyền thẳng tích chập.",
+        "Theo nhóm nghiên cứu, việc xử lý đặc trưng ở giai đoạn độ phân giải cao tốn chi phí tính toán và bộ nhớ rất lớn. Họ chỉ ra ba điểm dư thừa chính gồm khâu đọc truy vấn ở mức mịn nhất, định tuyến khóa trung gian và trộn không gian mở rộng.",
+        "Hệ thống giúp tăng tốc độ suy luận tới 4,24 lần so với các phương pháp hiện có. Cùng với việc tăng tốc độ tính toán, kết quả đánh giá ghi nhận hệ thống đồng thời đạt hiệu năng phục hồi hình ảnh dẫn đầu.",
+        "Hệ thống thay thế cơ chế tự chú ý tốn kém bằng nhân học độc lập đầu vào ở giai đoạn mịn nhất và chia sẻ chỉ số định tuyến ở các giai đoạn trung gian. Thiết kế mạng truyền thẳng hai không gian đi kèm cho phép trộn không gian gọn hơn, giúp dung hợp nhân hiệu quả mà vẫn giữ chất lượng xử lý."
+      ],
+      "same_event_coverage_ids": [
+        "e72df84f6d179d140da6"
+      ],
+      "split_coverage_ids": [],
+      "subject": "HiGLR",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Dongheon Lee",
+          "DongJae Lee",
+          "Sewhan Chun",
+          "Chanseul Cho",
+          "Youngwook Kim",
+          "Youngmin Ro",
+          "Yonghyun Jeong"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Mạng HiGLR tăng tốc độ suy luận tới 4,24 lần so với các phương pháp phục hồi ảnh hiện có",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.33636"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.8,
+        "answers": {
+          "what": 10,
+          "why": 9,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "f66aa3baf359df3ee7240189840fe27501cde7004d46300505b42cad83f78bd0",
+        "scored_at": "2026-11-26T05:35:35.414439+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "7f2029d0ffba62dc897c",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.33915",
+      "key_points": [
+        "Researchers introduced SEEK (Self-Evolution through Execution Knowledge) for agentic robot manipulation.",
+        "General-purpose multimodal foundation models allow robots to adapt during deployment from observations and feedback without task-specific demonstrations or training.",
+        "Robots typically lose execution knowledge once a task ends because what they learn is retained only in the model's working context."
+      ],
+      "same_event_coverage_ids": [
+        "eaba4cd8df1fe1ba91e5"
+      ],
+      "split_coverage_ids": [],
+      "subject": "SEEK",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "77aa4e08ec8bd2d64428",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.28010",
+      "key_points": [
+        "Nhóm tác giả của Wenrui Zhou đề xuất SlidesWeaver, hệ thống đa tác tử (hệ thống phần mềm tự thực hiện tác vụ) lai kết hợp ngôn ngữ và thị giác để tạo bài thuyết trình PPTX. Các tác tử này phối hợp qua trạng thái chung ở cấp tệp và từng trang trình chiếu.",
+        "Các tác giả cho biết phương pháp lập trình cho thiết kế cứng nhắc còn hình ảnh lại khó chỉnh sửa khi bị nén thành điểm ảnh. Hệ thống lai có thể kết hợp cả hai nhưng phải điều phối các quyết định phụ thuộc lẫn nhau giữa nội dung, bố cục và diện mạo.",
+        "Trên 1.728 lượt tạo thuộc 24 cấu hình hệ thống và mô hình, SlidesWeaver đạt chất lượng vượt trội nhất quán ở mọi khía cạnh đánh giá. Nhóm tác giả cho biết hệ thống duy trì khả năng kiểm soát cấu trúc, tính dễ chỉnh sửa và hiệu quả tạo slide thực tế.",
+        "Nhóm tác giả cho biết hệ thống bảo toàn văn bản gốc cùng hình học và duy trì kiểm soát cấu trúc. Thiết kế này sử dụng hai lịch trình tạo khác nhau tùy theo mức ưu tiên giữa sự tự do bố cục và việc bảo toàn chính xác văn bản."
+      ],
+      "same_event_coverage_ids": [
+        "e612f2f00ac6b62af8b7"
+      ],
+      "split_coverage_ids": [],
+      "subject": "SlidesWeaver",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Hệ thống SlidesWeaver đạt chất lượng tạo slide vượt trội qua 1.728 lượt tạo trên 24 cấu hình",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.28010"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "bảo toàn văn bản gốc cùng hình học",
+            "explanation": "The source says the system preserves native text and geometry—text as editable presentation elements—not necessarily original input wording (outlet:p009)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "“Original text” can give the reader the wrong idea about what remains editable.",
+            "fix": "Describe preservation of native, editable text elements and geometry (outlet:p009)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "e8aa00742492e173fc76603abe3f8f81d4d40425900d5dd26b617eb49d3f117c",
+        "scored_at": "2026-11-26T05:45:49.643775+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "7595e1db164d796d15d6",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.34237",
+      "key_points": [
+        "Nhóm tác giả giới thiệu VibeVideoAgent, một khung làm việc không cần huấn luyện bổ sung giúp tác tử (chương trình phần mềm tự hành) viết mã có thể trực tiếp kiểm tra các bản nháp video trong suốt quá trình sản xuất.",
+        "Theo các tác giả, cơ chế này giải quyết tình trạng đưa dữ liệu khung hình và âm thanh vào phiên lập trình gây quá tải ngữ cảnh, đồng thời tránh việc chỉ đánh giá bản kết xuất cuối cùng khiến việc sửa lỗi thiết kế ban đầu trở nên tốn kém.",
+        "Trên toàn bộ 239 tác vụ của bộ kiểm chuẩn VibeVideoBench (bộ tiêu chuẩn đánh giá) với môi trường thực thi tương đương, VibeVideoAgent nâng chất lượng nghe nhìn toàn diện L3 của Claude Opus 5.5 từ 4,03 lên 4,43 điểm, đồng thời độ tuân thủ tiêu chí L2 tăng từ 98,87% lên 99,35%. Công cụ cũng nâng điểm L3 của GPT-6 Astra từ 4,03 lên 4,27 và ghi nhận mức tăng lớn nhất ở khả năng đồng bộ âm thanh - hình ảnh lên đến 0,56 điểm.",
+        "Các tác giả kết luận rằng việc kiểm tra lịch sử thao tác cho thấy độ chi tiết khi chỉnh sửa mã quyết định sự đánh đổi giữa mức tuân thủ tiêu chí đánh giá và chất lượng cảm nhận nghe nhìn."
+      ],
+      "same_event_coverage_ids": [
+        "ca0544301b284c91777f"
+      ],
+      "split_coverage_ids": [],
+      "subject": "VibeVideoAgent",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "VibeVideoAgent nâng chất lượng nghe nhìn cho Claude Opus 5.5 lên 4,43 điểm trên 239 tác vụ tạo video",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.34237"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.0,
+        "answers": {
+          "what": 9,
+          "why": 9,
+          "notable": 9,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "01743078124669f076d38255b39af08613ce5045e13e432296a3a68e6b6e328f",
+        "scored_at": "2026-11-26T05:35:35.415075+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "68dec01f1ef321e24620",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://arxiv.org/abs/2611.34575",
+      "key_points": [
+        "Nhóm nghiên cứu giới thiệu Sage-Med-Preview, mô hình ngôn ngữ lớn đa phương thức y tế (AI xử lý cả văn bản và hình ảnh) gồm 35 tỷ tham số với 3 tỷ tham số kích hoạt. Hệ thống được phát triển từ 322,7 triệu hồ sơ qua tiền huấn luyện, tinh chỉnh có giám sát và học tăng cường thích ứng.",
+        "Nhóm tác giả phát triển mô hình nhằm tìm hiểu quy luật mở rộng trí tuệ đa phương thức y tế trong thực tế. Theo nhóm, các mô hình y tế hiện có xu hướng kém hơn mô hình đa năng hàng đầu trên một loạt tác vụ, và việc tăng quy mô chủ yếu cải thiện văn bản hơn là cảm nhận đa phương thức.",
+        "Trên 31 bộ kiểm chuẩn (bài kiểm tra chuẩn hóa) đa phương thức công khai, Sage-Med-Preview đạt điểm trung bình 58,26%, vượt Hulu-Med-235B-A22B đạt 50,99% và Intern-S2-Preview đạt 52,24%. Hệ thống cũng tiệm cận mô hình độc quyền tiên tiến GPT-6.2-Sol ở tác vụ tạo báo cáo và định vị thị giác.",
+        "Nghiên cứu đem lại bằng chứng thực nghiệm và công thức huấn luyện mở rộng quy mô cho y tế lâm sàng. Dù vậy, nhóm tác giả lưu ý thách thức lớn vẫn còn ở khả năng suy luận y tế phức tạp và quy trình lâm sàng nhiều bước."
+      ],
+      "same_event_coverage_ids": [
+        "b130ae550a316499ab9c"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Sage-Med",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Mô hình y tế Sage-Med-Preview đạt 58,26% điểm chuẩn đa phương thức, vượt Hulu-Med-235B-A22B",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://arxiv.org/abs/2611.34575"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.1,
+        "answers": {
+          "what": 8,
+          "why": 9,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "Hệ thống được phát triển từ 322,7 triệu hồ sơ",
+            "explanation": "The source says development involved stage-specific curation over 322.7 million candidate records; it does not say all those records became training data (outlet:p011)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The reader may think 322.7 million records were all used to train the model.",
+            "fix": "State that 322.7 million were candidate records considered in stage-specific curation (outlet:p011)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "3fb4972346f6628407e6a0665828831075af346d70a2c38d98f92122d5838763",
+        "scored_at": "2026-11-26T05:45:49.643801+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
     }
   ]
 }
