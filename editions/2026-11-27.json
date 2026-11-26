@@ -1,0 +1,311 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-27",
+  "timezone": "Asia/Ho_Chi_Minh",
+  "window_start_at": "2026-11-25T23:00:00Z",
+  "cutoff_at": "2026-11-26T23:00:00Z",
+  "created_at": "2026-11-26T23:08:51Z",
+  "snapshot_generated_at": "2026-11-26T23:06:41Z",
+  "policy": {
+    "method": "daily-evidence-v3",
+    "max_stories": 5,
+    "window_hours": 24,
+    "cutoff_hour": 6,
+    "engagement_percentile_min": 0.8,
+    "publisher_coverage_excludes_forums": true,
+    "attention_requires_nonforum": true,
+    "forum_exception_percentile_min": 0.97,
+    "forum_exception_comments_min": 100,
+    "max_forum_only_stories": 1,
+    "score_measured_at": "2026-11-26T23:06:41Z",
+    "description": "Ưu tiên dấu hiệu công bố, số nhà xuất bản và tương tác đo được; sau đó theo điểm nóng và thời gian công bố"
+  },
+  "stories": [
+    {
+      "id": "1ce1da6fb8d4583058ad",
+      "title": "NVIDIA Halts AI Server Shipments to 4 Southeast Asian Countries: Report",
+      "title_vi": "NVIDIA dừng việc vận chuyển máy chủ AI đến 4 quốc gia Đông Nam Á: Báo cáo",
+      "headline": "NVIDIA Halts AI Server Shipments to 4 Southeast Asian Countries: Report",
+      "headline_vi": "NVIDIA dừng việc vận chuyển máy chủ AI đến 4 quốc gia Đông Nam Á: Báo cáo",
+      "url": "https://analyticsindiamag.com/ai-news/nvidia-halts-ai-server-shipments-to-4-southeast-asian-countries-report",
+      "published_at": "2026-11-26T17:10:28Z",
+      "kind": "other",
+      "time_basis": "published",
+      "editorial_headline_vi": "FT: NVIDIA yêu cầu đối tác ngừng giao máy chủ AI đến bốn nước Đông Nam Á do Mỹ siết kiểm soát",
+      "editorial_headline_verified": true,
+      "source_count": 2,
+      "coverage": [
+        {
+          "id": "80c5a912fc78d0ba00c1",
+          "title": "NVIDIA Halts AI Server Shipments to 4 Southeast Asian Countries: Report",
+          "title_vi": "NVIDIA dừng việc vận chuyển máy chủ AI đến 4 quốc gia Đông Nam Á: Báo cáo",
+          "headline": "NVIDIA Halts AI Server Shipments to 4 Southeast Asian Countries: Report",
+          "headline_vi": "NVIDIA dừng việc vận chuyển máy chủ AI đến 4 quốc gia Đông Nam Á: Báo cáo",
+          "url": "https://analyticsindiamag.com/ai-news/nvidia-halts-ai-server-shipments-to-4-southeast-asian-countries-report",
+          "published_at": "2026-11-26T17:10:28Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "analytics-india-mag",
+          "publisher": "analytics-india-magazine",
+          "entity": "analytics-india-magazine",
+          "group": "press",
+          "observed_at": "2026-11-26T23:06:41Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "f026874cbbb65f1ae70a",
+          "title": "Nvidia halts chip shipments to Southeast Asian countries",
+          "title_vi": "Nvidia ngừng vận chuyển chip đến các nước Đông Nam Á",
+          "headline": "Nvidia halts chip shipments to Southeast Asian countries",
+          "headline_vi": "Nvidia ngừng vận chuyển chip đến các nước Đông Nam Á",
+          "url": "https://www.semafor.com/article/11/26/2026/nvidia-halts-chip-shipments-to-southeast-asian-countries",
+          "published_at": "2026-11-26T22:15:23Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "semafor",
+          "publisher": "semafor",
+          "entity": "semafor",
+          "group": "press",
+          "observed_at": "2026-11-26T23:06:41Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "2 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "analytics-india-magazine",
+              "semafor"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "analytics-india-magazine",
+            "semafor"
+          ],
+          "age_hours_at_cutoff": 5.8256,
+          "hot_score": 54.428,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "351e6279ef6bf0211716",
+      "title": "Banks look to dump AI debt",
+      "title_vi": "Các ngân hàng muốn thả nợ AI",
+      "headline": "Banks look to dump AI debt",
+      "headline_vi": "Các ngân hàng muốn thả nợ AI",
+      "url": "https://www.semafor.com/article/11/26/2026/banks-look-to-dump-ai-debt",
+      "published_at": "2026-11-26T13:42:19Z",
+      "kind": "other",
+      "time_basis": "published",
+      "editorial_headline_vi": "Các ngân hàng tìm cách chuyển rủi ro thua lỗ từ nợ AI sang nhà đầu tư dù vẫn giữ khoản vay",
+      "editorial_headline_verified": true,
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "d829faae84a39e1be8a4",
+          "title": "Banks look to dump AI debt",
+          "title_vi": "Các ngân hàng muốn thả nợ AI",
+          "headline": "Banks look to dump AI debt",
+          "headline_vi": "Các ngân hàng muốn thả nợ AI",
+          "url": "https://www.semafor.com/article/11/26/2026/banks-look-to-dump-ai-debt",
+          "published_at": "2026-11-26T20:49:01Z",
+          "kind": "forum",
+          "time_basis": "published",
+          "source": "hn-ai",
+          "publisher": "hacker-news",
+          "entity": "hacker-news",
+          "group": "forum",
+          "observed_at": "2026-11-26T23:06:41Z",
+          "discussion_url": "https://news.ycombinator.com/item?id=50659634",
+          "metrics": {
+            "points": 9,
+            "comments": 1
+          }
+        },
+        {
+          "id": "cce681f4a64ac3190e19",
+          "title": "Banks look to dump AI debt",
+          "title_vi": "Các ngân hàng muốn thả nợ AI",
+          "headline": "Banks look to dump AI debt",
+          "headline_vi": "Các ngân hàng muốn thả nợ AI",
+          "url": "https://www.semafor.com/article/11/26/2026/banks-look-to-dump-ai-debt",
+          "published_at": "2026-11-26T13:42:19Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "semafor",
+          "publisher": "semafor",
+          "entity": "semafor",
+          "group": "press",
+          "observed_at": "2026-11-26T23:06:41Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [],
+        "signals": {
+          "publishers": [
+            "semafor"
+          ],
+          "age_hours_at_cutoff": 9.2947,
+          "hot_score": 35.406,
+          "engagement_percentile": 0.20786516853932585
+        }
+      }
+    },
+    {
+      "id": "d14575f1a1fc82989bc2",
+      "title": "Coforge Adds Cybersecurity Patches to AI Enterprise Suite in Wake of Vulnerabilities",
+      "title_vi": "Coforge thêm các bản vá an ninh mạng vào AI Enterprise Suite trong bối cảnh các lỗ hổng",
+      "headline": "Coforge Adds Cybersecurity Patches to AI Enterprise Suite in Wake of Vulnerabilities",
+      "headline_vi": "Coforge thêm các bản vá an ninh mạng vào AI Enterprise Suite trong bối cảnh các lỗ hổng",
+      "url": "https://analyticsindiamag.com/ai-news/coforge-expands-nuuron-with-ai-led-vulnerability-remediation",
+      "published_at": "2026-11-26T17:06:15Z",
+      "kind": "product",
+      "time_basis": "published",
+      "editorial_headline_vi": "Coforge dùng tác tử AI điều phối khắc phục lỗ hổng an ninh mạng nhưng giữ quyền phê duyệt của con người",
+      "editorial_headline_verified": true,
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "87dc29f6b8c514906472",
+          "title": "Coforge Adds Cybersecurity Patches to AI Enterprise Suite in Wake of Vulnerabilities",
+          "title_vi": "Coforge thêm các bản vá an ninh mạng vào AI Enterprise Suite trong bối cảnh các lỗ hổng",
+          "headline": "Coforge Adds Cybersecurity Patches to AI Enterprise Suite in Wake of Vulnerabilities",
+          "headline_vi": "Coforge thêm các bản vá an ninh mạng vào AI Enterprise Suite trong bối cảnh các lỗ hổng",
+          "url": "https://analyticsindiamag.com/ai-news/coforge-expands-nuuron-with-ai-led-vulnerability-remediation",
+          "published_at": "2026-11-26T17:06:15Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "analytics-india-mag",
+          "publisher": "analytics-india-magazine",
+          "entity": "analytics-india-magazine",
+          "group": "press",
+          "observed_at": "2026-11-26T23:06:41Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [],
+        "signals": {
+          "publishers": [
+            "analytics-india-magazine"
+          ],
+          "age_hours_at_cutoff": 5.8958,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "dbe542754cd1612143a2",
+      "title": "Quoting Jack Despain Zhou",
+      "title_vi": "Trích lời Jack Despain Zhou",
+      "headline": "Quoting Jack Despain Zhou",
+      "headline_vi": "Trích lời Jack Despain Zhou",
+      "url": "https://simonwillison.net/2026/Nov/26/jack-despain-zhou/",
+      "published_at": "2026-11-26T15:09:31Z",
+      "kind": "other",
+      "time_basis": "published",
+      "editorial_headline_vi": "Jack Despain Zhou nhận định AI làm mất tính cá nhân khi Claude xuất hiện ở cả video, thuyết trình và email",
+      "editorial_headline_verified": true,
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "7abeb2466c6db0898ef5",
+          "title": "Quoting Jack Despain Zhou",
+          "title_vi": "Trích lời Jack Despain Zhou",
+          "headline": "Quoting Jack Despain Zhou",
+          "headline_vi": "Trích lời Jack Despain Zhou",
+          "url": "https://simonwillison.net/2026/Nov/26/jack-despain-zhou/",
+          "published_at": "2026-11-26T15:09:31Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "simon-willison",
+          "publisher": "simon-willison",
+          "entity": "simon-willison",
+          "group": "research",
+          "observed_at": "2026-11-26T23:06:41Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [],
+        "signals": {
+          "publishers": [
+            "simon-willison"
+          ],
+          "age_hours_at_cutoff": 7.8414,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "cc6b36ff20f51d8d658f",
+      "title": "Nvidia's credit rating, the AI trade's collateral, is at risk",
+      "title_vi": "Đánh giá tín dụng của Nvidia, bảo hiểm của thương mại AI, đang bị đe dọa",
+      "headline": "Nvidia's credit rating, the AI trade's collateral, is at risk",
+      "headline_vi": "Đánh giá tín dụng của Nvidia, bảo hiểm của thương mại AI, đang bị đe dọa",
+      "url": "https://www.semafor.com/article/11/26/2026/nvidias-credit-rating-the-ai-trades-collateral-is-at-risk",
+      "published_at": "2026-11-26T13:46:14Z",
+      "kind": "other",
+      "time_basis": "published",
+      "editorial_headline_vi": "Moody's hạ triển vọng Nvidia xuống ổn định còn S&P Global lo ngại việc Tổng giám đốc rời đi rồi trở lại",
+      "editorial_headline_verified": true,
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "d159c42f5d5fa04072ea",
+          "title": "Nvidia's credit rating, the AI trade's collateral, is at risk",
+          "title_vi": "Đánh giá tín dụng của Nvidia, bảo hiểm của thương mại AI, đang bị đe dọa",
+          "headline": "Nvidia's credit rating, the AI trade's collateral, is at risk",
+          "headline_vi": "Đánh giá tín dụng của Nvidia, bảo hiểm của thương mại AI, đang bị đe dọa",
+          "url": "https://www.semafor.com/article/11/26/2026/nvidias-credit-rating-the-ai-trades-collateral-is-at-risk",
+          "published_at": "2026-11-26T13:46:14Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "semafor",
+          "publisher": "semafor",
+          "entity": "semafor",
+          "group": "press",
+          "observed_at": "2026-11-26T23:06:41Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [],
+        "signals": {
+          "publishers": [
+            "semafor"
+          ],
+          "age_hours_at_cutoff": 9.2294,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    }
+  ],
+  "source_health": {
+    "active_remote_sources": 77,
+    "successful_remote_sources": 76,
+    "failed_remote_sources": [
+      "hugging-face-youtube"
+    ]
+  }
+}
