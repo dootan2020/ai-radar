@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-26T13:24:04.154136+00:00",
-  "input_generated_at": "2026-11-26T12:46:46Z",
+  "generated_at": "2026-11-26T15:24:35.053831+00:00",
+  "input_generated_at": "2026-11-26T14:46:44Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -148418,10 +148418,10 @@
       "use_original_title": true,
       "source_url": "https://www.wired.com/story/meta-refused-to-share-muse-for-testing-uk-financial-watchdog-complains/",
       "key_points": [
-        "Theo ông Colin Payne thuộc Cơ quan Quản lý Tài chính Anh (FCA), Meta đã từ chối đề xuất cùng thử nghiệm công cụ Muse trong môi trường kiểm nghiệm (sandbox). Trước đó, giới chức Anh cảnh báo Meta phải bảo đảm các sản phẩm AI tuân thủ luật bảo vệ người tiêu dùng.",
-        "FCA muốn tìm hiểu cách tác nhân AI (phần mềm tự hành) thanh toán và bảo đảm hành động tự trị phục vụ đúng lợi ích người tiêu dùng. Ông Payne lo ngại về các hệ quả ngoài ý muốn khi người dùng có mức độ hiểu biết hạn chế về cách thức vận hành sản phẩm.",
-        "FCA muốn tìm hiểu cách công cụ được quảng bá là trợ lý cá nhân này tương tác với khách hàng, giữa lúc nhiều nhà bán lẻ Anh như Sainsbury’s hay Currys hỗ trợ mở quyền truy cập trang web. Hơn 10 triệu người tại Bắc Mỹ đã cài đặt Muse từ tháng 9, trong khi Meta khẳng định công ty vẫn trao đổi mang tính xây dựng với giới chức quản lý.",
-        "Cơ quan Quản lý Cạnh tranh và Thị trường Anh (CMA) tuyên bố sẽ không ngần ngại hành động để bảo vệ người tiêu dùng nếu phát sinh lo ngại. CMA đã buộc Meta cam kết duy trì sự cẩn trọng nghề nghiệp hợp lý, dù điều khoản thừa nhận Muse có thể tạo kết quả không chính xác hoặc không hoàn tất hành động như dự định."
+        "Theo ông Colin Payne thuộc Cơ quan Quản lý Tài chính Anh (FCA), Meta đã từ chối đề xuất cùng thử nghiệm công cụ Muse trong môi trường kiểm nghiệm (sandbox). Giới chức quản lý Anh đồng thời cảnh báo Meta phải bảo đảm các sản phẩm AI tuân thủ luật bảo vệ người tiêu dùng.",
+        "Theo ông Payne, cơ quan này muốn bảo đảm tác nhân tự trị phục vụ lợi ích người tiêu dùng nếu hoạt động độc lập. Ông Payne lo ngại hệ quả ngoài ý muốn từ câu lệnh, nhất là khi người dùng có mức độ hiểu biết thấp về cách sản phẩm AI vận hành.",
+        "Hơn 10 triệu người dùng đã thiết lập Muse tại Bắc Mỹ kể từ khi công cụ này ra mắt vào tháng 9. Nhiều nhà bán lẻ Anh như Sainsbury’s và Currys cho biết đang làm việc với Meta để giúp Muse truy cập trang web thuận lợi hơn, trong khi phía Meta khẳng định tiếp tục trao đổi mang tính xây dựng với giới chức.",
+        "Các cơ quan giám sát Anh cho biết sẽ theo dõi chặt chẽ việc triển khai Muse khi chuẩn bị cho lượng đón nhận lớn tại nước này. Cơ quan Quản lý Cạnh tranh và Thị trường Anh tuyên bố không ngần ngại hành động nếu có lo ngại, dù điều khoản thừa nhận Muse có thể tạo kết quả không chính xác hoặc không hoàn tất hành động như dự định."
       ],
       "same_event_coverage_ids": [
         "4108a1b8a15ec4993195"
@@ -148450,40 +148450,24 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.5,
+        "value": 8.9,
         "answers": {
           "what": 10,
-          "why": 10,
-          "notable": 6,
+          "why": 9,
+          "notable": 8,
           "meaning": 8
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "đã cài đặt Muse",
-            "explanation": "The source says more than 10 million users have set up Muse, not that they installed it (outlet:p007)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "hỗ trợ mở quyền truy cập trang web",
-            "explanation": "The retailers said they were working with Meta to smooth Muse's access to their sites; the source does not say access had been opened (outlet:p004)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
             "question": "notable",
-            "problem": "The account changes what the North American users did.",
-            "fix": "Say more than 10 million users have set up Muse since its September launch (outlet:p007)."
-          },
-          {
-            "question": "notable",
-            "problem": "The retailer wording makes work in progress sound like access already granted.",
-            "fix": "Say the retailers reported working with Meta to make Muse's access to their sites smoother (outlet:p004)."
+            "problem": "Readers miss the FCA’s specific concern about how autonomous agents will make payments.",
+            "fix": "Add the payment question alongside the retailers’ work to ease Muse’s site access (outlet:p004)."
           },
           {
             "question": "meaning",
-            "problem": "The reader misses the watchdogs' stated next step.",
-            "fix": "Add that British watchdogs said they would closely monitor Muse's UK rollout (outlet:p007)."
+            "problem": "Readers miss two concrete regulatory responses: the ICO’s emphasis on control of personal data and the CMA’s change to Meta’s UK terms.",
+            "fix": "State both responses, including the required standard of reasonable skill and care when providing Muse (outlet:p008)."
           }
         ],
         "writer_boats": [
@@ -148491,8 +148475,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "ebeaa47dac2f8fb687523d42fa73ab70846fca4ce1ecf1ebe615bdeba6331d99",
-        "scored_at": "2026-11-26T13:16:17.191370+00:00"
+        "prose_sha256": "e1950077a8cc66d3ae2677ffe854d13dffd0246daef805e92f641d0ad108558c",
+        "scored_at": "2026-11-26T15:24:35.049273+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
@@ -148531,6 +148515,338 @@
         "availability": "global",
         "is_leak": false
       }
+    },
+    {
+      "id": "cc6b36ff20f51d8d658f",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/26/2026/nvidias-credit-rating-the-ai-trades-collateral-is-at-risk",
+      "key_points": [
+        "Xếp hạng tín nhiệm của Nvidia đang gặp nguy hiểm trong bối cảnh giá cổ phiếu sụt giảm. Moody's đã hạ triển vọng của công ty từ mức tích cực xuống ổn định.",
+        "Theo Semafor, S&P Global lo ngại trước việc Tổng giám đốc Jensen Huang rời đi rồi quay trở lại.",
+        "Nvidia thường cho các bên kém uy tín mượn xếp hạng AA bằng cách bảo lãnh nợ, hợp đồng thuê và phần cứng. Alphabet và Broadcom cũng dùng kỹ thuật nâng cao mức độ tín nhiệm (credit enhancement, hình thức bảo lãnh tài chính) để giúp khách hàng mua chip.",
+        "Semafor nhận định dù việc hạ bậc chưa diễn ra, rủi ro AI đang dồn vào số ít hãng công nghệ lớn khi lãi suất tăng. Nếu chính thức bị hạ bậc, các khách hàng lớn và dự án xây dựng dựa vào Nvidia sẽ chịu tổn thất nặng nề."
+      ],
+      "same_event_coverage_ids": [
+        "d159c42f5d5fa04072ea"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Nvidia credit rating outlook revision and AI debt risks",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Jensen Huang"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Moody's hạ triển vọng của Nvidia xuống mức ổn định do rủi ro xoay quanh vị trí CEO",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/26/2026/nvidias-credit-rating-the-ai-trades-collateral-is-at-risk"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.65,
+        "answers": {
+          "what": 10,
+          "why": 4,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [
+          {
+            "kind": "cause",
+            "summary_text": "Moody's hạ triển vọng của Nvidia xuống mức ổn định do rủi ro xoay quanh vị trí CEO",
+            "explanation": "The source gives no reason for Moody’s decision; it attributes concern about the CEO’s departure and return to S&P Global (outlet:p002)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The headline assigns S&P Global’s stated concern to Moody’s decision.",
+            "fix": "State Moody’s outlook change without a cause, and attribute the CEO concern to S&P Global (outlet:p002)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "de1a37d4e0761ee5e71c80114744666da536f6163905b8620b156af7d1f9ae33",
+        "scored_at": "2026-11-26T15:11:29.936139+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "351e6279ef6bf0211716",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/26/2026/banks-look-to-dump-ai-debt",
+      "key_points": [
+        "Các ngân hàng đang tìm cách bán bớt danh mục nợ liên quan đến AI. Quy mô phát hành nợ AI đã lấn át trái phiếu kho bạc Mỹ và khiến một số nhà đầu tư cạn vốn.",
+        "Theo các nguồn tin chia sẻ với Semafor, họ hành động nhằm quản lý rủi ro hoặc chuẩn bị nhận thêm nợ mới.",
+        "Citi và JPMorgan đang chào bán các danh mục khoản vay này cho đối tác. Trong vài trường hợp, họ dùng công cụ chuyển giao rủi ro tổng hợp (synthetic risk transfer, chuyển rủi ro lỗ sang nhà đầu tư) để giữ nợ trên sổ sách.",
+        "Semafor nhận định rủi ro nợ AI không hề biến mất mà chỉ chuyển dịch đến nơi khó quan sát hơn. Các ngân hàng đang cùng những tập đoàn công nghệ lớn tìm cách đẩy nghĩa vụ AI ra khỏi sổ sách."
+      ],
+      "same_event_coverage_ids": [
+        "cce681f4a64ac3190e19"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Banks offloading AI debt portfolios via risk transfers",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": true
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Citi và JPMorgan chào bán danh mục nợ AI nhằm giảm rủi ro và chuyển lỗ sang nhà đầu tư",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/26/2026/banks-look-to-dump-ai-debt"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.05,
+        "answers": {
+          "what": 9,
+          "why": 8,
+          "notable": 6,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "chuyển lỗ sang nhà đầu tư",
+            "explanation": "The source describes transferring the risk of future losses, not transferring losses already incurred (outlet:p002)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "khiến một số nhà đầu tư cạn vốn",
+            "explanation": "The source says some investors are starting to feel tapped out; it does not say they have run out of capital (outlet:p003)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "Citi và JPMorgan đang chào bán các danh mục khoản vay này cho đối tác. Trong vài trường hợp, họ dùng công cụ chuyển giao rủi ro tổng hợp",
+            "explanation": "The source names Citi and JPMorgan among banks marketing portfolios, but says only that banks in some instances pitch synthetic risk transfers; it does not identify those two as the banks using that structure (outlet:p001–p002)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The headline turns a transfer of loss risk into a transfer of losses.",
+            "fix": "Say investors would take on the risk of losses while some loans remain on bank balance sheets (outlet:p002)."
+          },
+          {
+            "question": "notable",
+            "problem": "The body attributes the synthetic transfer structure specifically to Citi and JPMorgan.",
+            "fix": "Attribute that structure to some banks without naming which ones use it (outlet:p001–p002)."
+          },
+          {
+            "question": "why",
+            "problem": "The body says some investors have run out of capital.",
+            "fix": "Say some investors are starting to feel tapped out (outlet:p003)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "1120cc07e266a801297a8d8d1a1aee12b5580fd26ab8bdf5a973a38e700866cb",
+        "scored_at": "2026-11-26T15:11:29.936226+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "2f8b0a8cbf6c637830a2",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "A personal blog post and forum link describing an individual's custom AI agent setup and context window limits without substantive journalistic reporting or news value.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://ethanflow.com/writing/what-broke-ai-agent-team/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "6262a1db58d9028cb367"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "f86e9dac41ccdbd6a669",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.scmp.com/tech/big-tech/article/3375938/chinas-tech-ambitions-stay-track-despite-shanghai-party-chiefs-ouster-analysts",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "3ffc6d4bec697a21048a"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Ouster of Shanghai party chief Chen Jining and scrutiny of AI investments",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Chen Jining"
+        ],
+        "availability": "global",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "cebb06a93f588e3f6258",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected title; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected title",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://analyticsindiamag.com/it-services/threatened-by-saaspocalypse-9-bets-defined-indian-its-ai-strategy-in-2026",
+      "key_points": [
+        "Trước nỗi lo tác nhân tự trị (autonomous agents, phần mềm AI tự hành) thay thế cả công cụ SaaS lẫn dịch vụ thuê ngoài, chỉ số Nifty IT giảm 19,5% khiến khoảng 62,8 tỷ USD vốn hóa bốc hơi. Sau đợt bán tháo, các hãng IT Ấn Độ nhanh chóng bắt tay với chính các công ty AI, điển hình là Infosys hợp tác với Anthropic chỉ sau vài ngày.",
+        "Theo Analytics India Magazine, các liên minh phản ánh ba áp lực: săn tìm kỹ sư triển khai, tạo doanh thu AI và nguy cơ các hãng AI thành đối thủ cạnh tranh.",
+        "Cụ thể, TCS dự định trang bị Claude cho 50.000 nhân sự và cung cấp 100 megawatt công suất trung tâm dữ liệu cho OpenAI. Về phía Cognizant, sau khi triển khai Claude cho hãng Travelport vào tháng 5, công ty sau đó đã cam kết 25.000 chuyên gia cho việc cung ứng Claude qua một nhóm năng lực toàn cầu.",
+        "Tác giả bài viết nhận định đây là sự thỏa hiệp mang tính đánh đổi kiểu Faust (Faustian bargain), khi các hãng IT thường tích hợp chính những sản phẩm từng đe dọa mô hình dịch vụ của họ. Quyết định này diễn ra trong bối cảnh các doanh nghiệp phải thích ứng trước ba sức ép lớn từ thị trường và đối thủ."
+      ],
+      "same_event_coverage_ids": [
+        "0299e1330354e92991c3"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Indian IT firms' AI partnership strategies in 2026",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Hãng IT Ấn Độ bắt tay đối thủ AI sau khi mất 62,8 tỷ USD vốn hóa do lo ngại tác nhân tự trị",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "analytics-india-magazine",
+          "url": "https://analyticsindiamag.com/it-services/threatened-by-saaspocalypse-9-bets-defined-indian-its-ai-strategy-in-2026"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.05,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 9,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "bắt tay đối thủ AI",
+            "explanation": "The source says AI labs could become competitors; it does not establish that they already are competitors (outlet:p006)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The headline turns a possible future competitive threat into a current fact.",
+            "fix": "Describe the firms as partnering with AI companies whose tools threatened their operating model, while keeping competition as a possibility (outlet:p004, outlet:p006)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "41ac240f5bec257ef1ce903b2271194ce898eef742b53c19836476f15ca6c0f6",
+        "scored_at": "2026-11-26T15:15:08.254922+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "819f2bb8e324e5e7f3ab",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "A technical how-to tutorial series on Hugging Face guiding readers through building, training, and running multi-agent communication experiments on Hugging Face Jobs.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://huggingface.co/blog/training-swarms",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "fb2e42bf56f197639ca4"
+      ],
+      "split_coverage_ids": []
     }
   ]
 }
