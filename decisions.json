@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-26T11:51:43.646768+00:00",
-  "input_generated_at": "2026-11-26T10:46:16Z",
+  "generated_at": "2026-11-26T13:24:04.154136+00:00",
+  "input_generated_at": "2026-11-26T12:46:46Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -147754,10 +147754,10 @@
       "use_original_title": false,
       "source_url": "https://en.yna.co.kr/view/AEN20261126011900315",
       "key_points": [
-        "Cảnh sát đã nộp đơn xin lệnh bắt giữ thủ khoa kỳ thi kế toán thuế năm nay do bị cáo buộc gian lận bằng công nghệ trí tuệ nhân tạo (AI).",
-        "Theo Yonhap, động thái xin lệnh bắt phản ánh mức độ nghiêm trọng của vụ việc liên quan đến kỳ thi quốc gia và lo ngại nghi phạm có thể bỏ trốn hoặc tiêu hủy chứng cứ.",
-        "Người đàn ông họ Han thừa nhận đã dùng camera siêu nhỏ, điện thoại thông minh và AI tạo sinh để đạt điểm số cao nhất trong kỳ thi. Han thừa nhận hành vi sau khi điểm số gần như tuyệt đối ở vòng một bị soi xét vì bị nhiều người đánh giá là thiếu thực tế.",
-        "Theo Yonhap, vụ việc đã dấy lên làn sóng phẫn nộ trong dư luận cùng những lo ngại về tình trạng gian lận trong các kỳ thi quốc gia."
+        "Cảnh sát đã nộp đơn xin lệnh bắt giữ thủ khoa kỳ thi kế toán thuế năm nay vì cáo buộc dùng trí tuệ nhân tạo (AI) gian lận. Lệnh bắt được yêu cầu với các tội danh bao gồm cản trở việc thực thi công vụ.",
+        "Theo Yonhap, động thái này được đưa tin là phản ánh mức độ nghiêm trọng của sự việc và lo ngại nghi phạm có thể bỏ trốn hoặc tiêu hủy chứng cứ.",
+        "Nghi phạm họ Han thừa nhận đã dùng camera siêu nhỏ, điện thoại thông minh và AI tạo sinh để đạt điểm cao nhất. Han đạt điểm gần như tuyệt đối ở vòng một và thú nhận sau khi bị soi xét vì mức điểm bị nhiều người coi là thiếu thực tế.",
+        "Theo Yonhap, vụ việc đã dấy lên làn sóng phẫn nộ trong dư luận cùng nỗi lo ngại về tình trạng gian lận trong các kỳ thi quốc gia."
       ],
       "same_event_coverage_ids": [
         "06585ca34b23c5bd0548"
@@ -147773,7 +147773,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Cảnh sát xin lệnh bắt thủ khoa kỳ thi kế toán thuế do bị cáo buộc dùng AI gian lận",
+      "editorial_headline_vi": "Cảnh sát xin lệnh bắt thủ khoa kỳ thi kế toán thuế bị cáo buộc dùng AI gian lận",
       "summary_sources": [
         {
           "id": "outlet",
@@ -147786,34 +147786,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.85,
+        "value": 9.8,
         "answers": {
-          "what": 9,
-          "why": 6,
+          "what": 10,
+          "why": 9,
           "notable": 10,
           "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "quote",
-            "summary_text": "động thái xin lệnh bắt phản ánh mức độ nghiêm trọng của vụ việc liên quan đến kỳ thi quốc gia và lo ngại nghi phạm có thể bỏ trốn hoặc tiêu hủy chứng cứ",
-            "explanation": "The source says the move *reportedly* reflected the incident's magnitude and those concerns; it does not establish the rationale as fact (outlet:p004)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "why",
-            "problem": "The reader receives a reported rationale as a confirmed one.",
-            "fix": "Preserve the source's uncertainty when describing why police sought the warrant (outlet:p004)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "0cf902995e83303c7ef6719352338dc8ffc8a158398c5e5f5429a38f19698bfe",
-        "scored_at": "2026-11-26T11:31:55.181296+00:00"
+        "prose_sha256": "f2548ea19649e23bba592fbdb0c0697437c0eb2e0b54f31b5b17214c520861a0",
+        "scored_at": "2026-11-26T13:24:04.140412+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
@@ -147833,10 +147821,10 @@
       "use_original_title": false,
       "source_url": "https://analyticsindiamag.com/ai-news/vertiv-expands-800-vdc-power-portfolio-for-ai-data-centres",
       "key_points": [
-        "Công ty Vertiv tại Mỹ mở rộng danh mục nguồn điện 800 VDC (dòng điện một chiều) cho trung tâm dữ liệu AI để đáp ứng nhu cầu năng lượng gia tăng. Đợt mở rộng bổ sung hệ thống cho cụm tính toán và phòng máy, bao quát ba cấp độ gồm tủ rack, cụm tính toán và phòng dữ liệu.",
+        "Công ty Vertiv tại Mỹ mở rộng danh mục nguồn điện 800 VDC (dòng điện một chiều) cho các trung tâm dữ liệu AI. Đợt mở rộng bổ sung hệ thống cho cụm tính toán và phòng máy, bao quát ba cấp độ gồm tủ rack, cụm tính toán và phòng dữ liệu.",
         "Theo bài viết trên Analytics India Magazine, việc mở rộng diễn ra khi khối lượng công việc AI làm tăng yêu cầu điện năng, khiến các đơn vị vận hành đánh giá hệ thống 800 VDC cho môi trường tính toán mật độ cao.",
-        "Vertiv giới thiệu bộ chuyển đổi PowerDirect 3000 công suất 90 kW lắp trong tủ rack để đổi 800 VDC sang 54 VDC với hiệu suất đạt đỉnh 98,5%. Kiến trúc đưa khâu đổi nguồn và lưu trữ điện ra ngoài tủ IT có thể giải phóng 8 đến 16 đơn vị rack, còn máy biến áp PowerNexus MV SST 5 MW cho phòng máy đạt hiệu suất tới 98%.",
-        "Dù vậy, Vertiv nhận định kiến trúc điện AC và DC sẽ cùng tồn tại song song, đòi hỏi tính linh hoạt trong triển khai. Công ty cho biết các chương trình thí điểm và thẩm định kỹ thuật hiện đang được tiến hành để chuẩn bị kế hoạch triển khai với khách hàng."
+        "Vertiv giới thiệu bộ chuyển đổi PowerDirect 3000 công suất 90 kW lắp trong tủ rack để đổi 800 VDC sang 54 VDC với hiệu suất đạt đỉnh 98,5%. Ở cấp phòng dữ liệu, máy biến áp PowerNexus MV SST công suất 5 MW đổi trực tiếp điện AC trung thế sang 800 VDC với hiệu suất AC sang DC đạt tới 98%.",
+        "Dù vậy, Vertiv nhận định các kiến trúc AC và DC sẽ cùng tồn tại song song, đòi hỏi tính linh hoạt cao trong phân phối và chuyển đổi nguồn điện. Doanh nghiệp cho biết các chương trình thí điểm và thẩm định kỹ thuật đang được tiến hành, đồng thời công ty đang thảo luận với khách hàng về các kế hoạch triển khai tiềm năng."
       ],
       "same_event_coverage_ids": [
         "0ddaed2acde8accb2a91"
@@ -147865,25 +147853,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.55,
+        "value": 9.7,
         "answers": {
           "what": 10,
           "why": 10,
           "notable": 10,
-          "meaning": 7
+          "meaning": 8
         },
-        "hard_errors": [
-          {
-            "kind": "cause",
-            "summary_text": "để chuẩn bị kế hoạch triển khai với khách hàng",
-            "explanation": "The source separately says pilots and technical validation are underway and Vertiv is discussing potential deployment plans with customers. It does not say the validation is being done for that purpose (outlet:p017)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
             "question": "meaning",
-            "problem": "The reader is given an unsupported purpose for the pilot and validation work.",
-            "fix": "State the two reported activities separately: validation is underway, and Vertiv is discussing potential deployment plans with customers (outlet:p017)."
+            "problem": "The reader does not learn the practical benefit of introducing 800 VDC within existing facilities.",
+            "fix": "Add that Vertiv says operators can adopt 800 VDC at different points in their infrastructure, and that moving conversion and storage outside IT racks can free 8–16 rack units while retaining existing AC infrastructure (outlet:p006, outlet:p009)."
           }
         ],
         "writer_boats": [
@@ -147891,8 +147873,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "139b5418c097f6bc8efff9286967bb6222a031c9edca6843b1eb4588713375a6",
-        "scored_at": "2026-11-26T11:31:55.181355+00:00"
+        "prose_sha256": "1ef275087389c2ddec9b95b516d24bd99e9a0506ea6e54a3e708501a50ab6b4e",
+        "scored_at": "2026-11-26T13:24:04.140626+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
@@ -148189,10 +148171,10 @@
       "use_original_title": false,
       "source_url": "https://arxiv.org/abs/2611.33579",
       "key_points": [
-        "Nhóm tác giả giới thiệu quy trình mô phỏng DexEngine giúp chuyển đổi dữ liệu thao tác của người thành quỹ đạo cánh tay và bàn tay robot có thể thực thi vật lý. Trong mô phỏng, hệ thống đưa cử động vào tầm với, bám theo tay người rồi dùng học tăng cường phần dư (thuật toán tự bù sai lệch) hiệu chỉnh chuyển động.",
-        "Nhóm nghiên cứu giải thích việc huấn luyện chính sách toàn robot cần chuyển động khả thi và quy mô lớn, do cử động tái định vị phải thực thi được về động học lẫn vật lý.",
-        "Nhóm tác giả tạo khoảng 5.200 đoạn clip cho mỗi bàn tay khéo léo trong 4 loại từ 9 bộ dữ liệu, rồi mở rộng thành 65.000 quỹ đạo (116 giờ) và 325.000 tập (578 giờ).",
-        "Nhóm tác giả nhận định dữ liệu tinh chỉnh cần hiệu chỉnh vật lý, khi mô hình áp dụng vượt trội hơn hẳn so với việc không hiệu chỉnh hoặc chỉ gắn cánh tay sau hiệu chỉnh bàn tay lơ lửng. Họ cho biết thêm việc huấn luyện giữa kỳ bằng dữ liệu này tiếp tục cải thiện mô hình với cùng ngân sách tinh chỉnh, trong mô phỏng lẫn trên robot thật."
+        "Nhóm tác giả giới thiệu quy trình mô phỏng DexEngine giúp chuyển đổi dữ liệu thao tác của người thành quỹ đạo cánh tay và bàn tay robot có thể thực thi vật lý. Trong mô phỏng, hệ thống đưa cử động vào tầm với, bám theo tay người rồi dùng học tăng cường phần dư (residual reinforcement learning - thuật toán tự bù sai lệch) để hiệu chỉnh chuyển động.",
+        "Nhóm nghiên cứu giải thích việc huấn luyện chính sách toàn thân robot cần cử động khả thi về động học, thực thi được về vật lý và sản xuất hiệu quả ở quy mô lớn.",
+        "Nhóm tác giả cho biết DexEngine tạo 65.000 quỹ đạo và chạy nhanh hơn 10 lần các phương pháp dựa trên học tăng cường ngay cả khi gắn cánh tay.",
+        "Nhóm tác giả nhận định dữ liệu tinh chỉnh cần hiệu chỉnh vật lý, khi mô hình áp dụng vượt trội hơn hẳn so với việc không hiệu chỉnh hoặc chỉ gắn cánh tay sau hiệu chỉnh bàn tay lơ lửng. Họ cho biết việc huấn luyện giữa kỳ (mid-training) bằng dữ liệu này tiếp tục cải thiện mô hình với cùng ngân sách tinh chỉnh, trong mô phỏng lẫn trên robot thật."
       ],
       "same_event_coverage_ids": [
         "8420a69ac93074f67b2b"
@@ -148213,7 +148195,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "DexEngine tạo 65.000 quỹ đạo cánh tay và bàn tay robot, chạy nhanh gấp 10 lần phương pháp học tăng cường",
+      "editorial_headline_vi": "DexEngine tạo 65.000 quỹ đạo cánh tay và bàn tay robot, chạy nhanh hơn 10 lần phương pháp học tăng cường",
       "summary_sources": [
         {
           "id": "outlet",
@@ -148233,27 +148215,15 @@
           "notable": 9,
           "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "number",
-            "summary_text": "chạy nhanh gấp 10 lần",
-            "explanation": "The source says DexEngine runs over 10 times faster than RL-based methods, rather than exactly 10 times faster (outlet:p009)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "notable",
-            "problem": "The headline drops the qualification on the speed comparison.",
-            "fix": "Say “hơn 10 lần” to match the comparison with RL-based methods in outlet:p009."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "2319234940c87e642b6805776da422ea0af9499c80408a564014c59d09dd22a0",
-        "scored_at": "2026-11-26T11:31:55.182156+00:00"
+        "prose_sha256": "79b2cb4fea3135a71e9e93fad954d40e232cd78229c8df3f072361e9dac3dde3",
+        "scored_at": "2026-11-26T13:24:04.140679+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
@@ -148330,6 +148300,235 @@
           "Ira Kemelmacher-Shlizerman"
         ],
         "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "f808463a9806e7605ba9",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/newsletters/2026-11-26/trustedrouter-aims-to-give-companies-greater-privacy-with-ai",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "dd673bac9900b91b876d"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "a734da9d3a1d876054f8",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://huggingface.co/blog/ggml-org/llamacpp-amd-bench",
+      "key_points": [
+        "Nhóm phát triển ggml-org đã cung cấp bảng theo dõi hiệu năng tiêu chuẩn (benchmark) của công cụ llama.cpp trên nền tảng Hugging Face. Bảng theo dõi này cho phép người dùng khảo sát tốc độ suy luận cục bộ (chạy trực tiếp trên máy) của các bản dựng trên phần cứng AMD Ryzen và Radeon.",
+        "Theo nhóm ggml-org, hiệu năng suy luận cục bộ luôn biến động khi các mô hình, nhân tính toán và bản dựng phần mềm cải tiến. Nhóm mong muốn giúp các lập trình viên AMD dễ dàng so sánh các định dạng lượng tử hóa và theo dõi biến động hiệu năng theo thời gian.",
+        "Hệ thống đo lường trên chip Radeon 8060S và Radeon AI Pro R9700S qua bài thử PP512 xử lý 512 token đầu vào không tạo chữ và TG128 tạo 128 token không ngữ cảnh. Cả hai bài kiểm thử đều bắt đầu ở độ sâu ngữ cảnh bằng không và lặp lại 10 lần cho mỗi cấu hình để tính thông lượng trung bình.",
+        "Nhóm ggml-org cho biết dữ liệu này giúp người dùng kiểm chứng kết quả hoặc đối chiếu với lượt chạy thử nghiệm trên máy cá nhân. Dù vậy, nhóm phát triển lưu ý tập mô hình thử nghiệm hiện vẫn đang mở rộng và chỉ mới bao gồm một số dòng như Qwen, Gemma hay gpt-oss."
+      ],
+      "same_event_coverage_ids": [
+        "e9fa4d6364bd3a4c40f1"
+      ],
+      "split_coverage_ids": [],
+      "subject": "llama.cpp",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Simon Pagezy",
+          "Abdennacer Badaoui"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nhóm ggml-org mở bảng theo dõi hiệu năng llama.cpp cho chip AMD trên Hugging Face",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "huggingface",
+          "url": "https://huggingface.co/blog/ggml-org/llamacpp-amd-bench"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "A reader may treat the two reported tests as covering inference at any context length.",
+            "fix": "Say PP512 and TG128 begin at zero context depth and are reference workloads; the Context scaling tab shows generation throughput as context grows (outlet:p026, outlet:p032)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "ffbb58382b33d8b1c5648a1c293997d15174cbd6e2b524bb6bc65ed0cfb63ad4",
+        "scored_at": "2026-11-26T13:16:17.191281+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "4ba3d6965f092d812df2",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.wired.com/story/meta-refused-to-share-muse-for-testing-uk-financial-watchdog-complains/",
+      "key_points": [
+        "Theo ông Colin Payne thuộc Cơ quan Quản lý Tài chính Anh (FCA), Meta đã từ chối đề xuất cùng thử nghiệm công cụ Muse trong môi trường kiểm nghiệm (sandbox). Trước đó, giới chức Anh cảnh báo Meta phải bảo đảm các sản phẩm AI tuân thủ luật bảo vệ người tiêu dùng.",
+        "FCA muốn tìm hiểu cách tác nhân AI (phần mềm tự hành) thanh toán và bảo đảm hành động tự trị phục vụ đúng lợi ích người tiêu dùng. Ông Payne lo ngại về các hệ quả ngoài ý muốn khi người dùng có mức độ hiểu biết hạn chế về cách thức vận hành sản phẩm.",
+        "FCA muốn tìm hiểu cách công cụ được quảng bá là trợ lý cá nhân này tương tác với khách hàng, giữa lúc nhiều nhà bán lẻ Anh như Sainsbury’s hay Currys hỗ trợ mở quyền truy cập trang web. Hơn 10 triệu người tại Bắc Mỹ đã cài đặt Muse từ tháng 9, trong khi Meta khẳng định công ty vẫn trao đổi mang tính xây dựng với giới chức quản lý.",
+        "Cơ quan Quản lý Cạnh tranh và Thị trường Anh (CMA) tuyên bố sẽ không ngần ngại hành động để bảo vệ người tiêu dùng nếu phát sinh lo ngại. CMA đã buộc Meta cam kết duy trì sự cẩn trọng nghề nghiệp hợp lý, dù điều khoản thừa nhận Muse có thể tạo kết quả không chính xác hoặc không hoàn tất hành động như dự định."
+      ],
+      "same_event_coverage_ids": [
+        "4108a1b8a15ec4993195"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Meta",
+      "video_labels": {
+        "video_hook": "drama_company",
+        "named_people": [
+          "Colin Payne"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Meta từ chối cùng cơ quan quản lý Anh thử nghiệm công cụ Muse trong môi trường kiểm soát",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "wired",
+          "url": "https://www.wired.com/story/meta-refused-to-share-muse-for-testing-uk-financial-watchdog-complains/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.5,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 6,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "đã cài đặt Muse",
+            "explanation": "The source says more than 10 million users have set up Muse, not that they installed it (outlet:p007)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "hỗ trợ mở quyền truy cập trang web",
+            "explanation": "The retailers said they were working with Meta to smooth Muse's access to their sites; the source does not say access had been opened (outlet:p004)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The account changes what the North American users did.",
+            "fix": "Say more than 10 million users have set up Muse since its September launch (outlet:p007)."
+          },
+          {
+            "question": "notable",
+            "problem": "The retailer wording makes work in progress sound like access already granted.",
+            "fix": "Say the retailers reported working with Meta to make Muse's access to their sites smoother (outlet:p004)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The reader misses the watchdogs' stated next step.",
+            "fix": "Add that British watchdogs said they would closely monitor Muse's UK rollout (outlet:p007)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "ebeaa47dac2f8fb687523d42fa73ab70846fca4ce1ecf1ebe615bdeba6331d99",
+        "scored_at": "2026-11-26T13:16:17.191370+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "9a36b64e1e928bff59aa",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://techstackups.com/articles/google-workspace-ai-agents-mcp/",
+      "key_points": [
+        "On November 24, Google made eight Workspace MCP servers generally available and updated its API terms.",
+        "Beginning February 1, 2027, tools driven by AI agents or models must access Google Workspace services like Gmail, Drive, and Calendar exclusively through Google MCP servers.",
+        "The generally available Gmail MCP server can search mail, read threads, create drafts, and apply labels, but sending, replying, forwarding, or editing drafts requires partner access."
+      ],
+      "same_event_coverage_ids": [
+        "7393557996e7f18a8376",
+        "8cc0381f476e97fac077"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Google Workspace",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "global",
         "is_leak": false
       }
     }
