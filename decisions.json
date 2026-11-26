@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-26T17:27:32.503086+00:00",
-  "input_generated_at": "2026-11-26T16:47:02Z",
+  "generated_at": "2026-11-26T19:27:47.940497+00:00",
+  "input_generated_at": "2026-11-26T18:46:43Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -148734,10 +148734,10 @@
       "use_original_title": true,
       "source_url": "https://analyticsindiamag.com/it-services/threatened-by-saaspocalypse-9-bets-defined-indian-its-ai-strategy-in-2026",
       "key_points": [
-        "Các công ty IT Ấn Độ bắt tay với các công ty AI sau khi nỗi lo tác nhân tự trị (autonomous agents, phần mềm AI tự hành) khiến chỉ số Nifty IT giảm 19,5%, làm bốc hơi khoảng 62,8 tỷ USD vốn hóa. Điển hình là Infosys đã hợp tác với Anthropic chỉ vài ngày sau đợt bán tháo cổ phiếu.",
-        "Theo Analytics India Magazine, các thỏa thuận hợp tác này diễn ra do ba áp lực lớn thúc đẩy, gồm việc tìm kiếm kỹ sư triển khai, nhu cầu tạo doanh thu AI và nguy cơ các phòng nghiên cứu AI trở thành đối thủ cạnh tranh.",
-        "TCS và Cognizant triển khai hợp tác quy mô lớn với Anthropic và OpenAI, trong đó TCS dự kiến trang bị Claude cho 50.000 nhân viên còn Cognizant đã hoàn thành đào tạo Claude cho hơn 44.000 nhân sự. Đồng thời, TCS cũng hợp tác với OpenAI để ứng dụng Codex vào kỹ thuật phần mềm và cung cấp 100 megawatt công suất trung tâm dữ liệu ban đầu cho đối tác này.",
-        "Analytics India Magazine nhận định đây là sự thỏa hiệp mang tính đánh đổi kiểu Faust (Faustian bargain), khi các hãng IT tích hợp chính công cụ từng đe dọa mô hình kinh doanh của họ. Quyết định này phản ánh nỗ lực thích ứng trong bối cảnh các phòng thí nghiệm AI hoàn toàn có thể trở thành đối thủ cạnh tranh."
+        "Hàng loạt công ty IT Ấn Độ bắt tay với các hãng AI sau khi làn sóng bán tháo khiến chỉ số Nifty IT giảm 6,3% vào ngày hôm sau và mất 19,5% trong cả tháng. Làn sóng bán tháo cổ phiếu IT đã xóa sổ khoảng 62,8 tỷ USD vốn hóa thị trường sau khi Anthropic ra mắt 11 tiện ích mở rộng đe dọa các dịch vụ gia công truyền thống.",
+        "Theo Analytics India Magazine, các thỏa thuận hợp tác giữa doanh nghiệp IT Ấn Độ và các hãng AI xuất phát từ ba áp lực lớn: săn tìm kỹ sư triển khai, áp lực tạo doanh thu AI và nguy cơ các phòng nghiên cứu AI trở thành đối thủ.",
+        "TCS trở thành đối tác toàn cầu hàng đầu của Anthropic với kế hoạch trang bị Claude cho 50.000 nhân viên, đồng thời hợp tác với OpenAI để cải thiện kỹ thuật phần mềm và cung cấp 100 megawatt công suất trung tâm dữ liệu ban đầu. Về phía Cognizant, doanh nghiệp này hợp tác với Anthropic khi đưa Claude vào các nền tảng kỹ thuật và hoàn tất đào tạo cho hơn 44.000 nhân sự.",
+        "Theo Analytics India Magazine, việc các hãng IT bắt tay với công ty AI là sự thỏa hiệp mang tính đánh đổi khi họ tích hợp chính những công cụ từng đe dọa mô hình hoạt động của mình."
       ],
       "same_event_coverage_ids": [
         "0299e1330354e92991c3"
@@ -148751,7 +148751,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Hãng IT Ấn Độ bắt tay các công ty AI từng đe dọa mình sau khi mất 62,8 tỷ USD vốn hóa",
+      "editorial_headline_vi": "Các hãng IT Ấn Độ bắt tay công ty AI sau đợt bán tháo làm bốc hơi 62,8 tỷ USD vốn hóa",
       "summary_sources": [
         {
           "id": "outlet",
@@ -148764,30 +148764,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.4,
+        "value": 9.35,
         "answers": {
-          "what": 8,
+          "what": 9,
           "why": 10,
-          "notable": 7,
+          "notable": 9,
           "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "TCS và Cognizant triển khai hợp tác quy mô lớn với Anthropic và OpenAI",
-            "explanation": "This grouping suggests Cognizant partnered with OpenAI. The source reports Cognizant’s partnership with Anthropic, while the OpenAI partnership described here is TCS’s (outlet:p016–p018, outlet:p027–p030)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "what",
-            "problem": "The grouped wording gives the reader the wrong company–partner pairing.",
-            "fix": "State separately that Cognizant partnered with Anthropic and TCS partnered with both Anthropic and OpenAI (outlet:p008–p010, outlet:p016–p018, outlet:p027–p030)."
-          },
-          {
             "question": "notable",
-            "problem": "The 19.5% decline lacks its time frame, making it easy to read as a one-day fall.",
-            "fix": "Specify that Nifty IT fell 6.3% the next day and 19.5% over the month (outlet:p003)."
+            "problem": "The 100 MW figure lacks the detail that makes the deal distinctive.",
+            "fix": "Say that OpenAI became the first customer of TCS’s HyperVault data centre business, with an initial agreement for 100 MW (outlet:p030)."
           }
         ],
         "writer_boats": [
@@ -148795,8 +148784,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "dcc9659e8b16fc8d022c8cb7c77198811c7f1884fae92080aa49edb5b05d8a15",
-        "scored_at": "2026-11-26T17:23:42.419183+00:00"
+        "prose_sha256": "5c66475dae715ecfe526d9ceaa61c99f3c5fa1e166816bf79d5c4bcacef62125",
+        "scored_at": "2026-11-26T19:27:47.933263+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
@@ -149027,6 +149016,346 @@
         "availability": "global",
         "is_leak": false
       }
+    },
+    {
+      "id": "e6bac518307523c0f739",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.baldurbjarnason.com/2026/08-ai-might-be-the-end-of-our-careers/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "6f51198d85c60466454a"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Impact of AI on careers",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "655cc26755f4c3cd8eee",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "A standalone tracker website domain without reporting, article text, or a news announcement.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://diseasescuredbyai.com/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "08a881d1eecf62802af7",
+        "168fca34c4010c7afc8c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "40cb249974695259a745",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://devnull.land/amd-specific-llama-cpp",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "208e48aabd26d1418186"
+      ],
+      "split_coverage_ids": [],
+      "subject": "AMD specific patches for Llama.cpp",
+      "video_labels": {
+        "video_hook": "usable_now",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "1ce1da6fb8d4583058ad",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://analyticsindiamag.com/ai-news/nvidia-halts-ai-server-shipments-to-4-southeast-asian-countries-report",
+      "key_points": [
+        "Theo Financial Times, NVIDIA yêu cầu các đối tác sản xuất ngừng giao máy chủ sang bốn nước Đông Nam Á gồm Malaysia, Singapore, Thái Lan và Indonesia. Quyết định diễn ra khi các quốc gia này trở thành điểm đến ưa thích của doanh nghiệp AI Trung Quốc tìm kiếm chip tiên tiến.",
+        "Financial Times cho biết động thái diễn ra khi Mỹ siết chặt kiểm soát xuất khẩu nhằm ngăn các công ty Trung Quốc tiếp cận năng lực tính toán AI tiên tiến qua việc thuê đám mây. Quy định mới của Bộ Thương mại Mỹ yêu cầu nhà cung cấp đám mây xin giấy phép trong 90 ngày và loại trừ thực thể bị hạn chế.",
+        "Financial Times dẫn ba nguồn tin cho biết Dell và Supermicro thông báo với người mua rằng NVIDIA không cho phép giao các đơn hàng máy chủ. Vụ việc khiến công ty Aolani bị vướng kế hoạch phục vụ ByteDance, và ngân hàng đã dừng cấp khoản tín dụng khoảng 500 triệu USD.",
+        "Analytics India Magazine nhận định các hạn chế có thể ảnh hưởng đến làn sóng đầu tư trung tâm dữ liệu tại Đông Nam Á. Tuy nhiên, bài viết nhấn mạnh vẫn chưa rõ lệnh dừng giao hàng có phải tạm thời hay không khi các bên tìm cách tuân thủ quy định."
+      ],
+      "same_event_coverage_ids": [
+        "80c5a912fc78d0ba00c1"
+      ],
+      "split_coverage_ids": [],
+      "subject": "NVIDIA halts AI server shipments to Southeast Asian countries",
+      "video_labels": {
+        "video_hook": "drama_company",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": true
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "FT: NVIDIA yêu cầu đối tác ngừng giao máy chủ AI đến bốn nước Đông Nam Á do Mỹ siết kiểm soát",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "analytics-india-magazine",
+          "url": "https://analyticsindiamag.com/ai-news/nvidia-halts-ai-server-shipments-to-4-southeast-asian-countries-report"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.55,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "da1fb7b7d893ace4455e4c54652a639e39652df4359a1afa69139de397e2cd8a",
+        "scored_at": "2026-11-26T19:19:26.477993+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "d14575f1a1fc82989bc2",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://analyticsindiamag.com/ai-news/coforge-expands-nuuron-with-ai-led-vulnerability-remediation",
+      "key_points": [
+        "Coforge mở rộng bộ Nuuron với tính năng điều phối khắc phục lỗ hổng an ninh mạng trên hạ tầng, đám mây và ứng dụng. Hệ thống dùng tác tử AI (phần mềm tự chủ tác vụ) để nhận diện điểm yếu, xếp thứ tự ưu tiên và xử lý.",
+        "Theo Coforge, khâu khắc phục phần lớn vẫn làm thủ công và dễ trễ hạn do quy trình phân mảnh và thiếu nguồn lực. Doanh nghiệp nhận định kẻ tấn công có thể khai thác điểm yếu trong vài giờ, trong khi cách truyền thống mất nhiều tuần.",
+        "Hệ thống đặt chốt để con người phê duyệt các hành động rủi ro cao, kết hợp kỹ sư tại chỗ xử lý ngoại lệ.",
+        "Vụ việc do CERT-In công bố về tác tử AI tiếp cận hệ thống đã dấy lên nghi vấn về kiểm soát truy cập và giám sát hệ thống tự trị. Coforge không công bố khách hàng triển khai hay số liệu chứng minh việc rút ngắn thời gian xử lý lỗ hổng."
+      ],
+      "same_event_coverage_ids": [
+        "87dc29f6b8c514906472"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Coforge expands Nuuron AI suite with vulnerability remediation",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Ashish Kumar"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Coforge dùng tác tử AI điều phối khắc phục lỗ hổng an ninh mạng nhưng giữ quyền phê duyệt của con người",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "analytics-india-magazine",
+          "url": "https://analyticsindiamag.com/ai-news/coforge-expands-nuuron-with-ai-led-vulnerability-remediation"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.3,
+        "answers": {
+          "what": 9,
+          "why": 9,
+          "notable": 10,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "Readers may understand the new coverage as limited to infrastructure, cloud environments, and applications.",
+            "fix": "Add that the expanded offering also covers data platforms and AI systems (outlet:p001)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "fbb40c4d80342786ad4d372bf4cded5f3804ac2e1de0f9a2e7a213dcc5e32c39",
+        "scored_at": "2026-11-26T19:23:24.219058+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "1ff9ac2f00c63e9fd4b4",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Casual social chatter on Twitter without independent reporting or substantive journalistic verification.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://twitter.com/ElliotC1/status/2125689373337489419",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "a54ad26533f4b94aacc8"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "6390f5d828e61c4fd23a",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.london.edu/think/ai-bubble-about-to-burst",
+      "key_points": [
+        "Nghiên cứu mới từ Trường Kinh doanh London và Đại học Cambridge xác định xác suất lên tới 97% rằng cổ phiếu AI đang nằm trong bong bóng tài chính tính đến tháng 9 năm 2026.",
+        "Tác giả Marco Grotteria cho biết việc dự báo bong bóng rất khó do không quan sát được nền tảng hay kỳ vọng của nhà đầu tư, nên nhóm phân tích cảm nhận báo chí để đo lường khả năng dự báo. Nghiên cứu cũng chỉ ra báo chí tài chính thường cảnh báo quá mức so với tần suất sụp đổ thực tế.",
+        "Chỉ số bong bóng hàng tháng cao hơn ở tháng có bong bóng trong 74% các so sánh, và mỗi khi vượt 40% đến 50% thì sau đó đều xảy ra sụp đổ. Đáng chú ý, mức điểm tháng 9 năm 2026 đã ngang bằng hoặc cao hơn đỉnh bong bóng dot-com hồi tháng 3 năm 2000.",
+        "Các tác giả khẳng định bằng chứng đầu cơ không đồng nghĩa công nghệ thiếu giá trị kinh tế, bởi bong bóng và cách mạng công nghệ có thể cùng tồn tại."
+      ],
+      "same_event_coverage_ids": [
+        "e9a51ca5e30d24f24b69"
+      ],
+      "split_coverage_ids": [],
+      "subject": "London Business School research on AI financial bubble",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Marco Grotteria",
+          "Phillip Othen"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nghiên cứu từ 170 năm báo chí tài chính chỉ ra xác suất 97% cổ phiếu AI đang ở bong bóng",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://www.london.edu/think/ai-bubble-about-to-burst"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.4,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 6
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "Readers miss the article’s practical conclusion about crash risk.",
+            "fix": "Add that leaders should prepare for a possible subsequent crash and that the index is useful to policymakers who consider missing a bubble costlier than a false alarm (outlet:p035–p037, outlet:p042–p043)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "1931580058b4e0d0669609eb7e31c916d373a81ba6808a759d2c82abc35cba38",
+        "scored_at": "2026-11-26T19:19:26.478084+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "046029a0dedf800269f7",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "A Show HN founder self-promotion pitch and product landing page without independent journalistic coverage.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://lightscale.ai/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b5a22f6422b40522b2c4"
+      ],
+      "split_coverage_ids": []
     }
   ]
 }
