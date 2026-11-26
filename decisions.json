@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-26T21:24:52.519043+00:00",
-  "input_generated_at": "2026-11-26T20:46:33Z",
+  "generated_at": "2026-11-26T23:20:29.946288+00:00",
+  "input_generated_at": "2026-11-26T22:46:28Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -149379,10 +149379,10 @@
       "use_original_title": false,
       "source_url": "https://techcrunch.com/2026/11/26/nvidia-hits-pause-on-chip-shipments-to-southeast-asia/",
       "key_points": [
-        "Theo Wall Street Journal, Nvidia đã yêu cầu đối tác tạm dừng chuyển máy chủ, áp dụng với Dell và Super Micro khi chuyển đến Malaysia, Singapore, Thái Lan và Indonesia trong thời hạn chưa xác định.",
-        "TechCrunch cho biết các công ty Trung Quốc đã khai thác chip từ xa tại đó, kẽ hở vừa bị Bộ Thương mại Mỹ đóng lại hồi đầu tháng.",
-        "Tạp chí này dẫn ước tính từ viện nghiên cứu Institute for Progress rằng các trung tâm dữ liệu từ xa kiểu như vậy cung cấp khoảng 24% năng lực tính toán AI của Trung Quốc.",
-        "TechCrunch nhận định Nvidia đang chịu áp lực phải thay đổi cách hoạt động, và báo cáo của Wall Street Journal cho thấy áp lực này đi xa đến mức nào."
+        "Theo Journal, Nvidia đã yêu cầu đối tác tạm dừng chuyển máy chủ sang Đông Nam Á trong thời hạn chưa xác định. Đợt tạm dừng áp dụng với các lô hàng máy chủ của Dell và Super Micro đến Malaysia, Singapore, Thái Lan cùng Indonesia.",
+        "TechCrunch giải thích các công ty Trung Quốc từng khai thác chip từ xa tại đây, kẽ hở vừa bị Bộ Thương mại Mỹ đóng lại.",
+        "Journal dẫn ước tính từ viện nghiên cứu Institute for Progress rằng các trung tâm dữ liệu từ xa kiểu này cung cấp khoảng 24% năng lực tính toán AI của Trung Quốc.",
+        "TechCrunch nhận định Nvidia đang chịu áp lực phải thay đổi cách thức hoạt động, và báo cáo mới từ WSJ cho thấy áp lực này đi xa đến mức nào."
       ],
       "same_event_coverage_ids": [
         "cbb37a3982e6fbe55991"
@@ -149396,7 +149396,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Nvidia yêu cầu các đối tác tạm ngừng chuyển máy chủ sang Đông Nam Á để đánh giá quy định xuất khẩu của Mỹ",
+      "editorial_headline_vi": "Nvidia tạm dừng chuyển máy chủ sang Đông Nam Á để đánh giá việc đối tác đáp ứng yêu cầu xuất khẩu của Mỹ",
       "summary_sources": [
         {
           "id": "outlet",
@@ -149409,34 +149409,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.2,
+        "value": 10.0,
         "answers": {
           "what": 10,
-          "why": 6,
+          "why": 10,
           "notable": 10,
           "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "cause",
-            "summary_text": "để đánh giá quy định xuất khẩu của Mỹ",
-            "explanation": "Nvidia is assessing whether its regional partners meet U.S. export requirements, not evaluating the regulations themselves (outlet:p008)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "why",
-            "problem": "The headline gives readers the wrong purpose for the shipment pause.",
-            "fix": "Say Nvidia is checking whether its regional partners comply with U.S. export requirements (outlet:p008)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "4d60ebd910b3bd08fc53df775581f76a42d05f2c5c7ac1d23884a74e68055d5d",
-        "scored_at": "2026-11-26T21:19:45.114559+00:00"
+        "prose_sha256": "2ba69be414498ce5a0d65a18a84912a6ab327eb134167c01a6da602a3e549091",
+        "scored_at": "2026-11-26T23:20:29.940765+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
@@ -149487,6 +149475,224 @@
       ],
       "split_coverage_ids": [],
       "subject": "OpenAI",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "d8f32cf889b44c40eab5",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/26/2026/ai-reshapes-black-friday-shopping",
+      "key_points": [
+        "Brands have embraced AI tools to help price products, allowing merchants to cut discounts without denting consumer demand.",
+        "Ransomware attacks targeting retailers are 50% more frequent in November, raising concerns for a sector with low levels of cyber insurance."
+      ],
+      "same_event_coverage_ids": [
+        "faa6f7efee236aef9348"
+      ],
+      "split_coverage_ids": [],
+      "subject": "AI adoption in Black Friday retail pricing and cybersecurity risks",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "ae55313b8a28880c4930",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/features/2026-11-26/holidays-to-test-ai-shopping-bots-from-google-amazon-meta-and-openai",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "e4f47451c30786f446ec"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "aebfbe56731bd98a52c5",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Personal developer blog post containing casual personal thoughts on self-hosting without substantive reporting, news events, or a product release.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://janlukas.blog/posts/ai-self-hosting",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "06d11a6e4bb9094c73d1",
+        "8e8c7124376b346bcfd6"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "ec879438b02a22915a51",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.youtube.com/watch?v=ufvSPf329pA",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "f4636b897e34ecd91354"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Terry Tao interview on AI solving the Riemann hypothesis",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Terry Tao"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "dd796ef8969a6d72429e",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.forbes.com/sites/the-wiretap/2026/11/25/us-government-under-ai-cyberattack",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "48755bd7e9be8b0f54c7"
+      ],
+      "split_coverage_ids": [],
+      "subject": "AI cyberattack targeting the US Government",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "900bc57fd1c9fbff9b45",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Business reporting on TDK expanding magnetic sensor manufacturing where AI data centers is merely a passing reference alongside cars and robots.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-26/tdk-bets-on-ai-data-centers-and-robots-to-fuel-sensor-growth",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "8a3a23d7e7a3f8beb04b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "7759a691df4eb8b4f2d2",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.economist.com/by-invitation/2026/11/25/nvidia-was-right-to-bring-back-jensen-huang-writes-sarah-guo",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "a3af2d389d8c90ae82b3"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Opinion on Nvidia bringing back Jensen Huang",
+      "video_labels": {
+        "video_hook": "drama_person",
+        "named_people": [
+          "Jensen Huang",
+          "Sarah Guo"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "f2e6cfed540ddc9ff77d",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "survey",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://topcitedscientists.com/figures/ai-at-four-us-companies/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "86268b94a59e1a872916",
+        "e47c0a1da15bd71cd867"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Citation survey of top AI scientists at four US tech companies",
       "video_labels": {
         "video_hook": "other",
         "named_people": [],
