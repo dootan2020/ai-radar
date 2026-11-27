@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-27T15:26:34.871117+00:00",
-  "input_generated_at": "2026-11-27T14:47:09Z",
+  "generated_at": "2026-11-27T17:24:41.994121+00:00",
+  "input_generated_at": "2026-11-27T16:47:11Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -151147,10 +151147,10 @@
       "use_original_title": false,
       "source_url": "https://technode.com/2026/11/27/alibaba-denies-qwen-post-training-chiefs-departure-plans-lawsuit-over-rumor/",
       "key_points": [
-        "Đội ngũ Qwen của Alibaba bác bỏ thông tin trưởng nhóm hậu đào tạo (tinh chỉnh mô hình sau huấn luyện) Zhou Hao rời đi, đồng thời thông báo sẽ khởi kiện đơn vị xuất bản đăng tin này.",
-        "TechNode cho biết phản ứng này diễn ra sau khi tài khoản Top Huaren Kechuang She đăng bài cáo buộc ông rời đi. Phía Qwen khẳng định bài viết đã bịa đặt việc thay đổi nhân sự và viết sai cả chữ Hán trong tên ông Zhou.",
-        "Các báo cáo trước đó cho biết ông Zhou gia nhập Alibaba vào tháng 1 năm 2026 rồi chuyển sang phòng thí nghiệm Tongyi phụ trách khâu hậu đào tạo của Qwen. Trước đây, ông từng nghiên cứu tại Meta và Google DeepMind, đồng thời là đồng trưởng nhóm về độ chính xác thực tế của Gemini 1.0.",
-        "Nhóm Qwen cho biết các thông tin thiếu chính xác về đội ngũ đã xuất hiện nhiều lần, đồng thời khẳng định sẽ theo đuổi hành động pháp lý đối với những bên chịu trách nhiệm."
+        "Đội ngũ Qwen của Alibaba bác bỏ tin trưởng nhóm hậu đào tạo (tinh chỉnh mô hình sau huấn luyện) Zhou Hao rời đi và tuyên bố kiện bên đăng tin này.",
+        "TechNode cho biết phản ứng này diễn ra sau bài viết của tài khoản Top Huaren Kechuang She cáo buộc ông rời đi. Qwen khẳng định bài viết bịa đặt thay đổi nhân sự và viết sai cả chữ Hán trong tên ông Zhou.",
+        "Trước đó, báo cáo kỹ thuật Gemini 1.0 ghi nhận ông Zhou là đồng trưởng nhóm phụ trách độ chính xác thực tế trong các ứng dụng Gemini. Các báo cáo trước đó cho biết ông gia nhập Alibaba vào tháng 1 năm 2026 để phụ trách khâu hậu đào tạo của Qwen.",
+        "Đội ngũ Qwen cho biết các thông tin thiếu chính xác về nhóm mô hình xuất hiện nhiều lần, đồng thời khẳng định sẽ theo đuổi hành động pháp lý với bên chịu trách nhiệm."
       ],
       "same_event_coverage_ids": [
         "9f637d9a6367e33e818f"
@@ -151166,7 +151166,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Alibaba bác bỏ tin trưởng nhóm hậu đào tạo Qwen rời đi và tuyên bố khởi kiện bên tung tin",
+      "editorial_headline_vi": "Đội ngũ Qwen của Alibaba bác bỏ tin trưởng nhóm hậu đào tạo rời đi và tuyên bố sẽ khởi kiện",
       "summary_sources": [
         {
           "id": "outlet",
@@ -151179,34 +151179,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.7,
+        "value": 10.0,
         "answers": {
           "what": 10,
           "why": 10,
-          "notable": 9,
+          "notable": 10,
           "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "role",
-            "summary_text": "đồng trưởng nhóm về độ chính xác thực tế của Gemini 1.0",
-            "explanation": "The Gemini 1.0 technical report listed Zhou as a co-lead of work on factual accuracy in Gemini applications, rather than factual accuracy of Gemini 1.0 specifically (outlet:p003)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "notable",
-            "problem": "The reader may take Zhou’s role to have been specific to Gemini 1.0.",
-            "fix": "Say the Gemini 1.0 technical report named him a co-lead of factual-accuracy work in Gemini applications (outlet:p003)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "eff7352a90925d283f67aa21e9c0cc1f625f8de915a884476d4c3edd35622fd3",
-        "scored_at": "2026-11-27T15:22:53.669373+00:00"
+        "prose_sha256": "8f24a732d328f92516f9d260a5e097b14db54d926be683f7a6c832f41d7bb701",
+        "scored_at": "2026-11-27T17:24:41.977152+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
@@ -151300,8 +151288,8 @@
       "source_url": "https://analyticsindiamag.com/ai-features/from-alibaba-to-bharatgen-10-small-language-models-that-rivalled-llms-in-2026",
       "key_points": [
         "Theo Analytics India Magazine, mười mô hình ngôn ngữ nhỏ (SLM - mô hình AI tinh giản tham số) ra mắt năm 2026 đang sẵn sàng trở thành công cụ chủ lực cho doanh nghiệp.",
-        "Tạp chí nhận định các mô hình nhỏ là giải pháp thay thế hiệu quả cho mô hình ngôn ngữ lớn vốn đòi hỏi hạ tầng tính toán đáng kể. Khác với mô hình lớn, mô hình nhỏ có thể được tối ưu hóa cho các tác vụ cụ thể như lập trình, dịch thuật, xử lý tài liệu và suy luận.",
-        "Nghiên cứu năm 2025 của Viện Công nghệ Vishwakarma cho biết các mô hình 1–14 tỷ tham số đã đạt hoặc vượt hiệu năng mô hình lớn trên những tác vụ cụ thể dù tốn ít hơn 10–100 lần năng lực tính toán. Chẳng hạn, mẫu Qwen3.5-9B của Alibaba đã vượt đối thủ Gemma-4-12B-IT của Google ở năm trên tám bài kiểm chuẩn (tiêu chuẩn đánh giá AI) chung, gồm cả bài kiểm tra khoa học và suy luận GPQA Diamond.",
+        "Tạp chí nhận định các mô hình nhỏ là giải pháp thay thế hiệu quả cho mô hình ngôn ngữ lớn vốn đòi hỏi hạ tầng tính toán đáng kể. Khác với mô hình lớn đa dụng, mô hình nhỏ có thể được tối ưu hóa cho những tác vụ cụ thể như lập trình, dịch thuật, xử lý tài liệu và suy luận.",
+        "Nghiên cứu năm 2025 của Viện Công nghệ Vishwakarma cho biết các mô hình 1–14 tỷ tham số đã đạt hoặc vượt hiệu năng mô hình lớn trên những tác vụ cụ thể dù tốn ít hơn 10–100 lần năng lực tính toán. Chẳng hạn, ở bài đánh giá khoa học và suy luận cấp sau đại học GPQA Diamond, mẫu Qwen3.5-9B của Alibaba đã vượt các mô hình tầm trung đối thủ, đồng thời đánh bại Gemma-4-12B-IT của Google ở năm trên tám bài kiểm chuẩn chung.",
         "Tạp chí đánh giá việc chạy trên thiết bị cá nhân giúp mô hình nhỏ bảo đảm tuân thủ quy định lưu trữ dữ liệu tại chỗ trong các lĩnh vực nhạy cảm như ngân hàng, y tế và pháp lý."
       ],
       "same_event_coverage_ids": [
@@ -151329,25 +151317,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.7,
+        "value": 9.0,
         "answers": {
-          "what": 10,
+          "what": 8,
           "why": 10,
-          "notable": 9,
-          "meaning": 10
+          "notable": 10,
+          "meaning": 8
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "gồm cả bài kiểm tra khoa học và suy luận GPQA Diamond",
-            "explanation": "The source reports a GPQA Diamond result and separately says Qwen beat Gemma on five of eight shared benchmarks. It does not identify GPQA Diamond as one of those five (outlet:p008)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "notable",
-            "problem": "The reader is told that GPQA Diamond was one of Qwen’s five wins over Gemma, which the source does not establish.",
-            "fix": "State the GPQA Diamond result and the five-of-eight comparison separately, without identifying which five benchmarks Qwen won (outlet:p008)."
+            "question": "what",
+            "problem": "Readers are told this is a list of ten models but learn the identity of only one.",
+            "fix": "Name a few contrasting examples, such as Gemma 4 for mobile and edge use, Hy-MT2 for translation, and Granite 4.2 for enterprise applications (outlet:p010–p011, outlet:p018–p023)."
           }
         ],
         "writer_boats": [
@@ -151355,8 +151337,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "765d9bca5b1b7be9d7b958f7f208f7ea1bf4635034680f9b9aeabbb9025c3ec7",
-        "scored_at": "2026-11-27T15:22:53.669449+00:00"
+        "prose_sha256": "547f44d0a408f5bb3935e880e6e6f653b57f3a24ecf558fcea99ad8c5d0f415f",
+        "scored_at": "2026-11-27T17:24:41.977211+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
@@ -151520,10 +151502,10 @@
       "use_original_title": false,
       "source_url": "https://www.theguardian.com/business/2026/nov/27/ai-agent-cardless-transaction-pizza-papa-john-uk-fca-truelayer",
       "key_points": [
-        "Đơn hàng tại Papa John’s đã trở thành giao dịch đầu tiên ở Anh do tác tử AI (hệ thống phần mềm tự hành) thực hiện qua thanh toán không cần thẻ. TrueLayer cho biết đây là lần đầu tiên AI đứng ra thanh toán cho khách hàng thực tế tại một nhà bán lẻ ở Anh.",
-        "Hoạt động thử nghiệm công nghệ trong khuôn khổ môi trường có kiểm soát (sandbox) của Cơ quan Quản lý Tài chính Anh (FCA) được tiến hành qua đơn hàng chín chiếc bánh pizza mini, với sự tham gia của ngân hàng Lloyds và TrueLayer.",
-        "Giao dịch hoàn tất mà không cần chia sẻ số tài khoản hay mật khẩu, đồng thời bị giới hạn mức chi tiêu tối đa mỗi lần và mỗi tháng theo thỏa thuận với ngân hàng Lloyds.",
-        "Ông Simoneschi nhận định người tiêu dùng vẫn cần duy trì sự kiểm soát và giám sát khi sử dụng tác tử AI. Cơ quan Quản lý Tài chính Anh cũng cảnh báo các công ty phát triển AI tài chính phải tuân thủ nghiêm ngặt các quy định hiện hành."
+        "Đơn hàng tại Papa John’s trở thành giao dịch đầu tiên ở Anh do tác tử AI (hệ thống phần mềm tự hành) thực hiện qua thanh toán không dùng thẻ. TrueLayer cho biết đây là lần đầu tác tử AI thanh toán đơn hàng cho khách thực tế tại một nhà bán lẻ ở Anh.",
+        "Thử nghiệm công nghệ trong khuôn khổ môi trường có kiểm soát của Cơ quan Quản lý Tài chính Anh (FCA) được thực hiện qua đơn chín chiếc bánh pizza mini, với sự tham gia của Lloyds Bank và chuyên gia thanh toán TrueLayer.",
+        "Tác tử AI của Papa John’s được cấp quyền truy cập tài khoản ngân hàng của nhóm và yêu cầu chuyển tiền đến tài khoản người bán. Giao dịch áp dụng hạn mức chi tiêu tối đa mỗi lần và mỗi tháng theo thỏa thuận với Lloyds, không chia sẻ mật khẩu hay số tài khoản.",
+        "Ông Simoneschi nhận định đây là bước đầu hướng tới việc áp dụng đại trà công nghệ có thể thay đổi căn bản thói quen mua sắm. Tuy nhiên, ông nhấn mạnh người tiêu dùng vẫn cần duy trì kiểm soát, giám sát và bảo đảm công nghệ đạt chuẩn an toàn cao nhất."
       ],
       "same_event_coverage_ids": [
         "49ea2b81096fdbc6cc5c",
@@ -151538,7 +151520,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Tác tử AI lần đầu mua hàng không cần thẻ tại Anh qua thử nghiệm có kiểm soát với Papa John's",
+      "editorial_headline_vi": "Tác tử AI lần đầu mua hàng không dùng thẻ tại Anh qua thử nghiệm có kiểm soát với Papa John's",
       "summary_sources": [
         {
           "id": "outlet",
@@ -151551,33 +151533,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.55,
+        "value": 10.0,
         "answers": {
           "what": 10,
-          "why": 8,
-          "notable": 8,
-          "meaning": 7
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
         },
         "hard_errors": [],
-        "findings": [
-          {
-            "question": "meaning",
-            "problem": "Readers miss why the trial could matter beyond this purchase.",
-            "fix": "Add that Simoneschi called it a first step toward wider adoption of AI-agent shopping, while retaining his caution about supervision (outlet:p015–p018)."
-          },
-          {
-            "question": "notable",
-            "problem": "The payment mechanism is incomplete.",
-            "fix": "Explain that the agent was permitted to request payment from the customer’s bank account to the retailer’s account, subject to spending limits (outlet:p011–p012)."
-          }
-        ],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "8c88b39dc350b517e4340516286f90eca5158b6760c1ca93754c5ebc28f3a197",
-        "scored_at": "2026-11-27T15:18:39.548578+00:00"
+        "prose_sha256": "7d0b30acf5cc63b576426c453a671f466cc3866407c05e53bf0f451a21f0ddfd",
+        "scored_at": "2026-11-27T17:24:41.977243+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
@@ -151685,6 +151656,213 @@
       "key_points": [],
       "same_event_coverage_ids": [
         "9fdea506142090c94f20"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "fb8bde07edc4fdf07d67",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://generativehistory.substack.com/p/gpt-62-astra-solves-a-historical",
+      "key_points": [
+        "Theo tác giả Mark Humphries, mô hình GPT-6.2 Astra đã tự xác định Chabot là tác giả cuốn sổ phác thảo năm 1808 tại Thư viện Beinecke của Đại học Yale. Cuốn sổ vẽ hành trình từ Montreal đến Fort William mà ông từng nhiều năm tìm người vẽ bất thành.",
+        "Chỉ với câu lệnh tối thiểu, mô hình đã tự nghiên cứu các nguồn công khai trong 22 phút để lập giả thuyết và tìm tài liệu chứng minh.",
+        "Phát hiện này mang lại nguồn tư liệu quan trọng cho giới sử học Canada và ngành buôn bán lông thú khi tìm ra nhật ký năm 1808 của Chabot. Mô hình đã lần theo chú thích trong luận án năm 2014 của Juliette Reboul để tìm ra bản nhật ký trong kho vi phim.",
+        "Tác giả nhận định năng lực nghiên cứu này bắt đầu xuất hiện ở mức nhất định trên các mô hình hàng đầu sau khi Fable 5.2 cũng đạt kết quả tương tự. Dù vậy, ông chỉ ra giới hạn ở tác vụ không tất định khi mô hình có xu hướng né tránh thành quả và đưa ra những nghi ngại khó xảy ra."
+      ],
+      "same_event_coverage_ids": [
+        "de1b5a7c79019c14585d"
+      ],
+      "split_coverage_ids": [],
+      "subject": "AI intelligence explosion and mathematical and historical problem solving",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Mark Humphries",
+          "Levent Alpöge"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "GPT-6.2 Astra tự xác định Chabot là tác giả cuốn sổ phác thảo năm 1808 trong 22 phút",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://generativehistory.substack.com/p/gpt-62-astra-solves-a-historical"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.8,
+        "answers": {
+          "what": 10,
+          "why": 7,
+          "notable": 9,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The reader does not learn what made the journal decisive.",
+            "fix": "Add that Chabot’s 18 June 1808 entry says he sketched Fort St. Joseph (outlet:p036)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The comparison makes Fable’s accomplishment sound nearly identical.",
+            "fix": "Clarify that Fable reached the same conclusion but failed to find Chabot’s journal, which Humphries calls the most important evidence (outlet:p052)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "97e5f85423c4bad357af6e351a2677de62743b92867351bb22bde6705abccba5",
+        "scored_at": "2026-11-27T17:17:44.652491+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "9b19d59ccc4c45b1dca0",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "General retail business coverage of Black Friday shopping trends; AI adoption is mentioned only incidentally to consumer-retailer interactions rather than as substantive AI industry, research, or vendor reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-27/how-ai-is-changing-black-friday-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "8cc724448fc9d645b93e"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "16209667347df88cd096",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://thequantuminsider.com/2026/11/26/stanford-physicist-uses-ai-to-tackle-quantum-gravity-problem/",
+      "key_points": [
+        "Nhà vật lý Venkatesa Chandrasekaran tại Đại học Stanford đề xuất lý thuyết hấp dẫn lượng tử dùng đường đi ánh sáng cho kết quả hữu hạn đối với biến động không thời gian. Tác giả phát triển các phép tính qua nhiều tháng làm việc với mô hình GPT-6 Astra của OpenAI bằng khoảng 400 triệu token.",
+        "Theo The Quantum Insider, việc tính tổng ở hằng số hấp dẫn khác không trước khi khai triển giúp triệt tiêu phân kỳ một phần từ các đóng góp ở bước sóng cực ngắn. Trái lại, phép tính xấp xỉ khai triển theo hằng số hấp dẫn trước khi cộng các bước sóng lại tạo ra số hạng tăng vô hạn.",
+        "Trên arXiv, Chandrasekaran tính toán cặp graviton (đơn vị lượng tử giả định của sóng hấp dẫn) xuất hiện rồi biến mất và thu được kết quả hữu hạn. Nghiên cứu cũng tái lập số hiệu chỉnh lượng tử cho entropy lỗ đen lớn, khớp với tính toán trước đó của Ashoke Sen.",
+        "The Quantum Insider nhận định nghiên cứu có thể giúp dung hòa cơ học lượng tử với thuyết tương đối rộng nếu hướng tiếp cận đứng vững. Dù vậy, bài viết lưu ý công trình mang tính lý thuyết, chưa có kiểm chứng thực nghiệm và chưa qua bình duyệt chính thức."
+      ],
+      "same_event_coverage_ids": [
+        "534e640061caf35a6492",
+        "d79b5ef3ed32ff93c5de"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Stanford physicist proposes quantum theory of gravity using GPT-6 Astra",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Venkatesa Chandrasekaran"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Nhà vật lý Stanford cùng AI giải phép tính hấp dẫn lượng tử đạt kết quả hữu hạn cho cặp graviton giả định",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://thequantuminsider.com/2026/11/26/stanford-physicist-uses-ai-to-tackle-quantum-gravity-problem/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.1,
+        "answers": {
+          "what": 8,
+          "why": 9,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "cho kết quả hữu hạn đối với biến động không thời gian",
+            "explanation": "This presents the finite result as applying to spacetime fluctuations generally. The source reports a finite answer for a specific calculation in which two gravitons appear and disappear (outlet:p019)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The opening sentence broadens the scope of the finite result.",
+            "fix": "Say the proposed theory gives a finite result for the graviton-pair calculation, as the source specifies (outlet:p019)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "b1251a6c3fb844083ad5c2406c25e4ff45ff83c8838655a1e2eb4152fc667eb6",
+        "scored_at": "2026-11-27T17:17:44.652544+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "6da1370b34f984731ecd",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-27/nvidia-blackwell-chips-turn-up-at-china-site-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "5ed121d3d287f7314ff4"
       ],
       "split_coverage_ids": []
     }
