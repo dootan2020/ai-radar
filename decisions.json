@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-27T07:07:28.480710+00:00",
-  "input_generated_at": "2026-11-27T06:46:45Z",
+  "generated_at": "2026-11-27T09:21:52.736436+00:00",
+  "input_generated_at": "2026-11-27T08:46:20Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -150544,6 +150544,298 @@
       "key_points": [],
       "same_event_coverage_ids": [
         "acf94612b007a2de5528"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "097806df216dac745ffe",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-27/nvidia-ai-fears-jolt-markets-market-snapshot-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "a4238022eea2be821c6c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "8eb6b8c7d2d3b9a26a9e",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Business reporting focuses on Chinese kitchen appliance maker Joyoung's stock surge driven by a retail investor pun on grain processing units versus GPUs, making AI incidental to a meme-stock story.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.scmp.com/tech/tech-trends/article/3376026/why-did-ai-chip-frenzy-send-chinese-blender-makers-stock-soaring-390",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "8c5f9735d0818db13fa6"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "a93c02bc261f067f1ccd",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "European equity market commentary discussing regional market stability with only a passing reference to AI trade volatility elsewhere.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-27/stabilizing-forces-make-europe-an-ai-storm-shelter-taking-stock",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "3e98a67bd03ccd933459"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "5538b4ec2a96ea0976cb",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://pandaily.com/moonshot-kimi-for-science-research-program",
+      "key_points": [
+        "Ngày 27 tháng 11 năm 2026, Moonshot AI mở nhận hồ sơ Kimi for Science, chương trình hỗ trợ nghiên cứu cho khối khoa học tự nhiên và kỹ thuật.",
+        "Trang chính thức yêu cầu ứng viên mô tả bối cảnh nghiên cứu, dữ liệu và quy trình trước hạn chót đợt một ngày 8 tháng 12 năm 2026.",
+        "Ứng viên được chọn có thể nhận tối đa 150.000 nhân dân tệ tín dụng API Kimi (khoảng 7 tỷ token), tùy thuộc nhu cầu và kết quả đánh giá.",
+        "Pandaily lưu ý đây là chương trình cấp tín dụng sử dụng mô hình chứ không phải trợ cấp tiền mặt hay phát hành mô hình mới, và đợt tuyển đầu chưa có kết quả."
+      ],
+      "same_event_coverage_ids": [
+        "972e0539a55a7178f2fa"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Moonshot AI Kimi for Science program application opening",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Moonshot AI mở đăng ký Kimi for Science, có thể cấp tới 150.000 tệ tín dụng gọi API",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "pandaily",
+          "url": "https://pandaily.com/moonshot-kimi-for-science-research-program"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.65,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "ec93579cfb79bb4a5d59ddc8a8061a1236532a6e83aefceb92fc15993383f067",
+        "scored_at": "2026-11-27T09:17:50.027217+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "8c683f08b591bec2c93c",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-27/sap-prepares-plan-to-cut-at-least-10-000-positions-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "e3cae05c137767a4686b"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "8a7bedc20d3b6ed3ea23",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.wired.com/story/a-new-breed-of-chip-runs-ai-models-using-waves-of-light/",
+      "key_points": [
+        "Theo WIRED, việc phát triển chip quang học cho AI đang được công ty Đức Q.ANT triển khai để vận hành song song cùng GPU. Dòng chip này dùng sóng ánh sáng thay vì electron để xử lý phép toán phi tuyến phức tạp thay vì thay thế GPU.",
+        "Tạp chí WIRED cho biết chi phí năng lượng vận hành AI tăng vọt là nguyên nhân chính, giữa lúc trung tâm dữ liệu mới gặp trở ngại hậu cần và làn sóng phản đối. Giám đốc điều hành Michael Förtsch của Q.ANT nhận định tính toán quang học giải phương trình phức tạp trong một bước, giúp giảm điểm truy cập bộ nhớ.",
+        "Về ứng dụng thực tế, việc triển khai chip tại cơ sở của IONOS vừa được Q.ANT thực hiện trong một chương trình thử nghiệm. Doanh nghiệp này cho biết thêm hơn 30 nhóm kỹ sư hiện đang phát triển các mô hình AI tối ưu cho điện toán quang học.",
+        "Theo Giám đốc điều hành Michael Förtsch, mức giảm năng lượng bốn đến năm lần mới chỉ đạt trong mô phỏng chứ chưa chứng minh trên phần cứng thực tế. Lãnh đạo này thừa nhận công nghệ xử lý mới cần thời gian để tạo dựng độ tin cậy và chuỗi cung ứng trước khi có thể áp dụng rộng rãi."
+      ],
+      "same_event_coverage_ids": [
+        "bf196fc54916484c25cd"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Photonic processors for AI energy efficiency",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Q.ANT thử nghiệm chip quang học cho AI: giảm 4-5 lần điện năng trong mô phỏng",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "wired",
+          "url": "https://www.wired.com/story/a-new-breed-of-chip-runs-ai-models-using-waves-of-light/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The reader misses Q.ANT's stated goal of preserving task quality while reducing both energy use and operating cost.",
+            "fix": "Add that Förtsch envisions data-optimized AI models performing tasks at the same quality for a fraction of the energy and operating cost (outlet:p045–p046)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "d2ff90784d045456d0ab4a90267a770bfecad39f334155ad2c7c94a14b752d37",
+        "scored_at": "2026-11-27T09:21:52.652250+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "4c52f6db476bb8749354",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "General market equities wrap focusing on broader stock recovery and Chinese market support, with only a passing mention of the AI trade rebound.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-27/equities-extend-recovery-as-ai-trade-rebounds-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c28a90492bd0f91dc368"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "77a3442e72eca9f6e6c5",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://analyticsindiamag.com/ai-news/sap-considers-10000-job-cuts-across-departments-in-ai-restructuring-report",
+      "key_points": [
+        "SAP is considering eliminating at least 10,000 positions, affecting at least 9% of its global workforce, to restructure for the AI era.",
+        "The proposed job cuts reportedly focus on product, engineering, and sales teams.",
+        "Chief Executive Officer Christian Klein is pushing to make artificial intelligence central to SAP's business strategy.",
+        "SAP declined to comment on the report and stated to AIM that it has not made decisions regarding workforce reorganization."
+      ],
+      "same_event_coverage_ids": [
+        "6f17972193d1affea27b"
+      ],
+      "split_coverage_ids": [],
+      "subject": "SAP restructuring and 10,000 role cuts",
+      "video_labels": {
+        "video_hook": "money_jobs",
+        "named_people": [
+          "Christian Klein"
+        ],
+        "availability": "unknown",
+        "is_leak": true
+      }
+    },
+    {
+      "id": "76dfdf91db6ff3c40602",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "A prompt recipe and tutorial demonstrating how to prompt LLMs like ChatGPT to simulate a gossiping group chat.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://construct22.com/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "033d34ad4cf21d5a9c89",
+        "206c9d3fe5a694aa9259"
       ],
       "split_coverage_ids": []
     }
