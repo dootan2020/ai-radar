@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-27T03:21:40.160238+00:00",
-  "input_generated_at": "2026-11-27T02:46:41Z",
+  "generated_at": "2026-11-27T05:18:24.796000+00:00",
+  "input_generated_at": "2026-11-27T04:46:52Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -150349,6 +150349,108 @@
         "9ac86af4d6b34f6a28b2"
       ],
       "split_coverage_ids": []
+    },
+    {
+      "id": "8182d04b475b92db1401",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "General news digest summarizing seven varied regional stories where AI and Nvidia are only an incidental mention.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.scmp.com/news/world/article/3375979/huawei-guilty-10-counts-us-trial-nvidias-jensen-huang-returns-scmps-7-highlights",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "0d88dbf8b819e5aad4ee"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "8eaa0c9eed0436b1cf62",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-27/foreign-funds-on-pace-for-record-taiwan-stock-exodus-in-ai-rout",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "2d0358479316fcd49324"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "b263cc7e79dae2e57ff4",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.phoronix.com/news/Omarchy-4.6-Released",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "f03da823c0729a605803"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Omarchy 4.6 release",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "127cdfae3782b7b18dd5",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://analyticsindiamag.com/ai-news/elevenlabs-targets-33-billion-valuation-in-fresh-funding-round-report",
+      "key_points": [
+        "ElevenLabs is in early discussions for a funding round that could value the company at $33 billion.",
+        "ElevenLabs has reached $700 million in annual recurring revenue, up from $600 million reported in September.",
+        "A proposed $33 billion valuation would be 50% higher than its September valuation of $22 billion, following a previous $11 billion valuation in February."
+      ],
+      "same_event_coverage_ids": [
+        "0e3d50dbe4616e154e1b",
+        "1f24742739eeecd28bb2"
+      ],
+      "split_coverage_ids": [],
+      "subject": "ElevenLabs $33B valuation funding discussions",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": true
+      }
     }
   ]
 }
