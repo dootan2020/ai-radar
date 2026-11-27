@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-26T23:20:29.946288+00:00",
-  "input_generated_at": "2026-11-26T22:46:28Z",
+  "generated_at": "2026-11-27T01:05:38.687859+00:00",
+  "input_generated_at": "2026-11-27T00:46:28Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -149699,6 +149699,137 @@
         "availability": "unknown",
         "is_leak": false
       }
+    },
+    {
+      "id": "2e5d83e4714a2842864c",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Routine financial market report on South Korean stocks opening higher, with AI concerns mentioned only in passing as broader equity market sentiment.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://en.yna.co.kr/view/AEN20261127001251320",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "18cc5dafd9ce6ade9e71"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "7ac0ff2587add0114d51",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Urgent wire flash about the Seoul stock market opening higher, mentioning AI jitters only as a passing market sentiment reference.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://en.yna.co.kr/view/AEN20261127001100320",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "868d058668ddcf1d085c",
+        "b49fecaf27a23aa78433"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "ff594969db700dd45183",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.youtube.com/watch?v=WNHac8LYzKQ",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "ed442f759d6eb0d33086"
+      ],
+      "split_coverage_ids": [],
+      "subject": "AI solving the Riemann hypothesis",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Grant Sanderson"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "b8746b5d086c80213fa9",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Personal social media post titled as a warning to loved ones about AI; casual social chatter lacking substantive news reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://twitter.com/nikolaj2030/status/2125996744718565514",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "1ffa317475713d2e2de7"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "e7bc039ee36ad0e86b4b",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Social media post describing a personal coding experiment using Claude to generate a Civilization-style map; casual social chatter without substantive reporting or release.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://x.com/karpathy/status/2125779541952246039",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "1ce5f4f902fb935358b1"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "31ca28d917b35c13caa7",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Financial news report covering the benchmark KOSPI index opening higher; lingering AI woes are mentioned only in passing as broad market context.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://en.yna.co.kr/view/AEN20261126001700320",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "2fcf6ddc1c98ad37b49c",
+        "7d31e37a666762bca2bc",
+        "9ac86af4d6b34f6a28b2"
+      ],
+      "split_coverage_ids": []
     }
   ]
 }
