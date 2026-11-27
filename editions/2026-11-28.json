@@ -1,0 +1,288 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-28",
+  "timezone": "Asia/Ho_Chi_Minh",
+  "window_start_at": "2026-11-26T23:00:00Z",
+  "cutoff_at": "2026-11-27T23:00:00Z",
+  "created_at": "2026-11-27T23:08:05Z",
+  "snapshot_generated_at": "2026-11-27T23:06:37Z",
+  "policy": {
+    "method": "daily-evidence-v3",
+    "max_stories": 5,
+    "window_hours": 24,
+    "cutoff_hour": 6,
+    "engagement_percentile_min": 0.8,
+    "publisher_coverage_excludes_forums": true,
+    "attention_requires_nonforum": true,
+    "forum_exception_percentile_min": 0.97,
+    "forum_exception_comments_min": 100,
+    "max_forum_only_stories": 1,
+    "score_measured_at": "2026-11-27T23:06:37Z",
+    "description": "Ưu tiên dấu hiệu công bố, số nhà xuất bản và tương tác đo được; sau đó theo điểm nóng và thời gian công bố"
+  },
+  "stories": [
+    {
+      "id": "786f45594cbb4fe12d7d",
+      "title": "Tencent Lab Leads Nature Paper on AI-Designed Dual-Target Therapeutic Peptides",
+      "title_vi": "Tencent Lab dẫn đầu nghiên cứu về các peptide trị liệu hai mục tiêu được thiết kế bởi AI",
+      "headline": "Tencent Lab Leads Nature Paper on AI-Designed Dual-Target Therapeutic Peptides",
+      "headline_vi": "Tencent Lab dẫn đầu nghiên cứu về các peptide trị liệu hai mục tiêu được thiết kế bởi AI",
+      "url": "https://pandaily.com/tencent-oridtp-nature-dual-target-therapeutic-peptides",
+      "published_at": "2026-11-27T02:40:33Z",
+      "kind": "research",
+      "time_basis": "published",
+      "editorial_headline_vi": "Tencent công bố nền tảng AI thiết kế peptide kép trên Nature nhưng mới thử nghiệm ở chuột",
+      "editorial_headline_verified": true,
+      "source_count": 2,
+      "coverage": [
+        {
+          "id": "8317e4fbd47e2ead1f6c",
+          "title": "Tencent Lab Leads Nature Paper on AI-Designed Dual-Target Therapeutic Peptides",
+          "title_vi": "Tencent Lab dẫn đầu nghiên cứu về các peptide trị liệu hai mục tiêu được thiết kế bởi AI",
+          "headline": "Tencent Lab Leads Nature Paper on AI-Designed Dual-Target Therapeutic Peptides",
+          "headline_vi": "Tencent Lab dẫn đầu nghiên cứu về các peptide trị liệu hai mục tiêu được thiết kế bởi AI",
+          "url": "https://pandaily.com/tencent-oridtp-nature-dual-target-therapeutic-peptides",
+          "published_at": "2026-11-27T02:40:33Z",
+          "kind": "research",
+          "time_basis": "published",
+          "source": "pandaily",
+          "publisher": "pandaily",
+          "entity": "pandaily",
+          "group": "press",
+          "observed_at": "2026-11-27T23:06:37Z",
+          "discussion_url": null,
+          "metrics": {}
+        },
+        {
+          "id": "97d294feda8ab6a1881b",
+          "title": "China’s Tencent makes AI drug discovery breakthrough with Nature paper",
+          "title_vi": "Công ty Tencent của Trung Quốc đã phát hiện ra một đột phá trong việc phát hiện thuốc AI với bài báo Nature",
+          "headline": "China’s Tencent makes AI drug discovery breakthrough with Nature paper",
+          "headline_vi": "Công ty Tencent của Trung Quốc đã phát hiện ra một đột phá trong việc phát hiện thuốc AI với bài báo Nature",
+          "url": "https://www.scmp.com/tech/tech-trends/article/3376082/chinas-tencent-makes-ai-drug-discovery-breakthrough-nature-paper",
+          "published_at": "2026-11-27T12:30:08Z",
+          "kind": "research",
+          "time_basis": "published",
+          "source": "scmp-tech",
+          "publisher": "scmp",
+          "entity": "scmp",
+          "group": "press",
+          "observed_at": "2026-11-27T23:06:37Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [
+          {
+            "code": "publisher_coverage",
+            "text": "2 định danh nhà xuất bản cùng đưa tin",
+            "publishers": [
+              "pandaily",
+              "scmp"
+            ]
+          }
+        ],
+        "signals": {
+          "publishers": [
+            "pandaily",
+            "scmp"
+          ],
+          "age_hours_at_cutoff": 20.3242,
+          "hot_score": 53.924,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "ac945829138478983d40",
+      "title": "AI debt boom could push up funding costs for South Africa",
+      "title_vi": "Sự bùng nổ nợ AI có thể thúc đẩy chi phí tài trợ cho Nam Phi",
+      "headline": "AI debt boom could push up funding costs for South Africa",
+      "headline_vi": "Sự bùng nổ nợ AI có thể thúc đẩy chi phí tài trợ cho Nam Phi",
+      "url": "https://www.semafor.com/article/11/27/2026/ai-debt-boom-could-push-up-funding-costs-as-south-africa-approaches-refinancing",
+      "published_at": "2026-11-27T14:25:38Z",
+      "kind": "other",
+      "time_basis": "published",
+      "editorial_headline_vi": "Ngân hàng trung ương Nam Phi cảnh báo nợ AI đe dọa tăng chi phí tái cấp vốn khi đáo hạn",
+      "editorial_headline_verified": true,
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "23d569a5e9dde276230c",
+          "title": "AI debt boom could push up funding costs for South Africa",
+          "title_vi": "Sự bùng nổ nợ AI có thể thúc đẩy chi phí tài trợ cho Nam Phi",
+          "headline": "AI debt boom could push up funding costs for South Africa",
+          "headline_vi": "Sự bùng nổ nợ AI có thể thúc đẩy chi phí tài trợ cho Nam Phi",
+          "url": "https://www.semafor.com/article/11/27/2026/ai-debt-boom-could-push-up-funding-costs-as-south-africa-approaches-refinancing",
+          "published_at": "2026-11-27T14:25:38Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "semafor",
+          "publisher": "semafor",
+          "entity": "semafor",
+          "group": "press",
+          "observed_at": "2026-11-27T23:06:37Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [],
+        "signals": {
+          "publishers": [
+            "semafor"
+          ],
+          "age_hours_at_cutoff": 8.5728,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "1d140bb3b26b0663e87b",
+      "title": "Android’s DIY widgets are a bit of vibe-coding fun",
+      "title_vi": "Các widget DIY của Android là một chút vui vẻ lập trình vibe",
+      "headline": "Android’s DIY widgets are a bit of vibe-coding fun",
+      "headline_vi": "Các widget DIY của Android là một chút vui vẻ lập trình vibe",
+      "url": "https://www.theverge.com/tech/1041801/android-intelligence-create-my-widget-gemini",
+      "published_at": "2026-11-27T14:00:00Z",
+      "kind": "product",
+      "time_basis": "published",
+      "editorial_headline_vi": "The Verge: Tính năng tạo tiện ích bằng AI trên Pixel vui nhộn nhưng còn mang tính khuôn mẫu",
+      "editorial_headline_verified": true,
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "ef7cfd7469fe1106c479",
+          "title": "Android’s DIY widgets are a bit of vibe-coding fun",
+          "title_vi": "Các widget DIY của Android là một chút vui vẻ lập trình vibe",
+          "headline": "Android’s DIY widgets are a bit of vibe-coding fun",
+          "headline_vi": "Các widget DIY của Android là một chút vui vẻ lập trình vibe",
+          "url": "https://www.theverge.com/tech/1041801/android-intelligence-create-my-widget-gemini",
+          "published_at": "2026-11-27T14:00:00Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "verge-ai",
+          "publisher": "the-verge",
+          "entity": "the-verge",
+          "group": "press",
+          "observed_at": "2026-11-27T23:06:37Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [],
+        "signals": {
+          "publishers": [
+            "the-verge"
+          ],
+          "age_hours_at_cutoff": 9.0,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "1e4dfaf2819429c92e7c",
+      "title": "Alibaba denies Qwen post-training chief’s departure, plans lawsuit over rumor",
+      "title_vi": "Alibaba phủ nhận sự ra đi của ông Qwen sau khi huấn luyện, lên kế hoạch kiện vì tin đồn",
+      "headline": "Alibaba denies Qwen post-training chief’s departure, plans lawsuit over rumor",
+      "headline_vi": "Alibaba phủ nhận sự ra đi của ông Qwen sau khi huấn luyện, lên kế hoạch kiện vì tin đồn",
+      "url": "https://technode.com/2026/11/27/alibaba-denies-qwen-post-training-chiefs-departure-plans-lawsuit-over-rumor/",
+      "published_at": "2026-11-27T13:48:32Z",
+      "kind": "other",
+      "time_basis": "published",
+      "editorial_headline_vi": "Đội ngũ Qwen của Alibaba bác bỏ tin trưởng nhóm hậu đào tạo rời đi và tuyên bố sẽ khởi kiện",
+      "editorial_headline_verified": true,
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "9f637d9a6367e33e818f",
+          "title": "Alibaba denies Qwen post-training chief’s departure, plans lawsuit over rumor",
+          "title_vi": "Alibaba phủ nhận sự ra đi của ông Qwen sau khi huấn luyện, lên kế hoạch kiện vì tin đồn",
+          "headline": "Alibaba denies Qwen post-training chief’s departure, plans lawsuit over rumor",
+          "headline_vi": "Alibaba phủ nhận sự ra đi của ông Qwen sau khi huấn luyện, lên kế hoạch kiện vì tin đồn",
+          "url": "https://technode.com/2026/11/27/alibaba-denies-qwen-post-training-chiefs-departure-plans-lawsuit-over-rumor/",
+          "published_at": "2026-11-27T13:48:32Z",
+          "kind": "other",
+          "time_basis": "published",
+          "source": "technode",
+          "publisher": "technode",
+          "entity": "technode",
+          "group": "press",
+          "observed_at": "2026-11-27T23:06:37Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [],
+        "signals": {
+          "publishers": [
+            "technode"
+          ],
+          "age_hours_at_cutoff": 9.1911,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    },
+    {
+      "id": "92259f6fbc89175f4356",
+      "title": "Xiaomi reportedly plans December launch for second-generation AI glasses, including display version",
+      "title_vi": "Theo báo cáo, Xiaomi dự định ra mắt vào tháng 12 cho kính AI thế hệ thứ hai, bao gồm phiên bản hiển thị",
+      "headline": "Xiaomi reportedly plans December launch for second-generation AI glasses, including display version",
+      "headline_vi": "Theo báo cáo, Xiaomi dự định ra mắt vào tháng 12 cho kính AI thế hệ thứ hai, bao gồm phiên bản hiển thị",
+      "url": "https://technode.com/2026/11/27/xiaomi-reportedly-plans-december-launch-for-second-generation-ai-glasses-including-display-version/",
+      "published_at": "2026-11-27T13:46:04Z",
+      "kind": "product",
+      "time_basis": "published",
+      "editorial_headline_vi": "Báo chí Trung Quốc: Xiaomi lên kế hoạch ra mắt kính thông minh AI thế hệ hai vào giữa tháng 12",
+      "editorial_headline_verified": true,
+      "source_count": 1,
+      "coverage": [
+        {
+          "id": "85231181d6da87b9ab39",
+          "title": "Xiaomi reportedly plans December launch for second-generation AI glasses, including display version",
+          "title_vi": "Theo báo cáo, Xiaomi dự định ra mắt vào tháng 12 cho kính AI thế hệ thứ hai, bao gồm phiên bản hiển thị",
+          "headline": "Xiaomi reportedly plans December launch for second-generation AI glasses, including display version",
+          "headline_vi": "Theo báo cáo, Xiaomi dự định ra mắt vào tháng 12 cho kính AI thế hệ thứ hai, bao gồm phiên bản hiển thị",
+          "url": "https://technode.com/2026/11/27/xiaomi-reportedly-plans-december-launch-for-second-generation-ai-glasses-including-display-version/",
+          "published_at": "2026-11-27T13:46:04Z",
+          "kind": "product",
+          "time_basis": "published",
+          "source": "technode",
+          "publisher": "technode",
+          "entity": "technode",
+          "group": "press",
+          "observed_at": "2026-11-27T23:06:37Z",
+          "discussion_url": null,
+          "metrics": {}
+        }
+      ],
+      "selection": {
+        "desk_approved": true,
+        "reasons": [],
+        "signals": {
+          "publishers": [
+            "technode"
+          ],
+          "age_hours_at_cutoff": 9.2322,
+          "hot_score": null,
+          "engagement_percentile": null
+        }
+      }
+    }
+  ],
+  "source_health": {
+    "active_remote_sources": 77,
+    "successful_remote_sources": 77,
+    "failed_remote_sources": []
+  }
+}
