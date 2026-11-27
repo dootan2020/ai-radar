@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-27T01:05:38.687859+00:00",
-  "input_generated_at": "2026-11-27T00:46:28Z",
+  "generated_at": "2026-11-27T03:21:40.160238+00:00",
+  "input_generated_at": "2026-11-27T02:46:41Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -149823,6 +149823,525 @@
       "degradation_reasons": [],
       "use_original_title": true,
       "source_url": "https://en.yna.co.kr/view/AEN20261126001700320",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "2fcf6ddc1c98ad37b49c",
+        "7d31e37a666762bca2bc",
+        "9ac86af4d6b34f6a28b2"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "30c3351a5e33ac82fbb0",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://pandaily.com/idea-moonbit-1-0-programming-language-ai-agents",
+      "key_points": [
+        "Ngôn ngữ lập trình MoonBit 1.0 vừa được ông Zhang Hongbo thuộc Viện IDEA công bố ngày 24 tháng 11 năm 2026 hướng tới các tác tử AI (chương trình tự hành).",
+        "Theo trang tin Dute News, ngôn ngữ này biên dịch sang JavaScript, WebAssembly cùng phần phụ trợ gốc và tích hợp sẵn công cụ xác minh hình thức.",
+        "Tác vụ biên dịch hơn 600 gói chỉ mất khoảng một phần mười thời gian của Rust và nhanh hơn Go, theo lời ông Zhang trên InfoQ. Dù vậy, Pandaily lưu ý các số liệu này do nhóm phát triển tự công bố chứ chưa có kết quả đo lường độc lập từ bên thứ ba.",
+        "Bản phát hành 1.0 chưa thể thay thế Rust khi hệ sinh thái và mức độ ứng dụng của Rust vẫn trưởng thành hơn, theo nhận định từ Pandaily."
+      ],
+      "same_event_coverage_ids": [
+        "5526930f541a838ea2aa"
+      ],
+      "split_coverage_ids": [],
+      "subject": "MoonBit 1.0",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Zhang Hongbo"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "IDEA ra mắt MoonBit 1.0 với thời gian biên dịch bằng một phần mười Rust nhưng chưa có đo lường độc lập",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "pandaily",
+          "url": "https://pandaily.com/idea-moonbit-1-0-programming-language-ai-agents"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.9,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 9,
+          "meaning": 7
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "Bản phát hành 1.0 chưa thể thay thế Rust",
+            "explanation": "The source says the release makes no claim that MoonBit has already replaced Rust and that Rust's ecosystem and adoption are more mature. It does not establish that MoonBit cannot replace Rust (outlet:p002)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The reader is told MoonBit cannot yet replace Rust.",
+            "fix": "Say the 1.0 release does not claim to have replaced Rust, whose ecosystem and industrial adoption remain more mature (outlet:p002)."
+          },
+          {
+            "question": "notable",
+            "problem": "The headline can make the one-tenth compile time sound general.",
+            "fix": "Tie the figure to Zhang's team-reported workload of more than 600 packages (outlet:p003)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "c4d74bc7bee06cd059bfad6e73ced61d091766776dccc587024cb14cec27197a",
+        "scored_at": "2026-11-27T03:17:18.346080+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "786f45594cbb4fe12d7d",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://pandaily.com/tencent-oridtp-nature-dual-target-therapeutic-peptides",
+      "key_points": [
+        "Ngày 25 tháng 11 năm 2026, phòng thí nghiệm của Tencent công bố trên Nature nền tảng AI ORIDTP thiết kế các peptide trị liệu nhắm hai đích. Theo IT Home, đây là công trình đầu tiên trên ấn bản chính của Nature mà Tencent giữ vai trò cơ quan đứng đầu.",
+        "Theo tóm tắt nghiên cứu, ORIDTP chuyển giao tri thức đơn đích và dùng học tăng cường kép để thiết kế peptide hoạt lực cao. Hệ thống kết hợp mô-đun AI với kiểm nghiệm thực tế khoảng 15 peptide mỗi vòng, theo The Paper.",
+        "Trên chuột béo phì, peptide GA-Dual.R5.S3 cải thiện dung nạp glucose ở liều 1,5 nanomol/kg, bằng một phần mười liều semaglutide. Trong miễn dịch ung thư, ứng viên IC-Dual.P3 giảm 94,2% thể tích khối u so với đối chứng trên chuột.",
+        "Pandaily nhấn mạnh đây là phát hiện tiền lâm sàng trên chuột chứ chưa phải dữ liệu lâm sàng ở người. Chỉ số giảm 94,2% khối u chưa chứng minh hiệu quả ở người và bài báo chưa ghi nhận thử nghiệm lâm sàng."
+      ],
+      "same_event_coverage_ids": [
+        "8317e4fbd47e2ead1f6c"
+      ],
+      "split_coverage_ids": [],
+      "subject": "ORIDTP dual-target therapeutic peptides",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Jianhua Yao"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Tencent công bố nền tảng AI thiết kế peptide kép trên Nature nhưng mới thử nghiệm ở chuột",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "pandaily",
+          "url": "https://pandaily.com/tencent-oridtp-nature-dual-target-therapeutic-peptides"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.4,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 8,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The tumor result loses the study's specific animal setting.",
+            "fix": "Specify that the 94.2% reduction was relative to controls in human-checkpoint knock-in mice (outlet:p004)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "8538bffb96848b1fc11fb3685358df560a25464976867137eb5bcc726a4b6a7c",
+        "scored_at": "2026-11-27T03:17:18.346143+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "ca376aa93be6587f7637",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://pandaily.com/deepseek-per-turn-consumption-quota-display-grayscale",
+      "key_points": [
+        "DeepSeek đang thử nghiệm diện hẹp giao diện hiển thị hạn mức tiêu thụ sau mỗi lượt trò chuyện trên web và ứng dụng, theo IT Home ngày 27 tháng 11 năm 2026. Trang chi tiết sau mỗi lượt liệt kê lượng token tiêu thụ, số tiền ước tính theo giá API và mức chiếm dụng ngữ cảnh.",
+        "Theo ảnh chụp từ người dùng, hệ thống ước tính chi phí qua ba phần: token đầu vào trúng đệm, trượt đệm và token đầu ra. Nền tảng lưu ngữ cảnh cũ trong bộ nhớ đệm và các lượt sau tính toán giá đầy đủ chủ yếu trên token mới.",
+        "Trang chi tiết liệt kê lượng token tiêu thụ và số tiền ước tính theo giá API, theo IT Home. Ảnh chụp từ người dùng nêu đơn giá ví dụ gồm 0,02 nhân dân tệ một triệu token trúng đệm, 1 nhân dân tệ khi trượt đệm và 4 nhân dân tệ cho đầu ra, thay vì biểu giá chính thức mới.",
+        "Pandaily nhấn mạnh chat cá nhân vẫn miễn phí và các con số trên chỉ là chi phí ước tính thử nghiệm. DeepSeek hiện chưa ban hành thay đổi biểu giá chính thức nào cho người dùng tiêu dùng."
+      ],
+      "same_event_coverage_ids": [
+        "aeacceabdd796eff1541"
+      ],
+      "split_coverage_ids": [],
+      "subject": "DeepSeek per-turn quota display",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "DeepSeek thử nghiệm hiển thị ước tính chi phí theo từng lượt trò chuyện nhưng chưa thu phí",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "pandaily",
+          "url": "https://pandaily.com/deepseek-per-turn-consumption-quota-display-grayscale"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.55,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 9
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The pricing context for the displayed rates is incomplete.",
+            "fix": "Identify them as off-peak API prices shown in user screenshots (outlet:p003)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "fe48ed222fb9fea0acb584beba13ebac3214a6954cd2e287f82888d0cd76fc29",
+        "scored_at": "2026-11-27T03:17:18.346177+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "abec651ebd4c2dad2829",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "South Korean macroeconomic financial stability meeting on market volatility and stabilization funds with only incidental references to AI uncertainty.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://en.yna.co.kr/view/AEN20261127003800320",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "74935a136c0c7721c477"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "b46a1e6b2d75fd75ad5f",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Routine daily stock market wrap of the KOSPI index with only passing mentions of market jitters over the AI trade.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://en.yna.co.kr/view/AEN20261127003900320",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "bd994bacd9b213370d4e"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "dc92e4b755a0caf03d68",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "General macroeconomic report on Chinese industrial enterprise earnings with incidental mention of AI product demand.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-27/china-s-industrial-profits-jump-at-fastest-pace-in-five-months",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "81c3088b0b3794162ee8"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "407b7f316098a7fd410d",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-27/counterpoint-on-china-s-ai-progress-under-chip-curbs-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "f88e35fee7b97e1009ed"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "56aaa089bb6a761b1bdc",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-27/china-hedge-fund-star-builds-operating-system-kernel-for-ai",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "6322488f9fbaa0781077"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "305e62040e8a734e17a1",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "podcast",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://the-decoder.com/ai-agents-now-control-part-of-deepminds-compute-for-gemini-experiments-but-recursive-self-improvement-remains-distant/",
+      "key_points": [
+        "Google DeepMind cho phép tác tử AI (chương trình tự hành) tự kiểm soát một phần năng lực tính toán để thử nghiệm mô hình Gemini tiếp theo. Phó chủ tịch Koray Kavukcuoglu cho biết mỗi thế hệ Gemini đều được xây dựng thủ công thay vì theo kiến trúc cố định.",
+        "Theo ông Kavukcuoglu, đây là chuyển dịch chiến lược nhằm dựa vào một thuật toán đa năng duy nhất cho cả khoa học lẫn sản phẩm.",
+        "DeepMind không trao thưởng cho chuỗi suy nghĩ nội bộ khi huấn luyện để đảm bảo an toàn, theo ông Kavukcuoglu. Biện pháp này giúp ý định của tác tử không bị sàng lọc và có thể xem xét bằng ngôn ngữ tự nhiên trước khi chúng hành động.",
+        "Ông Kavukcuoglu nhấn mạnh phòng thí nghiệm còn xa khả năng tự cải tiến đệ quy và chưa bài kiểm chuẩn (bài đo hiệu năng chuẩn) nào đo được cốt lõi trí tuệ. Theo ông, trí tuệ nhân tạo tổng quát chỉ bắt đầu khi sản phẩm thường nhật giành đủ niềm tin để con người giao quyền quyết định."
+      ],
+      "same_event_coverage_ids": [
+        "38dbcc2304b3a42bf6d3",
+        "dc79dbe830d61d69c085"
+      ],
+      "split_coverage_ids": [],
+      "subject": "DeepMind compute delegation to AI agents",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Koray Kavukcuoglu"
+        ],
+        "availability": "global",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "DeepMind trao quyền tính toán cho tác tử AI thử nghiệm Gemini nhưng còn xa khả năng tự cải tiến",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://the-decoder.com/ai-agents-now-control-part-of-deepminds-compute-for-gemini-experiments-but-recursive-self-improvement-remains-distant/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "07141386cf57ff01a14329683c9ab2d4de0e441437fb44888ef2a109efc16b42",
+        "scored_at": "2026-11-27T03:21:40.081762+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "e1eae35badcbcd78dc68",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Educational tutorial explaining uncertainty principles in machine learning based on a university talk and doctoral thesis.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://chrhenning.com/blog/2026/introduction-to-uncertainty/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "7bb7dd3ec2914414ef7c"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "17d56fab2cccb7a04519",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.reuters.com/technology/sap-considers-least-10000-job-cuts-ai-restructuring-bloomberg-reports-2026-11-26/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "0b20a4eca05718143234"
+      ],
+      "split_coverage_ids": [],
+      "subject": "SAP AI restructuring job cuts",
+      "video_labels": {
+        "video_hook": "money_jobs",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": true
+      }
+    },
+    {
+      "id": "617eff98d592cab41071",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theguardian.com/commentisfree/2026/nov/26/ai-leader-tech-giant-trust-safeguarding-privacy-profit",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "9ee0488811a2d8dafcb2"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Tech industry AI safety practices",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "d5c73da79633cf66b83d",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "South Korean macroeconomic growth forecast by the central bank with AI semiconductor exports cited as an incidental driver.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://en.yna.co.kr/view/AEN20261126001852320",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "2f2e018f40c6c58e5e10",
+        "2f4fee571a568a016d85"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "b8ecbeeeccac3e7763ec",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Daily KOSPI market opening report covering Korean equities with only a passing reference to broader market sentiment on the AI trade.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://en.yna.co.kr/view/AEN20261126001751320",
       "key_points": [],
       "same_event_coverage_ids": [
         "2fcf6ddc1c98ad37b49c",
