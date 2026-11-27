@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-27T09:21:52.736436+00:00",
-  "input_generated_at": "2026-11-27T08:46:20Z",
+  "generated_at": "2026-11-27T11:22:16.766497+00:00",
+  "input_generated_at": "2026-11-27T10:46:14Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -150838,6 +150838,127 @@
         "206c9d3fe5a694aa9259"
       ],
       "split_coverage_ids": []
+    },
+    {
+      "id": "060824efefa1b6f71493",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://analyticsindiamag.com/ai-features/thomas-dohmke-wants-to-replace-pull-requests-with-ai-agent-trails",
+      "key_points": [
+        "Startup Entire muốn thay thế pull request bằng quy trình Trails, ghi nhận toàn bộ ngữ cảnh đằng sau mỗi thay đổi mã nguồn. Nền tảng Git Forge này do cựu CEO GitHub Thomas Dohmke sáng lập, bao gồm Trails, mạng Git phân tán và bộ nhớ liên tục.",
+        "Theo Thomas Dohmke, lập trình viên không thể duyệt hết mã do nhiều tác tử AI (phần mềm tự hành) tạo ra vì thiếu ngữ cảnh khi các tác tử viết mã qua đêm. Dohmke cho rằng mô hình phát triển phần mềm truyền thống rất khó duy trì vì vốn được xây dựng để con người tự viết và duyệt mã cho nhau.",
+        "Entire sử dụng các vòng lặp duyệt mã giữa tác tử tạo mã và tác tử rà soát cho đến khi hệ thống đạt trạng thái ổn định với các bài đánh giá được thông qua. Quy trình Trails này ghi nhận toàn bộ câu lệnh, phản hồi của tác tử và tương tác với máy chủ Giao thức Ngữ cảnh Mô hình (MCP).",
+        "Mục tiêu của quy trình Trails là cung cấp đủ ngữ cảnh để hiểu mã tạo ra có đúng ý định ban đầu hay không, hỗ trợ cả lập trình viên lẫn tác tử. Dù vậy, Dohmke cảnh báo việc tạo thêm nhiều mã kém chất lượng có thể làm tăng rủi ro bảo mật cho các dự án phần mềm."
+      ],
+      "same_event_coverage_ids": [
+        "81a2c306fb475429c313"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Thomas Dohmke",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Thomas Dohmke"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Cựu CEO GitHub muốn thay pull request bằng Trails nhằm quản lý mã nguồn do AI tạo ra",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "analytics-india-magazine",
+          "url": "https://analyticsindiamag.com/ai-features/thomas-dohmke-wants-to-replace-pull-requests-with-ai-agent-trails"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.9,
+        "answers": {
+          "what": 9,
+          "why": 10,
+          "notable": 8,
+          "meaning": 9
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "Nền tảng Git Forge này do cựu CEO GitHub Thomas Dohmke sáng lập",
+            "explanation": "The source identifies Dohmke as the founder of Entire, while Git Forge is a platform launched by Entire; it does not say he founded Git Forge (outlet:p002, outlet:p018)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The wording makes Git Forge, rather than Entire, the entity Dohmke founded.",
+            "fix": "Say Dohmke founded Entire and that Entire launched Git Forge (outlet:p002, outlet:p018)."
+          },
+          {
+            "question": "notable",
+            "problem": "The reader sees the names of Git Forge’s other components but not their practical uses.",
+            "fix": "Briefly explain that the distributed network supports repositories in different regions through one interface, while Continuous Memory stores agent session logs alongside the repository (outlet:p019, outlet:p023)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "0fc019bcc5a5e43111f2a1b66395e8d942eba7a16ad9ad54f33515ae68a1b336",
+        "scored_at": "2026-11-27T11:22:16.678066+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "b645d71050c86d3dc778",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://twitter.com/RealAstropulse/status/2126119408997466389",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "cc1b08858741556219eb"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Claude",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": true
+      }
     }
   ]
 }
