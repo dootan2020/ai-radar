@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-27T11:22:16.766497+00:00",
-  "input_generated_at": "2026-11-27T10:46:14Z",
+  "generated_at": "2026-11-27T15:26:34.871117+00:00",
+  "input_generated_at": "2026-11-27T14:47:09Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -150858,10 +150858,10 @@
       "use_original_title": true,
       "source_url": "https://analyticsindiamag.com/ai-features/thomas-dohmke-wants-to-replace-pull-requests-with-ai-agent-trails",
       "key_points": [
-        "Startup Entire muốn thay thế pull request bằng quy trình Trails, ghi nhận toàn bộ ngữ cảnh đằng sau mỗi thay đổi mã nguồn. Nền tảng Git Forge này do cựu CEO GitHub Thomas Dohmke sáng lập, bao gồm Trails, mạng Git phân tán và bộ nhớ liên tục.",
-        "Theo Thomas Dohmke, lập trình viên không thể duyệt hết mã do nhiều tác tử AI (phần mềm tự hành) tạo ra vì thiếu ngữ cảnh khi các tác tử viết mã qua đêm. Dohmke cho rằng mô hình phát triển phần mềm truyền thống rất khó duy trì vì vốn được xây dựng để con người tự viết và duyệt mã cho nhau.",
-        "Entire sử dụng các vòng lặp duyệt mã giữa tác tử tạo mã và tác tử rà soát cho đến khi hệ thống đạt trạng thái ổn định với các bài đánh giá được thông qua. Quy trình Trails này ghi nhận toàn bộ câu lệnh, phản hồi của tác tử và tương tác với máy chủ Giao thức Ngữ cảnh Mô hình (MCP).",
-        "Mục tiêu của quy trình Trails là cung cấp đủ ngữ cảnh để hiểu mã tạo ra có đúng ý định ban đầu hay không, hỗ trợ cả lập trình viên lẫn tác tử. Dù vậy, Dohmke cảnh báo việc tạo thêm nhiều mã kém chất lượng có thể làm tăng rủi ro bảo mật cho các dự án phần mềm."
+        "Startup Entire muốn thay thế pull request bằng quy trình Trails ghi lại toàn bộ ngữ cảnh sau mỗi thay đổi mã nguồn. Doanh nghiệp do cựu CEO GitHub Thomas Dohmke sáng lập này vừa ra mắt Git Forge gồm Trails, mạng Git phân tán và bộ nhớ liên tục.",
+        "Theo Thomas Dohmke, lập trình viên không thể duyệt hết mã do các tác tử AI (phần mềm tự hành) tạo ra qua đêm vì thiếu ngữ cảnh. Dohmke cho rằng mô hình truyền thống khó duy trì vì vốn chỉ phục vụ con người tự viết và duyệt mã cho nhau.",
+        "Hạ tầng mạng phân tán cho phép lưu trữ kho mã ở nhiều vùng địa lý qua một giao diện web duy nhất. Trong khi đó, bộ nhớ liên tục lưu nhật ký phiên của tác tử cạnh kho dự án để tra cứu các quyết định và tương tác.",
+        "Mục tiêu của Trails là cung cấp đủ ngữ cảnh để hiểu liệu mã được tạo ra có phản ánh đúng ý định ban đầu hay không. Dù vậy, Dohmke cảnh báo việc tạo thêm nhiều mã kém chất lượng có thể làm tăng rủi ro bảo mật."
       ],
       "same_event_coverage_ids": [
         "81a2c306fb475429c313"
@@ -150877,7 +150877,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Cựu CEO GitHub muốn thay pull request bằng Trails nhằm quản lý mã nguồn do AI tạo ra",
+      "editorial_headline_vi": "Cựu CEO GitHub muốn thay pull request bằng quy trình Trails để quản lý mã do AI tạo",
       "summary_sources": [
         {
           "id": "outlet",
@@ -150892,30 +150892,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.9,
+        "value": 9.25,
         "answers": {
-          "what": 9,
+          "what": 10,
           "why": 10,
           "notable": 8,
           "meaning": 9
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "Nền tảng Git Forge này do cựu CEO GitHub Thomas Dohmke sáng lập",
-            "explanation": "The source identifies Dohmke as the founder of Entire, while Git Forge is a platform launched by Entire; it does not say he founded Git Forge (outlet:p002, outlet:p018)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "what",
-            "problem": "The wording makes Git Forge, rather than Entire, the entity Dohmke founded.",
-            "fix": "Say Dohmke founded Entire and that Entire launched Git Forge (outlet:p002, outlet:p018)."
-          },
-          {
             "question": "notable",
-            "problem": "The reader sees the names of Git Forge’s other components but not their practical uses.",
-            "fix": "Briefly explain that the distributed network supports repositories in different regions through one interface, while Continuous Memory stores agent session logs alongside the repository (outlet:p019, outlet:p023)."
+            "problem": "The reader misses how Entire proposes to review the generated code, beyond recording its context.",
+            "fix": "Explain that a coding agent and a reviewing agent work through issues until evaluations pass and the system reaches a stable state (outlet:p013)."
           }
         ],
         "writer_boats": [
@@ -150923,8 +150912,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "0fc019bcc5a5e43111f2a1b66395e8d942eba7a16ad9ad54f33515ae68a1b336",
-        "scored_at": "2026-11-27T11:22:16.678066+00:00"
+        "prose_sha256": "d7623c583dd50b0b0ea88147e287e8256a0fc0f3fc4304982bcdccb0631635b4",
+        "scored_at": "2026-11-27T15:26:34.865985+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
@@ -150959,6 +150948,745 @@
         "availability": "unknown",
         "is_leak": true
       }
+    },
+    {
+      "id": "cdc221dd30962038d65e",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/27/2026/cost-is-key-in-africas-ai-rollout",
+      "key_points": [
+        "Affordability plays a crucial role in shaping how artificial intelligence technology develops in Africa.",
+        "Chinese company DeepSeek demonstrated how lower-cost, less power-hungry models enable local startups to build products affordably.",
+        "Approximately 60% of Africa's population lives in areas with mobile internet access but does not use it."
+      ],
+      "same_event_coverage_ids": [
+        "83110ea1cfc85f95d423"
+      ],
+      "split_coverage_ids": [],
+      "subject": "AI adoption in Africa",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Ralph Mupita"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "ac945829138478983d40",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "analysis is standard tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/27/2026/ai-debt-boom-could-push-up-funding-costs-as-south-africa-approaches-refinancing",
+      "key_points": [
+        "Ngân hàng trung ương Nam Phi cảnh báo làn sóng vay nợ phát triển trí tuệ nhân tạo (AI) của các hãng công nghệ phương Tây có thể đẩy chi phí vốn lên cao, khi Pretoria bước vào giai đoạn tái cấp vốn căng thẳng.",
+        "Theo cơ quan này, các tập đoàn công nghệ cạnh tranh nguồn vốn dài hạn với các chính phủ khi vay hàng trăm tỷ USD trên thị trường nợ toàn cầu.",
+        "Ngân hàng Trung ương Anh dự báo doanh số trái phiếu công nghệ vượt 300 tỷ USD năm 2026, còn nợ đáo hạn của Nam Phi ước tính đạt 23 tỷ USD mỗi năm giai đoạn 2030–2032.",
+        "Ngân hàng Dự trữ Nam Phi cảnh báo thêm rằng cổ phiếu AI sụt giảm có thể làm suy yếu đồng rand, vì người gửi tiết kiệm giữ 13% tài sản ở các cổ phiếu liên quan."
+      ],
+      "same_event_coverage_ids": [
+        "23d569a5e9dde276230c"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Impact of AI tech borrowing on South African debt",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Ngân hàng trung ương Nam Phi cảnh báo nợ AI đe dọa tăng chi phí tái cấp vốn khi đáo hạn",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/27/2026/ai-debt-boom-could-push-up-funding-costs-as-south-africa-approaches-refinancing"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.1,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 8,
+          "meaning": 8
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "The reader misses one consequence the central bank identified if AI shares fall.",
+            "fix": "Add that falling AI shares could also push up yields (outlet:p003)."
+          },
+          {
+            "question": "notable",
+            "problem": "The $23 billion figure lacks the comparison that shows the scale of the refinancing crunch.",
+            "fix": "Say annual maturing debt is expected to more than double to roughly $23 billion in 2030–2032 (outlet:p003)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "2275b0cbdeb048d2880bd07c5b8b8aeba8e5fa68e2640ac2e239e8ed834e52be",
+        "scored_at": "2026-11-27T15:18:39.548396+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "1d140bb3b26b0663e87b",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.theverge.com/tech/1041801/android-intelligence-create-my-widget-gemini",
+      "key_points": [
+        "Tác giả Allison Johnson của trang The Verge đánh giá tính năng Create My Widget, thuộc bộ công cụ Gemini Intelligence của Google, vừa bắt đầu thử nghiệm bản beta trên điện thoại Pixel hồi đầu tháng này. Cây bút này đã trải nghiệm tính năng trên mẫu Pixel 11 Pro.",
+        "Giao diện cung cấp các mẫu có sẵn hoặc gợi ý theo mô tả của người dùng. Phần lớn tiện ích vận hành như lối tắt câu lệnh cho mô hình Gemini, khi nhấn vào sẽ hiển thị trợ lý xử lý yêu cầu hoặc dẫn kết quả tìm kiếm Google.",
+        "Tiện ích trích dẫn phim hoàn thành sau 20 giây và dẫn về mạng xã hội r/MovieQuotes khi người dùng nhấn vào màn hình. Trái lại, tiện ích lịch trình xe buýt chỉ đưa ra câu trả lời dài dòng từ kết quả tìm kiếm của Gemini thay vì hiển thị thời gian đến theo thời gian thực.",
+        "Trang The Verge nhận xét tính năng mang tính khuôn mẫu chung thay vì ứng dụng thu nhỏ tùy biến theo sở thích, người dùng chỉ có trải nghiệm thú vị miễn là không kỳ vọng quá nhiều."
+      ],
+      "same_event_coverage_ids": [
+        "ef7cfd7469fe1106c479"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Google Android Create My Widget",
+      "video_labels": {
+        "video_hook": "usable_now",
+        "named_people": [
+          "Allison Johnson"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "The Verge: Tính năng tạo tiện ích bằng AI trên Pixel vui nhộn nhưng còn mang tính khuôn mẫu",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "the-verge",
+          "url": "https://www.theverge.com/tech/1041801/android-intelligence-create-my-widget-gemini"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "aa0a3856a7139d6a6d8dc04ba90617111bc3a69d9160c9f81e886b508953872a",
+        "scored_at": "2026-11-27T15:18:39.548449+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "1e4dfaf2819429c92e7c",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://technode.com/2026/11/27/alibaba-denies-qwen-post-training-chiefs-departure-plans-lawsuit-over-rumor/",
+      "key_points": [
+        "Đội ngũ Qwen của Alibaba bác bỏ thông tin trưởng nhóm hậu đào tạo (tinh chỉnh mô hình sau huấn luyện) Zhou Hao rời đi, đồng thời thông báo sẽ khởi kiện đơn vị xuất bản đăng tin này.",
+        "TechNode cho biết phản ứng này diễn ra sau khi tài khoản Top Huaren Kechuang She đăng bài cáo buộc ông rời đi. Phía Qwen khẳng định bài viết đã bịa đặt việc thay đổi nhân sự và viết sai cả chữ Hán trong tên ông Zhou.",
+        "Các báo cáo trước đó cho biết ông Zhou gia nhập Alibaba vào tháng 1 năm 2026 rồi chuyển sang phòng thí nghiệm Tongyi phụ trách khâu hậu đào tạo của Qwen. Trước đây, ông từng nghiên cứu tại Meta và Google DeepMind, đồng thời là đồng trưởng nhóm về độ chính xác thực tế của Gemini 1.0.",
+        "Nhóm Qwen cho biết các thông tin thiếu chính xác về đội ngũ đã xuất hiện nhiều lần, đồng thời khẳng định sẽ theo đuổi hành động pháp lý đối với những bên chịu trách nhiệm."
+      ],
+      "same_event_coverage_ids": [
+        "9f637d9a6367e33e818f"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Alibaba Qwen team departure rumor denial and lawsuit",
+      "video_labels": {
+        "video_hook": "drama_company",
+        "named_people": [
+          "Zhou Hao"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Alibaba bác bỏ tin trưởng nhóm hậu đào tạo Qwen rời đi và tuyên bố khởi kiện bên tung tin",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "technode",
+          "url": "https://technode.com/2026/11/27/alibaba-denies-qwen-post-training-chiefs-departure-plans-lawsuit-over-rumor/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "role",
+            "summary_text": "đồng trưởng nhóm về độ chính xác thực tế của Gemini 1.0",
+            "explanation": "The Gemini 1.0 technical report listed Zhou as a co-lead of work on factual accuracy in Gemini applications, rather than factual accuracy of Gemini 1.0 specifically (outlet:p003)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The reader may take Zhou’s role to have been specific to Gemini 1.0.",
+            "fix": "Say the Gemini 1.0 technical report named him a co-lead of factual-accuracy work in Gemini applications (outlet:p003)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "eff7352a90925d283f67aa21e9c0cc1f625f8de915a884476d4c3edd35622fd3",
+        "scored_at": "2026-11-27T15:22:53.669373+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "92259f6fbc89175f4356",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://technode.com/2026/11/27/xiaomi-reportedly-plans-december-launch-for-second-generation-ai-glasses-including-display-version/",
+      "key_points": [
+        "Theo STAR Market Daily, Xiaomi dự kiến ra mắt dòng kính trí tuệ nhân tạo (AI) thế hệ hai vào giữa tháng 12 cùng mẫu Xiaomi 18 tiêu chuẩn, với kế hoạch mở bán ngay trong ngày.",
+        "Dòng sản phẩm mới được đưa tin gồm mẫu Q95 Pro, phiên bản thấu kính điện sắc với bốn mức đổi màu và một phiên bản trang bị màn hình hiển thị.",
+        "Sản phẩm tiền nhiệm này hỗ trợ quay chụp góc nhìn thứ nhất và gọi video qua ứng dụng bên thứ ba.",
+        "Phiên bản màn hình sẽ bổ sung lựa chọn thị giác cho người dùng, song Xiaomi hiện chưa công bố thông số kỹ thuật hay giá bán chính thức."
+      ],
+      "same_event_coverage_ids": [
+        "85231181d6da87b9ab39"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Xiaomi second-generation AI glasses",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": true
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Báo chí Trung Quốc: Xiaomi lên kế hoạch ra mắt kính thông minh AI thế hệ hai vào giữa tháng 12",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "technode",
+          "url": "https://technode.com/2026/11/27/xiaomi-reportedly-plans-december-launch-for-second-generation-ai-glasses-including-display-version/"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "87a2b3c4089a6f81ac03624d9dbdf3d8986e5c7ab08c75e9c55ad36ec60cf673",
+        "scored_at": "2026-11-27T15:18:39.548503+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "118b104c8c6fd9b7e22a",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "survey",
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://analyticsindiamag.com/ai-features/from-alibaba-to-bharatgen-10-small-language-models-that-rivalled-llms-in-2026",
+      "key_points": [
+        "Theo Analytics India Magazine, mười mô hình ngôn ngữ nhỏ (SLM - mô hình AI tinh giản tham số) ra mắt năm 2026 đang sẵn sàng trở thành công cụ chủ lực cho doanh nghiệp.",
+        "Tạp chí nhận định các mô hình nhỏ là giải pháp thay thế hiệu quả cho mô hình ngôn ngữ lớn vốn đòi hỏi hạ tầng tính toán đáng kể. Khác với mô hình lớn, mô hình nhỏ có thể được tối ưu hóa cho các tác vụ cụ thể như lập trình, dịch thuật, xử lý tài liệu và suy luận.",
+        "Nghiên cứu năm 2025 của Viện Công nghệ Vishwakarma cho biết các mô hình 1–14 tỷ tham số đã đạt hoặc vượt hiệu năng mô hình lớn trên những tác vụ cụ thể dù tốn ít hơn 10–100 lần năng lực tính toán. Chẳng hạn, mẫu Qwen3.5-9B của Alibaba đã vượt đối thủ Gemma-4-12B-IT của Google ở năm trên tám bài kiểm chuẩn (tiêu chuẩn đánh giá AI) chung, gồm cả bài kiểm tra khoa học và suy luận GPQA Diamond.",
+        "Tạp chí đánh giá việc chạy trên thiết bị cá nhân giúp mô hình nhỏ bảo đảm tuân thủ quy định lưu trữ dữ liệu tại chỗ trong các lĩnh vực nhạy cảm như ngân hàng, y tế và pháp lý."
+      ],
+      "same_event_coverage_ids": [
+        "6044732ae3dd9130c228"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Small language models of 2026",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Mô hình nhỏ 1–14 tỷ tham số bắt kịp mô hình lớn ở tác vụ cụ thể dù tốn điện toán ít hơn 10–100 lần",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "analytics-india-magazine",
+          "url": "https://analyticsindiamag.com/ai-features/from-alibaba-to-bharatgen-10-small-language-models-that-rivalled-llms-in-2026"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "gồm cả bài kiểm tra khoa học và suy luận GPQA Diamond",
+            "explanation": "The source reports a GPQA Diamond result and separately says Qwen beat Gemma on five of eight shared benchmarks. It does not identify GPQA Diamond as one of those five (outlet:p008)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "notable",
+            "problem": "The reader is told that GPQA Diamond was one of Qwen’s five wins over Gemma, which the source does not establish.",
+            "fix": "State the GPQA Diamond result and the five-of-eight comparison separately, without identifying which five benchmarks Qwen won (outlet:p008)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "765d9bca5b1b7be9d7b958f7f208f7ea1bf4635034680f9b9aeabbb9025c3ec7",
+        "scored_at": "2026-11-27T15:22:53.669449+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "0ab4b0bed1ccd5321de3",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.semafor.com/article/11/27/2026/ai-sector-demand-lifts-chinese-factory-profits",
+      "key_points": [
+        "Theo Semafor, lợi nhuận các nhà máy tại Trung Quốc trong tháng trước đã tăng nhanh nhất kể từ tháng 5.",
+        "Semafor cho biết đà tăng này phần lớn nhờ sự bùng nổ của trí tuệ nhân tạo, trong đó ngành chip nhớ ghi nhận thành công nổi bật.",
+        "Theo Bloomberg, Huawei sắp công bố công nghệ chip nhớ mới có thể tiên tiến hơn giải pháp của các công ty Hàn Quốc dẫn đầu ngành. Bên cạnh đó, hai nhà sản xuất chip Trung Quốc đứng thứ ba và thứ tư thị phần cũng đang bám đuổi nhanh chóng về sản lượng và công nghệ.",
+        "Semafor nhận định số liệu này xác nhận sự phân hóa rõ nét trong nền kinh tế lớn thứ hai thế giới: sản xuất và xuất khẩu tăng trưởng mạnh dù tiêu dùng nội địa vẫn ảm đạm."
+      ],
+      "same_event_coverage_ids": [
+        "b7629ff5425552bbc2ec"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Chinese factory profits and AI demand",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Lợi nhuận nhà máy Trung Quốc tăng nhanh nhất kể từ tháng 5 phần lớn nhờ sự bùng nổ của trí tuệ nhân tạo",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "semafor",
+          "url": "https://www.semafor.com/article/11/27/2026/ai-sector-demand-lifts-chinese-factory-profits"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "4880b061f2cc4eb7f73609db15449d3f70e82e35924af3e35408a1c9fc21ec69",
+        "scored_at": "2026-11-27T15:22:53.669473+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "1a6151968569a09a2abf",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-27/poland-signs-300-million-palantir-deal-to-use-ai-for-defense",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "8140429306648762a06f"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "eee8a9b8561000ab1dc9",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-27/black-friday-shoppers-turn-to-ai-bots-to-find-deals-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "83949174a17a11b22e86"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "7ed54f2d8673cba6b68a",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-27/blackwell-chips-found-at-alice-huang-linked-china-site-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "35f681879056cdb5cbb5"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "19dffa53092b0f7b7de0",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-27/ai-data-center-developer-lian-picks-london-for-500-million-ipo",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "9a48b581fb7f02ab457a"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "d7a5446727907e74c9b2",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "written",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://www.theguardian.com/business/2026/nov/27/ai-agent-cardless-transaction-pizza-papa-john-uk-fca-truelayer",
+      "key_points": [
+        "Đơn hàng tại Papa John’s đã trở thành giao dịch đầu tiên ở Anh do tác tử AI (hệ thống phần mềm tự hành) thực hiện qua thanh toán không cần thẻ. TrueLayer cho biết đây là lần đầu tiên AI đứng ra thanh toán cho khách hàng thực tế tại một nhà bán lẻ ở Anh.",
+        "Hoạt động thử nghiệm công nghệ trong khuôn khổ môi trường có kiểm soát (sandbox) của Cơ quan Quản lý Tài chính Anh (FCA) được tiến hành qua đơn hàng chín chiếc bánh pizza mini, với sự tham gia của ngân hàng Lloyds và TrueLayer.",
+        "Giao dịch hoàn tất mà không cần chia sẻ số tài khoản hay mật khẩu, đồng thời bị giới hạn mức chi tiêu tối đa mỗi lần và mỗi tháng theo thỏa thuận với ngân hàng Lloyds.",
+        "Ông Simoneschi nhận định người tiêu dùng vẫn cần duy trì sự kiểm soát và giám sát khi sử dụng tác tử AI. Cơ quan Quản lý Tài chính Anh cũng cảnh báo các công ty phát triển AI tài chính phải tuân thủ nghiêm ngặt các quy định hiện hành."
+      ],
+      "same_event_coverage_ids": [
+        "49ea2b81096fdbc6cc5c",
+        "bf60f1ab3a18d911305f"
+      ],
+      "split_coverage_ids": [],
+      "subject": "UK's first AI agent cardless purchase",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "region_locked:UK",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Tác tử AI lần đầu mua hàng không cần thẻ tại Anh qua thử nghiệm có kiểm soát với Papa John's",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://www.theguardian.com/business/2026/nov/27/ai-agent-cardless-transaction-pizza-papa-john-uk-fca-truelayer"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.55,
+        "answers": {
+          "what": 10,
+          "why": 8,
+          "notable": 8,
+          "meaning": 7
+        },
+        "hard_errors": [],
+        "findings": [
+          {
+            "question": "meaning",
+            "problem": "Readers miss why the trial could matter beyond this purchase.",
+            "fix": "Add that Simoneschi called it a first step toward wider adoption of AI-agent shopping, while retaining his caution about supervision (outlet:p015–p018)."
+          },
+          {
+            "question": "notable",
+            "problem": "The payment mechanism is incomplete.",
+            "fix": "Explain that the agent was permitted to request payment from the customer’s bank account to the retailer’s account, subject to spending limits (outlet:p011–p012)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "8c88b39dc350b517e4340516286f90eca5158b6760c1ca93754c5ebc28f3a197",
+        "scored_at": "2026-11-27T15:18:39.548578+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "c5689fdb96f0dd84baba",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-27/the-pulse-11-27-2026-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "e696177830ee905f3d90"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "c774e08c060ae311c665",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.thetimes.com/uk/technology-uk/article/ai-making-online-security-useless-smr73d3n8",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "34f4a7eb65565a6ce6c5",
+        "77a5b57077d875b592a2"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Mathematicians' warnings on AI and encryption",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "9e23008b5d2f7193247c",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "news and claims checked",
+      "importance_tier": "standard",
+      "tier_capped": false,
+      "summary": "claims",
+      "degradation_reasons": [],
+      "use_original_title": false,
+      "source_url": "https://pandaily.com/idea-moonbit-1-0-programming-language-ai-agents",
+      "key_points": [
+        "At the 2026 IDEA Conference in Shenzhen on November 24, Zhang Hongbo announced MoonBit 1.0, a general-purpose programming language aimed at AI agents.",
+        "MoonBit compiles to JavaScript, WebAssembly, and native backends, and features a WebAssembly-based sandbox with built-in formal verification.",
+        "Zhang reported that a compile workload covering more than 600 packages finished in roughly one-tenth the time of Rust and was faster than Go.",
+        "According to the talk, an 880,000-line MoonBit document tool with a 17 MB binary can be incrementally compiled in about one to two seconds."
+      ],
+      "same_event_coverage_ids": [
+        "5526930f541a838ea2aa"
+      ],
+      "split_coverage_ids": [
+        "a262c6061c08e57add41"
+      ],
+      "subject": "MoonBit",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [
+          "Zhang Hongbo"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "c2bd7953104652e48b06",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The article is a developer tutorial and experimental walkthrough detailing how to run LTX-2.5 video generation using diffusers on AWS Trainium3 hardware rather than a news report or product launch.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://huggingface.co/blog/video-trainium3",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "9fdea506142090c94f20"
+      ],
+      "split_coverage_ids": []
     }
   ]
 }
