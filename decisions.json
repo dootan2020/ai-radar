@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-27T05:18:24.796000+00:00",
-  "input_generated_at": "2026-11-27T04:46:52Z",
+  "generated_at": "2026-11-27T07:07:28.480710+00:00",
+  "input_generated_at": "2026-11-27T06:46:45Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -150451,6 +150451,101 @@
         "availability": "unknown",
         "is_leak": true
       }
+    },
+    {
+      "id": "02421aaf33176be14427",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-27/singapore-talking-to-us-to-keep-ai-chip-access-deputy-pm-says",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "0d5c46a8b42c29bf9a93"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "322301f4a57fda211205",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Casual blog post and social chatter querying LLMs about fursonas without substantive reporting or news value.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://herecomesthemoon.net/2026/11/whats-claudes-fursona/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "a39c8d912ee040e093dc"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "f065b96054bd02616716",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Business reporting on general telecom data centre infrastructure investments in Assam where AI is not the main subject.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://analyticsindiamag.com/ai-news/airtel-to-invest-1200-cr-in-three-data-centres-across-assam",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "61bd6bf6fe9bd6c63967"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "367ab28d69554f492566",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Show HN project pitch for a local knowledge store without independent reporting or a documented release.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/HarsH-1877/Dev-Mem",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "f27709e6fb6474cc4899"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "b3f18e4fdfd29c330bc8",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Bare model weight repository card on Hugging Face without an announcement or substantive release details.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://huggingface.co/ISTA-DASLab/Inkling-2-Mini-GSQ-RCO-GGUF",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "acf94612b007a2de5528"
+      ],
+      "split_coverage_ids": []
     }
   ]
 }
