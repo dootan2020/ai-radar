@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-28T07:00:33.976214+00:00",
-  "input_generated_at": "2026-11-28T06:47:12Z",
+  "generated_at": "2026-11-28T09:14:15.531078+00:00",
+  "input_generated_at": "2026-11-28T08:46:25Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -152774,6 +152774,123 @@
         "6b5fb497dcd2e973a943"
       ],
       "split_coverage_ids": []
+    },
+    {
+      "id": "bd0ed2699aaa42692176",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.theguardian.com/technology/2026/nov/28/ai-artificial-intelligence-encryption-global-chaos",
+      "key_points": [
+        "Giới chuyên gia nhận định các công ty AI đang nắm giữ phát hiện chấn động có thể làm đảo lộn bảo mật ngân hàng và chính phủ trong vài tháng tới. Trước lo ngại này, Thống đốc Ngân hàng Trung ương Anh Andrew Bailey cho rằng các hãng như OpenAI và Anthropic nên thận trọng khi phát hành mô hình mới ra công chúng.",
+        "Theo The Guardian, lo ngại này bắt nguồn từ hàng loạt tiến bộ toán học do các công ty AI tiên phong công bố trong những tuần qua. Các công ty này gần đây đã đưa ra các chứng minh liên quan mật thiết đến việc phân loại những bài toán khó tính toán.",
+        "Chuyên gia Scott Aaronson cho biết AI có thể đã tìm ra cách bẻ khóa mới hoặc chứng minh không tồn tại đường tắt nào như vậy. Khám phá này có thể làm lộ lượng lớn dữ liệu mật nhưng cũng có thể chứng minh thông tin an toàn hơn nhiều so với trước đây.",
+        "Giáo sư Alan Woodward nhận định những bên thích ứng nhanh sẽ an toàn, trong khi các tổ chức chậm trễ có thể rơi vào thế bị động. Dù vậy, các hãng AI hiện chưa có thông báo cụ thể nào về mật mã và giới khoa học vẫn cần trực tiếp kiểm chứng các chứng minh do AI tạo ra."
+      ],
+      "same_event_coverage_ids": [
+        "915295ea245c7060aa7f"
+      ],
+      "split_coverage_ids": [],
+      "subject": "AI breakthrough rumours threatening encryption standards",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Scott Aaronson"
+        ],
+        "availability": "unknown",
+        "is_leak": true
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Chuyên gia cảnh báo các công ty AI có thể đang nắm giữ đột phá đe dọa nền tảng bảo mật ngân hàng",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://www.theguardian.com/technology/2026/nov/28/ai-artificial-intelligence-encryption-global-chaos"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 8.85,
+        "answers": {
+          "what": 9,
+          "why": 9,
+          "notable": 9,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "Các công ty này gần đây đã đưa ra các chứng minh liên quan mật thiết đến việc phân loại những bài toán khó tính toán.",
+            "explanation": "The source says AI companies released proofs related to the broader cryptography question; only one cited result concerned how to categorize computationally hard problems (outlet:p032)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The Vietnamese makes the classification of hard problems sound like the subject of all the recent proofs.",
+            "fix": "Say the companies released several relevant mathematical proofs, one of which concerned classifying computationally hard problems (outlet:p032)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The reader may miss that a discovery would not necessarily lead to widespread disruption immediately.",
+            "fix": "Add that widespread use would face hurdles even if such a finding exists (outlet:p036)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "9bed3ff498b2588fbadf398af5934823de1178fecc69cc9244aae1b078d180c8",
+        "scored_at": "2026-11-28T09:14:15.511926+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "6a7691a1ae0d594efd99",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://github.com/earendil-works/pi/pull/12614",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "dce2221e65bde21b82eb"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Google AI plan support for Pi coding agent",
+      "video_labels": {
+        "video_hook": "usable_now",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      }
     }
   ]
 }
