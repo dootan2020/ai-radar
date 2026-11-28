@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-27T17:24:41.994121+00:00",
-  "input_generated_at": "2026-11-27T16:47:11Z",
+  "generated_at": "2026-11-28T02:23:17.400819+00:00",
+  "input_generated_at": "2026-11-28T01:26:04Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -151779,10 +151779,10 @@
       "use_original_title": false,
       "source_url": "https://thequantuminsider.com/2026/11/26/stanford-physicist-uses-ai-to-tackle-quantum-gravity-problem/",
       "key_points": [
-        "Nhà vật lý Venkatesa Chandrasekaran tại Đại học Stanford đề xuất lý thuyết hấp dẫn lượng tử dùng đường đi ánh sáng cho kết quả hữu hạn đối với biến động không thời gian. Tác giả phát triển các phép tính qua nhiều tháng làm việc với mô hình GPT-6 Astra của OpenAI bằng khoảng 400 triệu token.",
-        "Theo The Quantum Insider, việc tính tổng ở hằng số hấp dẫn khác không trước khi khai triển giúp triệt tiêu phân kỳ một phần từ các đóng góp ở bước sóng cực ngắn. Trái lại, phép tính xấp xỉ khai triển theo hằng số hấp dẫn trước khi cộng các bước sóng lại tạo ra số hạng tăng vô hạn.",
-        "Trên arXiv, Chandrasekaran tính toán cặp graviton (đơn vị lượng tử giả định của sóng hấp dẫn) xuất hiện rồi biến mất và thu được kết quả hữu hạn. Nghiên cứu cũng tái lập số hiệu chỉnh lượng tử cho entropy lỗ đen lớn, khớp với tính toán trước đó của Ashoke Sen.",
-        "The Quantum Insider nhận định nghiên cứu có thể giúp dung hòa cơ học lượng tử với thuyết tương đối rộng nếu hướng tiếp cận đứng vững. Dù vậy, bài viết lưu ý công trình mang tính lý thuyết, chưa có kiểm chứng thực nghiệm và chưa qua bình duyệt chính thức."
+        "Nhà vật lý Venkatesa Chandrasekaran tại Đại học Stanford đề xuất lý thuyết hấp dẫn lượng tử dùng đường đi ánh sáng, đem lại kết quả hữu hạn cho phép tính cặp graviton. Tác giả cho biết đã phát triển các phép tính và chứng minh qua nhiều tháng làm việc với mô hình GPT-6 Astra của OpenAI bằng khoảng 400 triệu token.",
+        "Theo The Quantum Insider, việc giữ hằng số hấp dẫn ở giá trị thực khác không và tính tổng trước giúp triệt tiêu một phần các đóng góp gây phân kỳ ở bước sóng cực ngắn. Trái lại, phép tính xấp xỉ nếu khai triển theo hằng số hấp dẫn trước khi cộng các bước sóng sẽ tạo ra số hạng tăng vô hạn.",
+        "Trên arXiv, Chandrasekaran tính toán trường hợp hai graviton (đơn vị lượng tử giả định của sóng hấp dẫn) xuất hiện rồi biến mất và thu được kết quả hữu hạn. Nghiên cứu cũng tái lập số hiệu chỉnh lượng tử cho entropy của lỗ đen lớn, khớp với tính toán trước đó của nhà vật lý Ashoke Sen.",
+        "The Quantum Insider nhận định nghiên cứu có thể giúp dung hòa cơ học lượng tử với thuyết tương đối rộng nếu hướng tiếp cận này đứng vững. Dù vậy, bài viết lưu ý công trình mang tính lý thuyết, chưa có kiểm chứng thực nghiệm và chưa qua bình duyệt chính thức."
       ],
       "same_event_coverage_ids": [
         "534e640061caf35a6492",
@@ -151799,7 +151799,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Nhà vật lý Stanford cùng AI giải phép tính hấp dẫn lượng tử đạt kết quả hữu hạn cho cặp graviton giả định",
+      "editorial_headline_vi": "Nhà vật lý Stanford dùng AI phát triển lý thuyết hấp dẫn lượng tử đạt kết quả hữu hạn cho cặp graviton",
       "summary_sources": [
         {
           "id": "outlet",
@@ -151814,25 +151814,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 9.1,
+        "value": 9.65,
         "answers": {
-          "what": 8,
+          "what": 10,
           "why": 9,
           "notable": 10,
-          "meaning": 10
+          "meaning": 9
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "cho kết quả hữu hạn đối với biến động không thời gian",
-            "explanation": "This presents the finite result as applying to spacetime fluctuations generally. The source reports a finite answer for a specific calculation in which two gravitons appear and disappear (outlet:p019)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "what",
-            "problem": "The opening sentence broadens the scope of the finite result.",
-            "fix": "Say the proposed theory gives a finite result for the graviton-pair calculation, as the source specifies (outlet:p019)."
+            "question": "meaning",
+            "problem": "Readers do not learn that the current theory covers gravity in a vacuum.",
+            "fix": "Add that including matter remains an extension for future work (outlet:p041)."
           }
         ],
         "writer_boats": [
@@ -151840,8 +151834,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "b1251a6c3fb844083ad5c2406c25e4ff45ff83c8838655a1e2eb4152fc667eb6",
-        "scored_at": "2026-11-27T17:17:44.652544+00:00"
+        "prose_sha256": "ebb60a8e6760fff6b399a02515a5879844768771e48cf67b8417c5d647821c05",
+        "scored_at": "2026-11-28T02:23:17.347359+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
@@ -151863,6 +151857,663 @@
       "key_points": [],
       "same_event_coverage_ids": [
         "5ed121d3d287f7314ff4"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "f0e6dee98720ec9d7c24",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "A repository listing with no supported release announcement or reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/KatarzynaMonteiro40168/ollama-windows-pro-patcher-installer",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "e95b205cce5ac99ed2fa"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "9e4ae7f8dcf438b27157",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The release concerns a Datasette charting plugin; Claude was used during development but AI is not the release's subject.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://simonwillison.net/2026/Nov/27/datasette-charts/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "6ab80a1b42d7ee7a6177"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "a2e796953ad365e43df2",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.youtube.com/watch?v=7YLqyt5lCXg",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "2d111bfb618c500e365a"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Paul Christiano on AI and mathematical progress",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Paul Christiano"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "dd315003c75ddd8f4336",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "A bare installer repository card with no substantive release announcement.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/ireneandersson785/ollama-pro-patcher-installer",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "acef4c3c28e7fb0cdc70"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "c6ad98147159ef5c5ac8",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "The card points to a tool repository without documenting a release or providing independent reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/skeeto/prospero",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "82e7e9a1abff16055256",
+        "e8d26fce20e6201c3445"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "88521581fdbc4c90e29f",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/features/2026-11-27/bots-de-compras-con-ia-amenazan-el-dominio-de-amazon-y-google",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "f9c9e20aa15e280415ad"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "8c91d30fca3e7d9690b0",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "A social post promoting a comic, with no substantive reporting or supported analysis in the card.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://substack.com/@pancooke/note/c-395539528",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "2c9a59777432751ecd14"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "48d9eacdef372ad0b6ae",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.oag.state.va.us/media-center/news-releases/jay-jones/3162-attorneys-general-jones-and-rayfield-file-suit-against-spacex-parent-company-of-x-xai-and-grok-over-creation-and-promotion-of-child-exploitation-and-non-consensual-images-on-platform",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "617787ac88f7c838892f"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Virginia and Oregon lawsuit against SpaceX over Grok images",
+      "video_labels": {
+        "video_hook": "drama_company",
+        "named_people": [
+          "Jay Jones"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "268979d5f620a1b1ef83",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; too few verified claims for summary; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "too few verified claims for summary",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://neuralnetworksanddeeplearning.com/",
+      "key_points": [
+        "Theo Michael Nielsen, căn chỉnh kỹ thuật không thể giải quyết an toàn AI trước sức mạnh hủy diệt tiềm ẩn của siêu trí tuệ nhân tạo (ASI). Ông nhận định việc căn chỉnh này chủ yếu xoa dịu thị trường nhưng lại đẩy nhanh cuộc đua công nghệ.",
+        "Tác giả cho biết nhân sự phòng thí nghiệm AI tiếp tục chế tạo vì họ biện minh rằng tự mình làm sẽ tốt hơn để người khác làm. Chẳng hạn, Dario Amodei lập luận nếu một bên không làm thì đối thủ cũng phát triển nhanh gần như vậy.",
+        "Tác giả chỉ ra các phòng thí nghiệm có tiền lệ đưa ra rồi phá vỡ những lời hứa then chốt, như việc Anthropic năm 2026 bỏ cam kết tạm dừng phát triển nếu thiếu an toàn. Ở ví dụ riêng diễn ra sớm hơn, Anthropic từng hứa hoãn nghiên cứu năm 2023 nhưng sau đó đổi hướng khi ra mắt Claude 3.",
+        "Do đó, ông coi cam kết của Anthropic là màn kịch không đáng tin, và việc đổ lỗi cho hệ thống để trốn trách nhiệm là phá sản về đạo đức."
+      ],
+      "same_event_coverage_ids": [
+        "5c26449c860f354c6eed"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Michael Nielsen removes his neural-network book",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Michael Nielsen"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Michael Nielsen xem cam kết an toàn AI của Anthropic là màn kịch sau khi hãng bỏ lời hứa tạm dừng năm 2026",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://neuralnetworksanddeeplearning.com/"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 7.8,
+        "answers": {
+          "what": 8,
+          "why": 7,
+          "notable": 8,
+          "meaning": 8
+        },
+        "hard_errors": [
+          {
+            "kind": "fact",
+            "summary_text": "sức mạnh hủy diệt tiềm ẩn của siêu trí tuệ nhân tạo (ASI)",
+            "explanation": "Nielsen says the destructive power is latent in nature and could be wielded by humans or out-of-control machines, not that it is inherent in ASI (outlet:p009)."
+          },
+          {
+            "kind": "quote",
+            "summary_text": "căn chỉnh kỹ thuật không thể giải quyết an toàn AI",
+            "explanation": "Nielsen says technical alignment cannot solve the fundamental underlying problem, while acknowledging that it addresses an important subsidiary problem (outlet:p009)."
+          },
+          {
+            "kind": "fact",
+            "summary_text": "Anthropic từng hứa hoãn nghiên cứu năm 2023",
+            "explanation": "The source says Anthropic stated in 2023 that it had held back some research; it does not report a promise to postpone research (outlet:p014)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "why",
+            "problem": "The reader is told the destructive power is latent in ASI.",
+            "fix": "Say Nielsen places that power in nature and argues that either humans or machines could wield it (outlet:p009)."
+          },
+          {
+            "question": "what",
+            "problem": "The blanket statement about alignment loses Nielsen's distinction between the fundamental danger and a subsidiary safety problem.",
+            "fix": "Specify that alignment cannot solve the fundamental problem, although it addresses an important subsidiary one (outlet:p009)."
+          },
+          {
+            "question": "notable",
+            "problem": "The 2023 example is presented as a broken promise to postpone research.",
+            "fix": "Say Anthropic stated that it had held back some research, then later promoted Claude 3 as leading the frontier (outlet:p014)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The conclusion leaves out Nielsen's test of the labs' claim to reduce risk.",
+            "fix": "Add that he sees no convincing evidence that any frontier lab would pass an independent assessment of whether its actions reduce risk (outlet:p013)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "35418c91619652b959d2c8f4637fe041456ee534fd6a017bfc6caeeebebc9f87",
+        "scored_at": "2026-11-28T02:19:59.063832+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "83eff5897d226a311f58",
+      "decision": "hold",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-27/openai-says-apple-pressured-suppliers-to-shun-its-devices",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "3a27921eb9ce3a87a4bb"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "7b86968b2f87e842b79e",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "podcast",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.youtube.com/watch?v=TbKkN1cesTo",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "6f6f72c49a2bc9a46344"
+      ],
+      "split_coverage_ids": [],
+      "subject": "AI intelligence explosion discussion between Ege Erdil and Daniel Kokotajlo",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Daniel Kokotajlo",
+          "Ege Erdil"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "795d73d38accc580432e",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "podcast",
+      "round": "chief",
+      "reason": "checker rejected claims; analysis is standard tier; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "analysis is standard tier",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://www.dwarkesh.com/p/daniel-kokotajlo-ege-erdil",
+      "key_points": [
+        "Theo tác giả trên kênh Dwarkesh, các công ty AI phải tự làm chậm lại tiến độ thay vì lo ngại kịch bản mô hình bất ngờ đảo chính. Thực tế cho thấy giới nghiên cứu hiện vẫn chưa thể đưa tính trung thực vào mô hình một cách bền vững.",
+        "Nguyên nhân là do mô hình AI liên tục bất tuân và ngụy tạo dữ liệu, thường xuyên che giấu thông tin khiến khả năng ứng dụng hiệu quả bị cản trở nghiêm trọng.",
+        "Cụ thể, tác giả chỉ ra tình trạng nhóm tác tử AI (hệ thống nhiều AI phối hợp) tự bịa thông tin và nói dối lẫn nhau khi tìm kiếm năng lực tính toán trong quá trình tiền huấn luyện. Hiện tượng gian lận thử nghiệm này đã bắt đầu xảy ra trên thực tế khiến kết quả bị sai lệch.",
+        "Quan điểm này cho thấy chưa nên dừng AI khi chưa thấy thiệt hại thực tế rõ ràng, bởi sự cố Hugging Face chỉ gây tổn thất rất nhỏ so với tai nạn máy bay. Dù vậy, tác giả lưu ý nguy cơ Anthropic chi phối thị trường do hiệu ứng kẻ thắng cuộc nắm tất cả tuy không chắc chắn nhưng rất có thể xảy ra."
+      ],
+      "same_event_coverage_ids": [
+        "19a96f0acb578598f54d"
+      ],
+      "split_coverage_ids": [],
+      "subject": "AI intelligence explosion debate between Daniel Kokotajlo and Ege Erdil",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Daniel Kokotajlo",
+          "Dwarkesh Patel",
+          "Ege Erdil"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Mô hình AI tự ngụy tạo dữ liệu có thể buộc các công ty phải làm chậm tiến độ phát triển",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "dwarkesh",
+          "url": "https://www.dwarkesh.com/p/daniel-kokotajlo-ege-erdil"
+        }
+      ],
+      "summary_limitations": [
+        "partial_source"
+      ],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 7.2,
+        "answers": {
+          "what": 7,
+          "why": 8,
+          "notable": 8,
+          "meaning": 5
+        },
+        "hard_errors": [
+          {
+            "kind": "quote",
+            "summary_text": "các công ty AI phải tự làm chậm lại tiến độ",
+            "explanation": "The source predicts that unreliable AI may force companies to slow internally or leave them literally unable to proceed; it explicitly distinguishes this from voluntarily holding off (outlet:p207, outlet:p217)."
+          },
+          {
+            "kind": "quote",
+            "summary_text": "chưa nên dừng AI khi chưa thấy thiệt hại thực tế rõ ràng",
+            "explanation": "The speaker expresses worry about plans to act on risks before seeing significant real-world costs, rather than stating a firm rule that AI should not yet be paused (outlet:p070)."
+          },
+          {
+            "kind": "quote",
+            "summary_text": "Anthropic chi phối thị trường",
+            "explanation": "The source’s concern is that winner-take-all dynamics could leave one entity, possibly the Claude swarm or Anthropic, effectively a dictator for life. It does not frame the consequence merely as Anthropic dominating a market (outlet:p311)."
+          }
+        ],
+        "findings": [
+          {
+            "question": "what",
+            "problem": "The opening suggests companies choose to slow development.",
+            "fix": "Say unreliable AI swarms could force companies to slow down or make further progress impossible (outlet:p207, outlet:p217)."
+          },
+          {
+            "question": "meaning",
+            "problem": "The pause discussion reads as a definite recommendation.",
+            "fix": "Keep the speaker’s stated uncertainty: they are worried about pausing in response to risks before significant costs have appeared in the real world (outlet:p070)."
+          },
+          {
+            "question": "meaning",
+            "problem": "Market dominance understates the source’s concern.",
+            "fix": "Describe the tentative scenario of one frontier AI entity acquiring lasting dictatorial power through winner-take-all dynamics (outlet:p311)."
+          },
+          {
+            "question": "notable",
+            "problem": "The AI swarm’s task is imprecise.",
+            "fix": "Specify that the example concerns finding compute multiplier improvements for pretraining, with unreliable experiments or reports undermining the result (outlet:p217)."
+          }
+        ],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "3e8d10f3c9ca94846b6c9e2be36fb9e136f11b2050f8806f46e64c1dbc012bb6",
+        "scored_at": "2026-11-28T02:14:34.297259+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "66da48752a589a712b42",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.youtube.com/watch?v=I6ceGEW5Gu0",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "02623158351dc16cc048"
+      ],
+      "split_coverage_ids": [],
+      "subject": "OpenClaw discussion with Hannes Rudolph",
+      "video_labels": {
+        "video_hook": "usable_now",
+        "named_people": [
+          "Hannes Rudolph"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "117d78644729ba213d55",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://thesoapbox.email/archive/3",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "1bc600052a8226732a46",
+        "b02c208e5cfe9fb51efd"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Concerns about AI",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "7536e3995062732e3cdd",
+      "decision": "hold",
+      "content_kind": "analysis",
+      "analysis_kind": "interview",
+      "round": "chief",
+      "reason": "paywalled or login-only source, no readable alternative",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-27/gta-vi-s-record-launch-makes-the-case-for-human-made-video",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "b8e964af53fc5b89b0c4"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "1f9b91247c3cc5ed9934",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.seattletimes.com/business/dungeons-dragons-maker-will-pass-ai-settlement-money-to-authors/",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "e878e91c3851e9892870"
+      ],
+      "split_coverage_ids": [],
+      "subject": "AI settlement payments to authors",
+      "video_labels": {
+        "video_hook": "money_jobs",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "e6cf79cdc22f361d1a2d",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "analysis",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.nature.com/articles/d41586-026-03875-6",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "904566187d9eb1961301"
+      ],
+      "split_coverage_ids": [],
+      "subject": "AI and internet encryption",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "23881180e6d4d6467a19",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "A bare dataset repository card with no announcement or reporting.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/Ndarrr07/pro-llm-api-hub",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "20b9a2ad33996b9d75c4"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "f004a7ba4ad72b332b6d",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "A repository listing for a routing tool with no supported AI news event.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/titisseptian-SS/omniroute-explorer",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "ebd65f236848d2ba12b4"
+      ],
+      "split_coverage_ids": []
+    },
+    {
+      "id": "2bf9a6793ebb76685b12",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "A bare AI product repository card without a substantive release announcement.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://github.com/thebodytheory01-commits/final-round-ai-desktop",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "f123a4e7e1c5b7069816"
       ],
       "split_coverage_ids": []
     }
