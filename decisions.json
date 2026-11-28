@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-28T03:17:36.593338+00:00",
-  "input_generated_at": "2026-11-28T02:47:57Z",
+  "generated_at": "2026-11-28T05:14:37.747892+00:00",
+  "input_generated_at": "2026-11-28T04:56:42Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -152583,6 +152583,197 @@
         "availability": "unknown",
         "is_leak": false
       }
+    },
+    {
+      "id": "81a5b365dfe175afc3cb",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://en.yna.co.kr/view/AEN20261128001551315",
+      "key_points": [
+        "Văn phòng tổng thống cho biết Tổng thống Lee Jae Myung cam kết dồn nguồn lực đưa Hàn Quốc dẫn đầu cuộc đua AI khi dự lễ khởi công trung tâm dữ liệu của Tập đoàn GS. Cơ sở tại Donghae có quy mô 2,4 gigawatt, thuộc ba siêu dự án được chính phủ công bố hồi tháng 6.",
+        "Tổng thống Lee khẳng định chính phủ dồn lực nhằm bảo đảm Hàn Quốc trở thành quốc gia dẫn đầu thiết lập các tiêu chuẩn toàn cầu. Tại buổi lễ, ông mô tả cuộc đua công nghệ AI là cuộc chiến thầm lặng ở cấp độ quốc gia.",
+        "Dự án gồm hai giai đoạn với công suất mỗi giai đoạn 1,2 GW, trong đó cơ sở Donghae dự kiến vận hành năm 2029. Tập đoàn GS cho biết dự án ước tính tới 120 nghìn tỷ won, gồm chi phí cho bộ xử lý đồ họa (GPU) và chip nhớ.",
+        "Nhà Xanh nhận định cơ sở sẽ trở thành hạ tầng AI lớn nhất châu Á và tạo động lực tăng trưởng kinh tế khu vực. Tổng thống Lee cho rằng dự án sẽ đóng vai trò chất xúc tác thu hút đầu tư sớm từ các công ty quốc tế."
+      ],
+      "same_event_coverage_ids": [
+        "7dbc250326d00fc5a7d3"
+      ],
+      "split_coverage_ids": [],
+      "subject": "GS Group AI data center groundbreaking in Gangwon",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Lee Jae Myung"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Tập đoàn GS khởi công trung tâm dữ liệu AI 2,4 GW ước tính tới 120 nghìn tỷ won tại Hàn Quốc",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "yonhap",
+          "url": "https://en.yna.co.kr/view/AEN20261128001551315"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 10.0,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 10,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "84b1051301a37ca52695659fdff030ea04a7d11db51893ec09f1adc28fadbcb4",
+        "scored_at": "2026-11-28T05:14:37.723889+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "3aaa42dcb40aedccef54",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://pandaily.com/internlm-sage-interaction-minicpm-o-45-full-duplex",
+      "key_points": [
+        "The InternLM team, supported by the Shanghai Artificial Intelligence Laboratory, open-sourced Sage-Interaction, a 9-billion-parameter full-duplex multimodal model built on MiniCPM-o 4.5.",
+        "Sage-Interaction is designed to process streaming audio and video, generate speech in real time, respond to interruptions, and delegate longer tasks to a backend API.",
+        "The model weights are hosted on Hugging Face and the code is available on GitHub under the Apache License 2.0.",
+        "A voice demo included in the repository targets Linux systems with a BF16-capable NVIDIA GPU."
+      ],
+      "same_event_coverage_ids": [
+        "ad98da164b2f51b4ebf0"
+      ],
+      "split_coverage_ids": [],
+      "subject": "InternLM open-sources Sage-Interaction 9B multimodal model",
+      "video_labels": {
+        "video_hook": "launch",
+        "named_people": [],
+        "availability": "global",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "7697666b68a8a4a5ad0c",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://twitter.com/jakozloski/status/2126281598517576049",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "c399ae0d5f306be00cd9"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Unconfirmed report alleging Claude rule changes on skin tone preferences",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": true
+      }
+    },
+    {
+      "id": "ba83b190bc22cdcdcc95",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no verified event date for promoted tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "claims",
+      "degradation_reasons": [
+        "no verified event date for promoted tier"
+      ],
+      "use_original_title": false,
+      "source_url": "https://en.yna.co.kr/view/AEN20261128001500315",
+      "key_points": [
+        "President Lee Jae Myung attended a groundbreaking ceremony on Saturday for GS Group's 2.4-gigawatt AI data center in Gangwon Province.",
+        "The facility in Donghae is planned to become one of Asia's largest AI infrastructure complexes as part of three major government megaprojects announced in June.",
+        "The ceremony was attended by GS Group Chairman Huh Tae-soo, Science and ICT Minister Bae Kyung-hoon, and other officials.",
+        "President Lee previously inspected the construction site of SK Group's AI data center in Ulsan."
+      ],
+      "same_event_coverage_ids": [
+        "6577e7f3a4c7e774ef4b"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Groundbreaking ceremony for GS Group AI data center in Gangwon",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Lee Jae Myung",
+          "Huh Tae-soo",
+          "Bae Kyung-hoon",
+          "Woo Sang-ho"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "45fec4c821ec0e7f1219",
+      "decision": "hold",
+      "content_kind": "junk",
+      "analysis_kind": null,
+      "round": "editor",
+      "reason": "Informal personal anecdote and forum discussion thread on Hacker News without substantive reporting or an announced news event.",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [],
+      "use_original_title": true,
+      "source_url": "https://news.ycombinator.com/item?id=50672702",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "6b5fb497dcd2e973a943"
+      ],
+      "split_coverage_ids": []
     }
   ]
 }
