@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-28T09:14:15.531078+00:00",
+  "generated_at": "2026-11-28T11:03:55.016399+00:00",
   "input_generated_at": "2026-11-28T08:46:25Z",
   "decisions": [
     {
@@ -152792,10 +152792,10 @@
       "use_original_title": false,
       "source_url": "https://www.theguardian.com/technology/2026/nov/28/ai-artificial-intelligence-encryption-global-chaos",
       "key_points": [
-        "Giới chuyên gia nhận định các công ty AI đang nắm giữ phát hiện chấn động có thể làm đảo lộn bảo mật ngân hàng và chính phủ trong vài tháng tới. Trước lo ngại này, Thống đốc Ngân hàng Trung ương Anh Andrew Bailey cho rằng các hãng như OpenAI và Anthropic nên thận trọng khi phát hành mô hình mới ra công chúng.",
-        "Theo The Guardian, lo ngại này bắt nguồn từ hàng loạt tiến bộ toán học do các công ty AI tiên phong công bố trong những tuần qua. Các công ty này gần đây đã đưa ra các chứng minh liên quan mật thiết đến việc phân loại những bài toán khó tính toán.",
-        "Chuyên gia Scott Aaronson cho biết AI có thể đã tìm ra cách bẻ khóa mới hoặc chứng minh không tồn tại đường tắt nào như vậy. Khám phá này có thể làm lộ lượng lớn dữ liệu mật nhưng cũng có thể chứng minh thông tin an toàn hơn nhiều so với trước đây.",
-        "Giáo sư Alan Woodward nhận định những bên thích ứng nhanh sẽ an toàn, trong khi các tổ chức chậm trễ có thể rơi vào thế bị động. Dù vậy, các hãng AI hiện chưa có thông báo cụ thể nào về mật mã và giới khoa học vẫn cần trực tiếp kiểm chứng các chứng minh do AI tạo ra."
+        "Giới chuyên gia tin rằng các công ty AI có thể đang nắm giữ phát hiện chấn động làm đảo lộn bảo mật ngân hàng và chính phủ trong vài tháng tới. Trước lo ngại này, Thống đốc Ngân hàng Trung ương Anh Andrew Bailey cho rằng các hãng như OpenAI và Anthropic cần thận trọng khi phát hành mô hình mới ra công chúng.",
+        "Theo The Guardian, lo ngại này bắt nguồn từ hàng loạt tiến bộ toán học do các công ty AI tiên phong công bố trong những tuần qua. Các công ty này đã đưa ra nhiều chứng minh toán học liên quan mật thiết, trong đó có một kết quả về cách phân loại các bài toán khó tính toán.",
+        "Chuyên gia Scott Aaronson nhận định AI có thể đã tìm ra cách bẻ khóa mới hoặc chứng minh không tồn tại đường tắt giải mã nào như vậy. Khám phá này có thể giúp bẻ khóa lượng lớn dữ liệu mật, nhưng cũng có thể chứng minh thông tin an toàn hơn nhiều so với trước đây.",
+        "Giáo sư Alan Woodward nhận định các ngân hàng lớn và chính phủ cần linh hoạt thích ứng nhanh để giữ an toàn trước nguy cơ bị động. Dù vậy, ông nhấn mạnh khó có khả năng mã hóa bị phá vỡ ngay lập tức vì việc triển khai rộng rãi sẽ gặp nhiều rào cản ngay cả khi phát hiện đó tồn tại."
       ],
       "same_event_coverage_ids": [
         "915295ea245c7060aa7f"
@@ -152824,30 +152824,29 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 8.85,
+        "value": 8.75,
         "answers": {
           "what": 9,
-          "why": 9,
-          "notable": 9,
+          "why": 10,
+          "notable": 8,
           "meaning": 8
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "Các công ty này gần đây đã đưa ra các chứng minh liên quan mật thiết đến việc phân loại những bài toán khó tính toán.",
-            "explanation": "The source says AI companies released proofs related to the broader cryptography question; only one cited result concerned how to categorize computationally hard problems (outlet:p032)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "why",
-            "problem": "The Vietnamese makes the classification of hard problems sound like the subject of all the recent proofs.",
-            "fix": "Say the companies released several relevant mathematical proofs, one of which concerned classifying computationally hard problems (outlet:p032)."
+            "question": "what",
+            "problem": "Readers do not learn that the suspected cryptography breakthrough has not been announced.",
+            "fix": "State that AI companies have made no concrete announcement about encryption and that the concern rests on reported information (outlet:p007, outlet:p012, outlet:p028)."
           },
           {
             "question": "meaning",
-            "problem": "The reader may miss that a discovery would not necessarily lead to widespread disruption immediately.",
-            "fix": "Add that widespread use would face hurdles even if such a finding exists (outlet:p036)."
+            "problem": "Readers may miss that the announced mathematical proofs still require human verification.",
+            "fix": "Add that mathematicians and computer scientists need to check the AI-produced proofs (outlet:p035)."
+          },
+          {
+            "question": "notable",
+            "problem": "The potential exposure remains abstract.",
+            "fix": "Give the source's examples: banking transactions, diplomatic cables and private emails (outlet:p008)."
           }
         ],
         "writer_boats": [
@@ -152855,8 +152854,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "9bed3ff498b2588fbadf398af5934823de1178fecc69cc9244aae1b078d180c8",
-        "scored_at": "2026-11-28T09:14:15.511926+00:00"
+        "prose_sha256": "73aeaa9aa923fb9358d7d4855544228fcc4bc3a7ef575ca10df9cce08a65cb47",
+        "scored_at": "2026-11-28T11:03:55.011679+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
