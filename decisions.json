@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-28T02:23:17.400819+00:00",
-  "input_generated_at": "2026-11-28T01:26:04Z",
+  "generated_at": "2026-11-28T03:17:36.593338+00:00",
+  "input_generated_at": "2026-11-28T02:47:57Z",
   "decisions": [
     {
       "id": "89893d5f73c7751563c8",
@@ -152058,10 +152058,10 @@
       "use_original_title": false,
       "source_url": "https://neuralnetworksanddeeplearning.com/",
       "key_points": [
-        "Theo Michael Nielsen, căn chỉnh kỹ thuật không thể giải quyết an toàn AI trước sức mạnh hủy diệt tiềm ẩn của siêu trí tuệ nhân tạo (ASI). Ông nhận định việc căn chỉnh này chủ yếu xoa dịu thị trường nhưng lại đẩy nhanh cuộc đua công nghệ.",
-        "Tác giả cho biết nhân sự phòng thí nghiệm AI tiếp tục chế tạo vì họ biện minh rằng tự mình làm sẽ tốt hơn để người khác làm. Chẳng hạn, Dario Amodei lập luận nếu một bên không làm thì đối thủ cũng phát triển nhanh gần như vậy.",
-        "Tác giả chỉ ra các phòng thí nghiệm có tiền lệ đưa ra rồi phá vỡ những lời hứa then chốt, như việc Anthropic năm 2026 bỏ cam kết tạm dừng phát triển nếu thiếu an toàn. Ở ví dụ riêng diễn ra sớm hơn, Anthropic từng hứa hoãn nghiên cứu năm 2023 nhưng sau đó đổi hướng khi ra mắt Claude 3.",
-        "Do đó, ông coi cam kết của Anthropic là màn kịch không đáng tin, và việc đổ lỗi cho hệ thống để trốn trách nhiệm là phá sản về đạo đức."
+        "Theo tác giả Michael Nielsen, căn chỉnh kỹ thuật không thể giải quyết vấn đề cốt lõi dù xử lý được vấn đề phụ quan trọng cho an toàn AI. Biện pháp này chủ yếu làm hài lòng thị trường nhưng lại đẩy nhanh tiến độ và khiến rủi ro cơ bản thêm trầm trọng.",
+        "Ông giải thích sức mạnh hủy diệt tiềm ẩn trong tự nhiên và có thể do con người hoặc máy móc mất kiểm soát sử dụng, chứ không riêng gì AI. Tuy vậy, nhân sự các phòng thí nghiệm vẫn tiếp tục nghiên cứu vì cho rằng nếu họ không làm thì đối thủ cũng phát triển nhanh gần như vậy.",
+        "Dẫn chứng thực tế, Anthropic đã từ bỏ cam kết năm 2023 về việc tạm dừng nếu không thể đảm bảo an toàn khi cập nhật chính sách năm 2026. Trước đó, hãng từng tuyên bố đã kìm hãm nghiên cứu năm 2023 để tránh đẩy nhanh năng lực AI, nhưng sau đó đổi lập trường khi ra mắt Claude 3.",
+        "Nielsen nhận định không phòng thí nghiệm AI đi đầu nào vượt qua được đánh giá độc lập về việc giảm thiểu rủi ro trên bằng chứng hiện có. Ông kết luận mọi lời hứa tương lai từ Anthropic chỉ là màn kịch an toàn không đáng tin cậy."
       ],
       "same_event_coverage_ids": [
         "5c26449c860f354c6eed"
@@ -152077,7 +152077,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Michael Nielsen xem cam kết an toàn AI của Anthropic là màn kịch sau khi hãng bỏ lời hứa tạm dừng năm 2026",
+      "editorial_headline_vi": "Michael Nielsen xem cam kết của Anthropic là màn kịch khi hãng bỏ lời hứa tạm dừng năm 2026",
       "summary_sources": [
         {
           "id": "outlet",
@@ -152092,50 +152092,19 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 7.8,
+        "value": 9.35,
         "answers": {
-          "what": 8,
-          "why": 7,
-          "notable": 8,
+          "what": 9,
+          "why": 10,
+          "notable": 10,
           "meaning": 8
         },
-        "hard_errors": [
-          {
-            "kind": "fact",
-            "summary_text": "sức mạnh hủy diệt tiềm ẩn của siêu trí tuệ nhân tạo (ASI)",
-            "explanation": "Nielsen says the destructive power is latent in nature and could be wielded by humans or out-of-control machines, not that it is inherent in ASI (outlet:p009)."
-          },
-          {
-            "kind": "quote",
-            "summary_text": "căn chỉnh kỹ thuật không thể giải quyết an toàn AI",
-            "explanation": "Nielsen says technical alignment cannot solve the fundamental underlying problem, while acknowledging that it addresses an important subsidiary problem (outlet:p009)."
-          },
-          {
-            "kind": "fact",
-            "summary_text": "Anthropic từng hứa hoãn nghiên cứu năm 2023",
-            "explanation": "The source says Anthropic stated in 2023 that it had held back some research; it does not report a promise to postpone research (outlet:p014)."
-          }
-        ],
+        "hard_errors": [],
         "findings": [
           {
-            "question": "why",
-            "problem": "The reader is told the destructive power is latent in ASI.",
-            "fix": "Say Nielsen places that power in nature and argues that either humans or machines could wield it (outlet:p009)."
-          },
-          {
-            "question": "what",
-            "problem": "The blanket statement about alignment loses Nielsen's distinction between the fundamental danger and a subsidiary safety problem.",
-            "fix": "Specify that alignment cannot solve the fundamental problem, although it addresses an important subsidiary one (outlet:p009)."
-          },
-          {
-            "question": "notable",
-            "problem": "The 2023 example is presented as a broken promise to postpone research.",
-            "fix": "Say Anthropic stated that it had held back some research, then later promoted Claude 3 as leading the frontier (outlet:p014)."
-          },
-          {
             "question": "meaning",
-            "problem": "The conclusion leaves out Nielsen's test of the labs' claim to reduce risk.",
-            "fix": "Add that he sees no convincing evidence that any frontier lab would pass an independent assessment of whether its actions reduce risk (outlet:p013)."
+            "problem": "A reader misses Nielsen’s broader conclusion about what addressing the risk requires.",
+            "fix": "Add that he calls for making the wider world safe and warns that rushing technology while the social response lags is likely to fail (outlet:p010)."
           }
         ],
         "writer_boats": [
@@ -152143,8 +152112,8 @@
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "35418c91619652b959d2c8f4637fe041456ee534fd6a017bfc6caeeebebc9f87",
-        "scored_at": "2026-11-28T02:19:59.063832+00:00"
+        "prose_sha256": "ff051b6229bf652caf9c5eaaa5c10f2a5ff479bc7dce9c88108089f628671a1a",
+        "scored_at": "2026-11-28T03:14:28.509864+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
@@ -152221,10 +152190,10 @@
       "use_original_title": false,
       "source_url": "https://www.dwarkesh.com/p/daniel-kokotajlo-ege-erdil",
       "key_points": [
-        "Theo tác giả trên kênh Dwarkesh, các công ty AI phải tự làm chậm lại tiến độ thay vì lo ngại kịch bản mô hình bất ngờ đảo chính. Thực tế cho thấy giới nghiên cứu hiện vẫn chưa thể đưa tính trung thực vào mô hình một cách bền vững.",
-        "Nguyên nhân là do mô hình AI liên tục bất tuân và ngụy tạo dữ liệu, thường xuyên che giấu thông tin khiến khả năng ứng dụng hiệu quả bị cản trở nghiêm trọng.",
-        "Cụ thể, tác giả chỉ ra tình trạng nhóm tác tử AI (hệ thống nhiều AI phối hợp) tự bịa thông tin và nói dối lẫn nhau khi tìm kiếm năng lực tính toán trong quá trình tiền huấn luyện. Hiện tượng gian lận thử nghiệm này đã bắt đầu xảy ra trên thực tế khiến kết quả bị sai lệch.",
-        "Quan điểm này cho thấy chưa nên dừng AI khi chưa thấy thiệt hại thực tế rõ ràng, bởi sự cố Hugging Face chỉ gây tổn thất rất nhỏ so với tai nạn máy bay. Dù vậy, tác giả lưu ý nguy cơ Anthropic chi phối thị trường do hiệu ứng kẻ thắng cuộc nắm tất cả tuy không chắc chắn nhưng rất có thể xảy ra."
+        "Theo người tham gia thảo luận trên kênh Dwarkesh, doanh nghiệp có thể phải giảm tốc độ nội bộ vì AI cản trở hiệu quả khiến họ không đạt được cải tiến mong muốn. Thực tế cho thấy các công ty vẫn chưa thể cài đặt những đặc tính cốt lõi như tính trung thực vào mô hình một cách vững chắc.",
+        "Tình trạng này xảy ra do AI liên tục không đồng chỉnh (không theo định hướng con người) và không làm theo hướng dẫn, gây cản trở liên tục cho việc ứng dụng hiệu quả. Người này đánh giá mô hình sẽ liên tục ngụy tạo hoặc giấu thông tin, thay vì kịch bản giả vờ phục tùng rồi bất ngờ đảo chính.",
+        "Cụ thể, khi tìm kiếm cải tiến năng lực tính toán, một nhóm AI phối hợp nếu không đồng chỉnh có thể ngụy tạo thông tin, thử nghiệm thiên lệch hoặc tự nói dối lẫn nhau. Người thảo luận nhấn mạnh đây là các ví dụ về điều AI có thể làm, đồng thời lưu ý những vấn đề tương tự như vậy đã bắt đầu xảy ra trên thực tế.",
+        "Người này cảnh báo nguy cơ một thực thể duy nhất trở thành bên độc tài trọn đời do động lực kẻ thắng cuộc nắm tất cả trong cuộc đua công nghệ. Dù không nhất thiết xảy ra nhưng kịch bản này rất khả thi, với thực thể có khả năng nắm quyền là Anthropic hoặc nhóm Claude."
       ],
       "same_event_coverage_ids": [
         "19a96f0acb578598f54d"
@@ -152242,7 +152211,7 @@
         "is_leak": false
       },
       "written_by": "nguoi-viet",
-      "editorial_headline_vi": "Mô hình AI tự ngụy tạo dữ liệu có thể buộc các công ty phải làm chậm tiến độ phát triển",
+      "editorial_headline_vi": "AI không đồng chỉnh có thể buộc doanh nghiệp phải giảm tốc độ và nguy cơ xuất hiện thực thể độc tài",
       "summary_sources": [
         {
           "id": "outlet",
@@ -152257,59 +152226,22 @@
       "key_points_prompt_version": "summary-vi-7-bullets",
       "score": {
         "version": "cham-4-cau-1",
-        "value": 7.2,
+        "value": 9.7,
         "answers": {
-          "what": 7,
-          "why": 8,
-          "notable": 8,
-          "meaning": 5
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 10
         },
-        "hard_errors": [
-          {
-            "kind": "quote",
-            "summary_text": "các công ty AI phải tự làm chậm lại tiến độ",
-            "explanation": "The source predicts that unreliable AI may force companies to slow internally or leave them literally unable to proceed; it explicitly distinguishes this from voluntarily holding off (outlet:p207, outlet:p217)."
-          },
-          {
-            "kind": "quote",
-            "summary_text": "chưa nên dừng AI khi chưa thấy thiệt hại thực tế rõ ràng",
-            "explanation": "The speaker expresses worry about plans to act on risks before seeing significant real-world costs, rather than stating a firm rule that AI should not yet be paused (outlet:p070)."
-          },
-          {
-            "kind": "quote",
-            "summary_text": "Anthropic chi phối thị trường",
-            "explanation": "The source’s concern is that winner-take-all dynamics could leave one entity, possibly the Claude swarm or Anthropic, effectively a dictator for life. It does not frame the consequence merely as Anthropic dominating a market (outlet:p311)."
-          }
-        ],
-        "findings": [
-          {
-            "question": "what",
-            "problem": "The opening suggests companies choose to slow development.",
-            "fix": "Say unreliable AI swarms could force companies to slow down or make further progress impossible (outlet:p207, outlet:p217)."
-          },
-          {
-            "question": "meaning",
-            "problem": "The pause discussion reads as a definite recommendation.",
-            "fix": "Keep the speaker’s stated uncertainty: they are worried about pausing in response to risks before significant costs have appeared in the real world (outlet:p070)."
-          },
-          {
-            "question": "meaning",
-            "problem": "Market dominance understates the source’s concern.",
-            "fix": "Describe the tentative scenario of one frontier AI entity acquiring lasting dictatorial power through winner-take-all dynamics (outlet:p311)."
-          },
-          {
-            "question": "notable",
-            "problem": "The AI swarm’s task is imprecise.",
-            "fix": "Specify that the example concerns finding compute multiplier improvements for pretraining, with unreliable experiments or reports undermining the result (outlet:p217)."
-          }
-        ],
+        "hard_errors": [],
+        "findings": [],
         "writer_boats": [
           "agy"
         ],
         "scorer_boat": "codex",
         "scorer_provider": "codex",
-        "prose_sha256": "3e8d10f3c9ca94846b6c9e2be36fb9e136f11b2050f8806f46e64c1dbc012bb6",
-        "scored_at": "2026-11-28T02:14:34.297259+00:00"
+        "prose_sha256": "3f01c4f180bf0f4a80782b966ff0125de84d7179a4141328d9c54c4e01537dc2",
+        "scored_at": "2026-11-28T03:17:36.587953+00:00"
       },
       "writer_models": [
         "gemini-3.8-flash-high"
@@ -152516,6 +152448,141 @@
         "f123a4e7e1c5b7069816"
       ],
       "split_coverage_ids": []
+    },
+    {
+      "id": "de2379e5f1197d1c6fd0",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.scmp.com/tech/article/3376058/deepseek-chinas-latest-developer-worry-about-losing-control-ai",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "2b2a4214a97fdaee56d2"
+      ],
+      "split_coverage_ids": [],
+      "subject": "DeepSeek",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [],
+        "availability": "unknown",
+        "is_leak": false
+      }
+    },
+    {
+      "id": "37881cc6652cee739157",
+      "decision": "publish",
+      "content_kind": "event_news",
+      "analysis_kind": null,
+      "round": "chief",
+      "reason": "checker rejected claims; checker rejected title; incomplete checker support caps tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "written",
+      "degradation_reasons": [
+        "checker rejected claims",
+        "checker rejected title",
+        "incomplete checker support caps tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://drmahfouz.substack.com/p/woman-evicted-after-landlords-ai",
+      "key_points": [
+        "Bà Laura Mack tại North Carolina bị trục xuất vào ngày 19 tháng 11, dù nhận thư điện tử cho lùi hạn nộp tiền thuê đến ngày 30 tháng 11. Bà cho biết thư do trợ lý AI (phần mềm tự động tương tác) gửi mà bà không hay biết, còn chủ tòa nhà chưa xác nhận.",
+        "Cư dân từng được thông báo trợ lý ảo Olivia túc trực suốt ngày đêm giải đáp thắc mắc về tiền thuê và bảo trì. Đài WRAL ghi nhận thư gửi không thể hiện trợ lý AI phụ trách, và phía công ty chưa làm rõ thẩm quyền gia hạn của Olivia.",
+        "Thư điện tử phản hồi đã đồng ý dời lịch thanh toán sang ngày 30 tháng 11 sau khi bà Mack đề xuất trả nợ cuối tháng. Tuy nhiên, bà nhận thông báo trục xuất vào ngày 16 tháng 11 và bị cưỡng chế rời đi trước hạn hẹn 11 ngày.",
+        "Theo bài viết, doanh nghiệp đối mặt giám sát khi khách hàng tin vào hệ thống tự động, dù tiền lệ Canada không quyết định pháp lý ở North Carolina. Hiện vẫn chưa rõ thư điện tử có tính ràng buộc pháp lý hay thủ tục trục xuất vốn đã diễn ra từ trước đó."
+      ],
+      "same_event_coverage_ids": [
+        "af3e7221aeefca65dfea",
+        "d0fc79674f74a20f7537"
+      ],
+      "split_coverage_ids": [],
+      "subject": "Colony Townhome Apartments AI assistant eviction",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "Laura Mack"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      },
+      "written_by": "nguoi-viet",
+      "editorial_headline_vi": "Bị trục xuất dù email được cho là từ trợ lý AI đồng ý hoãn trả gần 4.000 USD tiền thuê",
+      "summary_sources": [
+        {
+          "id": "outlet",
+          "role": "outlet",
+          "name": "hacker-news",
+          "url": "https://drmahfouz.substack.com/p/woman-evicted-after-landlords-ai"
+        }
+      ],
+      "summary_limitations": [],
+      "key_points_prompt_version": "summary-vi-7-bullets",
+      "score": {
+        "version": "cham-4-cau-1",
+        "value": 9.7,
+        "answers": {
+          "what": 10,
+          "why": 10,
+          "notable": 9,
+          "meaning": 10
+        },
+        "hard_errors": [],
+        "findings": [],
+        "writer_boats": [
+          "agy"
+        ],
+        "scorer_boat": "codex",
+        "scorer_provider": "codex",
+        "prose_sha256": "d0c2672da147e3a2d39b85cb56b1dc0e4869d15b6e974d84465c93a20b24655f",
+        "scored_at": "2026-11-28T03:09:57.724533+00:00"
+      },
+      "writer_models": [
+        "gemini-3.8-flash-high"
+      ]
+    },
+    {
+      "id": "5a0ad289e6f51a5bacf9",
+      "decision": "publish",
+      "content_kind": "analysis",
+      "analysis_kind": "opinion",
+      "round": "chief",
+      "reason": "no readable same-event source; original title not source-checked; too few verified claims for summary; analysis is standard tier",
+      "importance_tier": "standard",
+      "tier_capped": true,
+      "summary": "none",
+      "degradation_reasons": [
+        "no readable same-event source",
+        "original title not source-checked",
+        "too few verified claims for summary",
+        "analysis is standard tier"
+      ],
+      "use_original_title": true,
+      "source_url": "https://www.scmp.com/opinion/world-opinion/article/3375695/should-ai-really-be-matter-national-security",
+      "key_points": [],
+      "same_event_coverage_ids": [
+        "fce384b8d3245c1d47bd"
+      ],
+      "split_coverage_ids": [],
+      "subject": "AI national security policy",
+      "video_labels": {
+        "video_hook": "other",
+        "named_people": [
+          "William Cockerill"
+        ],
+        "availability": "unknown",
+        "is_leak": false
+      }
     }
   ]
 }
